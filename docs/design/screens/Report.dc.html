@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Report this reading</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-bg-scrim:rgba(5,6,14,.64);--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+textarea::placeholder{color:#8B91AB}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); position: relative; overflow: hidden">
+<div aria-hidden="true" style="padding: 48px 16px; display: flex; flex-direction: column; gap: 20px">
+<div style="height: 48px"></div>
+<div style="display: flex; justify-content: center; gap: 10px"><span style="width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box"></span><span style="width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box"></span><span style="width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box"></span></div>
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">A season of rebuilding</span>
+</div>
+<div style="position: absolute; inset: 0; background: var(--color-bg-scrim)"></div>
+<div role="dialog" aria-modal="true" aria-labelledby="rp-title" style="position: absolute; left: 0; right: 0; bottom: 0; background: var(--color-bg-surfaceRaised); border-radius: 28px 28px 0 0; padding: 12px 20px 32px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 -12px 28px rgba(0,0,0,.5)">
+<span style="align-self: center; width: 36px; height: 4px; border-radius: 2px; background: var(--color-border-strong)"></span>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 id="rp-title" style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 30px">Report this reading</h2>
+<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Tell us what felt wrong so we can look into it.</p>
+</div>
+<fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 2px">
+<legend style="padding: 0 0 6px; font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">What's the problem?</legend>
+<label for="rp-offensive" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-offensive" name="reason" value="offensive" checked style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Offensive</label>
+<label for="rp-harmful" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-harmful" name="reason" value="harmful_advice" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Harmful advice</label>
+<label for="rp-sexual" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-sexual" name="reason" value="sexual" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Sexual content</label>
+<label for="rp-hateful" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-hateful" name="reason" value="hateful" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Hateful</label>
+<label for="rp-other" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-other" name="reason" value="other" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Something else</label>
+</fieldset>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="rp-details" style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">Details (optional)</label>
+<textarea id="rp-details" rows="2" maxlength="500" placeholder="For example, which card or sentence" style="box-sizing: border-box; width: 100%; resize: none; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--color-border-subtle); background: var(--color-bg-sunken); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 16px; line-height: 22px; outline: none"></textarea>
+<span style="align-self: flex-end; font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">0 / 500</span>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--color-bg-surface)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B2B7CD" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
+<span style="font-size: 13px; line-height: 19px; color: var(--color-text-secondary)">Your question and this reading will be sent to us and kept for 90 days so we can review them. Then they are deleted.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button type="button" style="width: 100%; min-height: 52px; border: 0; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-weight: 500; font-size: 16px">Send report</button>
+<a href="Reading.dc.html" style="min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Cancel</a>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

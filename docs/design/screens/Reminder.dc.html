@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily reminder</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-success:#5FC795;--color-status-onSuccess:#0F1120;--color-status-error:#FF8C8C;--color-status-onError:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center">
+<a href="Settings.dc.html" aria-label="Back to Settings" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Daily reminder</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">A gentle nudge for your daily card.</span>
+</div>
+<div style="display: flex; flex-direction: column; background: var(--color-bg-surface); border-radius: 16px">
+<div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 8px 0 16px"><span id="lbl-reminder" style="flex-grow: 1; font-size: 16px; line-height: 22px; font-weight: 500">Daily card reminder</span><button type="button" role="switch" aria-checked="true" aria-labelledby="lbl-reminder" style="flex: none; width: 60px; height: 48px; padding: 0; border: 0; background: transparent; display: flex; align-items: center; justify-content: center"><span style="position: relative; display: block; width: 44px; height: 26px; border-radius: 999px; background: var(--color-accent-primary)"><span style="position: absolute; top: 3px; left: 21px; width: 20px; height: 20px; border-radius: 50%; background: var(--color-text-onAccent)"></span></span></button></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-top: 1px solid var(--color-border-subtle)">
+<span id="lbl-time" style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">Remind me at</span>
+<button type="button" aria-labelledby="lbl-time time-value" style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--color-border-strong); background: var(--color-bg-sunken); color: var(--color-text-primary); font-family: var(--font-sans)"><span id="time-value" style="font-family: var(--font-serif); font-weight: 500; font-size: 30px; line-height: 36px">8:00 PM</span><span style="font-size: 14px; font-weight: 500; color: var(--color-accent-primary)">Change</span></button>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-top: 1px solid var(--color-border-subtle)">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><span id="lbl-days" style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">On these days</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">Weekdays</span></div>
+<div role="group" aria-labelledby="lbl-days" style="display: flex; justify-content: space-between">
+<button type="button" aria-pressed="true" aria-label="Monday" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-size: 14px; font-weight: 500">M</button>
+<button type="button" aria-pressed="true" aria-label="Tuesday" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-size: 14px; font-weight: 500">T</button>
+<button type="button" aria-pressed="true" aria-label="Wednesday" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-size: 14px; font-weight: 500">W</button>
+<button type="button" aria-pressed="true" aria-label="Thursday" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-size: 14px; font-weight: 500">T</button>
+<button type="button" aria-pressed="true" aria-label="Friday" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-size: 14px; font-weight: 500">F</button>
+<button type="button" aria-pressed="false" aria-label="Saturday" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); font-family: var(--font-sans); font-size: 14px; font-weight: 500">S</button>
+<button type="button" aria-pressed="false" aria-label="Sunday" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); font-family: var(--font-sans); font-size: 14px; font-weight: 500">S</button>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">What you'll see</span>
+<div style="display: flex; gap: 12px; padding: 14px; border-radius: 18px; background: var(--color-bg-surfaceRaised); box-shadow: 0 4px 12px rgba(0,0,0,.35)">
+<div style="flex: none; width: 36px; height: 36px; border-radius: 9px; background: var(--color-card-back); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="11" fill="none" stroke="#D4A63A" stroke-width="2"></circle><path d="M20 6v28M6 20h28" stroke="#D4A63A" stroke-width="2"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1">
+<div style="display: flex; justify-content: space-between"><span style="font-size: 13px; line-height: 18px; font-weight: 600">Taro</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">8:00 PM</span></div>
+<span style="font-size: 15px; line-height: 20px; font-weight: 500">A quiet moment for your daily card</span>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">Take a breath and see what today's card brings up for you.</span>
+</div>
+</div>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">The wording changes a little from day to day. It never shows your card.</span>
+</div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; gap: 10px; padding: 14px 16px; border-radius: 12px; background: var(--color-accent-subtle)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px; color: var(--color-accent-primary)"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8v.01"></path></svg>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-primary)">Your phone asks for permission to send notifications when you turn this on.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

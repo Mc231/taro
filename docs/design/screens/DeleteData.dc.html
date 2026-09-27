@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Delete all data</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-success:#5FC795;--color-status-onSuccess:#0F1120;--color-status-error:#FF8C8C;--color-status-onError:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center">
+<a href="Settings.dc.html" aria-label="Back to Settings" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Delete all data</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">This can't be undone. If you might want your journal later, <a href="Export.dc.html" style="font-weight: 500">export a backup</a> first.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; background: var(--color-bg-surface); border-radius: 16px">
+<span style="font-weight: 600; font-size: 15px; line-height: 20px">What's erased</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px">
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-error)"><path d="M6 6l12 12M18 6L6 18"></path></svg>Your journal: 128 readings and daily cards</li>
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-error)"><path d="M6 6l12 12M18 6L6 18"></path></svg>Your notes and favourites</li>
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-error)"><path d="M6 6l12 12M18 6L6 18"></path></svg>Settings and reminders on this phone</li>
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-error)"><path d="M6 6l12 12M18 6L6 18"></path></svg>Readings waiting on our server to be delivered</li>
+</ul>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; background: var(--color-accent-subtle); border-radius: 16px">
+<span style="font-weight: 600; font-size: 15px; line-height: 20px">What's kept</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px">
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Your readings balance: 3 readings</li>
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 20px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Your Remove Banner Ads purchase</li>
+</ul>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">So you don't lose what you paid for.</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="confirm-delete" style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">Type DELETE to confirm</label>
+<input id="confirm-delete" type="text" value="DELETE" autocomplete="off" autocapitalize="characters" spellcheck="false" style="box-sizing: border-box; width: 100%; min-height: 52px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--color-border-focus); background: var(--color-bg-sunken); color: var(--color-text-primary); font-family: var(--font-sans); font-size: 17px; letter-spacing: 1px; outline: none">
+</div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<button type="button" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: var(--color-status-error); color: var(--color-status-onError); font-family: var(--font-sans); font-weight: 600; font-size: 16px">Delete all data</button>
+<a href="Settings.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Cancel</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

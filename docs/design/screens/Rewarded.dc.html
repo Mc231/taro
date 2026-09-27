@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Adding your reading</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-bg-scrim:rgba(5,6,14,.64);--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-ad-container:#0A0C17;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); position: relative; overflow: hidden">
+<div aria-hidden="true" style="position: absolute; inset: 0; display: flex; flex-direction: column">
+<div style="flex-grow: 1; padding: 56px 16px 16px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); letter-spacing: .2px">Saturday, 27 September</span><span style="font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Good evening</span></div>
+<span style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; background: var(--color-accent-subtle); font-weight: 500; font-size: 14px; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-border-strong)"></span>Free reading used</span>
+</div>
+<div style="display: flex; gap: 16px; padding: 16px; background: var(--color-bg-surface); border-radius: 16px; align-items: center">
+<div style="flex: none; width: 88px; height: 152px; border-radius: 10px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -6px"></div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; line-height: 18px; color: var(--color-card-frame); font-weight: 500; letter-spacing: .4px">YOUR DAILY CARD</span>
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">One card to sit with today</span>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">Free, works offline, no AI.</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 16px; background: var(--color-bg-surfaceRaised)">
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 22px; line-height: 28px">Ask the cards a question</span>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Pick a spread, draw your cards and get a reading that looks at how they relate.</span>
+<span style="align-self: flex-start; min-height: 48px; padding: 0 22px; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 15px; display: flex; align-items: center">Start a reading</span>
+</div>
+</div>
+<div style="height: 16px"></div>
+<div style="height: 56px; background: var(--color-ad-container)"></div>
+<div style="height: 16px"></div>
+<div style="height: 84px; border-top: 1px solid var(--color-border-subtle)"></div>
+</div>
+<div style="position: absolute; inset: 0; background: var(--color-bg-scrim)"></div>
+<div role="dialog" aria-modal="true" aria-labelledby="rw-title" style="position: absolute; left: 24px; right: 24px; top: 250px; background: var(--color-bg-surfaceRaised); border-radius: 24px; padding: 32px 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; box-shadow: 0 12px 32px rgba(0,0,0,.5)">
+<a href="Question.dc.html" aria-label="Reading added, back to your question" style="display: flex; flex-direction: column; align-items: center; gap: 20px; text-decoration: none; color: var(--color-text-primary)">
+<span role="progressbar" aria-label="Adding your reading" style="position: relative; width: 88px; height: 88px; display: flex; align-items: center; justify-content: center">
+<svg width="88" height="88" viewBox="0 0 88 88" aria-hidden="true" style="position: absolute; inset: 0"><circle cx="44" cy="44" r="40" fill="none" stroke="#2A2F4A" stroke-width="4"></circle><path d="M44 4a40 40 0 0 1 38.04 27.64" fill="none" stroke="#9AA8FF" stroke-width="4" stroke-linecap="round"></path></svg>
+<span style="width: 32px; height: 52px; border-radius: 5px; background: var(--color-card-back); outline: 1.5px solid var(--color-card-frame); outline-offset: -4px"></span>
+</span>
+<span style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+<span id="rw-title" style="font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 30px">Adding your reading…</span>
+<span style="font-size: 16px; line-height: 24px; color: var(--color-text-secondary)">This usually takes a few seconds.</span>
+</span>
+</a>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">If you close this, your reading will still be added.</span>
+<a href="Today.dc.html" style="align-self: stretch; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Cancel</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

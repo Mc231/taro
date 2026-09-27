@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI readings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 64px 24px 40px; display: flex; flex-direction: column; gap: 24px">
+<div style="width: 56px; height: 56px; border-radius: 16px; background: var(--color-accent-subtle); display: flex; align-items: center; justify-content: center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#9AA8FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"></path><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">AI readings</h1>
+<p style="margin: 0; font-size: 16px; line-height: 24px; color: var(--color-text-secondary)">Taro uses Claude, an AI model by Anthropic, to write a reading for the cards you draw.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 0; background: var(--color-bg-surface); border-radius: 16px; padding: 4px 16px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--color-border-subtle)"><span style="font-weight: 600; font-size: 15px; line-height: 20px">What is sent</span><span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Your question, the cards and positions you drew, and your app language.</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--color-border-subtle)"><span style="font-weight: 600; font-size: 15px; line-height: 20px">What is kept</span><span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Your question is not stored. The reading text stays on our server only until it reaches your phone, at most 7 days.</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 0"><span style="font-weight: 600; font-size: 15px; line-height: 20px">No account</span><span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Nothing is linked to your name or email. Your journal stays on this phone.</span></div>
+</div>
+<a href="#" style="font-size: 15px; font-weight: 500; text-decoration: none; min-height: 48px; display: flex; align-items: center">Privacy policy</a>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; gap: 8px; align-items: center">
+<a href="Today.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 16px; text-decoration: none">Allow AI readings</a>
+<a href="Today.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Not now</a>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">Without AI you still get the daily card, classic readings, Learn and the journal. Change this any time in Settings.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

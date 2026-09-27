@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Legal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-success:#5FC795;--color-status-onSuccess:#0F1120;--color-status-error:#FF8C8C;--color-status-onError:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-ad-container:#0A0C17;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 1040px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<a href="Settings.dc.html" aria-label="Back to Settings" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Legal</h1>
+</div>
+
+<div role="tablist" aria-label="Legal documents" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button type="button" role="tab" id="tab-disclaimer" aria-selected="true" aria-controls="panel-disclaimer" style="min-height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-accent-primary); background: var(--color-accent-subtle); color: var(--color-text-primary); font-family: var(--font-sans); font-weight: 500; font-size: 14px; white-space: nowrap">Disclaimer</button>
+<button type="button" role="tab" id="tab-terms" aria-selected="false" style="min-height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); font-family: var(--font-sans); font-weight: 500; font-size: 14px; white-space: nowrap">Terms of use</button>
+<button type="button" role="tab" id="tab-privacy" aria-selected="false" style="min-height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); font-family: var(--font-sans); font-weight: 500; font-size: 14px; white-space: nowrap">Privacy policy</button>
+<button type="button" role="tab" id="tab-licences" aria-selected="false" style="min-height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); font-family: var(--font-sans); font-weight: 500; font-size: 14px; white-space: nowrap">Open-source licences</button>
+</div>
+
+<article id="panel-disclaimer" role="tabpanel" aria-labelledby="tab-disclaimer" style="flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 20px 18px; border-radius: 16px; background: var(--color-bg-surface)">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 22px; line-height: 28px">Tarot for reflection</h2>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">v1 · effective 1 October 2026</span>
+</div>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 16px; line-height: 26px">Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice.</p>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 16px; line-height: 26px; color: var(--color-text-secondary)">A reading describes what your cards traditionally stand for and applies that to your question. It can't know what will happen.</p>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 16px; line-height: 26px; color: var(--color-text-secondary)">Most readings are written by AI (Claude, by Anthropic) and marked "AI-generated". AI can be wrong or unexpected.</p>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 16px; line-height: 26px; color: var(--color-text-secondary)">Decisions about health, money, relationships or the law are yours. For those, please talk to a qualified professional.</p>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 16px; line-height: 26px; color: var(--color-text-secondary)">If you are thinking about harming yourself or someone else, please contact your local emergency number or <a href="Crisis.dc.html" style="text-decoration: underline">a support line</a> now.</p>
+</article>
+
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">Terms and privacy policy are also at taro.vshyrochuk.com</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1040}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

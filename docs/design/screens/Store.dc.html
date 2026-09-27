@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Readings store</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="OutOfReadings.dc.html" aria-label="Close" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+<span style="display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--color-accent-subtle); font-weight: 500; font-size: 14px">0 readings</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">More readings</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">One reading is one spread of any size. Readings don't expire, and your free daily reading continues.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; background: var(--color-bg-surface); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.4)">
+<div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-weight: 600; font-size: 17px; line-height: 22px">3 readings</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">$0.66 per reading</span></div>
+<a href="Question.dc.html" style="min-height: 44px; padding: 0 18px; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 15px; display: flex; align-items: center; text-decoration: none">$1.99</a>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; background: var(--color-bg-surface); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.4), inset 0 0 0 1.5px var(--color-accent-primary)">
+<div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1"><span style="align-self: flex-start; font-size: 11px; font-weight: 500; line-height: 16px; padding: 0 6px; border-radius: 4px; background: var(--color-accent-subtle)">Best value</span><span style="font-weight: 600; font-size: 17px; line-height: 22px">10 readings</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">$0.50 per reading</span></div>
+<a href="Question.dc.html" style="min-height: 44px; padding: 0 18px; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 15px; display: flex; align-items: center; text-decoration: none">$4.99</a>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; background: var(--color-bg-surface); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.4)">
+<div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-weight: 600; font-size: 17px; line-height: 22px">30 readings</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">$0.33 per reading</span></div>
+<a href="Question.dc.html" style="min-height: 44px; padding: 0 18px; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 15px; display: flex; align-items: center; text-decoration: none">$9.99</a>
+</div>
+</div>
+<div style="height: 1px; background: var(--color-border-subtle)"></div>
+<div style="display: flex; align-items: center; gap: 16px; padding: 16px 18px; background: var(--color-bg-surface); border-radius: 16px">
+<div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-weight: 600; font-size: 17px; line-height: 22px">Remove banner ads</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">One-time purchase. Optional reward videos stay available.</span></div>
+<a href="#" style="min-height: 44px; padding: 0 18px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 15px; display: flex; align-items: center; text-decoration: none">$3.99</a>
+</div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; justify-content: center; gap: 4px; flex-wrap: wrap">
+<a href="#" style="min-height: 44px; padding: 0 10px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Restore purchases</a>
+<a href="#" style="min-height: 44px; padding: 0 10px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Terms</a>
+<a href="#" style="min-height: 44px; padding: 0 10px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Privacy</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

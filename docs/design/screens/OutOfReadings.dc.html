@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Out of readings</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-bg-scrim:rgba(5,6,14,.64);--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); position: relative; overflow: hidden">
+<div style="padding: 56px 16px; display: flex; flex-direction: column; gap: 16px" aria-hidden="true">
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Your question</span>
+<div style="height: 120px; border-radius: 12px; background: var(--color-bg-sunken)"></div>
+</div>
+<div style="position: absolute; inset: 0; background: var(--color-bg-scrim)"></div>
+<div role="dialog" aria-label="Out of readings" style="position: absolute; left: 0; right: 0; bottom: 0; background: var(--color-bg-surfaceRaised); border-radius: 28px 28px 0 0; padding: 12px 20px 36px; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 -12px 28px rgba(0,0,0,.5)">
+<span style="align-self: center; width: 36px; height: 4px; border-radius: 2px; background: var(--color-border-strong)"></span>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 30px">You've used today's free reading</h2>
+<p style="margin: 0; font-size: 16px; line-height: 24px; color: var(--color-text-secondary)">Your next free reading arrives at midnight. Your question and spread are saved.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<a href="Draw.dc.html" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--color-bg-surface); text-decoration: none; color: var(--color-text-primary); box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: var(--color-accent-subtle); display: flex; align-items: center; justify-content: center; flex: none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA8FF" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M10 9l5 3-5 3z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-weight: 600; font-size: 16px; line-height: 22px">Watch a short video</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">Earn 1 reading · 3 left today</span></span>
+</a>
+<a href="Store.dc.html" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--color-bg-surface); text-decoration: none; color: var(--color-text-primary); box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: var(--color-accent-subtle); display: flex; align-items: center; justify-content: center; flex: none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA8FF" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="10" height="16" rx="1.5"></rect><rect x="10" y="5" width="10" height="16" rx="1.5"></rect></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1"><span style="font-weight: 600; font-size: 16px; line-height: 22px">Get more readings</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">From $1.99 for 3 · readings don't expire</span></span>
+</a>
+</div>
+<a href="Today.dc.html" style="min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Not now</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

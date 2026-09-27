@@ -1,0 +1,446 @@
+{
+ "v": 3,
+ "attachments": {},
+ "boards": {
+  "AiConsent.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S04 AI consent",
+   "w": 390,
+   "x": 940,
+   "y": 0
+  },
+  "Disclaimer.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S03 Disclaimer",
+   "w": 390,
+   "x": 470,
+   "y": 0
+  },
+  "Draw.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S08 Draw ritual (pick)",
+   "w": 390,
+   "x": 470,
+   "y": 1220
+  },
+  "Main.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S02 Welcome",
+   "w": 390,
+   "x": 0,
+   "y": 0
+  },
+  "OutOfReadings.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S10 Out of readings",
+   "w": 390,
+   "x": 1410,
+   "y": 1220
+  },
+  "Question.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S07 Question",
+   "w": 390,
+   "x": 0,
+   "y": 1220
+  },
+  "Reading.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S09 Reading",
+   "w": 390,
+   "x": 940,
+   "y": 1220
+  },
+  "Spreads.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S06 Spread picker",
+   "w": 390,
+   "x": 1880,
+   "y": 0
+  },
+  "Store.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S11 Store",
+   "w": 390,
+   "x": 1880,
+   "y": 1220
+  },
+  "Today.dc.html": {
+   "h": 844,
+   "is_interactive": true,
+   "title": "S05 Today",
+   "w": 390,
+   "x": 1410,
+   "y": 0
+  },
+  "DailyCard.dc.html": {
+   "x": 0,
+   "y": 2440,
+   "w": 390,
+   "h": 1040,
+   "title": "S13 Daily card",
+   "is_interactive": true
+  },
+  "Journal.dc.html": {
+   "x": 470,
+   "y": 2440,
+   "w": 390,
+   "h": 844,
+   "title": "S14 Journal",
+   "is_interactive": true
+  },
+  "JournalEntry.dc.html": {
+   "x": 940,
+   "y": 2440,
+   "w": 390,
+   "h": 1040,
+   "title": "S15 Journal entry",
+   "is_interactive": true
+  },
+  "Learn.dc.html": {
+   "x": 1410,
+   "y": 2440,
+   "w": 390,
+   "h": 844,
+   "title": "S16 Learn deck",
+   "is_interactive": true
+  },
+  "CardDetail.dc.html": {
+   "x": 1880,
+   "y": 2440,
+   "w": 390,
+   "h": 1040,
+   "title": "S17 Card detail",
+   "is_interactive": true
+  },
+  "Settings.dc.html": {
+   "x": 0,
+   "y": 3900,
+   "w": 390,
+   "h": 844,
+   "title": "S20 Settings",
+   "is_interactive": true
+  },
+  "Reminder.dc.html": {
+   "x": 470,
+   "y": 3900,
+   "w": 390,
+   "h": 844,
+   "title": "S22 Reminder",
+   "is_interactive": true
+  },
+  "Export.dc.html": {
+   "x": 940,
+   "y": 3900,
+   "w": 390,
+   "h": 844,
+   "title": "S24 Export backup",
+   "is_interactive": true
+  },
+  "Import.dc.html": {
+   "x": 1410,
+   "y": 3900,
+   "w": 390,
+   "h": 844,
+   "title": "S25 Import backup",
+   "is_interactive": true
+  },
+  "DeleteData.dc.html": {
+   "x": 1880,
+   "y": 3900,
+   "w": 390,
+   "h": 844,
+   "title": "S26 Delete all data",
+   "is_interactive": true
+  },
+  "Rewarded.dc.html": {
+   "x": 0,
+   "y": 5120,
+   "w": 390,
+   "h": 844,
+   "title": "S12 Rewarded (granting)",
+   "is_interactive": true
+  },
+  "ReadingsPaused.dc.html": {
+   "x": 470,
+   "y": 5120,
+   "w": 390,
+   "h": 844,
+   "title": "S31 Readings paused",
+   "is_interactive": true
+  },
+  "ClassicReading.dc.html": {
+   "x": 940,
+   "y": 5120,
+   "w": 390,
+   "h": 844,
+   "title": "S32 Classic reading",
+   "is_interactive": true
+  },
+  "Report.dc.html": {
+   "x": 1410,
+   "y": 5120,
+   "w": 390,
+   "h": 844,
+   "title": "S33 Report reading",
+   "is_interactive": true
+  },
+  "Crisis.dc.html": {
+   "x": 1880,
+   "y": 5120,
+   "w": 390,
+   "h": 844,
+   "title": "S27 Support lines",
+   "is_interactive": true
+  },
+  "TodayLight.dc.html": {
+   "x": 0,
+   "y": 6340,
+   "w": 390,
+   "h": 844,
+   "title": "S05 Today · light",
+   "is_interactive": true
+  },
+  "ReadingLight.dc.html": {
+   "x": 470,
+   "y": 6340,
+   "w": 390,
+   "h": 844,
+   "title": "S09 Reading · light",
+   "is_interactive": true
+  },
+  "TodayAr.dc.html": {
+   "x": 940,
+   "y": 6340,
+   "w": 390,
+   "h": 844,
+   "title": "S05 Today · Arabic RTL",
+   "is_interactive": true
+  },
+  "ReadingAr.dc.html": {
+   "x": 1410,
+   "y": 6340,
+   "w": 390,
+   "h": 844,
+   "title": "S09 Reading · Arabic RTL",
+   "is_interactive": true
+  },
+  "TodayTablet.dc.html": {
+   "x": 1880,
+   "y": 6340,
+   "w": 1032,
+   "h": 1376,
+   "title": "S05 Today · iPad 13\"",
+   "is_interactive": true
+  },
+  "Language.dc.html": {
+   "x": 0,
+   "y": 8060,
+   "w": 390,
+   "h": 1040,
+   "title": "S21 Language",
+   "is_interactive": true
+  },
+  "PrivacyChoices.dc.html": {
+   "x": 470,
+   "y": 8060,
+   "w": 390,
+   "h": 844,
+   "title": "S23 Privacy choices",
+   "is_interactive": true
+  },
+  "Help.dc.html": {
+   "x": 940,
+   "y": 8060,
+   "w": 390,
+   "h": 1040,
+   "title": "S28 Help & FAQ",
+   "is_interactive": true
+  },
+  "Legal.dc.html": {
+   "x": 1410,
+   "y": 8060,
+   "w": 390,
+   "h": 1040,
+   "title": "S29 Legal · disclaimer",
+   "is_interactive": true
+  },
+  "UpdateRequired.dc.html": {
+   "x": 1880,
+   "y": 8060,
+   "w": 390,
+   "h": 844,
+   "title": "S30 Update required",
+   "is_interactive": true
+  },
+  "SpreadsGuide.dc.html": {
+   "x": 0,
+   "y": 9460,
+   "w": 390,
+   "h": 1040,
+   "title": "S18 Spread guide · Celtic Cross",
+   "is_interactive": true
+  },
+  "AboutTaro.dc.html": {
+   "x": 470,
+   "y": 9460,
+   "w": 390,
+   "h": 1040,
+   "title": "S19 About tarot & Taro",
+   "is_interactive": true
+  },
+  "Launch.dc.html": {
+   "x": 940,
+   "y": 9460,
+   "w": 390,
+   "h": 844,
+   "title": "S01 Launch",
+   "is_interactive": false
+  },
+  "CardBack.dc.html": {
+   "x": 1410,
+   "y": 9460,
+   "w": 580,
+   "h": 1000,
+   "title": "Card back artwork",
+   "is_interactive": false
+  },
+  "AppIcon.dc.html": {
+   "x": 2070,
+   "y": 9460,
+   "w": 1024,
+   "h": 1024,
+   "title": "App icon master",
+   "is_interactive": false
+  }
+ },
+ "createdOnFiles": {
+  "at": "2026-09-27T10:00:00Z",
+  "v": 1
+ },
+ "designSystems": [
+  {
+   "artifact": "https://claude.ai/artifact/C94hpvYCJKqrqYn5o8VnRb",
+   "copiedAt": "2026-09-27T10:00:00Z",
+   "namespace": "taro",
+   "title": "Taro",
+   "version": "1790515032-192a"
+  }
+ ],
+ "launch": {
+  "view": "canvas"
+ },
+ "notes": {
+  "row1": {
+   "kind": "title1",
+   "maxW": 2270,
+   "text": "First launch → Today",
+   "w": 240,
+   "x": 0,
+   "y": -300
+  },
+  "row2": {
+   "kind": "title1",
+   "maxW": 2270,
+   "text": "Reading, and running out",
+   "w": 240,
+   "x": 0,
+   "y": 920
+  },
+  "row3": {
+   "x": 0,
+   "y": 2140,
+   "text": "Journal and Learn",
+   "kind": "title1",
+   "maxW": 2750
+  },
+  "row4": {
+   "x": 0,
+   "y": 3600,
+   "text": "Settings and your data",
+   "kind": "title1",
+   "maxW": 2750
+  },
+  "row5": {
+   "x": 0,
+   "y": 4820,
+   "text": "Safety and edge states",
+   "kind": "title1",
+   "maxW": 2750
+  },
+  "row6": {
+   "x": 0,
+   "y": 6040,
+   "text": "Light, Arabic and iPad",
+   "kind": "title1",
+   "maxW": 2750
+  },
+  "row7": {
+   "x": 0,
+   "y": 7760,
+   "text": "Settings pages, help and legal",
+   "kind": "title1",
+   "maxW": 3200
+  },
+  "row8": {
+   "x": 0,
+   "y": 9160,
+   "text": "Learn pages, launch and brand assets",
+   "kind": "title1",
+   "maxW": 3200
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Disclaimer.dc.html",
+  "AiConsent.dc.html",
+  "Today.dc.html",
+  "Spreads.dc.html",
+  "Question.dc.html",
+  "Draw.dc.html",
+  "Reading.dc.html",
+  "OutOfReadings.dc.html",
+  "Store.dc.html",
+  "DailyCard.dc.html",
+  "Journal.dc.html",
+  "JournalEntry.dc.html",
+  "Learn.dc.html",
+  "CardDetail.dc.html",
+  "Settings.dc.html",
+  "Reminder.dc.html",
+  "Export.dc.html",
+  "Import.dc.html",
+  "DeleteData.dc.html",
+  "Rewarded.dc.html",
+  "ReadingsPaused.dc.html",
+  "ClassicReading.dc.html",
+  "Report.dc.html",
+  "Crisis.dc.html",
+  "TodayLight.dc.html",
+  "ReadingLight.dc.html",
+  "TodayAr.dc.html",
+  "ReadingAr.dc.html",
+  "TodayTablet.dc.html",
+  "Language.dc.html",
+  "PrivacyChoices.dc.html",
+  "Help.dc.html",
+  "Legal.dc.html",
+  "UpdateRequired.dc.html",
+  "SpreadsGuide.dc.html",
+  "AboutTaro.dc.html",
+  "Launch.dc.html",
+  "CardBack.dc.html",
+  "AppIcon.dc.html"
+ ],
+ "pages": [],
+ "title": "Taro Screens"
+}

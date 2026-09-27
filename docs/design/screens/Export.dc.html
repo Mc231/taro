@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Export backup</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-success:#5FC795;--color-status-onSuccess:#0F1120;--color-status-error:#FF8C8C;--color-status-onError:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center">
+<a href="Settings.dc.html" aria-label="Back to Settings" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Export backup</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Keep a copy of your journal in one file.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; background: var(--color-bg-surface); border-radius: 16px">
+<span style="font-weight: 600; font-size: 15px; line-height: 20px">Included</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+<li style="display: flex; gap: 10px; align-items: center; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span style="flex-grow: 1">Your journal</span><span style="color: var(--color-text-secondary)">128 readings</span></li>
+<li style="display: flex; gap: 10px; align-items: center; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Your notes</li>
+<li style="display: flex; gap: 10px; align-items: center; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Favourites</li>
+<li style="display: flex; gap: 10px; align-items: center; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Settings: theme, language, reminder</li>
+</ul>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; background: var(--color-bg-surface); border-radius: 16px">
+<span style="font-weight: 600; font-size: 15px; line-height: 20px">Not included</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-text-tertiary)"><path d="M6 12h12"></path></svg><span style="display: flex; flex-direction: column"><span>Readings balance and purchases</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">They stay with this install.</span></span></li>
+<li style="display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 22px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 2px; color: var(--color-text-tertiary)"><path d="M6 12h12"></path></svg><span style="display: flex; flex-direction: column"><span>Privacy and AI choices</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">You make them again on a new phone.</span></span></li>
+</ul>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 16px; border-radius: 12px; background: var(--color-bg-sunken)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-text-secondary)"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path></svg>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-primary); overflow-wrap: anywhere">taro-backup-2026-09-27.json</span>
+</div>
+<div style="flex-grow: 1"></div>
+<div role="status" style="display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--color-bg-surface); box-shadow: inset 0 0 0 1px var(--color-status-success)">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l3 3 5-6"></path></svg>
+<span style="font-size: 14px; line-height: 20px"><span style="font-weight: 600; color: var(--color-status-success)">Backup saved.</span> Keep it somewhere private: it holds your questions and notes.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<button type="button" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-weight: 500; font-size: 16px">Export backup</button>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">Opens the share sheet: Files, Drive, email and more.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
