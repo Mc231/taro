@@ -1,6 +1,6 @@
 # Phase 1: Spec Reconciliation & Owner Decisions
 
-**Status:** ✅ Complete (2026-09-27). Owner-open (not blocking Phase 2): Play developer account type (Phase 10) and support mailbox confirmation (Phase 19); both tracked in `00_DECISIONS.md` "Still open".
+**Status:** ✅ Complete (2026-09-27). All owner items answered (Play account: personal; support email: owner Gmail).
 **Depends on:** none
 **Parallel with:** Phase 9 (asa gaps) can start once Sprint 1.2 is done.
 
@@ -167,7 +167,7 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 - [x] **BE Q3 / CS §4.2 crisis numbers.** _Owner 2026-09-27: default confirmed._ The owner verifies them (Phase 18 Sprint 18.4). Record who verifies and the source list.
 - [x] **BE Q4 / MO Q3 Apple consumption info.** _Owner 2026-09-27: default confirmed._ Default: off.
 - [x] **D15 art.** _Owner 2026-09-27: default confirmed._ Decide the art pipeline owner and tool, and a target date for 78 cards + card back (feeds Phase 18). Default: placeholder typographic cards until then (01 §11).
-- [ ] **Play developer account type.** Check whether the account falls under the new personal-account rule (≥ 12 testers for 14 days, CS M5). It decides the length of Phase 21. _Still open (owner); tracked in `00_DECISIONS.md` "Still open", answer at Phase 10._
+- [x] **Play developer account type.** _Owner 2026-09-27: personal → ≥ 12 testers × 14 days closed test in Phase 21._ Check whether the account falls under the new personal-account rule (≥ 12 testers for 14 days, CS M5). It decides the length of Phase 21. _Still open (owner); tracked in `00_DECISIONS.md` "Still open", answer at Phase 10._
 - [x] **CI host.** _Owner 2026-09-27: GitHub origin `git@github.com:Mc231/taro.git` (owner `Mc231`), CI on a self-hosted Gitea pull-mirror of it, as in `quiz_apps`._ Recorded in 05 §8.1 `github:` and 06 QA10.
 
 ---

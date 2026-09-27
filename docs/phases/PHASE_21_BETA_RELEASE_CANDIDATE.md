@@ -7,7 +7,7 @@
 
 ## Overview
 
-This phase puts the production-shaped build in front of real users: TestFlight external testing and a Play closed test. If the Play account falls under the personal-account rule, the closed test needs ≥ 12 testers for 14 days (CS M5).
+This phase puts the production-shaped build in front of real users: TestFlight external testing and a Play closed test. The Play account is **personal** (owner, 2026-09-27), so the closed test needs ≥ 12 opted-in testers for 14 continuous days before production access (CS M5). Recruit testers early (start during Phase 20).
 
 During the beta, the phase:
 - runs the full 06 §12 real-device release checklist on both platforms;

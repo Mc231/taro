@@ -133,7 +133,7 @@ Flutter 3.44.8 stable, Dart ^3.7, melos ^6. iOS 16.0 min, Gradle 8.14, AGP 8.12.
 
 ## 6. Remaining open questions / risks (for spec phase)
 
-> **Resolved (2026-09-27).** These questions were answered by specs 01–06, and every cross-spec conflict and owner decision is recorded in [`specs/00_DECISIONS.md`](specs/00_DECISIONS.md) (RC1–RC93 and "Owner decisions"). The list below is kept as history; `00_DECISIONS.md` wins where they differ. The only open owner item is the Play developer account type.
+> **Resolved (2026-09-27).** These questions were answered by specs 01–06, and every cross-spec conflict and owner decision is recorded in [`specs/00_DECISIONS.md`](specs/00_DECISIONS.md) (RC1–RC93 and "Owner decisions"). The list below is kept as history; `00_DECISIONS.md` wins where they differ. All owner items are answered.
 
 1. **Credit ownership without accounts** — where is the balance of purchased readings the source of truth: device (SQLite) or Worker ledger keyed by anonymous install ID? Apple consumables are not restorable, so a lost device = lost credits; export/import must **not** allow minting credits (sign exports or exclude balances).
 2. **Receipt validation** — Worker verifies App Store (JWS / App Store Server API) and Play (Developer API) purchases before granting credits?

@@ -80,7 +80,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
 ## Sprint 10.4: Google Play *(MANUAL, M5–M7)*
 
 **Tasks:**
-- [ ] Check the account type (new-personal-account testing rule → ≥ 12 testers for 14 days; Phase 1 decision). Create the app "Taro: Tarot Card Reading" (free, app not game, category Lifestyle).
+- [ ] Account type is personal (Phase 1 decision) → closed test ≥ 12 testers × 14 days before production. Create the app "Taro: Tarot Card Reading" (free, app not game, category Lifestyle).
 - [ ] Upload keystore `taro_upload.jks` → `~/pet/secure/taro/` + bundle. **Manually upload** the first internal-track AAB (prod flavor, placeholder UI) to enable Play App Signing (quiz_apps convention).
 - [ ] In-app products: `asa android setup-iap -c …` (ASA-5); set prices manually (known asa bug); activate.
 - [ ] Google Cloud project for the Worker:

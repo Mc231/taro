@@ -411,7 +411,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `review.promptAfterPositiveReadings` | int | `3` | 1–20 | client |
 | `legal.termsUrl` | string | `https://taro.vshyrochuk.com/terms` | — | client |
 | `legal.privacyUrl` | string | `https://taro.vshyrochuk.com/privacy` | — | client |
-| `support.email` | string | `support@taro.vshyrochuk.com` (05 CS10; mailbox confirmation open in 00_DECISIONS) | — | client |
+| `support.email` | string | `volodymyr.shyrochuk@gmail.com` (05 CS10; owner decision 2026-09-27) | — | client |
 
 ### 8.2 Server-only (`config:server`, never sent to clients)
 

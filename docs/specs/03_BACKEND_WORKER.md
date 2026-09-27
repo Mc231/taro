@@ -911,7 +911,7 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC29, RC45, RC62, RC64, RC73, RC82._ **
 | `review.promptAfterPositiveReadings` | `3` | 1–20; in-app review after the Nth positively rated AI reading (01) | client |
 | `legal.termsUrl` | `"https://taro.vshyrochuk.com/terms"` | 05 CS10 | client |
 | `legal.privacyUrl` | `"https://taro.vshyrochuk.com/privacy"` | 05 CS10 | client |
-| `support.email` | `"support@taro.vshyrochuk.com"` | 05 CS10 (mailbox confirmation is an open owner item in `00_DECISIONS.md`) | client |
+| `support.email` | `"volodymyr.shyrochuk@gmail.com"` | 05 CS10 (owner decision 2026-09-27) | client |
 
 **Server-only:**
 

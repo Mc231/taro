@@ -156,7 +156,7 @@ A default can be overridden only by the owner.
 | **D15**, deck art | Placeholder typographic cards until the art lands. The art pipeline owner, tool and target date for 78 cards + card back are decided before Phase 18; art is required before store screenshots. | Confirmed (default) | 01 §11; Phase 18 |
 | **RC24**, form factors | **Universal**: iPhone + iPad, Android phone + tablet. Tablet-width goldens (iPad 13", Android tablet) for every ★ screen state; iPad 13" and Play tablet screenshot sets are required. | Decided by owner | 01 PR16, §8.3, §17; 04 §15, §18; 05 §1, §9.4; 06 QA8, §3, §12 |
 | **CI host** | GitHub origin **`git@github.com:Mc231/taro.git`** (owner `Mc231`). CI runs on the self-hosted Gitea as a **pull-mirror** of that GitHub repo, like `quiz_apps`: CI triggers on `push` (mirror sync) and `workflow_dispatch`, has no `pull_request` events and cannot push back; branch protection lives on GitHub. | Decided by owner | 05 §8.1 `github:`; 06 QA10, §8; Phase 2 |
-| **Play developer account type** | Unknown. If it is a personal account created after the new-account rule, closed testing needs ≥ 12 testers for 14 days before production access (05 M5), which sets the length of Phase 21. | **OPEN (owner)**; answer at Play Console setup (Phase 10), at the latest before Phase 21 | 05 M5, Risks; Phase 10, Phase 21 |
+| **Play developer account type** | **Personal account** (owner, 2026-09-27). Closed testing with ≥ 12 opted-in testers for 14 continuous days is required before production access (05 M5); Phase 21 is sized for it. | **Decided 2026-09-27** | 05 M5, Risks; Phase 10, Phase 21 |
 
 ### Earlier owner answers (specs README §4, answered 2026-09-27)
 
@@ -179,6 +179,5 @@ A default can be overridden only by the owner.
 
 ### Still open
 
-- **Play developer account type** (above). Owner, at Phase 10, at the latest before Phase 21.
 - **BE Q1 free-reading model**: deferred to Phase 21 by decision, not open.
-- **Support mailbox**: `support.email` defaults to `support@taro.vshyrochuk.com` (03 §8.2, 05 CS10), derived from the confirmed domain (#12). The owner confirms the mailbox exists before Phase 19 configures it; a different address is a config change plus an edit of 03 §8.2, 05 CS10 and GLOSSARY §8.1.
+- ~~Support mailbox~~ **Decided 2026-09-27:** `support.email` = `volodymyr.shyrochuk@gmail.com` (03 §8.2, 05 CS10, GLOSSARY §8.1).
