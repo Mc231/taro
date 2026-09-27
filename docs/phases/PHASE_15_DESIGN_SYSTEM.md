@@ -61,7 +61,7 @@ The temporary stub tokens from Phase 13 are deleted.
 - [ ] Every component ships with:
   - a widget test (states, callbacks, semantics);
   - `meetsGuideline(androidTapTargetGuideline | iOSTapTargetGuideline | labeledTapTargetGuideline | textContrastGuideline)`;
-  - goldens `{light,dark} × {en,ar}` at `kPhoneSmall`, plus `textScale 2.0` for the text-heavy components.
+  - goldens `{light,dark} × {en,ar}` at `kPhoneSmall`, plus `kTabletIpad13` for layout-level components (`TaroScaffold`, sheets, navigation) (RC24), plus `textScale 2.0` for the text-heavy components.
 
 ---
 

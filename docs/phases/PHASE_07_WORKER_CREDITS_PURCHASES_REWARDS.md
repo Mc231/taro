@@ -49,7 +49,7 @@ Every path is idempotent and property-tested for ledger invariants.
 ## Sprint 7.2: Purchase verification (BE8, MO2, MO8)
 
 **Tasks:**
-- [ ] `src/monetization/catalog.ts`: `PRODUCT_CATALOG` for `readings_3`, `readings_10`, `readings_30` and `remove_ads` (RC3). `iap.retiredPacks` is supported. The public config builder injects `store.packs[].credits` from the catalog. Test: config and catalog agree. Export `test/fixtures/product_ids.json`.
+- [ ] `src/monetization/catalog.ts`: `PRODUCT_CATALOG` for `readings_3`, `readings_10`, `readings_30` and `remove_ads` (RC3). Retired catalog entries (`PRODUCT_CATALOG` status `retired`, 03 §6.2) are still verifiable. The public config builder injects `store.packs[].credits` from the catalog. Test: config and catalog agree. Export `test/fixtures/product_ids.json`.
 - [ ] `adapters/apple/AppStoreServerApi.ts`:
   - ES256 JWT from the `APPLE_ASC_*` secrets;
   - `GET /inApps/v1/transactions/{id}` against production, then sandbox on `4040010` (05 §1 2.1, 03 §6.2);
@@ -61,7 +61,7 @@ Every path is idempotent and property-tested for ledger invariants.
   - **Sandbox/test caps (RC63):** `purchases.sandboxMaxCreditsPerInstallPerDay` (30) and `purchases.sandboxGlobalCreditsPerDay` (1,000) → beyond either, 422 `PURCHASE_INVALID` `reason=sandbox_cap`; `sandbox_volume` alert at 50 % of the global cap.
   - **Grant:** one batch of `purchases` + ledger `purchase` + `state_version`. Same install → return the stored grant (`already_granted`). Another install → 409 `PURCHASE_ALREADY_CLAIMED` (+ `transferToken` when the caller re-submitted from the same store account). A **blocked or indebted** install is granted like any other; verify never returns 403 for a valid transaction (RC66), and such grants emit `blocked_purchase`.
   - **Google acknowledgement:** server-side after the grant (RC10). A failed acknowledgement is logged as `pendingAck` and retried by cron.
-  - **Response:** `{status: granted|already_granted|pending|rejected, reason?, purchaseId, productId, creditsGranted, isFirstPurchase, balance}`.
+  - **Response** (03 §6.2 step 5): `200 {status: granted|already_granted, purchaseId, productId, creditsGranted, isFirstPurchase, balance}`; `202 {status: pending}` (Android pending). `isFirstPurchase` = first `purchases` row for the install. Rejections are errors, not a status: `422 PURCHASE_INVALID` (`details.reason`) / `PRODUCT_UNKNOWN`, `409 PURCHASE_ALREADY_CLAIMED`.
 - [ ] Tests: a test root CA + leaf chain (`test/helpers/apple_jws.ts`) with valid, bad-signature, wrong-root, wrong-bundle, unknown-product, revoked, sandbox-in-prod tagging, **sandbox cap per install and global → 422 `sandbox_cap`**, **prod config without sandbox caps rejected by the schema**, iOS token bound to another active install → 409 + `transferToken`, blocked install → granted. `FakePlayDeveloperApi` states 0, 1 and 2, consumed-and-known, test purchase capped, obfuscated-ID mismatch. 10 parallel verifies with the same transaction produce one ledger row (06 §7).
 
 ---

@@ -67,8 +67,8 @@ The fake-backed patrol integration flows F1–F7 pass at the end of this phase, 
   - `connectivity_controller.dart`;
   - `settings_controller.dart`.
 - [ ] `app_state/sync_coordinator.dart` (02 §9.2), running on launch, resume, the reset timer and connectivity regained:
-  - coalesce runs (join an in-flight run; skip only if the last success was < `balance.staleAfterSec`, the local date is unchanged and `now < resetsAt`);
-  - steps, each tolerating failure: config → timezone check (`PUT …/timezone`, 409 tolerated) → balance → `PurchaseCoordinator.drainOutbox()` → resume pending readings (`GET /v1/readings/{id}`) → flush `pending_acks` (RC51) → `DataDeletionGateway` retry queue → reminder reschedule → attestation warm-up (Android) → `RemoveAdsEntitlement.refresh`;
+  - coalesce runs (join an in-flight run; skip only if the last success was < `balance.resumeSyncThrottleSec` (30 s) ago, the local date is unchanged and `now < resetsAt`);
+  - steps, each tolerating failure: config → timezone check (`PUT …/timezone`, 409 tolerated) → balance → `PurchaseCoordinator.drainOutbox()` → resume pending readings (`GET /v1/readings/{clientReadingId}`) → flush `pending_acks` (RC51) → `DataDeletionGateway` retry queue → reminder reschedule → attestation warm-up (Android) → `RemoveAdsEntitlement.refresh`;
   - `Stream<SyncStatus>`.
 - [ ] `lifecycle/app_lifecycle_observer.dart` + `reset_timer.dart` (fires at `resetsAt + 5 s` while foregrounded; cancelled on pause).
 - [ ] Tests with `ProviderContainer` + `FakeClock` (06 §2.5 "Resume re-sync"):
@@ -99,18 +99,19 @@ One `Notifier`/`AsyncNotifier` per screen with an `@freezed sealed` state union.
 
 **Tasks:**
 - [ ] `features/onboarding/`: `OnboardingController` (welcome pages, disclaimer ack, step persistence) and `AiConsentController` (S04 `undecided|granted|declined`, origin-aware return, versioned; RC21). Consent orchestration is triggered after onboarding (RC19).
-- [ ] `features/today/`: `HomeController` (S05: `loading`, `content` variants, `firstRun`, `balanceStale`, `deviceUnverified`, daily-card drawn or not, banner states, `updateAvailable` once per version (RC73)) and `DailyCardController` (S13: `notDrawn`, `revealing`, `drawn`, `noteEditing`, `reminderOffer` shown once; "Reflect deeper" → S07 with the card pre-set, PR4).
+- [ ] Feature folders per 02 §2.2: `onboarding/`, `consent/`, `home/`, `daily_card/`, `reading/`, `paywall/`, `journal/`, `learn/`, `settings/`, `backup/`, `help/`, `legal/`, `update/` (and `debug/`, non-prod only, Phase 12).
+- [ ] `features/home/`: `HomeController` (S05: `loading`, `content` variants, `firstRun`, `balanceStale`, `deviceUnverified`, daily-card drawn or not, banner states, `updateAvailable` once per version (RC73)); `features/daily_card/`: `DailyCardController` (S13: `notDrawn`, `revealing`, `drawn`, `noteEditing`, `reminderOffer` shown once; "Reflect deeper" → S07 with the card pre-set, PR4).
 - [ ] `features/reading/`:
   - `SpreadPickerController` (S06, hides spreads disabled by config);
   - `QuestionController` (S07: `editing`, `checking`, `offline`, `consentRequired`, `deviceUnverified`, `readingsPaused` (RC47, with the `freePaused` copy variant, RC64), `aiUnavailableRegion`, `outOfReadings`, `dailyLimitReached`, `lowTrustLimited` (RC74), `rephrase`, `refused(category)`, `rateLimited`), which evaluates `ReadingGate` on **Begin** and then takes the **pre-draw hold** before any draw (PR5, RC44, RC50): hold 402 → S10, 503 → S31, 429 `dailyLimit` → `dailyLimitReached`;
-  - `ReadingFlowController` (S08: `shuffling`, `picking`, `revealing` (only while the hold has ≥ 120 s left; renew otherwise), `awaitingReading`, `slowReading` (20 s), `generationFailed` (retry with the same cards and `clientReadingId`; the Worker runs a new attempt, PR6, RC49), `holdLost` → S10 with the cards face-down (RC48, RC50), `deliveryExpired` (RC51), `crisis` → S27, reduced-motion variant); on success it persists, then acks;
+  - `DrawController` (S08: `shuffling`, `picking`, `revealing` (only while the hold has ≥ 120 s left; renew otherwise), `awaitingReading`, `slowReading` (20 s), `generationFailed` (retry with the same cards and `clientReadingId`; the Worker runs a new attempt, PR6, RC49), `holdLost` → S10 with the cards face-down (RC48, RC50), `deliveryExpired` (RC51), `crisis` → S27, reduced-motion variant); on success it persists, then acks;
   - `ReadingResultController` (S09: `content`, `ratingGiven`, `sharing`, `loadingFromStorage`; report action → S33; rate-app trigger);
   - `ClassicReadingController` (S32, flow F8, RC20/RC71: static meanings per position from `taro_content`, no hold, no Worker call, saved with `status: classic`; no banner or rate-app credit; `classic_reading_started/completed` events);
-  - `ReportSheetController` (S33, RC72: `editing`, `submitting`, `submitted`, `failed`, `offline`, `rateLimited`, `alreadyReported`; disclosure; `reading_reported{reason}`; sets the local `reported` flag).
+  - `ReportReadingController` (S33, RC72: `editing`, `submitting`, `submitted`, `failed`, `offline`, `rateLimited`, `alreadyReported`; disclosure; `reading_reported{reason}`; sets the local `reported` flag).
 - [ ] `features/paywall/` (MO13, 04 §11):
   - `OutOfReadingsController` (S10: rewarded available/capped/cooldown/disabled/failed; packs loading/loaded/unavailable/`purchasesBlocked`; `lowTrustLimited` copy; next-free countdown from server time); after a grant it returns to S07 with Begin enabled and nothing auto-starts (RC58);
   - `StoreController` (S11: `loading`, `ready`, `storeUnavailable`, `productsFailed`, `purchasing(productId)`, `pending(productId)`, `verifying`, `verificationDeferred`, `granted`, `failed(reason)`, `cancelled`, `offline`, `removeAdsOwned`, `paidBlocked` notice (03 §5.1), `purchasesBlocked(blocked|refundDebt)` (RC66), kill switch `store.enabled`);
-  - `RewardedFlowController` (S12: `loadingAd`, `noFill`, `showing`, `granting`, `granted`, `grantDelayed`, `dismissedEarly`; cancels the intent on `noFill`/failure/early dismissal, RC57).
+  - `RewardedController` (S12: `loadingAd`, `noFill`, `showing`, `granting`, `granted`, `grantDelayed`, `dismissedEarly`; cancels the intent on `noFill`/failure/early dismissal, RC57).
 - [ ] `features/journal/`: `JournalListController` (S14: `loading`, `empty`, `content`, `filteredEmpty`, `searchEmpty`, `storageError`, patterns card when ≥ 5 entries, filters and FTS search) and `JournalEntryController` (S15: `content`, `pending` → finish reading, `failed`, `deleted` + 5 s undo, 5,000-char note autosave).
 - [ ] `features/learn/`: `DeckBrowserController` (S16: grid by arcana/suit, search), `CardDetailController` (S17: upright, reversed, zoomed, drawn-N-times link, prev/next), `SpreadGuideController` (S18), `AboutController` (S19).
 - [ ] `features/settings/`:
@@ -132,7 +133,7 @@ One `Notifier`/`AsyncNotifier` per screen with an `@freezed sealed` state union.
 **Tasks:**
 - [ ] `taro_l10n`: `l10n.yaml` per 02 §11. Write `app_en.arb` with every UI string, including the 05 §3 compliance keys (`disclaimerShort`, `disclaimerOnboarding*`, `aiConsent*`, `aiLabel`, `refusalGeneric`, `crisis*`, `reportReadingTitle`), every error `code` → message key (RC5), the 6 reminder variants, suggestion chips, the spread and position names (`spread_{id}_pos_{pos}_name/_desc`), IAP disclosure lines (04 §11), and ICU plurals. The 11 other ARB files are copied with an `x-translate` marker so `check_l10n.py` passes in development mode.
 - [ ] Minimal `taro_ui` state kit (to be restyled in Phase 15): `TaroLoadingView`, `TaroEmptyView`, `TaroErrorView(kind, onRetry)`, `TaroOfflineBanner`, `TaroInlineNotice`, `TaroScaffold` (01 §8.2). Use Material defaults and **no raw values** (temporary token stubs in `taro_ui/lib/src/tokens/stub_tokens.dart`, replaced in Phase 15).
-- [ ] `common/`: `BalancePill` (the 01 §7.1 sync states), `BannerSlot(screenId)` (`BannerPolicy`, placed outside the scroll view; RC18), `DisclaimerFooter` (rendered on every reading state, including loading and error; 05 §3), `OfflineBanner`, `FailureMessage.of(context, failure)`.
+- [ ] `common/`: `BalanceChip` (the 01 §7.1 sync states), `BannerSlot(screenId)` (`BannerPolicy`, placed outside the scroll view; RC18), `DisclaimerFooter` (rendered on every reading state, including loading and error; 05 §3), `OfflineBanner`, `FailureMessage.of(context, failure)`.
 - [ ] One skeleton screen per S-ID, rendering each state with the kit plus plain `Text` from ARB. Widget tests for **every state** (PR17), including:
   - no `CardFace` in the tree before the gate allows (06 §2.5);
   - `DisclaimerFooter` present in every S09 state;

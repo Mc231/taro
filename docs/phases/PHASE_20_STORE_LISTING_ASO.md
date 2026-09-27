@@ -58,7 +58,7 @@ Nothing is submitted for review yet; that happens in Phase 22.
 **Tasks:**
 - [ ] `apps/taro/integration_test/screenshots/screenshots_test.dart` drives the real app with fake ports: a fixed seed draw, a fixed AI reading per locale from `test/fixtures/store_readings/{locale}.json` (taken from real staging outputs and reviewed), Remove Ads owned (no banners), and the light theme for frames 1–3. It produces the 7 frames from 05 §9.4 in order.
 - [ ] Forbidden-content check (automated where possible): no ads, prices, paywall or countdowns; no Death, Devil or Tower in frames 1–3 (assert on the card IDs in the fixture draw).
-- [ ] Sizes: iPhone 6.9" 1320×2868, iPad 13" 2064×2752 (universal, RC24), Play phone ≥ 1080×1920, and the Play feature graphic 1024×500 (from the design template).
+- [ ] Sizes: iPhone 6.9" 1320×2868, iPad 13" 2064×2752 (universal, RC24), Play phone ≥ 1080×1920, Play 7" and 10" tablet sets (Android tablets supported, RC24; 05 §9.4), and the Play feature graphic 1024×500 (from the design template).
 - [ ] Captions from `store_screenshots.translations` (12 locales, lint-checked). Frame composition uses the Phase 14 template; port quiz_apps `take_screenshots.sh` / `upload_store_assets.sh` as `tools/screenshots/*.sh` with a pytest wrapper, or use `asa ios upload-screenshots` directly.
 - [ ] `docs/aso/screenshots.md`: the frame list, captions and source fixtures.
 
@@ -68,7 +68,7 @@ Nothing is submitted for review yet; that happens in Phase 22.
 
 **Tasks:**
 - [ ] `asa ios push-localizations -c apps/taro/store/aso.yaml`, `asa ios localize-all-iaps`, `asa ios update-review-info --platform ios` (CS11), `asa ios set-age-rating --from-config` (ASA-3), `asa ios upload-screenshots`, and territory availability (ASA-9).
-- [ ] `asa android push-localizations -c …` (ASA-5), `asa android setup-iap` (per-locale product listings), `asa android upload-screenshots`, `asa android upload-feature-graphic`.
+- [ ] `asa android push-localizations -c …` (ASA-5), `asa android setup-iap` (per-locale product listings), `asa android upload-screenshots` (phone, and the 7" and 10" tablet types, RC24), `asa android upload-feature-graphic`.
 - [ ] Re-read the ASC and Play listings after pushing, because ASC can hold stale text (06 §12) *(MANUAL)*.
 
 ---

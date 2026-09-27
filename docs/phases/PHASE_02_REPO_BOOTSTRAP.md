@@ -29,7 +29,7 @@ No product behaviour is written yet. Each skeleton ships with one real test, so 
 ## Sprint 2.1: Workspace & packages
 
 **Tasks:**
-- [ ] `git init`. Create the GitHub origin `vshyrochuk/taro` and the Gitea mirror *(MANUAL, owner)*. Protect the `main` branch (06 §8 rules).
+- [ ] `git init`. Create the GitHub origin `git@github.com:Mc231/taro.git` (owner `Mc231`) and the Gitea pull-mirror of it, as in `quiz_apps` *(MANUAL, owner)*. Protect the `main` branch (06 §8 rules).
 - [ ] Root `pubspec.yaml`:
   - `name: taro_workspace`, `publish_to: none`, `environment: sdk ^3.9.0`, `flutter: 3.44.8` (QA14 pin);
   - a `workspace:` list of all packages + `apps/taro` + `tools/dart_tools`;

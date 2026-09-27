@@ -46,7 +46,7 @@
 5. **5.1.2(i) AI data sharing** — explicit in-app disclosure + consent before sending user's question to a third-party AI.
 6. **AI output safety** — refuse health/pregnancy/death/legal/financial/gambling predictions; crisis resources for self-harm; moderation in + out. Reviewers test this.
 7. **Privacy** — privacy policy, nutrition labels, ATT before ad tracking, in-app account deletion if accounts exist.
-8. **Age rating** — ~12+/13+; not targeted at kids.
+8. **Age rating** — ~13+; not targeted at kids (Taro: Apple 13+, Play 16–17 and 18+; RC93).
 9. No dark patterns: free reading must be real, paywall before draw (not after revealing cards), no fake timers/fear upsells.
 
 ### Google Play
@@ -102,7 +102,7 @@ Repo: `/Users/volodymyrshyrochuk/pet/quiz_apps` (melos monorepo, 7 apps). Rules:
 - Coverage enforced only via SonarQube gate (80% new code). **Taro needs a local/CI gate ≥ 90%**.
 
 ### 4.5 CI/CD & tooling
-- Self-hosted Gitea Actions (mirror of GitHub), reusable deploy workflows, shared fastlane (iOS beta/release, Android internal→production).
+- Self-hosted Gitea Actions (mirror of GitHub), reusable deploy workflows, shared fastlane (iOS beta/release, Android internal→production). Taro: origin `git@github.com:Mc231/taro.git` (owner Mc231); CI on a Gitea pull-mirror of it (`specs/00_DECISIONS.md` owner decisions).
 - Secrets: GPG bundle `.secrets/secrets.json.gpg` + `~/pet/secure/{app}/`.
 - Tools worth porting: `bump_version.sh`, `smoke_test.sh`, `check_fleet_consistency.py`, `phase_state.py`, screenshot pipeline, `upload_store_assets.sh`.
 - Backend today: Firebase (Analytics, Crashlytics, FCM, Hosting) + Cloudflare (R2 CDN, DNS). **No app server.** Push spec precedent: Cloudflare Worker first, Cloud Functions second.
@@ -132,6 +132,8 @@ Flutter 3.44.8 stable, Dart ^3.7, melos ^6. iOS 16.0 min, Gradle 8.14, AGP 8.12.
 ---
 
 ## 6. Remaining open questions / risks (for spec phase)
+
+> **Resolved (2026-09-27).** These questions were answered by specs 01–06, and every cross-spec conflict and owner decision is recorded in [`specs/00_DECISIONS.md`](specs/00_DECISIONS.md) (RC1–RC93 and "Owner decisions"). The list below is kept as history; `00_DECISIONS.md` wins where they differ. The only open owner item is the Play developer account type.
 
 1. **Credit ownership without accounts** — where is the balance of purchased readings the source of truth: device (SQLite) or Worker ledger keyed by anonymous install ID? Apple consumables are not restorable, so a lost device = lost credits; export/import must **not** allow minting credits (sign exports or exclude balances).
 2. **Receipt validation** — Worker verifies App Store (JWS / App Store Server API) and Play (Developer API) purchases before granting credits?

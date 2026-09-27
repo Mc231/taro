@@ -18,8 +18,8 @@ This phase replaces the skeleton screens of the core experience with the designe
 Controllers already exist and are tested (Phase 13). This phase only adds views, animations, semantics and goldens. It ends with the regenerated golden set for these screens.
 
 **Output of this phase:**
-- Designed views for S01–S09, S13, S27, S31, S32 (Classic reading) and S33 (Report sheet), in `apps/taro/lib/features/{onboarding,consent,today,reading,help}/view/`.
-- Goldens for every ★ state of these screens in the 06 §3 matrix.
+- Designed views for S01–S09, S13, S27, S31, S32 (Classic reading) and S33 (Report sheet), in `apps/taro/lib/features/{onboarding,consent,home,daily_card,reading,help}/view/`.
+- Goldens for every ★ state of these screens in the 06 §3 matrix; ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 - The native splash via `flutter_native_splash`, and the app icon (iOS + Android adaptive) from `docs/design/assets/`.
 
 ---
@@ -41,7 +41,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
   - equal-weight **Allow AI readings** / **Not now**, with no pre-checked boxes (CS6).
   - The re-entry variant from the gate explains "AI readings need your permission" and also offers a **Classic reading** (RC20).
 - [ ] ATT neutral pre-prompt view (RC19, 04 §10: a single "Continue" leading to the system prompt, no incentive), shown by `ConsentOrchestrator` only when allowed.
-- [ ] Goldens: S02, S03, S04 `undecided`, and the ATT pre-prompt, in light/dark × en/ar.
+- [ ] Goldens: S02, S03, S04 `undecided`, and the ATT pre-prompt, in light/dark × en/ar; ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 
 ---
 
@@ -49,7 +49,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
 
 **Tasks:**
 - [ ] S05 `HomeView`:
-  - `BalancePill` in every sync state (01 §7.1: "1 free today · 12 readings", stale glyph, "Readings unavailable on this device" + Retry);
+  - `BalanceChip` in every sync state (01 §7.1: "1 free today · 12 readings", stale glyph, "Readings unavailable on this device" + Retry);
   - daily-card tile (drawn or not), "Start a reading" CTA, recent readings, first-run coachmark, the dismissible `updateAvailable` notice (RC73);
   - `BannerSlot(home)` at the bottom above the tab bar (RC18);
   - live-region announcements for balance changes.
@@ -58,7 +58,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
   - name, orientation label, keywords, short meaning, reflection question, add-note;
   - "Reflect deeper with AI" → S07 with the card pre-set;
   - the reminder offer card shown once (01 §7.7; the OS permission prompt only after **Yes**).
-- [ ] Goldens: S05 `content` (free available, free used + credits, zero readings), S13 `notDrawn` and `drawn`. Text scale 2.0 goldens for S05 and S13 (01 §12).
+- [ ] Goldens: S05 `content` (free available, free used + credits, zero readings), S13 `notDrawn` and `drawn`. Text scale 2.0 goldens for S05 and S13 (01 §12). ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 
 ---
 
@@ -83,7 +83,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
   - `mediumImpact` haptic when the reading arrives.
 - [ ] Screen-reader path: the whole draw can be completed with VoiceOver/TalkBack via "Draw for me" + "Reveal all". Semantics tests assert the card labels (01 §12).
 - [ ] Performance: `RepaintBoundary` around `SpreadCanvas` and the fan, precache the spread art on S07, and decode art with `cacheWidth` (02 §17).
-- [ ] Goldens: S07 `editing` and `refused(category)`; S08 `shuffling`, `picking`, `awaitingReading`, and the reduced-motion variant.
+- [ ] Goldens: S07 `editing` and `refused(category)`; S08 `shuffling`, `picking`, `awaitingReading`, and the reduced-motion variant; ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 
 ---
 
@@ -101,7 +101,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
 - [ ] S32 Classic reading view (RC20, RC71, flow F8): per position the card, orientation, short and long authored meaning and the position description; a "Classic reading" label instead of the AI label; the disclaimer; a "Try an AI reading" link only when the gate would allow it; no banner.
 - [ ] S27 `CrisisResourcesView`: calm copy (`crisisTitle`/`crisisBody`), up to 3 country-aware entries (the Worker response when reached from a reading; the device region when reached from Help), tap-to-call and link actions, the findahelpline.com fallback, works offline, and no ads or upsell.
 - [ ] Rate-app prompt wiring (after the 3rd 👍, not after a refusal; 01 §6.1).
-- [ ] Goldens: S09 `content` (LTR/RTL, light/dark, plus `de` and `ja` per 01 §17.1 and textScale 2.0), the refusal card, S27, S32 `content` and S33 `editing`.
+- [ ] Goldens: S09 `content` (LTR/RTL, light/dark, plus `de` and `ja` per 01 §17.1 and textScale 2.0), the refusal card, S27, S32 `content` and S33 `editing`; ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 
 ---
 
@@ -117,6 +117,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
 ## Done when
 
 - [ ] `apps/taro` ≥ 90% and `taro_ui` ≥ 90%. Goldens are committed from the reference runner. The integration flows (Phase 13) still pass with the real views.
+- [ ] Tablet-width goldens (`kTabletIpad13`, `kTabletAndroid`) for every ★ state of this phase are green (RC24).
 - [ ] Widget tests from 06 §2.5 pass on the real views: no `CardFace` before the gate allows, the footer is always present, no banner on reading screens, the consent buttons have equal weight.
 - [ ] Docs: `docs/design/components.md` usage notes; CHANGELOG.
 - [ ] One commit: `feat(taro): Phase 16 — UI: onboarding, today & reading flow`.

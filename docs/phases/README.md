@@ -14,7 +14,7 @@ Status legend: ⬜ Not started · 🚧 In progress · ✅ Completed · ⏸️ Bl
 
 | Phase | Title | Status | Depends on | Output |
 |---|---|---|---|---|
-| [1](./PHASE_01_SPEC_RECONCILIATION.md) | Spec Reconciliation & Owner Decisions | ⬜ | — | `00_DECISIONS.md` (RC1–RC93; RC49–RC93 are the review-pass decisions already applied to the specs), `GLOSSARY.md`, specs 01–06 at v1.1 with no conflicts, owner answers on model, host, prices, territories |
+| [1](./PHASE_01_SPEC_RECONCILIATION.md) | Spec Reconciliation & Owner Decisions | ✅ (2026-09-27; owner-open: Play account type, support mailbox) | — | `00_DECISIONS.md` (RC1–RC94; RC49–RC93 are the review-pass decisions, RC94 the glossary-defined names), `GLOSSARY.md`, specs 01–06 at v1.1 with no conflicts, owner answers on model, host, prices, territories |
 | [2](./PHASE_02_REPO_BOOTSTRAP.md) | Repository Bootstrap & Toolchain | ⬜ | 1 | melos 8 workspace, 8 package skeletons, app with 3 flavors, `worker/` + `tools/` skeletons, README, CLAUDE.md, CHANGELOGs, drift/sqlite spike |
 | [3](./PHASE_03_QUALITY_GATES_CI.md) | Quality Gates & CI | ⬜ | 2 | `check_coverage.py` (90% per unit, 70% per file, no pragmas, native units), all `tools/check_*.py`, golden harness, Gitea workflows, Sonar, hooks, `verify.sh`, `bump_version.sh` |
 | [4](./PHASE_04_CORE_DOMAIN.md) | Core Domain, Ports & Test Kit | ⬜ | 3 | `taro_core` (Result/Failure, models, ports, CardDrawer, ReadingGate, BackupMerge, BannerPolicy, analytics events), `taro_testing` (fakes, contract suites, builders, harness) |
@@ -98,6 +98,7 @@ flowchart LR
 | asa | `/Users/volodymyrshyrochuk/pet/app-store-automation` |
 | Secure credentials | `~/pet/secure/taro/` + `.secrets/secrets.json.gpg` |
 | Hosts | `taro.vshyrochuk.com` (landing/legal), `api.taro.vshyrochuk.com`, `api-staging.taro.vshyrochuk.com` |
+| Repo / CI | origin `git@github.com:Mc231/taro.git`; CI on a self-hosted Gitea pull-mirror (`.gitea/workflows`) |
 
 ---
 

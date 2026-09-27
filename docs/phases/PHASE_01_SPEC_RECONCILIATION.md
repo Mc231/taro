@@ -1,6 +1,6 @@
 # Phase 1: Spec Reconciliation & Owner Decisions
 
-**Status:** ⬜ Not Started
+**Status:** ✅ Complete (2026-09-27). Owner-open (not blocking Phase 2): Play developer account type (Phase 10) and support mailbox confirmation (Phase 19); both tracked in `00_DECISIONS.md` "Still open".
 **Depends on:** none
 **Parallel with:** Phase 9 (asa gaps) can start once Sprint 1.2 is done.
 
@@ -31,9 +31,9 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 ## Sprint 1.1: Resolve cross-spec conflicts
 
 **Tasks:**
-- [ ] Create `docs/specs/00_DECISIONS.md` with columns `RC-ID | Topic | Conflict (spec §) | Resolution | Specs edited | Date`.
-- [ ] For each row below, confirm the default or record an override, then edit every affected spec section in the same change.
-- [ ] Add a "Reconciled by 00_DECISIONS.md RCx" note next to each edited decision row (PR/AR/BE/MO/CS/QA) so the history stays traceable.
+- [x] Create `docs/specs/00_DECISIONS.md` with columns `RC-ID | Topic | Conflict (spec §) | Resolution | Specs edited | Date`.
+- [x] For each row below, confirm the default or record an override, then edit every affected spec section in the same change.
+- [x] Add a "Reconciled by 00_DECISIONS.md RCx" note next to each edited decision row (PR/AR/BE/MO/CS/QA) so the history stays traceable.
 
 | RC | Topic | Conflict | Default resolution (assumed by later phases) |
 |---|---|---|---|
@@ -67,7 +67,7 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 | RC28 | AI consent enforcement | 01 wants an endpoint. 02 sends `aiConsentVersion` in the body. 05 wants a header and 412 | **Header `X-Taro-AI-Consent: <version>`** on `POST /v1/readings`, and `412 AI_CONSENT_REQUIRED` if it is below `ai.consentVersion`. No separate endpoint. |
 | RC29 | AI region availability | 05 CS16 excludes territories and wants `ai_unavailable_region` | CS16 exclusions are applied in both stores. The Worker also returns `403 AI_UNAVAILABLE_REGION` when `cf.country ∈ ai.blockedCountries`; the client offers a Classic reading (RC20). |
 | RC30 | Reading content schema | 01 PR9 `summary/positions/synthesis/reflectionPrompts`. 03 `title/overview/cards[]/synthesis/reflectionPrompts`. 02 `Interpretation.disclaimer` from the Worker | **The wire format is 03's.** The client domain type is `ReadingContent{title, summary (= overview), positions[{positionId, text}], synthesis, reflectionPrompts}`. No disclaimer comes from the Worker (PR9); remove it from 02. |
-| RC31 | Reading timeout | 01 PR8: 45 s. 02: 45 s + polling. 03: ≥ 60 s | Client HTTP timeout **60 s**. Show "taking longer than usual" at 20 s. On timeout, poll `GET /v1/readings/{id}` per 02 §6.3. Edit 01 PR8 and §9.7. |
+| RC31 | Reading timeout | 01 PR8: 45 s. 02: 45 s + polling. 03: ≥ 60 s | Client HTTP timeout **60 s**. Show "taking longer than usual" at 20 s. On timeout, poll `GET /v1/readings/{clientReadingId}` per 02 §6.3. Edit 01 PR8 and §9.7. |
 | RC32 | Model ID and prices | 03 BE10 `claude-opus-5` with estimated prices | Confirm current model IDs, pricing and structured-output and fallback parameters against the Claude API reference at the start of Phase 8 (Sprint 8.1). |
 | RC33 | Rewarded grant polling | 01: 20 s. 02: 30 s. 03: 10 s. 04: config | `rewarded.grantPollTimeoutSec` = 20, polling every 1.5 s, then fall back to the next sync. |
 | RC34 | Rewarded entry points | 01: S10 and the Home chip. 04: S10 and the Store screen | S10 (reached from the gate or the Home chip) and S11. Offered only when `free.remaining == 0` (04 Q7). |
@@ -98,7 +98,7 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 | RC54 | Install takeover by ID | Re-registration accepted any known `installId` | 256-bit `installSecret` in secure storage, sent only to `POST /v1/installs`, stored as `install_secret_hash`; re-registration requires it (or, on iOS, an assertion by the stored key); otherwise 403. `deleted` rows are reactivated only this way. |
 | RC55 | Registration idempotency key | `Idempotency-Key = installId` collided after an iOS reinstall within 7 days (422) | Fresh UUID per registration attempt (and per delete action), reused only for a network retry. |
 | RC56 | SSV `userId` | 04 §9.2 sent `userId = installId` to Google | `userId = customData = intentId`; the Worker checks `user_id == custom_data`. |
-| RC57 | Rewarded cap semantics | Cap re-checked at SSV could deny an earned reward; dismissed ads used slots; cooldown anchor undefined | Cap counts granted rewards; at most one open intent (new cancels old); cooldown from the last grant; SSV grants any valid unexpired unused intent; `POST /v1/rewards/intents/{id}/cancel`; `rewarded.loadTimeoutSec` = 10. |
+| RC57 | Rewarded cap semantics | Cap re-checked at SSV could deny an earned reward; dismissed ads used slots; cooldown anchor undefined | Cap counts granted rewards; at most one open intent (new cancels old); cooldown from the last grant; SSV grants any valid unexpired unused intent; `POST /v1/rewards/intents/{intentId}/cancel`; `rewarded.loadTimeoutSec` = 10. |
 | RC58 | Auto-continue after purchase | 04 §11 auto-continued the draw; 01 F3 requires tapping Begin | Return to S07 with Begin enabled; nothing auto-starts. |
 | RC59 | Banner gap | 04: 8 dp; 05: 16 dp | `space.adGap` ≥ 16 dp everywhere (01 §14.3, 04 §8, Phases 14, 15, 17.2). |
 | RC60 | Safety eval pass bar | 05 §4.3 and 06 §7.1 differed | 05 §4.3 owns it: `self_harm` 100 %, other categories ≥ 98 %, benign ≥ 97 %, 12 locales × ≥ 20 prompts per category, for every routable model. 06 references it. |
@@ -136,14 +136,14 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 | RC92 | `.well-known` hosting | ASA-7 could not serve AASA/assetlinks | New ASA-10 (serve `web/.well-known/` with `application/json`); fallback Worker route. |
 | RC93 | Teen users and legal basis | EEA 13–15-year-olds treated as adults for ads; AI legal basis was consent | Play target audience 16–17 and 18+; Apple rating stays 13+; AI processing based on contract (Art. 6(1)(b)), consent sheet kept as permission UX; policy says "not directed at children under 16". Amends RC23. |
 
-- [ ] Update `docs/CONTEXT.md` §6 open questions with a pointer to `00_DECISIONS.md`.
+- [x] Update `docs/CONTEXT.md` §6 open questions with a pointer to `00_DECISIONS.md`.
 
 ---
 
 ## Sprint 1.2: Canonical glossary
 
 **Tasks:**
-- [ ] Write `docs/specs/GLOSSARY.md`. Every later phase cites it, so it must list:
+- [x] Write `docs/specs/GLOSSARY.md`. Every later phase cites it, so it must list:
   - card IDs (78 generated rows), spread IDs + position IDs (01 §10.3), product IDs (RC3), analytics aliases;
   - endpoints (RC4) with auth, `[idem]` and `[attest]` flags;
   - error codes (RC5) mapped to their `Failure` subtypes (02 §3) and ARB keys;
@@ -152,14 +152,14 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
   - ports: Dart (02 §5 + RC41) and Worker (03 §1);
   - screen IDs S01–S33 mapped to route, analytics `screen` enum and banner screen ID (RC18);
   - secure-storage keys (02 §6.2) and secret names (03 §11).
-- [ ] Add a `tools/check_glossary.py` task to Phase 3's check list (it verifies that the IDs in the glossary match `GLOSSARY.md` tables used by generators).
+- [x] Add a `tools/check_glossary.py` task to Phase 3's check list (Phase 3 Sprint 3.2; 06 §6.2) (it verifies that the IDs in the glossary match `GLOSSARY.md` tables used by generators).
 
 ---
 
 ## Sprint 1.3: Owner decisions with cost or legal impact
 
 **Tasks** (record each answer in `00_DECISIONS.md` under "Owner decisions"):
-- [ ] **BE Q1, model for free readings.** _Owner 2026-09-27: deferred — decide after Phase 21 cost data; keep default until then; model stays remote-configurable._ Default (RC64): `claude-sonnet-5` for free readings, `claude-haiku-4-5` as the soft-tier fallback, `claude-opus-5` for paid; `ai.budget.freeUsdPerDau` = $0.03, soft floor $50, free-stop floor $100, hard $300/day. Revisit after Phase 21 closed-testing cost data.
+- [x] **BE Q1, model for free readings.** _Deferred to Phase 21 (owner 2026-09-27); not open._ _Owner 2026-09-27: deferred — decide after Phase 21 cost data; keep default until then; model stays remote-configurable._ Default (RC64): `claude-sonnet-5` for free readings, `claude-haiku-4-5` as the soft-tier fallback, `claude-opus-5` for paid; `ai.budget.freeUsdPerDau` = $0.03, soft floor $50, free-stop floor $100, hard $300/day. Revisit after Phase 21 closed-testing cost data.
 - [x] **CS4 / RC93, Play target audience.** _Owner 2026-09-27: default confirmed._ Default: 16–17 and 18+ (Apple rating 13+); AI legal basis = contract.
 - [x] **BE Q5, API host.** _Owner 2026-09-27: default confirmed._ Default: `api.taro.vshyrochuk.com` (prod), `api-staging.taro.vshyrochuk.com` (staging), local `wrangler dev` (dev). Landing, privacy and terms go on `taro.vshyrochuk.com` (CS10).
 - [x] **MO §4.1 prices.** _Owner 2026-09-27: default confirmed._ Default: $1.99 / $4.99 / $9.99 packs and $3.99 Remove Ads. Enrol in the App Store Small Business Program and the Play 15% tier (manual, Phase 10).
@@ -167,27 +167,27 @@ All six: `01_PRODUCT.md`, `02_ARCHITECTURE.md`, `03_BACKEND_WORKER.md`, `04_MONE
 - [x] **BE Q3 / CS §4.2 crisis numbers.** _Owner 2026-09-27: default confirmed._ The owner verifies them (Phase 18 Sprint 18.4). Record who verifies and the source list.
 - [x] **BE Q4 / MO Q3 Apple consumption info.** _Owner 2026-09-27: default confirmed._ Default: off.
 - [x] **D15 art.** _Owner 2026-09-27: default confirmed._ Decide the art pipeline owner and tool, and a target date for 78 cards + card back (feeds Phase 18). Default: placeholder typographic cards until then (01 §11).
-- [ ] **Play developer account type.** Check whether the account falls under the new personal-account rule (≥ 12 testers for 14 days, CS M5). It decides the length of Phase 21.
-- [ ] **CI host.** Confirm the Gitea mirror for the new `taro` repo, and that the GitHub origin `vshyrochuk/taro` exists (05 §8.1 `github:`).
+- [ ] **Play developer account type.** Check whether the account falls under the new personal-account rule (≥ 12 testers for 14 days, CS M5). It decides the length of Phase 21. _Still open (owner); tracked in `00_DECISIONS.md` "Still open", answer at Phase 10._
+- [x] **CI host.** _Owner 2026-09-27: GitHub origin `git@github.com:Mc231/taro.git` (owner `Mc231`), CI on a self-hosted Gitea pull-mirror of it, as in `quiz_apps`._ Recorded in 05 §8.1 `github:` and 06 QA10.
 
 ---
 
 ## Sprint 1.4: Spec sign-off
 
 **Tasks:**
-- [ ] Re-read all six specs end to end after the edits. Grep for each superseded name (e.g. `readings_5`, `three_card`, `major_00_fool`, `/v1/credits`, `ledger_entries`, `taro_monetization`, `taro_test_support`, `alchemist`, `sqflite`, `12+`, and from the review pass: `userId=installId`, `SSV time`, `costOverrides`, `cost_overrides`, `creditCost`, `adGap ≥ 8`, `ads/rewarded/sessions`, `admin/credits/transfer`, `ADMIN_TOKEN`, `reconcileBalances`, `globalFreePerDay`, `requestClassicToken`) and confirm zero matches outside `00_DECISIONS.md` and this phase doc.
-- [ ] Set each spec's Status to `v1.1 reconciled (YYYY-MM-DD)`.
-- [ ] Update `docs/phases/README.md` if an override changes a phase dependency.
+- [x] Re-read all six specs end to end after the edits. Grep (`grep -rnF`, plain string) `docs/specs`, `docs/phases` and `docs/CONTEXT.md` for each superseded name and confirm zero matches outside `00_DECISIONS.md` and this phase doc: `readings_5`, `three_card`, `major_00_fool`, `/v1/credits`, `ledger_entries`, `taro_monetization`, `taro_test_support`, `alchemist`, `sqflite`, `12+`, `userId=installId`, `SSV time`, `costOverrides`, `cost_overrides`, `creditCost`, `adGap ≥ 8`, `ads/rewarded/sessions`, `admin/credits/transfer`, `ADMIN_TOKEN`, `reconcileBalances`, `globalFreePerDay`, `requestClassicToken`, `readings_pack_`, `daily_single`, `three_past_present_future`, `cups_01_ace`, `pentacles_king`, `ai.enabled`, `ai.readings_enabled`, `vshyrochuk/taro`, `iPhone-only`, `StoreBloc`, `OutOfReadingsBloc`, `taro-vsh`, `createApp`, `LlmClient`, `content_refused`, `no_credits`, `timezone_change_throttled`, `CreditState`, `unverified_purchases`, `tools/banned_phrases.yaml`, `balance_pill`, `ReadingFlowController`, `PaywallController`, `ReportSheetController`, `RewardedFlowController`, `AdBanner`, `banner_impression_screen`, `ump_consent_result`, `iap.retiredPacks`, `timezone_change_cooldown_hours`, `LocaleProvider`, `features/today`, `grantedAt`, `apps/taro/lib/l10n`. (`CONTEXT.md` §4 describes quiz_apps, so its `sqflite` hit is a fact about that repo, not a Taro name.) The same list is in `00_DECISIONS.md` "Override procedure" step 4, so later RCs re-run it.
+- [x] Set each spec's Status to `v1.1 reconciled (YYYY-MM-DD)`. (2026-09-27, also `00_DECISIONS.md` and `GLOSSARY.md`.)
+- [x] Update `docs/phases/README.md` if an override changes a phase dependency. (No override; Phase 1 row and the Repo / CI path updated.)
 
 ---
 
 ## Done when
 
-- [ ] `docs/specs/00_DECISIONS.md` has a resolution for RC1–RC93 and all Sprint 1.3 owner decisions.
-- [ ] `docs/specs/GLOSSARY.md` exists and is referenced from every spec's header.
-- [ ] Grep check (Sprint 1.4) is clean.
-- [ ] No code is written in this phase, so the coverage gate is n/a. Docs updated: specs 01–06, `CONTEXT.md`, and this README if overrides changed dependencies.
-- [ ] One commit: `docs(taro): Phase 1 — Spec reconciliation & owner decisions`.
+- [x] `docs/specs/00_DECISIONS.md` has a resolution for RC1–RC93 (plus RC94) and all Sprint 1.3 owner decisions.
+- [x] `docs/specs/GLOSSARY.md` exists and is referenced from every spec's header.
+- [x] Grep check (Sprint 1.4) is clean.
+- [x] No code is written in this phase, so the coverage gate is n/a. Docs updated: specs 01–06, `CONTEXT.md`, and this README if overrides changed dependencies.
+- [x] One commit: `docs(taro): Phase 1 — Spec reconciliation & owner decisions`.
 
 ## Next phase
 

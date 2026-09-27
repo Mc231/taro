@@ -72,7 +72,7 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 - [ ] `tools/check_commit_msg.py` (QA12): the conventional-commit regex, and a rejection of AI attribution markers.
 - [ ] `tools/check_migrations.py`: append-only, no gaps, and `DROP` statements need a contract-phase marker.
 - [ ] `tools/check_changelog.py`: `--version` for deploys and `--pr` for PRs.
-- [ ] `tools/check_glossary.py` (Phase 1 Sprint 1.2).
+- [ ] `tools/check_glossary.py` (Phase 1 Sprint 1.2; 06 §6.2): fails when an ID in `docs/specs/GLOSSARY.md` (cards, spreads and positions, products, endpoints, error codes, config keys, screens) differs from the generator inputs and code constants that use it, and when a `failure*`/`safetyDeclined*` key listed there is missing from `app_en.arb` (RC94).
 - [ ] `tools/check_skadnetwork.py` (05 §1 technical declarations): the `Info.plist` `SKAdNetworkItems` match the pinned list `tools/skadnetwork_ids.txt`.
 - [ ] `tools/check_retention.py` (RC69): the retention periods in 03 §13 equal those in `web/privacy.en.md` §Retention and in the ARB `aiConsentBody`.
 - [ ] `tools/check_worker_env.py` (RC86): `worker/wrangler.toml` `[env.prod]` has no `ALLOW_DEBUG_ATTESTATION`, `AI_PROVIDER` or `DEBUG_ATTESTATION_TOKEN`.
@@ -84,10 +84,11 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 ## Sprint 3.3: Golden & widget harness (QA8)
 
 **Tasks:**
-- [ ] `packages/taro_testing/lib/src/golden/taro_golden_comparator.dart` (0.1% tolerance), `load_taro_test_fonts.dart` (bundled Noto Sans, Noto Sans Arabic, Noto Sans JP, Noto Sans KR under `taro_testing/fonts/`), and `golden_matrix.dart` (`{light,dark} × {en,ar}` + optional `ja`, `de`, `textScale 2.0`; sizes `kPhoneSmall` 375×667 and `kPhoneLarge` 430×932; no tablet per RC24).
+- [ ] `packages/taro_testing/lib/src/golden/taro_golden_comparator.dart` (0.1% tolerance), `load_taro_test_fonts.dart` (bundled Noto Sans, Noto Sans Arabic, Noto Sans JP, Noto Sans KR under `taro_testing/fonts/`), and `golden_matrix.dart` (`{light,dark} × {en,ar}` + optional `ja`, `de`, `textScale 2.0`; sizes per the next task).
+- [ ] `taro_testing` sizes `kPhoneSmall` 375×667, `kPhoneLarge` 430×932, `kTabletIpad13` 1032×1376, `kTabletAndroid` 800×1280; `goldenMatrix` emits phone variants for every golden and tablet variants (en light, ar dark) for ★ screens (06 §3, RC24; universal apps, owner 2026-09-27).
 - [ ] `packages/taro_testing/lib/src/harness/pump_taro_widget.dart`: `pumpTaroWidget(tester, child, {Locale, ThemeMode, textScale, Size})` for package widgets. It is **Riverpod-free** (02 §2.1, RC77); the app-level `pumpTaro` with `TaroFakes` overrides lands in `apps/taro/test/helpers/pump_app.dart` in Phase 13.1.
 - [ ] `melos run golden:update` refuses to run off the reference platform unless given `--force-local`.
-- [ ] A sample golden test in `taro_testing/test/golden/sample_golden_test.dart`, to prove the pipeline works on the runner.
+- [ ] A sample golden test in `taro_testing/test/golden/sample_golden_test.dart`, to prove the pipeline works on the runner; it covers one phone and one tablet size (`kTabletIpad13`, RC24).
 
 ---
 

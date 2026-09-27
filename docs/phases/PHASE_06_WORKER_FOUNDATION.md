@@ -112,7 +112,7 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 
 **Tasks:**
 - [ ] `domain/dayBoundary.ts`: `localDate(nowUtc, tz)` and `nextResetUtc(nowUtc, tz)` (03 §5.2). Unit tests over the 03 §15.2 zones plus the 06 `kBoundaryZones` matrix. Property test (fast-check): `nextResetUtc > now` and `localDate(next) == localDate(now)+1`.
-- [ ] Route `PUT /v1/installs/me/timezone` **[idem]**: IANA validation, a no-op when unchanged, 409 `TIMEZONE_CHANGE_TOO_SOON` inside 24 h (`monetization.timezone_change_cooldown_hours` folded into `readings.tzCooldownHours` per RC8).
+- [ ] Route `PUT /v1/installs/me/timezone` **[idem]**: IANA validation, a no-op when unchanged, 409 `TIMEZONE_CHANGE_TOO_SOON` inside `readings.tzCooldownHours` (24 h, RC8).
 - [ ] `services/BalanceService.read` + `GET /v1/balance`, returning `BalanceDto` per 03 §5.1 (`free{…,paused}`, `bonus`, `paid` as ledger SUMs, `canRead`, `canReadReason`, `nextSource`, `rewarded{…,cooldownEndsAt}`, `paidBlocked`, `purchasesAllowed`, `purchasesBlockedReason`, `serverTime`, `ledgerVersion = installs.state_version`; RC6, RC66, RC67, RC74). It lazily snapshots the `daily_usage` row per 03 §5.2 and updates `last_seen_at` at most hourly. The route is read-only; holds come in Phase 7.
 - [ ] Route `DELETE /v1/installs/me` **[idem]** with the RC37 semantics. Test: every per-install row is erased or anonymised, the ledger and purchases are kept, and the install stays active with today's allowance intact.
 - [ ] The `Date` header on every response (02 §6.3), tested.

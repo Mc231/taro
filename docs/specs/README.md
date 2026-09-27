@@ -1,7 +1,7 @@
 # Taro — Specification Set
 
 **App:** Taro, a reflective tarot journal with AI readings (Flutter, iOS + Android), bundle `com.vshyrochuk.taro`
-**Status:** Draft v1.0.1 (2026-09-26). The review pass is applied (decisions RC49–RC93). Phase 1 (`../phases/PHASE_01_SPEC_RECONCILIATION.md`) still has to reconcile the older naming conflicts RC1–RC48 and move the specs to "v1.1 reconciled".
+**Status:** v1.1 reconciled (2026-09-27). RC1–RC93 are applied; see [00_DECISIONS.md](00_DECISIONS.md) (decision log) and [GLOSSARY.md](GLOSSARY.md) (canonical names).
 **Source facts:** `../CONTEXT.md` (locked decisions D1–D16, store-policy constraints)
 
 ---
@@ -17,9 +17,10 @@
 | [05_COMPLIANCE_STORE_ASO.md](05_COMPLIANCE_STORE_ASO.md) | CS | Passing review on both stores: guideline matrices, disclaimers, AI safety requirements and the safety-eval pass bar, privacy labels and policy, age rating, App Review notes, `aso.yaml`, `asa` gaps, ASO. |
 | [06_QUALITY_TESTING_CI.md](06_QUALITY_TESTING_CI.md) | QA | Making quality mechanical: ≥ 90 % coverage per unit, the exclusion list, test pyramid, goldens, repo checks, Worker testing, CI on Gitea, release checklist, Definition of Done. |
 | [backup_schema_v1.json](backup_schema_v1.json) | — | The frozen JSON Schema of the user backup file (RC70). The app's copy must be byte-identical. |
-| `00_DECISIONS.md`, `GLOSSARY.md` | RC | Produced by Phase 1: the decision log (RC1–RC93) and the canonical names (IDs, endpoints, tables, config keys, ports). Until then, the RC tables live in `../phases/PHASE_01_SPEC_RECONCILIATION.md`. |
+| [00_DECISIONS.md](00_DECISIONS.md) | RC | Produced by Phase 1 (2026-09-27): the decision log (RC1–RC93, RC94) and the owner decisions. |
+| [GLOSSARY.md](GLOSSARY.md) | — | Produced by Phase 1 (2026-09-27): the canonical names (IDs, endpoints, tables, config keys, ports, events). The only source of spelling. |
 
-Ownership when specs disagree: product behaviour and screen states → 01; wire format, config key names, retention and money logic → 03; prices, packs and ad rules → 04; store and legal copy, the safety pass bar → 05; test and coverage rules → 06. An RC row overrides all of them until Phase 1 folds it in.
+Ownership when specs disagree: product behaviour and screen states → 01; wire format, config key names, retention and money logic → 03; prices, packs and ad rules → 04; store and legal copy, the safety pass bar → 05; test and coverage rules → 06. An RC row in `00_DECISIONS.md` overrides all of them; `GLOSSARY.md` is the only source of spelling.
 
 ## 2. Reading order
 
@@ -30,7 +31,7 @@ Ownership when specs disagree: product behaviour and screen states → 01; wire 
 5. **02 Architecture**: how the client is structured to match.
 6. **05 Compliance**: what reviewers check and what the store listing says.
 7. **06 Quality**: how all of the above is tested and gated.
-8. `../phases/README.md` and `../phases/PHASE_01_SPEC_RECONCILIATION.md`: the implementation plan and the decision log.
+8. `00_DECISIONS.md` (decision log) and `GLOSSARY.md` (canonical names), then `../phases/README.md` (the implementation plan).
 
 ## 3. Glossary of core terms
 
@@ -45,7 +46,7 @@ Ownership when specs disagree: product behaviour and screen states → 01; wire 
 | **Ledger** | Append-only D1 table of every credit movement. Balances are sums over it; there is no cache table. |
 | **Pre-draw hold** | `POST /v1/readings/holds`, called on **Begin** before the shuffle. It reserves one credit, so the paywall can only appear before any card is drawn. It is refunded if unused, failed, declined or undelivered (RC50). |
 | **`clientReadingId` / attempt** | The client's UUID for one draw. It is also the idempotency key for the hold and the reading. A retry with the same ID runs a new attempt; stored errors are never replayed (RC49). |
-| **Delivery ack** | `POST /v1/readings/{id}/ack` after the device has stored the reading. Unacknowledged readings are refunded after 7 days (RC51). |
+| **Delivery ack** | `POST /v1/readings/{clientReadingId}/ack` after the device has stored the reading. Unacknowledged readings are refunded after 7 days (RC51). |
 | **`BalanceDto` / `CreditBalance`** | The balance on the wire (03 §5.1) and in the client domain (02 §4): buckets, `canRead` + `canReadReason`, `nextSource`, `paidBlocked`, `purchasesAllowed`, rewarded state, `ledgerVersion`. |
 | **`ledgerVersion`** | `installs.state_version`, bumped on every per-install mutation; the client never lets an older response overwrite a newer one (RC67). |
 | **`purchasesAllowed`** | `false` for blocked installs or installs in refund debt; the client hides pack buttons. Verified purchases are still always granted (RC66). |
@@ -58,7 +59,7 @@ Ownership when specs disagree: product behaviour and screen states → 01; wire 
 | **Support ID / transfer code** | Support ID: first 8 hex chars of `SHA-256(installId)`. Transfer code: a single-use token the Worker issues when a new install re-submits a purchase already claimed by an old install; it lets the owner move unspent credits (RC84). |
 | **Flavors / `prodStaging`** | `dev`, `staging`, `prod`, plus the `prodStaging` build (prod bundle ID, staging Worker, sandbox IAP) for internal testers (RC78). |
 | **S-IDs, F-IDs** | Screen IDs S01–S33 and flow IDs F1–F8 in 01 §8–§9. |
-| **RC** | A reconciliation decision in the Phase 1 log. RC1–RC48 fix naming conflicts between specs; RC49–RC93 are review-pass fixes already applied to the specs. |
+| **RC** | A reconciliation decision in `00_DECISIONS.md`. RC1–RC48 fix naming conflicts between specs; RC49–RC93 are review-pass fixes; RC94 records the glossary-defined names. All are applied to the specs. |
 
 ## 4. Owner decisions
 

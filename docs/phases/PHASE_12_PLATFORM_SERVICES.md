@@ -22,7 +22,7 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
   - `FirebaseAnalyticsService`, `ConsentAwareAnalytics`, `CompositeAnalyticsService`, `FirebaseCrashReporter`;
   - `LocalReminderScheduler`, `FlutterTimezoneProvider`, `PlatformFileTransfer`, `ConnectivityPlusMonitor`, `InAppReviewPrompter`, `PackageInfoAppInfo`, `SystemClock`, `SecureRandomSource`, `LoggingLogger` + `Redactor`, `PlatformAttestationService`, `DebugAttestationService`;
   - all NoOp variants.
-- The monetization orchestration: `PurchaseCoordinator`, `PendingPurchaseTracker`, `RemoveAdsEntitlement`, `ConsentOrchestrator`, `RewardedController`.
+- The monetization orchestration: `PurchaseCoordinator`, `PendingPurchaseTracker`, `RemoveAdsEntitlement`, `ConsentOrchestrator`, and the rewarded use case `earn_reward.dart` (the `RewardedController` Notifier is app-side, Phase 13).
 - `packages/taro_attestation` (Dart + Swift + Kotlin) with native tests gated at ≥ 90% (RC40).
 
 ---
@@ -87,9 +87,9 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
   - rewarded loaded lazily when S10 opens, expiring after 1 h;
   - NPA requests when consent is denied.
 - [ ] `presentation.dart` `AdMobBannerSlotView`: anchored adaptive, loads on first build, disposes on unmount, collapses to zero height on failure (02 §10).
-- [ ] `RewardedController` (in `taro_core` usecases + services wiring), per 04 §9.2 and 02 §9.6:
-  - `createIntent` → load (timeout `rewarded.loadTimeoutSec` = 10 → `noFill`) → show → on earned, poll `GET /v1/rewards/intents/{id}` every 1.5 s up to `rewarded.grantPollTimeoutSec` (20, RC33) → `granted` or `grantDelayed`;
-  - load timeout, show failure or dismissed early → `POST /v1/rewards/intents/{id}/cancel` (best effort), no poll (RC57);
+- [ ] The rewarded use case `earn_reward.dart` in `taro_core/usecases` (04 §6) + adapters in `taro_services`; the `RewardedController` Notifier lives in `apps/taro/lib/features/paywall` (Phase 13). Per 04 §9.2 and 02 §9.6:
+  - `createIntent` → load (timeout `rewarded.loadTimeoutSec` = 10 → `noFill`) → show → on earned, poll `GET /v1/rewards/intents/{intentId}` every 1.5 s up to `rewarded.grantPollTimeoutSec` (20, RC33) → `granted` or `grantDelayed`;
+  - load timeout, show failure or dismissed early → `POST /v1/rewards/intents/{intentId}/cancel` (best effort), no poll (RC57);
   - after `granted`, return to S07 with Begin enabled; nothing auto-starts (RC58).
   - Eligibility: enabled, not capped, cooldown passed, `canRequestAds`, online, `free.remaining == 0` (RC34).
 - [ ] Tests via method-channel mocks (`TestDefaultBinaryMessengerBinding`) for google_mobile_ads, UMP and ATT; `NoOpAdsService` when Remove Ads is owned and rewarded is disabled.

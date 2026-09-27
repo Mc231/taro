@@ -2,7 +2,8 @@
 
 **App:** Taro (iOS + Android, Flutter), bundle `com.vshyrochuk.taro`
 **Spec ID prefix:** `PR`
-**Status:** 🟡 Draft v1.0.1 (2026-09-26): review fixes applied (RC49–RC93, see `../phases/PHASE_01_SPEC_RECONCILIATION.md`), awaiting owner review
+**Status:** v1.1 reconciled (2026-09-27)
+**Canonical names:** see GLOSSARY.md; **decisions:** see 00_DECISIONS.md
 **Depends on / referenced by:** `02_ARCHITECTURE.md` (packages, ports, storage), `03_BACKEND_WORKER.md` (API, ledger, remote config, AI prompts, moderation), `04_MONETIZATION.md` (IAP, ads, rewarded, paywall economics), `05_COMPLIANCE_STORE_ASO.md` (legal copy, store listing, ratings, privacy forms), `06_QUALITY_TESTING_CI.md` (coverage gate, test tooling)
 **Source facts:** `docs/CONTEXT.md` (decisions D1–D16, store-policy constraints)
 
@@ -26,7 +27,7 @@ This spec defines **what** Taro is. It covers positioning, the full v1 feature s
 - Learn mode: a card encyclopedia plus a spread guide.
 - Settings, privacy choices, export/import of user data (D13), restore purchases.
 - Onboarding with a disclaimer, AI data-sharing consent, and the UMP → ATT order.
-- Monetization surfaces (free daily readings, out-of-readings sheet, store, rewarded ad, banners, Remove Ads), with product-level UX only. Economics are in 04.
+- Monetization surfaces (free daily readings, out-of-readings sheet, store, rewarded ad, banners, Remove Banner Ads), with product-level UX only. Economics are in 04.
 
 ### Non-goals (v1)
 - User accounts, cloud sync, cross-device transfer of credits (D13).
@@ -36,7 +37,7 @@ This spec defines **what** Taro is. It covers positioning, the full v1 feature s
 - Multiple or custom decks, custom spreads, user-uploaded art.
 - Social feed, community, public sharing of readings inside the app.
 - Home-screen widget (v1.1, see PR11).
-- iPad-specific (multi-column) layouts, macOS, web (see PR16; iPad is supported with the constrained phone layout).
+- iPad/tablet-specific (multi-column) layouts, macOS, web (see PR16; iPad and Android tablets are supported with the constrained phone layout, RC24).
 - Interstitial ads (see 04; product stance in PR13).
 
 ## 3. Locked decisions
@@ -45,22 +46,22 @@ This spec defines **what** Taro is. It covers positioning, the full v1 feature s
 |---|---|---|
 | PR1 | **Positioning: "a reflective tarot journal".** Taro is a self-reflection and self-guidance tool that uses tarot imagery as prompts. It never predicts the future. All copy, AI prompts and store text use reflection language ("invites you to consider", "may reflect"), never "predicts", "accurate", "real psychic", "guaranteed". | Apple 4.3(b) and misleading-claims policies on both stores. This framing also makes a better, defensible product: the journal and patterns only make sense as a reflection tool. |
 | PR2 | **The 4.3 differentiation stack ships in v1:** original art, spread-aware AI readings that synthesize card relations, a journal with notes and local pattern insights, Learn mode with deep per-card content, six spreads, a free offline daily card, full 12-locale content and polished accessibility. No reskins or sister apps are ever shipped from this codebase. | Reviewers reject "yet another tarot app". Each item on its own is common; together, at this quality, they are defensible as a "unique, high-quality experience". |
-| PR3 | **One reading = one AI interpretation of one spread, at a fixed cost of 1 credit for every spread** (Celtic Cross included). The cost is a constant, not remote config (RC62). Variable pricing would need the store packs renamed to "credits", the cost shown on S06/S07 before Begin, and MO4, 05 CS12 and the `aso.yaml` display names changed in one release. | Simple and honest. Store pack names ("10 Readings") stay true (Apple 2.3.1, Play misleading claims). The free daily reading is a real, full-value reading. |
+| PR3 | **One reading = one AI interpretation of one spread, at a fixed cost of 1 credit for every spread** (Celtic Cross included). The cost is a constant, not remote config (RC62). Variable pricing would need the store packs renamed to "credits", the cost shown on S06/S07 before Begin, and MO4, 05 CS12 and the `aso.yaml` display names changed in one release. Reconciled by 00_DECISIONS.md RC62. | Simple and honest. Store pack names ("10 Readings") stay true (Apple 2.3.1, Play misleading claims). The free daily reading is a real, full-value reading. |
 | PR4 | **The daily card is free, unlimited in value, and does not consume a reading.** It shows authored content only, with no AI, and works offline. "Reflect deeper with AI" on the daily card is an optional paid/free-allowance reading. | This gives a daily habit and value with zero marginal cost. Offline value also helps 4.3 and minimum-functionality review, since the app is useful without paying. |
-| PR5 | **Paywall before the draw.** Credit availability, network, AI consent and device registration are all checked when the user taps **Begin** on the question screen, before the shuffle. Begin then takes a **pre-draw hold** on the Worker (`POST /v1/readings/holds`, 03 §9.0, RC50), which reserves the credit. The shuffle starts only after the hold succeeds, so a 402 can no longer arrive after cards are drawn. | Store no-dark-pattern rules (CONTEXT §3.9, shared contract). A client-side check alone could be stale. |
-| PR6 | **Drawn cards are final and preserved.** Once cards are picked, they are stored locally as a `pending` reading. If generation fails, or the hold was lost (rare, `409 HOLD_CONFLICT`), the same cards are retried with the same `clientReadingId` after resolution; the Worker runs a new attempt (RC49). The app never re-shuffles, so users cannot "fish" for different cards, and no credit is consumed until the Worker returns a generated reading that the device has stored (RC51). | This matches the contract (credit consumed only on success, refund on failure) and keeps the ritual meaningful. |
+| PR5 | **Paywall before the draw.** When the user taps **Begin** on the question screen, before the shuffle, `ReadingGate` checks in this order (RC44): device registration/trust → AI consent → online → `readings.enabled` / region → spread enabled (`spreads.enabled`) → balance (`BalanceDto.canRead` / `canReadReason`). Begin then takes a **pre-draw hold** on the Worker (`POST /v1/readings/holds`, 03 §9.0, RC50), which reserves the credit. The shuffle starts only after the hold succeeds, so a `402 INSUFFICIENT_CREDITS` can no longer arrive after cards are drawn. Reconciled by 00_DECISIONS.md RC11, RC44, RC50. | Store no-dark-pattern rules (CONTEXT §3.9, shared contract). A client-side check alone could be stale. |
+| PR6 | **Drawn cards are final and preserved.** Once cards are picked, they are stored locally as a `pending` reading. If generation fails, or the hold was lost (rare, `409 HOLD_CONFLICT`), the same cards are retried with the same `clientReadingId` after resolution; the Worker runs a new attempt (RC49). The app never re-shuffles, so users cannot "fish" for different cards, and no credit is consumed until the Worker returns a generated reading that the device has stored (RC51). Reconciled by 00_DECISIONS.md RC42, RC48, RC49, RC51. | This matches the contract (credit consumed only on success, refund on failure) and keeps the ritual meaningful. |
 | PR7 | **Reversed cards are on by default** (per-draw probability 50% from the CSPRNG). The user can switch to upright-only in Settings. | Standard practice. Upright-only is a common beginner preference. |
-| PR8 | **The AI reading is non-streaming in v1.** The Worker returns a complete, output-moderated structured reading. The reveal runs in parallel with generation, **but only while the pre-draw hold is valid** (≥ 120 s left by server time; otherwise the hold is renewed first, 03 §9.0). While it waits, the client shows the revealed cards with their authored keywords ("the reading is forming"). If the hold renewal returns 402, the picked cards stay face-down and S10 opens (RC50). Target: p50 ≤ 8 s, p95 ≤ 20 s; client timeout 60 s (RC31). | Output moderation must run on the full text before display (contract). The hold makes the parallel reveal safe: no card is ever revealed before a paywall. |
-| PR9 | **AI output is structured, not free prose:** `summary`, one `positions[]` entry per card, `synthesis`, and 2–3 `reflectionPrompts`. The client renders the disclaimer footer and the "AI-generated" label itself; the model never writes them. | A consistent layout and a journal that can quote sections. Compliance text stays deterministic and localized in ARB rather than trusted to the model. |
-| PR10 | **Onboarding order:** Welcome (value) → Disclaimer (acknowledge) → AI data-sharing consent (accept or "Not now") → UMP consent form (only if required by geography) → ATT system prompt (iOS only, after UMP, without a custom pre-prompt screen) → Home. The notification permission is **not** requested during onboarding. | UMP must precede ad requests, and Google recommends UMP before ATT. Apple 5.1.2(i) requires AI consent before data is sent. Asking for notifications in context later converts better and respects 4.5.4. |
+| PR8 | **The AI reading is non-streaming in v1.** The Worker returns a complete, output-moderated structured reading. The reveal runs in parallel with generation, **but only while the pre-draw hold is valid** (≥ 120 s left by server time; otherwise the hold is renewed first, 03 §9.0). While it waits, the client shows the revealed cards with their authored keywords ("the reading is forming"). If the hold renewal returns `402 INSUFFICIENT_CREDITS`, the picked cards stay face-down and S10 opens (RC50). Target: p50 ≤ 8 s, p95 ≤ 20 s; "taking longer than usual" at 20 s; client HTTP timeout 60 s, then the client polls `GET /v1/readings/{clientReadingId}` (RC31). Reconciled by 00_DECISIONS.md RC31, RC50. | Output moderation must run on the full text before display (contract). The hold makes the parallel reveal safe: no card is ever revealed before a paywall. |
+| PR9 | **AI output is structured, not free prose:** `title`, `summary`, one `positions[]` entry per card, `synthesis`, and 2–3 `reflectionPrompts` (client domain type `ReadingContent`; the wire format is 03's, where `summary` = `overview` and `positions[]` = `cards[]`). The client renders the disclaimer footer and the "AI-generated" label itself; the model and the Worker never send them. Reconciled by 00_DECISIONS.md RC30. | A consistent layout and a journal that can quote sections. Compliance text stays deterministic and localized in ARB rather than trusted to the model. |
+| PR10 | **Onboarding order:** Welcome (value) → Disclaimer (acknowledge) → AI data-sharing consent (accept or "Not now") → UMP consent form (only if required by geography) → neutral ATT pre-prompt (iOS only, after UMP; toggled by `ads.attPrepromptEnabled`, default true; UMP's own IDFA explainer disabled) → ATT system prompt → Home. ATT (and its pre-prompt) is skipped when UMP reports `canRequestAds == false`. AI consent is asked here **and** re-asked by the reading gate if it is missing or `ai.consentVersion` has increased. The notification permission is **not** requested during onboarding. Analytics stays consent-denied and buffered until UMP resolves (RC68). Reconciled by 00_DECISIONS.md RC19, RC21, RC68. | UMP must precede ad requests, and Google recommends UMP before ATT. Apple 5.1.2(i) requires AI consent before data is sent. Asking for notifications in context later converts better and respects 4.5.4. |
 | PR11 | **The home-screen widget moves to v1.1**, the first post-launch phase. It is also the 4.3 escalation lever: if the first review rejects under 4.3, the widget is pulled forward before resubmission. | Native WidgetKit/Glance code is outside Dart/TS coverage tooling and adds risk to the launch path. The daily-card data model (PR4) is designed so the widget only needs to read it. |
-| PR12 | **Declining AI consent does not block the app.** Daily card, Learn, Journal and Settings stay fully usable. Starting an AI reading re-shows the consent screen with an explanation. Consent can be granted or revoked at any time in Settings → Privacy. | Apple 5.1.2(i) and 5.1.1(iv): do not coerce consent, and keep the app functional without it. |
-| PR13 | **Ad placement (product level):** banners appear only on Home, the Journal list and the Learn deck list, anchored at the bottom above the tab bar, in their own container. There are **no ads** on onboarding, the question, draw, reading-result, reading-detail, out-of-readings, store, settings or legal screens, and never over or inside reading text. Rewarded ads are only ever started by the user. There are no interstitials in v1. | This is the contract plus AdMob placement policy. Readings are the emotional core of the app, so ads next to them would damage trust and reviews. |
-| PR14 | **The Worker never keeps questions, and keeps reading text only as long as delivery needs.** Questions are never stored on the server. The reading text is kept encrypted only until the device confirms it received it, at most 7 days (03 BE13, RC51). The only other exception is a reading the user chooses to report (kept 90 days, RC22). Full history, questions and notes live on the device and in user exports. Consent copy and the privacy policy (05) say exactly this, no more and no less. Privacy labels follow 05 §5.1, which is the source of truth; this spec makes no "not linked" promise (RC69). | Keeps "Delete all data" meaningful and export as the only backup, while stating honestly what the Worker holds (Apple 5.1.1/5.1.2, Play User Data). |
-| PR15 | **Deck content lives in a generated content package, not in ARB.** ARB holds UI strings, spread and position names and short labels. Card texts (names, keywords, meanings, prompts) are authored in YAML, validated and compiled to per-locale JSON assets by `tools/content` (§11). | 78 cards × 12 locales × about 450 words is too much for ARB. It needs its own validation (length, glossary, forbidden claims) and must also feed the Worker's prompts. |
-| PR16 | **Form factors (owner decision 2026-09-27):** universal. iOS supports iPhone + iPad (`TARGETED_DEVICE_FAMILY = 1,2`); Android supports phones + tablets. On wide screens content is constrained to `layout.maxContentWidth` (responsive, single codebase in Flutter). Portrait only on phones; iPad supports all orientations (required for iPad multitasking) with the same constrained layout. | Flutter makes the extra form factor cheap; the owner chose not to restrict devices. Cost: an iPad screenshot set and tablet goldens. |
-| PR17 | **Every product surface has an explicit state model** (§8): `loading`, `content`, `empty`, `error(kind)`, `offline`, plus flow-specific states (`outOfReadings`, `consentRequired`, `deviceUnverified`, `maintenance`, `updateRequired`). Each state gets its own widget test and, for key screens, a golden. | No undefined UI and no infinite spinners. This also feeds the 90% coverage gate. |
-| PR18 | **Analytics never contains user content or identifiers:** no question text, reading text, notes, install ID or card-level text. Events are typed (sealed `TaroAnalyticsEvent`), and every event parameter is a bounded enum, an int or a bool (§15). | Privacy labels, GDPR, and 5.1.2. |
+| PR12 | **Declining AI consent does not block the app.** Daily card, Learn, Journal and Settings stay fully usable. Starting an AI reading re-shows the consent screen with an explanation; if the user still says "Not now", a **Classic reading** (cards + authored meanings, no Worker call, free, F8) is offered instead. Consent can be granted or revoked at any time in Settings → Privacy. Reconciled by 00_DECISIONS.md RC20, RC21. | Apple 5.1.2(i) and 5.1.1(iv): do not coerce consent, and keep the app functional without it. |
+| PR13 | **Ad placement (product level):** banners appear only on Home, the Journal list and the Learn deck list, anchored at the bottom above the tab bar, in their own container. There are **no ads** on onboarding, the question, draw, reading-result, reading-detail, out-of-readings, store, settings or legal screens, and never over or inside reading text. Rewarded ads are only ever started by the user. There are no interstitials in v1. The compile-time banner allow-list is `kBannerAllowList = {home, journal_list, learn_library}` (S05, S14, S16), with `space.adGap` ≥ 16 dp. Reconciled by 00_DECISIONS.md RC18, RC59. | This is the contract plus AdMob placement policy. Readings are the emotional core of the app, so ads next to them would damage trust and reviews. |
+| PR14 | **The Worker never keeps questions, and keeps reading text only as long as delivery needs.** Questions are never stored on the server, except inside a report the user chooses to send (question + reading, encrypted, 90 days, RC22). The reading text is kept encrypted only until the device confirms it received it, at most 7 days (03 BE13, RC51). Full history, questions and notes live on the device and in user exports. Consent copy and the privacy policy (05) say exactly this, no more and no less. Privacy labels follow 05 §5.1, which is the source of truth; this spec makes no "not linked" promise (RC69). Reconciled by 00_DECISIONS.md RC22, RC51, RC69. | Keeps "Delete all data" meaningful and export as the only backup, while stating honestly what the Worker holds (Apple 5.1.1/5.1.2, Play User Data). |
+| PR15 | **Deck content lives in a generated content package, not in ARB.** ARB holds UI strings, spread and position names and short labels. Card texts (names, keywords, meanings, prompts) are authored in YAML, validated and compiled to per-locale JSON assets by `tools/content build` (§11), the only generator. Reconciled by 00_DECISIONS.md RC26. | 78 cards × 12 locales × about 450 words is too much for ARB. It needs its own validation (length, glossary, forbidden claims) and must also feed the Worker's prompts. |
+| PR16 | **Form factors (owner decision 2026-09-27):** universal. iOS supports iPhone + iPad (`TARGETED_DEVICE_FAMILY = 1,2`); Android supports phones + tablets. On wide screens content is constrained to `layout.maxContentWidth` (responsive, single codebase in Flutter). Portrait only on phones; iPad supports all orientations (required for iPad multitasking) with the same constrained layout. Tablet-width goldens (iPad 13", Android tablet) cover every ★ screen (06 §3), and 05 §9.4 ships an iPad screenshot set. Reconciled by 00_DECISIONS.md RC24. | Flutter makes the extra form factor cheap; the owner chose not to restrict devices. Cost: an iPad screenshot set and tablet goldens. |
+| PR17 | **Every product surface has an explicit state model** (§8): `loading`, `content`, `empty`, `error(kind)`, `offline`, plus flow-specific states (`outOfReadings`, `consentRequired`, `deviceUnverified`, `readingsPaused`, `aiUnavailableRegion`, `dailyLimitReached`, `updateRequired`). Reconciled by 00_DECISIONS.md RC47, RC74. Each state gets its own widget test and, for key screens, a golden. | No undefined UI and no infinite spinners. This also feeds the 90% coverage gate. |
+| PR18 | **Analytics never contains user content or identifiers:** no question text, reading text, notes, install ID or card-level text. Events are typed (sealed `TaroAnalyticsEvent`), and every event parameter is a bounded enum, an int or a bool (§15). Reconciled by 00_DECISIONS.md RC68. | Privacy labels, GDPR, and 5.1.2. |
 | PR19 | **Share is text-only in v1.** Sharing a reading produces the localized card names, the summary, a short excerpt and the disclaimer line, sent through the system share sheet. It never includes the question unless the user toggles "Include my question". Image cards for sharing arrive in v1.1. | Organic growth at low cost. Rendered share images need final art (D15). |
 
 ## 4. Vision & positioning
@@ -93,7 +94,7 @@ This spec defines **what** Taro is. It covers positioning, the full v1 feature s
 | P-A | **Maya, 27, "reflective journaler"**. Uses tarot weekly as a journaling prompt. Skeptical of "psychic" claims. | Privacy, a place to write, beautiful cards | Journal + notes, local-only storage, reflection prompts in each reading |
 | P-B | **Daniel, 34, "curious beginner"**. Saw tarot on social media and wants to learn what the cards mean. | Learning without overwhelm | Learn mode, keywords on reveal, spread guide, upright-only option |
 | P-C | **Leyla, 41, "daily ritualist"** (ar/tr locale). Opens the app with morning coffee. | A quick daily moment, her own language, RTL done right | Daily card + gentle reminder, full RTL, localized deck |
-| P-D | **Kenji, 22, "occasional deep-diver"** (ja). Does a Celtic Cross when facing a big decision, a few times a month. | A rich reading when it matters, willing to pay occasionally | Celtic Cross and Two Paths, packs of readings, Remove Ads |
+| P-D | **Kenji, 22, "occasional deep-diver"** (ja). Does a Celtic Cross when facing a big decision, a few times a month. | A rich reading when it matters, willing to pay occasionally | Celtic Cross and Two Paths, packs of readings, Remove Banner Ads |
 
 Anti-persona: people seeking medical, legal, financial or pregnancy answers or gambling tips. The product redirects them rather than serving them (§7.5).
 
@@ -105,41 +106,42 @@ Anti-persona: people seeking medical, legal, financial or pregnancy answers or g
 |---|---|---|
 | Deck | 78 cards, original art + card back, upright/reversed, per-locale texts | §10 |
 | Spreads | `single`, `three_ppf`, `three_sao`, `relationship`, `two_paths`, `celtic_cross` | §10.3 |
-| Reading | Optional question (≤ 300 chars) with suggestion chips per spread | §7.2 |
+| Reading | Optional question (≤ 300 grapheme clusters, `ai.questionMaxChars`) with suggestion chips per spread | §7.2 |
 | Ritual | Shuffle → pick → reveal, with "Draw for me" and "Reveal all" | §7.3 |
-| AI | Structured AI reading, refusal and crisis handling, thumbs rating | PR8, PR9 |
+| AI | Structured AI reading, refusal and crisis handling, thumbs rating, report sheet (S33) | PR8, PR9 |
+| Classic reading | Cards + authored meanings without AI or a Worker call, free; offered when AI consent is declined, the region is blocked or readings are paused | §9.9 (RC20, RC71) |
 | Daily card | One free card per local day, authored content, note | PR4 |
 | Reminder | Local notification for the daily card, opt-in, time picker | §7.7 |
 | Journal | History of readings and daily cards, notes, favourites, search, filters, delete, pattern insights | §7.8 |
 | Learn | Deck browser (by arcana/suit), card detail (upright/reversed, love/work/growth aspects, reflection questions), spread guide, "About tarot & this app" | §7.9 |
-| Monetization UX | Balance chip, out-of-readings sheet, store, rewarded ad, banners, Remove Ads, restore | 04 owns rules |
+| Monetization UX | Balance chip, out-of-readings sheet, store, rewarded ad, banners, Remove Banner Ads, restore | 04 owns rules |
 | Settings | Language, theme, reversals, haptics, reminder, privacy choices, analytics toggle, purchases, data, help, legal | §7.10 |
 | Data | Export/import JSON backup, delete all data | §7.11 |
 | Onboarding | Welcome, disclaimer, AI consent, UMP, ATT | PR10 |
 | Share | Text share of a reading or daily card | PR19 |
-| Platform | Deep links, force update, maintenance mode, 12 locales, RTL, light/dark | |
+| Platform | Deep links, force update (`app.minVersion.*`), recommended-update notice (`app.recommendedVersion.*`), readings-paused state (S31), 12 locales, RTL, light/dark, universal iPhone/iPad and Android phone/tablet (PR16) | |
 | Safety | Crisis resources screen, localized per locale with a findahelpline.com fallback | §7.5 |
-| Rate app | In-app review prompt after the 3rd positively-rated reading, at most once per 120 days, never after a refusal | |
+| Rate app | In-app review prompt after the Nth positively-rated AI reading (`review.promptAfterPositiveReadings`, default 3), at most once per 120 days, never after a refusal; Classic readings do not count | |
 
 ### 6.2 Later (ordered backlog, not committed)
 
 1. **v1.1:** home-screen widget (daily card, small + medium), share-as-image cards, additional spreads (Horseshoe 7, Year Ahead 12).
 2. **v1.2:** follow-up question on a reading (1 follow-up = configurable cost), free-form journal entries, journal tags, iCloud/Drive "auto-backup reminder" (still file-based).
-3. **v2:** second deck art style, custom spreads, tablet/iPad layouts, subscriptions (only if 04 data justifies it), Wear/Watch daily card.
+3. **v2:** second deck art style, custom spreads, multi-column tablet/iPad layouts, subscriptions (only if 04 data justifies it), Wear/Watch daily card.
 
 ## 7. Feature details
 
 ### 7.1 Credits model as seen by the user
 
-- The Home balance chip shows two numbers, sourced from the Worker (`03_BACKEND_WORKER.md` balance endpoint): **free readings left today** and **purchased/earned readings**. Examples: "1 free today · 12 readings", or "Free reading used · 3 readings".
+- The Home balance chip shows two numbers, sourced from the Worker (`GET /v1/balance` → `BalanceDto`, mapped to the client domain type `CreditBalance`; RC4, RC6): **free readings left today** (`free.remaining`) and **purchased/earned readings** (`paid` + `bonus`; the wire bucket `bonus` is called "earned readings" in the UI). Examples: "1 free today · 12 readings", or "Free reading used · 3 readings".
 - Consumption order is free allowance first, then earned/purchased. The Worker decides; the client only displays.
 - The reset hint shows the real time until the install's local midnight ("Next free reading in 5 h 12 min"). It is not a fake timer: it counts down to the actual reset instant computed from the registered timezone.
 - Sync state appears on the chip: `syncing` (shimmer), `synced`, `stale` (offline, last-known value with an offline glyph), `unavailable` (device unverified, see §8).
-- Sync is triggered on launch, on app resume, after purchase/rewarded completion, and after every reading (contract). It is idempotent.
+- Sync (`GET /v1/balance`) is triggered on launch, on app resume, after purchase/rewarded completion, and after every reading (contract). It is idempotent. The client replaces its cached balance only when the response's `ledgerVersion` is greater (or equal with a newer `serverTime`, RC67), and treats it as stale after `balance.staleAfterSec`.
 
 ### 7.2 Question input
 
-- Optional free text, 0–300 characters (grapheme-counted), with a character counter at ≥ 250.
+- Optional free text, 0–300 grapheme clusters (limit from `ai.questionMaxChars`, default 300, RC45), with a character counter at ≥ 250.
 - Each spread shows 3–4 localized suggestion chips (ARB), such as "What do I need to understand about this situation?" or "What can I learn from this relationship?". Tapping one fills the field.
 - Inline guidance under the field: "Open questions work best. Taro can't answer medical, legal, financial or pregnancy questions." (ARB, copy owned by 05).
 - **Client pre-checks** (no network): trim whitespace, reject strings that are only emoji or punctuation, and warn (without blocking) if the text contains something that looks like an email or phone number ("Avoid sharing personal details").
@@ -148,12 +150,12 @@ Anti-persona: people seeking medical, legal, financial or pregnancy answers or g
 
 ### 7.3 Draw ritual
 
-1. **Begin** (on the question screen) runs the pre-draw gate (PR5), in the RC44 order: device registered → AI consent → online → `readings.enabled` / region → spread enabled → balance (`canRead`, `canReadReason`). The first failing check routes to its state (§8.3). If the gate passes, the client calls `POST /v1/readings/holds` (S07 `checking`). `201` → the Draw screen opens. `402` → S10 (nothing drawn). `429 dailyLimit` → `dailyLimitReached`. `503` → S31.
+1. **Begin** (on the question screen) runs the pre-draw gate (PR5), in the RC44 order: device registered → AI consent → online → `readings.enabled` / region → spread enabled → balance (`canRead`, `canReadReason`). The first failing check routes to its state (§8.3). If the gate passes, the client calls `POST /v1/readings/holds` with `Idempotency-Key == clientReadingId` and `X-Taro-AI-Consent: <version>` (S07 `checking`; RC28, RC42). `201` → the Draw screen opens. `402 INSUFFICIENT_CREDITS` → S10 (nothing drawn; `details.reason = lowTrustCap` → `lowTrustLimited`, `freePaused` → `readingsPaused` copy variant). `429 RATE_LIMITED` with `details.reason = dailyLimit` → `dailyLimitReached`. `412 AI_CONSENT_REQUIRED` → S04. `403 AI_UNAVAILABLE_REGION` → Classic offer. `503 READINGS_DISABLED` / `AI_BUDGET_EXHAUSTED` → S31 `readingsPaused`, never S10 (RC47).
 2. **Shuffle.** The deck order is generated as soon as the Draw screen opens: a Fisher–Yates shuffle driven by `Random.secure()` (or the CSPRNG port per 02), with each card's orientation drawn independently (P = 0.5 when reversals are on). The animation runs while the user holds or taps **Shuffle**, for at least `motion.ritual.shuffle`. The "shuffle" is ceremonial; randomness never depends on gesture timing.
 3. **Pick.** 78 card backs are fanned in a horizontally scrollable arc. The user taps *N* cards (N = spread size), and each picked card flies to its next position slot in the spread layout. "Draw for me" picks automatically. Picking position *i* takes card `shuffled[i]`.
-4. **Commit.** When the last card is placed, the reading is persisted locally as `status: pending` (PR6). If the hold has less than 120 s left, the client renews it first (402 → S10 with the cards face-down, RC50). The client then sends the generation request (cards, spread, question, locale; see 03), and the reveal starts in parallel.
+4. **Commit.** When the last card is placed, the reading is persisted locally as `status: pending` (PR6). If the hold has less than 120 s left, the client renews it first (`402 INSUFFICIENT_CREDITS` → S10 with the cards face-down, RC50). The client then sends the generation request (cards, spread, question, locale; see 03), and the reveal starts in parallel.
 5. **Reveal.** The user taps each card to flip it, in position order, or uses "Reveal all". Each revealed card shows its localized name, an orientation label ("Reversed", as text and not only rotation) and 3 keywords.
-6. **Reading.** When the Worker responds, the reading is saved locally and then acknowledged (`POST /v1/readings/{id}/ack`, RC51), and the Reading screen appears with its sections. If the Worker is still working after the reveal, the waiting state (PR8) shows position titles + keywords + a calm progress text. Cancelling during the wait leaves the reading `pending`; it completes in the background if the response arrives, and it is otherwise retryable from the Journal ("Finish reading"). If the Journal retry finds that the finished text expired undelivered, the Worker has already refunded it (`410 READING_EXPIRED_REFUNDED`); the client says "We couldn't deliver this reading, so you weren't charged" and offers **Try again** with the same cards.
+6. **Reading.** When the Worker responds, the reading is saved locally and then acknowledged (`POST /v1/readings/{clientReadingId}/ack`, RC51), and the Reading screen appears with its sections. If the Worker is still working after the reveal, the waiting state (PR8) shows position titles + keywords + a calm progress text. Cancelling during the wait leaves the reading `pending`; it completes in the background if the response arrives, and it is otherwise retryable from the Journal ("Finish reading"). If the Journal retry finds that the finished text expired undelivered, the Worker has already refunded it (`410 READING_EXPIRED_REFUNDED`); the client says "We couldn't deliver this reading, so you weren't charged" and offers **Try again** with the same cards.
 
 Haptics (if enabled): `selectionClick` on pick, `lightImpact` on flip, `mediumImpact` when the reading arrives.
 
@@ -169,19 +171,21 @@ Rendered sections, all localized in the app locale (03 enforces the response lan
 - Footer (client-rendered, ARB): "AI-generated interpretation · For entertainment and self-reflection only. Not advice." plus a link to the full disclaimer.
 - Actions: Favourite, Add note, Share (PR19), 👍/👎 rating (optional reason chips on 👎: "Too generic", "Didn't match the cards", "Tone", "Other"; no free text).
 - Length targets (enforced in 03 prompts): single ≈ 150–220 words, 3-card ≈ 300–400, 5-card ≈ 400–550, Celtic Cross ≈ 650–850.
+- Menu: **Report this reading** (S33, RC72).
+- **Classic reading** (RC20, RC71): when AI consent is declined, the region is blocked (`403 AI_UNAVAILABLE_REGION`) or readings are paused (`503 READINGS_DISABLED` / `AI_BUDGET_EXHAUSTED`), the same renderer shows S32 instead: per position, the authored card meaning and the position description, no summary, synthesis or reflection prompts from AI, a "Classic reading" label instead of "AI-generated", and the disclaimer footer. It is free, needs no network and is saved with `status: classic` (flow F8, §9.9).
 
 ### 7.5 Safety, refusals and crisis resources
 
-The Worker (03) classifies the question as `allowed`, `rephrase`, `refused(category)` or `crisis`. Product behaviour for each:
+The Worker (03 §9.4) returns either a completed reading or `status: declined` with a `category` from 03's canonical list (`health`, `pregnancy`, `death`, `legal`, `financial`, `gambling`, `self_harm`, `harm_to_others`, `sexual_minors`, `hate_or_harassment`), a `canRephrase` flag and a `messageKey` (RC27). A declined question is a `200` response, not an error. Product behaviour:
 
 | Worker outcome | Client behaviour | Credit |
 |---|---|---|
-| `rephrase` (e.g. yes/no demands, requests for certainty) | Return to the question screen with a friendly hint and example rewordings | not consumed |
-| `refused(health \| pregnancy \| death \| legal \| financial \| gambling)` | "Taro can't help with this kind of question" card, explaining that tarot here is for reflection and suggesting a qualified professional. Offer "Reflect on the cards without a question" (same drawn cards, question removed) | not consumed |
-| `crisis` (self-harm, suicide, abuse) | Immediately show the **Crisis resources** screen (S27): localized, country-aware hotlines plus findahelpline.com. No reading is generated. Calm tone, no ads, no upsell. | not consumed |
+| declined, `canRephrase: true` (`health`, `pregnancy`, `death`, `legal`, `financial`, `gambling`, `hate_or_harassment`; also yes/no demands and requests for certainty) | Return to the question screen with a friendly hint and example rewordings. For the advice categories, a "Taro can't help with this kind of question" card explains that tarot here is for reflection and suggests a qualified professional. Offer "Reflect on the cards without a question" (same drawn cards, question removed) | not consumed |
+| declined, `self_harm` or `harm_to_others` (the "crisis" outcome) | Immediately show the **Crisis resources** screen (S27): localized, country-aware hotlines plus findahelpline.com. No reading is generated. Calm tone, no ads, no upsell. | not consumed |
+| declined, `sexual_minors` | Neutral "Taro can't help with this" message, no rewording hint | not consumed |
 | Output moderation failure (03 regenerates once; if it fails again) | Generic "We couldn't create this reading" error with Retry | not consumed (refund) |
 
-Crisis hotline data is authored content (`content/crisis/{locale}.yaml`, pipeline §11), keyed by ISO country with a locale default. The country comes from the device region and is never sent anywhere.
+Crisis hotline data has **one source** (RC25): `packages/taro_content/source/crisis/crisis_resources.yaml`, compiled by `tools/content build` into the app asset and into `worker/src/generated/crisis_resources.json`. Entries use the canonical `CrisisResource` schema `{name, phone?, sms?, url?, hours?, languages[], verifiedAt}` (03 §9.5, RC81), keyed by ISO country with a per-locale fallback and findahelpline.com as the international entry. On a declined reading, the Worker selects resources by `cf.country`; when S27 is opened from Help or Settings, the client selects by the device region, which is never sent anywhere. A CI test fails if any `verifiedAt` is older than 200 days.
 
 ### 7.6 Daily card
 
@@ -201,7 +205,7 @@ Crisis hotline data is authored content (`content/crisis/{locale}.yaml`, pipelin
 ### 7.8 Journal / history
 
 - A list of `Reading` and `DailyCard` entries grouped by month, newest first. Each row shows the date, spread icon, the first card thumbnail(s), the question (or the spread name), and favourite and note indicators.
-- Filters: All / Readings / Daily cards / Favourites; spread type; contains card X. Search is local full-text over questions and notes.
+- Filters: All / Readings / Daily cards / Favourites; spread type; contains card X. Search is local full-text over questions and notes (drift FTS5 if the Phase 2.2 spike confirms it on iOS, Android and CI; otherwise `LIKE` over an indexed lowercase column, RC91).
 - Entry detail is the full reading (same renderer as §7.4) plus the notes editor. Notes are plain text, up to 5,000 chars, autosaved. Swipe or menu offers delete with a confirmation, and an **Undo snackbar** appears for 5 s.
 - **Patterns** card at the top (hidden until there are ≥ 5 entries): the most-drawn cards over 30/90 days, suit balance (bars), major vs. minor ratio and reversed ratio. It is computed locally, and each item links to the card in Learn. Copy explains that these are patterns in *your draws*, not predictions.
 - Pending or failed readings show a "Finish reading" action (PR6).
@@ -221,13 +225,13 @@ Crisis hotline data is authored content (`content/crisis/{locale}.yaml`, pipelin
 | Readings | Reversed cards (on/off), Haptics (on/off) |
 | Daily card | Reminder (toggle + time) |
 | Appearance | Theme (System/Light/Dark), Language (System + 12 locales; in-app override) |
-| Purchases | Store (packs), Remove Ads (or "Ads removed ✓"), Restore purchases |
+| Purchases | Store (packs), Remove Banner Ads (or "Banner ads removed ✓"; display name per RC80, product ID `com.vshyrochuk.taro.remove_ads` unchanged), Restore purchases |
 | Privacy | AI data sharing (view/grant/revoke), Ad privacy choices (opens the UMP privacy options form; always shown when UMP reports `privacyOptionsRequirementStatus == required`, otherwise hidden), Tracking (iOS: ATT status + "Open iOS Settings"), Usage analytics (toggle) |
 | Your data | Export backup, Import backup, Delete all data |
-| Help | FAQ (authored, offline), Crisis resources, Contact support (mailto with app version, OS, locale and **support code** = first 8 hex chars of `SHA-256(installId)`), "Move readings from another device" (shows the transfer code after a purchase re-check, 03 §6.6, RC84), Rate Taro |
-| About | Disclaimer, Terms of Use, Privacy Policy (in-app webview/browser; URLs per 05), Open-source licenses, version/build |
+| Help | FAQ (authored, offline), Crisis resources, Contact support (mailto with app version, OS, locale and the **Support ID** = first 8 hex chars of `SHA-256(installId)`, also shown in About, RC43), "Move readings from another device" (shows the transfer code after a purchase re-check, 03 §6.6, RC84), Rate Taro |
+| About | Disclaimer, Terms of Use, Privacy Policy (in-app webview/browser; URLs per 05), Open-source licenses, version/build, Support ID |
 
-**Delete all data** is a two-step confirmation. It wipes the local database, preferences, and scheduled notifications, and asks the Worker to delete readings metadata for this install (03 endpoint). It keeps the install ID and the credit ledger, because credits are purchased goods, and it says so explicitly: "Your remaining readings and Remove Ads are kept."
+**Delete all data** (RC37) is a two-step confirmation. It wipes the local journal and device data, preferences and scheduled notifications, and calls `DELETE /v1/installs/me`, which erases the install's `readings`, `ad_rewards`, `reading_reports`, `idempotency_keys` and past `daily_usage` rows (today's row is kept). The Worker keeps the `installs` row (still `active`, locale nulled), the `ledger` and `purchases`; the client keeps the install ID, install secret, session token and entitlements, because credits are purchased goods. It says so explicitly: "Your remaining readings and Remove Banner Ads are kept."
 
 ### 7.11 Export / import
 
@@ -258,10 +262,11 @@ Crisis hotline data is authored content (`content/crisis/{locale}.yaml`, pipelin
 
 - `checksum` = SHA-256 over the **RFC 8785 (JCS) canonical JSON** of `data`, lowercase hex. A golden fixture `fixtures/backup_v1_sample.json` with its known checksum pins the canonicalisation, so every future encoder produces checksums v1 readers accept.
 - Only readings with status `complete`, `refused` or `classic` are exported; `pending` and `failed` are device-local transient state. `classic` readings have no `promptVersion`.
-- **Excluded by contract:** credits, entitlements, install ID, install secret, consent states (UMP, ATT, AI consent; these are per-device legal states that must be re-given), analytics flags, support code, the purchase outbox and sync state.
+- **Excluded by contract:** credits, entitlements, install ID, install secret, consent states (UMP, ATT, AI consent; these are per-device legal states that must be re-given), analytics flags, Support ID, the purchase outbox and sync state.
 - **Import:** a file picker (`.json`) → validation against `backup_schema_v1.json` (`format`, `schemaVersion` ≤ current, types, enums, string and array limits, size ≤ 20 MB, entry count ≤ 50,000, card IDs exist) → checksum → a preview screen ("128 readings, 240 daily cards, settings from 2026-09-12") → choice of **Merge** (union by `id` for readings and `localDate` for daily cards; on conflict keep the newer `updatedAt`, and keep the longer text if notes differ) or **Replace** (with a confirmation that current journal data will be removed) → progress → result summary. Keys outside the schema (e.g. a hand-added `credits`) make the file invalid.
 - Future versions must import every older `schemaVersion` (migration chain). A file with a newer `schemaVersion` is rejected with "Update Taro to import this backup".
 - Imported readings are displayed as stored, and no AI calls are made on import.
+- Reconciled by 00_DECISIONS.md RC17 (01's structure + 02's `checksum`) and RC70 (frozen JSON Schema, JCS checksum).
 
 ### 7.12 Onboarding (first launch)
 
@@ -269,35 +274,35 @@ Crisis hotline data is authored content (`content/crisis/{locale}.yaml`, pipelin
 |---|---|---|
 | 1 | Welcome (up to 3 swipeable pages: *Reflect*, *Learn*, *Journal*) | Skippable to step 2 |
 | 2 | Disclaimer | Must tap "I understand" to continue. Text from 05. States entertainment/self-reflection only, no advice, AI-generated content |
-| 3 | AI data-sharing consent | Explains what is sent (question, card IDs, locale), to whom (Anthropic via Taro's server), and how long it is kept (PR14: the question is not stored; the reading is kept encrypted until delivered, at most 7 days; a reported reading 90 days), with a link to the privacy policy. Buttons: **Allow AI readings** / **Not now** (equal visual weight; no pre-checked boxes) |
+| 3 | AI data-sharing consent (`ai.consentVersion`; the reading gate re-asks if consent is missing or the version increased, RC21) | Explains what is sent (question, card IDs, locale), to whom (Anthropic via Taro's server), and how long it is kept (PR14: the question is not stored; the reading is kept encrypted until delivered, at most 7 days; a reported reading 90 days), with a link to the privacy policy. Buttons: **Allow AI readings** / **Not now** (equal visual weight; no pre-checked boxes) |
 | 4 | UMP consent form | Shown only if `ConsentInformation` says it is required. The SDK UI is not customised |
-| 5 | ATT prompt (iOS) | System prompt only, after UMP completes. Skipped if UMP consent for ads was declined, per 04's gating rule |
+| 5 | ATT (iOS) | After UMP completes: a neutral in-app pre-prompt (when `ads.attPrepromptEnabled`, default true; copy per 05 CS14), then the system prompt. UMP's own IDFA explainer is disabled. Skipped entirely when UMP gives `canRequestAds == false` (RC19) |
 | 6 | Home | The first-reading hint coachmark points at "Start a reading" |
 
-Onboarding progress is persisted per step, so a kill during onboarding resumes at the same step. Registration with the Worker (install ID + attestation, 02/03) runs in the background from step 1 and never blocks onboarding.
+Onboarding progress is persisted per step, so a kill during onboarding resumes at the same step. Registration with the Worker (`POST /v1/installs` with install ID, install secret and attestation, 02/03) runs in the background from step 1 and never blocks onboarding. Analytics events are buffered consent-denied until UMP resolves (RC68).
 
 ## 8. Screen inventory & states
 
 ### 8.1 Screen list
 
-| ID | Screen | Route | Ads |
+| ID | Screen | Route | Ads (banner screen ID) |
 |---|---|---|---|
 | S01 | Launch / bootstrap (native splash → Flutter bootstrap) | `/` | – |
 | S02 | Onboarding: Welcome | `/onboarding/welcome` | – |
 | S03 | Onboarding: Disclaimer | `/onboarding/disclaimer` | – |
 | S04 | AI consent (onboarding + re-entry) | `/consent/ai` | – |
-| S05 | Home ("Today" tab) | `/home` | banner |
+| S05 | Home ("Today" tab) | `/home` | banner (`home`) |
 | S06 | Spread picker | `/reading/spreads` | – |
 | S07 | Question input | `/reading/question?spread=` | – |
 | S08 | Draw ritual (shuffle/pick/reveal) | `/reading/draw` | – |
 | S09 | Reading result | `/reading/:id` | – |
 | S10 | Out-of-readings sheet (modal bottom sheet) | modal | – |
-| S11 | Store / paywall (packs + Remove Ads) | `/store` | – |
+| S11 | Store / paywall (packs + Remove Banner Ads) | `/store` | – |
 | S12 | Rewarded flow overlay (loading ad → ad → granting) | modal | rewarded |
 | S13 | Daily card | `/daily` | – |
-| S14 | Journal list ("Journal" tab) | `/journal` | banner |
+| S14 | Journal list ("Journal" tab) | `/journal` | banner (`journal_list`) |
 | S15 | Journal entry detail + note editor | `/journal/:id` | – |
-| S16 | Learn: deck browser ("Learn" tab) | `/learn` | banner |
+| S16 | Learn: deck browser ("Learn" tab) | `/learn` | banner (`learn_library`) |
 | S17 | Learn: card detail | `/learn/card/:cardId` | – |
 | S18 | Learn: spreads guide + spread detail | `/learn/spreads[/:spreadId]` | – |
 | S19 | Learn: About tarot & Taro | `/learn/about` | – |
@@ -312,11 +317,11 @@ Onboarding progress is persisted per step, so a kill during onboarding resumes a
 | S28 | FAQ / Help | `/help` | – |
 | S29 | Legal: disclaimer / terms / privacy / licenses | `/legal/:doc` | – |
 | S30 | Update required (blocking) | `/update` | – |
-| S31 | Maintenance (AI unavailable) | inline state of S07 | – |
+| S31 | Readings paused (`readingsPaused`: kill switch or AI budget stop; never a paywall, RC47) | inline state of S07 | – |
 | S32 | Classic reading result (RC20, RC71) | `/reading/:id?mode=classic` | – |
 | S33 | Report reading (modal sheet, CS7, RC72) | modal from S09 / S15 | – |
 
-Tabs (bottom navigation, 4 items): **Today** (S05), **Journal** (S14), **Learn** (S16), **Settings** (S20).
+Tabs (bottom navigation, 4 items): **Today** (S05), **Journal** (S14), **Learn** (S16), **Settings** (S20). These tabs and routes are canonical; 02 §8.1 follows them (reconciled by 00_DECISIONS.md RC17). Banners are allowed only on the three screens marked above (`kBannerAllowList`, RC18).
 
 ### 8.2 Common state widgets (shared, see 02)
 
@@ -324,19 +329,19 @@ Tabs (bottom navigation, 4 items): **Today** (S05), **Journal** (S14), **Learn**
 
 ### 8.3 States per screen
 
-| Screen | States (each needs a widget test; ★ = golden) |
+| Screen | States (each needs a widget test; ★ = golden at phone width **and** tablet width, iPad 13" and Android tablet, RC24) |
 |---|---|
 | S01 | `bootstrapping`, `storageError` (fatal, with a "Contact support" action), → `updateRequired` redirect, → onboarding or home |
 | S02–S03 | `content`★; S03 `acknowledged` |
 | S04 | `undecided`★, `granted`, `declined` (returns to origin; if the origin is the reading flow, shows "AI readings need your permission" with **Allow** / **Back**) |
 | S05 Home | `loading`, `content`★ (variants: free reading available / free used + credits / zero readings), `firstRun` (coachmark), `balanceStale` (offline chip), `deviceUnverified` (chip replaced by "Readings unavailable on this device" + Retry), `dailyCardNotDrawn` / `dailyCardDrawn`, `bannerLoaded` / `bannerFailed` (container collapses) / `adsRemoved`, `updateAvailable` (dismissible inline notice when the app is below `app.recommendedVersion`, shown at most once per version, RC73) |
 | S06 | `content`★; spreads disabled by remote config are hidden |
-| S07 Question | `editing`★, `checking` (pre-draw gate + hold on Begin), `offline` (Begin disabled with inline notice), `consentRequired` → S04, `deviceUnverified`, `readingsPaused` (S31: "Readings are resting for a moment", with daily card / Learn / Classic reading links; copy variant `freePaused` "Free readings are resting until tomorrow", shown only to users with no other readings, RC64), `aiUnavailableRegion` → Classic offer, `outOfReadings` → S10, `dailyLimitReached` ("You've reached today's reading limit"; no paywall, RC74), `lowTrustLimited` (S10 with copy "Free readings aren't available on this device right now"; purchase and rewarded options stay available, RC74), `rephrase`, `refused(category)`★, `rateLimited` |
-| S08 Draw | `shuffling`★, `picking`★, `revealing`, `awaitingReading` (keywords view)★, `slowReading` (20 s), `generationFailed` (cards kept + Retry + "Save and finish later"), `holdLost` (rare: the hold renewal or submit returned 402/409 → S10 with the picked cards **face-down**, then the same draw is resubmitted; RC48, RC50), `deliveryExpired` ("We couldn't deliver this reading, so you weren't charged" + Try again with the same cards, RC51), `crisis` → S27, `reducedMotion` variant★ |
+| S07 Question | `editing`★, `checking` (pre-draw gate + hold on Begin), `offline` (Begin disabled with inline notice), `consentRequired` → S04, `deviceUnverified`, `readingsPaused` (S31, from `503 READINGS_DISABLED` / `AI_BUDGET_EXHAUSTED` or `canReadReason == readingsPaused`: "Readings are resting for a moment", with daily card / Learn / Classic reading links; copy variant `freePaused` "Free readings are resting until tomorrow", from `402 INSUFFICIENT_CREDITS` `details.reason = freePaused`, shown only to users with no other readings; never S10; RC47, RC64), `aiUnavailableRegion` (`403 AI_UNAVAILABLE_REGION`) → Classic offer, `outOfReadings` → S10, `dailyLimitReached` (`canReadReason == dailyLimit` or `429 RATE_LIMITED` `details.reason = dailyLimit`: "You've reached today's reading limit"; no paywall, RC74), `lowTrustLimited` (`canReadReason == lowTrustCap`: S10 with copy "Free readings aren't available on this device right now"; purchase and rewarded options stay available, RC74), `rephrase` (declined, `canRephrase: true`), `refused(category)`★ (03 §9.4 categories, RC27), `rateLimited` (`429 RATE_LIMITED`, `details.reason = burst`) |
+| S08 Draw | `shuffling`★, `picking`★, `revealing`, `awaitingReading` (keywords view)★, `slowReading` (20 s), `generationFailed` (cards kept + Retry + "Save and finish later"), `holdLost` (rare: the hold renewal or submit returned `402 INSUFFICIENT_CREDITS` / `409 HOLD_CONFLICT` → S10 with the picked cards **face-down**, then the same draw is resubmitted; RC48, RC50), `timeoutPolling` (60 s client timeout → status poll via `GET /v1/readings/{clientReadingId}`, RC31), `deliveryExpired` (`410 READING_EXPIRED_REFUNDED`: "We couldn't deliver this reading, so you weren't charged" + Try again with the same cards, RC51), `crisis` (declined `self_harm` / `harm_to_others`) → S27, `reducedMotion` variant★ |
 | S09 Reading | `content`★ (LTR/RTL, light/dark), `ratingGiven`, `sharing`, `loadingFromStorage` |
-| S10 Out of readings | `content`★ with any combination of options: rewarded available / rewarded capped for today ("You've used today's ad rewards") / rewarded disabled by config / rewarded ad failed to load; packs loading / packs loaded / store unavailable; always shows "Next free reading in …" |
-| S11 Store | `loading`★, `content`★, `storeUnavailable` (error + retry), `purchasing`, `pending` (Ask to Buy / Play pending: "Waiting for approval"), `verifying` ("Confirming your purchase…"), `success` (balance animates up), `failed(kind)`, `cancelled` (silent return), `verificationDelayed` (Worker unreachable: "Your purchase is safe. We'll add your readings when you're back online."; retried on resume), `removeAdsOwned`, `purchasesBlocked(reason: blocked \| refundDebt)` (pack buttons hidden; neutral line and support contact; free, rewarded and restore stay available; RC66) |
-| S12 Rewarded | `loadingAd` (≤ `rewarded_load_timeout`, then `noFill`), `showing` (SDK), `granting` (polling the Worker for the SSV grant, up to 20 s), `granted`★, `grantDelayed` (non-blocking: "Your reading will appear shortly"; re-synced on resume), `dismissedEarly` (no reward, neutral copy) |
+| S10 Out of readings | `content`★ with any combination of options: rewarded available (only when `free.remaining == 0`, RC34) / rewarded cooling down (`rewarded.cooldownSec` after the last grant, `rewarded.cooldownEndsAt`; "Another ad reward is available in 4 min", RC35) / rewarded capped for today (`rewarded.dailyCap`; "You've used today's ad rewards") / rewarded disabled by config (`rewarded.enabled`) / rewarded ad failed to load; packs loading / packs loaded / store unavailable; always shows "Next free reading in …" |
+| S11 Store | `loading`★, `content`★, `storeUnavailable` (error + retry), `purchasing`, `pending` (Ask to Buy / Play pending: "Waiting for approval"), `verifying` ("Confirming your purchase…"), `success` (balance animates up), `failed(kind)`, `cancelled` (silent return), `verificationDelayed` (Worker unreachable: "Your purchase is safe. We'll add your readings when you're back online."; retried on resume), `removeAdsOwned`, rewarded offer (same availability rules as S10; S11 is the second rewarded entry point, RC34), `purchasesBlocked(reason: blocked \| refundDebt)` (pack buttons hidden; neutral line and support contact; free, rewarded and restore stay available; RC66) |
+| S12 Rewarded | `loadingAd` (≤ `rewarded.loadTimeoutSec`, default 10 s, then `noFill` + intent cancel, RC57), `showing` (SDK), `granting` (polling `GET /v1/rewards/intents/{intentId}` every 1.5 s up to `rewarded.grantPollTimeoutSec`, default 20 s, RC33), `granted`★, `grantDelayed` (non-blocking: "Your reading will appear shortly"; re-synced on resume), `dismissedEarly` (no reward, neutral copy; the intent is cancelled so the cap slot is freed, RC57) |
 | S13 Daily card | `notDrawn`★, `revealing`, `drawn`★, `noteEditing`, `reminderOffer` (once) |
 | S14 Journal | `loading`, `empty`★ ("Your readings will live here" + Start a reading), `content`★, `filteredEmpty`, `searchEmpty`, `storageError` |
 | S15 Entry detail | `content`, `pending` ("Finish reading" CTA), `failed`, `deleted` → pop + undo |
@@ -366,7 +371,7 @@ S01 Launch
      │              │                         ├─(gate fail / hold 402)→ S04 | S10 → (S11 | S12) | S31 | offline
      │              │                         └─(no AI consent / region / paused)→ S32 Classic reading (F8)
      │              │                   S09 ── menu → S33 Report
-     │              ├─ Balance chip → S10/S11
+     │              ├─ Balance chip → S10 (→ S12 | S11)
      │              ├─ Daily card → S13 ─ Reflect deeper → S07(single, preset card)
      │              └─ Recent readings → S15
      ├─ Journal S14 ── entry → S15 ─(pending)→ S08(awaitingReading)
@@ -383,11 +388,11 @@ Global: S27 reachable from S09 refusal, S08 crisis, S28, S20
 
 ### 9.2 Flow F1: First launch
 
-1. S01 generates or loads the install ID (secure storage, 02) and fetches remote config (last-known or bundled defaults if offline). It checks `min_supported_app_version`.
+1. S01 generates or loads the install ID and the install secret (secure storage, 02; RC54) and fetches remote config via `GET /v1/config` (last-known or bundled defaults if offline). It checks `app.minVersion.{ios,android}` (→ S30) and `app.recommendedVersion.*` (→ S05 `updateAvailable`).
 2. S02 → S03 (acknowledge). Background: `POST /v1/installs` registration + attestation (03).
-3. S04: Allow → `ai_consent = granted(version, timestamp)` is persisted locally and reported to the Worker (03 stores the consent version to gate generation). Not now → `declined`.
+3. S04: Allow → `ai_consent = granted(version, timestamp)` is persisted locally. There is no consent endpoint: the version is sent as the `X-Taro-AI-Consent: <version>` header on every hold and reading request, and the Worker answers `412 AI_CONSENT_REQUIRED` if it is below `ai.consentVersion` (RC28). Not now → `declined`.
 4. UMP: `requestConsentInfoUpdate` → form if required → then the Mobile Ads SDK initialises (04).
-5. ATT (iOS), subject to the 04 rule.
+5. ATT (iOS): neutral pre-prompt, then the system prompt; skipped when UMP gives `canRequestAds == false` (RC19).
 6. S05 with the first-run coachmark. The balance chip shows `syncing` → "1 free today".
 7. Offline at first launch: onboarding completes (UMP is retried on next launch, ads stay off until then), and Home shows `balanceStale` with the note "Connect to start AI readings". The daily card and Learn work.
 
@@ -401,19 +406,19 @@ Global: S27 reachable from S09 refusal, S08 crisis, S28, S20
 
 ### 9.4 Flow F3: Out of readings → rewarded ad or purchase
 
-1. S07 **Begin** → the gate sees `canRead == false` with `canReadReason == noCredits` (or the hold returns `402`) → S10 opens **before** any draw. The question text is kept.
+1. S07 **Begin** → the gate sees `canRead == false` with `canReadReason == noCredits` (or the hold returns `402 INSUFFICIENT_CREDITS`) → S10 opens **before** any draw. The question text is kept.
 2. S10 options (each shown only when available):
-   - **Watch a short ad for +N reading(s)**, when `rewarded.enabled`, the daily cap is not reached, and a UMP-compliant request is possible. → S12: load → show → reward callback → `granting`: the client polls the Worker balance until the SSV grant lands (the client never grants) → `granted` → S10 closes → back to S07 with **Begin** enabled; the user taps Begin again (no auto-start).
-   - **Get more readings** → S11 (packs with store-localized prices; "Best value" badge only if it is mathematically true per reading) → purchase → `verifying` (the Worker verifies the JWS or Play token and grants) → the client finishes/consumes the transaction only after the Worker confirms (contract) → `success` → back to S07.
+   - **Watch a short ad for +N reading(s)** (N = `rewarded.amount`), when `rewarded.enabled`, `free.remaining == 0`, the daily cap (`rewarded.dailyCap`) is not reached, the cooldown (`rewarded.cooldownSec`) has passed, and a UMP-compliant request is possible (RC34, RC35). → S12: `POST /v1/rewards/intents` → load → show (SSV `userId = customData = intentId`, RC56) → reward callback → `granting`: the client polls `GET /v1/rewards/intents/{intentId}` every 1.5 s up to `rewarded.grantPollTimeoutSec` (20 s) until the SSV grant lands, then falls back to the next `GET /v1/balance` sync (RC33; the client never grants) → `granted` → S10 closes → back to S07 with **Begin** enabled; the user taps Begin again (no auto-start).
+   - **Get more readings** → S11 (packs with store-localized prices; "Best value" badge only if it is mathematically true per reading) → purchase → `verifying` (`POST /v1/purchases/verify`; the Worker verifies the JWS or Play token and grants) → the client finishes/consumes the transaction only after the Worker confirms (contract) → `success` → back to S07.
    - **Come back tomorrow**: "Your next free reading is in 5 h 12 min", plus links to the daily card and Learn.
 3. Failures: no ad fill → "No ads available right now" and the option greys out for 60 s. Purchase cancelled → back to S10 silently. Pending → `pending` state, and the credits arrive on a later sync (a local notification is **not** used for this).
 
 ### 9.5 Flow F4: Restore purchases
 
 1. Settings → **Restore purchases** (also on S11) → StoreKit `restoreTransactions` / Play `queryPurchases`.
-2. Remove Ads found → the entitlement is cached, banners hide immediately, and the message says "Remove Ads restored".
+2. Remove Banner Ads found → the entitlement is cached, banners hide immediately, and the message says "Remove Banner Ads restored".
 3. Nothing found → the message says "No purchases to restore".
-4. Consumable readings are **not** restorable by store rules. The copy on S11 and in the FAQ explains that readings are tied to this installation. On iOS they survive reinstall on the same device (Keychain); on Android, or when moving to a new device, the user contacts support with their order ID. The support-assisted recovery procedure is defined in 03/04.
+4. Consumable readings are **not** restorable by store rules. The copy on S11 and in the FAQ explains that readings are tied to this installation. On iOS they survive reinstall on the same device (Keychain). On Android, or when moving to a new device, the user opens Settings → Help → "Move readings from another device": the app re-submits past purchases from the same store account to `POST /v1/purchases/verify`, and a transaction claimed by the old install yields a single-use transfer code (`transferToken`). The user emails the code with their Support ID, and the owner runs the transfer script (03 §6.6, 04 §12.9). An order ID alone is never enough, and there is no admin HTTP route (RC84).
 
 ### 9.6 Flow F5: Export / import
 
@@ -422,15 +427,15 @@ Global: S27 reachable from S09 refusal, S08 crisis, S28, S20
 
 ### 9.7 Flow F6: Generation failure and retry
 
-S08 `awaitingReading` → error (network, 5xx, timeout 60 s, or output moderation failure) → `generationFailed`: "We couldn't create your reading. You haven't been charged." [Try again] [Finish later]. Try again resends the **same** cards with the same `clientReadingId` (idempotency key, 03). The Worker never replays a stored error: it starts a new attempt with a new hold (RC49), and the failed attempt was already refunded. Finish later saves the reading as `pending` and adds it to the Journal with a badge.
+S08 `awaitingReading` → error (network, 5xx, or output moderation failure) → `generationFailed`. On the 60 s client timeout the client first polls `GET /v1/readings/{clientReadingId}` (RC31) and only shows `generationFailed` if the reading is not completed: "We couldn't create your reading. You haven't been charged." [Try again] [Finish later]. Try again resends the **same** cards with the same `clientReadingId` (`Idempotency-Key == clientReadingId`, RC42). The Worker never replays a stored error: it starts a new attempt with a new hold (RC49), and the failed attempt was already refunded. Finish later saves the reading as `pending` and adds it to the Journal with a badge.
 
 ### 9.8 Flow F7: AI consent declined, then reading
 
-S07 Begin → gate: consent missing → S04 in the `declined` re-entry variant → Allow → back to S07 with the gate re-run automatically. Not now → back to S07 and nothing is sent; the Classic reading (F8) is offered.
+S07 Begin → gate `needsAiConsent` (consent missing, or `ai.consentVersion` increased since it was given; RC21) → S04 in the `declined` re-entry variant → Allow → back to S07 with the gate re-run automatically. Not now → back to S07 and nothing is sent; the Classic reading (F8) is offered.
 
 ### 9.9 Flow F8: Classic reading (RC20, RC71)
 
-Entry: S07 gate result `needsAiConsent` (after "Not now"), `aiUnavailableRegion` or `readingsPaused` → button **Classic reading**.
+Entry: S07 gate result `needsAiConsent` (after "Not now"), `aiUnavailableRegion` (`403 AI_UNAVAILABLE_REGION`) or `readingsPaused` (`503 READINGS_DISABLED` / `AI_BUDGET_EXHAUSTED`) → button **Classic reading**. Reconciled by 00_DECISIONS.md RC20, RC29, RC47, RC71.
 
 1. No hold, no Worker call, no network needed, no credit used.
 2. S08 runs the same ritual (shuffle → pick → reveal) with the CSPRNG draw; there is no commit request and no `awaitingReading`.
@@ -441,7 +446,7 @@ Entry: S07 gate result `needsAiConsent` (after "Not now"), `aiUnavailableRegion`
 
 ### 10.1 Card identity (stable, locale-independent)
 
-`cardId` format: `major_00` … `major_21`, `wands_01` … `wands_14`, `cups_01` … `cups_14`, `swords_01` … `swords_14`, `pentacles_01` … `pentacles_14` (01 = Ace, 11 = Page, 12 = Knight, 13 = Queen, 14 = King). The IDs are shared by the client, the Worker prompts, exports and analytics, and never change.
+`cardId` format: `major_00` … `major_21`, `wands_01` … `wands_14`, `cups_01` … `cups_14`, `swords_01` … `swords_14`, `pentacles_01` … `pentacles_14` (01 = Ace, 11 = Page, 12 = Knight, 13 = Queen, 14 = King). The IDs are shared by the client, the Worker prompts, exports and analytics, and never change. English names: the traditional RWS names in GLOSSARY §1 (Strength = `major_08`, Justice = `major_11`); the authoritative source is `packages/taro_content/source/glossary.yaml` (RC94).
 
 ```dart
 // Conceptual model (package placement per 02_ARCHITECTURE.md)
@@ -510,27 +515,30 @@ final class SpreadPosition {
 
 ### 10.4 Local user-data model (persisted; storage engine per 02)
 
-- `Reading { id (UUID v4, = clientReadingId, idempotency key), createdAt, updatedAt, localDate, spreadId, question?, cards[{positionId, cardId, reversed}], status: pending|complete|failed|refused|classic, content?: ReadingContent, contentLocale, promptVersion?, modelId?, note?, favourite, rating?: up|down, ratingReason?, deliveryAcked: bool (device-local, not exported), reported: bool }`
-- `ReadingContent { title, summary, positions[{positionId, text}], synthesis, reflectionPrompts[1..3] }` (wire schema per 03, RC30)
+Storage is drift only (RC14), in two files (RC75): `taro_journal.db` holds `Reading`, `DailyCard` and `AppSettings` and may be included in OS backups; `taro_device.db` holds consent state, the purchase outbox (`purchase_outbox`), the Remove Banner Ads cache (`entitlements`) and sync caches and is excluded from OS backup on iOS and Android. Notes live on `Reading` and `DailyCard`; there is no separate journal-entry type in v1 (RC17).
+
+
+- `Reading { id (UUID v4, = clientReadingId = `Idempotency-Key`, RC42), createdAt, updatedAt, localDate, spreadId, question?, cards[{positionId, cardId, reversed}], status: pending|complete|failed|refused|classic, content?: ReadingContent, contentLocale, promptVersion?, modelId?, note?, favourite, rating?: up|down, ratingReason?, deliveryAcked: bool (device-local, not exported), reported: bool }`
+- `ReadingContent { title, summary, positions[{positionId, text}], synthesis, reflectionPrompts[1..3] }` (wire schema per 03: `overview` → `summary`, `cards[]` → `positions[]`; no disclaimer on the wire; RC30)
 - `DailyCard { localDate (PK), cardId, reversed, drawnAt, note?, favourite, updatedAt }`
 - `AppSettings`, `ConsentState { ai: granted|declined|unknown + version + at, onboardingStep }`, `ReminderSettings`
 
 ## 11. Content authoring pipeline (78 cards × 12 locales)
 
-**Location:** source YAML lives in the deck content package (name per 02; proposed `packages/taro_content`) under `source/{locale}/cards/{cardId}.yaml`, `source/{locale}/crisis.yaml`, `source/{locale}/articles/*.md` (Learn: About and FAQ), and `source/glossary.yaml`. The tooling lives in `tools/content/`.
+**Location:** source YAML lives in the deck content package `packages/taro_content` under `source/{locale}/cards/{cardId}.yaml`, `source/{locale}/articles/*.md` (Learn: About and FAQ), `source/crisis/crisis_resources.yaml` (one file for all locales, RC25) and `source/glossary.yaml`. The tooling lives in `tools/content/` (subcommands `translate`, `validate`, `build`). `tools/content build` is the **only** generator of deck, spread and crisis assets for the app and the Worker; `tools/sync_deck` is only a parity check (RC26).
 
 | Step | What | Tool / owner | Gate |
 |---|---|---|---|
 | 1. Style guide | `docs/content/STYLE_GUIDE.md`: reflection voice, banned claims, length rules, gender-neutral "you", no religious or medical claims | owner | – |
 | 2. Glossary | Traditional card names per locale (e.g. `major_00`: en "The Fool", de "Der Narr", fr "Le Mat", es "El Loco", it "Il Matto", pt "O Louco", nl "De Dwaas", tr "Deli", uk "Блазень", ja "愚者", ko "바보", ar "الأحمق"), suit names, position names, key terms | Claude draft + native check | glossary 100% reviewed before step 4 |
 | 3. English source | 78 cards authored (LLM-assisted draft → human edit) against the original art's symbolism (D15), not copied from any copyrighted book | owner | `reviewStatus: reviewed` for all en |
-| 4. Translation | `tools/content/translate` calls Claude with the style guide + glossary + en source. Output keeps the structure and writes `sourceHash` | script | – |
-| 5. Validation | `tools/content/validate` (Dart, runs in CI and as a unit test): every card × locale present; list/length bounds (§10.1); glossary names exact; forbidden-terms list per locale (e.g. "guarantee", "accurate", "psychic", "will happen", and their translations); no Markdown or HTML in card text; RTL control-char sanity for `ar`; `sourceHash` staleness report (en changed → locale flagged) | CI | must pass (build fails otherwise) |
+| 4. Translation | `tools/content translate` calls Claude with the style guide + glossary + en source. Output keeps the structure and writes `sourceHash` | script | – |
+| 5. Validation | `tools/content validate` (Dart, runs in CI and as a unit test): every card × locale present; list/length bounds (§10.1); glossary names exact; forbidden-terms list per locale (e.g. "guarantee", "accurate", "psychic", "will happen", and their translations); no Markdown or HTML in card text; RTL control-char sanity for `ar`; `sourceHash` staleness report (en changed → locale flagged) | CI | must pass (build fails otherwise) |
 | 6. Native review | Per-locale reviewer checklist `docs/content/REVIEW_CHECKLIST.md`; flips `reviewStatus` | reviewers | **Launch gate:** all 22 Major Arcana + all names/keywords/short meanings `reviewed` in all 12 locales; minor long texts ≥ 20% sampled per locale, the rest `machine` with an LLM self-review pass |
-| 7. Build | `tools/content/build` compiles to `assets/deck/{locale}.json` (+ `deck_meta.json` locale-independent) with a checksum; a lazy per-locale load at runtime | script | checksum test |
-| 8. Worker feed | The same build emits `worker/src/content/deck_prompt.{locale}.json` (cardId → localized name + keywords + shortUpright/shortReversed) so the prompts use glossary-consistent names (03 consumes it) | script | a worker test asserts parity with the app assets |
+| 7. Build | `tools/content build` compiles to `packages/taro_content/assets/deck/{locale}.json` (+ locale-independent `packages/taro_content/assets/deck/deck_meta.json`) and `packages/taro_content/assets/spreads/spreads.json`, with a checksum; a lazy per-locale load at runtime. It also emits the crisis-resources app asset | script | checksum test |
+| 8. Worker feed | The same build emits `worker/src/generated/deck/{cards,spreads}.json`, `worker/src/generated/deck_prompt.{locale}.json` (cardId → localized name + keywords + shortUpright/shortReversed) and `worker/src/generated/crisis_resources.json`, so the prompts use glossary-consistent names (03 consumes them) | script | a worker test and `tools/sync_deck` assert parity with the app assets |
 
-Volume: about 78 × 750 words ≈ 58k words per locale, plus articles, FAQ and crisis data. Card art (D15) follows its own pipeline (not this spec). Until the art exists, a generated typographic placeholder card (`name + numeral + suit glyph`) is used for development, tests and goldens.
+Volume: about 78 × 750 words ≈ 58k words per locale, plus articles, FAQ and crisis data. Card art (D15) follows its own pipeline (not this spec). Reconciled by 00_DECISIONS.md RC25, RC26. Until the art exists, a generated typographic placeholder card (`name + numeral + suit glyph`) is used for development, tests and goldens.
 
 ## 12. Accessibility requirements (WCAG 2.2 AA baseline)
 
@@ -556,7 +564,7 @@ Volume: about 78 × 750 words ≈ 58k words per locale, plus articles, FAQ and c
 
 ## 14. Design-token contract (Claude Design handoff)
 
-Claude Design (D16) provides the **values**. This spec fixes the **names, roles and constraints**. The tokens are delivered as W3C Design Tokens JSON at `docs/design/taro.tokens.json` (light + dark modes). `tools/design_tokens` generates a Dart `TaroTokens` `ThemeExtension` into the UI package (per 02). Widgets use tokens only: no raw colours, sizes or durations (lint-enforced, 06).
+Claude Design (D16) provides the **values**. This spec fixes the **names, roles and constraints**. The tokens are delivered as W3C Design Tokens JSON at `docs/design/taro.tokens.json` (light + dark modes). `tools/tokens/` (02) generates a Dart `TaroTokens` `ThemeExtension` into `packages/taro_ui/lib/src/tokens/generated/`. The token **names** below are canonical and 02 §14.2 follows them (RC15). Widgets use tokens only: no raw colours, sizes or durations (lint-enforced by 06 in `taro_ui` outside tokens/motion, `features/**/view/**` and `common/**`; non-UI durations such as timeouts use named constants, RC90).
 
 ### 14.1 Colour (each defined for `light` and `dark`)
 
@@ -610,7 +618,7 @@ Screens S01–S33 in every state marked ★, in light + dark, plus en and ar var
 
 ## 15. Analytics event catalogue (product level)
 
-Implementation follows the quiz_apps pattern (sealed base `TaroAnalyticsEvent` with `eventName` and `parameters`), placed per 02. Transport and consent-mode wiring are in 02/05. The reference doc `docs/ANALYTICS_EVENTS.md` is maintained alongside the code (D6). Rules: `snake_case`, name ≤ 40 chars, ≤ 25 params, enum-valued params listed; **no user content or identifiers** (PR18). `source` enums are closed sets.
+Implementation follows the quiz_apps pattern (sealed base `TaroAnalyticsEvent` with `eventName` and `parameters`), placed per 02. Transport and consent-mode wiring are in 02/05: consent defaults to denied, and `ConsentAwareAnalytics` buffers up to 50 events until UMP resolves, then flushes or drops them (RC68). The reference doc `docs/ANALYTICS_EVENTS.md` is maintained alongside the code (D6). Rules: `snake_case`, name ≤ 40 chars, ≤ 25 params, enum-valued params listed; **no user content or identifiers** (PR18). `source` enums are closed sets. `screen_view.screen`, `screen_view.previous` and `error_shown.screen` values are the literal IDs `S01`…`S33` (GLOSSARY §10, RC94).
 
 | Sealed group | Event | Params (type) |
 |---|---|---|
@@ -619,19 +627,19 @@ Implementation follows the quiz_apps pattern (sealed base `TaroAnalyticsEvent` w
 | | `onboarding_completed` | `duration_s` (int), `ai_consent` (bool) |
 | | `disclaimer_accepted` | – |
 | `ConsentEvent` | `ai_consent_decided` | `granted` (bool), `origin` (onboarding\|reading_gate\|settings), `consent_version` (int) |
-| | `ump_consent_result` | `status` (obtained\|not_required\|required_declined\|error), `form_shown` (bool) |
-| | `att_result` | `status` (authorized\|denied\|restricted\|not_determined) |
+| | `consent_ump_result` | `status` (obtained\|not_required\|required_declined\|error), `form_shown` (bool), `can_request_ads` (bool) |
+| | `consent_att_result` | `status` (authorized\|denied\|restricted\|not_determined), `preprompt_shown` (bool) |
 | | `analytics_toggled` | `enabled` (bool) |
 | `ReadingEvent` | `reading_flow_started` | `source` (home\|spreads_guide\|daily_card\|deep_link\|journal_retry), `spread_id` (enum) |
-| | `reading_gate_blocked` | `reason` (no_consent\|offline\|no_credits\|maintenance\|device_unverified\|rate_limited\|daily_limit\|low_trust\|region\|free_paused), `spread_id` |
-| | `reading_hold_result` | `result` (held\|no_credits\|paused\|error), `spread_id` |
+| | `reading_gate_blocked` | `reason` (no_consent\|offline\|insufficient_credits\|readings_paused\|spread_disabled\|device_unverified\|rate_limited\|daily_limit\|low_trust\|region\|free_paused), `spread_id` |
+| | `reading_hold_result` | `result` (held\|insufficient_credits\|paused\|error), `spread_id` |
 | | `question_submitted` | `spread_id`, `has_question` (bool), `question_len_bucket` (0\|1-50\|51-150\|151-300), `used_suggestion` (bool) |
 | | `draw_completed` | `spread_id`, `auto_draw` (bool), `reversed_count` (int), `major_count` (int), `duration_ms` (int) |
 | | `reading_generated` | `spread_id`, `latency_ms` (int), `prompt_version` (str enum), `credit_type` (free\|paid\|rewarded), `locale` |
 | | `reading_failed` | `spread_id`, `error` (network\|timeout\|server\|moderation\|hold_lost\|delivery_expired), `refunded` (bool) |
 | | `classic_reading_started` / `classic_reading_completed` | `spread_id`, `reason` (no_consent\|region\|paused) |
 | | `reading_reported` | `spread_id`, `reason` (offensive\|harmful_advice\|sexual\|hateful\|other) |
-| | `reading_refused` | `spread_id`, `category` (rephrase\|health\|pregnancy\|death\|legal\|financial\|gambling\|crisis) |
+| | `reading_refused` | `spread_id`, `category` (health\|pregnancy\|death\|legal\|financial\|gambling\|self_harm\|harm_to_others\|sexual_minors\|hate_or_harassment; 03 §9.4, RC27), `can_rephrase` (bool) |
 | | `crisis_resources_viewed` | `origin` (reading\|help\|settings) |
 | | `reading_viewed` | `spread_id`, `origin` (fresh\|journal) |
 | | `reading_rated` | `spread_id`, `rating` (up\|down), `reason` (too_generic\|mismatch\|tone\|other?) |
@@ -651,21 +659,21 @@ Implementation follows the quiz_apps pattern (sealed base `TaroAnalyticsEvent` w
 | | `notification_permission_result` | `granted` (bool) |
 | | `reminder_changed` | `enabled` (bool), `hour` (int) |
 | | `reminder_opened` | – |
-| `MonetizationEvent` (full list and params owned by 04; product-required minimum) | `out_of_readings_viewed` | `source` (question_gate\|hold_402\|balance_chip\|hold_lost), `rewarded_available` (bool) |
+| `MonetizationEvent` (full list and params owned by 04; product-required minimum) | `out_of_readings_viewed` | `source` (question_gate\|hold_402\|balance_chip\|hold_lost\|low_trust), `rewarded_available` (bool) |
 | | `store_viewed` | `source` (out_of_readings\|settings\|balance_chip\|deep_link) |
 | | `purchase_started` / `purchase_completed` / `purchase_failed` / `purchase_cancelled` / `purchase_pending` | `product` (pack_s\|pack_m\|pack_l\|remove_ads), `error?` (enum) |
 | | `purchase_verification_delayed` | `product` |
 | | `restore_completed` | `result` (nothing\|remove_ads) |
-| | `rewarded_offer_tapped` | `source` |
+| | `rewarded_offer_tapped` | `source` (out_of_readings\|store) (RC34) |
 | | `rewarded_ad_result` | `result` (completed\|dismissed\|no_fill\|error) |
-| | `rewarded_grant_result` | `result` (granted\|delayed\|capped), `wait_ms` (int) |
-| | `banner_impression_screen` | `screen` (home\|journal\|learn) |
+| | `rewarded_grant_result` | `result` (granted\|delayed\|capped\|cooldown), `wait_ms` (int) |
+| | `ad_banner_impression` | `screen_id` (home\|journal_list\|learn_library; `kBannerAllowList`, RC18) |
 | `DataEvent` | `export_completed` / `export_failed` | `entries_bucket`, `error?` |
 | | `import_completed` | `mode` (merge\|replace), `entries_bucket`, `schema_version` (int) |
 | | `import_failed` | `reason` (not_taro\|newer_version\|corrupt\|too_large\|storage) |
 | | `data_deleted` | `worker_ack` (bool) |
 | `SettingsEvent` | `setting_changed` | `key` (theme\|language\|reversals\|haptics), `value` (enum str) |
-| `AppEvent` | `app_update_required_shown`, `app_update_available_shown`, `maintenance_shown`, `device_unverified_shown` | `origin` |
+| `AppEvent` | `app_update_required_shown`, `app_update_available_shown`, `readings_paused_shown`, `device_unverified_shown` | `origin` |
 | | `rate_prompt_shown` | – |
 | `ErrorEvent` | `error_shown` | `kind` (ErrorKind), `screen` |
 
@@ -684,13 +692,14 @@ Implementation follows the quiz_apps pattern (sealed base `TaroAnalyticsEvent` w
 | Install size | ≤ 60 MB download (art as WebP, ≤ 200 KB per card @2x) |
 | Offline | Daily card, Learn, Journal, Settings, Export/Import and Crisis resources are fully functional |
 | Minimum OS | iOS 16.0, Android 7.0 (API 24), subject to 02 |
+| Devices | Universal: iPhone + iPad, Android phones + tablets (PR16, RC24) |
 
 ## 17. Testing strategy (how this spec reaches ≥ 90%)
 
 The mechanics and gate are in 06. The product-level obligations:
 
-1. **State coverage:** every state in §8.3 has a widget test driven by fake ports (fake Worker client, fake store, fake ads, fake clock, seeded CSPRNG). States marked ★ also get goldens in light/dark, and in LTR (en) + RTL (ar), plus de and ja for the text-heavy S09, S14 and S17.
-2. **Flow integration tests** (`integration_test`, fakes at the port boundary): F1–F7 end-to-end, plus the reinstall-same-ID, timezone-change and day-rollover-on-resume cases with a fake clock.
+1. **State coverage:** every state in §8.3 has a widget test driven by fake ports (fake Worker client, fake store, fake ads, fake clock, seeded CSPRNG). States marked ★ also get goldens (built-in `matchesGoldenFile` with `TaroGoldenComparator`, 06 QA8; RC13) in light/dark, and in LTR (en) + RTL (ar), plus de and ja for the text-heavy S09, S14 and S17, each at phone width and at tablet width (iPad 13", Android tablet; RC24).
+2. **Flow integration tests** (patrol on top of `integration_test`, because the native ATT/UMP/StoreKit dialogs are involved; fakes at the port boundary; RC13): F1–F8 end-to-end, plus the reinstall-same-ID, timezone-change and day-rollover-on-resume cases with a fake clock.
 3. **Domain unit tests:** shuffle (a Fisher–Yates property test with a seeded RNG; chi-square distribution sanity over 100k draws in a non-CI "slow" suite), pick → card mapping, reversal probability, pre-draw gate ordering, merge/replace import logic (conflict table), backup schema round-trip for every `schemaVersion`, patterns computation, reset countdown, daily-card same-day idempotency.
 4. **Content tests:** the `tools/content/validate` rules run as unit tests over the real assets (12 locales × 78 cards), plus the glossary and forbidden-terms lint, and parity with the Worker prompt feed.
 5. **Accessibility tests:** `meetsGuideline(androidTapTargetGuideline | iOSTapTargetGuideline | labeledTapTargetGuideline | textContrastGuideline)` on every ★ screen, a semantics-label assertion for cards, and text scale 2.0 overflow tests on S05, S09 and S13.
@@ -704,7 +713,7 @@ The mechanics and gate are in 06. The product-level obligations:
 | 4.3(b) rejection despite differentiation | Launch blocked | The PR2 stack, a detailed App Review note (05) with a demo of journal/learn/patterns, and the PR11 widget as an escalation lever |
 | AI output says something harmful or predictive | Rejection, user harm | Structured output, 03 moderation in + out, refusal categories, deterministic disclaimer, reviewer-path test cases in 05 |
 | Translation quality in 11 locales | Poor ratings in those markets | Glossary lock, validation, a native-review launch gate on majors + short texts, staleness hashes |
-| Android credit loss on reinstall (Auto Backup excluded) | Support load, refund requests | Clear copy on S11/FAQ, support code, order-ID recovery (03/04), modest pack sizes (04) |
+| Android credit loss on reinstall (Auto Backup excluded) | Support load, refund requests | Clear copy on S11/FAQ, Support ID, `transferToken`-based transfer (03 §6.6, RC84), modest pack sizes (04) |
 | Latency of Celtic Cross generation | Perceived slowness | Reveal overlaps generation (safe because of the pre-draw hold), keyword waiting view, and the model/length config in 03 |
 | Android reinstall farming free readings | AI cost, abuse | Device-scoped free allowance and rewarded cap (03 §3.7, RC53) |
 | Scope (31 screens × states × 12 locales) | Schedule | Shared state widgets, strict v1 list, and the widget, share images and follow-ups deferred |
@@ -722,13 +731,15 @@ The mechanics and gate are in 06. The product-level obligations:
 | Q6 | Should the AI reading stream? | **No in v1** (PR8). Revisit if p95 > 20 s. |
 | Q7 | Should the question be optional for all spreads? | **Yes.** `relationship` and `two_paths` show stronger suggestion chips but still allow empty. |
 | Q8 | Free-form journal entries (not tied to a draw)? | **v1.2.** |
-| Q9 | Should declined UMP ad consent skip ATT? | **Yes**, as stated in PR10 step 5; 04 owns the final rule. |
+| Q9 | Should declined UMP ad consent skip ATT? | **Yes**: ATT and its neutral pre-prompt are skipped when UMP gives `canRequestAds == false` (PR10, RC19). |
 | Q10 | Should the patterns card show a streak count? | **Streak is tracked for analytics only, not shown** (to avoid habit-pressure dark patterns). |
 
 ## 20. Cross-spec assumptions others must honour
 
-- **03:** Endpoints exist for install registration, balance/sync, the pre-draw hold, reading generation (idempotent on `clientReadingId`; errors are never replayed; returns structured `ReadingContent` + new balance + outcome `completed|declined(category, canRephrase)`), delivery acknowledgement, reading status, report, SSV grant visible via balance, purchase verification, and install data deletion. No question is persisted, and reading text only until delivered (PR14). Remote config exposes at least: free readings per day, `readings.enabled`, enabled spreads, rewarded enabled/amount/daily cap/cooldown/load timeout, `app.minVersion`/`app.recommendedVersion`. There is no per-spread cost (RC62). 03 owns the canonical key names. Prompts consume `deck_prompt.{locale}.json`.
-- **04:** Banner placements are limited to S05/S14/S16 (PR13). No interstitials. The out-of-readings sheet (S10) is the only rewarded entry point besides the Home balance chip. The paywall is always before the draw. Pack product IDs follow `com.vshyrochuk.taro.{suffix}` with analytics aliases `pack_s|pack_m|pack_l|remove_ads`.
-- **05:** Owns disclaimer, AI-consent and refusal copy, privacy/terms URLs, age rating, and App Review notes using §4.1.
-- **02:** Provides the CSPRNG port, the secure install-ID store, the state-widget kit, the `TaroTokens` ThemeExtension generation target, the content package, and the deep-link router for the routes in §8.1.
-- **06:** Enforces the tests in §17, token-only and ARB-only lints, and golden locale/theme matrices.
+Reconciled by 00_DECISIONS.md RC3, RC4, RC5, RC8, RC13, RC15, RC17, RC18, RC24, RC25, RC26, RC28, RC34. Canonical names are listed in GLOSSARY.md.
+
+- **03:** Endpoints (RC4): `POST /v1/installs` (registration), `POST /v1/installs/token`, `PUT /v1/installs/me/timezone`, `DELETE /v1/installs/me` (delete-data semantics per §7.10, RC37), `GET /v1/config`, `GET /v1/balance` (`BalanceDto`), `POST /v1/readings/holds` (pre-draw hold), `POST /v1/readings` (generation; idempotent on `clientReadingId` with `Idempotency-Key == clientReadingId`; `X-Taro-AI-Consent` header; only terminal outcomes are replayed, RC49; returns structured content + new balance + outcome `completed|declined(category, canRephrase)`), `POST /v1/readings/{clientReadingId}/ack`, `GET /v1/readings/{clientReadingId}` (status/resume), `POST /v1/readings/{clientReadingId}/report`, `POST /v1/rewards/intents` + `GET /v1/rewards/intents/{intentId}` + `POST /v1/rewards/intents/{intentId}/cancel`, `POST /v1/purchases/verify`. Error codes are 03's UPPER_SNAKE set (RC5), including `402 INSUFFICIENT_CREDITS`, `409 HOLD_CONFLICT`, `410 READING_EXPIRED_REFUNDED`, `412 AI_CONSENT_REQUIRED`, `403 AI_UNAVAILABLE_REGION`, `429 RATE_LIMITED`, `503 READINGS_DISABLED`, `503 AI_BUDGET_EXHAUSTED`. No question is persisted, and reading text only until delivered (PR14). Remote config keys used by this spec (03 owns the names, RC8): `readings.freeDaily`, `readings.enabled`, `spreads.enabled`, `rewarded.{enabled,amount,dailyCap,cooldownSec,grantPollTimeoutSec,loadTimeoutSec}`, `ads.{bannerEnabled,bannerScreens,bannerMinCompletedReadings,attPrepromptEnabled}`, `ai.consentVersion`, `ai.questionMaxChars`, `ai.blockedCountries`, `app.minVersion.{ios,android}`, `app.recommendedVersion.{ios,android}`, `balance.staleAfterSec`, `review.promptAfterPositiveReadings`. There is no per-spread cost key (RC62). Prompts consume `worker/src/generated/deck_prompt.{locale}.json`; crisis resources come from `worker/src/generated/crisis_resources.json` (RC25, RC26).
+- **04:** Banner placements are limited to `kBannerAllowList = {home, journal_list, learn_library}` (S05/S14/S16, PR13, RC18). No interstitials. Rewarded ads are offered on S10 (reached from the reading gate or the Home balance chip) and on S11, only when `free.remaining == 0` (RC34). The paywall is always before the draw. Product IDs (RC3): `com.vshyrochuk.taro.readings_3`, `.readings_10`, `.readings_30`, `.remove_ads` (display name "Remove Banner Ads", RC80), with analytics aliases `pack_s|pack_m|pack_l|remove_ads`.
+- **05:** Owns disclaimer, AI-consent, ATT pre-prompt and refusal copy, privacy/terms URLs, age rating (Apple 13+, Play target audience 16+; RC23, RC93), the iPad screenshot set (RC24), and App Review notes using §4.1 and the exact ARB labels of the flows in §9 (RC79).
+- **02:** Provides the CSPRNG port, the secure install-ID and install-secret store, the state-widget kit, the `TaroTokens` ThemeExtension generation target (`tools/tokens/` → `packages/taro_ui/lib/src/tokens/generated/`, names per §14, RC15), the content package `packages/taro_content`, drift storage (RC14, RC75), `ReadingGate` in the RC44 order, and the go_router routes and 4 tabs of §8.1 (RC17).
+- **06:** Enforces the tests in §17 (goldens via `matchesGoldenFile` + `TaroGoldenComparator`, integration via patrol; RC13), token-only and ARB-only lints, and golden locale/theme/width matrices (phone + tablet, RC24).

@@ -20,7 +20,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
 **Output of this phase:**
 - Designed views for S10–S12, S14–S26, S28–S30 in `apps/taro/lib/features/{paywall,journal,learn,settings,backup,help}/view/`.
 - `BannerSlot` live on S05, S14 and S16, with the layout test proving it never intersects the scroll viewport.
-- Goldens for every ★ state here, including the monetization matrix from 04 §15 (`de` added for store and sheet).
+- Goldens for every ★ state here, including the monetization matrix from 04 §15 (`de` added for store and sheet); ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), with content constrained to `layout.maxContentWidth`.
 
 ---
 
@@ -54,7 +54,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
   - no pack pre-selected; no countdown except the real reset;
   - Semantics labels on prices ("10 readings for 4.99 US dollars, 50 cents per reading");
   - the free reading flow never shows an ad (05 3.2.2).
-- [ ] Goldens (light/dark × en/ar + `de`): S10 with rewarded eligible, cooldown and cap reached, and `lowTrustLimited`; S11 `loading`, `ready`, `pending`, `verificationDeferred`, `storeUnavailable`, `purchasesBlocked`, and Remove Banner Ads owned; S12 `granted`.
+- [ ] Goldens (light/dark × en/ar + `de`): S10 with rewarded eligible, cooldown and cap reached, and `lowTrustLimited`; S11 `loading`, `ready`, `pending`, `verificationDeferred`, `storeUnavailable`, `purchasesBlocked`, and Remove Banner Ads owned; S12 `granted`. ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24), including S10 and S11 (04 §15).
 
 ---
 
@@ -64,7 +64,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
 - [ ] Place `BannerSlot` on S05 `home`, S14 `journal_list` and S16 `learn_library` only: a fixed-height `BannerContainer` below the scroll view and above the tab bar, collapsing on failure, offline or Remove Ads.
 - [ ] Layout test: the banner rect ∩ scroll viewport = ∅ on all three screens at `kPhoneSmall` and text scale 2.0. Also assert a gap of **≥ 16 dp** (`space.adGap`, RC59) between the banner container and any tap target.
 - [ ] Test the `ads.bannerMinCompletedReadings` gate: a first-session user sees no banner until their first reading completes (04 §8).
-- [ ] Goldens: home with banner (light/dark × en/ar), with the fake banner view.
+- [ ] Goldens: home with banner (light/dark × en/ar), with the fake banner view; also home with banner at `kTabletIpad13` and `kTabletAndroid` (RC24).
 
 ---
 
@@ -78,7 +78,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
   - states `empty` ("Your readings will live here" + Start a reading), `filteredEmpty`, `searchEmpty`, `storageError`;
   - a "Finish reading" badge for pending readings.
 - [ ] S15 `JournalEntryView`: the S09 renderer + a notes editor (5,000 chars, autosave), delete confirmation + 5 s Undo snackbar, `pending` → resume into S08 `awaitingReading`, and `failed`.
-- [ ] Goldens: S14 `empty` and `content` (+ `de` and `ja` per 01 §17.1).
+- [ ] Goldens: S14 `empty` and `content` (+ `de` and `ja` per 01 §17.1); ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24).
 
 ---
 
@@ -88,7 +88,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
 - [ ] S16 `DeckBrowserView`: a grid grouped as Major, Wands, Cups, Swords and Pentacles; search by localized name and keywords; `searchEmpty`; banner (RC18).
 - [ ] S17 `CardDetailView`: art with tap-to-zoom (`zoomed`), name, arcana/suit/number, element and correspondences, an Upright/Reversed toggle, aspects, reflection questions, "In your journal: drawn N times" → filtered journal, prev/next.
 - [ ] S18 `SpreadGuideView` + detail (layout diagram, position meanings, "Start this spread" → S07). S19 `AboutView` (the authored article + disclaimer).
-- [ ] Goldens: S16 `content`; S17 `upright` (+ `de` and `ja`).
+- [ ] Goldens: S16 `content`; S17 `upright` (+ `de` and `ja`); ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24).
 
 ---
 
@@ -105,9 +105,9 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
   - Tracking (ATT status + open iOS Settings), shown on iOS only;
   - the Usage analytics toggle.
 - [ ] S24 `ExportView` and S25 `ImportView` (pick → validating → `invalid(reason)` | `preview` "128 readings, 240 daily cards… Readings balance and purchases are not part of backups" → Merge/Replace (with a replace confirmation) → progress → `done(summary)`).
-- [ ] S26 `DeleteDataView`: two-step confirm → deleting → `done` | `partial` (local data wiped, Worker deletion queued). The copy says "Your remaining readings and Remove Ads are kept" (RC37, CS15).
+- [ ] S26 `DeleteDataView`: two-step confirm → deleting → `done` | `partial` (local data wiped, Worker deletion queued). The copy says "Your remaining readings and Remove Banner Ads are kept" (RC37, CS15).
 - [ ] S28 `FaqView` (authored, offline), S29 `LegalView` (in-app browser for the terms/privacy URLs from config `legal.*` per CS10; disclaimer from ARB; `showLicensePage`), S30 `UpdateRequiredView` (blocking, store link only).
-- [ ] Goldens: S20 `content`, S25 `invalid` and `preview`, S30 `content`.
+- [ ] Goldens: S20 `content`, S25 `invalid` and `preview`, S30 `content`; ★ states also at `kTabletIpad13` and `kTabletAndroid` (06 §3, RC24).
 
 ---
 
@@ -122,7 +122,7 @@ The paywall and store screens get the compliance widget tests from 04 §11 and 0
 
 ## Done when
 
-- [ ] `apps/taro` ≥ 90% and `taro_ui` ≥ 90%. All goldens are green. All integration flows are green on iOS (PR) and Android (nightly).
+- [ ] `apps/taro` ≥ 90% and `taro_ui` ≥ 90%. All goldens are green, including tablet-width goldens (`kTabletIpad13`, `kTabletAndroid`) for every ★ state of this phase (RC24). All integration flows are green on iOS (PR) and Android (nightly).
 - [ ] The 04 §11 and 05 paywall widget tests pass. The banner layout test passes.
 - [ ] Docs: `docs/ANALYTICS_EVENTS.md` (banner and paywall events verified), CHANGELOG.
 - [ ] One commit: `feat(taro): Phase 17 — UI: monetization, journal, learn, settings & data`.
