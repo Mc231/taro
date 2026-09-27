@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Question refused</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-info:#8FC8F5;--color-status-onInfo:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Spreads.dc.html" aria-label="Back" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<span style="display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--color-accent-subtle); font-weight: 500; font-size: 14px"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-card-frame)"></span>1 free reading today</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 26px; line-height: 32px">Let's look at this another way</h1>
+</div>
+<div role="status" style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; background: var(--color-bg-surface); box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--color-accent-subtle); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FC8F5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 7.5v.5"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 19px; line-height: 25px">Taro can't read on health questions</h2>
+<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Tarot here is for reflection, so it can't speak to symptoms or treatment. A doctor or pharmacist is the right person for that part.</p>
+</div>
+</div>
+<span style="display: flex; gap: 8px; align-items: center; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--color-status-info)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>No reading was used</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="q-refused" style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">Your question (optional)</label>
+<textarea id="q-refused" rows="3" style="box-sizing: border-box; width: 100%; resize: none; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--color-border-focus); background: var(--color-bg-sunken); color: var(--color-text-primary); font-family: var(--font-serif); font-size: 18px; line-height: 27px; outline: none">How can I look after myself while I wait for my test results?</textarea>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">Try asking about how you feel, or what you can do</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-primary); font-family: var(--font-sans); font-size: 14px">What helps me feel steadier right now?</button>
+<button type="button" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-primary); font-family: var(--font-sans); font-size: 14px">Where can I find support this week?</button>
+</div>
+</div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<a href="Draw.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 16px; text-decoration: none">Begin</a>
+<a href="#" style="align-self: center; min-height: 44px; padding: 0 10px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Reflect on your cards without a question</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

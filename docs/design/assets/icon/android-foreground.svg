@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="432" height="432" viewBox="0 0 432 432">
+<title>Taro adaptive icon, foreground layer</title>
+<desc>108 x 108 dp canvas (4 units per dp). Transparent. The mark (128 x 220) sits in the centre, its corners inside the 66 dp safe circle (diameter 264); the visible 72 dp area is the central 288 x 288.</desc>
+<g transform="translate(28.27 28.27) scale(0.36667)">
+<rect x="338" y="212" width="348" height="600" rx="36" fill="#0F1120"></rect>
+<rect x="370" y="244" width="284" height="536" rx="16" fill="none" stroke="#D4A63A" stroke-width="22"></rect>
+<path d="M512.0 400.0 L529.6 469.5 L591.2 432.8 L554.5 494.4 L624.0 512.0 L554.5 529.6 L591.2 591.2 L529.6 554.5 L512.0 624.0 L494.4 554.5 L432.8 591.2 L469.5 529.6 L400.0 512.0 L469.5 494.4 L432.8 432.8 L494.4 469.5Z" fill="#D4A63A"></path>
+</g>
+</svg>

@@ -39,6 +39,7 @@ The temporary stub tokens from Phase 13 are deleted.
 - [ ] `motion/taro_motion.dart`: `context.motion.*` returns the reduced-motion values when `MediaQuery.disableAnimations` or `UserSettings.reduceMotion` is set (01 §14.4). `a11y/taro_haptics.dart` implements the `haptic.pick/flip/ready` tokens, gated by the haptics setting.
 - [ ] Fonts: bundle the families named by the tokens (Latin, Cyrillic, Arabic, CJK, Hangul subsets) under `taro_ui/fonts/`. There is no runtime Google Fonts fetch (01 §13). Check the size budget against 02 §17 and record it in `docs/ARCHITECTURE.md`.
 - [ ] Delete `stub_tokens.dart`. `check_forbidden_apis.py` now has zero exceptions outside `lib/src/tokens/` and `lib/src/motion/`.
+- [ ] `tools/tokens/validate_tokens.dart` (moved here from Phase 14.3, because Dart tooling exists only after Phases 2–3): every 01 §14 token name exists in both modes, `$extensions["taro.reducedMotion"]` exists on every `motion.*` token, `font.family.{role}.{script}` is complete, and the contrast pairs pass (same pairs as the Phase 14 Python check in `docs/design/REVIEW.md`). Runs in CI.
 - [ ] Test: every token name in the 01 §14 contract exists in both modes (02 §14.1), and every contrast pair passes via the `validate_tokens` logic reused in Dart.
 
 ---
@@ -46,6 +47,7 @@ The temporary stub tokens from Phase 13 are deleted.
 ## Sprint 15.2: Components
 
 **Tasks:**
+- [ ] Components designed in Phase 14's second pass: `TaroCoachmark` (S05 first run; scrim never covers the banner), `TaroToast` (with Undo; S09, S11, S15), `ReadingRatingControl` (S09). Goldens light/dark + `ar`.
 - [ ] Layout and structure: `TaroScaffold`, `TaroAppBar`, `TaroTabBar`, `TaroSheet`, `TaroDialog`, `SettingsTile`, `SegmentedChoice`, `TaroBadge`, `CountdownText` (server-time based; no fake timers).
 - [ ] Inputs and actions: `TaroButton` (primary, secondary, tertiary, destructive, loading), `TaroIconButton`, `TaroTextField` (with a grapheme counter from 250), `TaroChip` (suggestion chips).
 - [ ] Deck rendering:
@@ -58,6 +60,12 @@ The temporary stub tokens from Phase 13 are deleted.
 - [ ] State kit (restyled): `TaroLoadingView` (skeleton per screen), `TaroEmptyView(illustration, title, body, action)`, `TaroErrorView(kind, onRetry)`, `TaroOfflineBanner`, `TaroInlineNotice(kind)`, `SkeletonBlock`.
 - [ ] Monetization visuals: `ProductOfferTile` (price, count, per-reading price, computed best-value badge; Semantics per 04 §11) and `BannerContainer` (fixed height, `color.ad.container`, `space.adGap` ≥ 16 dp separation, RC59).
 - [ ] `PatternsChart` (suit balance bars using the `color.chart.suit.*` tokens; colour is never the only signal).
+- [ ] New from the Phase 14 designs (not in 02 §14.3; see `docs/design/components.md` § New components):
+  - containers and rows: `TaroSurfaceCard` (surface container, optionally tappable/highlighted), `TaroListTile` (leading/title/subtitle/trailing; selected; disabled-with-reason per 04 §9.1; trailing action for S27 hotline rows), `JournalEntryTile` (status Pending/Classic, note and favourite indicators, "Finish reading" action), `IconBulletList` (S02–S04, S24, S26), `SettingsSection` (titled group of `SettingsTile`s), `NotificationPreview` (S22, never shows the card);
+  - inputs and navigation: `TaroRadioTile` (row and card styles; S21, S25, S33, theme sheet), `WeekdayPicker` (multi-select days, full day names in semantics, locale first weekday), `TaroAccordion` (FAQ, `Semantics(expanded:)`, no height animation under reduced motion), `TaroTabStrip` (scrollable `role=tab` strip for S29), `StepIndicator` ("Step 1 of 3");
+  - deck: `SpreadDiagram` (static numbered layout from `PositionLayout`, small for S06 and large with legend for S18, RTL-mirrored x, one layout semantics label), `CardGridTile` (S16 deck cell), `SuitGlyph` + the custom `TaroIcons` set (suit and Major Arcana glyphs at the Material Symbols Rounded 1.5 px stroke);
+  - brand and monetization visuals: `BalancePill` (stateless visual for the app-level `BalanceChip`: free / credits / zero / stale / unverified), `TaroBrandMark` (mark + wordmark for S01 and S30).
+- [ ] `AiGeneratedLabel` gets a `classic` variant ("Classic reading" + one-line explanation, S32).
 - [ ] Every component ships with:
   - a widget test (states, callbacks, semantics);
   - `meetsGuideline(androidTapTargetGuideline | iOSTapTargetGuideline | labeledTapTargetGuideline | textContrastGuideline)`;

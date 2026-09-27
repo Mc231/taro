@@ -31,7 +31,7 @@ textarea::placeholder{color:#8B91AB}
 </div>
 <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 2px">
 <legend style="padding: 0 0 6px; font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">What's the problem?</legend>
-<label for="rp-offensive" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-offensive" name="reason" value="offensive" checked style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Offensive</label>
+<label for="rp-offensive" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-offensive" name="reason" value="offensive" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Offensive</label>
 <label for="rp-harmful" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-harmful" name="reason" value="harmful_advice" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Harmful advice</label>
 <label for="rp-sexual" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-sexual" name="reason" value="sexual" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Sexual content</label>
 <label for="rp-hateful" style="display: flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 4px; font-size: 16px; line-height: 22px; cursor: pointer"><input type="radio" id="rp-hateful" name="reason" value="hateful" style="width: 20px; height: 20px; margin: 0; accent-color: var(--color-accent-primary)">Hateful</label>
@@ -44,10 +44,11 @@ textarea::placeholder{color:#8B91AB}
 </div>
 <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--color-bg-surface)">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B2B7CD" stroke-width="1.5" stroke-linecap="round" aria-hidden="true" style="flex: none; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5M12 8h.01"></path></svg>
-<span style="font-size: 13px; line-height: 19px; color: var(--color-text-secondary)">Your question and this reading will be sent to us and kept for 90 days so we can review them. Then they are deleted.</span>
+<span style="font-size: 13px; line-height: 19px; color: var(--color-text-secondary)">Your question and this reading will be sent to Taro and kept for 90 days.</span>
 </div>
 <div style="display: flex; flex-direction: column; gap: 10px">
-<button type="button" style="width: 100%; min-height: 52px; border: 0; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-weight: 500; font-size: 16px">Send report</button>
+<button type="button" disabled aria-disabled="true" aria-describedby="rp-send-hint" style="width: 100%; min-height: 52px; border: 0; border-radius: 12px; background: var(--color-bg-surface); color: var(--color-text-tertiary); font-family: var(--font-sans); font-weight: 500; font-size: 16px">Send report</button>
+<span id="rp-send-hint" style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">Choose a reason to send your report.</span>
 <a href="Reading.dc.html" style="min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Cancel</a>
 </div>
 </div>

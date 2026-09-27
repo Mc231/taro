@@ -1,0 +1,72 @@
+{
+  "_about": "Sample AI reading for the Phase 14 design sessions. 'request' is the POST /v1/readings body (03 §9.1); 'response' is the canonical 200 completed wire format (RC30). The client maps reading.overview → ReadingContent.summary and cards[].interpretation → positions[].text. No disclaimer on the wire: the client renders disclaimerShort (05 §3).",
+  "request": {
+    "clientReadingId": "3f1c2a90-5b7e-4c1d-9a2e-6d0b8e4f1a21",
+    "spread": {
+      "id": "single",
+      "version": 1
+    },
+    "cards": [
+      {
+        "positionId": "focus",
+        "cardId": "major_19",
+        "reversed": false
+      }
+    ],
+    "question": "How can I bring more ease into my mornings?",
+    "locale": "en",
+    "drawnAt": "2026-09-27T18:41:31Z"
+  },
+  "response": {
+    "readingId": "01925c7a-3f1c-7b1e-9f00-6d0b8e4f1a21",
+    "status": "completed",
+    "chargeSource": "free",
+    "promptVersion": "v1",
+    "reading": {
+      "title": "Letting the light in",
+      "overview": "The Sun is a warm card to draw for a question about everyday ease. It points to simplicity, openness and the kind of energy that grows when you stop forcing things. Your mornings may have more room for lightness than they seem to right now.",
+      "cards": [
+        {
+          "positionId": "focus",
+          "cardId": "major_19",
+          "reversed": false,
+          "interpretation": "In the focus position, the Sun asks what your mornings could feel like if they were built around what gives you energy rather than what drains it. The child on the white horse is not rushing anywhere; they ride out into the day with curiosity. You might consider one small, bright ritual to begin with, such as stepping outside or opening the curtains before you pick up your phone. The card favours simple pleasures over perfect routines, so ease may come from letting go of one hurried habit rather than adding a new one."
+        }
+      ],
+      "synthesis": "With a single card, the reading stays close to one theme: warmth and clarity. The Sun is a Major Arcana card, which many readers take as a sign that the question touches something that matters to you, not only a matter of scheduling.",
+      "reflectionPrompts": [
+        "What is one thing that makes you feel awake in a good way?",
+        "Which morning habit could you set aside for a week, just to see how it feels?"
+      ]
+    },
+    "balance": {
+      "free": {
+        "limit": 1,
+        "used": 1,
+        "remaining": 0,
+        "localDate": "2026-09-27",
+        "resetsAt": "2026-09-27T23:00:00Z",
+        "timezone": "Europe/London",
+        "paused": false
+      },
+      "bonus": 0,
+      "paid": 3,
+      "canRead": true,
+      "canReadReason": null,
+      "nextSource": "paid",
+      "rewarded": {
+        "enabled": true,
+        "amount": 1,
+        "dailyCap": 3,
+        "grantedToday": 0,
+        "available": true,
+        "cooldownEndsAt": null
+      },
+      "paidBlocked": false,
+      "purchasesAllowed": true,
+      "purchasesBlockedReason": null,
+      "ledgerVersion": 418,
+      "serverTime": "2026-09-27T18:42:10Z"
+    }
+  }
+}

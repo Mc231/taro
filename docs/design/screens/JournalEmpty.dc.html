@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Journal empty</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-ad-container:#0A0C17;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); display: flex; flex-direction: column">
+<div style="flex-grow: 1; min-height: 0; overflow: hidden; padding: 52px 16px 0; display: flex; flex-direction: column; gap: 12px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Journal</h1>
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; padding: 0 8px">
+<svg width="200" height="150" viewBox="0 0 200 150" fill="none" stroke-linejoin="round" aria-hidden="true">
+<rect x="34" y="30" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.5" stroke-opacity=".55" transform="rotate(-14 63 78)"></rect>
+<rect x="108" y="30" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.5" stroke-opacity=".55" transform="rotate(14 137 78)"></rect>
+<rect x="71" y="18" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.8" fill="#0F1120"></rect>
+<rect x="77" y="24" width="46" height="84" rx="4" stroke="#D4A63A" stroke-width="1" stroke-opacity=".6" stroke-dasharray="3 4"></rect>
+<path d="M100 52l3.2 8.6 8.8.4-6.9 5.5 2.4 8.5-7.5-4.9-7.5 4.9 2.4-8.5-6.9-5.5 8.8-.4z" stroke="#D4A63A" stroke-width="1.5"></path>
+<path d="M60 136h80" stroke="#D4A63A" stroke-width="1.2" stroke-opacity=".4" stroke-linecap="round"></path>
+</svg>
+<div style="display: flex; flex-direction: column; gap: 8px; text-align: center">
+<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 22px; line-height: 28px">Your journal starts with your first reading</h2>
+<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Readings, daily cards and your notes are kept here, on this phone. Over time you'll see which cards keep coming back.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; width: 100%">
+<a href="Spreads.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 16px; text-decoration: none">Start a reading</a>
+<a href="DailyCard.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Reveal today's card</a>
+</div>
+</div>
+</div>
+<nav style="height: 64px; padding-bottom: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-border-subtle); background: var(--color-bg-canvas)">
+<a href="Today.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"></path></svg>Today</a>
+<a href="Journal.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-accent-primary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M9 9h6M9 13h6"></path></svg>Journal</a>
+<a href="Learn.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="9" height="15" rx="1.5"></rect><rect x="11" y="6" width="9" height="15" rx="1.5"></rect></svg>Learn</a>
+<a href="Settings.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"></path></svg>Settings</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

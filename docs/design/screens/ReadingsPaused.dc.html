@@ -16,7 +16,7 @@ a{color:var(--color-accent-primary)}
 textarea::placeholder{color:#8B91AB}
 </style>
 </helmet>
-<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 20px; display: flex; flex-direction: column; gap: 16px">
 <div style="display: flex; align-items: center; justify-content: space-between">
 <a href="Spreads.dc.html" aria-label="Back" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
 </div>
@@ -28,15 +28,19 @@ textarea::placeholder{color:#8B91AB}
 <label for="q-paused" style="font-size: 13px; line-height: 18px; color: var(--color-text-secondary)">Your question (optional)</label>
 <textarea id="q-paused" rows="3" style="box-sizing: border-box; width: 100%; resize: none; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--color-border-subtle); background: var(--color-bg-sunken); color: var(--color-text-primary); font-family: var(--font-serif); font-size: 18px; line-height: 27px; outline: none">How can I rebuild after a hard year at work?</textarea>
 </div>
-<div role="status" style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 16px; background: var(--color-bg-surface); box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
+<div role="status" style="display: flex; flex-direction: column; gap: 12px; padding: 16px 20px; border-radius: 16px; background: var(--color-bg-surface); box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
 <div style="display: flex; gap: 12px; align-items: flex-start">
 <span style="flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--color-accent-subtle); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8FC8F5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg></span>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">AI readings are paused for now</h2>
-<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">This is on our side, and nothing has been used from your balance. Your question is kept here for later.</p>
+<h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Readings are resting for a moment</h2>
+<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">This is on our side, and nothing has been used from your balance. Your question is kept here for later. Your journal, daily card and Learn still work as usual.</p>
 </div>
 </div>
-<p style="margin: 0; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Your journal, daily card and Learn still work as usual.</p>
+<div role="group" aria-label="Still available" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+<a href="DailyCard.dc.html" style="min-height: 44px; padding: 0 16px; box-sizing: border-box; display: flex; align-items: center; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--color-border-strong); color: var(--color-accent-primary); font-weight: 500; font-size: 15px; text-decoration: none">Daily card</a>
+<a href="Learn.dc.html" style="min-height: 44px; padding: 0 16px; box-sizing: border-box; display: flex; align-items: center; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--color-border-strong); color: var(--color-accent-primary); font-weight: 500; font-size: 15px; text-decoration: none">Learn</a>
+<a href="Journal.dc.html" style="min-height: 44px; padding: 0 16px; box-sizing: border-box; display: flex; align-items: center; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--color-border-strong); color: var(--color-accent-primary); font-weight: 500; font-size: 15px; text-decoration: none">Journal</a>
+</div>
 </div>
 <div style="flex-grow: 1"></div>
 <div style="display: flex; flex-direction: column; gap: 10px">

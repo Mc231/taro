@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spread diagrams</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-suit-major:#E2B84E;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 1320px; height: 900px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 28px 32px; display: flex; flex-direction: column; gap: 20px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; height: 64px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Spread layouts</h1>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">Master diagrams for the Spread picker, the Question screen and Learn. Position ids match <span style="font-family: var(--font-mono); font-size: 13px">spreads.json</span>.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end; font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: right">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 14px; height: 24px; box-sizing: border-box; border-radius: 3px; border: 1.5px solid var(--color-card-frame)"></span>Number = draw and reveal order</span>
+<span>Shown left to right; in Arabic the x positions mirror, card art never does.</span>
+</div>
+</div>
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 20px">
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Single card</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">1 card</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">single</span>
+</div>
+<div role="img" aria-label="Single card layout: one card in the centre, position Focus." style="position: relative; width: 365px; height: 272px">
+<div style="position: absolute; left: 150px; top: 61px; width: 64px; height: 110px; box-sizing: border-box; border-radius: 7px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 18px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 122px; top: 177px; width: 120px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Focus</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">focus</span></div>
+</div>
+</section>
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Past · Present · Future</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">3 cards</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">three_ppf</span>
+</div>
+<div role="img" aria-label="Past, Present, Future layout: three cards in a row, Past on the left, Present in the middle, Future on the right." style="position: relative; width: 365px; height: 272px">
+<div style="position: absolute; left: 44px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 154px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">2</div>
+<div style="position: absolute; left: 264px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">3</div>
+<div style="position: absolute; left: 20px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Past</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">past</span></div>
+<div style="position: absolute; left: 130px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Present</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">present</span></div>
+<div style="position: absolute; left: 240px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Future</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">future</span></div>
+</div>
+</section>
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Situation · Action · Outcome</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">3 cards</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">three_sao</span>
+</div>
+<div role="img" aria-label="Situation, Action, Outcome layout: three cards in a row, Situation on the left, Action in the middle, Outcome on the right." style="position: relative; width: 365px; height: 272px">
+<div style="position: absolute; left: 44px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 154px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">2</div>
+<div style="position: absolute; left: 264px; top: 67px; width: 56px; height: 97px; box-sizing: border-box; border-radius: 6px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: var(--color-suit-major)">3</div>
+<div style="position: absolute; left: 20px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Situation</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">situation</span></div>
+<div style="position: absolute; left: 130px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Action</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">action</span></div>
+<div style="position: absolute; left: 240px; top: 170px; width: 104px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Outcome</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">outcome</span></div>
+</div>
+</section>
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Relationship</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">5 cards</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">relationship</span>
+</div>
+<div role="img" aria-label="Relationship layout: top row You on the left, Connection in the middle, Them on the right; bottom row Challenge and Potential between them." style="position: relative; width: 365px; height: 272px">
+<div style="position: absolute; left: 50px; top: 30px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 160px; top: 30px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">3</div>
+<div style="position: absolute; left: 270px; top: 30px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">2</div>
+<div style="position: absolute; left: 105px; top: 160px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">4</div>
+<div style="position: absolute; left: 215px; top: 160px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">5</div>
+<div style="position: absolute; left: 22px; top: 111px; width: 100px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">You</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">you</span></div>
+<div style="position: absolute; left: 132px; top: 111px; width: 100px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Connection</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">connection</span></div>
+<div style="position: absolute; left: 242px; top: 111px; width: 100px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Them</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">other</span></div>
+<div style="position: absolute; left: 77px; top: 241px; width: 100px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Challenge</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">challenge</span></div>
+<div style="position: absolute; left: 187px; top: 241px; width: 100px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Potential</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">potential</span></div>
+</div>
+</section>
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Two Paths</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">5 cards</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">two_paths</span>
+</div>
+<div role="img" aria-label="Two Paths layout: Situation on the left; it forks into Path A above and Path B below, each followed on the right by its outcome." style="position: relative; width: 365px; height: 272px">
+<svg width="365" height="272" viewBox="0 0 365 272" aria-hidden="true" style="position: absolute; left: 0; top: 0"><path d="M88 133 C124 133 124 68 154 68 M88 133 C124 133 124 198 154 198 M210 68 H276 M210 198 H276" fill="none" stroke="#6A7196" stroke-width="1.2" stroke-dasharray="3 4"></path></svg>
+<div style="position: absolute; left: 38px; top: 95px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 160px; top: 30px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">2</div>
+<div style="position: absolute; left: 282px; top: 30px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">3</div>
+<div style="position: absolute; left: 160px; top: 160px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">4</div>
+<div style="position: absolute; left: 282px; top: 160px; width: 44px; height: 76px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--color-suit-major)">5</div>
+<div style="position: absolute; left: 5px; top: 176px; width: 110px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Situation</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">situation</span></div>
+<div style="position: absolute; left: 127px; top: 111px; width: 110px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Path A</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">path_a</span></div>
+<div style="position: absolute; left: 249px; top: 111px; width: 110px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Path A outcome</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">path_a_outcome</span></div>
+<div style="position: absolute; left: 127px; top: 241px; width: 110px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Path B</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">path_b</span></div>
+<div style="position: absolute; left: 249px; top: 241px; width: 110px; display: flex; flex-direction: column; align-items: center"><span style="font-weight: 500; font-size: 13px; line-height: 17px">Path B outcome</span><span style="font-family: var(--font-mono); font-size: 11px; line-height: 15px; color: var(--color-text-tertiary)">path_b_outcome</span></div>
+</div>
+</section>
+
+<section style="background: var(--color-bg-surface); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; height: 48px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">Celtic Cross</h2><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">10 cards</span></div>
+<span style="font-family: var(--font-mono); font-size: 12px; line-height: 18px; color: var(--color-text-tertiary)">celtic_cross <span style="font-family: var(--font-sans)">· card 2 lies across card 1 (rotated 90°)</span></span>
+</div>
+<div role="img" aria-label="Celtic Cross layout: cards 1 to 6 form a cross, with card 2 laid sideways across card 1; cards 7 to 10 stand in a column to the right, from bottom to top." style="position: relative; width: 365px; height: 272px">
+<div style="position: absolute; left: 9px; top: 107px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">4</div>
+<div style="position: absolute; left: 97px; top: 107px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">6</div>
+<div style="position: absolute; left: 53px; top: 41px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">5</div>
+<div style="position: absolute; left: 53px; top: 173px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">3</div>
+<div style="position: absolute; left: 53px; top: 107px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: flex-start; justify-content: center; padding-top: 1px; font-weight: 600; font-size: 11px; line-height: 12px; color: var(--color-suit-major)">1</div>
+<div style="position: absolute; left: 41px; top: 119px; width: 58px; height: 34px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); background: var(--color-bg-surface); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">2</div>
+<div style="position: absolute; left: 153px; top: 8px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">10</div>
+<div style="position: absolute; left: 153px; top: 74px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">9</div>
+<div style="position: absolute; left: 153px; top: 140px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">8</div>
+<div style="position: absolute; left: 153px; top: 206px; width: 34px; height: 58px; box-sizing: border-box; border-radius: 5px; border: 1.5px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--color-suit-major)">7</div>
+<ol aria-label="Positions" style="position: absolute; left: 205px; top: 0; width: 160px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1px">
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">1</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Present</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">present</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">2</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Challenge</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">challenge</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">3</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Foundation</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">foundation</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">4</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Recent past</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">recent_past</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">5</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Potential</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">potential</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">6</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Near future</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">near_future</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">7</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Self</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">self</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">8</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Environment</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">environment</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 10px; color: var(--color-suit-major)">9</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Hopes &amp; fears</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">hopes_fears</span></span></li>
+<li style="display: flex; gap: 8px; align-items: center; height: 26px"><span style="flex: none; width: 18px; height: 18px; box-sizing: border-box; border-radius: 999px; border: 1.2px solid var(--color-card-frame); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 9px; color: var(--color-suit-major)">10</span><span style="display: flex; flex-direction: column"><span style="font-weight: 500; font-size: 12px; line-height: 14px">Outcome</span><span style="font-family: var(--font-mono); font-size: 10px; line-height: 12px; color: var(--color-text-tertiary)">outcome</span></span></li>
+</ol>
+</div>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1320,"height":900}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

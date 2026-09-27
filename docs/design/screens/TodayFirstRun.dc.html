@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Today first run</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-bg-scrim:rgba(5,6,14,.64);--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-ad-container:#0A0C17;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); display: flex; flex-direction: column">
+<div style="flex-grow: 1; position: relative; padding: 56px 16px 16px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); letter-spacing: .2px">Sunday, 27 September</span><h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Welcome to Taro</h1></div>
+<span style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px; background: var(--color-accent-subtle); color: var(--color-text-primary); font-weight: 500; font-size: 14px; white-space: nowrap"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-card-frame)"></span>1 free reading</span>
+</div>
+<div aria-hidden="true" style="display: flex; gap: 16px; padding: 16px; background: var(--color-bg-surface); border-radius: 16px; align-items: center">
+<div style="flex: none; width: 88px; height: 152px; border-radius: 10px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -6px; box-shadow: 0 4px 12px rgba(0,0,0,.45)"></div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; line-height: 18px; color: var(--color-card-frame); font-weight: 500; letter-spacing: .4px">YOUR DAILY CARD</span>
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 20px; line-height: 26px">One card to sit with today</span>
+<span style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">Free, works offline, no AI.</span>
+</div>
+</div>
+<div style="position: absolute; inset: 0; background: var(--color-bg-scrim)"></div>
+<a href="Spreads.dc.html" style="position: relative; z-index: 2; display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 16px; background: var(--color-bg-surfaceRaised); text-decoration: none; color: var(--color-text-primary); box-shadow: 0 0 0 2px var(--color-accent-primary), 0 0 28px rgba(154,168,255,.25)">
+<span style="font-family: var(--font-serif); font-weight: 500; font-size: 22px; line-height: 28px">Ask the cards a question</span>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Pick a spread, draw your cards and get a reading that looks at how they relate.</span>
+<span style="align-self: flex-start; min-height: 48px; padding: 0 22px; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 15px; display: flex; align-items: center">Start a reading</span>
+</a>
+<div role="dialog" aria-labelledby="cm-title" aria-describedby="cm-body" style="position: absolute; z-index: 3; left: 16px; right: 16px; top: 176px; display: flex; flex-direction: column; gap: 10px; padding: 16px 16px 12px; border-radius: 16px; background: var(--color-bg-surfaceRaised); box-shadow: 0 12px 32px rgba(0,0,0,.5), inset 0 0 0 1px var(--color-border-strong)">
+<span aria-hidden="true" style="position: absolute; bottom: -8px; left: 60px; width: 16px; height: 16px; background: var(--color-bg-surfaceRaised); transform: rotate(45deg); box-shadow: 1px 1px 0 0 var(--color-border-strong)"></span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span id="cm-title" style="font-family: var(--font-serif); font-weight: 500; font-size: 18px; line-height: 24px">Your first AI reading today is free</span>
+<span id="cm-body" style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">Start here when a question is on your mind. You get one free reading every day.</span>
+</div>
+<button type="button" style="align-self: flex-end; min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-weight: 500; font-size: 15px">Got it</button>
+</div>
+</div>
+<nav style="height: 64px; padding-bottom: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--color-border-subtle); background: var(--color-bg-canvas)">
+<a href="Today.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-accent-primary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"></path></svg>Today</a>
+<a href="Journal.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M9 9h6M9 13h6"></path></svg>Journal</a>
+<a href="Learn.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="9" height="15" rx="1.5"></rect><rect x="11" y="6" width="9" height="15" rx="1.5"></rect></svg>Learn</a>
+<a href="Settings.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-decoration: none; color: var(--color-text-tertiary); font-size: 12px; font-weight: 500"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2 1.2L10 21h4l.5-2.6a7 7 0 0 0 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"></path></svg>Settings</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

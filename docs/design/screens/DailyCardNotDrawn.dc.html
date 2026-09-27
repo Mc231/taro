@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Daily card not drawn</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Today.dc.html" aria-label="Back" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 2px"><span style="font-size: 13px; line-height: 18px; color: var(--color-card-frame); font-weight: 500; letter-spacing: .4px">YOUR DAILY CARD</span><span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">Sunday, 27 September</span></div>
+<span style="width: 48px; height: 48px; margin-right: -12px"></span>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px">
+<a href="DailyCard.dc.html" aria-label="Reveal today's card" style="width: 204px; height: 350px; box-sizing: border-box; border-radius: 16px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -10px; box-shadow: 0 0 48px rgba(247,215,116,.28), 0 0 12px rgba(247,215,116,.18), 0 10px 24px rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; text-decoration: none"><svg width="96" height="96" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="11" fill="none" stroke="#D4A63A" stroke-width=".9"></circle><circle cx="20" cy="20" r="5" fill="none" stroke="#F7D774" stroke-width=".7"></circle><path d="M20 4v32M4 20h32" stroke="#D4A63A" stroke-width=".9"></path><path d="M9 9l22 22M31 9L9 31" stroke="#D4A63A" stroke-width=".5"></path></svg></a>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 30px">Tap the card to reveal today's card</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Take a breath first, if you like. It stays the same all day.</span>
+<span style="display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px; border-radius: 999px; background: var(--color-accent-subtle); font-size: 14px; line-height: 20px">Free · works offline · no AI</span>
+</div>
+</div>
+<a href="Today.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Back to Today</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

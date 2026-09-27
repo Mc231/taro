@@ -1,0 +1,172 @@
+{
+  "_about": "Sample AI reading for the Phase 14 design sessions. 'request' is the POST /v1/readings body (03 §9.1); 'response' is the canonical 200 completed wire format (RC30). The client maps reading.overview → ReadingContent.summary and cards[].interpretation → positions[].text. No disclaimer on the wire: the client renders disclaimerShort (05 §3).",
+  "request": {
+    "clientReadingId": "9d4e6f8a-3b5c-4d7e-a1f2-3c4d5e6f7a54",
+    "spread": {
+      "id": "celtic_cross",
+      "version": 1
+    },
+    "cards": [
+      {
+        "positionId": "present",
+        "cardId": "wands_03",
+        "reversed": false
+      },
+      {
+        "positionId": "challenge",
+        "cardId": "swords_02",
+        "reversed": false
+      },
+      {
+        "positionId": "foundation",
+        "cardId": "pentacles_04",
+        "reversed": true
+      },
+      {
+        "positionId": "recent_past",
+        "cardId": "cups_03",
+        "reversed": false
+      },
+      {
+        "positionId": "potential",
+        "cardId": "major_19",
+        "reversed": false
+      },
+      {
+        "positionId": "near_future",
+        "cardId": "wands_08",
+        "reversed": false
+      },
+      {
+        "positionId": "self",
+        "cardId": "major_09",
+        "reversed": false
+      },
+      {
+        "positionId": "environment",
+        "cardId": "cups_06",
+        "reversed": true
+      },
+      {
+        "positionId": "hopes_fears",
+        "cardId": "major_18",
+        "reversed": false
+      },
+      {
+        "positionId": "outcome",
+        "cardId": "pentacles_08",
+        "reversed": false
+      }
+    ],
+    "question": "What should I keep in mind as I weigh the Lisbon job offer?",
+    "locale": "en",
+    "drawnAt": "2026-09-27T18:41:31Z"
+  },
+  "response": {
+    "readingId": "01925c7a-9d4e-7b1e-9f00-3c4d5e6f7a54",
+    "status": "completed",
+    "chargeSource": "paid",
+    "promptVersion": "v1",
+    "reading": {
+      "title": "Looking out to the horizon",
+      "overview": "This Celtic Cross describes a person standing at the edge of something new, looking out, and not quite ready to step forward. There is real energy for growth here, alongside a choice held very still and some old anxieties about security. The cards do not decide for you. They highlight what may be worth weighing: your need for safety, your wish to grow, and the people and patterns that shaped where you stand.",
+      "cards": [
+        {
+          "positionId": "present",
+          "cardId": "wands_03",
+          "reversed": false,
+          "interpretation": "The Three of Wands shows someone watching ships head out to sea. It reflects the offer itself: an expansion that you have partly already made possible through your own work. You are looking beyond familiar ground, and some part of you is curious about what lies there."
+        },
+        {
+          "positionId": "challenge",
+          "cardId": "swords_02",
+          "reversed": false,
+          "interpretation": "Crossing it, the Two of Swords names the stalemate. You may be holding two options perfectly balanced so that you do not have to feel the loss that comes with either. The card invites you to take the blindfold off gently and look at what each path would really ask of you."
+        },
+        {
+          "positionId": "foundation",
+          "cardId": "pentacles_04",
+          "reversed": true,
+          "interpretation": "The Four of Pentacles reversed at the foundation suggests that questions of security run deep here. You may be loosening a tight grip on stability, or feeling anxious that letting go of what you have could leave you exposed. It is worth separating practical needs from older fears."
+        },
+        {
+          "positionId": "recent_past",
+          "cardId": "cups_03",
+          "reversed": false,
+          "interpretation": "The Three of Cups in the recent past recalls friendships and celebrations that have made your current life feel full. Part of what makes this choice hard may be the community you would leave, or the fear of starting again socially in a new city."
+        },
+        {
+          "positionId": "potential",
+          "cardId": "major_19",
+          "reversed": false,
+          "interpretation": "The Sun in the potential position is a bright card. It points to clarity, confidence and a sense of being fully yourself as what you are reaching toward. You might ask which option brings you closer to that feeling, rather than which looks better on paper."
+        },
+        {
+          "positionId": "near_future",
+          "cardId": "wands_08",
+          "reversed": false,
+          "interpretation": "The Eight of Wands suggests things may start moving quickly soon: messages, deadlines or new information that shifts the balance. It can help to prepare your questions now, so that a fast pace does not push you into a choice you have not really made."
+        },
+        {
+          "positionId": "self",
+          "cardId": "major_09",
+          "reversed": false,
+          "interpretation": "The Hermit in the self position shows someone who needs quiet to hear their own voice. You may be seeking advice from many people while the answer you trust most comes from time alone. A walk, a journal page or a weekend offline could give your thinking room."
+        },
+        {
+          "positionId": "environment",
+          "cardId": "cups_06",
+          "reversed": true,
+          "interpretation": "The Six of Cups reversed in the environment position can reflect people or places that pull you toward the past, or nostalgia that no longer fits. It may also point to family expectations. You might notice whose voice you hear when you imagine saying yes or no."
+        },
+        {
+          "positionId": "hopes_fears",
+          "cardId": "major_18",
+          "reversed": false,
+          "interpretation": "The Moon in hopes and fears captures the uncertainty of any big move: the unknown can look both exciting and frightening in half-light. Some fears may be real and worth planning for; others may be shadows. Naming them one by one can make them easier to see clearly."
+        },
+        {
+          "positionId": "outcome",
+          "cardId": "pentacles_08",
+          "reversed": false,
+          "interpretation": "The Eight of Pentacles shows where things may be heading if nothing changes: toward focused, patient work and growing skill. Whether in Lisbon or at home, the cards suggest you may find satisfaction in doing meaningful work carefully. The question may be which setting lets that craft flourish."
+        }
+      ],
+      "synthesis": "Three Major Arcana cards, the Sun, the Hermit and the Moon, suggest this decision touches something important about who you are becoming. Wands appear twice, bringing energy and momentum, while Pentacles frame the spread with questions of security at the base and steady work at the outcome. Cups show the emotional ties, both warm and nostalgic. Read together, the cards draw a line from security and belonging toward growth and craft. Taking time alone, as the Hermit suggests, may help you notice which option feels like the Sun and which like the Moon. Whatever you choose, the spread points to values you can bring with you: care for your people, patience with new skills and honesty about what you need to feel safe.",
+      "reflectionPrompts": [
+        "What would you need in place to feel safe enough to choose freely?",
+        "Which people would you want to stay close to, whatever you decide?",
+        "When you imagine each option, which one feels more like the Sun?"
+      ]
+    },
+    "balance": {
+      "free": {
+        "limit": 1,
+        "used": 1,
+        "remaining": 0,
+        "localDate": "2026-09-27",
+        "resetsAt": "2026-09-27T23:00:00Z",
+        "timezone": "Europe/London",
+        "paused": false
+      },
+      "bonus": 1,
+      "paid": 4,
+      "canRead": true,
+      "canReadReason": null,
+      "nextSource": "bonus",
+      "rewarded": {
+        "enabled": true,
+        "amount": 1,
+        "dailyCap": 3,
+        "grantedToday": 0,
+        "available": true,
+        "cooldownEndsAt": null
+      },
+      "paidBlocked": false,
+      "purchasesAllowed": true,
+      "purchasesBlockedReason": null,
+      "ledgerVersion": 457,
+      "serverTime": "2026-09-27T18:42:10Z"
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "_about": "Sample AI reading for the Phase 14 design sessions. 'request' is the POST /v1/readings body (03 §9.1); 'response' is the canonical 200 completed wire format (RC30). The client maps reading.overview → ReadingContent.summary and cards[].interpretation → positions[].text. No disclaimer on the wire: the client renders disclaimerShort (05 §3).",
+  "request": {
+    "clientReadingId": "7a2b9c4d-1e3f-4a5b-8c6d-9e0f1a2b3c43",
+    "spread": {
+      "id": "relationship",
+      "version": 1
+    },
+    "cards": [
+      {
+        "positionId": "you",
+        "cardId": "swords_02",
+        "reversed": false
+      },
+      {
+        "positionId": "other",
+        "cardId": "cups_03",
+        "reversed": true
+      },
+      {
+        "positionId": "connection",
+        "cardId": "cups_02",
+        "reversed": false
+      },
+      {
+        "positionId": "challenge",
+        "cardId": "wands_07",
+        "reversed": false
+      },
+      {
+        "positionId": "potential",
+        "cardId": "major_17",
+        "reversed": false
+      }
+    ],
+    "question": "What am I not seeing with Sam?",
+    "locale": "en",
+    "drawnAt": "2026-09-27T18:41:31Z"
+  },
+  "response": {
+    "readingId": "01925c7a-7a2b-7b1e-9f00-9e0f1a2b3c43",
+    "status": "completed",
+    "chargeSource": "paid",
+    "promptVersion": "v1",
+    "reading": {
+      "title": "Lowering the swords",
+      "overview": "This spread looks at you, Sam and the space between you. The cards suggest real warmth at the heart of the connection, alongside a habit of guarding yourselves. What you may not be seeing is how much both of you are holding back, and how much could open up if one of you went first.",
+      "cards": [
+        {
+          "positionId": "you",
+          "cardId": "swords_02",
+          "reversed": false,
+          "interpretation": "The Two of Swords in your position shows someone keeping the peace by not looking too closely. You may be avoiding a question about this relationship because either answer feels hard to hold. The blindfold does not mean you are wrong; it can mean you are protecting yourself. You might ask what you already sense but have not let yourself say, even privately. Lowering the swords a little does not mean deciding everything at once."
+        },
+        {
+          "positionId": "other",
+          "cardId": "cups_03",
+          "reversed": true,
+          "interpretation": "The Three of Cups reversed in Sam's position can reflect someone who feels a little outside the circle, or tired of socialising without real closeness. Sam may be looking for more one-to-one time, or may feel that shared plans with others have replaced time that is just yours. This is a reflection, not a reading of Sam's mind. It may still be worth asking how connected Sam feels lately, and listening without defending."
+        },
+        {
+          "positionId": "connection",
+          "cardId": "cups_02",
+          "reversed": false,
+          "interpretation": "The Two of Cups sits at the heart of the spread, which is a warm sign for the bond itself. It shows two people offering each other a cup as equals: mutual care, respect and attraction. Whatever else is happening, this card suggests that the foundation is real. It may help to remember what drew you together, and to say some of it out loud."
+        },
+        {
+          "positionId": "challenge",
+          "cardId": "wands_07",
+          "reversed": false,
+          "interpretation": "The Seven of Wands in the challenge position shows someone holding their ground against pressure. Between you, it may reflect defensiveness: each of you bracing for criticism, so that ordinary conversations feel like debates. You might notice when you start protecting a position rather than sharing a feeling. Putting the stick down, even once, can change the tone of a whole week."
+        },
+        {
+          "positionId": "potential",
+          "cardId": "major_17",
+          "reversed": false,
+          "interpretation": "The Star in the potential position points to where things may be heading if nothing changes and the warmth is given room: toward honesty, calm and a renewed sense of hope. It suggests a phase where you can both be seen without armour. That potential is an invitation, not a promise. It may grow from small acts of openness rather than one big talk."
+        }
+      ],
+      "synthesis": "Three of the five cards are Cups and Swords, so feelings and thoughts are both active, while the single Wands card names the friction. The pattern is striking: a guarded you, a slightly distant Sam, a genuinely warm connection and a hopeful Major Arcana card in the potential position. What may be unseen is not a hidden problem so much as a shared habit of protecting yourselves. The cards point toward gentle, honest openings rather than a decisive move.",
+      "reflectionPrompts": [
+        "What do you already sense about Sam that you have not said out loud?",
+        "When did you last feel close to Sam without anyone else around?",
+        "What would it look like to lower your guard in one small conversation?"
+      ]
+    },
+    "balance": {
+      "free": {
+        "limit": 1,
+        "used": 1,
+        "remaining": 0,
+        "localDate": "2026-09-27",
+        "resetsAt": "2026-09-27T23:00:00Z",
+        "timezone": "Europe/London",
+        "paused": false
+      },
+      "bonus": 0,
+      "paid": 2,
+      "canRead": true,
+      "canReadReason": null,
+      "nextSource": "paid",
+      "rewarded": {
+        "enabled": true,
+        "amount": 1,
+        "dailyCap": 3,
+        "grantedToday": 0,
+        "available": true,
+        "cooldownEndsAt": null
+      },
+      "paidBlocked": false,
+      "purchasesAllowed": true,
+      "purchasesBlockedReason": null,
+      "ledgerVersion": 433,
+      "serverTime": "2026-09-27T18:42:10Z"
+    }
+  }
+}

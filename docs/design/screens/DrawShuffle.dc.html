@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shuffle the deck</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 32px; display: flex; flex-direction: column; gap: 24px; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Question.dc.html" aria-label="Close" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></a>
+<span style="font-size: 14px; color: var(--color-text-secondary)">Past · Present · Future</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; text-align: center">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 24px; line-height: 30px">Shuffle as long as you like</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Hold the deck, or tap Shuffle. Let your question settle while the cards move.</span>
+</div>
+<div style="flex-grow: 1; display: flex; align-items: center; justify-content: center">
+<button type="button" aria-label="Deck, 78 cards. Press and hold to shuffle" style="position: relative; width: 220px; height: 300px; padding: 0; border: none; background: transparent; cursor: pointer">
+<span style="position: absolute; left: 34px; top: 36px; width: 138px; height: 238px; border-radius: 12px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -7px; transform: rotate(-11deg) translateX(-18px); box-shadow: 0 6px 16px rgba(0,0,0,.45)"></span>
+<span style="position: absolute; left: 44px; top: 30px; width: 138px; height: 238px; border-radius: 12px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -7px; transform: rotate(9deg) translateX(22px); box-shadow: 0 6px 16px rgba(0,0,0,.45)"></span>
+<span style="position: absolute; left: 40px; top: 26px; width: 138px; height: 238px; border-radius: 12px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -7px; transform: rotate(-4deg) translateY(-6px); box-shadow: 0 6px 16px rgba(0,0,0,.45)"></span>
+<span style="position: absolute; left: 41px; top: 31px; width: 138px; height: 238px; border-radius: 12px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -7px; transform: rotate(3deg) translateX(52px) translateY(-18px); box-shadow: 0 10px 24px rgba(0,0,0,.5)"></span>
+<span style="position: absolute; left: 41px; top: 31px; width: 138px; height: 238px; border-radius: 12px; background: var(--color-card-back); outline: 2px solid var(--color-card-frame); outline-offset: -7px; box-shadow: 0 0 0 2px var(--color-card-glow), 0 14px 32px rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center"><svg width="44" height="44" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="11" fill="none" stroke="#D4A63A" stroke-width="1.5"></circle><path d="M20 6v4M20 30v4M6 20h4M30 20h4" stroke="#D4A63A" stroke-width="1.5" stroke-linecap="round"></path><circle cx="20" cy="20" r="3" fill="#F7D774"></circle></svg></span>
+</button>
+</div>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary); text-align: center">The order is already random. Shuffling is your moment to pause.</span>
+<div style="display: flex; gap: 12px">
+<button type="button" style="flex-grow: 1; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; border: none; background: transparent; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-family: var(--font-sans); font-weight: 500; font-size: 16px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>Shuffle</button>
+<a href="Draw.dc.html" style="flex-grow: 1; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-weight: 500; font-size: 16px; text-decoration: none">I'm ready — draw</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

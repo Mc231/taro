@@ -318,7 +318,7 @@
       "frame": {
         "$type": "color",
         "$value": "#B8820F",
-        "$description": "Card border and the card-back ornament line (color.card.frame).",
+        "$description": "Card border, card-back ornament and non-text ochre marks (≥ 3:1 where it carries meaning). Never for text in light theme; use color-suit-major (color.card.frame).",
         "$extensions": {
           "taro.modes": {
             "light": "#B8820F",
@@ -352,11 +352,11 @@
     "suit": {
       "major": {
         "$type": "color",
-        "$value": "#9A6A00",
-        "$description": "Major Arcana accent. Decorative; never the only signal (color.suit.major).",
+        "$value": "#855C00",
+        "$description": "Major Arcana accent and the text-safe ochre: use for ochre TEXT (labels, diagram numerals) in both themes (≥ 4.5:1 on canvas, surface and sunken). Decorative; never the only signal (color.suit.major).",
         "$extensions": {
           "taro.modes": {
-            "light": "#9A6A00",
+            "light": "#855C00",
             "dark": "#E2B84E"
           }
         }
@@ -532,7 +532,7 @@
     "5": {
       "$type": "dimension",
       "$value": "16px",
-      "$description": "Default gap and card padding; equals size-layout-gutter."
+      "$description": "Default gap and card padding; equals layout-gutter."
     },
     "6": {
       "$type": "dimension",
@@ -647,23 +647,6 @@
         "$description": "Empty-state and notice icons."
       }
     },
-    "layout": {
-      "gutter": {
-        "$type": "dimension",
-        "$value": "16px",
-        "$description": "Side padding of every screen (≥ 16)."
-      },
-      "maxContentWidth": {
-        "$type": "dimension",
-        "$value": "600px",
-        "$description": "Content column cap on tablets and iPad; centred."
-      },
-      "readingMaxWidth": {
-        "$type": "dimension",
-        "$value": "560px",
-        "$description": "Measure cap for type-bodyReading (about 65 characters)."
-      }
-    },
     "card": {
       "aspectRatio": {
         "$type": "dimension",
@@ -692,6 +675,23 @@
       }
     }
   },
+  "layout": {
+    "gutter": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Side padding of every screen (≥ 16)."
+    },
+    "maxContentWidth": {
+      "$type": "dimension",
+      "$value": "600px",
+      "$description": "Content column cap on tablets and iPad; centred."
+    },
+    "readingMaxWidth": {
+      "$type": "dimension",
+      "$value": "560px",
+      "$description": "Measure cap for type-bodyReading (about 65 characters)."
+    }
+  },
   "opacity": {
     "disabled": {
       "$type": "number",
@@ -707,6 +707,23 @@
       "$type": "number",
       "$value": "0.12",
       "$description": "Pressed-state overlay on surfaces."
+    }
+  },
+  "haptic": {
+    "pick": {
+      "$type": "string",
+      "$value": "selection",
+      "$description": "Card picked from the fan (selectionClick)."
+    },
+    "flip": {
+      "$type": "string",
+      "$value": "light",
+      "$description": "Card flipped (lightImpact)."
+    },
+    "ready": {
+      "$type": "string",
+      "$value": "medium",
+      "$description": "Reading arrived (mediumImpact)."
     }
   },
   "elevation": {
@@ -806,44 +823,92 @@
       "instant": {
         "$type": "duration",
         "$value": "100ms",
-        "$description": "Toggles, press feedback. Reduced: 0ms."
+        "$description": "Toggles, press feedback. Reduced: 0ms.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "0ms"
+          }
+        }
       },
       "fast": {
         "$type": "duration",
         "$value": "150ms",
-        "$description": "Chips, small fades. Reduced: 100ms."
+        "$description": "Chips, small fades. Reduced: 100ms.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "100ms"
+          }
+        }
       },
       "base": {
         "$type": "duration",
         "$value": "250ms",
-        "$description": "Most transitions. Reduced: 150ms fade."
+        "$description": "Most transitions. Reduced: 150ms fade.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "150ms"
+          }
+        }
       },
       "slow": {
         "$type": "duration",
         "$value": "400ms",
-        "$description": "Sheets, page transitions. Reduced: 200ms fade."
+        "$description": "Sheets, page transitions. Reduced: 200ms fade.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "200ms"
+          }
+        }
       }
     },
     "ritual": {
       "shuffle": {
         "$type": "duration",
         "$value": "1200ms",
-        "$description": "Minimum shuffle loop. Reduced: 200ms crossfade."
+        "$description": "Minimum shuffle loop. Reduced: 200ms crossfade.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "200ms"
+          }
+        }
       },
       "dealStagger": {
         "$type": "duration",
         "$value": "120ms",
-        "$description": "Delay between dealt cards. Reduced: 0ms."
+        "$description": "Delay between dealt cards. Reduced: 0ms.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "0ms"
+          }
+        }
       },
       "flip": {
         "$type": "duration",
         "$value": "600ms",
-        "$description": "Card flip. Reduced: 200ms crossfade."
+        "$description": "Card flip. Reduced: 200ms crossfade.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "200ms"
+          }
+        }
       },
       "readingReveal": {
         "$type": "duration",
         "$value": "500ms",
-        "$description": "Stagger between reading sections. Reduced: 0ms."
+        "$description": "Stagger between reading sections. Reduced: 0ms.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "duration",
+            "$value": "0ms"
+          }
+        }
       }
     },
     "easing": {
@@ -855,7 +920,18 @@
           0.0,
           1.0
         ],
-        "$description": "Default easing. Reduced: linear."
+        "$description": "Default easing. Reduced: linear.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "cubicBezier",
+            "$value": [
+              0,
+              0,
+              1,
+              1
+            ]
+          }
+        }
       },
       "emphasized": {
         "$type": "cubicBezier",
@@ -865,7 +941,18 @@
           0.0,
           1.2
         ],
-        "$description": "Card lands in its slot. Reduced: linear."
+        "$description": "Card lands in its slot. Reduced: linear.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "cubicBezier",
+            "$value": [
+              0,
+              0,
+              1,
+              1
+            ]
+          }
+        }
       },
       "decelerate": {
         "$type": "cubicBezier",
@@ -875,7 +962,18 @@
           0.0,
           1.0
         ],
-        "$description": "Entering elements. Reduced: linear."
+        "$description": "Entering elements. Reduced: linear.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "cubicBezier",
+            "$value": [
+              0,
+              0,
+              1,
+              1
+            ]
+          }
+        }
       },
       "accelerate": {
         "$type": "cubicBezier",
@@ -885,23 +983,292 @@
           1.0,
           1.0
         ],
-        "$description": "Exiting elements. Reduced: linear."
+        "$description": "Exiting elements. Reduced: linear.",
+        "$extensions": {
+          "taro.reducedMotion": {
+            "$type": "cubicBezier",
+            "$value": [
+              0,
+              0,
+              1,
+              1
+            ]
+          }
+        }
       }
     }
   },
   "font": {
     "family": {
-      "serif": {
-        "$type": "fontFamily",
-        "$value": "\"Literata\", \"Noto Serif\", Georgia, serif"
+      "display": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.display face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.display face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif Arabic",
+          "$description": "type.display face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif JP",
+          "$description": "type.display face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif KR",
+          "$description": "type.display face for hangul script; bundled in the app."
+        }
       },
-      "sans": {
-        "$type": "fontFamily",
-        "$value": "\"IBM Plex Sans\", \"IBM Plex Sans Arabic\", \"IBM Plex Sans JP\", \"IBM Plex Sans KR\", system-ui, sans-serif"
+      "headline": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.headline face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.headline face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif Arabic",
+          "$description": "type.headline face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif JP",
+          "$description": "type.headline face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif KR",
+          "$description": "type.headline face for hangul script; bundled in the app."
+        }
+      },
+      "cardName": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.cardName face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.cardName face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif Arabic",
+          "$description": "type.cardName face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif JP",
+          "$description": "type.cardName face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif KR",
+          "$description": "type.cardName face for hangul script; bundled in the app."
+        }
+      },
+      "bodyReading": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.bodyReading face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "Literata",
+          "$description": "type.bodyReading face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif Arabic",
+          "$description": "type.bodyReading face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif JP",
+          "$description": "type.bodyReading face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "Noto Serif KR",
+          "$description": "type.bodyReading face for hangul script; bundled in the app."
+        }
+      },
+      "title": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.title face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.title face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans Arabic",
+          "$description": "type.title face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans JP",
+          "$description": "type.title face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans KR",
+          "$description": "type.title face for hangul script; bundled in the app."
+        }
+      },
+      "titleSmall": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.titleSmall face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.titleSmall face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans Arabic",
+          "$description": "type.titleSmall face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans JP",
+          "$description": "type.titleSmall face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans KR",
+          "$description": "type.titleSmall face for hangul script; bundled in the app."
+        }
+      },
+      "body": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.body face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.body face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans Arabic",
+          "$description": "type.body face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans JP",
+          "$description": "type.body face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans KR",
+          "$description": "type.body face for hangul script; bundled in the app."
+        }
+      },
+      "label": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.label face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.label face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans Arabic",
+          "$description": "type.label face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans JP",
+          "$description": "type.label face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans KR",
+          "$description": "type.label face for hangul script; bundled in the app."
+        }
+      },
+      "caption": {
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.caption face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans",
+          "$description": "type.caption face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans Arabic",
+          "$description": "type.caption face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans JP",
+          "$description": "type.caption face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IBM Plex Sans KR",
+          "$description": "type.caption face for hangul script; bundled in the app."
+        }
       },
       "numeral": {
-        "$type": "fontFamily",
-        "$value": "\"IM Fell English SC\", \"Literata\", Georgia, serif"
+        "latin": {
+          "$type": "fontFamily",
+          "$value": "IM Fell English SC",
+          "$description": "type.numeral face for latin script; bundled in the app."
+        },
+        "cyrillic": {
+          "$type": "fontFamily",
+          "$value": "IM Fell English SC",
+          "$description": "type.numeral face for cyrillic script; bundled in the app."
+        },
+        "arabic": {
+          "$type": "fontFamily",
+          "$value": "IM Fell English SC",
+          "$description": "type.numeral face for arabic script; bundled in the app."
+        },
+        "cjk": {
+          "$type": "fontFamily",
+          "$value": "IM Fell English SC",
+          "$description": "type.numeral face for cjk script; bundled in the app."
+        },
+        "hangul": {
+          "$type": "fontFamily",
+          "$value": "IM Fell English SC",
+          "$description": "type.numeral face for hangul script; bundled in the app."
+        }
       }
     }
   },
@@ -909,7 +1276,7 @@
     "display": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.serif}",
+        "fontFamily": "{font.family.display.latin}",
         "fontSize": "40px",
         "fontWeight": 500,
         "lineHeight": "44px",
@@ -920,67 +1287,73 @@
     "headline": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.serif}",
+        "fontFamily": "{font.family.headline.latin}",
         "fontSize": "28px",
         "fontWeight": 500,
-        "lineHeight": "34px"
+        "lineHeight": "34px",
+        "letterSpacing": "-0.25px"
       },
       "$description": "Screen titles, the reading title."
     },
     "cardName": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.serif}",
+        "fontFamily": "{font.family.cardName.latin}",
         "fontSize": "22px",
         "fontWeight": 600,
-        "lineHeight": "28px"
+        "lineHeight": "28px",
+        "letterSpacing": "0px"
       },
       "$description": "Card names on revealed cards and card detail."
     },
     "bodyReading": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.serif}",
+        "fontFamily": "{font.family.bodyReading.latin}",
         "fontSize": "18px",
         "fontWeight": 400,
-        "lineHeight": "29px"
+        "lineHeight": "29px",
+        "letterSpacing": "0px"
       },
-      "$description": "Long-form AI and authored reading text. Line height ≥ 1.5, measure ≤ 70 characters via size-layout-readingMaxWidth."
+      "$description": "Long-form AI and authored reading text. Line height ≥ 1.5, measure ≤ 70 characters via layout-readingMaxWidth."
     },
     "title": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.sans}",
+        "fontFamily": "{font.family.title.latin}",
         "fontSize": "20px",
         "fontWeight": 600,
-        "lineHeight": "26px"
+        "lineHeight": "26px",
+        "letterSpacing": "0px"
       },
       "$description": "Section headings, sheet titles, reading section headings."
     },
     "titleSmall": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.sans}",
+        "fontFamily": "{font.family.titleSmall.latin}",
         "fontSize": "17px",
         "fontWeight": 600,
-        "lineHeight": "22px"
+        "lineHeight": "22px",
+        "letterSpacing": "0px"
       },
       "$description": "List-row titles, card-position titles, pack names."
     },
     "body": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.sans}",
+        "fontFamily": "{font.family.body.latin}",
         "fontSize": "16px",
         "fontWeight": 400,
-        "lineHeight": "24px"
+        "lineHeight": "24px",
+        "letterSpacing": "0px"
       },
       "$description": "All UI copy. Minimum body size is 16px."
     },
     "label": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.sans}",
+        "fontFamily": "{font.family.label.latin}",
         "fontSize": "15px",
         "fontWeight": 500,
         "lineHeight": "20px",
@@ -991,7 +1364,7 @@
     "caption": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.sans}",
+        "fontFamily": "{font.family.caption.latin}",
         "fontSize": "13px",
         "fontWeight": 400,
         "lineHeight": "18px",
@@ -1002,7 +1375,7 @@
     "numeral": {
       "$type": "typography",
       "$value": {
-        "fontFamily": "{font.family.numeral}",
+        "fontFamily": "{font.family.numeral.latin}",
         "fontSize": "20px",
         "fontWeight": 400,
         "lineHeight": "24px",

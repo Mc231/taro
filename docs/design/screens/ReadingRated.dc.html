@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reading rated</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-card-reversedBadge:#F3957A;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 24px; display: flex; flex-direction: column; gap: 16px; overflow: hidden; position: relative">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Today.dc.html" aria-label="Done" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<div style="display: flex; gap: 4px">
+<a href="#" style="min-height: 48px; padding: 0 12px; display: flex; align-items: center; font-weight: 500; font-size: 15px; text-decoration: none">Add note</a>
+<a href="#" aria-label="More" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg></a>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">How the cards relate</h2>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 18px; line-height: 29px">Cups, a Major card and Pentacles sit side by side: feeling, meaning and practical effort. The Star, Reversed, in the middle suggests hope that needs tending first.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 20px; line-height: 26px; font-weight: 600">Questions to reflect on</h2>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: var(--color-bg-surface); border-radius: 12px">
+<p style="margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 17px; line-height: 26px">Who shared the good moments of this year with you?</p>
+<a href="#" style="align-self: flex-start; min-height: 44px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Write about this</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: var(--color-bg-surface); border-radius: 12px">
+<p style="margin: 0; font-family: var(--font-serif); font-style: italic; font-size: 17px; line-height: 26px">What small, steady habit could you practise for a month?</p>
+<a href="#" style="align-self: flex-start; min-height: 44px; display: flex; align-items: center; font-size: 14px; font-weight: 500; text-decoration: none">Write about this</a>
+</div>
+</div>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">For entertainment and self-reflection. Not professional advice.</span>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--color-border-subtle)">
+<span id="rate-label" style="font-weight: 500; font-size: 15px; line-height: 20px">Was this reading helpful?</span>
+<div role="group" aria-labelledby="rate-label" style="display: flex; gap: 8px">
+<button type="button" aria-label="Helpful" aria-pressed="true" style="width: 48px; height: 48px; border-radius: 12px; border: 0; background: var(--color-accent-primary); color: var(--color-text-onAccent); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v10H4V10z"></path><path d="M7 10l4-7c1.5 0 2.5 1 2.2 2.6L12.6 9H19a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 17.7 20H7z"></path></svg></button>
+<button type="button" aria-label="Not helpful" aria-pressed="false" style="width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--color-border-strong); background: transparent; color: var(--color-text-secondary); display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" style="transform: rotate(180deg)"><path d="M7 10v10H4V10z"></path><path d="M7 10l4-7c1.5 0 2.5 1 2.2 2.6L12.6 9H19a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 17.7 20H7z"></path></svg></button>
+</div>
+</div>
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 8px 4px 16px; border-radius: 12px; background: var(--color-bg-surfaceRaised); box-shadow: 0 8px 24px rgba(0,0,0,.5), inset 0 0 0 1px var(--color-border-subtle)">
+<span style="font-size: 15px; line-height: 20px">Thanks — saved to your journal</span>
+<button type="button" style="min-height: 48px; padding: 0 12px; border: 0; background: transparent; color: var(--color-accent-primary); font-family: var(--font-sans); font-weight: 600; font-size: 15px">Undo</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

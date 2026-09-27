@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="222" viewBox="42 22 280 222">
+<title>Relationship spread layout</title>
+<desc>Relationship layout: top row You on the left, Connection in the middle, Them on the right; bottom row Challenge and Potential between them. Numbers are draw and reveal order; position ids match spreads.json (1 you, 2 other, 3 connection, 4 challenge, 5 potential). Outlines color.card.frame #D4A63A; filled boxes color.bg.surface #171A2D. In RTL the x positions mirror. Source: SpreadDiagrams.dc.html.</desc>
+<g font-family="IBM Plex Sans, system-ui, sans-serif" font-weight="600" fill="#D4A63A" text-anchor="middle">
+<g id="pos-1" data-position="you"><title>1 You</title><rect x="50.75" y="30.75" width="42.5" height="74.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="72" y="68" dominant-baseline="central" font-size="15">1</text></g>
+<g id="pos-3" data-position="connection"><title>3 Connection</title><rect x="160.75" y="30.75" width="42.5" height="74.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="182" y="68" dominant-baseline="central" font-size="15">3</text></g>
+<g id="pos-2" data-position="other"><title>2 Them</title><rect x="270.75" y="30.75" width="42.5" height="74.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="292" y="68" dominant-baseline="central" font-size="15">2</text></g>
+<g id="pos-4" data-position="challenge"><title>4 Challenge</title><rect x="105.75" y="160.75" width="42.5" height="74.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="127" y="198" dominant-baseline="central" font-size="15">4</text></g>
+<g id="pos-5" data-position="potential"><title>5 Potential</title><rect x="215.75" y="160.75" width="42.5" height="74.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="237" y="198" dominant-baseline="central" font-size="15">5</text></g>
+</g>
+</svg>

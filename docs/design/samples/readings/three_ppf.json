@@ -1,0 +1,95 @@
+{
+  "_about": "Sample AI reading for the Phase 14 design sessions. 'request' is the POST /v1/readings body (03 §9.1); 'response' is the canonical 200 completed wire format (RC30). The client maps reading.overview → ReadingContent.summary and cards[].interpretation → positions[].text. No disclaimer on the wire: the client renders disclaimerShort (05 §3).",
+  "request": {
+    "clientReadingId": "0c6e8d1a-2f4b-4e7a-b3c9-1a5d7e9f0b32",
+    "spread": {
+      "id": "three_ppf",
+      "version": 1
+    },
+    "cards": [
+      {
+        "positionId": "past",
+        "cardId": "cups_03",
+        "reversed": false
+      },
+      {
+        "positionId": "present",
+        "cardId": "major_17",
+        "reversed": true
+      },
+      {
+        "positionId": "future",
+        "cardId": "pentacles_08",
+        "reversed": false
+      }
+    ],
+    "question": "How can I rebuild after a hard year at work?",
+    "locale": "en",
+    "drawnAt": "2026-09-27T18:41:31Z"
+  },
+  "response": {
+    "readingId": "01925c7a-0c6e-7b1e-9f00-1a5d7e9f0b32",
+    "status": "completed",
+    "chargeSource": "free",
+    "promptVersion": "v1",
+    "reading": {
+      "title": "A season of rebuilding",
+      "overview": "The cards move from shared joy, through a dimmed sense of hope, toward patient, skilled work. They suggest the rebuilding may come less from a single turning point and more from steady practice.",
+      "cards": [
+        {
+          "positionId": "past",
+          "cardId": "cups_03",
+          "reversed": false,
+          "interpretation": "In the past position, the Three of Cups recalls a time when work felt shared and worth celebrating. There may have been a team you trusted, small wins you marked together, or colleagues who made hard days lighter. That warmth is part of your story, not something you have lost for good. It may help to remember what made that period feel good: was it the people, the sense of progress, or simply being appreciated?"
+        },
+        {
+          "positionId": "present",
+          "cardId": "major_17",
+          "reversed": true,
+          "interpretation": "Reversed, the Star can point to hope that feels far away right now. After a draining year, it makes sense if motivation is thin and the future looks grey. The card does not ask you to force optimism. You might consider what small, dependable sources of energy are still within reach: a walk before work, one person who listens, a task you still enjoy. Rebuilding may start with refilling, not with a plan."
+        },
+        {
+          "positionId": "future",
+          "cardId": "pentacles_08",
+          "reversed": false,
+          "interpretation": "The Eight of Pentacles shows where things may be heading if nothing changes: toward quiet, focused craft. It suggests that confidence may return through doing something well, one piece at a time, rather than through a dramatic new start. You might ask which skill you would like to grow, or which part of your work still feels like yours. A course you set aside, a project you care about, or simply doing fewer things more carefully could all be ways into this card's patient energy."
+        }
+      ],
+      "synthesis": "Together, the three cards trace a movement from connection, through depletion, toward practice. Two Minor Arcana cards frame a Major one in the middle, which puts the emphasis on your present state: the reversed Star asks for rest and honesty before effort. The Cups and Pentacles pairing suggests that both people and practical skill matter here. Rebuilding may look less like a leap and more like a slow return to work that feels meaningful, supported by people who remind you of your strengths.",
+      "reflectionPrompts": [
+        "What did the good times at work have that you would like to find again?",
+        "Which small source of energy could you protect this week?",
+        "What skill would you enjoy getting better at, just for its own sake?"
+      ]
+    },
+    "balance": {
+      "free": {
+        "limit": 1,
+        "used": 1,
+        "remaining": 0,
+        "localDate": "2026-09-27",
+        "resetsAt": "2026-09-27T23:00:00Z",
+        "timezone": "Europe/London",
+        "paused": false
+      },
+      "bonus": 0,
+      "paid": 3,
+      "canRead": true,
+      "canReadReason": null,
+      "nextSource": "paid",
+      "rewarded": {
+        "enabled": true,
+        "amount": 1,
+        "dailyCap": 3,
+        "grantedToday": 0,
+        "available": true,
+        "cooldownEndsAt": null
+      },
+      "paidBlocked": false,
+      "purchasesAllowed": true,
+      "purchasesBlockedReason": null,
+      "ledgerVersion": 419,
+      "serverTime": "2026-09-27T18:42:10Z"
+    }
+  }
+}

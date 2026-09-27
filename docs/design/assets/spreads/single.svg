@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="126" viewBox="142 53 80 126">
+<title>Single card spread layout</title>
+<desc>Single card layout: one card in the centre, position Focus. Numbers are draw and reveal order; position ids match spreads.json (1 focus). Outlines color.card.frame #D4A63A; filled boxes color.bg.surface #171A2D. In RTL the x positions mirror. Source: SpreadDiagrams.dc.html.</desc>
+<g font-family="IBM Plex Sans, system-ui, sans-serif" font-weight="600" fill="#D4A63A" text-anchor="middle">
+<g id="pos-1" data-position="focus"><title>1 Focus</title><rect x="150.75" y="61.75" width="62.5" height="108.5" rx="6.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="182" y="116" dominant-baseline="central" font-size="18">1</text></g>
+</g>
+</svg>

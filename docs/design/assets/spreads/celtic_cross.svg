@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="194" height="272" viewBox="1 0 194 272">
+<title>Celtic Cross spread layout</title>
+<desc>Celtic Cross layout: cards 1 to 6 form a cross, with card 2 laid sideways across card 1; cards 7 to 10 stand in a column to the right, from bottom to top. Numbers are draw and reveal order; position ids match spreads.json (1 present, 2 challenge, 3 foundation, 4 recent_past, 5 potential, 6 near_future, 7 self, 8 environment, 9 hopes_fears, 10 outcome). Outlines color.card.frame #D4A63A; filled boxes color.bg.surface #171A2D. In RTL the x positions mirror. Source: SpreadDiagrams.dc.html.</desc>
+<g font-family="IBM Plex Sans, system-ui, sans-serif" font-weight="600" fill="#D4A63A" text-anchor="middle">
+<g id="pos-4" data-position="recent_past"><title>4 Recent past</title><rect x="9.75" y="107.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="26" y="136" dominant-baseline="central" font-size="14">4</text></g>
+<g id="pos-6" data-position="near_future"><title>6 Near future</title><rect x="97.75" y="107.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="114" y="136" dominant-baseline="central" font-size="14">6</text></g>
+<g id="pos-5" data-position="potential"><title>5 Potential</title><rect x="53.75" y="41.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="70" y="70" dominant-baseline="central" font-size="14">5</text></g>
+<g id="pos-3" data-position="foundation"><title>3 Foundation</title><rect x="53.75" y="173.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="70" y="202" dominant-baseline="central" font-size="14">3</text></g>
+<g id="pos-1" data-position="present"><title>1 Present</title><rect x="53.75" y="107.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="70" y="115.5" dominant-baseline="central" font-size="11">1</text></g>
+<g id="pos-2" data-position="challenge"><title>2 Challenge</title><rect x="41.75" y="119.75" width="56.5" height="32.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="70" y="136" dominant-baseline="central" font-size="14">2</text></g>
+<g id="pos-10" data-position="outcome"><title>10 Outcome</title><rect x="153.75" y="8.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="170" y="37" dominant-baseline="central" font-size="14">10</text></g>
+<g id="pos-9" data-position="hopes_fears"><title>9 Hopes &amp; fears</title><rect x="153.75" y="74.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="170" y="103" dominant-baseline="central" font-size="14">9</text></g>
+<g id="pos-8" data-position="environment"><title>8 Environment</title><rect x="153.75" y="140.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="170" y="169" dominant-baseline="central" font-size="14">8</text></g>
+<g id="pos-7" data-position="self"><title>7 Self</title><rect x="153.75" y="206.75" width="32.5" height="56.5" rx="4.25" fill="none" stroke="#D4A63A" stroke-width="1.5"/><text x="170" y="235" dominant-baseline="central" font-size="14">7</text></g>
+</g>
+</svg>

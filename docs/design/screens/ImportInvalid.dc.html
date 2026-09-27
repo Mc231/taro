@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Import invalid</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-border-focus:#F2C14E;--color-status-success:#5FC795;--color-status-onSuccess:#0F1120;--color-status-error:#FF8C8C;--color-status-onError:#0F1120;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center">
+<a href="Settings.dc.html" aria-label="Back to Settings" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 28px; line-height: 34px">Import backup</h1>
+<span style="font-size: 15px; line-height: 22px; color: var(--color-text-secondary)">Check what's in the file, then choose how to bring it in.</span>
+</div>
+<div style="display: flex; flex-direction: column; background: var(--color-bg-surface); border-radius: 16px">
+<div style="display: flex; gap: 12px; padding: 16px">
+<div style="flex: none; width: 40px; height: 40px; border-radius: 10px; background: var(--color-bg-surfaceRaised); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" style="color: var(--color-text-tertiary)"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-weight: 600; font-size: 15px; line-height: 20px; overflow-wrap: anywhere">journal-notes-march.json</span>
+<span style="font-size: 13px; line-height: 18px; color: var(--color-text-tertiary)">14 KB · checked just now</span>
+</div>
+</div>
+<div role="alert" style="display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; border-top: 1px solid var(--color-border-subtle)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px; color: var(--color-status-error)"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5"></path><path d="M12 16.5v.5"></path></svg><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600; font-size: 16px; line-height: 22px; color: var(--color-status-error)">This file isn't a Taro backup</span><span style="font-size: 14px; line-height: 20px; color: var(--color-text-secondary)">It may be a different kind of file, or it was damaged while it was being copied.</span></span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 17px; line-height: 22px; font-weight: 600">What you can try</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px">
+<li style="display: flex; gap: 10px; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)"><span style="flex: none; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--color-accent-primary)"></span>Choose the file whose name starts with taro-backup- and ends in .json.</li>
+<li style="display: flex; gap: 10px; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)"><span style="flex: none; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--color-accent-primary)"></span>If it came by email or chat, save it to Files first, then choose it again.</li>
+<li style="display: flex; gap: 10px; font-size: 15px; line-height: 22px; color: var(--color-text-secondary)"><span style="flex: none; width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--color-accent-primary)"></span>Still stuck? Make a fresh backup in Settings, Export backup, on the phone that has your journal.</li>
+</ul>
+</div>
+<div role="status" style="display: flex; gap: 8px; align-items: center; padding: 12px 16px; border-radius: 12px; background: var(--color-bg-surface)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: var(--color-status-success)"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span style="font-size: 14px; line-height: 20px; color: var(--color-text-primary)">Nothing was changed in your journal.</span></div>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<button type="button" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 12px; background: var(--color-accent-primary); color: var(--color-text-onAccent); font-family: var(--font-sans); font-weight: 500; font-size: 16px">Choose another file</button>
+<a href="Settings.dc.html" style="width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--color-border-strong); color: var(--color-text-primary); font-weight: 500; font-size: 16px; text-decoration: none">Back to Settings</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

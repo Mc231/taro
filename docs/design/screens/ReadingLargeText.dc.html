@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reading 200% text</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IM+Fell+English+SC&amp;family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&amp;display=swap">
+<style>
+:root{--color-bg-canvas:#0F1120;--color-bg-surface:#171A2D;--color-bg-surfaceRaised:#20243D;--color-bg-sunken:#0A0C17;--color-text-primary:#ECEEF7;--color-text-secondary:#B2B7CD;--color-text-tertiary:#8B91AB;--color-text-onAccent:#0F1120;--color-accent-primary:#9AA8FF;--color-accent-secondary:#F3957A;--color-accent-subtle:#262D5C;--color-border-subtle:#2A2F4A;--color-border-strong:#6A7196;--color-card-back:#23308F;--color-card-frame:#D4A63A;--color-card-glow:#F7D774;--color-card-reversedBadge:#F3957A;--font-serif:"Literata",Georgia,serif;--font-sans:"IBM Plex Sans",system-ui,sans-serif;--font-numeral:"IM Fell English SC",Georgia,serif}
+body{margin:0;font-family:var(--font-sans);color:var(--color-text-primary)}
+a{color:var(--color-accent-primary)}
+</style>
+</helmet>
+<div style="width: 390px; height: 2300px; box-sizing: border-box; background: var(--color-bg-canvas); padding: 48px 16px 32px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="Today.dc.html" aria-label="Done" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-left: -12px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+<div style="display: flex; gap: 4px; align-items: center">
+<a href="#" style="min-height: 64px; padding: 0 12px; display: flex; align-items: center; font-weight: 500; font-size: 30px; line-height: 40px; text-decoration: none">Add note</a>
+<a href="#" aria-label="More" style="width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; color: var(--color-text-primary); margin-right: -8px"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle></svg></a>
+</div>
+</div>
+<ul aria-label="Cards in this spread" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<li style="display: flex; gap: 16px; align-items: center; padding: 12px; border-radius: 12px; background: var(--color-bg-surface)">
+<div style="flex: none; width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 4px"><span style="font-family: var(--font-numeral); color: #9AA8FF; font-size: 14px">III</span><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true" style="margin-top: 16px"><path d="M10 10h8v6a4 4 0 0 1-8 0zM22 10h8v6a4 4 0 0 1-8 0zM16 24h8v6a4 4 0 0 1-8 0z" fill="none" stroke="#9AA8FF" stroke-width="1.8"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 26px; line-height: 36px; color: var(--color-text-secondary)">Past</span><span style="font-family: var(--font-serif); font-weight: 600; font-size: 30px; line-height: 40px">Three of Cups</span></div>
+</li>
+<li style="display: flex; gap: 16px; align-items: center; padding: 12px; border-radius: 12px; background: var(--color-bg-surface)">
+<div style="flex: none; width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box; display: flex; align-items: center; justify-content: center"><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true" style="transform: rotate(180deg)"><path d="M20 4 L24 16 L37 16 L27 24 L31 37 L20 29 L9 37 L13 24 L3 16 L16 16 Z" fill="none" stroke="#E2B84E" stroke-width="2"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start; min-width: 0"><span style="font-size: 26px; line-height: 36px; color: var(--color-text-secondary)">Present</span><span style="font-family: var(--font-serif); font-weight: 600; font-size: 30px; line-height: 40px">The Star</span><span style="background: var(--color-card-reversedBadge); color: var(--color-text-onAccent); font-size: 22px; font-weight: 500; line-height: 32px; padding: 0 10px; border-radius: 6px">Reversed</span></div>
+</li>
+<li style="display: flex; gap: 16px; align-items: center; padding: 12px; border-radius: 12px; background: var(--color-bg-surface)">
+<div style="flex: none; width: 84px; height: 145px; border-radius: 10px; background: var(--color-bg-surfaceRaised); border: 2px solid var(--color-card-frame); box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 4px"><span style="font-family: var(--font-numeral); color: #6FCB9C; font-size: 14px">VIII</span><svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true" style="margin-top: 16px"><circle cx="20" cy="20" r="12" fill="none" stroke="#6FCB9C" stroke-width="1.8"></circle><path d="M20 10l2.6 7.4H30l-6 4.4 2.3 7.2-6.3-4.5-6.3 4.5 2.3-7.2-6-4.4h7.4z" fill="none" stroke="#6FCB9C" stroke-width="1.4"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-size: 26px; line-height: 36px; color: var(--color-text-secondary)">Future</span><span style="font-family: var(--font-serif); font-weight: 600; font-size: 30px; line-height: 40px">Eight of Pentacles</span></div>
+</li>
+</ul>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<span style="font-size: 26px; line-height: 36px; color: var(--color-text-tertiary)">“How can I rebuild after a hard year at work?”</span>
+<span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; line-height: 16px; font-weight: 500; padding: 2px 8px; border-radius: 4px; background: var(--color-accent-subtle); color: var(--color-text-primary)">AI-generated</span>
+<h1 style="margin: 0; font-family: var(--font-serif); font-weight: 500; font-size: 56px; line-height: 68px">A season of rebuilding</h1>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 36px; line-height: 56px">The cards move from shared joy, through a dimmed sense of hope, toward patient, skilled work. They suggest the rebuilding may come less from a single turning point and more from steady practice.</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 40px; line-height: 52px; font-weight: 600; display: flex; gap: 14px; align-items: baseline"><span style="flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent-secondary); transform: translateY(-8px)"></span><span>Present · The Star, reversed</span></h2>
+<p style="margin: 0; font-family: var(--font-serif); font-size: 36px; line-height: 56px">Reversed, the Star can point to hope that feels far away right now. You might consider what small, dependable sources of energy are still within reach.</p>
+</div>
+</div>
+<span style="font-size: 26px; line-height: 36px; color: var(--color-text-tertiary)">For entertainment and self-reflection. Not professional advice.</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":2300}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

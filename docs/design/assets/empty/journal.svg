@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150" fill="none" stroke-linejoin="round">
+<title>Journal empty state</title>
+<desc>Three card outlines fanned, the front one with a star. Strokes color.card.frame #D4A63A; the front card fill is color.bg.canvas #0F1120. Source: JournalEmpty.dc.html (S14 empty).</desc>
+<rect x="34" y="30" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.5" stroke-opacity=".55" transform="rotate(-14 63 78)"></rect>
+<rect x="108" y="30" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.5" stroke-opacity=".55" transform="rotate(14 137 78)"></rect>
+<rect x="71" y="18" width="58" height="96" rx="7" stroke="#D4A63A" stroke-width="1.8" fill="#0F1120"></rect>
+<rect x="77" y="24" width="46" height="84" rx="4" stroke="#D4A63A" stroke-width="1" stroke-opacity=".6" stroke-dasharray="3 4"></rect>
+<path d="M100 52l3.2 8.6 8.8.4-6.9 5.5 2.4 8.5-7.5-4.9-7.5 4.9 2.4-8.5-6.9-5.5 8.8-.4z" stroke="#D4A63A" stroke-width="1.5"></path>
+<path d="M60 136h80" stroke="#D4A63A" stroke-width="1.2" stroke-opacity=".4" stroke-linecap="round"></path>
+</svg>

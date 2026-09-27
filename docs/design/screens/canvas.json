@@ -321,6 +321,150 @@
    "h": 1024,
    "title": "App icon master",
    "is_interactive": false
+  },
+  "TodayFirstRun.dc.html": {
+   "x": 0,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S05 Today · first run",
+   "is_interactive": true
+  },
+  "QuestionRefused.dc.html": {
+   "x": 470,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S07 Question · declined",
+   "is_interactive": true
+  },
+  "DrawShuffle.dc.html": {
+   "x": 940,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S08 Draw · shuffle",
+   "is_interactive": true
+  },
+  "DrawReveal.dc.html": {
+   "x": 1410,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S08 Draw · reveal",
+   "is_interactive": true
+  },
+  "DrawAwaiting.dc.html": {
+   "x": 1880,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S08 Draw · awaiting reading",
+   "is_interactive": true
+  },
+  "ReadingRated.dc.html": {
+   "x": 2350,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S09 Reading · rated + toast",
+   "is_interactive": true
+  },
+  "DailyCardNotDrawn.dc.html": {
+   "x": 2820,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S13 Daily card · not drawn",
+   "is_interactive": true
+  },
+  "StoreLoading.dc.html": {
+   "x": 3290,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S11 Store · loading",
+   "is_interactive": true
+  },
+  "RewardedGranted.dc.html": {
+   "x": 3760,
+   "y": 10840,
+   "w": 390,
+   "h": 844,
+   "title": "S12 Rewarded · granted",
+   "is_interactive": true
+  },
+  "JournalEmpty.dc.html": {
+   "x": 0,
+   "y": 12027,
+   "w": 390,
+   "h": 844,
+   "title": "S14 Journal · empty",
+   "is_interactive": true
+  },
+  "ImportInvalid.dc.html": {
+   "x": 470,
+   "y": 12027,
+   "w": 390,
+   "h": 844,
+   "title": "S25 Import · invalid file",
+   "is_interactive": true
+  },
+  "AttPrompt.dc.html": {
+   "x": 940,
+   "y": 12027,
+   "w": 390,
+   "h": 844,
+   "title": "ATT pre-prompt (iOS)",
+   "is_interactive": true
+  },
+  "DrawAr.dc.html": {
+   "x": 1410,
+   "y": 12027,
+   "w": 390,
+   "h": 844,
+   "title": "S08 Draw · Arabic RTL",
+   "is_interactive": true
+  },
+  "JournalAr.dc.html": {
+   "x": 1880,
+   "y": 12027,
+   "w": 390,
+   "h": 844,
+   "title": "S14 Journal · Arabic RTL",
+   "is_interactive": true
+  },
+  "TodayLargeText.dc.html": {
+   "x": 0,
+   "y": 13214,
+   "w": 390,
+   "h": 1880,
+   "title": "S05 Today · 200% text",
+   "is_interactive": true
+  },
+  "ReadingLargeText.dc.html": {
+   "x": 470,
+   "y": 13214,
+   "w": 390,
+   "h": 2300,
+   "title": "S09 Reading · 200% text",
+   "is_interactive": true
+  },
+  "SpreadDiagrams.dc.html": {
+   "x": 940,
+   "y": 13214,
+   "w": 1320,
+   "h": 900,
+   "title": "Spread layout diagrams ×6",
+   "is_interactive": false
+  },
+  "ScreenshotFrame.dc.html": {
+   "x": 2340,
+   "y": 13214,
+   "w": 1320,
+   "h": 2868,
+   "title": "App Store screenshot frame",
+   "is_interactive": false
   }
  },
  "createdOnFiles": {
@@ -397,6 +541,27 @@
    "text": "Learn pages, launch and brand assets",
    "kind": "title1",
    "maxW": 3200
+  },
+  "row9": {
+   "x": 0,
+   "y": 10540,
+   "text": "More states of core screens",
+   "kind": "title1",
+   "maxW": 4150
+  },
+  "row10": {
+   "x": 0,
+   "y": 11727,
+   "text": "Empty, invalid, ATT and Arabic",
+   "kind": "title1",
+   "maxW": 2270
+  },
+  "row11": {
+   "x": 0,
+   "y": 12914,
+   "text": "200% text, spread diagrams, store screenshot frame",
+   "kind": "title1",
+   "maxW": 3660
   }
  },
  "order": [
@@ -439,7 +604,25 @@
   "AboutTaro.dc.html",
   "Launch.dc.html",
   "CardBack.dc.html",
-  "AppIcon.dc.html"
+  "AppIcon.dc.html",
+  "TodayFirstRun.dc.html",
+  "QuestionRefused.dc.html",
+  "DrawShuffle.dc.html",
+  "DrawReveal.dc.html",
+  "DrawAwaiting.dc.html",
+  "ReadingRated.dc.html",
+  "DailyCardNotDrawn.dc.html",
+  "StoreLoading.dc.html",
+  "RewardedGranted.dc.html",
+  "JournalEmpty.dc.html",
+  "ImportInvalid.dc.html",
+  "AttPrompt.dc.html",
+  "DrawAr.dc.html",
+  "JournalAr.dc.html",
+  "TodayLargeText.dc.html",
+  "ReadingLargeText.dc.html",
+  "SpreadDiagrams.dc.html",
+  "ScreenshotFrame.dc.html"
  ],
  "pages": [],
  "title": "Taro Screens"

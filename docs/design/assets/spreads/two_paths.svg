@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="222" viewBox="30 22 304 222">
+<title>Two Paths spread layout</title>
+<desc>Two Paths layout: Situation on the left; it forks into Path A above and Path B below, each followed on the right by its outcome. Numbers are draw and reveal order; position ids match spreads.json (1 situation, 2 path_a, 3 path_a_outcome, 4 path_b, 5 path_b_outcome). Outlines color.card.frame #D4A63A; filled boxes color.bg.surface #171A2D. In RTL the x positions mirror. Source: SpreadDiagrams.dc.html.</desc>
+<g font-family="IBM Plex Sans, system-ui, sans-serif" font-weight="600" fill="#D4A63A" text-anchor="middle">
+<path d="M88 133 C124 133 124 68 154 68 M88 133 C124 133 124 198 154 198 M210 68 H276 M210 198 H276" fill="none" stroke="#6A7196" stroke-width="1.2" stroke-dasharray="3 4"/>
+<g id="pos-1" data-position="situation"><title>1 Situation</title><rect x="38.75" y="95.75" width="42.5" height="74.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="60" y="133" dominant-baseline="central" font-size="15">1</text></g>
+<g id="pos-2" data-position="path_a"><title>2 Path A</title><rect x="160.75" y="30.75" width="42.5" height="74.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="182" y="68" dominant-baseline="central" font-size="15">2</text></g>
+<g id="pos-3" data-position="path_a_outcome"><title>3 Path A outcome</title><rect x="282.75" y="30.75" width="42.5" height="74.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="304" y="68" dominant-baseline="central" font-size="15">3</text></g>
+<g id="pos-4" data-position="path_b"><title>4 Path B</title><rect x="160.75" y="160.75" width="42.5" height="74.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="182" y="198" dominant-baseline="central" font-size="15">4</text></g>
+<g id="pos-5" data-position="path_b_outcome"><title>5 Path B outcome</title><rect x="282.75" y="160.75" width="42.5" height="74.5" rx="4.25" fill="#171A2D" stroke="#D4A63A" stroke-width="1.5"/><text x="304" y="198" dominant-baseline="central" font-size="15">5</text></g>
+</g>
+</svg>
