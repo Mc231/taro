@@ -1,0 +1,1014 @@
+{
+  "$description": "Taro design tokens (W3C DTCG). Source of truth: Claude Design system https://claude.ai/artifact/C94hpvYCJKqrqYn5o8VnRb. Names follow 01_PRODUCT.md §14; tools/tokens generates TaroTokens from this file.",
+  "$extensions": {
+    "taro.modes": [
+      "light",
+      "dark"
+    ]
+  },
+  "color": {
+    "bg": {
+      "canvas": {
+        "$type": "color",
+        "$value": "#EEF0F4",
+        "$description": "App background (color.bg.canvas). Ground for every screen.",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#EEF0F4",
+            "dark": "#0F1120"
+          }
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "#F8F9FB",
+        "$description": "Cards, list rows, inline panels (color.bg.surface).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#F8F9FB",
+            "dark": "#171A2D"
+          }
+        }
+      },
+      "surfaceRaised": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Bottom sheets, dialogs, the paywall sheet (color.bg.surfaceRaised).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#20243D"
+          }
+        }
+      },
+      "sunken": {
+        "$type": "color",
+        "$value": "#E2E6EC",
+        "$description": "Inputs, the question field, wells (color.bg.sunken).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#E2E6EC",
+            "dark": "#0A0C17"
+          }
+        }
+      },
+      "scrim": {
+        "$type": "color",
+        "$value": "rgba(15, 17, 32, 0.48)",
+        "$description": "Modal overlay behind sheets and the rewarded overlay (color.bg.scrim).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "rgba(15, 17, 32, 0.48)",
+            "dark": "rgba(5, 6, 14, 0.64)"
+          }
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "#141729",
+        "$description": "Body copy and headings on canvas, surface, surfaceRaised, sunken and accent-subtle (color.text.primary).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#141729",
+            "dark": "#ECEEF7"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#454B64",
+        "$description": "Supporting copy and metadata on canvas, surface, surfaceRaised and sunken (color.text.secondary).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#454B64",
+            "dark": "#B2B7CD"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "#5E647E",
+        "$description": "Captions, timestamps, placeholders on canvas and surface. Never body copy (color.text.tertiary).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#5E647E",
+            "dark": "#8B91AB"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#A1A6B8",
+        "$description": "Disabled labels only; exempt from contrast minimums (color.text.disabled).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#A1A6B8",
+            "dark": "#5C6180"
+          }
+        }
+      },
+      "inverse": {
+        "$type": "color",
+        "$value": "#ECEEF7",
+        "$description": "Text on inverted surfaces such as snackbars (color.text.inverse).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#ECEEF7",
+            "dark": "#141729"
+          }
+        }
+      },
+      "onAccent": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Labels on accent-primary and accent-primaryPressed fills (color.text.onAccent).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#0F1120"
+          }
+        }
+      }
+    },
+    "accent": {
+      "primary": {
+        "$type": "color",
+        "$value": "#2E3FAE",
+        "$description": "Taro ultramarine, the blue of printed tarot. Primary CTAs (Begin, Buy), selection, links on canvas and surface (color.accent.primary).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#2E3FAE",
+            "dark": "#9AA8FF"
+          }
+        }
+      },
+      "primaryPressed": {
+        "$type": "color",
+        "$value": "#23318C",
+        "$description": "Pressed state of accent-primary fills (color.accent.primaryPressed).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#23318C",
+            "dark": "#C0C9FF"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#B63A25",
+        "$description": "Vermilion. Secondary emphasis and section markers in a reading; text-safe on canvas and surface (color.accent.secondary).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#B63A25",
+            "dark": "#F3957A"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "#DCE1F7",
+        "$description": "Selected rows, tonal chips, the balance chip (color.accent.subtle). Text on it: text-primary.",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#DCE1F7",
+            "dark": "#262D5C"
+          }
+        }
+      }
+    },
+    "border": {
+      "subtle": {
+        "$type": "color",
+        "$value": "#D5DAE3",
+        "$description": "Hairline dividers and decorative card outlines; not for control edges (color.border.subtle).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#D5DAE3",
+            "dark": "#2A2F4A"
+          }
+        }
+      },
+      "strong": {
+        "$type": "color",
+        "$value": "#7A8199",
+        "$description": "Input and secondary-button borders, 3:1 on canvas and surface (color.border.strong).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#7A8199",
+            "dark": "#6A7196"
+          }
+        }
+      },
+      "focus": {
+        "$type": "color",
+        "$value": "#A87508",
+        "$description": "Focus ring: 2px solid, 2px offset. Ochre, so it never reads as selection blue (color.border.focus).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#A87508",
+            "dark": "#F2C14E"
+          }
+        }
+      }
+    },
+    "status": {
+      "success": {
+        "$type": "color",
+        "$value": "#1F7A4E",
+        "$description": "Success icon and text: purchase granted, backup saved. Always with a word (color.status.success).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#1F7A4E",
+            "dark": "#5FC795"
+          }
+        }
+      },
+      "onSuccess": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Label on a success fill (color.status.onSuccess).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#0F1120"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#8A5F00",
+        "$description": "Warning icon and text: offline, reading taking longer (color.status.warning).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#8A5F00",
+            "dark": "#F2C14E"
+          }
+        }
+      },
+      "onWarning": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Label on a warning fill (color.status.onWarning).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#0F1120"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "#B3261E",
+        "$description": "Error icon and text; always with a message saying what to do (color.status.error).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#B3261E",
+            "dark": "#FF8C8C"
+          }
+        }
+      },
+      "onError": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Label on an error fill (color.status.onError).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#0F1120"
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#1D5F96",
+        "$description": "Informational notices (color.status.info).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#1D5F96",
+            "dark": "#8FC8F5"
+          }
+        }
+      },
+      "onInfo": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$description": "Label on an info fill (color.status.onInfo).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#FFFFFF",
+            "dark": "#0F1120"
+          }
+        }
+      }
+    },
+    "card": {
+      "back": {
+        "$type": "color",
+        "$value": "#23308F",
+        "$description": "Card-back field. Identical in both themes: the deck is a physical object and does not change with the room light (color.card.back).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#23308F",
+            "dark": "#23308F"
+          }
+        }
+      },
+      "frame": {
+        "$type": "color",
+        "$value": "#B8820F",
+        "$description": "Card border and the card-back ornament line (color.card.frame).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#B8820F",
+            "dark": "#D4A63A"
+          }
+        }
+      },
+      "glow": {
+        "$type": "color",
+        "$value": "#F2C14E",
+        "$description": "Soft glow behind a picked or just-revealed card (color.card.glow).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#F2C14E",
+            "dark": "#F7D774"
+          }
+        }
+      },
+      "reversedBadge": {
+        "$type": "color",
+        "$value": "#B63A25",
+        "$description": "Reversed badge fill, always with the word Reversed; label text-onAccent in dark, white in light (color.card.reversedBadge).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#B63A25",
+            "dark": "#F3957A"
+          }
+        }
+      }
+    },
+    "suit": {
+      "major": {
+        "$type": "color",
+        "$value": "#9A6A00",
+        "$description": "Major Arcana accent. Decorative; never the only signal (color.suit.major).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#9A6A00",
+            "dark": "#E2B84E"
+          }
+        }
+      },
+      "wands": {
+        "$type": "color",
+        "$value": "#B63A25",
+        "$description": "Wands accent (color.suit.wands).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#B63A25",
+            "dark": "#F3957A"
+          }
+        }
+      },
+      "cups": {
+        "$type": "color",
+        "$value": "#2E3FAE",
+        "$description": "Cups accent (color.suit.cups).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#2E3FAE",
+            "dark": "#9AA8FF"
+          }
+        }
+      },
+      "swords": {
+        "$type": "color",
+        "$value": "#4E566F",
+        "$description": "Swords accent (color.suit.swords).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#4E566F",
+            "dark": "#B9C0D6"
+          }
+        }
+      },
+      "pentacles": {
+        "$type": "color",
+        "$value": "#1F7A4E",
+        "$description": "Pentacles accent (color.suit.pentacles).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#1F7A4E",
+            "dark": "#6FCB9C"
+          }
+        }
+      }
+    },
+    "chart": {
+      "suit": {
+        "major": {
+          "$type": "color",
+          "$value": "#B8820F",
+          "$description": "Patterns chart: Major Arcana series (color.chart.suit.major).",
+          "$extensions": {
+            "taro.modes": {
+              "light": "#B8820F",
+              "dark": "#E2B84E"
+            }
+          }
+        },
+        "wands": {
+          "$type": "color",
+          "$value": "#C8492F",
+          "$description": "Patterns chart: Wands series (color.chart.suit.wands).",
+          "$extensions": {
+            "taro.modes": {
+              "light": "#C8492F",
+              "dark": "#F3957A"
+            }
+          }
+        },
+        "cups": {
+          "$type": "color",
+          "$value": "#2E3FAE",
+          "$description": "Patterns chart: Cups series (color.chart.suit.cups).",
+          "$extensions": {
+            "taro.modes": {
+              "light": "#2E3FAE",
+              "dark": "#9AA8FF"
+            }
+          }
+        },
+        "swords": {
+          "$type": "color",
+          "$value": "#6B738C",
+          "$description": "Patterns chart: Swords series (color.chart.suit.swords).",
+          "$extensions": {
+            "taro.modes": {
+              "light": "#6B738C",
+              "dark": "#D6DBEA"
+            }
+          }
+        },
+        "pentacles": {
+          "$type": "color",
+          "$value": "#2F9A63",
+          "$description": "Patterns chart: Pentacles series (color.chart.suit.pentacles).",
+          "$extensions": {
+            "taro.modes": {
+              "light": "#2F9A63",
+              "dark": "#4FA97C"
+            }
+          }
+        }
+      }
+    },
+    "ad": {
+      "container": {
+        "$type": "color",
+        "$value": "#E2E6EC",
+        "$description": "Banner ad container; sunken so the ad reads as separate from content (color.ad.container).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#E2E6EC",
+            "dark": "#0A0C17"
+          }
+        }
+      }
+    },
+    "skeleton": {
+      "base": {
+        "$type": "color",
+        "$value": "#E2E6EC",
+        "$description": "Skeleton loading block (color.skeleton.base).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#E2E6EC",
+            "dark": "#1D2138"
+          }
+        }
+      },
+      "highlight": {
+        "$type": "color",
+        "$value": "#F1F3F6",
+        "$description": "Skeleton shimmer highlight (color.skeleton.highlight).",
+        "$extensions": {
+          "taro.modes": {
+            "light": "#F1F3F6",
+            "dark": "#2A2F4A"
+          }
+        }
+      }
+    }
+  },
+  "space": {
+    "0": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "No gap."
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$description": "Hairline nudges, badge insets."
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Icon-to-label gap."
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Chip padding, tight stacks."
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "List row vertical padding."
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Default gap and card padding; equals size-layout-gutter."
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$description": "Sheet inner padding."
+    },
+    "7": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Section gap inside a screen."
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$description": "Gap between screen sections."
+    },
+    "9": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$description": "Onboarding vertical rhythm."
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$description": "Large separations, empty-state spacing."
+    },
+    "11": {
+      "$type": "dimension",
+      "$value": "56px",
+      "$description": "Hero spacing on Today."
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$description": "Top of onboarding screens."
+    },
+    "adGap": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Minimum distance between the banner container and any tap target (RC59). Never less."
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "Full-bleed images, the ad container."
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$description": "Badges (Reversed, Best value)."
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Inputs, small tiles."
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "Buttons, list cards, notices."
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "Panels, pack rows."
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$description": "Large panels."
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": "999px",
+      "$description": "Chips, the balance chip, toggles."
+    },
+    "card": {
+      "$type": "dimension",
+      "$value": "10px",
+      "$description": "Tarot cards at every size; scale with size-card-* is not needed."
+    },
+    "sheet": {
+      "$type": "dimension",
+      "$value": "28px",
+      "$description": "Top corners of bottom sheets (S10, S33)."
+    }
+  },
+  "size": {
+    "touchTarget": {
+      "min": {
+        "$type": "dimension",
+        "$value": "48px",
+        "$description": "Minimum tap target for every control."
+      }
+    },
+    "icon": {
+      "sm": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Inline icons in captions."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$description": "Default icons, tab bar."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$description": "Empty-state and notice icons."
+      }
+    },
+    "layout": {
+      "gutter": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$description": "Side padding of every screen (≥ 16)."
+      },
+      "maxContentWidth": {
+        "$type": "dimension",
+        "$value": "600px",
+        "$description": "Content column cap on tablets and iPad; centred."
+      },
+      "readingMaxWidth": {
+        "$type": "dimension",
+        "$value": "560px",
+        "$description": "Measure cap for type-bodyReading (about 65 characters)."
+      }
+    },
+    "card": {
+      "aspectRatio": {
+        "$type": "dimension",
+        "$value": "0.58",
+        "$description": "Tarot card width / height."
+      },
+      "thumb": {
+        "$type": "dimension",
+        "$value": "40px",
+        "$description": "Card width in journal rows."
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "72px",
+        "$description": "Card width in the pick fan and Celtic Cross."
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "104px",
+        "$description": "Card width in 1–3 card spreads."
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "220px",
+        "$description": "Card width on Daily card and card detail."
+      }
+    }
+  },
+  "opacity": {
+    "disabled": {
+      "$type": "number",
+      "$value": "0.38",
+      "$description": "Disabled controls."
+    },
+    "scrim": {
+      "$type": "number",
+      "$value": "0.64",
+      "$description": "Scrim strength when a custom scrim is composed."
+    },
+    "pressed": {
+      "$type": "number",
+      "$value": "0.12",
+      "$description": "Pressed-state overlay on surfaces."
+    }
+  },
+  "elevation": {
+    "0": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "none",
+        "$description": "Flat content on canvas.",
+        "$extensions": {
+          "taro.modes": {
+            "light": "none",
+            "dark": "none"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": "0",
+        "$description": "Dark theme: tonal lift for elevation-0."
+      }
+    },
+    "1": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "0 1px 2px rgba(20, 23, 41, 0.08), 0 1px 3px rgba(20, 23, 41, 0.06)",
+        "$description": "Cards on canvas, pack rows.",
+        "$extensions": {
+          "taro.modes": {
+            "dark": "0 1px 2px rgba(0, 0, 0, 0.4)",
+            "light": "0 1px 2px rgba(20, 23, 41, 0.08), 0 1px 3px rgba(20, 23, 41, 0.06)"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": "0.03",
+        "$description": "Dark theme: tonal lift for elevation-1."
+      }
+    },
+    "2": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "0 4px 12px rgba(20, 23, 41, 0.10)",
+        "$description": "Tarot cards in a spread, raised chips.",
+        "$extensions": {
+          "taro.modes": {
+            "dark": "0 4px 12px rgba(0, 0, 0, 0.45)",
+            "light": "0 4px 12px rgba(20, 23, 41, 0.10)"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": "0.05",
+        "$description": "Dark theme: tonal lift for elevation-2."
+      }
+    },
+    "3": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "0 12px 28px rgba(20, 23, 41, 0.14)",
+        "$description": "Bottom sheets, the picked card in flight.",
+        "$extensions": {
+          "taro.modes": {
+            "dark": "0 12px 28px rgba(0, 0, 0, 0.5)",
+            "light": "0 12px 28px rgba(20, 23, 41, 0.14)"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": "0.08",
+        "$description": "Dark theme: tonal lift for elevation-3."
+      }
+    },
+    "4": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "0 20px 48px rgba(20, 23, 41, 0.18)",
+        "$description": "Dialogs, the revealed card zoom.",
+        "$extensions": {
+          "taro.modes": {
+            "dark": "0 20px 48px rgba(0, 0, 0, 0.55)",
+            "light": "0 20px 48px rgba(20, 23, 41, 0.18)"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "number",
+        "$value": "0.11",
+        "$description": "Dark theme: tonal lift for elevation-4."
+      }
+    }
+  },
+  "motion": {
+    "duration": {
+      "instant": {
+        "$type": "duration",
+        "$value": "100ms",
+        "$description": "Toggles, press feedback. Reduced: 0ms."
+      },
+      "fast": {
+        "$type": "duration",
+        "$value": "150ms",
+        "$description": "Chips, small fades. Reduced: 100ms."
+      },
+      "base": {
+        "$type": "duration",
+        "$value": "250ms",
+        "$description": "Most transitions. Reduced: 150ms fade."
+      },
+      "slow": {
+        "$type": "duration",
+        "$value": "400ms",
+        "$description": "Sheets, page transitions. Reduced: 200ms fade."
+      }
+    },
+    "ritual": {
+      "shuffle": {
+        "$type": "duration",
+        "$value": "1200ms",
+        "$description": "Minimum shuffle loop. Reduced: 200ms crossfade."
+      },
+      "dealStagger": {
+        "$type": "duration",
+        "$value": "120ms",
+        "$description": "Delay between dealt cards. Reduced: 0ms."
+      },
+      "flip": {
+        "$type": "duration",
+        "$value": "600ms",
+        "$description": "Card flip. Reduced: 200ms crossfade."
+      },
+      "readingReveal": {
+        "$type": "duration",
+        "$value": "500ms",
+        "$description": "Stagger between reading sections. Reduced: 0ms."
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.2,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "$description": "Default easing. Reduced: linear."
+      },
+      "emphasized": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.3,
+          0.0,
+          0.0,
+          1.2
+        ],
+        "$description": "Card lands in its slot. Reduced: linear."
+      },
+      "decelerate": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "$description": "Entering elements. Reduced: linear."
+      },
+      "accelerate": {
+        "$type": "cubicBezier",
+        "$value": [
+          0.3,
+          0.0,
+          1.0,
+          1.0
+        ],
+        "$description": "Exiting elements. Reduced: linear."
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "serif": {
+        "$type": "fontFamily",
+        "$value": "\"Literata\", \"Noto Serif\", Georgia, serif"
+      },
+      "sans": {
+        "$type": "fontFamily",
+        "$value": "\"IBM Plex Sans\", \"IBM Plex Sans Arabic\", \"IBM Plex Sans JP\", \"IBM Plex Sans KR\", system-ui, sans-serif"
+      },
+      "numeral": {
+        "$type": "fontFamily",
+        "$value": "\"IM Fell English SC\", \"Literata\", Georgia, serif"
+      }
+    }
+  },
+  "type": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.serif}",
+        "fontSize": "40px",
+        "fontWeight": 500,
+        "lineHeight": "44px",
+        "letterSpacing": "-0.5px"
+      },
+      "$description": "One per screen at most: onboarding titles, the Today greeting."
+    },
+    "headline": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.serif}",
+        "fontSize": "28px",
+        "fontWeight": 500,
+        "lineHeight": "34px"
+      },
+      "$description": "Screen titles, the reading title."
+    },
+    "cardName": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.serif}",
+        "fontSize": "22px",
+        "fontWeight": 600,
+        "lineHeight": "28px"
+      },
+      "$description": "Card names on revealed cards and card detail."
+    },
+    "bodyReading": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.serif}",
+        "fontSize": "18px",
+        "fontWeight": 400,
+        "lineHeight": "29px"
+      },
+      "$description": "Long-form AI and authored reading text. Line height ≥ 1.5, measure ≤ 70 characters via size-layout-readingMaxWidth."
+    },
+    "title": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "20px",
+        "fontWeight": 600,
+        "lineHeight": "26px"
+      },
+      "$description": "Section headings, sheet titles, reading section headings."
+    },
+    "titleSmall": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "17px",
+        "fontWeight": 600,
+        "lineHeight": "22px"
+      },
+      "$description": "List-row titles, card-position titles, pack names."
+    },
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "lineHeight": "24px"
+      },
+      "$description": "All UI copy. Minimum body size is 16px."
+    },
+    "label": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "15px",
+        "fontWeight": 500,
+        "lineHeight": "20px",
+        "letterSpacing": "0.1px"
+      },
+      "$description": "Buttons, chips, tabs."
+    },
+    "caption": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.sans}",
+        "fontSize": "13px",
+        "fontWeight": 400,
+        "lineHeight": "18px",
+        "letterSpacing": "0.2px"
+      },
+      "$description": "Captions, disclaimers under readings, timestamps. Minimum 12px."
+    },
+    "numeral": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.numeral}",
+        "fontSize": "20px",
+        "fontWeight": 400,
+        "lineHeight": "24px",
+        "letterSpacing": "1px"
+      },
+      "$description": "Roman numerals on card faces. Latin letters in every locale, so one face serves all 12."
+    }
+  }
+}
