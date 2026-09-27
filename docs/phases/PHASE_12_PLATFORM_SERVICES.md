@@ -8,7 +8,7 @@
 
 ## Overview
 
-This phase implements `taro_services` (every platform SDK adapter behind its port) and the own `taro_attestation` Flutter plugin (Swift App Attest + DeviceCheck, Kotlin Play Integrity **Standard** + `ANDROID_ID`, RC87). It also builds the monetization orchestration that runs outside the widget tree:
+This phase implements the app's services layer, `apps/taro/lib/services/` (every platform SDK adapter behind its port; a folder of the app, not a package — Reconciled by 00_DECISIONS.md RC95) and the own `taro_attestation` Flutter plugin (Swift App Attest + DeviceCheck, Kotlin Play Integrity **Standard** + `ANDROID_ID`, RC87). It also builds the monetization orchestration that runs outside the widget tree:
 - `PurchaseCoordinator` (finish only after the Worker grants);
 - `RemoveAdsEntitlement` (never revoke on store silence);
 - `PendingPurchaseTracker`;
@@ -17,8 +17,8 @@ This phase implements `taro_services` (every platform SDK adapter behind its por
 The adapters take SDK entry points by injection, so every branch is unit-tested through platform-interface fakes without a device (02 Testing strategy). Nothing is excluded from coverage except generated code.
 
 **Output of this phase:**
-- `packages/taro_services`:
-  - `StoreIapService`, `AdMobAdsService`, `AdMobBannerSlotView` (presentation barrel), `UmpConsentService`, `AttTrackingAuthorization`;
+- `apps/taro/lib/services/`:
+  - `StoreIapService`, `AdMobAdsService`, `AdMobBannerSlotView` (`services/presentation/`), `UmpConsentService`, `AttTrackingAuthorization`;
   - `FirebaseAnalyticsService`, `ConsentAwareAnalytics`, `CompositeAnalyticsService`, `FirebaseCrashReporter`;
   - `LocalReminderScheduler`, `FlutterTimezoneProvider`, `PlatformFileTransfer`, `ConnectivityPlusMonitor`, `InAppReviewPrompter`, `PackageInfoAppInfo`, `SystemClock`, `SecureRandomSource`, `LoggingLogger` + `Redactor`, `PlatformAttestationService`, `DebugAttestationService`;
   - all NoOp variants.
@@ -29,7 +29,7 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
 
 ## Specs referenced
 
-`02_ARCHITECTURE.md` AR9–AR11, AR18, AR19, §5, §6.4, §9.1 step 7, §9.5–§9.7, §13, §15. `04_MONETIZATION.md` MO7, MO8, MO9, MO10, MO12, MO15, MO18, §6.1–§6.7, §9, §10, §12, §15 (client). `05_COMPLIANCE_STORE_ASO.md` CS14, 5.1.2 row (`ConsentOrchestrator`), §6.3. `03_BACKEND_WORKER.md` §3.1, §3.4, §6.1 (binding), §7.1. `01_PRODUCT.md` PR10, PR13, PR18, §7.7. `00_DECISIONS.md` RC9–RC11, RC19, RC33, RC34, RC40, RC41, RC53, RC56, RC57, RC68, RC86, RC87.
+`02_ARCHITECTURE.md` AR9–AR11, AR18, AR19, §5, §6.4, §9.1 step 7, §9.5–§9.7, §13, §15. `04_MONETIZATION.md` MO7, MO8, MO9, MO10, MO12, MO15, MO18, §6.1–§6.7, §9, §10, §12, §15 (client). `05_COMPLIANCE_STORE_ASO.md` CS14, 5.1.2 row (`ConsentOrchestrator`), §6.3. `03_BACKEND_WORKER.md` §3.1, §3.4, §6.1 (binding), §7.1. `01_PRODUCT.md` PR10, PR13, PR18, §7.7. `00_DECISIONS.md` RC9–RC11, RC19, RC33, RC34, RC40, RC41, RC53, RC56, RC57, RC68, RC86, RC87, RC95.
 
 ---
 
@@ -40,7 +40,7 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
 - [ ] Swift `TaroAttestationPlugin.swift` using `DCAppAttestService` and `DCDevice`. XCTest suite in `example/ios/RunnerTests` behind protocol wrappers `AppAttestServicing` / `DeviceCheckServicing` so the services can be faked.
 - [ ] Kotlin `TaroAttestationPlugin.kt` using `StandardIntegrityManager` and `Settings.Secure.ANDROID_ID`. JUnit + Robolectric/MockK suite behind `IntegrityProvider` / `AndroidIdProvider` interfaces.
 - [ ] Dart tests via a method-channel mock covering every error mapping. Native coverage is reported by `tools/ci/native_coverage_*.sh` and must be ≥ 90%.
-- [ ] `PlatformAttestationService` (in `taro_services`) wraps the plugin and implements the `AttestationService` port, including `deviceSignal()` (`deviceKey = base64url(SHA-256("taro-device-v1" ‖ ANDROID_ID))` computed in Dart; iOS DeviceCheck token; 03 §3.7). `DebugAttestationService` sends the `X-Taro-Debug-Attestation` token and is available only when `!FlavorConfig.isProd`; a prod-build test asserts it is unreachable (02 §15). The Worker honours it only where its deploy env allows it (RC86).
+- [ ] `PlatformAttestationService` (in `apps/taro/lib/services/attestation/`) wraps the plugin and implements the `AttestationService` port, including `deviceSignal()` (`deviceKey = base64url(SHA-256("taro-device-v1" ‖ ANDROID_ID))` computed in Dart; iOS DeviceCheck token; 03 §3.7). `DebugAttestationService` sends the `X-Taro-Debug-Attestation` token and is available only when `!FlavorConfig.isProd`; a prod-build test asserts it is unreachable (02 §15). The Worker honours it only where its deploy env allows it (RC86).
 
 ---
 
@@ -86,8 +86,8 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
   - `initialize`, `loadRewarded({userId: intentId, customData: intentId})` (never the install ID; BE14, RC56), `showRewarded` → `earned|dismissedEarly|failedToShow`;
   - rewarded loaded lazily when S10 opens, expiring after 1 h;
   - NPA requests when consent is denied.
-- [ ] `presentation.dart` `AdMobBannerSlotView`: anchored adaptive, loads on first build, disposes on unmount, collapses to zero height on failure (02 §10).
-- [ ] The rewarded use case `earn_reward.dart` in `taro_core/usecases` (04 §6) + adapters in `taro_services`; the `RewardedController` Notifier lives in `apps/taro/lib/features/paywall` (Phase 13). Per 04 §9.2 and 02 §9.6:
+- [ ] `services/presentation/banner_slot_view.dart` `AdMobBannerSlotView`: anchored adaptive, loads on first build, disposes on unmount, collapses to zero height on failure (02 §10).
+- [ ] The rewarded use case `earn_reward.dart` in `taro_core/usecases` (04 §6) + adapters in `apps/taro/lib/services/`; the `RewardedController` Notifier lives in `apps/taro/lib/features/paywall` (Phase 13). Per 04 §9.2 and 02 §9.6:
   - `createIntent` → load (timeout `rewarded.loadTimeoutSec` = 10 → `noFill`) → show → on earned, poll `GET /v1/rewards/intents/{intentId}` every 1.5 s up to `rewarded.grantPollTimeoutSec` (20, RC33) → `granted` or `grantDelayed`;
   - load timeout, show failure or dismissed early → `POST /v1/rewards/intents/{intentId}/cancel` (best effort), no poll (RC57);
   - after `granted`, return to S07 with Begin enabled; nothing auto-starts (RC58).
@@ -135,7 +135,7 @@ The adapters take SDK entry points by injection, so every branch is unit-tested 
 
 ## Done when
 
-- [ ] `taro_services` ≥ 90%. `taro_attestation` Dart ≥ 90%, and Swift and Kotlin ≥ 90% each (RC40). `check_coverage.py` is green.
+- [ ] `apps/taro` ≥ 90% with every `lib/services/` file ≥ 70%; `check_architecture.dart` green (`services/` never imports `data/`, `features/` or `taro_ui`). `taro_attestation` Dart ≥ 90%, and Swift and Kotlin ≥ 90% each (RC40). `check_coverage.py` is green.
 - [ ] The `check_forbidden_apis.py` allowlist matches `import_rules.yaml`. SDK imports appear only in adapter files.
 - [ ] *(Separate exit criterion, may be ticked after the phase commit, before Phase 16 starts)* The Sprint 12.6 device checks passed on both platforms.
 - [ ] Docs: `docs/ARCHITECTURE.md` (purchase, rewarded and consent sequence diagrams), `docs/ANALYTICS_EVENTS.md` (monetization and consent events), CHANGELOG.

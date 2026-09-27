@@ -189,7 +189,7 @@ The gate is evaluated when the user taps **Begin** on the question screen (S07),
 
 ## 6. Client architecture
 
-*Reconciled by 00_DECISIONS.md RC13, RC14, RC15, RC75, RC77.* Package placement is `02_ARCHITECTURE.md`'s. There is no separate monetization package: ports and pure logic live in `taro_core`, adapters in `taro_services`, repositories and drift tables in `taro_data`, UI in `apps/taro/lib/features/paywall`, and fakes in `taro_testing`. Every external dependency is behind a port with `Fake*` (scriptable, `taro_testing`) and `NoOp*` implementations. State management is Riverpod 3 + freezed.
+*Reconciled by 00_DECISIONS.md RC13, RC14, RC15, RC75, RC77, RC95.* Package placement is `02_ARCHITECTURE.md`'s. There is no separate monetization package: ports and pure logic live in `taro_core`, adapters in `apps/taro/lib/services/`, repositories and drift tables in `apps/taro/lib/data/`, UI in `apps/taro/lib/features/paywall`, and fakes in `packages/taro_core/test/fakes/`. Every external dependency is behind a port with `Fake*` (scriptable, `taro_core/test/fakes/`) and `NoOp*` implementations. State management is Riverpod 3 + freezed.
 
 ```
 packages/taro_core/lib/src/
@@ -201,11 +201,12 @@ packages/taro_core/lib/src/
   usecases/  purchase_credits.dart (purchase coordination, §6.2), earn_reward.dart (§9)
   logic/     reading_gate.dart, reset_schedule.dart, product_offer.dart (per-reading price + best value),
              banner_policy.dart, pending_purchase_tracker.dart
-packages/taro_services/lib/src/
+apps/taro/lib/services/
   iap/       store_iap_service.dart          (the only file importing in_app_purchase)
-  ads/       admob_ads_service.dart          (+ presentation.dart: AdMobBannerSlotView)
+  ads/       admob_ads_service.dart
+  presentation/ banner_slot_view.dart        (AdMobBannerSlotView, NoOpBannerSlotView)
   consent/   ump_consent_service.dart, att_tracking_authorization.dart, consent_orchestrator.dart
-packages/taro_data/lib/src/
+apps/taro/lib/data/
   repositories/ balance_repository_impl.dart (GET /v1/balance + drift balance_cache),
                 purchase_outbox_impl.dart (drift purchase_outbox), entitlement_cache_impl.dart (drift entitlements),
                 reward_gateway_impl.dart
@@ -580,14 +581,14 @@ Worker-side metrics (D1 aggregates, `03` dashboards): grants by product/day, `ss
 
 ## 15. Testing strategy (≥ 90% line coverage per `06_QUALITY_TESTING_CI.md`)
 
-*Reconciled by 00_DECISIONS.md RC13, RC16, RC24, RC38, RC77.*
+*Reconciled by 00_DECISIONS.md RC13, RC16, RC24, RC38, RC77, RC95.*
 
-**Client (`taro_core`, `taro_services`, `taro_data`, `apps/taro/lib/features/paywall`)**
+**Client (`taro_core`, `apps/taro/lib/services/`, `apps/taro/lib/data/`, `apps/taro/lib/features/paywall`)**
 - **Unit — pure logic (target ~100%)**: `ReadingGate` (table-driven over the RC44 order and every `canReadReason`), `RemoteConfig` parsing/clamping/defaults, `ProductOffer` per-reading price + best-value computation across currencies (JPY no decimals, KWD 3 decimals), `BannerPolicy` truth table (every placement × flags), `PendingPurchaseTracker` with injected `Clock`, `BalanceDto` → `CreditBalance` mapping + stale `ledgerVersion` rejection, countdown with server-time offset.
 - **Unit — purchase coordination** with `FakeIapService`'s scriptable store stream + `FakePurchaseVerifier` + in-memory `PurchaseOutbox`: table-driven scenarios — happy path; pending → purchased; pending → silent (lapse); duplicate delivery in-flight; redelivery after "crash" (outbox pre-populated); verify 5xx → delayed → retry → granted; `422` finishes; `409 PURCHASE_ALREADY_CLAIMED` does not finish; 401/403 never finishes; `already_granted` doesn't re-log revenue; Android consume only after grant; non-consumable path; restore batch without Remove Ads revokes; silent store keeps cache. Assertion: `finish()` is never called before a `granted/already_granted/422` response (property-style check over randomized event orders, seeded).
 - **Unit — adapters**: `StoreIapService` tested against a fake `InAppPurchasePlatform` / `InAppPurchasePlatformAddition` registered via the plugin platform interface; `AdMobAdsService` and `UmpConsentService` via method-channel mocks (`TestDefaultBinaryMessengerBinding`); `AttTrackingAuthorization` via its platform interface. Adapters are not in the coverage exclusion list (only generated code is), and coverage pragmas are banned (RC16).
 - **Unit — `ConsentOrchestrator`**: order enforcement (no `AdsService.initialize` before `canRequestAds`; ATT only on iOS after UMP and skipped when `canRequestAds == false`), every UMP status × ATT status; no analytics event before `whenResolved`.
-- **Controllers**: `StoreController`, `OutOfReadingsController` state sequences for every state in §11, tested with `ProviderContainer` + fakes (Riverpod wiring from `apps/taro/test/helpers/pump_app.dart`; `taro_testing` stays Riverpod-free).
+- **Controllers**: `StoreController`, `OutOfReadingsController` state sequences for every state in §11, tested with `ProviderContainer` + fakes (Riverpod wiring from `apps/taro/test/helpers/pump_app.dart`; the `taro_core` fakes stay Riverpod-free).
 - **Widget**: S10/S11 states, close button present in all states, Restore/Terms/Privacy links present, no pack preselected, Semantics labels, `BannerSlot` collapses and never overlaps (layout test asserting banner rect ∩ scroll viewport = ∅, gap ≥ `space.adGap`).
 - **Golden** (06 QA8: built-in `matchesGoldenFile` + `TaroGoldenComparator`; matrix light/dark × LTR(en)/RTL(ar) + one long-string locale (de); phone sizes plus **tablet width** (iPad 13", Android tablet) for ★ screens, RC24): S11 `loading`, `content`, `pending`, `verificationDelayed`, `storeUnavailable`, `purchasesBlocked`; S10 `content` with rewarded eligible / cooldown / cap reached; S12 `granted`; Remove Ads owned; ATT pre-prompt.
 - **Integration** (patrol on `integration_test`, `apps/taro/integration_test/flows`, 06): free reading → Begin with zero balance → hold 402 → S10 before any draw → fake purchase → grant → back to S07 → Begin → hold → reading; hold-lost path keeps the cards face-down and reuses them; rewarded flow with fake SSV grant and a cancelled intent; reinstall simulation (same install ID) keeps balance; OS-restore simulation (journal DB present, `taro_device.db` empty) re-verifies nothing and shows no cached balance.

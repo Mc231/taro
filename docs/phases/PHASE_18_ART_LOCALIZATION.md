@@ -15,9 +15,9 @@ This phase covers the two content workstreams that make Taro distinct (PR2) and 
 It also includes native review to the 01 §11 launch gate, and verification of the crisis-line numbers (BE Q3).
 
 **Output of this phase:**
-- `packages/taro_content/assets/art/<art_set>/` with 78 cards + card back (WebP @2x/@3x, ≤ 150 KB @3x per card), `artSet` switched from `placeholder`, and `docs/ART_PROVENANCE.md` complete.
+- `apps/taro/assets/deck/art/<art_set>/` with 78 cards + card back (WebP @2x/@3x, ≤ 150 KB @3x per card), `artSet` switched from `placeholder`, and `docs/ART_PROVENANCE.md` complete.
 - `app_{ar,de,es,fr,it,ja,ko,nl,pt,tr,uk}.arb` fully translated. No `x-translate` markers remain outside the allowlist.
-- `packages/taro_content/source/{locale}/**` for 11 locales, with the launch gate met (§11 step 6) and `worker/src/generated/deck_prompt.{locale}.json` regenerated.
+- `apps/taro/content/source/{locale}/**` for 11 locales, with the launch gate met (§11 step 6) and `worker/src/generated/deck_prompt.{locale}.json` regenerated.
 - `worker/safety/lexicons/<locale>.json` ×12 native-reviewed.
 - `crisis_resources.yaml` with every entry verified (`verifiedAt` set).
 
@@ -78,7 +78,7 @@ It also includes native review to the 01 §11 launch gate, and verification of t
 ## Done when
 
 - [ ] `tools/content/validate --launch-gate`, `check_l10n.py` (strict), `check_store_copy.py` and `sync_check` are green.
-- [ ] Coverage: `taro_content`, `taro_l10n`, `tools/dart_tools` and `worker` are still ≥ 90%. All goldens are regenerated with the final art and green.
+- [ ] Coverage: `apps/taro` (incl. `lib/data/content/` and `lib/l10n/`), `tools/dart_tools` and `worker` are still ≥ 90% (units per RC95). All goldens are regenerated with the final art and green.
 - [ ] The eval and safety reports for all 12 locales pass on staging and are committed.
 - [ ] Docs: ART_PROVENANCE, CRISIS_SOURCES, the content review reports, CHANGELOG.
 - [ ] One commit: `feat(taro): Phase 18 — Deck art & full localization`.

@@ -1,0 +1,180 @@
+# Taro architecture
+
+**Status:** stub (Phase 2). This is the living architecture doc (06 §13). It is derived from `specs/02_ARCHITECTURE.md` and `specs/03_BACKEND_WORKER.md` and is updated as the code changes. When this doc and the specs disagree about what the code *does*, this doc wins; about what it *should* do, the specs win.
+
+Later phases add: the ports list (Phase 4), data flow and sequence diagrams for the reading, purchase and rewarded-grant flows (Phases 11–13).
+
+## Packages and system context
+
+From 02 §1 and §2 (RC95): three packages (`taro_core`, `taro_ui`, `taro_attestation`) and the app `apps/taro`, whose layers are folders (`lib/data/`, `lib/services/`, `lib/l10n/`, `assets/deck/`, `lib/features/`, …). Arrows are allowed imports; the full package and folder rules are in 02 §2.1 and are enforced by the import-graph check `tools/check_architecture.dart` (Phase 3).
+
+```mermaid
+flowchart LR
+  subgraph Device["Device (iOS / Android)"]
+    subgraph App["apps/taro"]
+      Feat["features/, app_state/, common/<br/>routing, bootstrap, di"]
+      Data["data/<br/>drift, secure storage, Worker client,<br/>bundled-content repositories"]
+      Svc["services/<br/>IAP, ads, consent, analytics, crash,<br/>notifications, tz, files"]
+      L10n["l10n/<br/>ARB x12"]
+      Assets["assets/deck/<br/>deck, spreads, meanings (12 locales),<br/>crisis resources"]
+    end
+    Core["taro_core<br/>domain + ports + use cases"]
+    Att["taro_attestation<br/>App Attest / Play Integrity"]
+    UI["taro_ui<br/>tokens, theme, components"]
+    Feat --> Core & UI & L10n
+    Data --> Core
+    Data --> Assets
+    Svc --> Core
+    Svc --> Att
+  end
+
+  Worker["Cloudflare Worker /v1<br/>(D1 ledger, KV config)"]
+  Anthropic["Anthropic Claude API"]
+  Stores["App Store / Google Play"]
+  AdMob["AdMob (+UMP)"]
+  Firebase["Firebase Analytics + Crashlytics"]
+  Attest["Apple App Attest / Play Integrity"]
+
+  Data -- "HTTPS JSON, Bearer session,<br/>Idempotency-Key, attestation" --> Worker
+  Worker --> Anthropic
+  Worker -- "verify JWS / purchase token" --> Stores
+  AdMob -- "SSV callback (intentId)" --> Worker
+  Worker -- "verify attestation" --> Attest
+  Svc --> Stores
+  Svc --> AdMob
+  Svc --> Firebase
+  Att --> Attest
+```
+
+Test support has no package (RC95): port fakes and contract suites live in `packages/taro_core/test/fakes/` and `test/contracts/` (Riverpod-free, RC77), the golden comparator and test fonts in `packages/taro_ui/test/helpers/golden/`, and `pumpTaro`, `pumpTaroWidget` and `TaroFakes` in `apps/taro/test/helpers/`.
+
+## Design tokens
+
+- Source: [`docs/design/taro.tokens.json`](design/taro.tokens.json), a W3C DTCG export of the approved Claude Design system with light and dark modes (`$extensions.taro.modes`). Token paths follow `01_PRODUCT.md` §14 (for example `color.bg.canvas`).
+- Pipeline (02 AR16, §14; RC15): `tools/tokens/` (Phase 15) compiles the file into Dart constants under `packages/taro_ui/lib/src/tokens/generated/` and a `TaroTokens` `ThemeExtension`. The generated output is excluded from coverage; the generator is covered under `tools`.
+- Widgets never use raw colors, sizes, radii or durations (CLAUDE.md rule 15). See [`docs/design/README.md`](design/README.md) for the design system, fonts and screen canvas.
+
+## Dependencies and build notes (Phase 2, 2026-09-27)
+
+Resolved versions, deviations from 02 §18, build fixes and the RC91 FTS5 spike results.
+
+### Flutter workspace and app
+
+Toolchain: Flutter 3.44.8 (Dart 3.12.2), melos 8.9.0, Xcode + iPhone 17 simulator (iOS 26), Android emulator Pixel_9a (API 36), AGP 9.0.1, Kotlin 2.3.20, CocoaPods 1.16.2.
+
+#### Workspace layout (owner decision 2026-09-27: 3 packages + app)
+
+Workspace members: `apps/taro`, `packages/taro_core` (pure Dart), `packages/taro_ui`, `packages/taro_attestation` (plugin), `packages/taro_attestation/example` (host app for the plugin's XCTest/JUnit and integration test), `tools/dart_tools`.
+The former `taro_data`, `taro_services`, `taro_content`, `taro_l10n`, `taro_testing` live in the app:
+`apps/taro/lib/data/` (drift, secure storage, API client; `lib/data/content/`, later `lib/data/backup/`), `apps/taro/lib/services/` (adapters; widgets in `lib/services/presentation/`), `apps/taro/assets/deck/`, `apps/taro/l10n.yaml` + `lib/l10n/arb/` → `lib/l10n/generated/` (not committed; `melos bootstrap` post-hook and `melos run gen` run `flutter gen-l10n`), `apps/taro/test/helpers/`. `taro_ui` has no taro dependencies.
+
+#### Dependencies: resolved versions and deviations from 02 §18
+
+The root cause of every deviation: Flutter 3.44.8 pins `meta 1.18.0`, `clock 1.1.2`, `test_api 0.7.11` and ships Dart 3.12.2.
+
+| Package | 02 §18 | Used | Resolved | Why |
+|---|---|---|---|---|
+| very_good_analysis | ^11.0.0 | ^10.3.0 | 10.3.0 | 11.x needs Dart ^3.13 |
+| freezed | ^4.0.2 | ^3.2.5 | 3.2.5 | 4.x stable needs Dart 3.13; `test` (test_api 0.7.11) caps analyzer < 13, freezed 4 dev builds need analyzer 13 |
+| build_runner | ^2.16.1 | ^2.15.1 | 2.15.1 | 2.16 needs analyzer >= 13.3 (which needs meta ^1.18.3) |
+| drift / drift_dev | ^2.35.0 | ^2.34.0 | 2.34.4 / 2.34.0 | drift_dev >= 2.34.1 needs analyzer 13 |
+| meta | ^1.19.0 | ^1.18.0 | 1.18.0 | SDK pin |
+| clock | ^1.1.3 | ^1.1.2 | 1.1.2 | SDK pin |
+| intl | ^0.20.2 | ^0.20.2 | 0.20.2 | SDK pin |
+| test (dev, taro_core, dart_tools) | – | ^1.31.0 | 1.31.0 | highest compatible with test_api 0.7.11 |
+| cli_util (transitive) | – | root `dependency_overrides: ^0.5.0` | 0.5.2 | drift_dev 2.34.0 declares ^0.4, melos 8 needs >= 0.5; drift_dev only uses `Ansi`/`Logger` (unchanged; 2.34.1 widened to <0.6). Remove with the upgrade below. |
+
+All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, mocktail 1.0.5, patrol 4.10.0, melos 8.9.0. `pubspec.lock` at the root is the single workspace lock (commit it).
+
+**Upgrade trigger:** when Flutter ships Dart >= 3.13 with newer SDK pins, move to very_good_analysis ^11, freezed ^4.0.2, build_runner ^2.16.1, drift/drift_dev ^2.35.0 and drop the `cli_util` override.
+
+#### Build notes
+
+- iOS: CocoaPods (SPM is off in this Flutter config). Build configurations `{Debug,Profile,Release}-{dev,staging,prod}`; the unflavored ones were removed, so every build needs `--flavor`. xcconfigs in `apps/taro/ios/Config/` (`Dev|Staging|Prod.xcconfig` hold bundle id, `APP_DISPLAY_NAME`, `ADMOB_APP_ID`; `Common.xcconfig` shared). Podfile maps the 9 configs and forces pod deployment target 16.0.
+- iOS: `CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES` (Config/Common.xcconfig) is required: google_mobile_ads 9.1.0 headers import the SDK's private `GoogleMobileAds_Beta.h` and the Runner module import fails under `use_frameworks!`.
+- AdMob app IDs are required at launch by the SDK (Info.plist `GADApplicationIdentifier`, manifest `com.google.android.gms.ads.APPLICATION_ID`). All flavors, including prod, use Google's sample app IDs natively until Phase 10; `config/prod.json` ad IDs stay `TBD`.
+- Android: AGP 9 disables `resValue` by default, so the launcher label comes from the `appName` manifest placeholder. Core library desugaring (`desugar_jdk_libs 2.1.5`) is enabled for flutter_local_notifications. `minSdk 24`, `targetSdk 36`.
+- Android: build warns that firebase_analytics, firebase_core, firebase_crashlytics, flutter_timezone, in_app_review and patrol apply the Kotlin Gradle Plugin ("future Flutter versions will fail"). Watch plugin updates.
+- Android orientation: `screenOrientation="portrait"`; Android 16 (targetSdk 36) ignores it on sw >= 600dp, so tablets rotate (01 PR16).
+- Android backup: `data_extraction_rules.xml` (cloud-backup + device-transfer) and `full_backup_content.xml` exclude flutter_secure_storage's prefs (`FlutterSecureStorage.xml`, `FlutterSecureKeyStorage.xml`, `FlutterSecureStorageConfiguration*.xml`, default names; update if Phase 11 sets `sharedPreferencesName`/`storageNamespace`) and `taro_device.{db,sqlite}` + `-wal/-shm/-journal` in `app_flutter/` and the `database` domain. drift_flutter's `driftDatabase(name:)` creates `<name>.sqlite`; Phase 11 must pass `databasePath` to get `taro_device.db` (or keep the `.sqlite` name; both are excluded).
+- Cleartext: `network_security_config.xml` denies cleartext; the `dev` source set overrides it for localhost/127.0.0.1/10.0.2.2, and `usesCleartextTraffic` is a placeholder (`true` only for dev).
+- Flavor config: `--dart-define-from-file` needs flat primitive values, so `config/*.json` uses dotted keys (`admob.ios.banner`, ...). A build without the file still starts (empty values); a file for another flavor throws at bootstrap.
+- `prodStaging` (RC78) build configuration / build type is not created yet.
+
+#### Spike RC91: drift + drift_flutter + sqlite3 build hooks + FTS5
+
+`Fts5Probe` (`apps/taro/lib/data/db/fts5_probe.dart`) creates an FTS5 virtual table, inserts two rows and runs `MATCH 'moon'`, both in memory and through `driftDatabase` (file, `shareAcrossIsolates: true`).
+
+| Where | SQLite | FTS5 MATCH |
+|---|---|---|
+| Host `flutter test` (macOS, hook-bundled SQLite, not the system one) | 3.53.4 | OK (1 row) |
+| iOS simulator iPhone 17, `flutter test integration_test/fts5_spike_test.dart --flavor dev` | 3.53.4 | OK (memory + file) |
+| Android emulator Pixel_9a API 36, same command | 3.53.4 | OK (memory + file) |
+| CI runner image | not run (no CI yet, Phase 3) | – |
+
+FTS5 is available everywhere tested; the LIKE fallback (indexed lowercase `search_text`) is not needed so far. Re-run the integration test on the CI runner in Phase 3.
+
+### Worker
+
+Items for the docs owner to fold into specs / ARCHITECTURE.md.
+
+#### Resolved versions (worker/package.json, exact pins)
+
+| Package | Version | Note |
+|---|---|---|
+| hono | 4.13.9 | BE1 |
+| @hono/zod-openapi | 1.6.3 | BE1 |
+| zod | 4.6.5 | |
+| jose | 6.2.12 | |
+| @anthropic-ai/sdk | 0.128.0 | |
+| cbor-x | 1.6.6 | |
+| @peculiar/x509 | 2.1.0 | |
+| wrangler | 4.142.0 | |
+| @cloudflare/vitest-pool-workers | 0.22.0 | requires vitest ^4.1 |
+| vitest / @vitest/coverage-istanbul | 4.1.11 | vitest 5 is out but pool-workers does not support it yet |
+| typescript | 6.0.3 | TS 7.0 is out but typescript-eslint 8.70 supports `<6.1` only |
+| typescript-eslint | 8.70.1 | |
+| eslint / @eslint/js | 10.11.0 / 10.0.1 | |
+| prettier | 3.9.9 | |
+| fast-check | 4.10.2 | |
+| @types/node | 22.20.4 | for config files only (`tsconfig.node.json`) |
+
+#### Deviations / spec updates suggested
+
+1. **06 §5.2 vitest config shape is outdated.** `@cloudflare/vitest-pool-workers` 0.22 (vitest 4) no longer
+   exports `defineWorkersConfig`/`poolOptions.workers`. The config is now
+   `defineConfig({ plugins: [cloudflareTest({ wrangler: { configPath, environment: 'dev' } })], test: { coverage } })`.
+   Bindings come from `[env.dev]` of `wrangler.toml`, so the `miniflare: { d1Databases, kvNamespaces }` block
+   is unnecessary. Coverage settings are unchanged (istanbul, 90/90/90/85, `perFile: false`).
+   `isolatedStorage` is no longer an option (storage is isolated per test file by default) — 06 §7 "Pool setup" should be re-checked in Phase 6.
+2. **Health response.** Phase 2 doc says `{status, workerVersion}`; 03 §2.1/§14.2 and GLOSSARY say
+   `{status, workerVersion, environment}`. Implemented the spec/GLOSSARY shape (superset). Suggest editing PHASE_02.
+3. **compatibility_date = 2026-08-15.** Must not exceed the workerd bundled with vitest-pool-workers
+   (1.20260815.1), otherwise tests would run on a different runtime date than deploy. Bump both together.
+4. **Top-level wrangler `name` is `taro-api-dev`**, not `taro-api`: a bare `wrangler deploy` without
+   `--env` must never overwrite prod. Bindings are declared per env only (they are not inherited).
+5. **Rate-limit binding placeholders** use 03 §2.4 values (`RL_BURST` 60/60 s, `RL_READINGS` 6/60 s) and
+   namespace IDs 1001/1002 (dev), 2001/2002 (staging), 3001/3002 (prod).
+6. **`src/env.ts` is hand-written.** `wrangler types` merges all envs into `Cloudflare.Env` with every
+   binding optional, so it is unusable as the `Env` type. `worker-configuration.d.ts` is still generated and
+   committed (runtime types); `npm run types:check` verifies it is current (candidate CI step, Phase 3).
+7. **Two tsconfigs.** `tsconfig.json` (workerd types, `src/` + `test/`) and `tsconfig.node.json`
+   (`vitest.config.ts`, `eslint.config.js` with Node types). `npm run typecheck` runs both. ESLint uses both
+   via `parserOptions.project`.
+8. **`makeProdDeps(env)` already enforces BE20/RC86** (throws if `ALLOW_DEBUG_ATTESTATION`, `AI_PROVIDER`
+   or `DEBUG_ATTESTATION_TOKEN` is set with `ENVIRONMENT=prod`); unit tests in `test/unit/deps.test.ts`.
+   Phase 6.1 names that test file `test/unit/deps.prodConfig.test.ts` — rename when ports are added.
+9. **Not done in Phase 2 (belongs to Phase 6):** error envelope / `X-Request-Id` middleware, `scheduled`
+   handler and cron triggers (03 §12), `migrations/` (the `migrations_dir` is configured but empty),
+   `openapi/openapi.json`, `worker/COVERAGE.md`.
+
+#### Toolchain / local environment
+
+- `.nvmrc` = 22 (QA14); `engines.node` is `>=22`, so it also runs on the owner's local Node 25.6.1
+  (all checks were run on Node 25.6.1 / npm 11.9.0; nvm is not installed locally). CI must use `.nvmrc`.
+- `npm audit --omit=dev --audit-level=high` is clean. Full `npm audit` reports 4 high findings, all
+  dev-only, via `sharp` in the `miniflare`/`wrangler` copies pinned inside `@cloudflare/vitest-pool-workers`
+  0.22.0; clears when pool-workers updates its pins.
+- Port 8787 was occupied by an unrelated local process on the owner's machine; `wrangler dev --port 8799`
+  was used for the smoke check. Default port stays 8787 (GLOSSARY §6.1).
+

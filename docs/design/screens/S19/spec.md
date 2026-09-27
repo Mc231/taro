@@ -16,7 +16,7 @@ Padding `space.10` / `layout.gutter` / `space.7`; gap 18 → `space.5`. Tablet: 
 4. Link row "Support and crisis lines" (`color.bg.surface`, `radius.md`, min 52, heart icon + chevron).
 5. Footer caption: `disclaimerShort` "For entertainment and self-reflection. Not professional advice." (**resolved**: `AboutTaro.dc.html` now uses it instead of the placeholder "Taro is for reflection and entertainment.").
 
-The text comes from the authored article `packages/taro_content/source/{locale}/articles/*.md` (01 §11). The canvas copy is sample text of the right length.
+The text comes from the authored article `apps/taro/content/source/{locale}/articles/*.md` (01 §11). The canvas copy is sample text of the right length.
 
 ## Components
 `ReadingTextView` (article mode), `TaroCardBack`, `SettingsTile`, `DisclaimerFooter`.

@@ -1,0 +1,6 @@
+// Settings shared by every flavor and build type (Runner target).
+
+// google_mobile_ads 9.1.0 exposes headers that import GoogleMobileAds_Beta.h, a
+// private non-modular header of the Google Mobile Ads SDK. With CocoaPods
+// use_frameworks! the Runner module import fails without this.
+CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES

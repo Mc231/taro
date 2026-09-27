@@ -1,6 +1,6 @@
 # Sample card texts (en), 5 cards
 
-Real-length English content for the design sessions (Phase 14 Sprint 14.1): the daily card (S13), card detail (S17), the reveal captions (S08), the Classic reading (S32) and the Journal (S14/S15). Each block follows the `CardText` shape of `01_PRODUCT.md` §10.1, as it will appear in `packages/taro_content/source/en/cards/{cardId}.yaml`, and stays within the §10.1 length bounds:
+Real-length English content for the design sessions (Phase 14 Sprint 14.1): the daily card (S13), card detail (S17), the reveal captions (S08), the Classic reading (S32) and the Journal (S14/S15). Each block follows the `CardText` shape of `01_PRODUCT.md` §10.1, as it will appear in `apps/taro/content/source/en/cards/{cardId}.yaml`, and stays within the §10.1 length bounds:
 
 | Field | Bound (01 §10.1) |
 |---|---|

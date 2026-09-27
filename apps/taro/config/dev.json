@@ -1,0 +1,15 @@
+{
+  "flavor": "dev",
+  "apiBaseUrl": "http://localhost:8787",
+  "admob.ios.appId": "ca-app-pub-3940256099942544~1458002511",
+  "admob.ios.banner": "ca-app-pub-3940256099942544/2934735716",
+  "admob.ios.rewarded": "ca-app-pub-3940256099942544/1712485313",
+  "admob.android.appId": "ca-app-pub-3940256099942544~3347511713",
+  "admob.android.banner": "ca-app-pub-3940256099942544/6300978111",
+  "admob.android.rewarded": "ca-app-pub-3940256099942544/5224354917",
+  "playCloudProjectNumber": "TBD",
+  "privacyPolicyUrl": "https://taro.vshyrochuk.com/privacy",
+  "termsUrl": "https://taro.vshyrochuk.com/terms",
+  "supportEmail": "volodymyr.shyrochuk@gmail.com",
+  "universalLinkHost": "taro.vshyrochuk.com"
+}

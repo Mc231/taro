@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "taro-tools"
+version = "0.0.0"
+description = "Repository checks and generators for the Taro monorepo (06 §6.2)."
+requires-python = ">=3.12"
+dependencies = [
+  "ruamel.yaml>=0.18",
+  "jsonschema>=4.23",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+]
+
+[tool.setuptools]
+packages = ["taro_tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+
+[tool.coverage.run]
+# Every Python file under tools/ counts, imported by a test or not (QA4).
+source = ["."]
+branch = true
+omit = [
+  "tests/*",
+  ".venv/*",
+  "dart_tools/*",
+  "build/*",
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+skip_empty = true
+
+[tool.coverage.json]
+output = "coverage/coverage.json"

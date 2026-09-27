@@ -1,7 +1,7 @@
 # Taro — Specification Set
 
 **App:** Taro, a reflective tarot journal with AI readings (Flutter, iOS + Android), bundle `com.vshyrochuk.taro`
-**Status:** v1.1 reconciled (2026-09-27). RC1–RC93 are applied; see [00_DECISIONS.md](00_DECISIONS.md) (decision log) and [GLOSSARY.md](GLOSSARY.md) (canonical names).
+**Status:** v1.1 reconciled (2026-09-27). RC1–RC95 are applied; see [00_DECISIONS.md](00_DECISIONS.md) (decision log) and [GLOSSARY.md](GLOSSARY.md) (canonical names).
 **Source facts:** `../CONTEXT.md` (locked decisions D1–D16, store-policy constraints)
 
 ---
@@ -11,13 +11,13 @@
 | File | Prefix | Purpose |
 |---|---|---|
 | [01_PRODUCT.md](01_PRODUCT.md) | PR | What Taro is: positioning, v1 feature set, screens S01–S33 and every state, flows F1–F8, content model, accessibility, RTL, the design-token contract for Claude Design, and the analytics catalogue. |
-| [02_ARCHITECTURE.md](02_ARCHITECTURE.md) | AR | How the Flutter client is built: melos packages and layering, Riverpod DI/state, ports with Prod/NoOp/Fake, drift (journal + device databases), Worker API client, bootstrap, flavors, consent sequencing, backup codec. |
+| [02_ARCHITECTURE.md](02_ARCHITECTURE.md) | AR | How the Flutter client is built: 3 packages + app with folder layering (RC95), Riverpod DI/state, ports with Prod/NoOp/Fake, drift (journal + device databases), Worker API client, bootstrap, flavors, consent sequencing, backup codec. |
 | [03_BACKEND_WORKER.md](03_BACKEND_WORKER.md) | BE | The Cloudflare Worker, source of truth for credits: identity and attestation, the D1 ledger, pre-draw holds, purchases, rewarded SSV, AI readings with safety layers, budget tiers, remote config, retention, observability. |
 | [04_MONETIZATION.md](04_MONETIZATION.md) | MO | What is sold and how: product catalogue and prices, credit buckets, IAP client state machines, banner allow-list, rewarded ads, UMP/ATT order, paywall UX rules, edge cases, monetization config and KPIs. |
 | [05_COMPLIANCE_STORE_ASO.md](05_COMPLIANCE_STORE_ASO.md) | CS | Passing review on both stores: guideline matrices, disclaimers, AI safety requirements and the safety-eval pass bar, privacy labels and policy, age rating, App Review notes, `aso.yaml`, `asa` gaps, ASO. |
 | [06_QUALITY_TESTING_CI.md](06_QUALITY_TESTING_CI.md) | QA | Making quality mechanical: ≥ 90 % coverage per unit, the exclusion list, test pyramid, goldens, repo checks, Worker testing, CI on Gitea, release checklist, Definition of Done. |
 | [backup_schema_v1.json](backup_schema_v1.json) | — | The frozen JSON Schema of the user backup file (RC70). The app's copy must be byte-identical. |
-| [00_DECISIONS.md](00_DECISIONS.md) | RC | Produced by Phase 1 (2026-09-27): the decision log (RC1–RC93, RC94) and the owner decisions. |
+| [00_DECISIONS.md](00_DECISIONS.md) | RC | Produced by Phase 1 (2026-09-27): the decision log (RC1–RC93, RC94, RC95) and the owner decisions. |
 | [GLOSSARY.md](GLOSSARY.md) | — | Produced by Phase 1 (2026-09-27): the canonical names (IDs, endpoints, tables, config keys, ports, events). The only source of spelling. |
 
 Ownership when specs disagree: product behaviour and screen states → 01; wire format, config key names, retention and money logic → 03; prices, packs and ad rules → 04; store and legal copy, the safety pass bar → 05; test and coverage rules → 06. An RC row in `00_DECISIONS.md` overrides all of them; `GLOSSARY.md` is the only source of spelling.
@@ -59,7 +59,8 @@ Ownership when specs disagree: product behaviour and screen states → 01; wire 
 | **Support ID / transfer code** | Support ID: first 8 hex chars of `SHA-256(installId)`. Transfer code: a single-use token the Worker issues when a new install re-submits a purchase already claimed by an old install; it lets the owner move unspent credits (RC84). |
 | **Flavors / `prodStaging`** | `dev`, `staging`, `prod`, plus the `prodStaging` build (prod bundle ID, staging Worker, sandbox IAP) for internal testers (RC78). |
 | **S-IDs, F-IDs** | Screen IDs S01–S33 and flow IDs F1–F8 in 01 §8–§9. |
-| **RC** | A reconciliation decision in `00_DECISIONS.md`. RC1–RC48 fix naming conflicts between specs; RC49–RC93 are review-pass fixes; RC94 records the glossary-defined names. All are applied to the specs. |
+| **RC** | A reconciliation decision in `00_DECISIONS.md`. RC1–RC48 fix naming conflicts between specs; RC49–RC93 are review-pass fixes; RC94 records the glossary-defined names; RC95 folds five client packages into the app (3 packages + app). All are applied to the specs. |
+| **Packages / app layers** | Three packages — `taro_core` (pure Dart domain, ports, use cases; port fakes in its `test/fakes/`), `taro_ui` (design system, tokens), `taro_attestation` (native plugin) — and the app `apps/taro`, whose layers are folders: `lib/data/`, `lib/services/`, `lib/l10n/`, `lib/features/`, `assets/deck/`, `test/helpers/`. Layering is enforced by the `tools/check_architecture.dart` import-graph check (02 §2.1, RC95). |
 
 ## 4. Owner decisions
 

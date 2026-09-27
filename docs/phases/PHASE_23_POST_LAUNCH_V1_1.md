@@ -33,8 +33,8 @@ The widget adds native code (WidgetKit / Glance). It gets its own coverage units
 ## Sprint 23.1: Home-screen widget (PR11)
 
 **Tasks:**
-- [ ] Add the `DailyCardWidgetBridge` port to `taro_core` (with its Fake and contract suite in `taro_testing`) and the `home_widget` dependency (RC89).
-- [ ] `taro_services/lib/src/widget/home_widget_bridge.dart` implements `DailyCardWidgetBridge` (writes the card ID, orientation, localized name, short meaning and art key to App Group / SharedPreferences storage on daily-card draw and on locale change). Tested with the `home_widget` platform fake.
+- [ ] Add the `DailyCardWidgetBridge` port to `taro_core` (with its Fake and contract suite in `packages/taro_core/test/fakes/` and `test/contracts/`, RC95) and the `home_widget` dependency (RC89).
+- [ ] `apps/taro/lib/services/widget/home_widget_bridge.dart` implements `DailyCardWidgetBridge` (writes the card ID, orientation, localized name, short meaning and art key to App Group / SharedPreferences storage on daily-card draw and on locale change). Tested with the `home_widget` platform fake.
 - [ ] iOS: add a WidgetKit extension target `TaroWidget` (small + medium) with an App Group, the art from a shared asset catalog, "Draw today's card" when not drawn, and a deep link to `taro://daily`. XCTest for the timeline provider.
 - [ ] Android: Glance `DailyCardWidget` with the same states. JUnit/Robolectric tests.
 - [ ] Add the native coverage units `taro_widget_ios` and `taro_widget_android` to `check_coverage.py`.

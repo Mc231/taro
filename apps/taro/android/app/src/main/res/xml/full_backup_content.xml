@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto Backup rules for Android 11 and lower (API < 31). Keep in sync with
+     data_extraction_rules.xml. -->
+<full-backup-content>
+    <!-- flutter_secure_storage (02 §6.2): install id, install secret, session token,
+         purchase binding. Keystore keys never leave the device, so a restored copy
+         could not be decrypted anyway. -->
+    <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+    <exclude domain="sharedpref" path="FlutterSecureKeyStorage.xml" />
+    <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration.xml" />
+    <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration:FlutterSecureStorage.xml" />
+    <!-- taro_device.db (02 §6.1, RC75): outbox, caches, entitlements, consent.
+         drift_flutter names files <name>.sqlite by default, so both names are listed;
+         path_provider documents dir = app_flutter/ on Android. -->
+    <exclude domain="file" path="app_flutter/taro_device.db" />
+    <exclude domain="file" path="app_flutter/taro_device.db-wal" />
+    <exclude domain="file" path="app_flutter/taro_device.db-shm" />
+    <exclude domain="file" path="app_flutter/taro_device.db-journal" />
+    <exclude domain="file" path="app_flutter/taro_device.sqlite" />
+    <exclude domain="file" path="app_flutter/taro_device.sqlite-wal" />
+    <exclude domain="file" path="app_flutter/taro_device.sqlite-shm" />
+    <exclude domain="file" path="app_flutter/taro_device.sqlite-journal" />
+    <exclude domain="database" path="taro_device.db" />
+    <exclude domain="database" path="taro_device.db-wal" />
+    <exclude domain="database" path="taro_device.db-shm" />
+    <exclude domain="database" path="taro_device.db-journal" />
+    <exclude domain="database" path="taro_device.sqlite" />
+    <exclude domain="database" path="taro_device.sqlite-wal" />
+    <exclude domain="database" path="taro_device.sqlite-shm" />
+    <exclude domain="database" path="taro_device.sqlite-journal" />
+</full-backup-content>

@@ -13,13 +13,13 @@ This phase builds `taro_core`: pure Dart, no Flutter, no I/O. It holds:
 - every port interface;
 - the pure business logic that encodes the shared contract: CSPRNG draw, paywall-before-draw gate, backup merge, reset schedule, banner policy, product catalogue validation.
 
-It also builds `taro_testing`: one `Fake…` per port, the shared port contract suites (QA16), and fluent test-data builders.
+It also builds the test kit in `packages/taro_core/test/`: one `Fake…` per port (`test/fakes/`), the shared port contract suites (`test/contracts/`, QA16), and fluent test-data builders. Reconciled by 00_DECISIONS.md RC95: there is no `taro_testing` package any more; the kit lives in `taro_core`'s test tree and the app's `test/helpers/`.
 
 Writing tests first is cheapest here. Every rule in this phase is table-driven or property-tested, and later layers depend on these types.
 
 **Output of this phase:**
 - `packages/taro_core` at about 100% coverage, with a barrel exporting models, ports, use-case interfaces and logic.
-- `packages/taro_testing` with fakes, `runXContract` suites, builders, `TaroFakes` and a working `pumpTaro` harness.
+- `packages/taro_core/test/fakes/` (fakes, builders) and `packages/taro_core/test/contracts/` (`runXContract` suites); `TaroFakes` and `pumpTaro` follow in `apps/taro/test/helpers/` (Phase 13.1).
 - `docs/ARCHITECTURE.md` §Ports lists every port and its Prod, NoOp and Fake implementations.
 
 ---
@@ -88,23 +88,23 @@ Writing tests first is cheapest here. Every rule in this phase is table-driven o
 
 ---
 
-## Sprint 4.5: Test kit (`taro_testing`, QA16)
+## Sprint 4.5: Test kit (`taro_core/test/fakes/` + `test/contracts/`, QA16)
 
 **Tasks:**
-- [ ] `fakes/`: a `FakeX` for every Sprint 4.4 port, with in-memory state and test hooks. Examples:
+- [ ] `packages/taro_core/test/fakes/`: a `FakeX` for every Sprint 4.4 port, with in-memory state and test hooks. Examples:
   - `FakeWorkerGateway.failNext(Failure)`, `FakeIapService.emitPending(productId)`, `FakeIapService.redeliver(txn)`;
   - `FakeAdsService.completeRewarded()`, `FakeConsentService(status)`, `FakeAttestationService(kind)`;
   - `FakeClock.advance`/`setTimeZone`, `SeededRandomSource`, `ScriptedRandomSource`, `SequentialIdGenerator`, `CapturingLogger`, `InMemorySecureStore`.
-- [ ] `contracts/`: `runBalanceRepositoryContract`, `runReadingRepositoryContract`, `runIapServiceContract`, `runPurchaseOutboxContract`, `runSecureStoreContract`, `runClockContract`, `runRandomSourceContract`, … (one per port). Each runs against its fake in `taro_testing/test/` now, and against the real adapters in Phases 11–12.
-- [ ] `builders/`: `aReading()`, `aDailyCard()`, `aCreditBalance().withFreeRemaining(0).withPaid(3)`, `aRemoteConfig().withRewardedEnabled(false)`, `aBackup().withVersion(1)`, `aCard('major_00').reversed()`, `aSpread('celtic_cross')`. Defaults live in `builders/defaults.dart`; builders never read the clock or RNG.
-- [ ] `harness/pump_taro_widget.dart` (`pumpTaroWidget`, Riverpod-free). The `TaroFakes` bundle and the Riverpod-aware `pumpTaro` live in `apps/taro/test/helpers/pump_app.dart` (Phase 13.1), because `taro_testing` must not depend on Riverpod or the app's providers (02 §2.1, AR3, RC77).
-- [ ] `check_forbidden_apis.py` passes: `taro_testing` is imported only from `test/` and `integration_test/`.
+- [ ] `packages/taro_core/test/contracts/`: `runBalanceRepositoryContract`, `runReadingRepositoryContract`, `runIapServiceContract`, `runPurchaseOutboxContract`, `runSecureStoreContract`, `runClockContract`, `runRandomSourceContract`, … (one per port). Each runs against its fake in `taro_core/test/` now, and against the real adapters in `apps/taro/test/data/` and `apps/taro/test/services/` in Phases 11–12 (imported by relative path, the one cross-package test import 02 §2.1 allows).
+- [ ] `packages/taro_core/test/fakes/builders/`: `aReading()`, `aDailyCard()`, `aCreditBalance().withFreeRemaining(0).withPaid(3)`, `aRemoteConfig().withRewardedEnabled(false)`, `aBackup().withVersion(1)`, `aCard('major_00').reversed()`, `aSpread('celtic_cross')`. Defaults live in `builders/defaults.dart`; builders never read the clock or RNG.
+- [ ] The fakes stay Riverpod-free (RC77). `pumpTaroWidget` lives in `apps/taro/test/helpers/pump_taro_widget.dart` (Phase 3.3), and the `TaroFakes` bundle and the Riverpod-aware `pumpTaro` in `apps/taro/test/helpers/pump_app.dart` (Phase 13.1) (02 §2.1, AR3, RC95).
+- [ ] `check_forbidden_apis.py` and `check_architecture.dart` pass: `taro_core/test/fakes/` and `test/contracts/` are imported only from `test/` and `integration_test/`, never from any `lib/`.
 
 ---
 
 ## Done when
 
-- [ ] `taro_core` ≥ 90% (target ~100%) and `taro_testing` ≥ 90% via the contract suites. `check_coverage.py` is green for both.
+- [ ] `taro_core` ≥ 90% (target ~100%); every contract suite is green against its fake. `check_coverage.py` is green.
 - [ ] `check_architecture.dart`: `taro_core` has no Flutter or I/O imports.
 - [ ] `docs/ANALYTICS_EVENTS.md` and `docs/ARCHITECTURE.md` §Ports and §Domain are updated. CHANGELOG `Unreleased` updated.
 - [ ] One commit: `feat(taro): Phase 4 — Core domain, ports & test kit`.

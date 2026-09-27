@@ -24,6 +24,8 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 - `worker/openapi/openapi.json` committed, plus contract fixtures in `worker/test/contract/fixtures/`.
 - `.gitea/workflows/worker-deploy.yml` deploying staging on merge to `main`.
 
+> **Tooling note (Phase 2, 2026-09-27):** `@cloudflare/vitest-pool-workers` 0.22 replaced `defineWorkersConfig`/`poolOptions` with the `cloudflareTest()` plugin and dropped `isolatedStorage`. Re-check the per-test D1/KV isolation approach in 06 §5.2/§7 before writing integration tests (see `docs/phase2_notes/WORKER_NOTES.md`).
+
 ---
 
 ## Specs referenced
@@ -123,7 +125,7 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 
 **Tasks:**
 - [ ] OpenAPI generation → `worker/openapi/openapi.json`, with a CI diff check (03 §14.2).
-- [ ] Contract fixtures `worker/test/contract/fixtures/{installs,balance,config,timezone,errors}.*.json`, exported by the tests. `melos run contract:sync` copies them to `packages/taro_data/test/contract/fixtures/` (RC38).
+- [ ] Contract fixtures `worker/test/contract/fixtures/{installs,balance,config,timezone,errors}.*.json`, exported by the tests. `melos run contract:sync` copies them to `apps/taro/test/contract/fixtures/` (RC38).
 - [ ] `adapters/cf/AnalyticsEngineMetrics.ts` (`taro_api_events`), the structured logger and the `Alerter` port with a webhook adapter and per-kind hourly dedupe (03 §14.1). `scheduled()` handler shell with the three crons from 03 §12. Jobs are registered in Phase 7 and Phase 8; the idempotency and challenge purge runs now.
 - [ ] `.gitea/workflows/worker-deploy.yml` (06 §8, BE18):
   - tests → `check_migrations` → `check_worker_env.py` (no debug/test vars in `[env.prod]`, RC86) → `wrangler d1 migrations apply --remote` → `wrangler versions upload` → `versions deploy` (100% on staging; 10% → smoke → 100% on prod with a manual approval input) → `tools/worker_smoke.sh <env>`.

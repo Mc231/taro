@@ -14,18 +14,20 @@ Translation into the other 11 locales and native review happen in Phase 18, once
 
 **Output of this phase:**
 - `docs/content/STYLE_GUIDE.md` and `docs/content/REVIEW_CHECKLIST.md`.
-- `packages/taro_content/source/`: `glossary.yaml` (12 locales), `en/cards/*.yaml` ×78, `en/spreads.yaml`, `en/articles/*.md`, `crisis/crisis_resources.yaml`.
+- `apps/taro/content/source/`: `glossary.yaml` (12 locales), `en/cards/*.yaml` ×78, `en/spreads.yaml`, `en/articles/*.md`, `crisis/crisis_resources.yaml`.
 - `tools/content/` (`validate`, `build`, `translate`, `sync_check`) with tests.
 - Generated assets:
-  - `packages/taro_content/assets/deck/{deck_meta.json,en.json}` and `assets/spreads/spreads.json`;
+  - `apps/taro/assets/deck/{deck_meta.json,en.json,spreads.json,crisis_resources.json}`;
   - `worker/src/generated/deck/{cards,spreads}.json`, `worker/src/generated/deck_prompt.en.json`, `worker/src/generated/crisis_resources.json`.
-- `taro_content` repositories implementing `ContentRepository` and `CrisisResourcesRepository`.
+- Bundled-content repositories in `apps/taro/lib/data/content/` implementing `ContentRepository` and `CrisisResourcesRepository`.
+
+Reconciled by 00_DECISIONS.md RC95: there is no content package; the authored source lives in `apps/taro/content/source/`, the generated app assets in `apps/taro/assets/deck/`, and the repositories in the app's `lib/data/content/`.
 
 ---
 
 ## Specs referenced
 
-`01_PRODUCT.md` PR1, PR2, PR15, §7.5, §7.9, §10, §11, §13, §17.4. `02_ARCHITECTURE.md` AR15, §2.2 (`taro_content`), §4 (`CardMeaning`), §11. `03_BACKEND_WORKER.md` §9.2 (card context), §9.5, cross-spec (deck sync). `05_COMPLIANCE_STORE_ASO.md` CS3, §4.2, §9.5, 4.1/5.2 row (art provenance). `00_DECISIONS.md` RC1, RC2, RC25, RC26.
+`01_PRODUCT.md` PR1, PR2, PR15, §7.5, §7.9, §10, §11, §13, §17.4. `02_ARCHITECTURE.md` AR15, §2.2 (`apps/taro/content/source/`, `assets/deck/`, `lib/data/content/`), §4 (`CardMeaning`), §11. `03_BACKEND_WORKER.md` §9.2 (card context), §9.5, cross-spec (deck sync). `05_COMPLIANCE_STORE_ASO.md` CS3, §4.2, §9.5, 4.1/5.2 row (art provenance). `00_DECISIONS.md` RC1, RC2, RC25, RC26, RC95.
 
 ---
 
@@ -33,7 +35,7 @@ Translation into the other 11 locales and native review happen in Phase 18, once
 
 **Tasks:**
 - [ ] `docs/content/STYLE_GUIDE.md`: reflection voice (PR1), the banned-claims list (cross-link `tools/store_copy/banned_phrases.yaml`), length rules (01 §10.1), gender-neutral "you", no religious or medical claims, and how "future"/"outcome" positions are worded (01 §10.3).
-- [ ] `packages/taro_content/source/glossary.yaml`: card names ×78, suit names, position names and key terms in 12 locales (01 §11 step 2). EN is complete now; the other locales are drafted here and native-checked in Phase 18. The glossary must be 100% reviewed before any card translation.
+- [ ] `apps/taro/content/source/glossary.yaml`: card names ×78, suit names, position names and key terms in 12 locales (01 §11 step 2). EN is complete now; the other locales are drafted here and native-checked in Phase 18. The glossary must be 100% reviewed before any card translation.
 - [ ] JSON Schemas `tools/content/schema/card.schema.json`, `spreads.schema.json`, `crisis.schema.json` (the `CardText` fields and bounds in 01 §10.1; the crisis schema per 03 §9.5 with `verifiedAt` per entry).
 - [ ] `docs/ART_PROVENANCE.md` stub (05 §1 row 4.1/5.2). It records the art source and licence per card once D15 delivers.
 
@@ -50,7 +52,7 @@ Translation into the other 11 locales and native review happen in Phase 18, once
   - RTL control-character sanity for `ar`;
   - a `sourceHash` staleness report (en changed → locale flagged);
   - spread positions have x/y within 0..1 and no duplicate position IDs.
-- [ ] `tools/content/build`: compiles `assets/deck/{locale}.json` + `deck_meta.json` with a checksum, `assets/spreads/spreads.json`, the Worker feeds (`worker/src/generated/deck/cards.json` with canonical EN names and upright/reversed keywords, `spreads.json` with position meanings, `deck_prompt.{locale}.json`), and `crisis_resources.json` for both the app asset and the Worker (RC25, RC26). The output is deterministic (sorted keys) and the build is idempotent.
+- [ ] `tools/content/build`: reads `apps/taro/content/source/` and compiles `apps/taro/assets/deck/{locale}.json` + `deck_meta.json` with a checksum, `apps/taro/assets/deck/spreads.json`, the Worker feeds (`worker/src/generated/deck/cards.json` with canonical EN names and upright/reversed keywords, `spreads.json` with position meanings, `deck_prompt.{locale}.json`), and `crisis_resources.json` for both the app asset (`apps/taro/assets/deck/crisis_resources.json`) and the Worker (`worker/src/generated/crisis_resources.json`) (RC25, RC26, RC95). The output is deterministic (sorted keys) and the build is idempotent.
 - [ ] `tools/content/translate`: calls Claude with the style guide, glossary and EN source; writes YAML with `sourceHash` and `reviewStatus: machine`. Supports `--locale`, `--cards`, `--dry-run`. The API key comes from the environment, never the repo. The real network call is behind an interface; tests use a fake.
 - [ ] `tools/content/sync_check`: the parity check between app assets and Worker feeds (replaces `tools/sync_deck`, RC26). It runs in `reusable-static.yml`.
 - [ ] `check_l10n.py`: enable the deck-content completeness rule.
@@ -77,13 +79,13 @@ Each card has: name, upright and reversed keywords (3–6 each), short upright a
 
 ---
 
-## Sprint 5.4: `taro_content` package & placeholder art
+## Sprint 5.4: Content repositories (`apps/taro/lib/data/content/`) & placeholder art
 
 **Tasks:**
-- [ ] `AssetDeckRepository`, `AssetSpreadRepository`, `AssetMeaningRepository` (lazy per-locale JSON parse in `Isolate.run`, cached; 02 §17), `AssetCrisisResourcesRepository` (country → locale default → international, at most 3 entries). Together they implement `ContentRepository` and `CrisisResourcesRepository`.
+- [ ] In `apps/taro/lib/data/content/`: `AssetDeckRepository`, `AssetSpreadRepository`, `AssetMeaningRepository` (lazy per-locale JSON parse in `Isolate.run`, cached; 02 §17), `AssetCrisisResourcesRepository` (country → locale default → international, at most 3 entries). Together they implement `ContentRepository` and `CrisisResourcesRepository`.
 - [ ] `ContentManifest`: verifies checksums at load and throws a `StorageFailure` on a mismatch.
-- [ ] Placeholder art generator `tools/content/placeholder_art`: 78 typographic WebP cards (name + numeral + suit glyph) and a card back → `packages/taro_content/assets/art/placeholder/`, with `artSet: placeholder`. Deterministic output.
-- [ ] Tests: load the real assets through a test `AssetBundle` (78 cards, 6 spreads, crisis lookup), run the contract suites from `taro_testing`, and check the checksum-mismatch path.
+- [ ] Placeholder art generator `tools/content/placeholder_art`: 78 typographic WebP cards (name + numeral + suit glyph) and a card back → `apps/taro/assets/deck/art/placeholder/`, with `artSet: placeholder`. Deterministic output.
+- [ ] Tests: load the real assets through a test `AssetBundle` (78 cards, 6 spreads, crisis lookup), run the contract suites from `packages/taro_core/test/contracts/`, and check the checksum-mismatch path.
 - [ ] Worker parity test stub: `worker/test/unit/content/deck_parity.test.ts` asserts that `deck_prompt.en.json` IDs equal `generated/deck/cards.json` IDs. The Worker suite owns it from Phase 8.
 
 ---
@@ -91,7 +93,7 @@ Each card has: name, upright and reversed keywords (3–6 each), short upright a
 ## Done when
 
 - [ ] `tools/content/validate` and `sync_check` are green in CI. The generated assets are committed and their builds reproducible (`git diff --exit-code` after a rebuild).
-- [ ] `taro_content` ≥ 90%, and `tools/dart_tools` ≥ 90% (`check_coverage.py`).
+- [ ] `apps/taro` (incl. `lib/data/content/`) ≥ 90%, and `tools/dart_tools` ≥ 90% (`check_coverage.py`).
 - [ ] Docs: STYLE_GUIDE, REVIEW_CHECKLIST, ART_PROVENANCE stub, and `docs/ARCHITECTURE.md` §Content pipeline. CHANGELOG updated.
 - [ ] One commit: `feat(taro): Phase 5 — Deck content pipeline`.
 

@@ -15,7 +15,7 @@ This phase wires the whole app **behind a skeleton UI**. It builds:
 - app-wide controllers (balance, entitlement, consent, config, connectivity);
 - the `SyncCoordinator` (launch, resume, reset timer);
 - a controller with a sealed state union for **every** screen and state in 01 §8.3;
-- the `taro_l10n` package with English ARB strings.
+- the app's l10n folder `apps/taro/lib/l10n/` with English ARB strings (RC95: a folder, not a package).
 
 Screens render with plain placeholder widgets built from the minimal `taro_ui` state kit. The real visual design lands in Phases 15–17. Because every state is a tested controller state now, the UI phases only need to add visuals and goldens, and Claude Design gets a complete state inventory.
 
@@ -23,7 +23,7 @@ The fake-backed patrol integration flows F1–F7 pass at the end of this phase, 
 
 **Output of this phase:**
 - `apps/taro/lib/{bootstrap,di,routing,app_state,lifecycle,common,features}/**` per 02 §2.2.
-- `packages/taro_l10n` with `app_en.arb` (all UI strings, ICU plurals). The other 11 ARB files exist with EN placeholders marked `x-translate` (translated in Phase 18).
+- `apps/taro/lib/l10n/arb/` with `app_en.arb` (all UI strings, ICU plurals), configured by `apps/taro/l10n.yaml`. The other 11 ARB files exist with EN placeholders marked `x-translate` (translated in Phase 18).
 - `docs/design/STATE_INVENTORY.md`, generated from the state unions, as the input to Phase 14.
 - `apps/taro/integration_test/flows/*_test.dart` (06 §4) green on the iOS simulator with fakes.
 
@@ -31,7 +31,7 @@ The fake-backed patrol integration flows F1–F7 pass at the end of this phase, 
 
 ## Specs referenced
 
-`02_ARCHITECTURE.md` AR2–AR4, AR8, AR12–AR14, AR17, §2.1, §7, §8, §9, §10, §11, §19. `01_PRODUCT.md` PR3–PR13, PR16–PR19, §7 (all), §8 (all), §9 (F1–F7), §12, §13, §17. `04_MONETIZATION.md` MO11–MO13, §5.5, §6.5, §11 (states), §12. `05_COMPLIANCE_STORE_ASO.md` CS6, CS7, CS15, §3 (ARB keys). `06_QUALITY_TESTING_CI.md` §2.5, §3.1, §4. `00_DECISIONS.md` RC17–RC21, RC31, RC34, RC37, RC44, RC47, RC48, RC50, RC51, RC58, RC64, RC66, RC68, RC71–RC77.
+`02_ARCHITECTURE.md` AR2–AR4, AR8, AR12–AR14, AR17, §2.1, §7, §8, §9, §10, §11, §19. `01_PRODUCT.md` PR3–PR13, PR16–PR19, §7 (all), §8 (all), §9 (F1–F7), §12, §13, §17. `04_MONETIZATION.md` MO11–MO13, §5.5, §6.5, §11 (states), §12. `05_COMPLIANCE_STORE_ASO.md` CS6, CS7, CS15, §3 (ARB keys). `06_QUALITY_TESTING_CI.md` §2.5, §3.1, §4. `00_DECISIONS.md` RC17–RC21, RC31, RC34, RC37, RC44, RC47, RC48, RC50, RC51, RC58, RC64, RC66, RC68, RC71–RC77, RC95.
 
 ---
 
@@ -51,7 +51,7 @@ The fake-backed patrol integration flows F1–F7 pass at the end of this phase, 
   - `main_<flavor>.dart` = `void main() => bootstrap(ProductionEnvironment(Flavor.x));` (the only excluded app files, RC16).
 - [ ] `di/providers.dart`: one provider per port, each throwing `UnimplementedError` until overridden. `di/overrides_prod.dart` and `overrides_dev.dart` wire the adapters; `overrides_test.dart` is selected when `TARO_ENV=test` (06 §4) and exposes a `TestControlPort` (FakeClock control, fake Worker scripting). Riverpod automatic retry is **off** globally (02 §7).
 - [ ] `test/bootstrap/bootstrap_test.dart` with `FakeTaroEnvironment` covers `bootstrap/` fully: happy path, the S01 `storageError` branch, the offline first frame, and the prod assertions. `ProductionEnvironment` is tested with fake SDK entry points (RC76).
-- [ ] `test/helpers/pump_app.dart`: `TaroFakes` (every fake from `taro_testing` with sane defaults, `toOverrides() → List<Override>`) and `pumpTaro(tester, {TaroFakes? fakes, Locale, ThemeMode, textScale, Size})` (RC77). `taro_testing` itself stays Riverpod-free.
+- [ ] `test/helpers/pump_app.dart`: `TaroFakes` (every fake from `packages/taro_core/test/fakes/` with sane defaults, `toOverrides() → List<Override>`) and `pumpTaro(tester, {TaroFakes? fakes, Locale, ThemeMode, textScale, Size})` (RC77, RC95). The `taro_core` fakes themselves stay Riverpod-free.
 - [ ] Startup assertions: `IapCatalog.validate()`, and in prod `SeededRandomSource` and `DebugAttestationService` are unreachable (02 §15).
 
 ---
@@ -106,7 +106,7 @@ One `Notifier`/`AsyncNotifier` per screen with an `@freezed sealed` state union.
   - `QuestionController` (S07: `editing`, `checking`, `offline`, `consentRequired`, `deviceUnverified`, `readingsPaused` (RC47, with the `freePaused` copy variant, RC64), `aiUnavailableRegion`, `outOfReadings`, `dailyLimitReached`, `lowTrustLimited` (RC74), `rephrase`, `refused(category)`, `rateLimited`), which evaluates `ReadingGate` on **Begin** and then takes the **pre-draw hold** before any draw (PR5, RC44, RC50): hold 402 → S10, 503 → S31, 429 `dailyLimit` → `dailyLimitReached`;
   - `DrawController` (S08: `shuffling`, `picking`, `revealing` (only while the hold has ≥ 120 s left; renew otherwise), `awaitingReading`, `slowReading` (20 s), `generationFailed` (retry with the same cards and `clientReadingId`; the Worker runs a new attempt, PR6, RC49), `holdLost` → S10 with the cards face-down (RC48, RC50), `deliveryExpired` (RC51), `crisis` → S27, reduced-motion variant); on success it persists, then acks;
   - `ReadingResultController` (S09: `content`, `ratingGiven`, `sharing`, `loadingFromStorage`; report action → S33; rate-app trigger);
-  - `ClassicReadingController` (S32, flow F8, RC20/RC71: static meanings per position from `taro_content`, no hold, no Worker call, saved with `status: classic`; no banner or rate-app credit; `classic_reading_started/completed` events);
+  - `ClassicReadingController` (S32, flow F8, RC20/RC71: static meanings per position from the bundled content (`ContentRepository` over `apps/taro/assets/deck/`), no hold, no Worker call, saved with `status: classic`; no banner or rate-app credit; `classic_reading_started/completed` events);
   - `ReportReadingController` (S33, RC72: `editing`, `submitting`, `submitted`, `failed`, `offline`, `rateLimited`, `alreadyReported`; disclosure; `reading_reported{reason}`; sets the local `reported` flag).
 - [ ] `features/paywall/` (MO13, 04 §11):
   - `OutOfReadingsController` (S10: rewarded available/capped/cooldown/disabled/failed; packs loading/loaded/unavailable/`purchasesBlocked`; `lowTrustLimited` copy; next-free countdown from server time); after a grant it returns to S07 with Begin enabled and nothing auto-starts (RC58);
@@ -131,7 +131,7 @@ One `Notifier`/`AsyncNotifier` per screen with an `@freezed sealed` state union.
 ## Sprint 13.5: Skeleton UI, l10n, common widgets
 
 **Tasks:**
-- [ ] `taro_l10n`: `l10n.yaml` per 02 §11. Write `app_en.arb` with every UI string, including the 05 §3 compliance keys (`disclaimerShort`, `disclaimerOnboarding*`, `aiConsent*`, `aiLabel`, `refusalGeneric`, `crisis*`, `reportReadingTitle`), every error `code` → message key (RC5), the 6 reminder variants, suggestion chips, the spread and position names (`spread_{id}_pos_{pos}_name/_desc`), IAP disclosure lines (04 §11), and ICU plurals. The 11 other ARB files are copied with an `x-translate` marker so `check_l10n.py` passes in development mode.
+- [ ] `apps/taro/lib/l10n/`: `apps/taro/l10n.yaml` per 02 §11 (output `lib/l10n/generated/`). Write `app_en.arb` with every UI string, including the 05 §3 compliance keys (`disclaimerShort`, `disclaimerOnboarding*`, `aiConsent*`, `aiLabel`, `refusalGeneric`, `crisis*`, `reportReadingTitle`), every error `code` → message key (RC5), the 6 reminder variants, suggestion chips, the spread and position names (`spread_{id}_pos_{pos}_name/_desc`), IAP disclosure lines (04 §11), and ICU plurals. The 11 other ARB files are copied with an `x-translate` marker so `check_l10n.py` passes in development mode.
 - [ ] Minimal `taro_ui` state kit (to be restyled in Phase 15): `TaroLoadingView`, `TaroEmptyView`, `TaroErrorView(kind, onRetry)`, `TaroOfflineBanner`, `TaroInlineNotice`, `TaroScaffold` (01 §8.2). Use Material defaults and **no raw values** (temporary token stubs in `taro_ui/lib/src/tokens/stub_tokens.dart`, replaced in Phase 15).
 - [ ] `common/`: `BalanceChip` (the 01 §7.1 sync states), `BannerSlot(screenId)` (`BannerPolicy`, placed outside the scroll view; RC18), `DisclaimerFooter` (rendered on every reading state, including loading and error; 05 §3), `OfflineBanner`, `FailureMessage.of(context, failure)`.
 - [ ] One skeleton screen per S-ID, rendering each state with the kit plus plain `Text` from ARB. Widget tests for **every state** (PR17), including:
@@ -169,9 +169,9 @@ One `Notifier`/`AsyncNotifier` per screen with an `@freezed sealed` state union.
 
 ## Done when
 
-- [ ] `apps/taro`, `taro_l10n` and `taro_ui` (kit) are each ≥ 90%, and `check_coverage.py` is green. The integration flows are green on the iOS simulator (PR) and the Android emulator (nightly).
+- [ ] `apps/taro` (incl. `lib/l10n/`) and `taro_ui` (kit) are each ≥ 90%, and `check_coverage.py` is green. The integration flows are green on the iOS simulator (PR) and the Android emulator (nightly).
 - [ ] `docs/design/STATE_INVENTORY.md` is generated and committed.
-- [ ] `check_architecture.dart` is green: features never import `taro_data`, `taro_services` (except the `presentation.dart` barrel for `BannerSlot`) or vendor SDKs.
+- [ ] `check_architecture.dart` is green: features never import `lib/data/`, `lib/services/` or vendor SDKs; `BannerSlot` gets its `BannerSlotView` from `di/`, and only `bootstrap/`/`di/` import `services/presentation/` (02 §2.1, RC95).
 - [ ] Docs: `docs/ARCHITECTURE.md` (routing, state, sync), `docs/ANALYTICS_EVENTS.md`, `docs/TESTING.md` (integration harness), CHANGELOG.
 - [ ] One commit: `feat(taro): Phase 13 — App shell, state machines & flows`.
 

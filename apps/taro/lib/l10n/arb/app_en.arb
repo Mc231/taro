@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "appTitle": "Taro",
+  "@appTitle": {
+    "description": "App name shown in the app switcher and the placeholder screen. Not translated."
+  }
+}

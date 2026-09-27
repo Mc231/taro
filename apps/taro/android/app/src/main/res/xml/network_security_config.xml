@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TLS only (02 §16). The dev flavor overrides this file to allow the local
+     `wrangler dev` Worker over plain HTTP. -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

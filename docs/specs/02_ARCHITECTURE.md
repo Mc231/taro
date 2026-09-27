@@ -10,7 +10,7 @@
 
 ## Why this exists
 
-Taro must be (a) approvable by Apple/Google in a category Apple explicitly calls saturated, (b) honest about money — credits live on the Worker, never trusted from the client — and (c) maintainable at ≥ 90 % coverage in every package. `quiz_apps` proved the ports-and-adapters discipline and taught several expensive lessons (unqualified IAP ids, launch-only daily refills, entitlement cache wiped by an offline launch, no UMP). It also showed the costs of a home-made BLoC + two DI systems (InheritedWidget scope for widgets, a global `ServiceLocator` for everything that runs before or outside the tree). This spec fixes the client's structure, contracts and rules before a line is written, so the phase docs can be executed mechanically and Claude Design can produce screens against a known state model and token contract.
+Taro must be (a) approvable by Apple/Google in a category Apple explicitly calls saturated, (b) honest about money — credits live on the Worker, never trusted from the client — and (c) maintainable at ≥ 90 % coverage in every coverage unit. `quiz_apps` proved the ports-and-adapters discipline and taught several expensive lessons (unqualified IAP ids, launch-only daily refills, entitlement cache wiped by an offline launch, no UMP). It also showed the costs of a home-made BLoC + two DI systems (InheritedWidget scope for widgets, a global `ServiceLocator` for everything that runs before or outside the tree). This spec fixes the client's structure, contracts and rules before a line is written, so the phase docs can be executed mechanically and Claude Design can produce screens against a known state model and token contract.
 
 ## Scope
 
@@ -36,24 +36,24 @@ Taro must be (a) approvable by Apple/Google in a category Apple explicitly calls
 
 | ID | Decision | Why |
 |---|---|---|
-| AR1 | **Pub workspace + melos 8** monorepo. Layered packages: `taro_core` (pure Dart), `taro_content`, `taro_data`, `taro_services`, `taro_attestation` (own plugin), `taro_l10n`, `taro_ui`, `taro_testing`; one app `apps/taro`. This is the only package list: monetization ports and logic live in `taro_core`, their adapters in `taro_services`, repositories in `taro_data`, and the paywall/store UI in `apps/taro/lib/features/paywall`. Reconciled by 00_DECISIONS.md RC15, RC77. | Layer boundaries enforced by `pubspec` dependencies, not by discipline. Pure-Dart core tests run in milliseconds and cannot accidentally touch Flutter or I/O. |
-| AR2 | **Features are folders inside `apps/taro/lib/features/`, not packages.** Import boundaries between features and toward infra packages are enforced by `tools/check_architecture.dart` in CI. | One app, one router, one l10n bundle: feature packages would add 7 pubspecs, 7 coverage reports and cross-package route coupling for zero reuse. Mechanical checks give the same isolation. |
+| AR1 | **Pub workspace + melos 8** monorepo with **three packages and one app**: `taro_core` (pure Dart: domain, ports, use cases, `Result`/`Failure`; fakes of its ports in `taro_core/test/fakes/`), `taro_ui` (design system, components, generated tokens), `taro_attestation` (own plugin); the app `apps/taro`. Everything else lives in the app as layered folders: `lib/data/` (drift, secure storage, `WorkerClient`, repositories, bundled-content repositories), `lib/services/` (platform SDK adapters), `lib/l10n/` (ARB + generated localizations), `assets/deck/` (generated content), `test/helpers/` (`pumpTaro`, `TaroFakes`). This is the only package list: monetization ports and logic live in `taro_core`, their adapters in `apps/taro/lib/services/`, repositories in `apps/taro/lib/data/`, and the paywall/store UI in `apps/taro/lib/features/paywall`. Reconciled by 00_DECISIONS.md RC15, RC77, RC95 (RC95 replaced the former `taro_data`, `taro_services`, `taro_content`, `taro_l10n` and `taro_testing` packages with app folders). | The pubspec boundary is kept where it buys something: pure-Dart core tests run in milliseconds and cannot touch Flutter or I/O; the design system and the native plugin are self-contained. For one app and one developer, the other five packages gave no reuse and cost pubspecs, melos scripts and CI units (RC95); their layering is kept by the import-graph check (AR2, §2.1). |
+| AR2 | **Features and infrastructure layers are folders inside `apps/taro/lib/`, not packages** (`features/`, `services/`, `data/`, `l10n/`, …). Import boundaries between features and between layers are enforced by `tools/check_architecture.dart` (import-graph check) in CI. Reconciled by 00_DECISIONS.md RC95. | One app, one router, one l10n bundle: feature packages would add 7 pubspecs, 7 coverage reports and cross-package route coupling for zero reuse. Mechanical checks give the same isolation. |
 | AR3 | **Riverpod 3 (`flutter_riverpod`) is both the DI container and the state-management layer.** Hand-written providers (no `riverpod_generator`). Only the app depends on Riverpod; packages expose plain constructors. State holders are `Notifier`s everywhere, including the monetization screens (`StoreController`, `OutOfReadingsController`, `RewardedController`). Reconciled by 00_DECISIONS.md RC13. | quiz_apps needed two DI mechanisms because InheritedWidget DI cannot reach code that runs outside the tree (purchase stream, lifecycle sync, notification taps). A `ProviderContainer` exists before `runApp`, is overridable per flavor and per test, and gives `AsyncValue` loading/error/data for free. Custom BLoC = boilerplate, manual dispose, no tooling. |
 | AR4 | **`go_router`** with a `StatefulShellRoute` for the 4-tab shell (Today `/home`, Journal, Learn, Settings; routes and screen IDs owned by `01_PRODUCT.md` §8.1), route constants in `lib/routing/routes.dart`, redirect guards for onboarding/update. Deep links via Flutter's built-in deep linking (Universal Links / App Links + `taro://`), allowlisted routes only. Reconciled by 00_DECISIONS.md RC17. | Declarative, URL-addressable (deep links and notification taps use the same `router.go`), testable redirect logic. Navigator 1.0 + custom abstraction (quiz_apps) duplicated what go_router provides. |
 | AR5 | **`Result<T>` sealed type + sealed `Failure` hierarchy** for every repository/gateway/use-case return. Exceptions are caught at adapter boundaries and never cross into features. No `fpdart`. Failures map 1:1 from the Worker's UPPER_SNAKE error codes (`03_BACKEND_WORKER.md` §2.2, table in §3). A declined reading is a successful response (`200 status: declined`), not a failure. Reconciled by 00_DECISIONS.md RC5, RC27. | Exhaustive `switch` forces every screen to handle every failure (e.g. `InsufficientCreditsFailure` → paywall, `ReadingsPausedFailure` → S31 with the Classic-reading offer). ~80 lines of own code beat a functional-programming dependency. |
-| AR6 | **Domain models are immutable `freezed` classes in `taro_core`; wire/storage DTOs are separate (`json_serializable`, drift rows) in `taro_data`** with explicit mappers. Example: the wire `BalanceDto` (03 §5.1) maps to the domain `CreditBalance`; the wire reading (`title/overview/cards[]/synthesis/reflectionPrompts`) maps to `ReadingContent`. `*.freezed.dart` is excluded from coverage (06 §5.3). Reconciled by 00_DECISIONS.md RC6, RC13, RC30. | Wire format (owned by 03) and backup format can evolve without touching domain code; mappers are trivially testable. |
+| AR6 | **Domain models are immutable `freezed` classes in `taro_core`; wire/storage DTOs are separate (`json_serializable`, drift rows) in `apps/taro/lib/data/`** with explicit mappers. Example: the wire `BalanceDto` (03 §5.1) maps to the domain `CreditBalance`; the wire reading (`title/overview/cards[]/synthesis/reflectionPrompts`) maps to `ReadingContent`. `*.freezed.dart` is excluded from coverage (06 §5.3). Reconciled by 00_DECISIONS.md RC6, RC13, RC30. | Wire format (owned by 03) and backup format can evolve without touching domain code; mappers are trivially testable. |
 | AR7 | **drift** (SQLite) is the only local database, split into **two files** (RC75): `taro_journal.db` (readings, daily cards, settings; may be included in OS backups) and `taro_device.db` (purchase outbox, caches, entitlements, consent, sync state; **excluded** from iCloud backup, Android cloud backup and device transfer). **flutter_secure_storage** holds the install identity, install secret, session token and purchase binding; there is no third local store. The purchase queue is the drift `purchase_outbox` table and the Remove Ads cache is the drift `entitlements` table, both in `taro_device.db`. Reconciled by 00_DECISIONS.md RC14, RC75. | Typed queries, reactive streams, versioned migrations, in-memory DB for tests. The split means an OS restore brings back the journal but never another device's purchase tokens, balance cache, entitlements or consent (which must be re-given per device). |
 | AR8 | **The Worker is authoritative for credits, allowance, rewarded grants and remote config. The client caches, never computes, balances.** Local cache is display-only and marked stale. | Contract requirement; the client cannot be trusted and must not be able to mint credits (reinstall, clock change, import). |
-| AR9 | **Own `taro_attestation` Flutter plugin** (Swift `DCAppAttestService` + DeviceCheck, Kotlin Play Integrity *Standard* API only, no Classic API) behind an `AttestationService` port. Its native code is gated at ≥ 90 % lines like every package: Xcode `xccov` (Swift) and JaCoCo (Kotlin), reported by `check_coverage.py` as the units `taro_attestation_ios` and `taro_attestation_android`. Reconciled by 00_DECISIONS.md RC12, RC40, RC87. | Pub.dev plugins for App Attest / Play Integrity are unmaintained or single-author (checked 2026-09-26). The native surface is ~150 lines per platform and security-critical. |
+| AR9 | **Own `taro_attestation` Flutter plugin** (Swift `DCAppAttestService` + DeviceCheck, Kotlin Play Integrity *Standard* API only, no Classic API) behind an `AttestationService` port. Its native code is gated at ≥ 90 % lines like every coverage unit: Xcode `xccov` (Swift) and JaCoCo (Kotlin), reported by `check_coverage.py` as the units `taro_attestation_ios` and `taro_attestation_android`. Reconciled by 00_DECISIONS.md RC12, RC40, RC87. | Pub.dev plugins for App Attest / Play Integrity are unmaintained or single-author (checked 2026-09-26). The native surface is ~150 lines per platform and security-critical. |
 | AR10 | **IAP via `in_app_purchase` with StoreKit 2 enabled** and Android `autoConsume: false`. Own `StoreIapService` (learning from quiz_apps' `StoreIAPService`), with a **persistent purchase outbox**: a consumable transaction is finished/consumed only after the Worker confirms the grant (`POST /v1/purchases/verify` → `status: granted`). Each purchase carries the Worker-issued binding (`purchaseBinding.appleAccountToken` as StoreKit `appAccountToken`, `purchaseBinding.playAccountId` as Play `obfuscatedAccountId`). On Play the Worker acknowledges right after the grant; the client still consumes after `granted`. No RevenueCat (D2). Reconciled by 00_DECISIONS.md RC4, RC9, RC10, RC14, RC85. | SK2 gives JWS signed transactions the Worker verifies with the App Store Server API; outbox makes "charged but not credited" impossible across crashes, offline launches and Ask to Buy. |
 | AR11 | **Ads via `google_mobile_ads` (includes UMP) + `app_tracking_transparency`**, sequenced UMP → neutral ATT pre-prompt (iOS, `ads.attPrepromptEnabled`, default true; UMP's own IDFA explainer disabled) → ATT → `MobileAds.initialize`. ATT and its pre-prompt are skipped when UMP reports `canRequestAds == false`. Rewarded grants only via **AdMob SSV** with the Worker-issued `intentId` as both `customData` and `userId`; the install id is never sent to Google. Banners only on `kBannerAllowList = {home, journal_list, learn_library}`. Reconciled by 00_DECISIONS.md RC18, RC19, RC56. | UMP was quiz_apps' compliance gap; SSV means the client never claims a reward. |
 | AR12 | **AI readings are request/response, not streamed**, in v1: `POST /v1/readings` returns the complete, output-moderated reading. **The draw starts only after a pre-draw hold succeeds** (`POST /v1/readings/holds`, RC50). The reveal may run in parallel with generation while the hold is valid (≥ 120 s left by server time); otherwise the hold is renewed first, and a renewal `402` keeps the picked cards face-down and opens the paywall. Client HTTP timeout for `POST /v1/readings` is **60 s**, with a "taking longer than usual" state at 20 s; on timeout the client polls `GET /v1/readings/{clientReadingId}`. Reconciled by 00_DECISIONS.md RC31, RC48, RC50. | Output moderation must see the whole text before the user does; streaming would show unmoderated text. The hold makes "paywall before the draw" true by construction, not by luck. |
 | AR13 | **Cards are drawn on-device with `Random.secure()`** via a `RandomSource` port; Fisher–Yates over the 78-card deck. Seeded source for tests/goldens only. | Contract requirement; testable determinism without weakening production randomness. |
 | AR14 | **Every clock-dependent behaviour runs on launch AND resume** through one `SyncCoordinator`, idempotently, plus a foreground timer armed for the server's `free.resetsAt` (`BalanceDto`, RC6). | quiz_apps rule 12 (shipped four times). |
-| AR15 | **One ARB bundle in `taro_l10n`** (`flutter gen-l10n`, 12 locales); card texts are **content JSON** in `taro_content`, generated only by `tools/content build` from `packages/taro_content/source/**` YAML (`01_PRODUCT.md` §11). Spread and position names/descriptions are ARB keys `spread_{spreadId}_pos_{positionId}_name/_desc` (01 §10.2). Reconciled by 00_DECISIONS.md RC26. | UI strings and ~78×12 long-form meanings have different authoring pipelines and sizes; keeping them apart keeps ARB reviewable. |
+| AR15 | **One ARB bundle in `apps/taro/lib/l10n/`** (`flutter gen-l10n` via `apps/taro/l10n.yaml`, 12 locales); card texts are **content JSON** in `apps/taro/assets/deck/`, generated only by `tools/content build` from `apps/taro/content/source/**` YAML (`01_PRODUCT.md` §11). Spread and position names/descriptions are ARB keys `spread_{spreadId}_pos_{positionId}_name/_desc` (01 §10.2). Reconciled by 00_DECISIONS.md RC26, RC95. | UI strings and ~78×12 long-form meanings have different authoring pipelines and sizes; keeping them apart keeps ARB reviewable. |
 | AR16 | **Design tokens are a DTCG JSON file** (`docs/design/taro.tokens.json`, token names per `01_PRODUCT.md` §14) compiled by `tools/tokens/` into `packages/taro_ui/lib/src/tokens/generated/` Dart constants and a `TaroTokens` `ThemeExtension`. Widgets never use raw colors, sizes or durations. Reconciled by 00_DECISIONS.md RC15, RC59, RC90. | Claude Design output becomes a data drop, not a code rewrite; light/dark and reduced motion are handled once. |
 | AR17 | **Three flavors: `dev`, `staging`, `prod`**, plus a **`prodStaging` build configuration** of the prod flavor (RC78): prod bundle ID, staging Worker URL, sandbox IAP. It is used for internal TestFlight / internal-track testing, because IAP products and App Attest app IDs exist only for the prod bundle. Configuration via `--dart-define-from-file=config/<config>.json`. The client holds **no secrets**. Firebase projects: `taro-dev` (dev + staging + prodStaging) and `taro-prod`. Reconciled by 00_DECISIONS.md RC36, RC63, RC78. | Anything shipped in a binary is public; the Anthropic key, store API keys and SSV verification live only in the Worker. `prodStaging` lets testers buy sandbox packs without ever touching the prod ledger. |
-| AR18 | **Ports + three implementations each:** production adapter (`taro_services`/`taro_data`), `NoOp…` (shipped, used when a feature is disabled or unsupported), `Fake…` (in `taro_testing`, controllable + recording). A shared **port contract test suite** runs against fake and real adapters. | Fakes that drift from reality give false confidence; contract tests keep them honest and cover `taro_testing` itself toward its 90 %. |
+| AR18 | **Ports + three implementations each:** production adapter (`apps/taro/lib/services/` or `apps/taro/lib/data/`), `NoOp…` (shipped, used when a feature is disabled or unsupported), `Fake…` (in `packages/taro_core/test/fakes/`, controllable + recording). A shared **port contract test suite** (`packages/taro_core/test/contracts/`) runs against fake and real adapters. Reconciled by 00_DECISIONS.md RC95. | Fakes that drift from reality give false confidence; contract tests keep them honest. |
 | AR19 | **Firebase Analytics + Crashlytics only** from Firebase. No Firebase Remote Config, no FCM, no Firebase App Check in v1. Analytics carries **no user id**; the install id never reaches Firebase. Analytics consent is denied by default and events are buffered until UMP resolves. Reconciled by 00_DECISIONS.md RC68. | Remote config and attestation are the Worker's job (single source of truth); avoiding a joinable identifier across vendors simplifies privacy labels. |
 | AR20 | **`mocktail` + hand-written fakes; Flutter's built-in `matchesGoldenFile` with the repo `TaroGoldenComparator` for goldens (06 QA8); `patrol` (built on `integration_test`) for integration tests** (native ATT/UMP/purchase dialogs). No `mockito` codegen, no third-party golden package. Goldens include tablet widths (iPad 13", Android tablet) for every ★ screen, because the app is universal. Reconciled by 00_DECISIONS.md RC13, RC24. | No generated mocks to exclude from coverage; the built-in golden matcher needs no dependency (golden_toolkit is discontinued) and is stable on the single macOS reference runner; patrol can drive system dialogs. |
 
@@ -64,20 +64,21 @@ Taro must be (a) approvable by Apple/Google in a category Apple explicitly calls
 ```mermaid
 flowchart LR
   subgraph Device["Device (iOS / Android)"]
-    App["apps/taro<br/>(features, routing, DI)"]
+    subgraph App["apps/taro"]
+      Feat["features/, app_state/, common/<br/>routing, bootstrap, di"]
+      Data["data/<br/>drift, secure storage, Worker client,<br/>bundled-content repositories"]
+      Svc["services/<br/>IAP, ads, consent, analytics, crash,<br/>notifications, tz, files"]
+      L10n["l10n/<br/>ARB x12"]
+      Assets["assets/deck/<br/>deck, spreads, meanings (12 locales),<br/>crisis resources"]
+    end
     Core["taro_core<br/>domain + ports + use cases"]
-    Data["taro_data<br/>drift, secure storage, Worker client"]
-    Svc["taro_services<br/>IAP, ads, consent, analytics, crash,<br/>notifications, tz, files"]
     Att["taro_attestation<br/>App Attest / Play Integrity"]
-    Content["taro_content<br/>deck, spreads, meanings (12 locales)"]
     UI["taro_ui<br/>tokens, theme, components"]
-    L10n["taro_l10n<br/>ARB x12"]
-    App --> Core & Data & Svc & Content & UI & L10n
+    Feat --> Core & UI & L10n
     Data --> Core
+    Data --> Assets
     Svc --> Core
     Svc --> Att
-    Content --> Core
-    UI --> L10n
   end
 
   Worker["Cloudflare Worker /v1<br/>(D1 ledger, KV config)"]
@@ -98,9 +99,13 @@ flowchart LR
   Att --> Attest
 ```
 
+Features reach `data/` and `services/` only through `taro_core` ports resolved in `di/` (§2.1); the arrows show the import graph that `tools/check_architecture.dart` enforces.
+
 ---
 
 ## 2. Repository and package layout
+
+Reconciled by 00_DECISIONS.md RC15, RC26, RC38, RC95.
 
 ```
 taro/
@@ -108,54 +113,61 @@ taro/
 ├── analysis_options.yaml         # shared lints (very_good_analysis + overrides), included by all packages
 ├── apps/
 │   └── taro/                     # the only app (package name `taro`)
+│       ├── l10n.yaml             # gen-l10n config (§11)
+│       ├── lib/                  # features, data, services, l10n, … (§2.2)
+│       ├── assets/deck/          # generated by `tools/content build` (deck, spreads, crisis resources)
+│       ├── content/source/       # authored content YAML/Markdown (01 §11), input of `tools/content build`; not bundled
+│       └── test/                 # helpers/ (pumpTaro, TaroFakes), contract/fixtures/, …
 ├── packages/
-│   ├── taro_core/                # pure Dart
-│   ├── taro_content/             # Flutter (assets)
-│   ├── taro_data/                # Flutter (drift_flutter, secure storage)
-│   ├── taro_services/            # Flutter (platform SDK adapters)
-│   ├── taro_attestation/         # Flutter plugin (Swift + Kotlin)
-│   ├── taro_l10n/                # Flutter (ARB + generated localizations)
-│   ├── taro_ui/                  # Flutter (design system)
-│   └── taro_testing/             # Flutter, dev_dependency only, Riverpod-free (fakes, builders, golden comparator)
+│   ├── taro_core/                # pure Dart (fakes + port contract suites in test/)
+│   ├── taro_ui/                  # Flutter (design system, tokens/generated)
+│   └── taro_attestation/         # Flutter plugin (Swift + Kotlin)
 ├── worker/                       # Cloudflare Worker (TypeScript) — see 03
+│   ├── src/generated/            # written by `tools/content build` (deck, deck_prompt, crisis resources)
 │   └── test/contract/fixtures/   # canonical request/response JSON, source of the Dart contract tests (06 QA15)
 ├── tools/
-│   ├── check_architecture.dart   # import-boundary gate (AR2)
+│   ├── check_architecture.dart   # import-graph gate for packages and app folders (AR2, §2.1)
 │   ├── tokens/                   # DTCG → Dart token generator (AR16)
 │   ├── content/                  # `tools/content build` / validate / translate (01 §11); the only content generator
 │   ├── check_contract_fixtures.py # Dart fixture copies == worker fixtures (06)
-│   └── check_coverage.py …       # per-package 90 % gate and other checks (owned by 06)
+│   └── check_coverage.py …       # per-unit 90 % gate and other checks (owned by 06)
 └── docs/ (specs/, phases/, design/taro.tokens.json, ARCHITECTURE.md, ANALYTICS_EVENTS.md, runbooks/)
 ```
 
-Contract fixtures are copied from `worker/test/contract/fixtures/` to `packages/taro_data/test/contract/fixtures/` by `melos run contract:sync`; `tools/check_contract_fixtures.py` fails on drift. Reconciled by 00_DECISIONS.md RC15, RC26, RC38.
+Contract fixtures are copied from `worker/test/contract/fixtures/` to `apps/taro/test/contract/fixtures/` by `melos run contract:sync`; `tools/check_contract_fixtures.py` fails on drift.
+
+The former packages `taro_data`, `taro_services`, `taro_content`, `taro_l10n` and `taro_testing` were replaced by app folders (RC95): `apps/taro/lib/data/`, `apps/taro/lib/services/`, `apps/taro/assets/deck/` + `apps/taro/content/source/` + `apps/taro/lib/data/content/`, `apps/taro/lib/l10n/`, and `apps/taro/test/helpers/` + `packages/taro_core/test/fakes/`.
 
 ### 2.1 Dependency rules
+
+Packages (enforced by `pubspec` dependencies and by `tools/check_architecture.dart`):
 
 | Package | May depend on (taro) | Must NOT depend on | Flutter? |
 |---|---|---|---|
 | `taro_core` | — | anything Flutter, any I/O package, Riverpod | No (pure Dart) |
-| `taro_content` | `taro_core` | `taro_data`, `taro_services`, `taro_ui` | Yes (asset bundle) |
-| `taro_data` | `taro_core` | `taro_services`, `taro_ui`, `taro_content`, Riverpod | Yes |
 | `taro_attestation` | — | every taro package | Yes (plugin) |
-| `taro_services` | `taro_core`, `taro_attestation` | `taro_data`, `taro_ui`, Riverpod | Yes |
-| `taro_l10n` | — | every taro package | Yes |
-| `taro_ui` | `taro_l10n` | `taro_core`, `taro_data`, `taro_services`, Riverpod | Yes |
-| `taro_testing` | `taro_core`, `taro_ui`, `taro_l10n` | `taro_data`, `taro_services` (it fakes them) | Yes |
-| `apps/taro` | all of the above (`taro_testing` as dev_dependency only) | — | Yes |
+| `taro_ui` | — | `taro_core`, the app, Riverpod (components take already-localised strings as parameters) | Yes |
+| `apps/taro` | all three packages | — | Yes |
 
-Inside `apps/taro/lib`:
+Folders inside `apps/taro/lib` (the former package rules, restated as folder rules; RC95). `tools/check_architecture.dart` builds the import graph of `lib/` and applies this table:
 
 | Folder | May import | Must NOT import |
 |---|---|---|
+| `data/` (drift DBs, secure storage, `WorkerClient`, repositories, `data/content/` asset repositories, backup codec) | `taro_core`, `package:drift`, `package:dio`, `package:flutter_secure_storage`, other storage/HTTP deps | `services/`, `features/`, `app_state/`, `common/`, `routing/`, `l10n/`, `taro_ui`, Riverpod |
+| `data/content/` | `taro_core` and the generated assets under `assets/deck/` | every other `data/` subfolder, `services/`, `features/`, `taro_ui` |
+| `services/` (platform SDK adapters) | `taro_core`, `taro_attestation`, the vendor SDKs of §18 | `data/` (reach data only through `taro_core` ports), `features/`, `app_state/`, `common/`, `routing/`, `taro_ui`, Riverpod |
+| `services/presentation/` (`AdMobBannerSlotView`, `NoOpBannerSlotView`; widgets that wrap SDK views) | `services/`, `taro_core`, `package:google_mobile_ads`, `package:flutter` | `data/`, `features/`, Riverpod |
+| `l10n/` (ARB + generated `TaroLocalizations`) | `package:flutter_localizations`, `package:intl` | every other folder, every taro package |
 | `bootstrap/`, `di/` | everything (composition root) | — |
-| `features/<f>/` | `taro_core`, `taro_ui`, `taro_l10n`, `taro_content` (read models only), `di/providers.dart`, `app_state/**`, `routing/routes.dart`, `common/**` | `taro_data`, `taro_services` (except the `presentation.dart` barrel for `BannerSlot`), `package:google_mobile_ads`, `package:in_app_purchase`, `package:firebase_*`, `package:drift`, `package:dio`, other `features/<g>/**` |
-| `app_state/` (app-wide controllers: balance, entitlement, consent, config, connectivity) | `taro_core`, `di/` | `features/**` |
-| `common/` (shared widgets that need providers, e.g. `BalanceChip`, `BannerSlot`) | `taro_ui`, `taro_l10n`, `app_state/`, `di/` | `features/**` |
+| `features/<f>/` | `taro_core`, `taro_ui`, `l10n/`, `di/providers.dart`, `app_state/**`, `routing/routes.dart`, `common/**` | `data/**` (read models come through `taro_core` ports), `services/**`, `package:google_mobile_ads`, `package:in_app_purchase`, `package:firebase_*`, `package:drift`, `package:dio`, other `features/<g>/**` |
+| `app_state/` (app-wide controllers: balance, entitlement, consent, config, connectivity) | `taro_core`, `di/` | `features/**`, `data/**`, `services/**` |
+| `common/` (shared widgets that need providers, e.g. `BalanceChip`, `BannerSlot`) | `taro_ui`, `l10n/`, `app_state/`, `di/`, `taro_core` (the `BannerSlotView` port) | `features/**`, `data/**`, `services/**` |
 
-`tools/check_architecture.dart` parses every `import`/`export` in `lib/` of each package and the app, applies these tables, and exits non-zero with the offending file:line. It runs in `melos run check` and CI. A `lib/src` import across packages is also a violation (only barrels are public).
+`BannerSlot` gets its `BannerSlotView` from a provider in `di/`; only `bootstrap/`/`di/` import `services/presentation/`. `data/` never imports `features/`, and `services/` never imports `data/`: when a service needs stored state it goes through a `taro_core` port wired in `di/`.
 
-### 2.2 Per-package structure
+`tools/check_architecture.dart` parses every `import`/`export` in `lib/` of each package and of the app, applies both tables, and exits non-zero with the offending file:line. It runs in `melos run check` and CI. A `lib/src` import across packages is also a violation (only barrels are public). For tests it allows one extra edge: `apps/taro/test/**` may import `packages/taro_core/test/fakes/**` and `packages/taro_core/test/contracts/**` by relative path (test-only; no pubspec dependency).
+
+### 2.2 Per-package and per-folder structure
 
 ```
 packages/taro_core/lib/
@@ -172,42 +184,48 @@ packages/taro_core/lib/
                    report_reading.dart, sync_account.dart, purchase_credits.dart, earn_reward.dart,
                    export_backup.dart, import_backup.dart, delete_all_data.dart, resolve_reading_gate.dart
     logic/         card_drawer.dart, reading_gate.dart, backup_merge.dart, reset_schedule.dart
-packages/taro_content/
-  source/**                              # authored YAML (01 §11): {locale}/cards/{cardId}.yaml, glossary,
-                                         # articles, crisis/crisis_resources.yaml (RC25)
-  assets/deck/deck_meta.json             # generated: 78 cards, ids, arcana, suit, number, art keys
-  assets/deck/{locale}.json              # generated: card texts, 12 files
-  assets/spreads/spreads.json            # generated: spread definitions + normalized layout coordinates
-  assets/crisis/…                        # generated: bundled crisis resources (offline S27)
-  assets/deck/art/…                      # card art (WebP, 1x/2x/3x) — D15, delivered later
-  lib/src/ asset_deck_repository.dart, asset_spread_repository.dart, asset_card_text_repository.dart,
-           asset_crisis_repository.dart, content_manifest.dart
-packages/taro_data/lib/src/
-  db/            taro_database.dart, tables/*.dart, daos/*.dart, migrations/, schema/ (drift_dev dumps)
-  secure/        secure_store.dart (port impl over flutter_secure_storage), keys.dart
-  api/           worker_client.dart, interceptors/{headers,auth,attestation,retry,error}.dart,
-                 dto/*.dart (BalanceDto, ReadingResponseDto, …), endpoints.dart, api_error_mapper.dart
-  repositories/  install_repository_impl.dart, balance_repository_impl.dart,
-                 reading_repository_impl.dart, journal_repository_impl.dart, daily_card_repository_impl.dart,
-                 remote_config_repository_impl.dart, settings_repository_impl.dart,
-                 entitlement_cache_impl.dart, purchase_outbox_impl.dart, reward_gateway_impl.dart
-  backup/        backup_codec.dart, backup_schema_v1.dart, backup_migrator.dart
-packages/taro_services/lib/
-  taro_services.dart                    # non-UI adapters
-  presentation.dart                     # widgets wrapping SDK views (BannerSlotView)
-  src/ iap/  ads/  consent/  analytics/  crash/  notifications/  attestation/
-       timezone/  files/  review/  device/  connectivity/  logging/
+packages/taro_core/test/
+  fakes/          Fake… for every port (controllable + recording), builders, CapturingLogger
+  contracts/      runBalanceRepositoryContract, runIapServiceContract, … (run against fakes here and
+                  against the real adapters in apps/taro/test)
 packages/taro_ui/lib/src/
   tokens/generated/taro_tokens.g.dart   # generated, excluded from coverage
   theme/ taro_theme.dart, taro_tokens_extension.dart, text_styles.dart
   components/ (see §14.3)
   motion/ taro_motion.dart              # duration/curve accessors honouring reduced motion
   a11y/ semantics_helpers.dart, min_tap_target.dart
+packages/taro_ui/test/helpers/golden/   # TaroGoldenComparator + bundled test fonts (06 QA8)
+apps/taro/
+  l10n.yaml                              # §11
+  content/source/**                      # authored YAML (01 §11): {locale}/cards/{cardId}.yaml, glossary,
+                                         # articles, crisis/crisis_resources.yaml (RC25); not bundled
+  assets/deck/deck_meta.json             # generated: 78 cards, ids, arcana, suit, number, art keys
+  assets/deck/{locale}.json              # generated: card texts, 12 files
+  assets/deck/spreads.json               # generated: spread definitions + normalized layout coordinates
+  assets/deck/crisis_resources.json      # generated: bundled crisis resources (offline S27)
+  assets/deck/art/…                      # card art (WebP, 1x/2x/3x) — D15, delivered later
 apps/taro/lib/
   main_dev.dart, main_staging.dart, main_prod.dart   # one line each → bootstrap(ProductionEnvironment(Flavor.x)); excluded from coverage (RC16)
   bootstrap/ bootstrap.dart, taro_environment.dart, error_handlers.dart, flavor_config.dart
   di/ providers.dart (port providers, all `throw UnimplementedError` until overridden),
       overrides_prod.dart, overrides_dev.dart
+  data/
+    db/            taro_database.dart, tables/*.dart, daos/*.dart, migrations/, schema/ (drift_dev dumps)
+    secure/        secure_store.dart (port impl over flutter_secure_storage), keys.dart
+    api/           worker_client.dart, interceptors/{headers,auth,attestation,retry,error}.dart,
+                   dto/*.dart (BalanceDto, ReadingResponseDto, …), endpoints.dart, api_error_mapper.dart
+    repositories/  install_repository_impl.dart, balance_repository_impl.dart,
+                   reading_repository_impl.dart, journal_repository_impl.dart, daily_card_repository_impl.dart,
+                   remote_config_repository_impl.dart, settings_repository_impl.dart,
+                   entitlement_cache_impl.dart, purchase_outbox_impl.dart, reward_gateway_impl.dart
+    content/       content_assets.dart, asset_deck_repository.dart, asset_spread_repository.dart,
+                   asset_card_text_repository.dart, asset_crisis_repository.dart, content_manifest.dart
+    backup/        backup_codec.dart, backup_schema_v1.dart, backup_schema_v1.json, backup_migrator.dart
+  services/
+    iap/  ads/  consent/  analytics/  crash/  notifications/  attestation/
+    timezone/  files/  review/  device/  connectivity/  logging/
+    presentation/  banner_slot_view.dart (AdMobBannerSlotView, NoOpBannerSlotView)
+  l10n/ arb/app_{locale}.arb (12), generated/ (gen-l10n output, not committed)
   routing/ router.dart, routes.dart, guards.dart, deep_link_policy.dart
   app_state/ balance_controller.dart, entitlement_controller.dart, consent_controller.dart,
              remote_config_controller.dart, connectivity_controller.dart, sync_coordinator.dart
@@ -219,6 +237,11 @@ apps/taro/lib/
      <feature>/ view/ (screens, widgets), controller/ (Notifiers + freezed states), <feature>_routes.dart
      (feature folders follow the 01 §8.1 screen list S01–S33; RC17)
   app.dart (MaterialApp.router, theme, localizations)
+apps/taro/test/
+  helpers/       pump_app.dart (TaroFakes → List<Override>, pumpTaro(...)), pump_taro_widget.dart
+                 (pumpTaroWidget(tester, child, {locale, theme, textScale, size}))
+  contract/fixtures/   # copy of worker/test/contract/fixtures/ (melos run contract:sync)
+  data/ services/ l10n/ features/ …    # mirror lib/
 ```
 
 ---
@@ -316,7 +339,7 @@ All `@freezed` (immutable, value equality, `copyWith`); IDs are extension types 
 | Model | Fields (type) | Notes |
 |---|---|---|
 | `TarotCard` | `id: CardId` (`major_00` … `major_21`, `{wands,cups,swords,pentacles}_01` … `_14`; 01 = Ace, 11 = Page, 12 = Knight, 13 = Queen, 14 = King), `arcana: Arcana{major,minor}`, `suit: Suit?{wands,cups,swords,pentacles}`, `number: int` (0–21 major, 1–14 minor), `element: Element?`, `astrology: String?`, `artKey: String` | Language-neutral (01 §10.1 `DeckCard`). |
-| `CardText` | `cardId`, `locale: String`, `name`, `keywordsUpright: List<String>`, `keywordsReversed`, `shortUpright`, `shortReversed`, `meaningUpright`, `meaningReversed`, `aspects`, `reflectionQuestions: List<String>`, `imageryNote?` | From `taro_content` (01 §10.1); used by the daily card, reveal, Classic reading, Learn and offline card detail. |
+| `CardText` | `cardId`, `locale: String`, `name`, `keywordsUpright: List<String>`, `keywordsReversed`, `shortUpright`, `shortReversed`, `meaningUpright`, `meaningReversed`, `aspects`, `reflectionQuestions: List<String>`, `imageryNote?` | From the bundled content in `apps/taro/assets/deck/` (01 §10.1); used by the daily card, reveal, Classic reading, Learn and offline card detail. |
 | `Deck` | `id: String` (`rws_original`), `version: int`, `cards: List<TarotCard>` (exactly 78, validated), `artSet: String` | |
 | `Spread` | `id: SpreadId` (`single`, `three_ppf`, `three_sao`, `relationship`, `two_paths`, `celtic_cross` — list owned by 01 §10.3), `version: int`, `positions: List<SpreadPosition>`, `questionSuggestionKeys: List<String>`, `allowsReversals: bool`, `enabled: bool` (from `spreads.enabled`) | No per-spread cost: every reading costs exactly 1 credit (RC62). The question limit is global (`ai.questionMaxChars`, 300 grapheme clusters, RC45). Names and descriptions come from ARB (`spread_{spreadId}_…`). The daily card is not a spread. |
 | `SpreadPosition` | `id: PositionId` (`past`, `present`, `future`, `challenge` …), `order: int`, `layout: PositionLayout{x: double, y: double, rotationDeg: double}` (normalized 0..1 of the spread canvas, LTR) | Layout is data, so new spreads ship without UI code. |
@@ -333,7 +356,7 @@ All `@freezed` (immutable, value equality, `copyWith`); IDs are extension types 
 | `InstallIdentity` | `installId: InstallId`, `registeredAt: DateTime?`, `registeredTimezone: String?`, `trust: Trust?{high, low}`, `purchaseBinding: PurchaseBinding?{appleAccountToken?, playAccountId?}`, `attestationKeyId: String?` (iOS) | The install secret is never part of a domain object; it is read only by the registration call. |
 | `UserSettings` | `localeOverride: String?`, `themeMode: ThemeMode{system,light,dark}`, `reversalsEnabled: bool`, `reminder: ReminderSettings{enabled, time (HH:mm local)}`, `hapticsEnabled`, `reduceMotion: bool?` (null = follow OS) | Exported in backups. |
 | `Backup` | `format: "taro.backup"`, `schemaVersion: int`, `exportedAt`, `appVersion`, `data: {settings, readings, dailyCards}`, `checksum` | See §12 and `backup_schema_v1.json`. |
-| `CrisisResource` | `name`, `phone?`, `sms?`, `url?`, `hours?`, `languages: List<String>`, `verifiedAt` (canonical schema: 03 §9.5, RC81) | Delivered by the Worker with declined readings (selected by `cf.country`); the bundled copy (compiled by `tools/content build` from `packages/taro_content/source/crisis/crisis_resources.yaml`, RC25) is selected by device region for S27 from Help and offline. |
+| `CrisisResource` | `name`, `phone?`, `sms?`, `url?`, `hours?`, `languages: List<String>`, `verifiedAt` (canonical schema: 03 §9.5, RC81) | Delivered by the Worker with declined readings (selected by `cf.country`); the bundled copy (compiled by `tools/content build` from `apps/taro/content/source/crisis/crisis_resources.yaml` into `apps/taro/assets/deck/crisis_resources.json`, RC25, RC95) is selected by device region for S27 from Help and offline. |
 
 ### 4.1 Pure logic in core
 
@@ -346,7 +369,7 @@ All `@freezed` (immutable, value equality, `copyWith`); IDs are extension types 
 
 ## 5. Ports (`taro_core/src/ports`) and implementations
 
-Every port is an `abstract interface class`. Implementations: **Prod** (package), **NoOp** (shipped), **Fake** (`taro_testing`). Reconciled by 00_DECISIONS.md RC4, RC14, RC15, RC17, RC18, RC22, RC25, RC41, RC51, RC56, RC57, RC72.
+Every port is an `abstract interface class`. Implementations: **Prod** (app `data/` or `services/`), **NoOp** (shipped), **Fake** (`packages/taro_core/test/fakes/`, RC95). Reconciled by 00_DECISIONS.md RC4, RC14, RC15, RC17, RC18, RC22, RC25, RC41, RC51, RC56, RC57, RC72.
 
 | Port | Key methods | Prod adapter | NoOp used when |
 |---|---|---|---|
@@ -356,7 +379,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (package)
 | `ReadingRepository` | `Future<Result<ReadingHold>> hold(ReadingId, SpreadId, {String locale})`, `Future<Result<Reading>> submit(Reading pending)`, `Future<Result<Reading>> resume(ReadingId)`, `Future<Result<void>> ack(ReadingId)`, `Future<Result<void>> report(ReadingId, ReportReason, {String? note})`, `Future<Result<Reading>> saveClassic(Reading)`, `Stream<Reading?> watch(ReadingId)`, `setNote`, `setFavourite`, `setRating`, `delete` | `ReadingRepositoryImpl` (drift + Worker) | — |
 | `JournalRepository` | `Stream<List<JournalItem>> watchAll({JournalQuery})` (readings + daily cards, newest first), `search(String)` (`journal_fts`, RC91) | drift | — |
 | `DailyCardRepository` | `Stream<DailyCard?> watchToday()`, `Future<Result<DailyCard>> drawToday()`, `setNote`, `setFavourite` | drift | — |
-| `ContentRepository` | `Future<Deck> deck()`, `Future<List<Spread>> spreads()`, `Future<CardText> cardText(CardId, String locale)`, `Future<List<CrisisResource>> fallbackCrisisResources(String region)` (bundled copy, RC25) | `taro_content` asset repos (JSON parsed in isolate, cached per locale) | — |
+| `ContentRepository` | `Future<Deck> deck()`, `Future<List<Spread>> spreads()`, `Future<CardText> cardText(CardId, String locale)`, `Future<List<CrisisResource>> fallbackCrisisResources(String region)` (bundled copy, RC25) | `apps/taro/lib/data/content/` asset repos (JSON parsed in isolate, cached per locale) | — |
 | `RemoteConfigRepository` | `RemoteConfig get current`, `Stream<RemoteConfig> watch()`, `Future<Result<RemoteConfig>> refresh()` | Worker `GET /v1/config` with ETag, drift cache | `StaticRemoteConfigRepository` (defaults; tests/offline dev) |
 | `SettingsRepository` | `watch()`, `update(UserSettings Function(UserSettings))`, consent persistence (`ConsentStore`) | drift | — |
 | `IapService` | `Future<Result<List<StoreProduct>>> products(Set<ProductId>)`, `Future<Result<PurchaseOutcome>> buy(ProductId, {PurchaseBinding binding})`, `Future<Result<void>> restore()`, `Stream<IapEvent> events`, `Set<ProductId> get pending` | `StoreIapService` (`in_app_purchase` + SK2) | `NoOpIapService` (products empty; flavor flag `iapEnabled=false`) |
@@ -364,7 +387,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (package)
 | `PurchaseOutbox` | `enqueue`, `pending()`, `markGranted`, `markFinished`, `recordAttempt` | drift `purchase_outbox` (`taro_device.db`) | — |
 | `EntitlementCache` | `Entitlement read()`, `write(Entitlement)` | drift `entitlements` (`taro_device.db`) | — |
 | `AdsService` | `Future<void> initialize(AdRequestPolicy)`, `Future<Result<RewardedShowResult>> showRewarded(RewardIntent)`, `Future<void> preloadRewarded()`, `bool get isInitialized` | `AdMobAdsService` | `NoOpAdsService` (Remove Ads owned + rewarded disabled, `adsEnabled=false`, tests) |
-| `BannerSlotView` *(presentation port, in `taro_services/presentation.dart` because it returns a `Widget`)* | `Widget build(BannerScreen screen, {required bool visible})` (`BannerScreen` ∈ `kBannerAllowList = {home, journal_list, learn_library}`, RC18) | `AdMobBannerSlotView` (adaptive anchored banner, load on first build, dispose on unmount) | `NoOpBannerSlotView` (`SizedBox.shrink`) |
+| `BannerSlotView` *(presentation port; its adapters live in `apps/taro/lib/services/presentation/` because they return a `Widget`)* | `Widget build(BannerScreen screen, {required bool visible})` (`BannerScreen` ∈ `kBannerAllowList = {home, journal_list, learn_library}`, RC18) | `AdMobBannerSlotView` (adaptive anchored banner, load on first build, dispose on unmount) | `NoOpBannerSlotView` (`SizedBox.shrink`) |
 | `RewardGateway` | `Future<Result<RewardIntent>> createIntent(String adUnitId)`, `Future<Result<RewardStatus>> status(String intentId)`, `Future<void> cancel(String intentId)` | Worker `POST /v1/rewards/intents`, `GET /v1/rewards/intents/{intentId}`, `POST /v1/rewards/intents/{intentId}/cancel` | — |
 | `ConsentService` (UMP) | `Future<AdsConsent> gather({bool debugEea})`, `Future<void> showPrivacyOptions()`, `Future<AdsConsent> current()` | `UmpConsentService` (`ConsentInformation`, `ConsentForm` from google_mobile_ads) | `NoOpConsentService` (`notRequired, canRequestAds: true`) |
 | `TrackingAuthorization` (ATT) | `status()`, `request()` (the neutral pre-prompt is app UI shown before `request()`, §9.7) | `AttTrackingAuthorization` (iOS) | `NotSupportedTrackingAuthorization` (Android) |
@@ -376,7 +399,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (package)
 | `TimezoneProvider` | `Future<String> currentIana()` | `FlutterTimezoneProvider` | `FixedTimezoneProvider` |
 | `RandomSource` | `int nextInt(int max)`, `bool nextBool()` | `SecureRandomSource` (`Random.secure()`) | `SeededRandomSource` (tests, goldens, screenshot mode only — asserted unreachable in prod builds) |
 | `IdGenerator` | `String uuidV4()` (reading ids, idempotency keys, request ids) | `SecureIdGenerator` (over `uuid` with a CSPRNG) | `SequentialIdGenerator` (tests) |
-| `Logger` | `fine/info/warning/severe(String message, {Object? error, StackTrace? stack})`, `child(String name)` | `PackageLoggingLogger` (over `package:logging`, sinks per §13) | `SilentLogger` (tests; `CapturingLogger` in `taro_testing`) |
+| `Logger` | `fine/info/warning/severe(String message, {Object? error, StackTrace? stack})`, `child(String name)` | `PackageLoggingLogger` (over `package:logging`, sinks per §13) | `SilentLogger` (tests; `CapturingLogger` in `taro_core/test/fakes/`) |
 | `FileTransfer` | `Future<Result<void>> share(Uint8List bytes, String fileName, String mime)`, `Future<Result<Uint8List?>> pickJson()` | `PlatformFileTransfer` (`share_plus` + `file_picker`) | — |
 | `ConnectivityMonitor` | `Stream<bool> online`, `Future<bool> isOnline()` | `ConnectivityPlusMonitor` (hint only; real truth is the request outcome) | `AlwaysOnlineMonitor` |
 | `ReviewPrompter` | `Future<void> maybePrompt(ReviewTrigger)` | `InAppReviewPrompter` (policy from 01/04, `review.promptAfterPositiveReadings`; Classic readings never count) | `NoOpReviewPrompter` |
@@ -387,7 +410,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (package)
 
 ---
 
-## 6. Data layer (`taro_data`)
+## 6. Data layer (`apps/taro/lib/data/`)
 
 ### 6.1 drift databases (schemaVersion 1 each, RC75)
 
@@ -417,7 +440,7 @@ After an OS restore to a new device, the journal is present, `taro_device.db` an
 
 Migrations: `drift_dev schema dump` into `db/schema/{journal,device}/drift_schema_v{n}.json` on every bump; `schema generate` produces test helpers; each migration step has a test from every previous version (drift's `SchemaVerifier`). Each database is opened with `driftDatabase(name: 'taro_journal' | 'taro_device', native: DriftNativeOptions(shareAcrossIsolates: true))` so queries run off the UI isolate. Tests use `NativeDatabase.memory()`.
 
-### 6.2 Secure storage keys (`taro_data/src/secure/keys.dart`)
+### 6.2 Secure storage keys (`apps/taro/lib/data/secure/keys.dart`)
 
 | Key | Content | iOS accessibility | Android |
 |---|---|---|---|
@@ -709,13 +732,13 @@ From the S09 / S15 menu for AI readings only. S33 (`editing`, `submitting`, `sub
 
 ---
 
-## 11. Localization (`taro_l10n`) and RTL
+## 11. Localization (`apps/taro/lib/l10n/`) and RTL
 
-- `l10n.yaml`: `arb-dir: lib/src/arb`, `template-arb-file: app_en.arb`, `output-dir: lib/src/generated`, `output-class: TaroLocalizations`, `nullable-getter: false`, `required-resource-attributes: true` (every key has a `@description` for translators). Generated code is not committed; `melos run gen` produces it, and it is excluded from coverage.
+- `apps/taro/l10n.yaml` (RC95): `arb-dir: lib/l10n/arb`, `template-arb-file: app_en.arb`, `output-dir: lib/l10n/generated`, `output-class: TaroLocalizations`, `nullable-getter: false`, `required-resource-attributes: true` (every key has a `@description` for translators). Generated code is not committed; `melos run gen` produces it, and it is excluded from coverage.
 - Supported locales: `en, ar, de, es, fr, it, ja, ko, nl, pt, tr, uk`. `pt` = Brazilian Portuguese copy (store `pt-BR`; 05). Fallback `en`. User override in Settings (`localeOverride`).
 - ICU plurals/selects for counts ("{count, plural, =1{1 reading} other{{count} readings}}"); `DateFormat`/`NumberFormat` always with the active locale; relative times via own formatter over ARB strings (no `timeago` dep).
 - `check_l10n.py` (CI, owned by 06): every key present in all 12 ARB files, placeholders identical, no empty values, no English left in non-en files outside the allowlist.
-- Card content is authored as YAML in `packages/taro_content/source/{locale}/` and built only by `tools/content build`; `tools/content validate` checks 78 cards × 12 locales, all fields within 01 §10.1 bounds (RC26). Spread and position names are ARB keys (`spread_{spreadId}_pos_{positionId}_name/_desc`) and are checked with the rest of ARB.
+- Card content is authored as YAML in `apps/taro/content/source/{locale}/` and built only by `tools/content build`; `tools/content validate` checks 78 cards × 12 locales, all fields within 01 §10.1 bounds (RC26). Spread and position names are ARB keys (`spread_{spreadId}_pos_{positionId}_name/_desc`) and are checked with the rest of ARB.
 - **AI response language** = active app locale, sent as `locale` in `POST /v1/readings/holds` and `POST /v1/readings`; stored on the reading as `contentLocale`.
 - **RTL:** only directional APIs (`EdgeInsetsDirectional`, `AlignmentDirectional`, `PositionedDirectional`, `TextAlign.start`). A check in `check_architecture.dart` flags `EdgeInsets.only(left|right`, `Alignment.centerLeft|Right`, `TextAlign.left|right` in `lib/`. Spread layouts mirror horizontally in RTL (position `x → 1 - x`) — **except** card art itself, which is never mirrored. Directional icons use `Icon(..., matchTextDirection: true)`.
 - Fonts: tokens name the families; Latin/Cyrillic display font bundled; Arabic, Japanese and Korean fall back to platform fonts unless 05/Design choose bundled Noto subsets (size budget §17).
@@ -724,7 +747,7 @@ From the S09 / S15 menu for AI readings only. S33 (`editing`, `submitting`, `sub
 
 ## 12. Export / import (backup)
 
-- Format, fields and limits: exactly `01_PRODUCT.md` §7.11 and the frozen JSON Schema `docs/specs/backup_schema_v1.json` (RC17, RC70): `{format: "taro.backup", schemaVersion: 1, exportedAt, appVersion, data: {settings, readings[], dailyCards[]}, checksum}` with `checksum` = lowercase hex SHA-256 of the RFC 8785 (JCS) canonical JSON of `data`. File name `taro-backup-YYYY-MM-DD.json`, MIME `application/json`. `packages/taro_data/lib/src/backup/backup_schema_v1.json` is a byte-identical copy (asserted by a test).
+- Format, fields and limits: exactly `01_PRODUCT.md` §7.11 and the frozen JSON Schema `docs/specs/backup_schema_v1.json` (RC17, RC70): `{format: "taro.backup", schemaVersion: 1, exportedAt, appVersion, data: {settings, readings[], dailyCards[]}, checksum}` with `checksum` = lowercase hex SHA-256 of the RFC 8785 (JCS) canonical JSON of `data`. File name `taro-backup-YYYY-MM-DD.json`, MIME `application/json`. `apps/taro/lib/data/backup/backup_schema_v1.json` is a byte-identical copy (asserted by a test).
 - **Never included:** credits/balance, `chargeSource`, `deliveryAcked`, entitlements, install id, install secret, session token, purchase binding, attestation key id, purchase outbox, pending acks, consent states, remote config, sync state.
 - Only `complete`, `refused` and `classic` readings are exported (pending/failed are device-local transient state).
 - Import pipeline (`ImportBackupUseCase`): size limit 20 MB → JSON parse → `format` check → `schemaVersion` ≤ current (else `unsupportedVersion`, "update the app") → migrate older versions stepwise (`BackupMigrator`) → validate against `backup_schema_v1.json` (types, enums, id formats, `additionalProperties: false`, lengths) → card ids exist in deck → checksum (mismatch → `BackupInvalidFailure(checksum)`; it catches truncated or hand-edited files) → preview (`n readings, m daily cards`) → user chooses **Merge** (default; newer `updatedAt` wins) or **Replace** (confirmation dialog) → single drift transaction on `taro_journal.db`. Nothing in an import can change the Worker ledger (it is never sent to the Worker).
@@ -823,32 +846,32 @@ Rebuild hygiene: `ref.watch(provider.select(...))`, `const` constructors, `Repai
 
 ## 18. Dependencies (initial constraints; Flutter 3.44.x stable)
 
-Environment for every package: `sdk: ^3.9.0` (melos 8 / pub workspaces; Flutter 3.44 bundles a newer Dart), `flutter: ">=3.44.0"`, `resolution: workspace`. Versions checked on pub.dev 2026-09-26; Phase 2 (repository bootstrap) runs `flutter pub outdated` and pins in `pubspec.lock` (committed for the app).
+Environment for every package and the app: `sdk: ^3.9.0` (melos 8 / pub workspaces; Flutter 3.44 bundles a newer Dart), `flutter: ">=3.44.0"`, `resolution: workspace`. Versions checked on pub.dev 2026-09-26; Phase 2 (repository bootstrap) runs `flutter pub outdated` and pins in `pubspec.lock` (committed for the app). "Where" names the pubspec that declares the dependency: `core` = `taro_core`, `app` = `apps/taro` (the folder in brackets is the only app layer allowed to import it, §2.1), `attestation` = `taro_attestation`. Reconciled by 00_DECISIONS.md RC95.
 
 | Package | Constraint | Where | Purpose |
 |---|---|---|---|
 | `flutter_riverpod` | ^3.4.3 | app | DI + state (AR3) |
 | `go_router` | ^18.0.1 | app | navigation (AR4) |
-| `freezed_annotation` / `freezed` (dev) | ^3.1.0 / ^4.0.2 | core, data, app | immutable models, unions |
-| `json_annotation` / `json_serializable` (dev) | ^4.12.0 / ^6.14.1 | data | DTOs, backup schema |
-| `build_runner` (dev) | ^2.16.1 | core, data, app | codegen |
+| `freezed_annotation` / `freezed` (dev) | ^3.1.0 / ^4.0.2 | core, app | immutable models, unions |
+| `json_annotation` / `json_serializable` (dev) | ^4.12.0 / ^6.14.1 | app (`data/`) | DTOs, backup schema |
+| `build_runner` (dev) | ^2.16.1 | core, app | codegen |
 | `meta` · `collection` · `clock` | ^1.19.0 · ^1.19.1 · ^1.1.3 | core | annotations, equality, clock |
-| `crypto` | ^3.0.6 | core/data | checksums, request hashes |
-| `uuid` | ^4.6.0 | services | `SecureIdGenerator` behind the `IdGenerator` port (RC41) |
-| `drift` / `drift_dev` (dev) / `drift_flutter` | ^2.35.0 / ^2.35.0 / ^0.3.1 | data | database (AR7); sqlite bundled via `sqlite3` 3.x build hooks — do **not** add the EOL `sqlite3_flutter_libs` |
-| `flutter_secure_storage` | ^11.2.0 | data | identity/session |
-| `dio` | ^5.11.1 | data | Worker client |
-| `logging` | ^1.3.0 | services, app | `Logger` port adapter (RC41) |
-| `intl` | version pinned by `flutter_localizations` (^0.20.2) | l10n, app | formatting |
-| `flutter_localizations` | sdk | l10n, app | |
-| `firebase_core` · `firebase_analytics` · `firebase_crashlytics` | ^4.15.0 · ^12.6.0 · ^5.4.0 | services | analytics, crash (AR19) |
-| `google_mobile_ads` | ^9.1.0 | services | AdMob + UMP (AR11) |
-| `app_tracking_transparency` | ^2.0.7 | services | ATT |
-| `in_app_purchase` · `in_app_purchase_storekit` · `in_app_purchase_android` | ^3.3.1 · ^0.4.13 · ^0.5.3 | services | IAP, SK2, consume (AR10) |
-| `flutter_local_notifications` · `timezone` · `flutter_timezone` | ^22.3.1 · ^0.11.1 · ^5.1.0 | services | reminders, IANA tz |
-| `share_plus` · `file_picker` | ^13.3.0 · ^13.1.0 | services | backup export/import |
-| `package_info_plus` · `device_info_plus` · `connectivity_plus` | ^10.2.1 · ^13.2.0 · ^7.3.1 | services | app/device info, connectivity hint |
-| `in_app_review` | ^2.0.12 | services | review prompt |
+| `crypto` | ^3.0.6 | core, app (`data/`) | checksums, request hashes |
+| `uuid` | ^4.6.0 | app (`services/`) | `SecureIdGenerator` behind the `IdGenerator` port (RC41) |
+| `drift` / `drift_dev` (dev) / `drift_flutter` | ^2.35.0 / ^2.35.0 / ^0.3.1 | app (`data/`) | database (AR7); sqlite bundled via `sqlite3` 3.x build hooks — do **not** add the EOL `sqlite3_flutter_libs` |
+| `flutter_secure_storage` | ^11.2.0 | app (`data/`) | identity/session |
+| `dio` | ^5.11.1 | app (`data/`) | Worker client |
+| `logging` | ^1.3.0 | app (`services/`) | `Logger` port adapter (RC41) |
+| `intl` | version pinned by `flutter_localizations` (^0.20.2) | app | formatting |
+| `flutter_localizations` | sdk | app | |
+| `firebase_core` · `firebase_analytics` · `firebase_crashlytics` | ^4.15.0 · ^12.6.0 · ^5.4.0 | app (`services/`) | analytics, crash (AR19) |
+| `google_mobile_ads` | ^9.1.0 | app (`services/`) | AdMob + UMP (AR11) |
+| `app_tracking_transparency` | ^2.0.7 | app (`services/`) | ATT |
+| `in_app_purchase` · `in_app_purchase_storekit` · `in_app_purchase_android` | ^3.3.1 · ^0.4.13 · ^0.5.3 | app (`services/`) | IAP, SK2, consume (AR10) |
+| `flutter_local_notifications` · `timezone` · `flutter_timezone` | ^22.3.1 · ^0.11.1 · ^5.1.0 | app (`services/`) | reminders, IANA tz |
+| `share_plus` · `file_picker` | ^13.3.0 · ^13.1.0 | app (`services/`) | backup export/import |
+| `package_info_plus` · `device_info_plus` · `connectivity_plus` | ^10.2.1 · ^13.2.0 · ^7.3.1 | app (`services/`) | app/device info, connectivity hint |
+| `in_app_review` | ^2.0.12 | app (`services/`) | review prompt |
 | `plugin_platform_interface` | ^2.1.8 | attestation | own plugin |
 | `flutter_native_splash` (dev) | ^2.4.8 | app | splash |
 | `very_good_analysis` (dev) | ^11.0.0 | all | lints |
@@ -862,7 +885,7 @@ Adding a dependency requires: a port if it touches an external service, a line i
 
 ## 19. Coding rules (to be copied into `taro/CLAUDE.md`)
 
-1. **Layering is law.** Respect §2.1; `tools/check_architecture.dart` must pass. Features never import `taro_data`, `taro_services` or vendor SDKs.
+1. **Layering is law.** Respect §2.1; `tools/check_architecture.dart` must pass. Features never import `lib/data/`, `lib/services/` or vendor SDKs (RC95).
 2. **Every external service is a port** in `taro_core` with Prod + NoOp + Fake implementations and a shared contract test.
 3. **No throws across boundaries.** Repositories/use cases return `Result<T>`; `switch` on `Failure` exhaustively; no `catch (e) {}` without mapping + logging.
 4. **Sealed classes expose factories for every case** (`Failure.network()`, `ReadingStatus.completed()`); states are `@freezed sealed` unions.
@@ -871,7 +894,7 @@ Adding a dependency requires: a port if it touches an external service, a line i
 7. **Anything clock-dependent runs on launch AND resume** via `SyncCoordinator`, idempotently; ask "what re-runs this when the app has been open since yesterday?".
 8. **Purchases are finished/consumed only after the Worker grant** is persisted; the outbox row is written before verification.
 9. **IAP product ids are fully qualified** (`com.vshyrochuk.taro.readings_3|readings_10|readings_30|remove_ads`, RC3); `IapCatalog.validate()` enforces it. Credit amounts never live in the client.
-10. **All UI strings via ARB (`TaroLocalizations`)**, all 12 locales updated in the same change; content text via `taro_content` JSON. No string literals in widgets except debug-only.
+10. **All UI strings via ARB (`TaroLocalizations`)**, all 12 locales updated in the same change; content text via the generated JSON in `apps/taro/assets/deck/`. No string literals in widgets except debug-only.
 11. **Directional layout only** (`EdgeInsetsDirectional`, `AlignmentDirectional`, `TextAlign.start`); every new screen has LTR + RTL goldens, and every ★ screen also has tablet-width goldens (RC24).
 12. **Design tokens only** (names per 01 §14). No `Color(0x…)`, raw `Duration`, magic spacing or `TextStyle(fontSize:)` in UI code (`taro_ui` outside tokens/motion, `features/**/view/**`, `common/**`); non-UI durations (timeouts, backoff) come from named constants or config (RC90).
 13. **Accessibility:** Semantics labels on every interactive element and card; ≥ 48 × 48 targets; text scales to 200 % without clipping (golden at 2.0 textScaler for key screens); respect reduced motion.
@@ -881,27 +904,26 @@ Adding a dependency requires: a port if it touches an external service, a line i
 17. **Ads never overlay or sit inside reading content**, never interrupt a reading, never auto-show rewarded; banners only on `kBannerAllowList` with `space.adGap` ≥ 16 dp; UMP before ads, neutral pre-prompt then ATT after UMP (RC18, RC19, RC59).
 18. **No dark patterns:** no fake timers, countdowns only from server `free.resetsAt`, no pre-checked purchase options, close buttons always visible, disclaimers on reading screens.
 19. **Apple-facing text never mentions Android/Google** and vice versa (quiz_apps rule 11; 05 enforces in store metadata).
-20. **Coverage ≥ 90 % per package** (and for the `taro_attestation` native units, RC40); new code ships with tests in the same commit; `// coverage:ignore-*` pragmas are banned — only files in `tools/coverage_exclusions.txt` (06 §5.3) are excluded (RC16).
+20. **Coverage ≥ 90 % per coverage unit** (`taro_core`, `taro_ui`, `taro_attestation` and its native units (RC40), `apps/taro`, `worker`, `tools`; RC95); new code ships with tests in the same commit; `// coverage:ignore-*` pragmas are banned — only files in `tools/coverage_exclusions.txt` (06 §5.3) are excluded (RC16).
 21. **Conventional commits**, one phase per commit, authored by Volodymyr, no AI references (quiz_apps convention).
 22. **Canonical names only.** IDs, endpoints, error codes, tables, config keys and routes come from `docs/specs/GLOSSARY.md`; a new name is added there first.
 
 ---
 
-## Testing strategy (how every package reaches ≥ 90 %)
+## Testing strategy (how every coverage unit reaches ≥ 90 %)
 
-Reconciled by 00_DECISIONS.md RC13, RC16, RC24, RC38, RC40, RC75, RC76, RC77.
+Reconciled by 00_DECISIONS.md RC13, RC16, RC24, RC38, RC40, RC75, RC76, RC77, RC95. The coverage units are `taro_core`, `taro_ui`, `taro_attestation` (+ `taro_attestation_ios`, `taro_attestation_android`), `apps/taro`, `worker` and `tools` (06 §5); the app rows below are folders of the single `apps/taro` unit.
 
-| Package | Test types | Technique |
+| Package / folder | Test types | Technique |
 |---|---|---|
 | `taro_core` | unit, property | Pure Dart `dart test`; `CardDrawer` property tests with `SeededRandomSource`; `ReadingGate` table-driven over the RC44 order (trust × consent × online × `readings.enabled`/region × spread × `canRead`/`canReadReason`); `BackupMerge` matrix; `Result` combinators. Target ~100 %. |
-| `taro_content` | unit | Loads real asset JSON through a test `AssetBundle`; validates 78 cards × 12 locales, spread layouts within 0..1, no duplicate position keys. |
-| `taro_data` | unit, integration-in-process | drift `NativeDatabase.memory()` for DAOs/repositories; migration tests via `SchemaVerifier` for every version pair; `WorkerClient` against a fake `HttpClientAdapter` scripted per test (headers, retries with fake clock, 401 refresh single-flight, every 03 error code → `Failure` mapping (§3), 60 s timeout → polling); **contract tests** decode every fixture in `packages/taro_data/test/contract/fixtures/` (copied from `worker/test/contract/fixtures/` by `melos run contract:sync`, drift checked by `tools/check_contract_fixtures.py`) and encode requests that must equal the request fixtures (catches client/Worker drift); `InMemorySecureStore`. |
-| `taro_services` | unit | Adapters take SDK entry points by injection (e.g. `InAppPurchase` instance, `ConsentInformation` wrapper, `FlutterLocalNotificationsPlugin`, platform-interface fakes like `InAppPurchasePlatform`, `FirebaseAnalyticsPlatform`) so every branch (pending, restored, redelivered, consume failure, UMP required/obtained/error, ATT denied) is exercised without devices. Thin SDK-static wrappers (≤ 1 line calls) are the only candidates for the 06 exclusion list. |
+| `apps/taro` — `lib/data/` | unit, integration-in-process | drift `NativeDatabase.memory()` for DAOs/repositories; migration tests via `SchemaVerifier` for every version pair; `WorkerClient` against a fake `HttpClientAdapter` scripted per test (headers, retries with fake clock, 401 refresh single-flight, every 03 error code → `Failure` mapping (§3), 60 s timeout → polling); **contract tests** decode every fixture in `apps/taro/test/contract/fixtures/` (copied from `worker/test/contract/fixtures/` by `melos run contract:sync`, drift checked by `tools/check_contract_fixtures.py`) and encode requests that must equal the request fixtures (catches client/Worker drift); `InMemorySecureStore`; the port contract suites of `taro_core/test/contracts/` run against the real repositories; `data/content/` repositories load the real generated asset JSON through a test `AssetBundle` and validate 78 cards × 12 locales, spread layouts within 0..1, no duplicate position keys. |
+| `apps/taro` — `lib/services/` | unit | Adapters take SDK entry points by injection (e.g. `InAppPurchase` instance, `ConsentInformation` wrapper, `FlutterLocalNotificationsPlugin`, platform-interface fakes like `InAppPurchasePlatform`, `FirebaseAnalyticsPlatform`) so every branch (pending, restored, redelivered, consume failure, UMP required/obtained/error, ATT denied) is exercised without devices. Thin SDK-static wrappers (≤ 1 line calls) are the only candidates for the 06 exclusion list. |
 | `taro_attestation` | unit + native | Dart side via method-channel mock; Swift `XCTest` and Kotlin JUnit for native code, each gated at ≥ 90 % lines (`xccov` / JaCoCo) as the units `taro_attestation_ios` and `taro_attestation_android` in `check_coverage.py` (RC40). |
-| `taro_l10n` | unit | Every locale loads; `check_l10n.py` parity (06); plural smoke per locale. Generated code (`lib/src/generated/**`) excluded. |
-| `taro_ui` | widget, golden | `matchesGoldenFile` + `TaroGoldenComparator` goldens per component (06 QA8): light/dark × LTR(en)/RTL(ar) × textScaler 1.0/2.0 (key components); semantics tests (`meetsGuideline(androidTapTargetGuideline)`, `labeledTapTargetGuideline`, `textContrastGuideline`). |
-| `taro_testing` | unit (contract) | The same port contract suites (`runBalanceRepositoryContract`, `runIapServiceContract`, …) run against each fake — covers fakes and proves they behave like the real adapters. It stays Riverpod-free (RC77): fakes, contract suites, builders, the golden comparator and `pumpTaroWidget(tester, child, {locale, theme, textScale, size})` for package widgets. The Riverpod wiring (`TaroFakes` → `List<Override>`, `pumpTaro(...)`) lives in `apps/taro/test/helpers/pump_app.dart`. |
-| `apps/taro` | unit, widget, golden, integration | Controllers tested with `ProviderContainer` + fakes (no widgets); router guards as pure functions; screen widget tests for every state of every `XxxState` union; goldens for every ★ state of 01 §8.3 (S05 Home, S06, S07, S08, S09, S10, S11, S13, S14, S16, S17, S20, S25, S27, S30, S32, S33, …) light/dark × LTR/RTL, plus phone and tablet widths (iPad 13", Android tablet) for ★ screens (RC24); **patrol** integration tests against a local `wrangler dev` Worker with the fake AI provider: onboarding → consent → free reading (hold → draw → reading → ack) → S10 → sandbox-free fake purchase → back to S07 → reading; AI consent declined → Classic reading; resume-after-midnight with `FakeClock`; backup export → import merge; offline mode; OS-restore simulation (journal DB present, device DB and secure storage empty). `bootstrap/` covered by `test/bootstrap/bootstrap_test.dart` with `FakeTaroEnvironment` (RC76). |
+| `apps/taro` — `lib/l10n/` | unit | Every locale loads; `check_l10n.py` parity (06); plural smoke per locale. Generated code (`apps/taro/lib/l10n/generated/**`) excluded. |
+| `taro_ui` | widget, golden | `matchesGoldenFile` + `TaroGoldenComparator` (`taro_ui/test/helpers/golden/`) goldens per component (06 QA8): light/dark × LTR(en)/RTL(ar) × textScaler 1.0/2.0 (key components); semantics tests (components receive localised strings as parameters, so tests pass literal strings; `meetsGuideline(androidTapTargetGuideline)`, `labeledTapTargetGuideline`, `textContrastGuideline`). |
+| `taro_core` fakes (`test/fakes/`, `test/contracts/`) | unit (contract) | The same port contract suites (`runBalanceRepositoryContract`, `runIapServiceContract`, …) run against each fake — proves the fakes behave like the real adapters. Fakes stay Riverpod-free (RC77). Test code is outside the coverage gate (06 §5.3); the suites' value is the contract, not a number. Replaces the former `taro_testing` package (RC95). |
+| `apps/taro` — features, app state, routing, bootstrap | unit, widget, golden, integration | Test helpers in `apps/taro/test/helpers/`: `pump_app.dart` (`TaroFakes` → `List<Override>`, `pumpTaro(...)`) and `pump_taro_widget.dart` (`pumpTaroWidget(tester, child, {locale, theme, textScale, size})`), both built on the `taro_core` fakes (RC77, RC95). Controllers tested with `ProviderContainer` + fakes (no widgets); router guards as pure functions; screen widget tests for every state of every `XxxState` union; goldens for every ★ state of 01 §8.3 (S05 Home, S06, S07, S08, S09, S10, S11, S13, S14, S16, S17, S20, S25, S27, S30, S32, S33, …) light/dark × LTR/RTL, plus phone and tablet widths (iPad 13", Android tablet) for ★ screens (RC24); **patrol** integration tests against a local `wrangler dev` Worker with the fake AI provider: onboarding → consent → free reading (hold → draw → reading → ack) → S10 → sandbox-free fake purchase → back to S07 → reading; AI consent declined → Classic reading; resume-after-midnight with `FakeClock`; backup export → import merge; offline mode; OS-restore simulation (journal DB present, device DB and secure storage empty). `bootstrap/` covered by `test/bootstrap/bootstrap_test.dart` with `FakeTaroEnvironment` (RC76). |
 
 Rules: every bug fix starts with a failing test; goldens are rendered with bundled test fonts and generated/compared only on the macOS CI runner with the pinned Flutter version (06 QA8); seeded randomness and `FakeClock` make the reading and countdown goldens deterministic. Coverage aggregation, exclusion list and the CI gate are specified in `06_QUALITY_TESTING_CI.md`.
 
@@ -937,10 +959,10 @@ Rules: every bug fix starts with a failing test; goldens are rendered with bundl
 
 ## Cross-spec assumptions (other specs must honour or explicitly override)
 
-Reconciled by 00_DECISIONS.md RC1–RC93 (names per GLOSSARY.md).
+Reconciled by 00_DECISIONS.md RC1–RC95 (names per GLOSSARY.md).
 
 - **03_BACKEND_WORKER:** the canonical endpoint set of RC4 as listed in §6.3 (`POST /v1/attest/challenge`, `POST /v1/installs`, `POST /v1/installs/token`, `PUT /v1/installs/me/timezone`, `DELETE /v1/installs/me`, `GET /v1/config`, `GET /v1/balance`, `POST /v1/readings/holds`, `POST /v1/readings`, `GET /v1/readings/{clientReadingId}`, `POST /v1/readings/{clientReadingId}/ack`, `POST /v1/readings/{clientReadingId}/report`, `POST /v1/purchases/verify` with a `platform` discriminator, `POST /v1/rewards/intents`, `GET /v1/rewards/intents/{intentId}`, `POST /v1/rewards/intents/{intentId}/cancel`); [attest] only on `POST /v1/installs/token`, `POST /v1/readings/holds`, `POST /v1/readings`, `POST /v1/rewards/intents` (RC11); `Idempotency-Key == clientReadingId` for the hold and the reading, only terminal outcomes replayed (RC42, RC49); UPPER_SNAKE error envelope and codes of 03 §2.2 including `412 AI_CONSENT_REQUIRED` and `403 AI_UNAVAILABLE_REGION`, declines as `200 status: declined` (RC5, RC28, RC29); `BalanceDto` with `ledgerVersion` (= `installs.state_version`), `free.paused`, `rewarded.cooldownEndsAt`, `canReadReason`, `purchasesAllowed` / `purchasesBlockedReason` (RC6, RC64, RC66, RC67, RC74); the reading wire schema `title/overview/cards[]/synthesis/reflectionPrompts` with no disclaimer (RC30); `purchaseBinding` in the registration response (RC9, RC85); `intentId` as SSV `customData` and `userId` (RC56); config key names of RC8 (§9.4); the canonical `CrisisResource` (RC81); contract fixtures in `worker/test/contract/fixtures/` (RC38); `Date` header on all responses; debug attestation only in dev/staging deploy envs (RC86). Card IDs `major_00`…`major_21`, `{suit}_01`…`_14` and spread IDs of 01 §10.3 on the wire (RC1, RC2).
 - **04_MONETIZATION:** owns the catalogue (`com.vshyrochuk.taro.readings_3`, `.readings_10`, `.readings_30`, `.remove_ads`; credits only in the Worker catalogue, RC3), `kBannerAllowList = {home, journal_list, learn_library}` (RC18), rewarded rules (entry points S10 and S11, offered only when `free.remaining == 0`, RC34), and the monetization Notifiers (`StoreController`, `OutOfReadingsController`) placed per this spec's package list (RC13, RC15). Accepts that consumable credits are bound to the install (Worker ledger) and not restorable across devices/Android reinstalls; drift `purchase_outbox` and `entitlements` are the only local stores for purchases (RC14).
-- **05_COMPLIANCE_STORE_ASO:** supplies onboarding disclaimer, age statement (Apple 13+, Play target audience 16+, RC23, RC93), AI consent text + `ai.consentVersion`, the neutral ATT pre-prompt copy (RC19), the Classic-reading copy (RC20), the report-sheet disclosure (RC22), privacy/terms URLs, and AASA/assetlinks hosting on `taro.vshyrochuk.com` (RC92). Crisis resources come from one source, `packages/taro_content/source/crisis/crisis_resources.yaml` (RC25).
-- **06_QUALITY_TESTING_CI:** implements the per-package coverage gate honouring the package list in §2 (including `taro_testing` and the `taro_attestation` Dart and native units, RC40), the exclusion list (`*.g.dart`, `*.freezed.dart`, `**/lib/src/generated/**`, `firebase_options_*.dart`, `apps/taro/lib/main_*.dart`; pragmas banned, RC16), goldens with `matchesGoldenFile` + `TaroGoldenComparator` including tablet widths for ★ screens (RC13, RC24), patrol integration tests, the contract-fixture sync (RC38), and runs `check_architecture.dart`, `check_l10n.py`, `tools/content validate` and goldens in CI.
+- **05_COMPLIANCE_STORE_ASO:** supplies onboarding disclaimer, age statement (Apple 13+, Play target audience 16+, RC23, RC93), AI consent text + `ai.consentVersion`, the neutral ATT pre-prompt copy (RC19), the Classic-reading copy (RC20), the report-sheet disclosure (RC22), privacy/terms URLs, and AASA/assetlinks hosting on `taro.vshyrochuk.com` (RC92). Crisis resources come from one source, `apps/taro/content/source/crisis/crisis_resources.yaml` (RC25, RC95).
+- **06_QUALITY_TESTING_CI:** implements the per-unit coverage gate honouring the package list in §2 (`taro_core`, `taro_ui`, `taro_attestation` with its native units (RC40), `apps/taro`; RC95), the exclusion list (`*.g.dart`, `*.freezed.dart`, `packages/taro_ui/lib/src/tokens/generated/**`, `apps/taro/lib/l10n/generated/**`, `firebase_options_*.dart`, `apps/taro/lib/main_*.dart`; pragmas banned, RC16), goldens with `matchesGoldenFile` + `TaroGoldenComparator` including tablet widths for ★ screens (RC13, RC24), patrol integration tests, the contract-fixture sync (RC38), and runs `check_architecture.dart`, `check_l10n.py`, `tools/content validate` and goldens in CI.
 - **01_PRODUCT:** owns screen IDs, routes and the 4-tab set (§8.1), card, spread and position IDs (RC1, RC2), the local data model (`Reading` with notes, `DailyCard`; RC17), token names (RC15), the backup format (RC17, RC70) and the content pipeline (RC26); features stay folders under `apps/taro/lib/features/`.

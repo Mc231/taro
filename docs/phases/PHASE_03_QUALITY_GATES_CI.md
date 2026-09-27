@@ -28,18 +28,18 @@ From the end of this phase on, every later phase is blocked by `tools/verify.sh`
 
 ## Specs referenced
 
-`06_QUALITY_TESTING_CI.md` QA1–QA16, §1, §3, §5, §6, §8, §9, §10, §11. `02_ARCHITECTURE.md` AR2 (`check_architecture.dart`), §11 (`check_arb.dart`). `05_COMPLIANCE_STORE_ASO.md` CS3, §9.5, §Testing strategy (`check_store_copy.py`, `check_urls.py`, `check_pack_sizes.py`). `00_DECISIONS.md` RC16, RC39, RC40.
+`06_QUALITY_TESTING_CI.md` QA1–QA16, §1, §3, §5, §6, §8, §9, §10, §11. `02_ARCHITECTURE.md` AR2 (`check_architecture.dart`), §11 (`check_arb.dart`). `05_COMPLIANCE_STORE_ASO.md` CS3, §9.5, §Testing strategy (`check_store_copy.py`, `check_urls.py`, `check_pack_sizes.py`). `00_DECISIONS.md` RC16, RC39, RC40, RC95.
 
 ---
 
-## Sprint 3.1: Coverage pipeline (QA1–QA4, RC16, RC40)
+## Sprint 3.1: Coverage pipeline (QA1–QA4, RC16, RC40, RC95)
 
 **Tasks:**
-- [ ] `tools/coverage_exclusions.txt`: exactly 06 §5.3 plus the RC16 additions (`*.freezed.dart`, `firebase_options_*.dart`, `**/lib/src/generated/**`, `apps/taro/lib/main_*.dart`), with a comment line per pattern explaining the reason.
+- [ ] `tools/coverage_exclusions.txt`: exactly 06 §5.3 plus the RC16 additions (`*.freezed.dart`, `firebase_options_*.dart`, `apps/taro/lib/l10n/generated/**` (gen-l10n output, RC95), `apps/taro/lib/main_*.dart`), with a comment line per pattern explaining the reason.
 - [ ] `tools/dart_tools/bin/gen_coverage_all.dart`: writes `test/coverage_all_test.dart` importing every non-excluded `lib/**.dart` (QA4). Test it on `tools/dart_tools/test/fixtures/sample_pkg/`.
 - [ ] Melos `test:coverage` script. For each unit: generate the coverage-all file → `flutter test --coverage --exclude-tags=integration` → `lcov --remove … -o coverage/lcov.filtered.info`.
 - [ ] `tools/check_coverage.py` must:
-  - discover units (packages, `apps/taro`, `worker`, `tools`, `taro_attestation_ios`, `taro_attestation_android`);
+  - discover units (`taro_core`, `taro_ui`, `taro_attestation`, `taro_attestation_ios`, `taro_attestation_android`, `apps/taro`, `worker`, `tools`; RC95);
   - fail on: a missing report, a missing file, unit < 90.0, file < 70.0, pragmas (`coverage:ignore-*`, `istanbul ignore`, `c8 ignore`, `pragma: no cover`), or Sonar exclusion drift (`--verify-sonar`);
   - write `coverage/merged/lcov.info` and `coverage/summary.md`;
   - support the flags `--unit`, `--json`, `--threshold` (test-only).
@@ -58,9 +58,9 @@ From the end of this phase on, every later phase is blocked by `tools/verify.sh`
 Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/tests/fixtures/<check>/{pass,fail_*}/` fixture trees.
 
 **Tasks:**
-- [ ] `tools/check_architecture.dart` (in `tools/dart_tools`). It enforces the 02 §2.1 package table and the `apps/taro/lib` folder table, bans cross-package `lib/src` imports, and flags non-directional layout APIs (02 §11). Test it on fixture packages.
+- [ ] `tools/check_architecture.dart` (in `tools/dart_tools`): the import-graph check. It enforces the 02 §2.1 package table (3 packages + app) and the `apps/taro/lib` folder table (`features/` ↛ `data/`, `services/`; `data/` ↛ `features/`, `services/`; `services/` ↛ `data/`; `l10n/` ↛ any folder; …), bans cross-package `lib/src` imports, allows `apps/taro/test/**` to import `packages/taro_core/test/{fakes,contracts}/**` and `packages/taro_ui/test/helpers/**` only, and flags non-directional layout APIs (02 §11). Test it on fixture trees. Reconciled by 00_DECISIONS.md RC95 (the folder rules replace the former package rules).
 - [ ] `tools/import_rules.yaml`: the SDK-import allowlist per adapter directory (RC/QA9). It is generated from the 02 §5 port table and consumed by `check_forbidden_apis.py`.
-- [ ] `tools/check_forbidden_apis.py`: bans `DateTime.now(`, `Random(`, `Random.secure(`, `Uuid().v4(`, `print(`, `debugPrint(`, SDK imports outside the allowlist, non-directional APIs, and `taro_testing` imported from `lib/`. Raw `Color(0x`, `fontSize:` and `Duration(milliseconds:` are banned **only in UI code**: `packages/taro_ui/lib/**` (except `src/tokens/**` and `src/motion/**`), `apps/taro/lib/features/**/view/**` and `apps/taro/lib/common/**` (06 §6.2, RC90). Fixtures cover both scopes (a flagged widget file; an unflagged `taro_data` retry backoff using `ApiTimeouts`).
+- [ ] `tools/check_forbidden_apis.py`: bans `DateTime.now(`, `Random(`, `Random.secure(`, `Uuid().v4(`, `print(`, `debugPrint(`, SDK imports outside the allowlist, non-directional APIs, and test support (`test/fakes/`, `test/contracts/`, `test/helpers/`) imported from `lib/`. Raw `Color(0x`, `fontSize:` and `Duration(milliseconds:` are banned **only in UI code**: `packages/taro_ui/lib/**` (except `src/tokens/**` and `src/motion/**`), `apps/taro/lib/features/**/view/**` and `apps/taro/lib/common/**` (06 §6.2, RC90). Fixtures cover both scopes (a flagged widget file; an unflagged `apps/taro/lib/data/` retry backoff using `ApiTimeouts`).
 - [ ] `tools/check_l10n.py`: ARB key/placeholder/ICU parity across the 12 locales, `@key.description` required, untranslated allowlist, the user-facing literal heuristic, deck content completeness (once Phase 5 lands), and store field limits. `tools/dart_tools/bin/check_arb.dart` (02 §11) is folded into this script. Record the choice in `docs/ARCHITECTURE.md`.
 - [ ] `tools/check_iap_ids.py`: regex `^com\.vshyrochuk\.taro\.[a-z0-9_]+$`, and sets equal across `packages/taro_core/lib/src/monetization/taro_products.dart`, `worker/src/monetization/catalog.ts` and `apps/taro/store/aso.yaml`. Remove Ads must be the only non-consumable (RC3).
 - [ ] `tools/store_copy/check_store_copy.py` + `tools/store_copy/banned_phrases.yaml` (per-locale `global`/`apple_only`/`play_only`, seed list from 05 §9.5 and 06 §6.2, RC39) + `tools/store_copy/required_sentences.yaml`. Rules: banned phrases, the `description_has_disclaimer` rule, `apple_fields_no_android`, keyword rules, field limits, review notes ≤ 4000.
@@ -84,11 +84,11 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 ## Sprint 3.3: Golden & widget harness (QA8)
 
 **Tasks:**
-- [ ] `packages/taro_testing/lib/src/golden/taro_golden_comparator.dart` (0.1% tolerance), `load_taro_test_fonts.dart` (bundled Noto Sans, Noto Sans Arabic, Noto Sans JP, Noto Sans KR under `taro_testing/fonts/`), and `golden_matrix.dart` (`{light,dark} × {en,ar}` + optional `ja`, `de`, `textScale 2.0`; sizes per the next task).
-- [ ] `taro_testing` sizes `kPhoneSmall` 375×667, `kPhoneLarge` 430×932, `kTabletIpad13` 1032×1376, `kTabletAndroid` 800×1280; `goldenMatrix` emits phone variants for every golden and tablet variants (en light, ar dark) for ★ screens (06 §3, RC24; universal apps, owner 2026-09-27).
-- [ ] `packages/taro_testing/lib/src/harness/pump_taro_widget.dart`: `pumpTaroWidget(tester, child, {Locale, ThemeMode, textScale, Size})` for package widgets. It is **Riverpod-free** (02 §2.1, RC77); the app-level `pumpTaro` with `TaroFakes` overrides lands in `apps/taro/test/helpers/pump_app.dart` in Phase 13.1.
+- [ ] `packages/taro_ui/test/helpers/golden/taro_golden_comparator.dart` (0.1% tolerance), `load_taro_test_fonts.dart` (bundled Noto Sans, Noto Sans Arabic, Noto Sans JP, Noto Sans KR under `packages/taro_ui/test/helpers/golden/fonts/`), and `golden_matrix.dart` (`{light,dark} × {en,ar}` + optional `ja`, `de`, `textScale 2.0`; sizes per the next task).
+- [ ] `packages/taro_ui/test/helpers/golden/golden_sizes.dart`: sizes `kPhoneSmall` 375×667, `kPhoneLarge` 430×932, `kTabletIpad13` 1032×1376, `kTabletAndroid` 800×1280; `goldenMatrix` emits phone variants for every golden and tablet variants (en light, ar dark) for ★ screens (06 §3, RC24; universal apps, owner 2026-09-27).
+- [ ] `apps/taro/test/helpers/pump_taro_widget.dart`: `pumpTaroWidget(tester, child, {Locale, ThemeMode, textScale, Size})` for widgets without providers (it wraps them in `TaroLocalizations` and the token theme; `taro_ui` component tests use their own `MaterialApp` + `TaroTheme` wrapper in `taro_ui/test/helpers/`, since a package cannot import the app, RC95). It is **Riverpod-free** (02 §2.1, RC77); the app-level `pumpTaro` with `TaroFakes` overrides lands in `apps/taro/test/helpers/pump_app.dart` in Phase 13.1.
 - [ ] `melos run golden:update` refuses to run off the reference platform unless given `--force-local`.
-- [ ] A sample golden test in `taro_testing/test/golden/sample_golden_test.dart`, to prove the pipeline works on the runner; it covers one phone and one tablet size (`kTabletIpad13`, RC24).
+- [ ] A sample golden test in `packages/taro_ui/test/golden/sample_golden_test.dart`, to prove the pipeline works on the runner; it covers one phone and one tablet size (`kTabletIpad13`, RC24).
 
 ---
 
@@ -120,6 +120,11 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 - [ ] `docs/TESTING.md`: the harness, fakes, builders, goldens, contract suites and determinism rules (06 §13).
 
 ---
+
+## Carried over from Phase 2
+
+- [ ] Run the RC91 FTS5 probe (`apps/taro/test/data/db/fts5_probe_test.dart`) on the CI runner image and record the SQLite version in `docs/ARCHITECTURE.md` §Dependencies and build notes.
+- [ ] Fill the placeholder melos scripts `check`, `contract:sync`, `hooks:install`, `coverage:check`, `test:integration`.
 
 ## Done when
 

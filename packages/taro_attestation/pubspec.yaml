@@ -1,0 +1,30 @@
+name: taro_attestation
+description: Taro device attestation plugin - App Attest / DeviceCheck (iOS) and Play Integrity Standard API (Android).
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.44.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.5
+  very_good_analysis: ^10.3.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.vshyrochuk.taro_attestation
+        pluginClass: TaroAttestationPlugin
+      ios:
+        pluginClass: TaroAttestationPlugin

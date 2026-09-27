@@ -14,18 +14,18 @@ Status legend: ⬜ Not started · 🚧 In progress · ✅ Completed · ⏸️ Bl
 
 | Phase | Title | Status | Depends on | Output |
 |---|---|---|---|---|
-| [1](./PHASE_01_SPEC_RECONCILIATION.md) | Spec Reconciliation & Owner Decisions | ✅ (2026-09-27; owner-open: Play account type, support mailbox) | — | `00_DECISIONS.md` (RC1–RC94; RC49–RC93 are the review-pass decisions, RC94 the glossary-defined names), `GLOSSARY.md`, specs 01–06 at v1.1 with no conflicts, owner answers on model, host, prices, territories |
-| [2](./PHASE_02_REPO_BOOTSTRAP.md) | Repository Bootstrap & Toolchain | ⬜ | 1 | melos 8 workspace, 8 package skeletons, app with 3 flavors, `worker/` + `tools/` skeletons, README, CLAUDE.md, CHANGELOGs, drift/sqlite spike |
+| [1](./PHASE_01_SPEC_RECONCILIATION.md) | Spec Reconciliation & Owner Decisions | ✅ (2026-09-27; owner-open: Play account type, support mailbox) | — | `00_DECISIONS.md` (RC1–RC94; RC49–RC93 are the review-pass decisions, RC94 the glossary-defined names; RC95 was added after Phase 1), `GLOSSARY.md`, specs 01–06 at v1.1 with no conflicts, owner answers on model, host, prices, territories |
+| [2](./PHASE_02_REPO_BOOTSTRAP.md) | Repository Bootstrap & Toolchain | ✅ | 1 | melos 8 workspace, 3 package skeletons + app folders (RC95), app with 3 flavors, `worker/` + `tools/` skeletons, README, CLAUDE.md, CHANGELOGs, drift/sqlite spike |
 | [3](./PHASE_03_QUALITY_GATES_CI.md) | Quality Gates & CI | ⬜ | 2 | `check_coverage.py` (90% per unit, 70% per file, no pragmas, native units), all `tools/check_*.py`, golden harness, Gitea workflows, Sonar, hooks, `verify.sh`, `bump_version.sh` |
-| [4](./PHASE_04_CORE_DOMAIN.md) | Core Domain, Ports & Test Kit | ⬜ | 3 | `taro_core` (Result/Failure, models, ports, CardDrawer, ReadingGate, BackupMerge, BannerPolicy, analytics events), `taro_testing` (fakes, contract suites, builders, harness) |
-| [5](./PHASE_05_CONTENT_PIPELINE.md) | Deck Content Pipeline (EN) | ⬜ | 4 | Style guide, glossary, 78 EN cards, 6 spreads, articles, crisis YAML, `tools/content` (validate, build, translate, sync_check), `taro_content` repos, placeholder art, Worker feeds |
+| [4](./PHASE_04_CORE_DOMAIN.md) | Core Domain, Ports & Test Kit | ⬜ | 3 | `taro_core` (Result/Failure, models, ports, CardDrawer, ReadingGate, BackupMerge, BannerPolicy, analytics events), test kit in `taro_core/test/fakes/` + `test/contracts/` (fakes, contract suites, builders; RC95) |
+| [5](./PHASE_05_CONTENT_PIPELINE.md) | Deck Content Pipeline (EN) | ⬜ | 4 | Style guide, glossary, 78 EN cards, 6 spreads, articles, crisis YAML, `tools/content` (validate, build, translate, sync_check), content repos in `apps/taro/lib/data/content/`, placeholder art, Worker feeds |
 | [6](./PHASE_06_WORKER_FOUNDATION.md) | Worker Foundation: Identity, Attestation, Config | ⬜ | 3, 1 | **Sprint 6.0: Cloudflare, Anthropic workspaces, Worker secrets (moved from 10.1, RC83)**; Hono app + Deps, middleware, D1 migration 0001, config, challenge/installs/token/timezone/erasure/balance routes, install secret + device key, OpenAPI + contract fixtures, staging deploy |
 | [7](./PHASE_07_WORKER_CREDITS_PURCHASES_REWARDS.md) | Worker Credits, Purchases & Rewarded Ads | ⬜ | 6 | Ledger hold/refund with CAS (no balance cache), device-scoped free allowance, `PRODUCT_CATALOG`, purchase verify (Apple and Google) with sandbox caps, webhooks, refunds, SSV rewarded with intent cancel, support transfer script, crons |
 | [8](./PHASE_08_WORKER_AI_READINGS_SAFETY.md) | Worker AI Readings, Safety & Evals | ⬜ | 7, 5 | Prompt v1, Anthropic adapter, pre-draw hold, reading pipeline + state machine, delivery ack, stale-hold/undelivered crons, L1–L3 safety, crisis selection, budget tiers, alerts, report endpoint, retention, eval and safety suites + first report |
 | [9](./PHASE_09_ASA_GAPS.md) | `asa` CLI Gap Fixes | ⬜ | 1 | ASA-1 to ASA-7, ASA-9 and ASA-10 in `app-store-automation` (Lifestyle, capabilities, age rating incl. advertising, localized IAPs and listings, `asa validate`, custom web pages, `.well-known` files, territories) |
 | [10](./PHASE_10_ACCOUNTS_STORE_SETUP.md) | Accounts, Store Registration, AdMob, Firebase & Signing | ⬜ | 1, 9 (for 10.3), 6.5 (webhook/SSV URLs only) | Firebase/ASC/Play/AdMob set up, store-issued Worker secrets, IAP products, SSV/webhook URLs, `prodStaging` build, signing, fastlane, deploy workflows, first TestFlight + internal AAB |
-| [11](./PHASE_11_CLIENT_DATA_LAYER.md) | Client Data Layer & Worker Client | ⬜ | 4, 6 | `taro_data`: drift DB, secure store, WorkerClient + interceptors, repositories, purchase outbox, backup codec; contract tests |
-| [12](./PHASE_12_PLATFORM_SERVICES.md) | Platform Services, IAP, Ads, Consent & Attestation | ⬜ | 4 (Sprint 12.6 device checks: 10, tracked as a separate exit criterion) | `taro_services` adapters, `PurchaseCoordinator`, `RemoveAdsEntitlement`, `ConsentOrchestrator`, `RewardedController`, analytics consent defaults, `taro_attestation` plugin (Swift + Kotlin, Standard Play Integrity only) |
+| [11](./PHASE_11_CLIENT_DATA_LAYER.md) | Client Data Layer & Worker Client | ⬜ | 4, 6 | `apps/taro/lib/data/`: drift DB, secure store, WorkerClient + interceptors, repositories, purchase outbox, backup codec; contract tests |
+| [12](./PHASE_12_PLATFORM_SERVICES.md) | Platform Services, IAP, Ads, Consent & Attestation | ⬜ | 4 (Sprint 12.6 device checks: 10, tracked as a separate exit criterion) | `apps/taro/lib/services/` adapters, `PurchaseCoordinator`, `RemoveAdsEntitlement`, `ConsentOrchestrator`, `RewardedController`, analytics consent defaults, `taro_attestation` plugin (Swift + Kotlin, Standard Play Integrity only) |
 | [13](./PHASE_13_APP_SHELL_FLOWS.md) | App Shell, State Machines & Flows (skeleton UI) | ⬜ | 5, 11, 12 (12.1–12.5) | `bootstrap(TaroEnvironment)`, DI, router, SyncCoordinator, a controller per screen for all 01 §8.3 states (S01–S33), EN ARB, `STATE_INVENTORY.md`, patrol flows F1–F8 green |
 | [14](./PHASE_14_CLAUDE_DESIGN_HANDOFF.md) | Claude Design Handoff | ✅ (2026-09-27, run early; REVIEW sign-off pending) | 1 (done ahead of 13.4; Phase 13.4 state inventory reconciles against it) | `docs/design/`: BRIEF, `taro.tokens.json`, screens S01–S33 per ★ state, assets (card back, icon, illustrations), signed REVIEW |
 | [15](./PHASE_15_DESIGN_SYSTEM.md) | Design System Implementation | ⬜ | 14 | Token generator, `TaroTokens` ThemeExtension, themes, motion, fonts, full `taro_ui` component set + goldens |
@@ -89,7 +89,8 @@ flowchart LR
 |---|---|
 | Specs | `docs/specs/` (`00_DECISIONS.md`, `GLOSSARY.md`, `01`–`06`) |
 | App | `apps/taro` (flavors `dev`, `staging`, `prod`; `config/<flavor>.json`) |
-| Packages | `packages/{taro_core,taro_content,taro_data,taro_services,taro_attestation,taro_l10n,taro_ui,taro_testing}` |
+| Packages | `packages/{taro_core,taro_ui,taro_attestation}` (RC95) |
+| App layers | `apps/taro/lib/{data,services,l10n,features,…}`, `apps/taro/assets/deck/`, `apps/taro/content/source/`, `apps/taro/test/helpers/` (RC95) |
 | Worker | `worker/` (`wrangler.toml`, `migrations/`, `prompts/`, `safety/`, `evals/`, `test/contract/fixtures/`) |
 | Tools | `tools/` (Python checks, `tools/dart_tools`, `tools/content`, `tools/tokens`, `tools/store_copy`) |
 | Design drop | `docs/design/` (`taro.tokens.json`, `screens/`, `assets/`, `STATE_INVENTORY.md`) |
@@ -144,8 +145,8 @@ Every locked decision in every spec maps to at least one phase and sprint below.
 
 | ID | Requirement | Phase.Sprint |
 |---|---|---|
-| AR1 | Pub workspace + melos 8, layered packages | 2.1 |
-| AR2 | Features as folders; `check_architecture.dart` | 3.2, 13 |
+| AR1 | Pub workspace + melos 8; 3 packages + app (RC95) | 2.1 |
+| AR2 | Features and layers as app folders; `check_architecture.dart` import-graph check (RC95) | 3.2, 11, 12, 13 |
 | AR3 | Riverpod 3 as DI + state; no auto-retry | 13.1, 13.2 |
 | AR4 | go_router, tab shell, guards, allowlisted deep links | 13.3 |
 | AR5 | `Result` + sealed `Failure` | 4.1 |
@@ -314,3 +315,9 @@ Every locked decision in every spec maps to at least one phase and sprint below.
 ### Cross-spec conflict resolutions (RC)
 
 RC1–RC48 (cross-spec conflicts) and RC49–RC93 (review-pass decisions, already applied to the specs) are defined in Phase 1 Sprint 1.1. Each later phase lists in "Specs referenced" the RCs it depends on.
+
+RC95 (owner, 2026-09-27; defined in `specs/00_DECISIONS.md`, after Phase 1): the client is 3 packages (`taro_core`, `taro_ui`, `taro_attestation`) + the app; the former data, services, content, l10n and test-kit packages are app folders (`lib/data/`, `lib/services/`, `assets/deck/` + `content/source/`, `lib/l10n/`, `test/helpers/`) plus `taro_core/test/fakes/`, and the layering is enforced by the `check_architecture.dart` import-graph check.
+
+| RC | Topic | Phases |
+|---|---|---|
+| RC95 | Package consolidation (3 packages + app, folder layering, coverage units) | 2.1, 3.1, 3.2, 3.3, 4.5, 5, 11, 12, 13, 18, 23 |

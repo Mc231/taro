@@ -1,0 +1,13 @@
+name: taro_dart_tools
+description: Dart repo tooling (coverage_all generator; more in Phase 3).
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+resolution: workspace
+
+dev_dependencies:
+  test: ^1.31.0
+  very_good_analysis: ^10.3.0

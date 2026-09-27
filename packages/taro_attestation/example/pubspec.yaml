@@ -1,0 +1,22 @@
+name: taro_attestation_example
+description: Host app for the taro_attestation plugin's native tests (XCTest / JUnit) and integration test.
+version: 0.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+  flutter: ">=3.44.0"
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+  taro_attestation: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  very_good_analysis: ^10.3.0

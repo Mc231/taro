@@ -1,0 +1,127 @@
+name: taro_workspace
+description: Taro monorepo workspace root (pub workspace + melos 8).
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+  # QA14 pin: the toolchain every contributor and the CI runner uses.
+  flutter: 3.44.8
+
+workspace:
+  - apps/taro
+  - packages/taro_attestation
+  - packages/taro_attestation/example
+  - packages/taro_core
+  - packages/taro_ui
+  - tools/dart_tools
+
+dev_dependencies:
+  melos: ^8.9.0
+  very_good_analysis: ^10.3.0
+
+# Flutter 3.44.8 pins test_api 0.7.11, so `test` (taro_core, dart_tools)
+# caps analyzer below 13 and drift_dev at 2.34.0, which declares
+# cli_util ^0.4 while melos 8 needs cli_util >= 0.5. drift_dev only uses
+# cli_util's Ansi/Logger (unchanged in 0.5; drift_dev 2.34.1 widened its
+# constraint to <0.6). Remove when Flutter ships Dart 3.13 and drift_dev
+# 2.35 resolves. See docs/phase2_notes/FLUTTER_NOTES.md.
+dependency_overrides:
+  cli_util: ^0.5.0
+
+melos:
+  repository: https://github.com/Mc231/taro
+
+  command:
+    bootstrap:
+      hooks:
+        # gen-l10n output is not committed (02 §11); produce it right after
+        # `pub get` so analyze/test work on a fresh checkout.
+        post: melos run gen:l10n
+
+  scripts:
+    gen:
+      description: Run every code generator (gen-l10n; build_runner arrives with the first annotated model).
+      run: melos run gen:l10n
+
+    gen:l10n:
+      description: Generate TaroLocalizations from the ARB files.
+      exec:
+        command: flutter gen-l10n
+        concurrency: 1
+      packageFilters:
+        scope: taro
+
+    analyze:
+      description: Static analysis with fatal infos (06 §6.1).
+      exec:
+        command: flutter analyze --fatal-infos --no-pub
+        concurrency: 1
+
+    format:check:
+      description: Fail when any Dart file is not formatted (06 §6.1).
+      exec:
+        command: dart format --output=none --set-exit-if-changed .
+        concurrency: 1
+
+    test:
+      description: Run the unit and widget tests of every package that has a test/ folder.
+      exec:
+        command: flutter test --no-pub
+        concurrency: 1
+        failFast: true
+      packageFilters:
+        dirExists: test
+
+    test:fast:
+      description: Unit tests only (placeholder until Phase 3 splits tags).
+      exec:
+        command: flutter test --no-pub --exclude-tags golden
+        concurrency: 1
+        failFast: true
+      packageFilters:
+        dirExists: test
+
+    test:coverage:
+      description: Tests with lcov coverage per package (gate lands in Phase 3).
+      exec:
+        command: flutter test --no-pub --coverage
+        concurrency: 1
+        failFast: true
+      packageFilters:
+        dirExists: test
+
+    test:golden:
+      description: Golden tests only (placeholder until Phase 3).
+      exec:
+        command: flutter test --no-pub --tags golden
+        concurrency: 1
+      packageFilters:
+        dirExists: test
+
+    golden:update:
+      description: Regenerate goldens (placeholder until Phase 3).
+      exec:
+        command: flutter test --no-pub --tags golden --update-goldens
+        concurrency: 1
+      packageFilters:
+        dirExists: test
+
+    test:integration:
+      description: Integration tests on a booted simulator (patrol from Phase 13).
+      run: echo "test:integration is a placeholder until Phase 13"
+
+    check:
+      description: Repo checks (check_architecture, forbidden APIs, l10n, ...). Filled in Phase 3.
+      run: echo "check is a placeholder until Phase 3"
+
+    contract:sync:
+      description: Copy worker contract fixtures into apps/taro/test/contract/fixtures (06 QA15). Filled in Phase 3.
+      run: echo "contract:sync is a placeholder until Phase 3"
+
+    hooks:install:
+      description: Install commit-msg and pre-push hooks. Filled in Phase 3.
+      run: echo "hooks:install is a placeholder until Phase 3"
+
+    coverage:check:
+      description: Per-package 90 % coverage gate. Filled in Phase 3.
+      run: echo "coverage:check is a placeholder until Phase 3"

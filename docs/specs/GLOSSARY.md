@@ -23,7 +23,7 @@ Rules:
 
 Owner: 01 §10.1. Reconciled by 00_DECISIONS.md RC1. Format `major_00` … `major_21`, `{wands,cups,swords,pentacles}_01` … `_14`; rank 01 = Ace, 11 = Page, 12 = Knight, 13 = Queen, 14 = King. IDs are shared by the client, Worker prompts, exports and analytics (`learn_card_viewed.card_id`) and never change. `number` in `TarotCard` / `DeckCard` equals the rank column (0–21 major, 1–14 minor).
 
-The English names are the `en` entries of `packages/taro_content/source/glossary.yaml` (01 §11 step 2). The specs fix only `major_00` = "The Fool"; the other names are the traditional names in RWS order (`Deck.id = rws_original`, 02 §4) until that file is authored and reviewed.
+The English names are the `en` entries of `apps/taro/content/source/glossary.yaml` (01 §11 step 2). The specs fix only `major_00` = "The Fool"; the other names are the traditional names in RWS order (`Deck.id = rws_original`, 02 §4) until that file is authored and reviewed.
 
 | # | `cardId` | Arcana | Suit | Rank | English name (`en`) |
 |---|---|---|---|---|---|
@@ -120,7 +120,7 @@ Owner: 01 §10.3. Reconciled by 00_DECISIONS.md RC2, RC62. The daily card is **n
 | `celtic_cross` | 10 | `present`, `challenge`, `foundation`, `recent_past`, `potential`, `near_future`, `self`, `environment`, `hopes_fears`, `outcome` | 8000 |
 | `*` (fallback key) | — | — | 4000 |
 
-`spreads.enabled` default = all six IDs. Default spread version on the wire: `spread: {id, version: 1}`. Generated files: `packages/taro_content/assets/spreads/spreads.json`, `worker/src/generated/deck/spreads.json` (RC26).
+`spreads.enabled` default = all six IDs. Default spread version on the wire: `spread: {id, version: 1}`. Generated files: `apps/taro/assets/deck/spreads.json`, `worker/src/generated/deck/spreads.json` (RC26).
 
 ## 3. Product IDs and analytics aliases
 
@@ -274,7 +274,7 @@ Mapping of older terms: 01 "rephrase" = declined with `canRephrase: true`; 01 "c
 
 ### 5.3 Compliance ARB keys fixed by 05 §3
 
-`disclaimerShort`, `disclaimerOnboardingTitle`, `disclaimerOnboardingBody`, `aiConsentTitle`, `aiConsentBody`, `aiConsentAccept`, `aiConsentDecline`, `aiLabel`, `refusalGeneric`, `crisisTitle`, `crisisBody`, `reportReadingTitle`, `reportReadingDisclosure`. ARB file: `packages/taro_l10n/lib/src/arb/app_en.arb` + 11 translations (02 §11, RC15).
+`disclaimerShort`, `disclaimerOnboardingTitle`, `disclaimerOnboardingBody`, `aiConsentTitle`, `aiConsentBody`, `aiConsentAccept`, `aiConsentDecline`, `aiLabel`, `refusalGeneric`, `crisisTitle`, `crisisBody`, `reportReadingTitle`, `reportReadingDisclosure`. ARB file: `apps/taro/lib/l10n/arb/app_en.arb` + 11 translations (02 §11, RC15).
 
 ## 6. D1 tables (Worker)
 
@@ -364,7 +364,7 @@ Owner: 02 §6.1 as edited by RC14, RC17, RC51, RC75, RC91. Two files, each `sche
 
 `taro_journal.db` may be included in OS backups; `taro_device.db` (plus `-wal`/`-shm`) is excluded on iOS (`NSURLIsExcludedFromBackupKey`) and Android (`data_extraction_rules.xml`, `full_backup_content.xml`) (RC75).
 
-Backup file: `taro-backup-YYYY-MM-DD.json`, `format: "taro.backup"`, `schemaVersion: 1`, JSON Schema `docs/specs/backup_schema_v1.json` (copy: `packages/taro_data/lib/src/backup/backup_schema_v1.json`), checksum SHA-256 over RFC 8785 JCS of `data` (RC70). Exported reading statuses: `complete`, `refused`, `classic`.
+Backup file: `taro-backup-YYYY-MM-DD.json`, `format: "taro.backup"`, `schemaVersion: 1`, JSON Schema `docs/specs/backup_schema_v1.json` (copy: `apps/taro/lib/data/backup/backup_schema_v1.json`), checksum SHA-256 over RFC 8785 JCS of `data` (RC70). Exported reading statuses: `complete`, `refused`, `classic`.
 
 ## 8. Remote-config keys
 
@@ -461,7 +461,7 @@ Not remote-configurable by design (04 §13): credits per product, cost per readi
 
 ### 9.1 Dart ports (`packages/taro_core/lib/src/ports`)
 
-Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where listed, and a `Fake<Port>` in `taro_testing` unless a named test implementation is given.
+Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where listed, and a `Fake<Port>` in `packages/taro_core/test/fakes/` (RC95) unless a named test implementation is given.
 
 | Port | Prod adapter | NoOp / test implementation |
 |---|---|---|
@@ -471,7 +471,7 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 | `ReadingRepository` | `ReadingRepositoryImpl` | `FakeReadingRepository` |
 | `JournalRepository` | `JournalRepositoryImpl` (drift) | `FakeJournalRepository` |
 | `DailyCardRepository` | `DailyCardRepositoryImpl` (drift) | `FakeDailyCardRepository` |
-| `ContentRepository` | `taro_content` asset repositories (`AssetDeckRepository`, `AssetSpreadRepository`, `AssetCardTextRepository`, `AssetCrisisRepository`) | `FakeContentRepository` |
+| `ContentRepository` | `apps/taro/lib/data/content/` asset repositories (`AssetDeckRepository`, `AssetSpreadRepository`, `AssetCardTextRepository`, `AssetCrisisRepository`) | `FakeContentRepository` |
 | `RemoteConfigRepository` | `RemoteConfigRepositoryImpl` (E02 + drift cache) | `StaticRemoteConfigRepository` |
 | `SettingsRepository` (incl. `ConsentStore`) | `SettingsRepositoryImpl` (drift) | `FakeSettingsRepository` |
 | `IapService` | `StoreIapService` | `NoOpIapService` |
@@ -479,7 +479,7 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 | `PurchaseOutbox` | `PurchaseOutboxImpl` (drift `purchase_outbox`) | `FakePurchaseOutbox` |
 | `EntitlementCache` | `EntitlementCacheImpl` (drift `entitlements`) | `FakeEntitlementCache` |
 | `AdsService` | `AdMobAdsService` | `NoOpAdsService` |
-| `BannerSlotView` (presentation port, `taro_services/presentation.dart`) | `AdMobBannerSlotView` | `NoOpBannerSlotView` |
+| `BannerSlotView` (presentation port; adapters in `apps/taro/lib/services/presentation/`) | `AdMobBannerSlotView` | `NoOpBannerSlotView` |
 | `RewardGateway` | `RewardGatewayImpl` (E15–E17) | `FakeRewardGateway` |
 | `ConsentService` (UMP) | `UmpConsentService` | `NoOpConsentService` |
 | `TrackingAuthorization` (ATT) | `AttTrackingAuthorization` | `NotSupportedTrackingAuthorization` (Android) |
@@ -586,7 +586,7 @@ Owner: 01 §9.2–§9.9. Integration tests per 06 §4 (patrol, `apps/taro/integr
 
 ## 12. Secure-storage keys
 
-Owner: 02 §6.2 (`taro_data/src/secure/keys.dart`, over `flutter_secure_storage`). iOS accessibility `first_unlock_this_device`; Android Keystore-backed, excluded from backup. Never exported, logged or sent to analytics.
+Owner: 02 §6.2 (`apps/taro/lib/data/secure/keys.dart`, over `flutter_secure_storage`). iOS accessibility `first_unlock_this_device`; Android Keystore-backed, excluded from backup. Never exported, logged or sent to analytics.
 
 | Key | Content |
 |---|---|
@@ -629,25 +629,33 @@ Owner: 03 §11 (secrets set with `wrangler secret put --env <env>`; owner copy i
 
 ### 14.1 Monorepo packages
 
-Owner: 02 §2, AR1 (RC15, RC77). Pub workspace + melos 8. This is the only package list.
+Owner: 02 §2, AR1 (RC15, RC77, RC95). Pub workspace + melos 8. This is the only package list: three packages and one app (RC95).
 
 | Package | Path | Flutter? | May depend on (taro) |
 |---|---|---|---|
-| `taro` (app) | `apps/taro` | yes | all (`taro_testing` as dev_dependency only) |
+| `taro` (app) | `apps/taro` | yes | `taro_core`, `taro_ui`, `taro_attestation` |
 | `taro_core` | `packages/taro_core` | no (pure Dart) | — |
-| `taro_content` | `packages/taro_content` | yes (assets) | `taro_core` |
-| `taro_data` | `packages/taro_data` | yes | `taro_core` |
-| `taro_services` | `packages/taro_services` | yes | `taro_core`, `taro_attestation` |
+| `taro_ui` | `packages/taro_ui` | yes | — |
 | `taro_attestation` | `packages/taro_attestation` | yes (plugin, Swift + Kotlin) | — |
-| `taro_l10n` | `packages/taro_l10n` | yes | — |
-| `taro_ui` | `packages/taro_ui` | yes | `taro_l10n` |
-| `taro_testing` | `packages/taro_testing` | yes, dev-only, Riverpod-free | `taro_core`, `taro_ui`, `taro_l10n` |
 | `taro-api` (Worker) | `worker/` | — (TypeScript, Hono) | — |
 | `dart_tools` | `tools/dart_tools` | no | — (06 Testing strategy) |
 
-Coverage units (06 QA1): each package above, `apps/taro`, `worker`, `tools`, `taro_attestation_ios`, `taro_attestation_android` (RC40). App feature folders (`apps/taro/lib/features/`): `onboarding`, `consent`, `home`, `daily_card`, `reading`, `paywall`, `journal`, `learn`, `settings`, `backup`, `help`, `legal`, `update`, `debug` (dev menu, non-prod flavors only).
+App layer folders (02 §2.1, enforced by `tools/check_architecture.dart`; RC95 replaced the former `taro_data`, `taro_services`, `taro_content`, `taro_l10n` and `taro_testing` packages with them):
 
-Content and generator paths (RC25, RC26, RC39): `packages/taro_content/source/{locale}/cards/{cardId}.yaml`, `packages/taro_content/source/glossary.yaml`, `packages/taro_content/source/crisis/crisis_resources.yaml`; generator `tools/content` (`translate`, `validate`, `build`); parity check `tools/sync_deck`; tokens `docs/design/taro.tokens.json` → `tools/tokens/` → `packages/taro_ui/lib/src/tokens/generated/`; banned phrases `tools/store_copy/banned_phrases.yaml`; contract fixtures `worker/test/contract/fixtures/` → `packages/taro_data/test/contract/fixtures/` (`melos run contract:sync`).
+| Folder | Holds |
+|---|---|
+| `apps/taro/lib/data/` | drift databases (`taro_journal.db`, `taro_device.db`), secure storage, `WorkerClient`, repositories, backup codec; `data/content/` = bundled-content repositories |
+| `apps/taro/lib/services/` | platform SDK adapters (IAP, ads, consent, analytics, crash, notifications, attestation, tz, files, …); `services/presentation/` = `BannerSlotView` adapters |
+| `apps/taro/lib/l10n/` | `arb/app_{locale}.arb` (12) and `generated/` (gen-l10n output), configured by `apps/taro/l10n.yaml` |
+| `apps/taro/assets/deck/` | generated content: `deck_meta.json`, `{locale}.json`, `spreads.json`, `crisis_resources.json`, `art/` |
+| `apps/taro/content/source/` | authored content YAML/Markdown (input of `tools/content build`; not bundled) |
+| `apps/taro/test/helpers/` | `pumpTaro`, `pumpTaroWidget`, `TaroFakes` |
+| `packages/taro_core/test/fakes/`, `test/contracts/` | `Fake<Port>` implementations, builders, port contract suites |
+| `packages/taro_ui/test/helpers/golden/` | `TaroGoldenComparator`, bundled test fonts |
+
+Coverage units (06 QA1): `taro_core`, `taro_ui`, `taro_attestation`, `taro_attestation_ios`, `taro_attestation_android` (RC40), `apps/taro`, `worker`, `tools` (RC95). App feature folders (`apps/taro/lib/features/`): `onboarding`, `consent`, `home`, `daily_card`, `reading`, `paywall`, `journal`, `learn`, `settings`, `backup`, `help`, `legal`, `update`, `debug` (dev menu, non-prod flavors only).
+
+Content and generator paths (RC25, RC26, RC39): `apps/taro/content/source/{locale}/cards/{cardId}.yaml`, `apps/taro/content/source/glossary.yaml`, `apps/taro/content/source/crisis/crisis_resources.yaml`; generator `tools/content` (`translate`, `validate`, `build`); parity check `tools/sync_deck`; tokens `docs/design/taro.tokens.json` → `tools/tokens/` → `packages/taro_ui/lib/src/tokens/generated/`; banned phrases `tools/store_copy/banned_phrases.yaml`; contract fixtures `worker/test/contract/fixtures/` → `apps/taro/test/contract/fixtures/` (`melos run contract:sync`).
 
 ### 14.2 Dart dependencies
 
@@ -686,6 +694,6 @@ Names that no spec spelled out and this glossary fixed; RC94 makes them canonica
 
 | # | Spec | Section | What | Glossary uses |
 |---|---|---|---|---|
-| U21 | 01 | §11 step 2, §10.1 | Only `major_00` = "The Fool" is fixed; the other 77 English names and the Strength (08) / Justice (11) numbering are not stated in any spec. | Traditional RWS names and order (§1), pending `packages/taro_content/source/glossary.yaml`. |
+| U21 | 01 | §11 step 2, §10.1 | Only `major_00` = "The Fool" is fixed; the other 77 English names and the Strength (08) / Justice (11) numbering are not stated in any spec. | Traditional RWS names and order (§1), pending `apps/taro/content/source/glossary.yaml`. |
 | U22 | 02 | §3 | 02 delegates the per-`Failure` ARB keys to this file, and 03 §9.1 shows only one `messageKey` (`safetyDeclinedSelfHarm`). | Glossary-defined `failure*` and `safetyDeclined*` keys (§5, §5.2). |
 | U23 | 01 | §15 | `screen_view.screen` is only described as "S-id enum"; the value format is not fixed. | Literal `S01` … `S33` (§10). |
