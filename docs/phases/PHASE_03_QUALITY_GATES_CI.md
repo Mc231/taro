@@ -1,6 +1,6 @@
 # Phase 3: Quality Gates & CI
 
-**Status:** ✅ Complete (2026-09-28): `verify.sh` and Gitea CI (run 740) green, all 9 coverage units ≥ 90 %, FTS5 verified on the runner. Open owner item: create the SonarQube quality gate `Taro` in the UI (advisory, RC88; the stored token cannot administer gates).
+**Status:** ✅ Complete (2026-09-28): `verify.sh` and Gitea CI (run 740) green, all 9 coverage units ≥ 90 %, FTS5 verified on the runner. Sonar gate `Taro` created by the owner and passing on `main`.
 **Depends on:** Phase 2
 
 ---
@@ -130,7 +130,7 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 
 - [x] `tools/verify.sh` is green locally _(✅ 2026-09-28)_, and the `ci` workflow _(✅ Gitea run 740, all 7 jobs green, 2026-09-28)_ is green on the Gitea runner for this phase's SHA.
 - [x] `check_coverage.py` reports every unit ≥ 90% (skeleton code + tools ≥ 90%). A deliberately uncovered file in a scratch branch makes the gate fail (screenshot or log attached to the phase notes).
-- [ ] The Sonar project and advisory gate `Taro` exist and report on `main` (not a blocking gate, RC88).
+- [x] The Sonar project and advisory gate `Taro` exist and report on `main` (not a blocking gate, RC88). _(2026-09-28: gate Passed, coverage 98.7 %; `main` CI run 746 green.)_
 - [x] Docs updated: `docs/TESTING.md`, README commands table, and CLAUDE.md (hooks, verify).
 - [x] One commit: `ci(taro): Phase 3 — Quality gates & CI`.
 
