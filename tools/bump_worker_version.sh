@@ -20,7 +20,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-# shellcheck source=lib/release_common.sh
+# shellcheck source=tools/lib/release_common.sh
 source "$ROOT/tools/lib/release_common.sh"
 
 PACKAGE="$ROOT/worker/package.json"
