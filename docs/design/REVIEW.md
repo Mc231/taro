@@ -200,4 +200,4 @@ Required contrast pairs computed: 44, all pass (K6–K10). For information: `bor
 
 The design is fit to build from. All first-pass FAILs are fixed in the designs, tokens and exports; the remaining items above are implemented and proven in Phases 15–17.
 
-Owner sign-off: ☐ Volodymyr Shyrochuk — date ____
+Owner sign-off: ☑ Volodymyr Shyrochuk — 2026-09-28 ("signed, design looks great")

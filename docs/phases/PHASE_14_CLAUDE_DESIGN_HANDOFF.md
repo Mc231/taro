@@ -1,6 +1,6 @@
 # Phase 14: Claude Design Handoff
 
-**Status:** ✅ Complete (2026-09-27), run early right after Phase 1 at the owner's request (the design needs only the specs). Owner sign-off of `docs/design/REVIEW.md` pending.
+**Status:** ✅ Complete (2026-09-27), run early right after Phase 1 at the owner's request (the design needs only the specs). Owner signed `docs/design/REVIEW.md` on 2026-09-28.
 **Depends on:** Phase 1 (token contract reconciled, RC15), Phase 13 Sprint 13.4 (state inventory frozen)
 **Parallel with:** Phase 13 (Sprints 13.5–13.6), the D15 art pipeline, Phases 9–10
 
@@ -70,7 +70,7 @@ No Flutter UI code is written here. Phases 15–17 implement from these delivera
 
 **Tasks:**
 - [x] ~~`tools/tokens/validate_tokens.dart`~~ _Moved to Phase 15 Sprint 15.1 (no Dart tooling before Phases 2–3). The same checks ran as a script: all 01 §14 names, both modes, reduced motion, 44 contrast pairs pass (REVIEW K-section)._: every 01 §14 token name exists in both modes. Check the contrast pairs (`color.text.primary`/`secondary` on `bg.canvas` and `bg.surface` ≥ 4.5:1; `border.focus` ≥ 3:1; `status.*` on-pairs), and the reduced-motion values exist. Run it in CI from now on.
-- [x] `docs/design/REVIEW.md` checklist (97 items: 82 PASS, 15 derived in code, 0 FAIL after fixes). _Owner signature still to add._ It covers:
+- [x] `docs/design/REVIEW.md` checklist (97 items: 82 PASS, 15 derived in code, 0 FAIL after fixes). _Signed by the owner 2026-09-28._ It covers:
   - every ★ state exists in light and dark, and in `ar` where required;
   - the banned patterns (05 §9.5) are absent;
   - paywall and consent rules;
