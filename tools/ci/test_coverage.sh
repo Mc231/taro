@@ -32,7 +32,13 @@ done
 run worker bash -c 'cd worker && npm run --silent test:coverage'
 
 python="$repo_root/tools/.venv/bin/python"
-[[ -x "$python" ]] || python="python3"
+if [[ ! -x "$python" ]]; then
+  # Clean checkout (CI): build the tools venv so pytest has its deps (QA14: 3.12).
+  base=$(command -v python3.12 || command -v python3)
+  "$base" -m venv "$repo_root/tools/.venv"
+  "$python" -m pip install --quiet --upgrade pip
+  "$python" -m pip install --quiet -e "$repo_root/tools[dev]"
+fi
 run tools bash -c "cd tools && '$python' -m pytest -q --cov=. --cov-report=term \
   --cov-report=json:coverage/coverage.json --cov-report=xml:coverage.xml --cov-fail-under=90"
 

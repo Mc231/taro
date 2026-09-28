@@ -203,6 +203,24 @@ secrets_scan() {
   fi
 }
 
+# Same linters as the CI static job (reusable-static.yml), so CI never finds
+# them first. Skipped with a note when the tool is not installed.
+lint_ci_files() {
+  if in_path_or_file shellcheck; then
+    # shellcheck disable=SC2046
+    step "shellcheck" shellcheck -x -s bash $(git ls-files '*.sh' 'tools/ci/*.env')
+  else
+    skip "shellcheck" "shellcheck not installed (brew install shellcheck; CI runs it)"
+  fi
+  if in_path_or_file actionlint; then
+    step "actionlint" actionlint -ignore 'label "macos" is unknown' \
+      -ignore 'the runner of "actions/(upload|download)-artifact@v3" action is too old' \
+      .gitea/workflows/*.yml
+  else
+    skip "actionlint" "actionlint not installed (brew install actionlint; CI runs it)"
+  fi
+}
+
 fast_tests() {
   if has_base_ref; then
     "$MELOS" exec --diff="$BASE_REF" --dir-exists=test -c 1 --fail-fast -- \
@@ -222,6 +240,7 @@ step "format" "$MELOS" run format:check
 step "analyze" "$MELOS" run analyze
 repo_checks
 secrets_scan
+lint_ci_files
 
 if ((FAST)); then
   step "test:fast" fast_tests

@@ -98,3 +98,8 @@ __pycache__/
 
 # Golden failure output (masked diffs; uploaded by CI, never committed, 06 §3)
 **/test/golden/failures/
+
+# Test fixtures that model generated files must be committed (keep last).
+!tools/dart_tools/test/fixtures/**/lib/src/generated/
+!tools/dart_tools/test/fixtures/**/lib/l10n/generated/
+!tools/tests/fixtures/**/lib/l10n/generated/
