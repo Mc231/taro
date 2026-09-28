@@ -26,8 +26,10 @@ echo "== native coverage (Android)"
 rm -rf "$out_dir" "$report_dir"
 mkdir -p "$out_dir"
 
-# local.properties (flutter.sdk) and the plugin registration for Gradle.
-if [[ ! -f "$example/android/local.properties" ]]; then
+# local.properties (flutter.sdk), the plugin registration and the Gradle
+# wrapper (gradlew is gitignored by Flutter; `flutter pub get` alone writes
+# local.properties but not the wrapper, so check both).
+if [[ ! -f "$example/android/local.properties" || ! -x "$example/android/gradlew" ]]; then
   (cd "$example" && flutter build apk --config-only --debug)
 fi
 
