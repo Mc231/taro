@@ -160,11 +160,22 @@ remove_plaintext() {
   fi
 }
 
+TEMP_DECRYPTED=0
 ensure_decrypted() {
   need jq jq
   if [ ! -f "$DECRYPTED_FILE" ]; then
     [ -f "$ENCRYPTED_FILE" ] || die "no secrets yet; run '$0 init' first"
     decrypt_secrets
+    TEMP_DECRYPTED=1
+  fi
+}
+
+# Read-only commands must not leave plaintext behind: if they decrypted the
+# bundle themselves, remove the plaintext again on exit.
+read_only_decrypt() {
+  ensure_decrypted
+  if [ "$TEMP_DECRYPTED" = 1 ]; then
+    trap 'rm -f "$DECRYPTED_FILE"' EXIT
   fi
 }
 
@@ -209,7 +220,7 @@ cmd_init() {
 }
 
 cmd_list() {
-  ensure_decrypted
+  read_only_decrypt
   echo ""
   printf '%b\n' "${BLUE}=== Sections ===${NC}"
   jq -r 'keys[]' "$DECRYPTED_FILE"
@@ -225,7 +236,7 @@ cmd_list() {
 cmd_get() {
   local section=${1:-} key=${2:-}
   [ -n "$section" ] && [ -n "$key" ] || die "Usage: $0 get <section> <key>"
-  ensure_decrypted
+  read_only_decrypt
   local value
   value=$(jq -r --arg s "$section" --arg k "$key" '.[$s][$k] // empty' "$DECRYPTED_FILE")
   [ -n "$value" ] || die "key '$key' not found in section '$section'"
@@ -313,7 +324,7 @@ check_keys() {
 }
 
 cmd_validate() {
-  ensure_decrypted
+  read_only_decrypt
   printf '%b\n' "${BLUE}Validating $DECRYPTED_FILE...${NC}"
   if [ "$DECRYPTED_FILE" -nt "$ENCRYPTED_FILE" ]; then
     printf '%b\n' "${YELLOW}! secrets.json is newer than the bundle; run '$0 encrypt'.${NC}"
