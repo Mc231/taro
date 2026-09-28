@@ -1,0 +1,7 @@
+abstract final class SecureKeys {
+  static const attestkeyid = 'taro.attest_key_id';
+  static const installid = 'taro.install_id';
+  static const installsecret = 'taro.install_secret';
+  static const purchasebinding = 'taro.purchase_binding';
+  static const sessiontoken = 'taro.token';
+}

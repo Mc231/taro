@@ -1,0 +1,27 @@
+app_store:
+  iap_products:
+  - product_id: com.vshyrochuk.taro.remove_ads
+    type: NON_CONSUMABLE
+    display_name: Remove Banner Ads
+    description: Optional reward videos stay.
+  - product_id: com.vshyrochuk.taro.readings_3
+    type: CONSUMABLE
+    display_name: 3 Readings
+    description: Adds 3 AI tarot readings.
+    localizations:
+      de: {display_name: 3 Lesungen, description: Fügt 3 KI-Lesungen hinzu.}
+      ar: {display_name: ٣ قراءات, description: يضيف ٣ قراءات بالذكاء الاصطناعي.}
+      ja: {display_name: 3回のリーディング}
+  - product_id: com.vshyrochuk.taro.readings_10
+    type: CONSUMABLE
+    display_name: 10 Readings
+    description: Adds 10 AI tarot readings.
+    localizations:
+      ko: {display_name: 리딩 10회, description: AI 리딩 10회를 추가합니다.}
+  - product_id: com.vshyrochuk.taro.readings_30
+    type: CONSUMABLE
+    display_name: 30 Readings
+    description: Adds AI tarot readings.
+  - product_id: com.vshyrochuk.taro.readings_50
+    type: CONSUMABLE
+    display_name: 50 Readings

@@ -82,13 +82,8 @@ melos:
         dirExists: test
 
     test:coverage:
-      description: Tests with lcov coverage per package (gate lands in Phase 3).
-      exec:
-        command: flutter test --no-pub --coverage
-        concurrency: 1
-        failFast: true
-      packageFilters:
-        dirExists: test
+      description: Coverage reports for every unit (06 §5.1, §5.2; Dart gen_coverage_all + flutter test + lcov --remove, worker, tools, native RC40). TARO_SKIP_NATIVE_COVERAGE=1 skips native.
+      run: bash tools/ci/test_coverage.sh
 
     test:golden:
       description: Golden tests only (placeholder until Phase 3).
@@ -99,29 +94,25 @@ melos:
         dirExists: test
 
     golden:update:
-      description: Regenerate goldens (placeholder until Phase 3).
-      exec:
-        command: flutter test --no-pub --tags golden --update-goldens
-        concurrency: 1
-      packageFilters:
-        dirExists: test
+      description: Regenerate goldens in every package with test/golden/ (06 §3). Refuses off the reference platform (macOS arm64 + the pinned Flutter; the CI runner) unless given --force-local, whose output is never committed.
+      run: $(test -x tools/.venv/bin/python && echo tools/.venv/bin/python || echo python3) tools/golden_update.py
 
     test:integration:
-      description: Integration tests on a booted simulator (patrol from Phase 13).
-      run: echo "test:integration is a placeholder until Phase 13"
+      description: Device tests on a booted simulator/emulator (06 §4). Env TARO_INTEGRATION_PLATFORM (ios|android) and TARO_DEVICE_ID; patrol flows from Phase 13, integration_test spikes until then.
+      run: bash tools/run_integration.sh
 
     check:
-      description: Repo checks (check_architecture, forbidden APIs, l10n, ...). Filled in Phase 3.
-      run: echo "check is a placeholder until Phase 3"
+      description: The fast local gate, tools/verify.sh --fast (format, analyze, every repo check, gitleaks, test:fast; 06 §6.4).
+      run: bash tools/verify.sh --fast
 
     contract:sync:
-      description: Copy worker contract fixtures into apps/taro/test/contract/fixtures (06 QA15). Filled in Phase 3.
-      run: echo "contract:sync is a placeholder until Phase 3"
+      description: Mirror worker/test/contract/fixtures into apps/taro/test/contract/fixtures (06 QA15, RC38). --dry-run prints the plan.
+      run: $(test -x tools/.venv/bin/python && echo tools/.venv/bin/python || echo python3) tools/contract_sync.py
 
     hooks:install:
-      description: Install commit-msg and pre-push hooks. Filled in Phase 3.
-      run: echo "hooks:install is a placeholder until Phase 3"
+      description: Point git at tools/githooks (commit-msg -> check_commit_msg.py, pre-push -> tools/verify.sh --fast; 06 §6.4).
+      run: git config core.hooksPath tools/githooks && echo "hooks installed (core.hooksPath=tools/githooks)"
 
     coverage:check:
-      description: Per-package 90 % coverage gate. Filled in Phase 3.
-      run: echo "coverage:check is a placeholder until Phase 3"
+      description: Coverage gate, >= 90 % per unit and >= 70 % per file (06 QA1-QA4; writes coverage/summary.md).
+      run: $(test -x tools/.venv/bin/python && echo tools/.venv/bin/python || echo python3) tools/check_coverage.py --verify-sonar

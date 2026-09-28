@@ -1,0 +1,12 @@
+{
+ "openapi": "3.1.0",
+ "paths": {
+  "/v1/health": {
+   "get": {}
+  },
+  "/v1/readings/{clientReadingId}/ack": {
+   "post": {},
+   "parameters": []
+  }
+ }
+}

@@ -1,0 +1,3 @@
+app_store:
+  iap_products:
+  - type: CONSUMABLE

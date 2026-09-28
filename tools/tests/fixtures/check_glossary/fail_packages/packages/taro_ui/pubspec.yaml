@@ -1,0 +1,5 @@
+name: taro_ui
+dependencies:
+  flutter:
+    sdk: flutter
+  taro_core: any

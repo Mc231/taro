@@ -1,0 +1,15 @@
+{
+  "flavor": "prod",
+  "apiBaseUrl": "https://api.taro.vshyrochuk.com",
+  "admob.ios.appId": "TBD",
+  "admob.ios.banner": "TBD",
+  "admob.ios.rewarded": "TBD",
+  "admob.android.appId": "TBD",
+  "admob.android.banner": "TBD",
+  "admob.android.rewarded": "TBD",
+  "playCloudProjectNumber": "TBD",
+  "privacyPolicyUrl": "https://taro.vshyrochuk.com/privacy",
+  "termsUrl": "https://taro.vshyrochuk.com/terms",
+  "supportEmail": "volodymyr.shyrochuk@gmail.com",
+  "universalLinkHost": "taro.vshyrochuk.com"
+}

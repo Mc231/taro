@@ -1,0 +1,15 @@
+{"coveredLines": 14, "executableLines": 15, "lineCoverage": 0.93,
+ "targets": [
+  {"name": "taro_attestation.framework", "files": [
+   {"path": "REPO/packages/taro_attestation/ios/taro_attestation/Sources/taro_attestation/TaroAttestationPlugin.swift",
+    "name": "TaroAttestationPlugin.swift", "coveredLines": 12, "executableLines": 13, "lineCoverage": 0.92,
+    "functions": [
+     {"name": "static TaroAttestationPlugin.register(with:)", "lineNumber": 5, "executionCount": 1, "coveredLines": 5, "executableLines": 5},
+     {"name": "TaroAttestationPlugin.handle(_:result:)", "lineNumber": 11, "executionCount": 0, "coveredLines": 0, "executableLines": 8}
+    ]}
+  ]},
+  {"name": "Runner.app", "files": [
+   {"path": "REPO/packages/taro_attestation/example/ios/Runner/AppDelegate.swift", "name": "AppDelegate.swift",
+    "coveredLines": 2, "executableLines": 2, "functions": []}
+  ]}
+ ]}

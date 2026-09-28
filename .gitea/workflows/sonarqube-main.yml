@@ -1,0 +1,166 @@
+name: SonarQube (main)
+
+# 06 QA11, §9; Phase 3 Sprint 3.5. Advisory only (RC88): the quality gate
+# `Taro` is reported in the log and the job summary, and never fails this
+# workflow, `ci`, or a deploy. The hard gate is check_coverage.py in ci.yml.
+#
+# Pattern from quiz_apps' sonarqube-main.yml (same runner): analyzer and test
+# reports for the sonar-flutter plugin, merged coverage, brew sonar-scanner,
+# SONAR_TOKEN / SONAR_HOST_URL repository secrets, no cancelling.
+#
+# Manual re-run (push events can get dropped from the act_runner queue when
+# one push fans out to several workflows):
+#   curl -X POST -H "Authorization: token $GITEA_TOKEN" -H 'Content-Type: application/json' \
+#     -d '{"ref":"main"}' \
+#     "http://localhost:3001/api/v1/repos/<owner>/taro/actions/workflows/sonarqube-main.yml/dispatches"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# A cancelled scan leaves SonarQube with a partial report; later pushes queue.
+concurrency:
+  group: sonarqube-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sonar:
+    name: SonarQube analysis (advisory)
+    runs-on: macos
+    timeout-minutes: 120
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Sonar's new-code period and blame need full history.
+          fetch-depth: 0
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+
+      - name: Bootstrap melos
+        run: |
+          ulimit -n 65536 || true
+          mv=$(awk '/^  melos:/{f=1} f && /^    version:/{gsub(/"/, "", $2); print $2; exit}' pubspec.lock)
+          dart pub global activate melos "${mv:?melos version not found in pubspec.lock}"
+          echo "${PUB_CACHE:-$HOME/.pub-cache}/bin" >> "$GITHUB_PATH"
+          "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
+
+      - name: Setup Node (worker/.nvmrc)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      # sonar-flutter reads analyzer_report.log per package. Findings become
+      # Sonar issues, so a non-zero exit is tolerated here.
+      - name: Analyzer reports (flutter analyze --write)
+        run: |
+          ulimit -n 65536 || true
+          for pubspec in apps/*/pubspec.yaml packages/*/pubspec.yaml tools/dart_tools/pubspec.yaml; do
+            [ -f "$pubspec" ] || continue
+            pkg=$(dirname "$pubspec")
+            (cd "$pkg" && flutter analyze --no-pub --write=analyzer_report.log || true)
+          done
+
+      - name: Dart tests with coverage
+        continue-on-error: true
+        run: |
+          ulimit -n 65536 || true
+          melos run test:coverage
+
+      - name: Worker tests with coverage
+        continue-on-error: true
+        working-directory: worker
+        run: |
+          npm ci
+          npm run test:coverage
+
+      - name: Tools tests with coverage
+        continue-on-error: true
+        working-directory: tools
+        run: |
+          .venv/bin/python -m pytest --cov --cov-report=json --cov-report=xml:coverage.xml
+
+      # Writes coverage/merged/lcov.info (repo-relative paths) for
+      # sonar.dart.lcov.reportPaths. Its gate verdict is ci.yml's business;
+      # here only the merged report matters.
+      - name: Merge coverage (check_coverage.py)
+        run: |
+          tools/.venv/bin/python tools/check_coverage.py --verify-sonar || true
+          if [ ! -f coverage/merged/lcov.info ]; then
+            echo "::warning::coverage/merged/lcov.info was not written; Sonar will show no Dart coverage"
+          fi
+
+      - name: Install SonarScanner
+        run: |
+          command -v sonar-scanner >/dev/null 2>&1 || brew install --quiet sonar-scanner
+
+      - name: SonarQube scan (advisory gate)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          if [ -z "$SONAR_TOKEN" ] || [ -z "$SONAR_HOST_URL" ]; then
+            echo "::warning::SONAR_TOKEN / SONAR_HOST_URL secrets are not set; scan skipped (see docs/phase3_notes/CI.md)."
+            exit 0
+          fi
+          status=0
+          sonar-scanner \
+            -Dsonar.host.url="$SONAR_HOST_URL" \
+            -Dsonar.token="$SONAR_TOKEN" \
+            -Dsonar.qualitygate.wait=true \
+            -Dsonar.qualitygate.timeout=600 \
+            > "$RUNNER_TEMP/sonar.log" 2>&1 || status=$?
+          cat "$RUNNER_TEMP/sonar.log"
+          if grep -q 'QUALITY GATE STATUS: PASSED' "$RUNNER_TEMP/sonar.log"; then
+            verdict="PASSED"
+          elif grep -q 'QUALITY GATE STATUS' "$RUNNER_TEMP/sonar.log"; then
+            verdict="FAILED"
+          else
+            verdict="UNKNOWN (scanner exit $status)"
+          fi
+          dashboard=$(sed -n 's/.*ANALYSIS SUCCESSFUL, you can find the results at: //p' "$RUNNER_TEMP/sonar.log" | head -n 1)
+          {
+            echo "### SonarQube quality gate \`Taro\` (advisory, RC88)"
+            echo ""
+            echo "Status: **$verdict**"
+            if [ -n "$dashboard" ]; then
+              echo ""
+              echo "Dashboard: $dashboard"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "Quality gate: $verdict (advisory; never fails the build)"
+          if [ "$verdict" = "UNKNOWN (scanner exit $status)" ]; then
+            echo "::warning::sonar-scanner did not report a gate status"
+          fi

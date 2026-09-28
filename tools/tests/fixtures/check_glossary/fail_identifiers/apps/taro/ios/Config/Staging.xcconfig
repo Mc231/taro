@@ -1,0 +1,7 @@
+// Flavor "staging" (02 §15). Included by Config/{Debug,Profile,Release}-staging.xcconfig.
+PRODUCT_BUNDLE_IDENTIFIER = com.vshyrochuk.taro.staging
+APP_DISPLAY_NAME = Taro Beta
+// AdMob app ID for Info.plist GADApplicationIdentifier. Google's sample app ID
+// until Phase 10 creates the real AdMob app (prod only); ad unit IDs come from
+// config/staging.json.
+ADMOB_APP_ID = ca-app-pub-3940256099942544~1458002511

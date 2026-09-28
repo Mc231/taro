@@ -1,0 +1,152 @@
+# SDK-import allowlist per adapter directory (06 QA9, §6.2; 02 §5, §18; RC95).
+#
+# Consumed by tools/check_forbidden_apis.py. Derived from the 02 §5 port table
+# (the "Prod adapter" column names the adapter, 02 §2.2 places it in its
+# apps/taro/lib/services/<area>/ or data/<area>/ folder) and the "Where" column
+# of the 02 §18 dependency table. When 02 changes a port or an adapter, this
+# file changes in the same PR.
+#
+# sdk_packages: a `package:<name>/…` import is allowed only in files matching
+#   one of `allowed` (globs, `**` spans folders). `package` may be a glob
+#   (`firebase_*`); the first exact match wins, then the first glob match.
+#   `allowed: []` bans the package everywhere.
+# api_allowlist: the adapter files that may call a determinism-banned API
+#   (QA9, RC41). Keyed by the rule id printed by the check.
+
+version: 1
+
+sdk_packages:
+  # AdsService -> AdMobAdsService; ConsentService (UMP) -> UmpConsentService;
+  # BannerSlotView -> AdMobBannerSlotView (services/presentation/, 02 §5).
+  - package: google_mobile_ads
+    ports: [AdsService, ConsentService, BannerSlotView]
+    allowed:
+      - apps/taro/lib/services/ads/**
+      - apps/taro/lib/services/consent/**
+      - apps/taro/lib/services/presentation/**
+  # IapService -> StoreIapService (in_app_purchase + SK2, consume).
+  - package: in_app_purchase
+    ports: [IapService]
+    allowed: [apps/taro/lib/services/iap/**]
+  - package: in_app_purchase_storekit
+    ports: [IapService]
+    allowed: [apps/taro/lib/services/iap/**]
+  - package: in_app_purchase_android
+    ports: [IapService]
+    allowed: [apps/taro/lib/services/iap/**]
+  # TrackingAuthorization (ATT) -> AttTrackingAuthorization (consent area).
+  - package: app_tracking_transparency
+    ports: [TrackingAuthorization]
+    allowed: [apps/taro/lib/services/consent/**]
+  # AnalyticsService -> FirebaseAnalyticsService; CrashReporter ->
+  # FirebaseCrashReporter. firebase_core is also allowed in bootstrap/, the
+  # composition root that calls Firebase.initializeApp (02 §9.1).
+  - package: firebase_core
+    ports: [AnalyticsService, CrashReporter]
+    allowed:
+      - apps/taro/lib/services/analytics/**
+      - apps/taro/lib/services/crash/**
+      - apps/taro/lib/bootstrap/**
+  - package: firebase_analytics
+    ports: [AnalyticsService]
+    allowed: [apps/taro/lib/services/analytics/**]
+  - package: firebase_crashlytics
+    ports: [CrashReporter]
+    allowed: [apps/taro/lib/services/crash/**]
+  - package: firebase_*
+    ports: []
+    allowed: []
+  # AttestationService -> PlatformAttestationService (via our plugin, which
+  # wraps App Attest / DeviceCheck and Play Integrity). The plugin's own lib/
+  # imports itself.
+  - package: taro_attestation
+    ports: [AttestationService]
+    allowed:
+      - apps/taro/lib/services/attestation/**
+      - packages/taro_attestation/lib/**
+  # SecureStore / SessionTokenStore -> FlutterSecureStore (data/secure/).
+  - package: flutter_secure_storage
+    ports: [SecureStore, SessionTokenStore]
+    allowed: [apps/taro/lib/data/secure/**]
+  # WorkerClient (data/api/). `http` is not a dependency: dio only.
+  - package: dio
+    ports: [InstallRepository, BalanceRepository, ReadingRepository, RemoteConfigRepository, PurchaseVerifier, RewardGateway]
+    allowed: [apps/taro/lib/data/api/**]
+  - package: http
+    ports: []
+    allowed: []
+  # drift databases, DAOs and the drift-backed repositories (data/db/,
+  # data/repositories/).
+  - package: drift
+    ports: [JournalRepository, DailyCardRepository, SettingsRepository, PurchaseOutbox, EntitlementCache]
+    allowed:
+      - apps/taro/lib/data/db/**
+      - apps/taro/lib/data/repositories/**
+  - package: drift_flutter
+    ports: []
+    allowed: [apps/taro/lib/data/db/**]
+  # ReminderScheduler -> LocalReminderScheduler.
+  - package: flutter_local_notifications
+    ports: [ReminderScheduler]
+    allowed: [apps/taro/lib/services/notifications/**]
+  - package: timezone
+    ports: [ReminderScheduler, TimezoneProvider]
+    allowed:
+      - apps/taro/lib/services/notifications/**
+      - apps/taro/lib/services/timezone/**
+  # TimezoneProvider -> FlutterTimezoneProvider.
+  - package: flutter_timezone
+    ports: [TimezoneProvider]
+    allowed: [apps/taro/lib/services/timezone/**]
+  # FileTransfer -> PlatformFileTransfer.
+  - package: share_plus
+    ports: [FileTransfer]
+    allowed: [apps/taro/lib/services/files/**]
+  - package: file_picker
+    ports: [FileTransfer]
+    allowed: [apps/taro/lib/services/files/**]
+  # AppInfo -> PackageInfoAppInfo (device area).
+  - package: package_info_plus
+    ports: [AppInfo]
+    allowed: [apps/taro/lib/services/device/**]
+  - package: device_info_plus
+    ports: [AppInfo]
+    allowed: [apps/taro/lib/services/device/**]
+  # ConnectivityMonitor -> ConnectivityPlusMonitor.
+  - package: connectivity_plus
+    ports: [ConnectivityMonitor]
+    allowed: [apps/taro/lib/services/connectivity/**]
+  # ReviewPrompter -> InAppReviewPrompter.
+  - package: in_app_review
+    ports: [ReviewPrompter]
+    allowed: [apps/taro/lib/services/review/**]
+  # Logger -> PackageLoggingLogger.
+  - package: logging
+    ports: [Logger]
+    allowed: [apps/taro/lib/services/logging/**]
+  # IdGenerator -> SecureIdGenerator (02 §18: app, services/; no fixed area).
+  - package: uuid
+    ports: [IdGenerator]
+    allowed: [apps/taro/lib/services/**]
+
+api_allowlist:
+  # Clock -> SystemClock (wraps package:clock).
+  datetime_now:
+    - apps/taro/lib/services/**/system_clock.dart
+    - packages/taro_core/lib/**/system_clock.dart
+  # RandomSource -> SecureRandomSource (Random.secure()); SeededRandomSource
+  # (Random(seed)) is reachable only in screenshot mode (02 §5).
+  random_secure:
+    - apps/taro/lib/services/**/secure_random_source.dart
+    - packages/taro_core/lib/**/secure_random_source.dart
+  random:
+    - apps/taro/lib/services/**/seeded_random_source.dart
+    - packages/taro_core/lib/**/seeded_random_source.dart
+  # IdGenerator -> SecureIdGenerator.
+  uuid_v4:
+    - apps/taro/lib/services/**/secure_id_generator.dart
+  # Logger -> PackageLoggingLogger (its console sink, 02 §13).
+  print:
+    - apps/taro/lib/services/logging/**
+  debug_print:
+    - apps/taro/lib/services/logging/**

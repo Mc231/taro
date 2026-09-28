@@ -1,0 +1,3 @@
+sdk_packages:
+  - package: dio
+    allowed: apps/taro/lib/data/api/**

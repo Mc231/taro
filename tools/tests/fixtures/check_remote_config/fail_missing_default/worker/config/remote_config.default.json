@@ -1,0 +1,77 @@
+{
+  "$schema": "./remote_config.schema.json",
+  "version": 1,
+  "public": {
+    "readings": {
+      "enabled": true,
+      "freeDaily": 1
+    },
+    "spreads.enabled": [
+      "single",
+      "three_ppf",
+      "three_sao",
+      "relationship",
+      "two_paths",
+      "celtic_cross"
+    ],
+    "rewarded": {
+      "enabled": true,
+      "amount": 1,
+      "dailyCap": 3,
+      "cooldownSec": 300,
+      "grantPollTimeoutSec": 20
+    },
+    "ads": {
+      "enabled": true,
+      "bannerEnabled": true,
+      "bannerScreens": [
+        "home",
+        "journal_list",
+        "learn_library"
+      ],
+      "bannerMinCompletedReadings": 1,
+      "attPrepromptEnabled": true
+    },
+    "store": {
+      "enabled": true,
+      "packs": [
+        {
+          "productId": "com.vshyrochuk.taro.readings_3",
+          "enabled": true,
+          "sortOrder": 0
+        }
+      ],
+      "verifyRetryWindowHours": 72,
+      "pendingHoldMinutes": 30
+    },
+    "ai.consentVersion": 1,
+    "ai.questionMaxChars": 300,
+    "app": {
+      "minVersion": {
+        "ios": "1.0.0",
+        "android": "1.0.0"
+      },
+      "recommendedVersion": {
+        "ios": "1.0.0",
+        "android": "1.0.0"
+      }
+    },
+    "balance.staleAfterSec": 300,
+    "review.promptAfterPositiveReadings": 3,
+    "legal": {
+      "termsUrl": "https://taro.vshyrochuk.com/terms",
+      "privacyUrl": "https://taro.vshyrochuk.com/privacy"
+    }
+  },
+  "server": {
+    "ai": {
+      "maxTokensBySpread": {
+        "single": 2500,
+        "*": 4000
+      },
+      "model": {
+        "paid": "claude-opus-5"
+      }
+    }
+  }
+}

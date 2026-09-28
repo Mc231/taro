@@ -1,0 +1,5 @@
+sdk_packages:
+  - package: dio
+    allowed: [apps/taro/lib/data/api/**]
+api_allowlist:
+  sleep: [apps/taro/lib/**]

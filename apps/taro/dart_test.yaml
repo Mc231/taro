@@ -1,0 +1,6 @@
+# Test tags (06 §1.1). `melos run test:fast` skips `golden`.
+tags:
+  golden:
+  slow:
+  l10n:
+  integration:

@@ -43,4 +43,9 @@ show_missing = true
 skip_empty = true
 
 [tool.coverage.json]
+# Read by check_coverage.py as the `tools` unit (06 §5.1, QA1).
 output = "coverage/coverage.json"
+
+[tool.coverage.xml]
+# Read by SonarQube (sonar.python.coverage.reportPaths=tools/coverage.xml, 06 §9).
+output = "coverage.xml"

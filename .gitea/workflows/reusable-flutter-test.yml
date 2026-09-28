@@ -1,0 +1,98 @@
+name: Reusable - Flutter tests + coverage
+
+# 06 §5.1, §8. `melos run test:coverage` over every Dart unit (taro_core,
+# taro_ui, taro_attestation, apps/taro, tools/dart_tools): generate the
+# coverage-all file, flutter test --coverage (unit + widget + l10n smoke +
+# a11y + golden, phone and tablet sizes), lcov --remove the exclusions.
+# The per-unit lcov files are uploaded as one tarball for ci.yml's
+# coverage-gate job; golden failures are uploaded when a test fails.
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Flutter tests (coverage)
+    runs-on: macos
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+
+      - name: Assert Flutter pin
+        env:
+          PINNED: ${{ steps.flutter-pin.outputs.version }}
+        run: |
+          flutter --version --suppress-analytics | tee "$RUNNER_TEMP/flutter-version.txt"
+          grep -q "^Flutter $PINNED " "$RUNNER_TEMP/flutter-version.txt" \
+            || { echo "::error::Runner Flutter does not match the pin $PINNED"; exit 1; }
+
+      - name: Bootstrap melos
+        run: |
+          ulimit -n 65536 || true
+          mv=$(awk '/^  melos:/{f=1} f && /^    version:/{gsub(/"/, "", $2); print $2; exit}' pubspec.lock)
+          dart pub global activate melos "${mv:?melos version not found in pubspec.lock}"
+          echo "${PUB_CACHE:-$HOME/.pub-cache}/bin" >> "$GITHUB_PATH"
+          "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
+
+      - name: melos run test:coverage
+        run: |
+          ulimit -n 65536 || true
+          command -v lcov >/dev/null || { echo "::error::lcov is not on the runner PATH"; exit 1; }
+          melos run test:coverage
+
+      - name: Pack coverage reports
+        if: ${{ !cancelled() }}
+        run: |
+          find apps packages tools/dart_tools \
+            \( -name node_modules -o -name .dart_tool -o -name build -o -name Pods \) -prune \
+            -o -type d -name coverage -print > "$RUNNER_TEMP/coverage-dirs.txt"
+          cat "$RUNNER_TEMP/coverage-dirs.txt"
+          tar -czf "$RUNNER_TEMP/coverage-flutter.tgz" -T "$RUNNER_TEMP/coverage-dirs.txt"
+
+      # upload/download-artifact v3: the protocol Gitea has served since 1.19.
+      # v4 is unproven on this runner (quiz_apps marks its v4 upload
+      # continue-on-error and the Gitea artifact store has never held one).
+      - name: Upload coverage
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-flutter
+          path: ${{ runner.temp }}/coverage-flutter.tgz
+          retention-days: 7
+
+      - name: Pack golden failures
+        if: ${{ failure() }}
+        run: |
+          find apps packages -path '*/test/golden/failures/*' -type f > "$RUNNER_TEMP/golden-failures.txt" || true
+          if [ -s "$RUNNER_TEMP/golden-failures.txt" ]; then
+            tar -czf "$RUNNER_TEMP/golden-failures.tgz" -T "$RUNNER_TEMP/golden-failures.txt"
+          else
+            echo "No golden failures on disk."
+          fi
+
+      - name: Upload golden failures
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: golden-failures
+          path: ${{ runner.temp }}/golden-failures.tgz
+          if-no-files-found: ignore
+          retention-days: 14

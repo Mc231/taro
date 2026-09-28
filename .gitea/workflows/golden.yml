@@ -1,0 +1,142 @@
+name: Golden
+
+# 06 QA8, §3; Phase 3 Sprint 3.4. Goldens are generated and compared only on
+# this runner (macOS, pinned Flutter). `update: true` regenerates them with
+# `melos run golden:update` and uploads the new goldens/** as an artifact.
+#
+# Deviation from the Phase 3 task text ("commits test(golden): update
+# goldens"): Gitea holds a read-only pull-mirror of github.com/Mc231/taro, so
+# CI cannot push (06 §3, §8). The owner downloads the `goldens-<sha>`
+# artifact and commits it to the GitHub origin as
+# `test(golden): update goldens`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      update:
+        description: 'Regenerate goldens (melos run golden:update) and upload them'
+        required: true
+        type: boolean
+        default: false
+      ref:
+        description: 'Branch, tag or SHA to run on (empty = the dispatched ref)'
+        required: false
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      update:
+        required: false
+        type: boolean
+        default: false
+      ref:
+        required: false
+        type: string
+        default: ''
+
+concurrency:
+  group: golden-${{ inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  golden:
+    name: Goldens (${{ inputs.update && 'update' || 'compare' }})
+    runs-on: macos
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+
+      - name: Assert Flutter pin (goldens are only valid on the pin)
+        env:
+          PINNED: ${{ steps.flutter-pin.outputs.version }}
+        run: |
+          flutter --version --suppress-analytics | tee "$RUNNER_TEMP/flutter-version.txt"
+          grep -q "^Flutter $PINNED " "$RUNNER_TEMP/flutter-version.txt" \
+            || { echo "::error::Runner Flutter does not match the pin $PINNED"; exit 1; }
+
+      - name: Bootstrap melos
+        run: |
+          ulimit -n 65536 || true
+          mv=$(awk '/^  melos:/{f=1} f && /^    version:/{gsub(/"/, "", $2); print $2; exit}' pubspec.lock)
+          dart pub global activate melos "${mv:?melos version not found in pubspec.lock}"
+          echo "${PUB_CACHE:-$HOME/.pub-cache}/bin" >> "$GITHUB_PATH"
+          "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
+
+      - name: melos run test:golden
+        if: ${{ !inputs.update }}
+        run: |
+          ulimit -n 65536 || true
+          melos run test:golden
+
+      - name: melos run golden:update (reference runner)
+        if: ${{ inputs.update }}
+        run: |
+          ulimit -n 65536 || true
+          melos run golden:update
+
+      - name: Pack regenerated goldens
+        if: ${{ inputs.update }}
+        run: |
+          find apps packages \( -name .dart_tool -o -name build \) -prune \
+            -o -type f -path '*/test/golden/goldens/*' -print > "$RUNNER_TEMP/goldens.txt"
+          count=$(wc -l < "$RUNNER_TEMP/goldens.txt" | tr -d ' ')
+          echo "Regenerated $count golden files."
+          tar -czf "$RUNNER_TEMP/goldens.tgz" -T "$RUNNER_TEMP/goldens.txt"
+          sha=$(git rev-parse HEAD)
+          echo "GOLDENS_SHA=$sha" >> "$GITHUB_ENV"
+          {
+            echo "### Goldens regenerated on $sha"
+            echo ""
+            echo "$count files. Download the \`goldens-$sha\` artifact, then in a GitHub clone at that SHA:"
+            echo ""
+            echo '```'
+            echo "tar -xzf goldens.tgz && git add -A '*/test/golden/goldens/*'"
+            echo "git commit -m 'test(golden): update goldens' && git push origin"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          cat "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload regenerated goldens
+        if: ${{ inputs.update }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: goldens-${{ env.GOLDENS_SHA }}
+          path: ${{ runner.temp }}/goldens.tgz
+          retention-days: 30
+
+      - name: Pack golden failures
+        if: ${{ failure() }}
+        run: |
+          find apps packages -path '*/test/golden/failures/*' -type f > "$RUNNER_TEMP/golden-failures.txt" || true
+          if [ -s "$RUNNER_TEMP/golden-failures.txt" ]; then
+            tar -czf "$RUNNER_TEMP/golden-failures.tgz" -T "$RUNNER_TEMP/golden-failures.txt"
+          fi
+
+      - name: Upload golden failures
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: golden-failures
+          path: ${{ runner.temp }}/golden-failures.tgz
+          if-no-files-found: ignore
+          retention-days: 14

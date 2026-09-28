@@ -1,0 +1,1 @@
+# Glossary without numbered sections

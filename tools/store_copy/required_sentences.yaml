@@ -1,0 +1,23 @@
+# Sentences every store long description must contain in its first 3 lines
+# (05 §3, rule description_has_disclaimer; 05 §8.1 localization rule 3: the
+# disclaimer is this fixed translation, never an ad-hoc one).
+#
+# en is fixed by 05 §3. The 11 translations are drafts pending the reviewed
+# store-copy pass (Phase 18 / Phase 20); change them here, not in aso.yaml.
+# They deliberately avoid the locale's banned phrases (banned_phrases.yaml).
+
+version: 1
+
+description_disclaimer:
+  en: "Taro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice."
+  ar: "Taro مخصص للترفيه والتأمل الذاتي. لا يتنبأ بالمستقبل ولا يغني عن الاستشارة المهنية."
+  de: "Taro dient der Unterhaltung und Selbstreflexion. Es sagt nicht die Zukunft voraus und ersetzt keine professionelle Beratung."
+  es: "Taro es para entretenimiento y autorreflexión. No adivina el futuro y no sustituye el asesoramiento profesional."
+  fr: "Taro est destiné au divertissement et à la réflexion personnelle. Il ne lit pas l'avenir et ne remplace pas un avis professionnel."
+  it: "Taro è pensato per l'intrattenimento e l'autoriflessione. Non legge il futuro e non sostituisce una consulenza professionale."
+  ja: "Taroはエンターテインメントと自己省察のためのアプリです。未来を言い当てるものではなく、専門家の助言に代わるものでもありません。"
+  ko: "Taro는 엔터테인먼트와 자기 성찰을 위한 앱입니다. 미래를 알려 주지 않으며 전문가의 조언을 대신하지 않습니다."
+  nl: "Taro is bedoeld voor entertainment en zelfreflectie. Het voorspelt de toekomst niet en is geen vervanging voor professioneel advies."
+  pt: "Taro é para entretenimento e autorreflexão. Não adivinha o futuro e não substitui aconselhamento profissional."
+  tr: "Taro eğlence ve kendini yansıtma içindir. Geleceği öngörmez ve profesyonel tavsiyenin yerini tutmaz."
+  uk: "Taro створено для розваги та саморефлексії. Він не пророкує майбутнього і не замінює професійної консультації."

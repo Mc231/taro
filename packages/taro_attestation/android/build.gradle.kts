@@ -48,6 +48,14 @@ android {
         minSdk = 24
     }
 
+    buildTypes {
+        getByName("debug") {
+            // JaCoCo for the Kotlin unit tests (06 §5.2; RC40, unit
+            // taro_attestation_android). Task: createDebugUnitTestCoverageReport.
+            enableUnitTestCoverage = true
+        }
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -74,4 +82,12 @@ kotlin {
 dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")
+}
+
+// 06 §5.2 names the report task `jacocoTestReport`; AGP builds it as
+// createDebugUnitTestCoverageReport (XML under build/reports/coverage/test/debug/).
+tasks.register("jacocoTestReport") {
+    group = "verification"
+    description = "JaCoCo XML report of the debug unit tests (RC40)."
+    dependsOn("createDebugUnitTestCoverageReport")
 }

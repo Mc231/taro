@@ -1,0 +1,63 @@
+name: Reusable - Tools tests + coverage
+
+# 06 §5.2, §8. pytest for tools/ (Python 3.12) with --cov-fail-under=90.
+# JSON (tools/coverage/coverage.json, per pyproject.toml) feeds
+# check_coverage.py; XML (tools/coverage.xml) feeds SonarQube (06 §9).
+# tools/dart_tools is a Dart package and is covered by reusable-flutter-test.
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Tools tests (pytest, coverage)
+    runs-on: macos
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+          tools/.venv/bin/python --version
+
+      - name: pytest --cov (>= 90%)
+        working-directory: tools
+        run: |
+          .venv/bin/python -m pytest \
+            --cov \
+            --cov-report=term-missing \
+            --cov-report=json \
+            --cov-report=xml:coverage.xml \
+            --cov-fail-under=90
+
+      - name: Pack coverage report
+        if: ${{ !cancelled() }}
+        run: |
+          : > "$RUNNER_TEMP/tools-coverage.txt"
+          for f in tools/coverage tools/coverage.xml tools/.coverage; do
+            [ -e "$f" ] && echo "$f" >> "$RUNNER_TEMP/tools-coverage.txt"
+          done
+          cat "$RUNNER_TEMP/tools-coverage.txt"
+          if [ -s "$RUNNER_TEMP/tools-coverage.txt" ]; then
+            tar -czf "$RUNNER_TEMP/coverage-tools.tgz" -T "$RUNNER_TEMP/tools-coverage.txt"
+          else
+            echo "::warning::no tools coverage report was produced"
+          fi
+
+      - name: Upload coverage
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-tools
+          path: ${{ runner.temp }}/coverage-tools.tgz
+          if-no-files-found: ignore
+          retention-days: 7

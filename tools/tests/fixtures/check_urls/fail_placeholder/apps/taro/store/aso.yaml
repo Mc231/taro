@@ -1,0 +1,14 @@
+privacy_policy_url: https://taro.vshyrochuk.com/privacy
+support_url: https://taro.vshyrochuk.com/support
+localizations:
+  en:
+    description: |
+      Privacy Policy: https://taro.vshyrochuk.com/privacy.
+      Terms of Use: https://taro.vshyrochuk.com/terms
+admob:
+  ssv_callback_url: https://api.taro.vshyrochuk.com/v1/ads/admob/ssv
+  ios_app_id: ca-app-pub-XXXX~YYYY
+store_screenshots:
+  screenshots:
+  - {file: 01.png, headline: "Ask. Draw. Reflect."}
+terms_url: https://taro.vshyrochuk.com/XXXX/terms

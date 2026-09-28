@@ -1,0 +1,10 @@
+{
+  "@@locale": "nl",
+  "appTitle": "Taro",
+  "greeting": "Hoi {name}",
+  "readingsLeft": "{count, plural, =0{Geen lezingen} one{1 lezing} other{{count} lezingen}}",
+  "themeLabel": "{mode, select, light{Licht} dark{Donker} other{Systeem}}",
+  "failureNetwork": "Je bent offline.",
+  "safetyDeclinedHealth": "Tarot beantwoordt geen gezondheidsvragen.",
+  "countOnly": "{count}"
+}

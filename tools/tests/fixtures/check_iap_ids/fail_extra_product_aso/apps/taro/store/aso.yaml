@@ -1,0 +1,25 @@
+app_store:
+  bundle_id: com.vshyrochuk.taro
+  iap_products:
+  - product_id: com.vshyrochuk.taro.remove_ads
+    type: NON_CONSUMABLE
+    display_name: Remove Banner Ads
+  - product_id: com.vshyrochuk.taro.readings_3
+    type: CONSUMABLE
+    display_name: 3 Readings
+  - product_id: com.vshyrochuk.taro.readings_10
+    type: CONSUMABLE
+    display_name: 10 Readings
+  - product_id: com.vshyrochuk.taro.readings_30
+    type: CONSUMABLE
+    display_name: 30 Readings
+  - product_id: com.vshyrochuk.taro.readings_50
+    type: CONSUMABLE
+    display_name: 50 Readings
+google_play:
+  package_name: com.vshyrochuk.taro
+  iap_products:
+  - {product_id: com.vshyrochuk.taro.remove_ads, type: NON_CONSUMABLE}
+  - {product_id: com.vshyrochuk.taro.readings_3, type: CONSUMABLE}
+  - {product_id: com.vshyrochuk.taro.readings_10, type: CONSUMABLE}
+  - {product_id: com.vshyrochuk.taro.readings_30, type: CONSUMABLE}

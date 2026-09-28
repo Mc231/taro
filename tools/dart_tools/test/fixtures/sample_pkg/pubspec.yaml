@@ -1,0 +1,9 @@
+# Fixture for gen_coverage_all_test.dart; not a workspace member.
+name: sample_pkg
+publish_to: none
+
+environment:
+  sdk: ^3.9.0
+
+dev_dependencies:
+  test: ^1.31.0

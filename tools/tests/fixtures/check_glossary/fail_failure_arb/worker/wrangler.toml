@@ -1,0 +1,147 @@
+# taro-api — Cloudflare Worker (03_BACKEND_WORKER.md §1, §11; GLOSSARY §6.1)
+#
+# Bindings are NOT inherited by [env.*] blocks, so every environment declares
+# its own. All IDs below are PLACEHOLDERS until Phase 6 Sprint 6.0 creates the
+# real D1 databases, KV namespaces and rate-limit namespaces.
+#
+# Test-only vars (ALLOW_DEBUG_ATTESTATION, AI_PROVIDER, DEBUG_ATTESTATION_TOKEN)
+# may appear ONLY under [env.dev] / [env.staging] (BE20, RC86). [env.prod] must
+# never define them: makeProdDeps() throws at startup and
+# tools/check_worker_env.py fails CI if it does.
+
+# Top-level name is deliberately NOT the prod name: a bare `wrangler deploy`
+# (no --env) must never overwrite prod. Always pass --env dev|staging|prod.
+name = "taro-api-dev"
+main = "src/index.ts"
+# Pinned; bump deliberately (03 §1). Must not be newer than the workerd bundled
+# with @cloudflare/vitest-pool-workers.
+compatibility_date = "2026-08-15"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+
+# ---------------------------------------------------------------------------
+# dev — local `wrangler dev` / vitest (miniflare)
+# ---------------------------------------------------------------------------
+[env.dev]
+name = "taro-api-dev"
+
+[env.dev.vars]
+ENVIRONMENT = "dev"
+ALLOW_DEBUG_ATTESTATION = "true"
+AI_PROVIDER = "fake"
+
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "taro-dev"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[env.dev.kv_namespaces]]
+binding = "CONFIG_KV"
+id = "00000000000000000000000000000001"
+
+[[env.dev.kv_namespaces]]
+binding = "RL_KV"
+id = "00000000000000000000000000000002"
+
+[[env.dev.kv_namespaces]]
+binding = "CACHE_KV"
+id = "00000000000000000000000000000003"
+
+[[env.dev.analytics_engine_datasets]]
+binding = "METRICS"
+dataset = "taro_api_events"
+
+[[env.dev.ratelimits]]
+name = "RL_BURST"
+namespace_id = "1001"
+simple = { limit = 60, period = 60 }
+
+[[env.dev.ratelimits]]
+name = "RL_READINGS"
+namespace_id = "1002"
+simple = { limit = 6, period = 60 }
+
+# ---------------------------------------------------------------------------
+# staging — taro-api-staging (api-staging.taro.vshyrochuk.com)
+# ---------------------------------------------------------------------------
+[env.staging]
+name = "taro-api-staging"
+
+[env.staging.vars]
+ENVIRONMENT = "staging"
+ALLOW_DEBUG_ATTESTATION = "true"
+AI_PROVIDER = "anthropic"
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "taro-staging"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[env.staging.kv_namespaces]]
+binding = "CONFIG_KV"
+id = "00000000000000000000000000000011"
+
+[[env.staging.kv_namespaces]]
+binding = "RL_KV"
+id = "00000000000000000000000000000012"
+
+[[env.staging.kv_namespaces]]
+binding = "CACHE_KV"
+id = "00000000000000000000000000000013"
+
+[[env.staging.analytics_engine_datasets]]
+binding = "METRICS"
+dataset = "taro_api_events"
+
+[[env.staging.ratelimits]]
+name = "RL_BURST"
+namespace_id = "2001"
+simple = { limit = 60, period = 60 }
+
+[[env.staging.ratelimits]]
+name = "RL_READINGS"
+namespace_id = "2002"
+simple = { limit = 6, period = 60 }
+
+# ---------------------------------------------------------------------------
+# prod — taro-api (api.taro.vshyrochuk.com). NO test-only vars here (RC86).
+# ---------------------------------------------------------------------------
+[env.prod]
+name = "taro-api"
+
+[env.prod.vars]
+ENVIRONMENT = "prod"
+
+[[env.prod.d1_databases]]
+binding = "DB"
+database_name = "taro-prod"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[env.prod.kv_namespaces]]
+binding = "CONFIG_KV"
+id = "00000000000000000000000000000021"
+
+[[env.prod.kv_namespaces]]
+binding = "RL_KV"
+id = "00000000000000000000000000000022"
+
+[[env.prod.kv_namespaces]]
+binding = "CACHE_KV"
+id = "00000000000000000000000000000023"
+
+[[env.prod.analytics_engine_datasets]]
+binding = "METRICS"
+dataset = "taro_api_events"
+
+[[env.prod.ratelimits]]
+name = "RL_BURST"
+namespace_id = "3001"
+simple = { limit = 60, period = 60 }
+
+[[env.prod.ratelimits]]
+name = "RL_READINGS"
+namespace_id = "3002"
+simple = { limit = 6, period = 60 }

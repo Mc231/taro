@@ -1,0 +1,1 @@
+ALTER TABLE installs ADD COLUMN trust TEXT;

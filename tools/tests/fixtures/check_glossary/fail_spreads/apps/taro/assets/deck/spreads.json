@@ -1,0 +1,1 @@
+{"spreads": [{"id": "single", "positions": ["focus"]}, {"id": "three_ppf", "positions": [{"positionId": "present"}, {"positionId": "past"}, {"positionId": "future"}]}, {"id": "daily_single", "positions": "x"}]}

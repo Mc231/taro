@@ -1,0 +1,115 @@
+{
+ "spreads": [
+  {
+   "id": "single",
+   "positions": [
+    {
+     "id": "focus"
+    }
+   ]
+  },
+  {
+   "id": "three_ppf",
+   "positions": [
+    {
+     "id": "past"
+    },
+    {
+     "id": "present"
+    },
+    {
+     "id": "future"
+    }
+   ]
+  },
+  {
+   "id": "three_sao",
+   "positions": [
+    {
+     "id": "situation"
+    },
+    {
+     "id": "action"
+    },
+    {
+     "id": "outcome"
+    }
+   ]
+  },
+  {
+   "id": "relationship",
+   "positions": [
+    {
+     "id": "you"
+    },
+    {
+     "id": "other"
+    },
+    {
+     "id": "connection"
+    },
+    {
+     "id": "challenge"
+    },
+    {
+     "id": "potential"
+    }
+   ]
+  },
+  {
+   "id": "two_paths",
+   "positions": [
+    {
+     "id": "situation"
+    },
+    {
+     "id": "path_a"
+    },
+    {
+     "id": "path_a_outcome"
+    },
+    {
+     "id": "path_b"
+    },
+    {
+     "id": "path_b_outcome"
+    }
+   ]
+  },
+  {
+   "id": "celtic_cross",
+   "positions": [
+    {
+     "id": "present"
+    },
+    {
+     "id": "challenge"
+    },
+    {
+     "id": "foundation"
+    },
+    {
+     "id": "recent_past"
+    },
+    {
+     "id": "potential"
+    },
+    {
+     "id": "near_future"
+    },
+    {
+     "id": "self"
+    },
+    {
+     "id": "environment"
+    },
+    {
+     "id": "hopes_fears"
+    },
+    {
+     "id": "outcome"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+name: Nightly
+
+# 06 §4, §8; Phase 3 Sprint 3.4. Every night at 03:00 (Gitea evaluates cron
+# in the server's time zone): integration on the iOS simulator and the
+# Android emulator, the full golden run, npm audit, and a `dart pub outdated`
+# report. On Mondays (or with `weekly: true`): check_urls.py online, and the
+# `eval:safety` slot against staging, which Phase 8 wires.
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+    inputs:
+      weekly:
+        description: 'Also run the Monday-only jobs (URLs, eval:safety slot)'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  integration:
+    uses: ./.gitea/workflows/integration.yml
+    with:
+      platforms: ios,android
+
+  golden:
+    uses: ./.gitea/workflows/golden.yml
+    with:
+      update: false
+
+  audit:
+    name: npm audit + dart pub outdated
+    runs-on: macos
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (worker/.nvmrc, QA14)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci
+        working-directory: worker
+        run: npm ci
+
+      - name: npm audit (full report, advisory)
+        working-directory: worker
+        run: |
+          npm audit > "$RUNNER_TEMP/npm-audit.txt" 2>&1 || true
+          cat "$RUNNER_TEMP/npm-audit.txt"
+
+      - name: npm audit (prod deps, high+, gating)
+        working-directory: worker
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+
+      - name: dart pub outdated (report only)
+        run: |
+          dart pub get > /dev/null
+          dart pub outdated --show-all > "$RUNNER_TEMP/pub-outdated.txt" 2>&1 || true
+          cat "$RUNNER_TEMP/pub-outdated.txt"
+          {
+            echo "### dart pub outdated"
+            echo ""
+            echo '```'
+            cat "$RUNNER_TEMP/pub-outdated.txt"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: nightly-dependency-reports
+          path: |
+            ${{ runner.temp }}/npm-audit.txt
+            ${{ runner.temp }}/pub-outdated.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+  weekly:
+    name: Weekly (Monday) - URLs + eval:safety slot
+    runs-on: macos
+    timeout-minutes: 30
+    env:
+      FORCE_WEEKLY: ${{ inputs.weekly && 'true' || 'false' }}
+    steps:
+      - name: Is it Monday?
+        id: day
+        run: |
+          if [ "$(date +%u)" = "1" ] || [ "$FORCE_WEEKLY" = "true" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Not Monday; weekly jobs skipped."
+          fi
+
+      - name: Checkout repository
+        if: ${{ steps.day.outputs.run == 'true' }}
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12 venv (tools/)
+        if: ${{ steps.day.outputs.run == 'true' }}
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: check_urls.py (online, 05 CS10)
+        if: ${{ steps.day.outputs.run == 'true' }}
+        run: tools/.venv/bin/python tools/check_urls.py
+
+      # Phase 8 wires this: decrypt the bundle into $RUNNER_TEMP with
+      # SECRETS_PASSPHRASE, run `npm run eval:safety -- --env staging` in
+      # worker/, commit nothing (the report is an artifact), shred in always().
+      - name: eval:safety slot (Phase 8)
+        if: ${{ steps.day.outputs.run == 'true' }}
+        working-directory: worker
+        run: |
+          script=$(node -p "require('./package.json').scripts?.['eval:safety'] ?? ''")
+          if [ -z "$script" ]; then
+            echo "eval:safety is not defined yet (Phase 8); slot reserved."
+          else
+            echo "::warning::worker has eval:safety but nightly.yml does not wire staging secrets yet (Phase 8)."
+          fi

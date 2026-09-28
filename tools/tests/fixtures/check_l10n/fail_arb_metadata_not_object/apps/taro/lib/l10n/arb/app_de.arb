@@ -1,0 +1,11 @@
+{
+  "@@locale": "de",
+  "appTitle": "Taro",
+  "greeting": "Hallo {name}",
+  "readingsLeft": "{count, plural, =0{Keine Lesungen} one{1 Lesung übrig} other{{count} Lesungen übrig}}",
+  "themeLabel": "{mode, select, light{Hell} dark{Dunkel} other{System }}",
+  "failureNetwork": "Du bist offline.",
+  "safetyDeclinedHealth": "Tarot beantwortet keine Gesundheitsfragen.",
+  "countOnly": "{count}",
+  "@greeting": "oops"
+}

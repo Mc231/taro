@@ -24,4 +24,18 @@ class RunnerTests: XCTestCase {
     waitForExpectations(timeout: 1)
   }
 
+  // Unknown methods answer FlutterMethodNotImplemented (06 §5.2, RC40).
+  func testUnknownMethodIsNotImplemented() {
+    let plugin = TaroAttestationPlugin()
+
+    let call = FlutterMethodCall(methodName: "unknownMethod", arguments: nil)
+
+    let resultExpectation = expectation(description: "result block must be called.")
+    plugin.handle(call) { result in
+      XCTAssertTrue((result as AnyObject) === FlutterMethodNotImplemented)
+      resultExpectation.fulfill()
+    }
+    waitForExpectations(timeout: 1)
+  }
+
 }

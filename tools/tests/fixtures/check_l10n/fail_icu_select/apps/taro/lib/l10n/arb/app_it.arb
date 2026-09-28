@@ -1,0 +1,10 @@
+{
+  "@@locale": "it",
+  "appTitle": "Taro",
+  "greeting": "Ciao {name}",
+  "readingsLeft": "{count, plural, =0{Nessuna lettura} one{1 lettura} other{{count} letture}}",
+  "themeLabel": "{mode, select, light{Chiaro} other{Sistema}}",
+  "failureNetwork": "Sei offline.",
+  "safetyDeclinedHealth": "I tarocchi non rispondono sulla salute.",
+  "countOnly": "{count}"
+}

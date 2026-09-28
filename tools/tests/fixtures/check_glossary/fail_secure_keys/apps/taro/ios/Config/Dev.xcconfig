@@ -1,0 +1,7 @@
+// Flavor "dev" (02 §15). Included by Config/{Debug,Profile,Release}-dev.xcconfig.
+PRODUCT_BUNDLE_IDENTIFIER = com.vshyrochuk.taro.dev
+APP_DISPLAY_NAME = Taro Dev
+// AdMob app ID for Info.plist GADApplicationIdentifier. Google's sample app ID
+// until Phase 10 creates the real AdMob app (prod only); ad unit IDs come from
+// config/dev.json.
+ADMOB_APP_ID = ca-app-pub-3940256099942544~1458002511

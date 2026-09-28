@@ -1,0 +1,43 @@
+# Coverage exclusions: the single source of truth (06 QA3, §5.3; RC16, RC40, RC95).
+# One repo-relative glob per line; `**` spans directories, `*` stays inside one
+# path segment. Lines starting with `#` are comments. Generated code only.
+# Changing this list needs, in the same change: the 06 §5.3 table,
+# `sonar-project.properties` `sonar.coverage.exclusions` (check_coverage.py
+# --verify-sonar enforces it) and a one-line reason in the commit message.
+
+# flutter gen-l10n output from the ARB files; ARB completeness is checked by check_l10n.py (RC16, RC95).
+apps/taro/lib/l10n/generated/**
+# Design-token output of tools/tokens/ from docs/design/taro.tokens.json; the generator is covered under tools (RC15).
+packages/taro_ui/lib/src/tokens/generated/**
+# build_runner output (json_serializable, drift).
+**/*.g.dart
+# freezed output (02 AR6; RC13, RC16).
+**/*.freezed.dart
+# Output of Taro's own Dart generators in tools/; the generators are covered under tools.
+**/*.gen.dart
+# Flutter tooling: generated plugin registrant (Dart).
+**/generated_plugin_registrant.dart
+# Flutter tooling: generated plugin registrant (Swift/Objective-C/Java), the only native exclusion (RC40).
+**/GeneratedPluginRegistrant.*
+# flutterfire configure output per flavor (RC16, RC36).
+**/firebase_options_*.dart
+# Three-line flavor entrypoints; the logic is in bootstrap(), which is covered (RC16, RC76).
+apps/taro/lib/main_*.dart
+# Worker build-time bundles from tools/content build and the safety/prompt builders (RC25, RC26).
+worker/src/generated/**
+# Type declarations: no executable lines.
+**/*.d.ts
+# Wrangler-generated Worker type declarations: no executable lines.
+worker/worker-configuration.d.ts
+# Dart and Flutter tests: not product code.
+**/test/**
+# Flutter integration tests: not product code.
+**/integration_test/**
+# Worker tests: not product code.
+worker/test/**
+# Python tool tests: not product code.
+tools/tests/**
+# Eval case data (YAML/JSONL), not code; worker/evals/lib/** stays covered (RC61).
+worker/evals/cases/**
+# Safety eval data, not code; worker/evals/lib/** stays covered (RC61).
+worker/evals/safety/**

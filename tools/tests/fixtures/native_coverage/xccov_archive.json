@@ -1,0 +1,11 @@
+{"REPO/packages/taro_attestation/ios/taro_attestation/Sources/taro_attestation/TaroAttestationPlugin.swift": [
+  {"line": 1, "isExecutable": false},
+  {"line": 5, "isExecutable": true, "executionCount": 1},
+  {"line": 6, "isExecutable": true, "executionCount": 1},
+  {"line": 6, "isExecutable": true, "executionCount": 2},
+  {"line": 11, "isExecutable": true, "executionCount": 0},
+  {"line": 12, "isExecutable": true, "executionCount": null}
+ ],
+ "REPO/packages/taro_attestation/example/ios/Runner/AppDelegate.swift": [
+  {"line": 3, "isExecutable": true, "executionCount": 1}
+ ]}

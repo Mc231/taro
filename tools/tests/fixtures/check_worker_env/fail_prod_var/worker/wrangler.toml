@@ -1,0 +1,11 @@
+[env.dev.vars]
+ENVIRONMENT = "dev"
+AI_PROVIDER = "fake"
+
+[env.prod]
+name = "taro-api"
+
+[env.prod.vars]
+ENVIRONMENT = "prod"
+AI_PROVIDER = "anthropic"
+ALLOW_DEBUG_ATTESTATION = "true"

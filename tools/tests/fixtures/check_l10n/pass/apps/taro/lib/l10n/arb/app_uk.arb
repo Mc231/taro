@@ -1,0 +1,10 @@
+{
+  "@@locale": "uk",
+  "appTitle": "Taro",
+  "greeting": "Привіт, {name}",
+  "readingsLeft": "{count, plural, =0{Немає розкладів} one{{count} розклад} few{{count} розклади} many{{count} розкладів} other{{count} розкладу}}",
+  "themeLabel": "{mode, select, light{Світла} dark{Темна} other{Системна}}",
+  "failureNetwork": "Ви офлайн.",
+  "safetyDeclinedHealth": "Таро не відповідає на питання про здоров'я.",
+  "countOnly": "{count}"
+}

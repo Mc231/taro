@@ -1,0 +1,5 @@
+{
+  "@@locale": "en",
+  "legalTerms": "Read the terms at https://taro.vshyrochuk.com/terms",
+  "@legalTerms": {"description": "See https://example.invalid/not-checked in metadata."}
+}

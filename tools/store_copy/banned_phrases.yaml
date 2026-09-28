@@ -1,0 +1,261 @@
+# Banned phrases for store copy, in-app text and deck content.
+#
+# Content owned by 05_COMPLIANCE_STORE_ASO.md §9.5 (per-locale table, "Also
+# banned" line) and seeded with the 06 §6.2 list. Canonical path (RC39): the
+# Worker L3 output lexicon (03 §9.4) is compiled from this file by
+# `tools/content build`; there is no other copy.
+#
+# Matching (tools/store_copy/check_store_copy.py): text and phrases are
+# NFKC-normalized and case-folded, curly apostrophes become "'". A phrase is a
+# sequence of whitespace-separated tokens matched on word boundaries; a token
+# ending in `*` is a stem (any word continuing it matches, e.g. `guarantee*`
+# also matches "guaranteed"). Locales with `match: substring` (no spaces
+# between words, e.g. ja) match anywhere, `*` ignored.
+#
+# Lists per block:
+#   global         banned in every surface of that locale
+#   apple_only     banned in Apple-facing fields (App Store metadata) — rule
+#                  apple_fields_no_android
+#   play_only      banned in Play-facing fields — rule play_fields_no_apple
+#   name_subtitle  banned in the app name / subtitle / Play title only
+#                  ("free" is allowed in the keyword field, 05 §9.5)
+#   allowed_contexts
+#                  exact spans removed before matching: negated uses in the
+#                  fixed compliance copy (05 §3), e.g. "not medical … advice".
+#                  The locale's required disclaimer sentence
+#                  (required_sentences.yaml) is always removed as well.
+# `common` applies to every locale in addition to its own block.
+
+version: 1
+
+common:
+  global:
+    - "100%"
+    - "#1"
+    - "no.1"
+    - "no. 1"
+  apple_only:
+    - android
+    - google play
+    - play store
+    - google
+  play_only:
+    - iphone
+    - ipad
+    - app store
+    - ios
+
+locales:
+  en:
+    global:
+      # 06 §6.2 seed list
+      - accurate
+      - guaranteed
+      - real psychic
+      - predict your future
+      - know your future
+      - medical
+      - cure
+      - win the lottery
+      - free unlimited
+      - limited time          # fake urgency
+      # 05 §9.5
+      - accuracy
+      - precise
+      - true reading
+      - guarantee*
+      - psychic*
+      - medium
+      - clairvoyan*
+      - spirits say
+      - will happen
+      - heal
+      - heals
+      - healing
+      - cures
+      - cured
+      - therapy
+      - therapist*
+      - therapeutic
+      - spell
+      - spells
+      - hex
+      - love spell
+      - best
+    name_subtitle:
+      - free
+    allowed_contexts:
+      - "not medical, legal, financial or psychological advice"
+
+  de:
+    global:
+      - treffsicher*
+      - genau
+      - garantiert*
+      - garantie*
+      - hellseher*
+      - medium
+      - zukunft vorhersagen
+      - heilen
+      - heilt
+      - therapie*
+      - zauber*
+      - liebeszauber*
+    name_subtitle:
+      - kostenlos
+      - gratis
+
+  es:
+    global:
+      - precis*
+      - exact*
+      - garantiza*
+      - vidente*
+      - psíquic*
+      - predecir el futuro
+      - curar
+      - terapia*
+      - hechizo*
+      - amarre*
+    name_subtitle:
+      - gratis
+
+  fr:
+    global:
+      - précis*
+      - exact*
+      - garanti*
+      - voyant*
+      - voyance
+      - médium*
+      - prédire l'avenir
+      - guérir
+      - guérit
+      - thérapie*
+      - sort
+      - sorts
+      - envoûtement*
+    name_subtitle:
+      - gratuit*
+
+  it:
+    global:
+      - accurat*
+      - precis*
+      - garantit*
+      - veggente*
+      - sensitiv*
+      - predire il futuro
+      - guarire
+      - guarisce
+      - terapia*
+      - incantesim*
+    name_subtitle:
+      - gratis
+      - gratuit*
+
+  pt:
+    global:
+      - precis*
+      - exat*
+      - garanti*
+      - vidente*
+      - médium*
+      - prever o futuro
+      - curar
+      - terapia*
+      - feitiç*
+      - amarraç*
+    name_subtitle:
+      - grátis
+      - gratuit*
+
+  nl:
+    global:
+      - nauwkeurig*
+      - accura*
+      - gegarandeerd
+      - garantie*
+      - helderziend*
+      - paranormaal*
+      - toekomst voorspellen
+      - genezen
+      - geneest
+      - therapie*
+      - betover*
+    name_subtitle:
+      - gratis
+
+  ja:
+    match: substring
+    global:
+      - 当たる
+      - 的中
+      - 保証
+      - 必ず
+      - 霊視
+      - 霊能
+      - 未来予知
+      - 予言
+      - 治す
+      - 治療
+      - おまじない
+    name_subtitle:
+      - 無料
+
+  ko:
+    global:
+      - 정확*
+      - 적중*
+      - 보장*
+      - 반드시
+      - 영매*
+      - 신점*
+      - 무당*
+      - 미래를 예측*
+      - 예언*
+      - 치료*
+      - 주술*
+    name_subtitle:
+      - 무료*
+
+  ar:
+    global:
+      - دقيق*
+      - مضمون*
+      - عراف*
+      - وسيط روحاني
+      - التنبؤ بالمستقبل
+      - علاج*
+      - سحر*
+    name_subtitle:
+      - مجان*
+
+  tr:
+    global:
+      - isabetli*
+      - kesin*
+      - garanti*
+      - medyum*
+      - durugörü*
+      - geleceği tahmin*
+      - kehanet*
+      - tedavi*
+      - büyü
+      - büyüsü
+    name_subtitle:
+      - ücretsiz
+      - bedava
+
+  uk:
+    global:
+      - точн*
+      - гарант*
+      - ясновид*
+      - екстрасенс*
+      - передбач* майбутн*
+      - лікув*
+      - приворот*
+      - заклинан*
+    name_subtitle:
+      - безкоштовн*

@@ -46,11 +46,12 @@ melos run analyze                  # flutter analyze --fatal-infos
 melos run format:check             # dart format --set-exit-if-changed
 melos run test                     # all Dart/Flutter tests
 melos run test:coverage            # lcov per unit (taro_core, taro_ui, taro_attestation, apps/taro)
-melos run test:golden              # goldens (reference: macOS CI runner, pinned Flutter)
-melos run check                    # repo checks (Phase 3)
+melos run test:golden              # goldens (reference: macOS arm64 + pinned Flutter, e.g. the CI runner)
+melos run golden:update            # regenerate goldens; refuses off the reference unless `-- --force-local`
+melos run check                    # = tools/verify.sh --fast
 melos run coverage:check           # >= 90 % per unit, >= 70 % per file (Phase 3)
 melos run contract:sync            # worker contract fixtures -> apps/taro/test/contract/fixtures/ (Phase 3)
-melos run hooks:install            # commit-msg + pre-push hooks (Phase 3)
+melos run hooks:install            # core.hooksPath=tools/githooks: commit-msg + pre-push (verify.sh --fast)
 
 cd apps/taro && flutter run --flavor dev -t lib/main_dev.dart --dart-define-from-file=config/dev.json
 
@@ -62,7 +63,8 @@ cd worker && npx wrangler deploy --dry-run --env staging
 cd tools && python3.12 -m venv .venv && .venv/bin/pip install -e '.[dev]'
 cd tools && .venv/bin/pytest --cov # >= 90 % (fail_under in pyproject.toml)
 
-tools/verify.sh [--fast]           # everything CI runs except integration (Phase 3)
+tools/verify.sh [--fast]           # everything CI runs except integration; --fast = pre-push gate
+tools/phase_state.py               # phase status table (docs/TESTING.md has the test harness)
 ```
 
 Before a commit: format, analyze, tests and coverage for every unit you touched (`tools/verify.sh --fast` once it exists).

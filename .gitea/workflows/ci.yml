@@ -1,0 +1,113 @@
+name: CI
+
+# 06 QA10, QA11, §8; Phase 3 Sprint 3.4. The one hard gate: required green on
+# a phase commit's SHA and re-checked by every deploy workflow.
+#
+# Trigger: Gitea pull-mirrors github.com/Mc231/taro, so each mirror sync of
+# any branch arrives as a `push` (never `pull_request`). The pushed range is
+# github.event.before..github.event.after (see reusable-static.yml).
+#
+# The runner has capacity 1, so jobs run one after another; the order below
+# puts the cheapest failure first. Static checks gate the test jobs.
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+# Superseded runs on the same branch are cancelled (06 §8 Rules).
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    uses: ./.gitea/workflows/reusable-static.yml
+
+  tools-test:
+    needs: static
+    uses: ./.gitea/workflows/reusable-tools-test.yml
+
+  worker-test:
+    needs: static
+    uses: ./.gitea/workflows/reusable-worker-test.yml
+
+  flutter-test:
+    needs: static
+    uses: ./.gitea/workflows/reusable-flutter-test.yml
+
+  native-test:
+    needs: static
+    uses: ./.gitea/workflows/reusable-native-test.yml
+
+  integration:
+    needs: static
+    uses: ./.gitea/workflows/integration.yml
+    with:
+      platforms: ios
+
+  coverage-gate:
+    name: Coverage gate (check_coverage.py --verify-sonar)
+    needs: [tools-test, worker-test, flutter-test, native-test]
+    # Still report the table when a test job failed; the gate itself fails
+    # on any missing report (06 §5.1).
+    if: ${{ !cancelled() }}
+    runs-on: macos
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: Download coverage reports
+        uses: actions/download-artifact@v3
+        with:
+          path: ${{ runner.temp }}/reports
+
+      - name: Unpack coverage reports into the workspace
+        run: |
+          found=0
+          for tgz in "$RUNNER_TEMP"/reports/coverage-*/*.tgz; do
+            [ -e "$tgz" ] || continue
+            echo "Unpacking $tgz"
+            tar -xzf "$tgz" -C .
+            found=$((found + 1))
+          done
+          echo "Unpacked $found report bundles."
+
+      - name: check_coverage.py --verify-sonar
+        run: |
+          # No --threshold: CI always gates at the spec values (06 §5.1).
+          status=0
+          tools/.venv/bin/python tools/check_coverage.py --verify-sonar || status=$?
+          if [ -f coverage/summary.md ]; then
+            cat coverage/summary.md
+            cat coverage/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::coverage/summary.md was not written"
+          fi
+          exit "$status"
+
+      # Gitea 1.25 does not render $GITHUB_STEP_SUMMARY, so the summary and
+      # the merged lcov are also kept as an artifact.
+      - name: Upload coverage summary
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-summary
+          path: |
+            coverage/summary.md
+            coverage/merged/lcov.info
+          if-no-files-found: ignore
+          retention-days: 30

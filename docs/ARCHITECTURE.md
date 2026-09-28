@@ -178,3 +178,10 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 - Port 8787 was occupied by an unrelated local process on the owner's machine; `wrangler dev --port 8799`
   was used for the smoke check. Default port stays 8787 (GLOSSARY §6.1).
 
+
+## Quality gates (Phase 3)
+
+- Local gate: `tools/verify.sh` (full) and `--fast` (pre-push hook). CI: `.gitea/workflows/ci.yml` on the self-hosted Gitea runner.
+- Coverage: `tools/check_coverage.py` gates 9 units (taro_core, taro_ui, taro_attestation, its iOS and Android native code, apps/taro, dart_tools, worker, tools) at ≥ 90 % per unit and ≥ 70 % per file; exclusions in `tools/coverage_exclusions.txt` (mirrored in `sonar-project.properties`).
+- ARB checks: `check_arb.dart` (02 §11) is folded into `tools/check_l10n.py` (one Python check for keys, placeholders, ICU plurals per CLDR and deck content).
+- Details: `docs/TESTING.md`, `docs/phase3_notes/{COVERAGE,CHECKS,CI}.md`.

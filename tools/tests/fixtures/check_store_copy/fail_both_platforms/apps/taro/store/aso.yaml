@@ -1,0 +1,280 @@
+app_identifier: taro
+short_description: 'AI tarot readings for reflection: daily card, spreads, journal'
+full_description: "Taro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice.\n\nAsk a question, draw your cards and read what they could mean for you.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+keywords:
+- tarot
+- tarot reading
+- daily card
+- journal
+privacy_policy_url: https://taro.vshyrochuk.com/privacy
+whats_new: "Now on iOS and Android.\n"
+app_review_information:
+  contact_email: volodymyr.shyrochuk@gmail.com
+  notes: "APP PURPOSE\nTaro is a tarot app for entertainment and self-reflection.\n\nHOW TO REVIEW (no login needed)\n1. Launch and complete onboarding.\n2. Choose \"Allow AI readings\" (choosing \"Not now\" still works).\n3. On Today, tap “Start a reading”, then tap \"Begin\".\n4. Settings: \"Remove Banner Ads\", \"Restore purchases\".\n\nSAFETY\nTry for example: \"Am I pregnant?\".\n\nEXTERNAL SERVICES\n- App Attest (iOS) and Play Integrity (Android) protect free readings.\n"
+app_store:
+  bundle_id: com.vshyrochuk.taro
+  name: 'Taro: Tarot Card Reading'
+  iap_products:
+  - product_id: com.vshyrochuk.taro.remove_ads
+    type: NON_CONSUMABLE
+    display_name: Remove Banner Ads
+    description: Optional reward videos stay.
+    review_notes: Adds reading credits after server-side verification.
+    localizations:
+      ar:
+        display_name: إزالة إعلانات البانر
+        description: تبقى مقاطع المكافأة الاختيارية.
+      de:
+        display_name: Banner-Werbung entfernen
+        description: Optionale Belohnungsvideos bleiben.
+      es:
+        display_name: Quitar anuncios de banner
+        description: Los videos opcionales siguen.
+      fr:
+        display_name: Supprimer les bannières
+        description: Les vidéos optionnelles restent.
+      it:
+        display_name: Rimuovi banner pubblicitari
+        description: I video opzionali restano.
+      ja:
+        display_name: バナー広告を削除
+        description: 任意のリワード動画は残ります。
+      ko:
+        display_name: 배너 광고 제거
+        description: 선택형 보상 동영상은 유지됩니다.
+      nl:
+        display_name: Banneradvertenties verwijderen
+        description: Optionele beloningsvideo's blijven.
+      pt:
+        display_name: Remover anúncios em banner
+        description: Vídeos opcionais continuam.
+      tr:
+        display_name: Banner Reklamlarını Kaldır
+        description: İsteğe bağlı ödüllü videolar kalır.
+      uk:
+        display_name: Прибрати банерну рекламу
+        description: Необов'язкові відео з винагородою лишаються.
+  - product_id: com.vshyrochuk.taro.readings_3
+    type: CONSUMABLE
+    display_name: 3 Readings
+    description: Adds 3 AI tarot readings.
+    review_notes: Adds reading credits after server-side verification.
+    localizations:
+      ar:
+        display_name: ٣ قراءات
+        description: يضيف ٣ قراءات بالذكاء الاصطناعي.
+      de:
+        display_name: 3 Lesungen
+        description: Fügt 3 KI-Lesungen hinzu.
+      es:
+        display_name: 3 lecturas
+        description: Añade 3 lecturas con IA.
+      fr:
+        display_name: 3 tirages
+        description: Ajoute 3 tirages IA.
+      it:
+        display_name: 3 letture
+        description: Aggiunge 3 letture IA.
+      ja:
+        display_name: 3回のリーディング
+        description: AIリーディングを3回追加します。
+      ko:
+        display_name: 리딩 3회
+        description: AI 리딩 3회를 추가합니다.
+      nl:
+        display_name: 3 lezingen
+        description: Voegt 3 AI-lezingen toe.
+      pt:
+        display_name: 3 leituras
+        description: Adiciona 3 leituras com IA.
+      tr:
+        display_name: 3 Okuma
+        description: 3 yapay zekâ okuması ekler.
+      uk:
+        display_name: 3 розклади
+        description: Додає 3 ШІ-розклади.
+  - product_id: com.vshyrochuk.taro.readings_10
+    type: CONSUMABLE
+    display_name: 10 Readings
+    description: Adds 10 AI tarot readings.
+    review_notes: Adds reading credits after server-side verification.
+    localizations:
+      ar:
+        display_name: 10 قراءات
+        description: يضيف 10 قراءات بالذكاء الاصطناعي.
+      de:
+        display_name: 10 Lesungen
+        description: Fügt 10 KI-Lesungen hinzu.
+      es:
+        display_name: 10 lecturas
+        description: Añade 10 lecturas con IA.
+      fr:
+        display_name: 10 tirages
+        description: Ajoute 10 tirages IA.
+      it:
+        display_name: 10 letture
+        description: Aggiunge 10 letture IA.
+      ja:
+        display_name: 10回のリーディング
+        description: AIリーディングを10回追加します。
+      ko:
+        display_name: 리딩 10회
+        description: AI 리딩 10회를 추가합니다.
+      nl:
+        display_name: 10 lezingen
+        description: Voegt 10 AI-lezingen toe.
+      pt:
+        display_name: 10 leituras
+        description: Adiciona 10 leituras com IA.
+      tr:
+        display_name: 10 Okuma
+        description: 10 yapay zekâ okuması ekler.
+      uk:
+        display_name: 10 розклади
+        description: Додає 10 ШІ-розклади.
+  - product_id: com.vshyrochuk.taro.readings_30
+    type: CONSUMABLE
+    display_name: 30 Readings
+    description: Adds 30 AI tarot readings.
+    review_notes: Adds reading credits after server-side verification.
+    localizations:
+      ar:
+        display_name: 30 قراءات
+        description: يضيف 30 قراءات بالذكاء الاصطناعي.
+      de:
+        display_name: 30 Lesungen
+        description: Fügt 30 KI-Lesungen hinzu.
+      es:
+        display_name: 30 lecturas
+        description: Añade 30 lecturas con IA.
+      fr:
+        display_name: 30 tirages
+        description: Ajoute 30 tirages IA.
+      it:
+        display_name: 30 letture
+        description: Aggiunge 30 letture IA.
+      ja:
+        display_name: 30回のリーディング
+        description: AIリーディングを30回追加します。
+      ko:
+        display_name: 리딩 30회
+        description: AI 리딩 30회를 추가합니다.
+      nl:
+        display_name: 30 lezingen
+        description: Voegt 30 AI-lezingen toe.
+      pt:
+        display_name: 30 leituras
+        description: Adiciona 30 leituras com IA.
+      tr:
+        display_name: 30 Okuma
+        description: 30 yapay zekâ okuması ekler.
+      uk:
+        display_name: 30 розклади
+        description: Додає 30 ШІ-розклади.
+google_play:
+  package_name: com.vshyrochuk.taro
+  title: 'Taro: Tarot Card Reading'
+  short_description: 'AI tarot readings for reflection: daily card, spreads, journal'
+  full_description: "Taro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice.\n\nAsk a question, draw your cards and read what they could mean for you.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+  iap_products: '*same_ids_as_app_store'
+  localizations:
+    de:
+      title: 'Taro: Tarot Karten legen'
+      short_description: Tarot zur Selbstreflexion
+      full_description: "Taro dient der Unterhaltung und Selbstreflexion. Es sagt nicht die Zukunft voraus und ersetzt keine professionelle Beratung.\n\nStelle eine Frage, ziehe deine Karten und lies, was sie für dich bedeuten könnten.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+store_screenshots:
+  screenshots:
+  - file: 01_spread.png
+    headline: Ask. Draw. Reflect.
+    subtext: Tarot for self-reflection
+  translations:
+    de:
+    - headline: Frag. Zieh. Reflektiere.
+      subtext: Tarot zur Selbstreflexion
+    ja:
+    - 質問して、引いて、内省する。
+localizations:
+  en:
+    name: 'Taro: Tarot Card Reading'
+    subtitle: Daily Card, Journal & Spreads
+    keywords: ai,oracle,deck,meanings,love,celtic,cross,major,arcana,learn,reflection,mindful,guide,insight
+    promotional_text: Ask a question, draw from an original deck and reflect on every card.
+    description: "Taro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice.\n\nAsk a question, draw your cards and read what they could mean for you.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Welcome to Taro.
+  ar:
+    name: 'Taro: قراءة التاروت'
+    subtitle: بطاقة اليوم ومذكرات وفرشات
+    keywords: تاروت,بطاقات,أوراق,معنى,حب,الصليب,السلتي,الأركانا,أوراكل,ذكاء,اصطناعي,تأمل,تعلم
+    promotional_text: اطرح سؤالاً واسحب بطاقات من مجموعة أصلية.
+    description: "Taro مخصص للترفيه والتأمل الذاتي. لا يتنبأ بالمستقبل ولا يغني عن الاستشارة المهنية.\n\nاطرح سؤالاً واسحب بطاقاتك واقرأ ما قد تعنيه لك.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: مرحبًا بك في Taro.
+  de:
+    name: 'Taro: Tarot Karten legen'
+    subtitle: Tageskarte, Journal, Legungen
+    keywords: kartenlegen,orakel,bedeutung,liebe,keltisches,kreuz,große,arkana,ki,deck,lernen,reflexion
+    promotional_text: Stelle eine Frage und ziehe Karten aus einem eigenen Deck.
+    description: "Taro dient der Unterhaltung und Selbstreflexion. Es sagt nicht die Zukunft voraus und ersetzt keine professionelle Beratung.\n\nStelle eine Frage, ziehe deine Karten und lies, was sie für dich bedeuten könnten.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Willkommen bei Taro.
+  es:
+    name: 'Taro: Lectura de Tarot'
+    subtitle: Carta del día, diario, tiradas
+    keywords: cartas,oráculo,significado,amor,cruz,celta,arcanos,mayores,ia,baraja,aprender,reflexión
+    promotional_text: Haz una pregunta y saca cartas de una baraja original.
+    description: "Taro es para entretenimiento y autorreflexión. No adivina el futuro y no sustituye el asesoramiento profesional.\n\nHaz una pregunta, saca tus cartas y lee lo que podrían significar para ti.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Bienvenido a Taro.
+  fr:
+    name: 'Taro: Tirage de Tarot'
+    subtitle: Carte du jour, journal intime
+    keywords: cartes,oracle,signification,amour,croix,celtique,arcanes,majeurs,ia,jeu,apprendre,réflexion
+    promotional_text: Posez une question et tirez des cartes d'un jeu original.
+    description: "Taro est destiné au divertissement et à la réflexion personnelle. Il ne lit pas l'avenir et ne remplace pas un avis professionnel.\n\nPosez une question, tirez vos cartes et lisez ce qu'elles pourraient vouloir dire.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Bienvenue dans Taro.
+  it:
+    name: 'Taro: Lettura dei Tarocchi'
+    subtitle: Carta del giorno e diario
+    keywords: tarot,carte,oracolo,significato,amore,croce,celtica,arcani,maggiori,ia,mazzo,imparare,stese
+    promotional_text: Fai una domanda e pesca le carte da un mazzo originale.
+    description: "Taro è pensato per l'intrattenimento e l'autoriflessione. Non legge il futuro e non sostituisce una consulenza professionale.\n\nFai una domanda, pesca le tue carte e leggi cosa potrebbero significare per te.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Benvenuto in Taro.
+  ja:
+    name: 'Taro: タロット占い'
+    subtitle: 今日の一枚・ジャーナル・スプレッド
+    keywords: タロットカード,カードの意味,恋愛,大アルカナ,小アルカナ,ケルト十字,オラクル,AI,無料,内省,日記,デッキ,初心者,学習
+    promotional_text: 質問をして、オリジナルデッキからカードを引きましょう。
+    description: "Taroはエンターテインメントと自己省察のためのアプリです。未来を言い当てるものではなく、専門家の助言に代わるものでもありません。\n\n質問をしてカードを引き、その意味を読み解きましょう。\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Taroへようこそ。
+  ko:
+    name: 'Taro: 타로 카드 운세'
+    subtitle: 오늘의 카드, 저널, 스프레드
+    keywords: 타로카드,타로점,연애,의미,메이저,마이너,아르카나,켈틱크로스,오라클,AI,무료,성찰,일기,덱,초보
+    promotional_text: 질문을 하고 오리지널 덱에서 카드를 뽑아 보세요.
+    description: "Taro는 엔터테인먼트와 자기 성찰을 위한 앱입니다. 미래를 알려 주지 않으며 전문가의 조언을 대신하지 않습니다.\n\n질문을 하고 카드를 뽑아 그 의미를 읽어 보세요.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Taro에 오신 것을 환영합니다.
+  nl:
+    name: 'Taro: Tarotkaarten Lezen'
+    subtitle: Dagkaart, dagboek en leggingen
+    keywords: tarot,orakel,betekenis,liefde,keltisch,kruis,grote,arcana,ai,deck,leren,reflectie,kaarten
+    promotional_text: Stel een vraag en trek kaarten uit een eigen deck.
+    description: "Taro is bedoeld voor entertainment en zelfreflectie. Het voorspelt de toekomst niet en is geen vervanging voor professioneel advies.\n\nStel een vraag, trek je kaarten en lees wat ze voor jou kunnen betekenen.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Welkom bij Taro.
+  pt:
+    name: 'Taro: Leitura de Tarô'
+    subtitle: Carta do dia, diário, tiragens
+    keywords: tarot,cartas,oráculo,significado,amor,cruz,celta,arcanos,maiores,ia,baralho,aprender
+    promotional_text: Faça uma pergunta e tire cartas de um baralho original.
+    description: "Taro é para entretenimento e autorreflexão. Não adivinha o futuro e não substitui aconselhamento profissional.\n\nFaça uma pergunta, tire suas cartas e leia o que elas podem significar para você.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Boas-vindas ao Taro.
+  tr:
+    name: 'Taro: Tarot Falı'
+    subtitle: Günün kartı, günlük, açılımlar
+    keywords: kartları,anlamları,aşk,kelt,haçı,büyük,arkana,yapay,zeka,deste,öğren,yansıma
+    promotional_text: Bir soru sor ve özgün bir desteden kart çek.
+    description: "Taro eğlence ve kendini yansıtma içindir. Geleceği öngörmez ve profesyonel tavsiyenin yerini tutmaz.\n\nBir soru sor, kartlarını çek ve senin için ne anlama gelebileceklerini oku.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Taro'ya hoş geldin.
+  uk:
+    name: 'Taro: Карти Таро'
+    subtitle: Карта дня, щоденник і розклади
+    keywords: ворожіння,значення,кохання,кельтський,хрест,старші,аркани,ші,оракул,колода,tarot
+    promotional_text: Поставте запитання й витягніть карти з оригінальної колоди.
+    description: "Taro створено для розваги та саморефлексії. Він не пророкує майбутнього і не замінює професійної консультації.\n\nПоставте запитання, витягніть карти й прочитайте, що вони можуть означати для вас.\n\nPrivacy Policy: https://taro.vshyrochuk.com/privacy\n"
+    whats_new: Вітаємо в Taro.

@@ -1,0 +1,10 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Taro",
+  "greeting": "Hello {name}",
+  "readingsLeft": "{count, plural, =0{Okuma yok} one{1 okuma} other{{count} okuma}}",
+  "themeLabel": "{mode, select, light{Açık} dark{Koyu} other{Sistem}}",
+  "failureNetwork": "Çevrimdışısın.",
+  "safetyDeclinedHealth": "Tarot sağlık sorularını yanıtlamaz.",
+  "countOnly": "{count}"
+}

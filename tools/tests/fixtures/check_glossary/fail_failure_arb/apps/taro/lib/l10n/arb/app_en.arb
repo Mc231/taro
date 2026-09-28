@@ -1,0 +1,155 @@
+{
+  "@@locale": "en",
+  "failureAiConsentRequired": "failureAiConsentRequired",
+  "@failureAiConsentRequired": {
+    "description": "failureAiConsentRequired"
+  },
+  "failureAiUnavailable": "failureAiUnavailable",
+  "@failureAiUnavailable": {
+    "description": "failureAiUnavailable"
+  },
+  "failureAiUnavailableRegion": "failureAiUnavailableRegion",
+  "@failureAiUnavailableRegion": {
+    "description": "failureAiUnavailableRegion"
+  },
+  "failureAttestation": "failureAttestation",
+  "@failureAttestation": {
+    "description": "failureAttestation"
+  },
+  "failureBackupInvalid": "failureBackupInvalid",
+  "@failureBackupInvalid": {
+    "description": "failureBackupInvalid"
+  },
+  "failureContract": "failureContract",
+  "@failureContract": {
+    "description": "failureContract"
+  },
+  "failureHoldConflict": "failureHoldConflict",
+  "@failureHoldConflict": {
+    "description": "failureHoldConflict"
+  },
+  "failureInsufficientCredits": "failureInsufficientCredits",
+  "@failureInsufficientCredits": {
+    "description": "failureInsufficientCredits"
+  },
+  "failureNetwork": "failureNetwork",
+  "@failureNetwork": {
+    "description": "failureNetwork"
+  },
+  "failureProductUnavailable": "failureProductUnavailable",
+  "@failureProductUnavailable": {
+    "description": "failureProductUnavailable"
+  },
+  "failurePurchase": "failurePurchase",
+  "@failurePurchase": {
+    "description": "failurePurchase"
+  },
+  "failurePurchaseAlreadyClaimed": "failurePurchaseAlreadyClaimed",
+  "@failurePurchaseAlreadyClaimed": {
+    "description": "failurePurchaseAlreadyClaimed"
+  },
+  "failurePurchaseCancelled": "failurePurchaseCancelled",
+  "@failurePurchaseCancelled": {
+    "description": "failurePurchaseCancelled"
+  },
+  "failurePurchasePending": "failurePurchasePending",
+  "@failurePurchasePending": {
+    "description": "failurePurchasePending"
+  },
+  "failurePurchasesBlocked": "failurePurchasesBlocked",
+  "@failurePurchasesBlocked": {
+    "description": "failurePurchasesBlocked"
+  },
+  "failureRateLimited": "failureRateLimited",
+  "@failureRateLimited": {
+    "description": "failureRateLimited"
+  },
+  "failureReadingExpiredRefunded": "failureReadingExpiredRefunded",
+  "@failureReadingExpiredRefunded": {
+    "description": "failureReadingExpiredRefunded"
+  },
+  "failureReadingsPaused": "failureReadingsPaused",
+  "@failureReadingsPaused": {
+    "description": "failureReadingsPaused"
+  },
+  "failureRequestInProgress": "failureRequestInProgress",
+  "@failureRequestInProgress": {
+    "description": "failureRequestInProgress"
+  },
+  "failureRewardUnavailable": "failureRewardUnavailable",
+  "@failureRewardUnavailable": {
+    "description": "failureRewardUnavailable"
+  },
+  "failureServer": "failureServer",
+  "@failureServer": {
+    "description": "failureServer"
+  },
+  "failureSessionExpired": "failureSessionExpired",
+  "@failureSessionExpired": {
+    "description": "failureSessionExpired"
+  },
+  "failureStorage": "failureStorage",
+  "@failureStorage": {
+    "description": "failureStorage"
+  },
+  
+  "@failureTimeout": {
+    "description": "failureTimeout"
+  },
+  "failureTimezoneChangeRejected": "failureTimezoneChangeRejected",
+  "@failureTimezoneChangeRejected": {
+    "description": "failureTimezoneChangeRejected"
+  },
+  "failureUnexpected": "failureUnexpected",
+  "@failureUnexpected": {
+    "description": "failureUnexpected"
+  },
+  "failureUpgradeRequired": "failureUpgradeRequired",
+  "@failureUpgradeRequired": {
+    "description": "failureUpgradeRequired"
+  },
+  "refusalGeneric": "refusalGeneric",
+  "@refusalGeneric": {
+    "description": "refusalGeneric"
+  },
+  
+  "@safetyDeclinedDeath": {
+    "description": "safetyDeclinedDeath"
+  },
+  "safetyDeclinedFinancial": "safetyDeclinedFinancial",
+  "@safetyDeclinedFinancial": {
+    "description": "safetyDeclinedFinancial"
+  },
+  "safetyDeclinedGambling": "safetyDeclinedGambling",
+  "@safetyDeclinedGambling": {
+    "description": "safetyDeclinedGambling"
+  },
+  "safetyDeclinedHarmToOthers": "safetyDeclinedHarmToOthers",
+  "@safetyDeclinedHarmToOthers": {
+    "description": "safetyDeclinedHarmToOthers"
+  },
+  "safetyDeclinedHateOrHarassment": "safetyDeclinedHateOrHarassment",
+  "@safetyDeclinedHateOrHarassment": {
+    "description": "safetyDeclinedHateOrHarassment"
+  },
+  "safetyDeclinedHealth": "safetyDeclinedHealth",
+  "@safetyDeclinedHealth": {
+    "description": "safetyDeclinedHealth"
+  },
+  "safetyDeclinedLegal": "safetyDeclinedLegal",
+  "@safetyDeclinedLegal": {
+    "description": "safetyDeclinedLegal"
+  },
+  "safetyDeclinedPregnancy": "safetyDeclinedPregnancy",
+  "@safetyDeclinedPregnancy": {
+    "description": "safetyDeclinedPregnancy"
+  },
+  "safetyDeclinedSelfHarm": "safetyDeclinedSelfHarm",
+  "@safetyDeclinedSelfHarm": {
+    "description": "safetyDeclinedSelfHarm"
+  },
+  "safetyDeclinedSexualMinors": "safetyDeclinedSexualMinors",
+  "@safetyDeclinedSexualMinors": {
+    "description": "safetyDeclinedSexualMinors"
+  }
+}

@@ -1,0 +1,160 @@
+# English names are canonical in GLOSSARY §1.
+cards:
+  major_22:
+    en: Extra
+  major_00:
+    en: "The Fool"
+  major_01:
+    en: "The Magician"
+  major_02:
+    en: "The High Priestess"
+  major_03:
+    en: "The Empress"
+  major_04:
+    en: "The Emperor"
+  major_05:
+    en: "The Hierophant"
+  major_06:
+    en: "The Lovers"
+  major_07:
+    en: "The Chariot"
+  major_08:
+    en: "Force"
+  major_09:
+    en: "The Hermit"
+  major_10:
+    en: "Wheel of Fortune"
+  major_11:
+    en: "Justice"
+  major_12:
+    en: "The Hanged Man"
+  major_13:
+    en: "Death"
+  major_14:
+    en: "Temperance"
+  major_15:
+    en: "The Devil"
+  major_16:
+    en: "The Tower"
+  major_17:
+    en: "The Star"
+  major_18:
+    en: "The Moon"
+  major_19:
+    en: "The Sun"
+  major_20:
+    en: "Judgement"
+  major_21:
+    en: "The World"
+  wands_01:
+    en: "Ace of Wands"
+  wands_02:
+    en: "Two of Wands"
+  wands_03:
+    en: "Three of Wands"
+  wands_04:
+    en: "Four of Wands"
+  wands_05:
+    en: "Five of Wands"
+  wands_06:
+    en: "Six of Wands"
+  wands_07:
+    en: "Seven of Wands"
+  wands_08:
+    en: "Eight of Wands"
+  wands_09:
+    en: "Nine of Wands"
+  wands_10:
+    en: "Ten of Wands"
+  wands_11:
+    en: "Page of Wands"
+  wands_12:
+    en: "Knight of Wands"
+  wands_13:
+    en: "Queen of Wands"
+  wands_14:
+    en: "King of Wands"
+  cups_01:
+    en: "Ace of Cups"
+  cups_02:
+    en: "Two of Cups"
+  cups_03:
+    en: "Three of Cups"
+  cups_04:
+    en: "Four of Cups"
+  cups_05:
+    en: "Five of Cups"
+  cups_06:
+    en: "Six of Cups"
+  cups_07:
+    en: "Seven of Cups"
+  cups_08:
+    en: "Eight of Cups"
+  cups_09:
+    en: "Nine of Cups"
+  cups_10:
+    en: "Ten of Cups"
+  cups_11:
+    en: "Page of Cups"
+  cups_12:
+    en: "Knight of Cups"
+  cups_13:
+    en: "Queen of Cups"
+  cups_14:
+    en: "King of Cups"
+  swords_01:
+    en: "Ace of Swords"
+  swords_02:
+    en: "Two of Swords"
+  swords_03:
+    en: "Three of Swords"
+  swords_04:
+    en: "Four of Swords"
+  swords_05:
+    en: "Five of Swords"
+  swords_06:
+    en: "Six of Swords"
+  swords_07:
+    en: "Seven of Swords"
+  swords_08:
+    en: "Eight of Swords"
+  swords_09:
+    en: "Nine of Swords"
+  swords_10:
+    en: "Ten of Swords"
+  swords_11:
+    en: "Page of Swords"
+  swords_12:
+    en: "Knight of Swords"
+  swords_13:
+    en: "Queen of Swords"
+  swords_14:
+    en: "King of Swords"
+  pentacles_01:
+    en: "Ace of Pentacles"
+  pentacles_02:
+    en: "Two of Pentacles"
+  pentacles_03:
+    en: "Three of Pentacles"
+  pentacles_04:
+    en: "Four of Pentacles"
+  pentacles_05:
+    en: "Five of Pentacles"
+  pentacles_06:
+    en: "Six of Pentacles"
+  pentacles_07:
+    en: "Seven of Pentacles"
+  pentacles_08:
+    en: "Eight of Pentacles"
+  pentacles_09:
+    en: "Nine of Pentacles"
+  pentacles_10:
+    en: "Ten of Pentacles"
+  pentacles_11:
+    en: "Page of Pentacles"
+  pentacles_12:
+    en: "Knight of Pentacles"
+  pentacles_13:
+    en: "Queen of Pentacles"
+  pentacles_14:
+    en: "King of Pentacles"

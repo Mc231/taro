@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# commit-msg hook (06 QA12, §6.4): conventional-commit subject, no AI
+# attribution. Installed by `melos run hooks:install` (core.hooksPath).
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+PYTHON="python3"
+[[ -x "$ROOT/tools/.venv/bin/python" ]] && PYTHON="$ROOT/tools/.venv/bin/python"
+exec "$PYTHON" "$ROOT/tools/check_commit_msg.py" "$1"

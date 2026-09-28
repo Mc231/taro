@@ -1,0 +1,54 @@
+name: Reusable - Worker tests + coverage
+
+# 06 QA7, §5.2, §8. vitest on @cloudflare/vitest-pool-workers with istanbul
+# coverage (thresholds 90/90/90/85 in vitest.config.ts). Emits
+# worker/coverage/{lcov.info,coverage-summary.json} for the coverage gate.
+
+on:
+  workflow_call:
+
+jobs:
+  test:
+    name: Worker tests (coverage)
+    runs-on: macos
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: worker
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (worker/.nvmrc, QA14)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci
+        run: npm ci
+
+      - name: npm run test:coverage
+        run: npm run test:coverage
+
+      - name: Pack coverage report
+        if: ${{ !cancelled() }}
+        working-directory: .
+        run: |
+          if [ -d worker/coverage ]; then
+            tar -czf "$RUNNER_TEMP/coverage-worker.tgz" worker/coverage
+          else
+            echo "::warning::worker/coverage was not produced"
+          fi
+
+      - name: Upload coverage
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-worker
+          path: ${{ runner.temp }}/coverage-worker.tgz
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,8 @@
+[env.prod]
+name = "taro-api"
+
+[env.prod.vars]
+ENVIRONMENT = "prod"
+
+[env.prod.secrets]
+required = ["ANTHROPIC_API_KEY", "DEBUG_ATTESTATION_TOKEN"]

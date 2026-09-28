@@ -1,0 +1,11 @@
+# Fixture exclusion list (subset of tools/coverage_exclusions.txt).
+# Generated code.
+**/*.g.dart
+# Flavor entrypoints.
+apps/taro/lib/main_*.dart
+# Worker bundles.
+worker/src/generated/**
+# Tests.
+**/test/**
+# Python tests.
+tools/tests/**

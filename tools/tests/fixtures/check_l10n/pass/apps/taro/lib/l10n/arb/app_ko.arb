@@ -1,0 +1,10 @@
+{
+  "@@locale": "ko",
+  "appTitle": "Taro",
+  "greeting": "안녕하세요, {name}",
+  "readingsLeft": "{count, plural, =0{남은 리딩 없음} other{{count}회 남음}}",
+  "themeLabel": "{mode, select, light{라이트} dark{다크} other{시스템}}",
+  "failureNetwork": "오프라인입니다.",
+  "safetyDeclinedHealth": "건강 질문에는 답할 수 없습니다.",
+  "countOnly": "{count}"
+}

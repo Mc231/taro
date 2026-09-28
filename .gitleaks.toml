@@ -1,0 +1,57 @@
+# gitleaks configuration (06 §6.2 "Secrets scanning"; QA10 secrets live only
+# in the GPG bundle .secrets/secrets.json.gpg and in `wrangler secret put`).
+#
+# Run: `gitleaks detect --no-banner` (history, `ci` static job) and
+# `gitleaks detect --no-banner --no-git` (working tree, pre-push via
+# tools/verify.sh --fast). Install locally with `brew install gitleaks`.
+#
+# The built-in rule set is kept in full; this file only adds Taro-specific
+# rules and allowlists values that are public by design.
+
+title = "Taro gitleaks config"
+
+[extend]
+useDefault = true
+
+# Anthropic API keys (Worker secret ANTHROPIC_API_KEY, GLOSSARY §13).
+[[rules]]
+id = "taro-anthropic-api-key"
+description = "Anthropic API key"
+regex = '''sk-ant-(?:api|admin)\d{2}-[A-Za-z0-9_\-]{80,}'''
+keywords = ["sk-ant-"]
+
+# Worker install tokens are EdDSA JWTs; a committed one means a leaked token.
+[[rules]]
+id = "taro-install-token"
+description = "Taro install token (EdDSA JWT)"
+regex = '''eyJhbGciOiJFZERTQSI[A-Za-z0-9_\-]*\.[A-Za-z0-9_\-]{20,}\.[A-Za-z0-9_\-]{20,}'''
+keywords = ["eyjhbgcioijfzerturs"]
+
+# PEM private keys (App Store Connect .p8, DeviceCheck, Play service account).
+[[rules]]
+id = "taro-private-key-pem"
+description = "Private key block"
+regex = '''-----BEGIN (?:EC |RSA |OPENSSH |ENCRYPTED )?PRIVATE KEY-----'''
+keywords = ["private key-----"]
+
+[allowlist]
+description = "Public-by-design values and generated files"
+# Google's published AdMob sample app / ad unit IDs (02 §15 test ads).
+regexes = [
+  '''ca-app-pub-3940256099942544[~/]\d{10}''',
+  # wrangler.toml placeholder IDs until Phase 6 Sprint 6.0.
+  '''0{8}-0{4}-0{4}-0{4}-0{12}''',
+]
+paths = [
+  # Lockfiles hold integrity hashes, not secrets.
+  '''(^|/)pubspec\.lock$''',
+  '''(^|/)package-lock\.json$''',
+  '''(^|/)Podfile\.lock$''',
+  # Coverage reports and build output.
+  '''(^|/)coverage/''',
+  '''(^|/)build/''',
+  '''(^|/)\.dart_tool/''',
+  '''(^|/)node_modules/''',
+  # The encrypted secrets bundle is ciphertext by design.
+  '''^\.secrets/secrets\.json\.gpg$''',
+]

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "version",
+    "public",
+    "server"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "public": {
+      "type": "object",
+      "properties": {
+        "readings": {
+          "type": "object",
+          "properties": {
+            "freeDaily": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          }
+        }
+      }
+    },
+    "server": {
+      "type": "object"
+    }
+  }
+}

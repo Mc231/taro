@@ -76,19 +76,22 @@ melos run hooks:install
 | `melos run test:fast` | Tests in changed packages only |
 | `melos run test:coverage` | Tests with lcov per coverage unit (`taro_core`, `taro_ui`, `taro_attestation`, `apps/taro`) |
 | `melos run coverage:check` | The ≥ 90% per-unit / 70% per-file gate (`tools/check_coverage.py`) |
-| `melos run test:golden` / `golden:update` | Golden tests only / regenerate goldens (macOS CI runner is the reference) |
-| `melos run test:integration` | patrol flows on a booted simulator or emulator |
-| `melos run check` | Repo checks (architecture, forbidden APIs, l10n, IAP IDs, …) |
-| `melos run contract:sync` | Copy Worker contract fixtures into `apps/taro/test/contract/fixtures/` |
+| `melos run test:golden` / `golden:update` | Golden tests only / regenerate goldens; refuses off the reference platform (macOS arm64 + pinned Flutter) unless `-- --force-local` ([docs/TESTING.md](docs/TESTING.md)) |
+| `melos run test:integration` | Device tests on a booted simulator/emulator (`TARO_INTEGRATION_PLATFORM`, `TARO_DEVICE_ID`; patrol from Phase 13) |
+| `melos run check` | `tools/verify.sh --fast`: format, analyze, every repo check (architecture, forbidden APIs, l10n, IAP IDs, …), gitleaks, `test:fast` |
+| `melos run contract:sync` | Mirror Worker contract fixtures into `apps/taro/test/contract/fixtures/` |
+| `melos run hooks:install` | `commit-msg` (`check_commit_msg.py`) and `pre-push` (`tools/verify.sh --fast`) via `core.hooksPath=tools/githooks` |
 | `cd apps/taro && flutter run --flavor dev -t lib/main_dev.dart --dart-define-from-file=config/dev.json` | Run the dev flavor |
 | `cd worker && npm test` / `npm run test:coverage` | Worker tests (vitest on workerd) / with istanbul coverage |
 | `cd worker && npm run lint && npm run typecheck && npm run format:check` | ESLint, `tsc --noEmit`, Prettier |
 | `cd worker && npm run dev` | Local Worker, dev env (`GET /v1/health`) |
 | `cd worker && npx wrangler deploy --dry-run --env staging` | Build the Worker bundle without deploying |
 | `cd tools && .venv/bin/pytest --cov` | Python tools tests, ≥ 90% coverage |
-| `tools/verify.sh [--fast]` | Everything CI runs except integration tests (from Phase 3) |
+| `tools/verify.sh [--fast]` | Everything CI runs except integration tests; `--fast` is the pre-push gate |
+| `tools/bump_version.sh` / `tools/bump_worker_version.sh` | Release version bump + CHANGELOG `Unreleased` → dated section (06 §10.1) |
+| `tools/phase_state.py` | Status table of every phase from `docs/phases/PHASE_*.md` |
 
-`check`, `contract:sync`, `hooks:install`, `coverage:check` and `test:integration` are placeholders until Phase 3 (Phase 13 for integration).
+How to write tests (harness, fakes, goldens, contract suites, determinism): [docs/TESTING.md](docs/TESTING.md).
 
 ## Documentation
 

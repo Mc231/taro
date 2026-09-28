@@ -1,0 +1,50 @@
+{
+  "@@locale": "en",
+  "appTitle": "Taro",
+  "@appTitle": {
+    "description": "Brand name, not translated."
+  },
+  "greeting": "Hello {name}",
+  "@greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "readingsLeft": "{count, plural, =0{No readings left} one{1 reading left} other{{count} readings left}}",
+  "@readingsLeft": {
+    "description": "Remaining readings.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "themeLabel": "{mode, select, light{Light} dark{Dark} other{System}}",
+  "@themeLabel": {
+    "description": "Theme picker label.",
+    "placeholders": {
+      "mode": {
+        "type": "String"
+      }
+    }
+  },
+  "failureNetwork": "You are offline.",
+  "@failureNetwork": {
+    "description": "NetworkFailure message (GLOSSARY §5)."
+  },
+  "safetyDeclinedHealth": "Tarot can't answer health questions.",
+  "@safetyDeclinedHealth": {
+    "description": "Health refusal (GLOSSARY §5.2)."
+  },
+  "countOnly": "{count}",
+  "@countOnly": {
+    "description": "A bare number.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
+}

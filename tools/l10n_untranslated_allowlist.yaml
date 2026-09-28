@@ -1,0 +1,9 @@
+# ARB keys whose value may equal the English text (06 §6.2 check_l10n.py).
+# Brand names and identical-by-design strings only; a machine-untranslated
+# string never goes here (06 Risks).
+#
+# keys:    allowed in every non-en locale
+# locales: {<locale>: [keys]} allowed in that locale only
+keys:
+  - appTitle  # the brand "Taro", Latin script in every locale (05 §8.1 rule 4)
+locales: {}

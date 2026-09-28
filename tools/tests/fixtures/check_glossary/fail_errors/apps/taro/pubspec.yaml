@@ -1,0 +1,6 @@
+name: taro
+dependencies:
+  taro_core: any
+  taro_ui: any
+  taro_attestation: any
+  dio: ^5.0.0

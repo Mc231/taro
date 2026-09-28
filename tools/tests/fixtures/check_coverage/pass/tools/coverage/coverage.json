@@ -1,0 +1,27 @@
+{
+ "files": {
+  "check_x.py": {
+   "executed_lines": [
+    1,
+    2
+   ],
+   "missing_lines": [],
+   "summary": {
+    "num_statements": 2,
+    "covered_lines": 2
+   }
+  },
+  "tests/helper.py": {
+   "executed_lines": [
+    1
+   ],
+   "missing_lines": [
+    2
+   ],
+   "summary": {
+    "num_statements": 2,
+    "covered_lines": 1
+   }
+  }
+ }
+}

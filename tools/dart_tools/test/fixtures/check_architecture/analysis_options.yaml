@@ -1,0 +1,5 @@
+# Fixture repositories for check_architecture_test.dart. They import
+# packages that do not exist on purpose, so they are never analysed.
+analyzer:
+  exclude:
+    - "**"

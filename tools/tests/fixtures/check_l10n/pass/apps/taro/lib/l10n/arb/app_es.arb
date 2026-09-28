@@ -1,0 +1,17 @@
+{
+  "@@locale": "es",
+  "appTitle": "Taro",
+  "greeting": "Hola {name}",
+  "readingsLeft": "{count, plural, =0{Sin lecturas} one{1 lectura} many{{count} lecturas} other{{count} lecturas}}",
+  "themeLabel": "{mode, select, light{Claro} dark{Oscuro} other{Sistema}}",
+  "failureNetwork": "Sin conexión.",
+  "safetyDeclinedHealth": "El tarot no responde sobre salud.",
+  "countOnly": "{count}",
+  "@greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "@@locale": "ja",
+  "appTitle": "Taro",
+  "greeting": "こんにちは、{name}",
+  "readingsLeft": "{count, plural, =0{残りなし} one{残り1回} other{残り{count}回}}",
+  "themeLabel": "{mode, select, light{ライト} dark{ダーク} other{システム}}",
+  "failureNetwork": "オフラインです。",
+  "safetyDeclinedHealth": "健康の質問には答えられません。",
+  "countOnly": "{count}"
+}

@@ -1,0 +1,284 @@
+name: Reusable - Static checks
+
+# 06 §6, §8; Phase 3 Sprint 3.4. Everything that needs no test run:
+# Dart format + analyze, the architecture check, every tools/check_*.py,
+# commit messages of the pushed range, the CHANGELOG range check, gitleaks,
+# actionlint, shellcheck, and the Worker's typecheck / eslint / prettier /
+# dry-run bundle (with a size budget) / npm audit.
+#
+# Runner: self-hosted Gitea act_runner, label `macos` (host mode, capacity 1).
+# See docs/phase3_notes/CI.md for what the runner provides.
+
+on:
+  workflow_call:
+    inputs:
+      worker_bundle_limit_bytes:
+        description: >-
+          Cloudflare Workers compressed-size plan limit in bytes. The dry-run
+          bundle fails above 80% of it (06 §6.3). Default: the Free plan's
+          3 MiB; raise to 10485760 if the account moves to Workers Paid.
+        required: false
+        type: number
+        default: 3145728
+
+jobs:
+  dart:
+    name: Dart format, analyze, repo checks
+    runs-on: macos
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history: the commit-message range and gitleaks need it.
+          fetch-depth: 0
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      # subosito/flutter-action is what quiz_apps runs on this runner. Its
+      # `flutter-version-file` input needs `yq`, which the runner does not
+      # have, so the pin is read above and passed as `flutter-version`.
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+
+      - name: Assert Flutter pin
+        env:
+          PINNED: ${{ steps.flutter-pin.outputs.version }}
+        run: |
+          flutter --version --suppress-analytics | tee "$RUNNER_TEMP/flutter-version.txt"
+          grep -q "^Flutter $PINNED " "$RUNNER_TEMP/flutter-version.txt" \
+            || { echo "::error::Runner Flutter does not match the pin $PINNED"; exit 1; }
+
+      - name: Bootstrap melos
+        run: |
+          ulimit -n 65536 || true
+          mv=$(awk '/^  melos:/{f=1} f && /^    version:/{gsub(/"/, "", $2); print $2; exit}' pubspec.lock)
+          dart pub global activate melos "${mv:?melos version not found in pubspec.lock}"
+          echo "${PUB_CACHE:-$HOME/.pub-cache}/bin" >> "$GITHUB_PATH"
+          "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+          tools/.venv/bin/python --version
+
+      - name: Dart format check
+        run: melos run format:check
+
+      - name: Flutter analyze (--fatal-infos)
+        run: |
+          ulimit -n 65536 || true
+          melos run analyze
+
+      - name: Architecture check (02 AR2)
+        run: dart run tools/dart_tools/bin/check_architecture.dart
+
+      - name: Repo checks (tools/check_*.py, tools/store_copy/check_*.py)
+        run: |
+          fail=0
+          ran=0
+          for script in tools/check_*.py tools/store_copy/check_*.py; do
+            [ -e "$script" ] || continue
+            case "$(basename "$script")" in
+              # Run elsewhere: the coverage gate (ci.yml), the pushed-range
+              # steps below, and deploy-only checks.
+              check_coverage.py|check_commit_msg.py|check_changelog.py) continue ;;
+              # PRs never touch the network; nightly.yml runs it online weekly.
+              check_urls.py) set -- --offline ;;
+              *) set -- ;;
+            esac
+            ran=$((ran + 1))
+            echo "::group::$script $*"
+            if ! tools/.venv/bin/python "$script" "$@"; then
+              echo "::error::$script failed"
+              fail=1
+            fi
+            echo "::endgroup::"
+          done
+          echo "Ran $ran repo checks."
+          if [ "$ran" -eq 0 ]; then
+            echo "::error::No tools/check_*.py found"
+            exit 1
+          fi
+          exit "$fail"
+
+      - name: Resolve pushed commit range
+        id: range
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          after=$(git rev-parse HEAD)
+          zero=0000000000000000000000000000000000000000
+          base=""
+          # A mirror sync is a `push` event: before..after is exactly what
+          # arrived. A new branch (before = 0…0), a force push, or a manual
+          # dispatch falls back to the fork point from main.
+          if [ -n "$BEFORE" ] && [ "$BEFORE" != "$zero" ] \
+             && git cat-file -e "$BEFORE^{commit}" 2>/dev/null \
+             && git merge-base --is-ancestor "$BEFORE" "$after"; then
+            base="$BEFORE"
+          elif git rev-parse --verify --quiet origin/main >/dev/null; then
+            base=$(git merge-base origin/main "$after" || true)
+          fi
+          if [ -z "$base" ] || [ "$base" = "$after" ]; then
+            # On main itself (or no main yet): check the head commit only.
+            if git rev-parse --verify --quiet "$after^" >/dev/null; then
+              base=$(git rev-parse "$after^")
+            fi
+          fi
+          if [ -n "$base" ]; then
+            range="$base..$after"
+          else
+            range="$after"
+          fi
+          echo "Commit range: $range"
+          git log --oneline --no-merges -n 50 "$range"
+          echo "range=$range" >> "$GITHUB_OUTPUT"
+
+      - name: Commit messages of the pushed range (QA12)
+        env:
+          RANGE: ${{ steps.range.outputs.range }}
+        run: |
+          py=tools/.venv/bin/python
+          if [ ! -e tools/check_commit_msg.py ]; then
+            echo "::error::tools/check_commit_msg.py is missing"
+            exit 1
+          fi
+          usage=$("$py" tools/check_commit_msg.py --help 2>&1 || true)
+          if printf '%s' "$usage" | grep -q -- '--range'; then
+            "$py" tools/check_commit_msg.py --range "$RANGE"
+            exit $?
+          fi
+          # Hook-style interface: one message file per call.
+          fail=0
+          for sha in $(git rev-list --no-merges "$RANGE"); do
+            git log -1 --format=%B "$sha" > "$RUNNER_TEMP/commit-msg.txt"
+            if ! "$py" tools/check_commit_msg.py "$RUNNER_TEMP/commit-msg.txt"; then
+              echo "::error::commit $sha has a non-conforming message"
+              fail=1
+            fi
+          done
+          rm -f "$RUNNER_TEMP/commit-msg.txt"
+          exit "$fail"
+
+      - name: CHANGELOG for the pushed range (QA13, 06 §10.2)
+        env:
+          RANGE: ${{ steps.range.outputs.range }}
+        run: |
+          py=tools/.venv/bin/python
+          if [ ! -e tools/check_changelog.py ]; then
+            echo "::error::tools/check_changelog.py is missing"
+            exit 1
+          fi
+          usage=$("$py" tools/check_changelog.py --help 2>&1 || true)
+          if printf '%s' "$usage" | grep -q -- '--range'; then
+            "$py" tools/check_changelog.py --range "$RANGE"
+          else
+            echo "::warning::check_changelog.py has no --range mode; skipped (06 §10.2)"
+          fi
+
+      - name: Secrets scan (gitleaks)
+        run: gitleaks detect --no-banner --redact --source .
+
+      - name: Install actionlint and shellcheck when missing
+        run: |
+          for tool in actionlint shellcheck; do
+            command -v "$tool" >/dev/null 2>&1 || brew install --quiet "$tool"
+            command -v "$tool" >/dev/null 2>&1 \
+              || { echo "::error::$tool is not available on the runner"; exit 1; }
+          done
+
+      - name: actionlint (.gitea/workflows)
+        # actionlint only knows GitHub-hosted labels; `macos` is this
+        # runner's self-hosted label (config: macos:host). upload/download-
+        # artifact@v3 is retired on github.com only; Gitea serves its protocol.
+        run: |
+          actionlint \
+            -ignore 'label "macos" is unknown' \
+            -ignore 'the runner of "actions/(upload|download)-artifact@v3" action is too old' \
+            .gitea/workflows/*.yml
+
+      - name: shellcheck (tracked shell scripts)
+        run: |
+          files=$(git ls-files '*.sh' 'tools/ci/*.env')
+          if [ -z "$files" ]; then
+            echo "No shell scripts tracked."
+            exit 0
+          fi
+          echo "$files"
+          # shellcheck disable=SC2086
+          shellcheck -x -s bash $files
+
+  worker:
+    name: Worker typecheck, lint, format, bundle, audit
+    runs-on: macos
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: worker
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+      BUNDLE_LIMIT_BYTES: ${{ inputs.worker_bundle_limit_bytes }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (worker/.nvmrc, QA14)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci
+        run: npm ci
+
+      - name: Typecheck (tsc --noEmit)
+        run: npm run typecheck
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Prettier --check
+        run: npm run format:check
+
+      - name: wrangler deploy --dry-run (staging) + bundle size
+        run: |
+          rm -rf dist
+          npx wrangler deploy --dry-run --outdir dist --env staging
+          size=$(tar -cf - -C dist . | gzip -9 | wc -c | tr -d ' ')
+          budget=$((BUNDLE_LIMIT_BYTES * 80 / 100))
+          echo "Compressed bundle: $size bytes; budget (80% of $BUNDLE_LIMIT_BYTES): $budget bytes"
+          {
+            echo "### Worker bundle"
+            echo ""
+            echo "| compressed | budget (80% of plan) |"
+            echo "|---|---|"
+            echo "| $size B | $budget B |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$size" -gt "$budget" ]; then
+            echo "::error::Worker bundle ($size B) exceeds 80% of the plan limit ($budget B), 06 §6.3"
+            exit 1
+          fi
+
+      - name: npm audit (prod deps, high+)
+        run: npm audit --omit=dev --audit-level=high

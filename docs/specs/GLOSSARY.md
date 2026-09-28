@@ -638,7 +638,7 @@ Owner: 02 §2, AR1 (RC15, RC77, RC95). Pub workspace + melos 8. This is the only
 | `taro_ui` | `packages/taro_ui` | yes | — |
 | `taro_attestation` | `packages/taro_attestation` | yes (plugin, Swift + Kotlin) | — |
 | `taro-api` (Worker) | `worker/` | — (TypeScript, Hono) | — |
-| `dart_tools` | `tools/dart_tools` | no | — (06 Testing strategy) |
+| `taro_dart_tools` | `tools/dart_tools` | no | — (06 Testing strategy) |
 
 App layer folders (02 §2.1, enforced by `tools/check_architecture.dart`; RC95 replaced the former `taro_data`, `taro_services`, `taro_content`, `taro_l10n` and `taro_testing` packages with them):
 

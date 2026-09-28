@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# pre-push hook (06 §6.4): the fast local gate before anything reaches the
+# origin. Installed by `melos run hooks:install` (core.hooksPath).
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+exec "$ROOT/tools/verify.sh" --fast

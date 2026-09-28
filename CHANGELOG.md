@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Phase 3: golden harness in `packages/taro_ui/test/helpers/golden/`. It has `TaroGoldenComparator` (0.1 %), bundled Noto Sans, Arabic, JP and KR test fonts (OFL), the golden sizes and `goldenMatrix`, and a sample phone and iPad 13" golden. `pumpTaroWidget` now takes locale, theme mode, text scale and size.
+- Phase 3: `tools/verify.sh [--fast]`, the git hooks (`melos run hooks:install`), `golden:update` guarded to the reference platform, and `contract:sync`. Also `test:integration`, `tools/bump_version.sh`, `tools/bump_worker_version.sh`, `tools/phase_state.py`, `sonar-project.properties` and `docs/TESTING.md`.
 - Phase 2, repository bootstrap: a pub workspace with melos 8 and shared `analysis_options.yaml` (very_good_analysis, strict modes). Compiling skeletons of `taro_core`, `taro_content`, `taro_data`, `taro_services`, `taro_attestation`, `taro_l10n`, `taro_ui` and `taro_testing`, each with a smoke test.
 - Phase 2: `apps/taro` with `dev`, `staging` and `prod` flavors, `config/<flavor>.json` and a placeholder screen.
 - Phase 2: `tools/` Python project (Python 3.12, pytest, pytest-cov, ruamel.yaml, jsonschema) with the `taro_tools` helper package, and the `tools/dart_tools` Dart package.
