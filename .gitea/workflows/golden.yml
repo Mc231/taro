@@ -65,6 +65,9 @@ jobs:
           flutter-version: ${{ steps.flutter-pin.outputs.version }}
           channel: stable
           cache: true
+          # Host-mode act_runner: a second actions/cache copy inside this
+          # composite fails on read-only git packs; the SDK cache is enough.
+          pub-cache: false
 
       - name: Assert Flutter pin (goldens are only valid on the pin)
         env:
