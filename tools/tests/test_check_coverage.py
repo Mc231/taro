@@ -438,6 +438,34 @@ def test_script_entry_point(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> 
         ("e.ts", "/* c */ export const a = 1;\n", True),
         ("f.ts", "export interface I { a: string }\nexport function f() { return 1; }\n", True),
         ("g.swift", "", True),
+        # Dart type-only declarations: interfaces, plain enums, freezed unions.
+        (
+            "port.dart",
+            "/// Doc.\nabstract interface class Logger {\n  void info(String m, {Object? error});\n"
+            "  Logger child(String name);\n  bool get on;\n}\ntypedef Cb = void Function();\n",
+            False,
+        ),
+        (
+            "enum.dart",
+            "enum A { x, y }\nenum B {\n  x('x'),\n  y('y;{');\n\n  const B(this.wire);\n\n  final String wire;\n}\n",
+            False,
+        ),
+        (
+            "union.dart",
+            "part 'u.freezed.dart';\n@freezed\nsealed class U with _$U {\n"
+            "  const factory U.a({@Default(3) int n, Map<String, int>? m}) = UA;\n"
+            "  @Implements<X>()\n  const factory U.b() = UB;\n}\n",
+            False,
+        ),
+        ("ctor.dart", "class S implements C {\n  const S();\n}\n", True),
+        ("named_ctor.dart", "@freezed\nabstract class U with _$U {\n  const U._();\n  const factory U() = _U;\n}\n", True),
+        ("getter.dart", "abstract class G {\n  int get x => 1;\n}\n", True),
+        ("field.dart", "class F {\n  final int x = 1;\n}\n", True),
+        ("enum_init.dart", "enum E {\n  a(1);\n\n  const E(this.v) : assert(v > 0);\n\n  final int v;\n}\n", True),
+        ("enum_static.dart", "enum E {\n  a;\n\n  static const all = [a];\n}\n", True),
+        ("function.dart", "@visibleForTesting\nint f() {\n  return 1;\n}\n", True),
+        ("extension.dart", "extension type Id(String v) {}\n", True),
+        ("unterminated.dart", "abstract class A {\n  void f();\n", True),
     ],
 )
 def test_has_executable_code(tmp_path: Path, name: str, source: str, expected: bool) -> None:

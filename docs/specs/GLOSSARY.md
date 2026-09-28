@@ -2,7 +2,7 @@
 
 **Status:** v1.1 reconciled (2026-09-27). Owner: Volodymyr.
 **Decisions:** see 00_DECISIONS.md
-**Produced by:** Phase 1 Sprint 1.2 ([../phases/PHASE_01_SPEC_RECONCILIATION.md](../phases/PHASE_01_SPEC_RECONCILIATION.md)). Built from specs 01–06 at "v1.1 reconciled (2026-09-27)"; every cross-spec disagreement found while building it was fixed in the specs (Phase 1 verification, 2026-09-27); names that only this file defines are listed at the end (RC94).
+**Produced by:** Phase 1 Sprint 1.2 ([../phases/PHASE_01_SPEC_RECONCILIATION.md](../phases/PHASE_01_SPEC_RECONCILIATION.md)). Built from specs 01–06 at "v1.1 reconciled (2026-09-27)"; every cross-spec disagreement found while building it was fixed in the specs (Phase 1 verification, 2026-09-27); names that only this file defines are listed at the end (RC94). §16 registers the Phase 4 `taro_core` names (RC96, 2026-09-28).
 **Checked by:** `tools/check_glossary.py` (Phase 3), which compares the tables below with the generator inputs and code constants.
 
 ---
@@ -231,7 +231,7 @@ Client-side `Failure` subtypes with no wire code (02 §3):
 | `BackupInvalidFailure` | import, reason `notJson \| wrongFormat \| unsupportedVersion \| checksum \| schema \| tooLarge` | `failureBackupInvalid` |
 | `UnexpectedFailure` | anything unmapped (always reported to crash) | `failureUnexpected` |
 
-Sub-reason enums (Dart, 02 §3): `RateLimitReason` = `burst | dailyLimit | declinedLimit | lowTrustCap | reportLimit`; `InsufficientReason` = `noCredits | lowTrustCap | freePaused`; `PausedReason` = `disabled | budgetHard | freeStop`; `RewardUnavailableReason` = `disabled | cap | cooldown | noFill | consent`; `AttestationFailureKind` = `unsupported | keyInvalidated | rejected | quota | transient`. Shared UI `ErrorKind` (01 §8.2) = `network | server | rateLimited | deviceUnverified | storage | invalidFile | unknown`.
+Sub-reason enums (Dart, 02 §3): `RateLimitReason` = `burst | dailyLimit | declinedLimit | lowTrustCap | reportLimit`; `InsufficientReason` = `noCredits | lowTrustCap | freePaused`; `PausedReason` = `disabled | budgetHard | freeStop`; `RewardUnavailableReason` = `disabled | cap | cooldown | noFill | consent`; `AttestationFailureKind` = `unsupported | keyInvalidated | rejected | quota | transient`. `PurchasesBlockedReason` = `blocked | refundDebt | storeDisabled`; `BackupInvalidReason` = `notJson | wrongFormat | unsupportedVersion | checksum | schema | tooLarge`. Stable `Failure.code` values and the `ErrorKind` of each subtype: §16.1. Shared UI `ErrorKind` (01 §8.2) = `network | server | rateLimited | deviceUnverified | storage | invalidFile | unknown`.
 
 ### 5.1 Other wire enums
 
@@ -471,16 +471,19 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 | `ReadingRepository` | `ReadingRepositoryImpl` | `FakeReadingRepository` |
 | `JournalRepository` | `JournalRepositoryImpl` (drift) | `FakeJournalRepository` |
 | `DailyCardRepository` | `DailyCardRepositoryImpl` (drift) | `FakeDailyCardRepository` |
-| `ContentRepository` | `apps/taro/lib/data/content/` asset repositories (`AssetDeckRepository`, `AssetSpreadRepository`, `AssetCardTextRepository`, `AssetCrisisRepository`) | `FakeContentRepository` |
+| `ContentRepository` | `apps/taro/lib/data/content/` asset repositories (`AssetDeckRepository`, `AssetSpreadRepository`, `AssetCardTextRepository`) | `FakeContentRepository` |
+| `CrisisResourcesRepository` (RC25, RC81) | `AssetCrisisRepository` (`apps/taro/lib/data/content/`) | `FakeCrisisResourcesRepository` |
 | `RemoteConfigRepository` | `RemoteConfigRepositoryImpl` (E02 + drift cache) | `StaticRemoteConfigRepository` |
 | `SettingsRepository` (incl. `ConsentStore`) | `SettingsRepositoryImpl` (drift) | `FakeSettingsRepository` |
 | `IapService` | `StoreIapService` | `NoOpIapService` |
-| `PurchaseVerifier` | Worker E14 | `FakePurchaseVerifier` |
+| `PurchaseVerifier` | `PurchaseVerifierImpl` (Worker E14) | `FakePurchaseVerifier` |
 | `PurchaseOutbox` | `PurchaseOutboxImpl` (drift `purchase_outbox`) | `FakePurchaseOutbox` |
 | `EntitlementCache` | `EntitlementCacheImpl` (drift `entitlements`) | `FakeEntitlementCache` |
 | `AdsService` | `AdMobAdsService` | `NoOpAdsService` |
 | `BannerSlotView` (presentation port; adapters in `apps/taro/lib/services/presentation/`) | `AdMobBannerSlotView` | `NoOpBannerSlotView` |
 | `RewardGateway` | `RewardGatewayImpl` (E15–E17) | `FakeRewardGateway` |
+| `ReportGateway` | `ReportGatewayImpl` (E13) | `FakeReportGateway` |
+| `DataDeletionGateway` | `DataDeletionGatewayImpl` (E07 + `sync_state` retry queue) | `FakeDataDeletionGateway` |
 | `ConsentService` (UMP) | `UmpConsentService` | `NoOpConsentService` |
 | `TrackingAuthorization` (ATT) | `AttTrackingAuthorization` | `NotSupportedTrackingAuthorization` (Android) |
 | `AnalyticsService` | `FirebaseAnalyticsService`, `ConsoleAnalyticsService` (dev), `CompositeAnalyticsService`; decorator `ConsentAwareAnalytics` | `NoOpAnalyticsService` |
@@ -685,6 +688,311 @@ Owner: 03 §1. `hono`, `@hono/zod-openapi`, `zod`, `jose`, `@anthropic-ai/sdk`, 
 | Support ID | first 8 hex chars of `SHA-256(installId)` | 01 §7.10 (RC43) |
 | Golden sizes | `kPhoneSmall` 375×667, `kPhoneLarge` 430×932, `kTabletIpad13` 1032×1376, `kTabletAndroid` 800×1280 | 06 §3 (RC24) |
 | Tabs | Today (`/home`), Journal, Learn, Settings | 01 §8.1 (RC17) |
+
+## 16. Core domain (`taro_core`)
+
+Owner: 02 §3, §4, §4.1, §5, §9, §12 (code: `packages/taro_core/lib/src/`, Phase 4). Registered by 00_DECISIONS.md RC96. Only names exported by `package:taro_core/taro_core.dart` are listed. Names already defined above are not repeated except where a column adds information: `Failure` wire mapping §5, sub-reason enums §5, `ErrorKind` §5, `RefusalCategory` §5.2, port adapters §9.1, `TaroProducts` §3, `kBannerAllowList` §10. A sealed union lists its subtypes in its own row as `.factory` → class.
+
+### 16.1 Result and `Failure` codes
+
+`Result<T>` (sealed, `result/result.dart`) = `Ok<T>` | `Err<T>`, built with `Result.ok(value)` / `Result.err(failure)`. Every `Failure` has a stable UPPER_SNAKE `code` (analytics and logs; equal to the 03 §2.2 wire code wherever one wire code applies), a `messageKey` (the ARB key) and `alwaysReportToCrash` (`ContractFailure`, `UnexpectedFailure`). Codes marked *client* are never sent by the Worker.
+
+| `Failure` subtype | `code` | `ErrorKind` | ARB key |
+|---|---|---|---|
+| `NetworkFailure` | `NETWORK` (client) | `network` | `failureNetwork` |
+| `TimeoutFailure` | `TIMEOUT` (client) | `network` | `failureTimeout` |
+| `ServerFailure` | `INTERNAL` | `server` | `failureServer` |
+| `RateLimitedFailure` | `RATE_LIMITED` | `rateLimited` | `failureRateLimited` |
+| `UpgradeRequiredFailure` | `UPGRADE_REQUIRED` | `server` | `failureUpgradeRequired` |
+| `ContractFailure` | its `wireCode` (`VALIDATION_FAILED`, `IDEMPOTENCY_KEY_REQUIRED`, `NOT_FOUND`, `IDEMPOTENCY_KEY_REUSED`, `SPREAD_INVALID`) | `server` | `failureContract` |
+| `SessionExpiredFailure` | `UNAUTHENTICATED` | `server` | `failureSessionExpired` |
+| `AttestationFailure` | `ATTESTATION_FAILED` | `deviceUnverified` | `failureAttestation` |
+| `InsufficientCreditsFailure` | `INSUFFICIENT_CREDITS` | `unknown` | `failureInsufficientCredits` |
+| `HoldConflictFailure` | `HOLD_CONFLICT` | `server` | `failureHoldConflict` |
+| `ReadingExpiredRefundedFailure` | `READING_EXPIRED_REFUNDED` | `server` | `failureReadingExpiredRefunded` |
+| `AiConsentRequiredFailure` | `AI_CONSENT_REQUIRED` | `unknown` | `failureAiConsentRequired` |
+| `AiUnavailableRegionFailure` | `AI_UNAVAILABLE_REGION` | `server` | `failureAiUnavailableRegion` |
+| `ReadingsPausedFailure` | `READINGS_DISABLED` (`reason: disabled`), else `AI_BUDGET_EXHAUSTED` | `server` | `failureReadingsPaused` |
+| `AiUnavailableFailure` | `AI_UNAVAILABLE` | `server` | `failureAiUnavailable` |
+| `RequestInProgressFailure` | `REQUEST_IN_PROGRESS` | `server` | `failureRequestInProgress` |
+| `RewardUnavailableFailure` | `REWARDED_DISABLED` (`disabled`), `REWARDED_DAILY_CAP` (`cap`, `cooldown`), `REWARD_UNAVAILABLE` (client: `noFill`, `consent`) | `unknown` | `failureRewardUnavailable` |
+| `TimezoneChangeRejectedFailure` | `TIMEZONE_CHANGE_TOO_SOON` | `server` | `failureTimezoneChangeRejected` |
+| `PurchaseCancelledFailure` | `PURCHASE_CANCELLED` (client) | `unknown` | `failurePurchaseCancelled` |
+| `PurchasePendingFailure` | `PURCHASE_PENDING` | `unknown` | `failurePurchasePending` |
+| `PurchaseFailure` | its `wireCode` (`PURCHASE_INVALID`, `PRODUCT_UNKNOWN`, or a store error code) | `unknown` | `failurePurchase` |
+| `PurchaseAlreadyClaimedFailure` | `PURCHASE_ALREADY_CLAIMED` | `unknown` | `failurePurchaseAlreadyClaimed` |
+| `PurchasesBlockedFailure` | `PURCHASES_BLOCKED` (client) | `unknown` | `failurePurchasesBlocked` |
+| `ProductUnavailableFailure` | `PRODUCT_UNAVAILABLE` (client) | `unknown` | `failureProductUnavailable` |
+| `StorageFailure` | `STORAGE` (client) | `storage` | `failureStorage` |
+| `BackupInvalidFailure` | `BACKUP_INVALID` (client) | `invalidFile` | `failureBackupInvalid` |
+| `UnexpectedFailure` | `UNEXPECTED` (client) | `unknown` | `failureUnexpected` |
+
+### 16.2 IDs and constants
+
+| Name | Kind | File | Value / rule |
+|---|---|---|---|
+| `CardId` | extension type over `String` | `result/ids.dart` | §1 IDs; `CardId.parse` / `tryParse` / `isValid` check `cardIdPattern` |
+| `cardIdPattern` | `RegExp` | `result/ids.dart` | the RC1 regex of §1 |
+| `SpreadId` | extension type over `String` | `result/ids.dart` | §2 `spreadId` |
+| `PositionId` | extension type over `String` | `result/ids.dart` | §2 `positionId` |
+| `ReadingId` | extension type over `String` | `result/ids.dart` | client UUID v4 = `clientReadingId` = `Idempotency-Key` (RC42) |
+| `InstallId` | extension type over `String` | `result/ids.dart` | install UUID v4 (never logged) |
+| `ProductId` | extension type over `String` | `result/ids.dart` | §3 product ID |
+| `IntentId` | extension type over `String` | `result/ids.dart` | `ad_rewards.id` |
+| `kCardIds` | `List<CardId>` | `model/deck_card.dart` | the 78 IDs in §1 order |
+| `kSpreadIds` | `List<SpreadId>` | `model/spread.dart` | the six §2 IDs in order |
+| `kSupportedLocales` | `List<String>` | `model/user_settings.dart` | the 12 §15 locales |
+| `kForbiddenBackupKeys` | `Set<String>` | `logic/backup_validator.dart` | keys that make a backup invalid anywhere in the file |
+| `kUint32Range` | `int` | `logic/uniform_int.dart` | `2^32` (CSPRNG word range) |
+
+### 16.3 Models (`model/`, `monetization/`)
+
+| Name | Kind | File | Notes |
+|---|---|---|---|
+| `BackupV1` | freezed | `model/backup.dart` | whole backup file (`format`, `schemaVersion: 1`, `checksum`, `data`) |
+| `BackupData` | freezed | `model/backup.dart` | backup `data`: readings, daily cards, settings |
+| `CardText` | freezed | `model/card_text.dart` | localized text of one card |
+| `CardAspects` | freezed | `model/card_text.dart` | upright / reversed aspect meanings |
+| `ReviewStatus` | enum | `model/card_text.dart` | `machine \| reviewed` |
+| `AdsConsent` | freezed | `model/consent_state.dart` | UMP part of `ConsentState` |
+| `AdsConsentStatus` | enum | `model/consent_state.dart` | `unknown \| required \| obtained \| notRequired` |
+| `AiConsent` | freezed | `model/consent_state.dart` | AI consent version + decision (RC21) |
+| `AiConsentDecision` | enum | `model/consent_state.dart` | `unknown \| granted \| declined` |
+| `TrackingStatus` | enum | `model/consent_state.dart` | `notDetermined \| restricted \| denied \| authorized \| notSupported` |
+| `OnboardingStep` | enum | `model/consent_state.dart` | `welcome \| disclaimer \| aiConsent \| ump \| att \| done` |
+| `CanReadReason` | enum | `model/credit_balance.dart` | `BalanceDto.canReadReason` (§5.1) |
+| `FreeAllowance` | freezed | `model/credit_balance.dart` | `BalanceDto.free` |
+| `RewardedStatus` | freezed | `model/credit_balance.dart` | `BalanceDto.rewarded` |
+| `CrisisDirectory` | freezed | `model/crisis_resource.dart` | compiled `crisis_resources.json` (per country, locale fallbacks, international) |
+| `DailyCard` | freezed | `model/daily_card.dart` | card of the day, keyed by `localDate` |
+| `Element` | enum | `model/deck_card.dart` | `fire \| water \| air \| earth` |
+| `DrawnCard` | freezed | `model/drawn_card.dart` | `{positionId, cardId, reversed}` |
+| `Entitlement` | freezed | `model/entitlement.dart` | Remove Banner Ads entitlement |
+| `EntitlementState` | enum | `model/entitlement.dart` | `owned \| notOwned \| unknown` |
+| `EntitlementSource` | enum | `model/entitlement.dart` | `store \| cache` |
+| `InstallIdentity` | freezed | `model/install_identity.dart` | install ID, trust, purchase binding |
+| `PurchaseBinding` | freezed | `model/install_identity.dart` | `{appleAccountToken?, playAccountId?}` (§12) |
+| `Trust` | enum | `model/install_identity.dart` | `high \| low` |
+| `ReadingStatus` | sealed union | `model/reading.dart` | `.pending` → `ReadingStatusPending`, `.complete` → `ReadingStatusComplete`, `.refused` → `ReadingStatusRefused`, `.failed` → `ReadingStatusFailed`, `.classic` → `ReadingStatusClassic` |
+| `SafetyInfo` | freezed | `model/reading.dart` | `{category, messageKey, canRephrase, crisisResources}` of a declined reading |
+| `Rating` | enum | `model/reading.dart` | `up \| down` |
+| `RatingReason` | enum | `model/reading.dart` | `too_generic \| mismatch \| tone \| other` |
+| `PositionText` | freezed | `model/reading_content.dart` | `{positionId, text}` of `ReadingContent` |
+| `RemoteConfig` | freezed | `model/remote_config.dart` | typed `PublicConfigDto` (§8.1), clamped |
+| `StorePack` | freezed | `model/remote_config.dart` | one `store.packs[]` entry |
+| `ConfigClampedHook` | typedef | `model/remote_config.dart` | called with a key whose value was clamped |
+| `SpreadDefinition` | freezed | `model/spread.dart` | a spread (02 §4 `Spread`) |
+| `ReminderSettings` | freezed | `model/user_settings.dart` | daily reminder |
+| `ThemeMode` | enum | `model/user_settings.dart` | `system \| light \| dark` |
+| `TaroProduct` | class | `monetization/taro_products.dart` | one `TaroProducts` entry: ID, kind, alias |
+| `ProductKind` | enum | `monetization/taro_products.dart` | `consumable \| nonConsumable` |
+
+### 16.4 Logic (`logic/`)
+
+| Name | Kind | File | Role |
+|---|---|---|---|
+| `ReadingGate` | static | `logic/reading_gate.dart` | `evaluate(...)` → `GateDecision` (RC44 order); `paywall(...)` → `PaywallOptions` |
+| `GateDecision` | sealed union | `logic/reading_gate.dart` | `.deviceUnverified` → `GateDeviceUnverified`, `.needsAiConsent` → `GateNeedsAiConsent`, `.offline` → `GateOffline`, `.readingsPaused` → `GateReadingsPaused`, `.aiUnavailableRegion` → `GateAiUnavailableRegion`, `.spreadDisabled` → `GateSpreadDisabled`, `.needsCredits` → `GateNeedsCredits`, `.dailyLimitReached` → `GateDailyLimitReached`, `.needsSync` → `GateNeedsSync`, `.allowed` → `GateAllowed` |
+| `PaywallOptions` | freezed | `logic/reading_gate.dart` | what S10 offers (reason, packs, rewarded) |
+| `PaywallReason` | enum | `logic/reading_gate.dart` | `noCredits \| lowTrustCap` |
+| `CardDrawer` | class | `logic/card_drawer.dart` | `draw(...)` → `Draw`; unbiased shuffle over `RandomSource` |
+| `BannerPolicy` | static | `logic/banner_policy.dart` | `shouldShow(...)`, `fromId(id)` |
+| `BannerScreen` | enum | `logic/banner_policy.dart` | `home \| journalList \| learnLibrary` (wire = `kBannerAllowList`) |
+| `BackupChecksum` | static | `logic/backup_checksum.dart` | SHA-256 over JCS of `data` (RC70) |
+| `BackupMerge` | static | `logic/backup_merge.dart` | Merge / Replace of an import |
+| `MergeMode` | enum | `logic/backup_merge.dart` | `merge \| replace` |
+| `MergeResult` | freezed | `logic/backup_merge.dart` | journal to write in one transaction |
+| `MergeReport` | freezed | `logic/backup_merge.dart` | counts for the result summary |
+| `BackupValidator` | class | `logic/backup_validator.dart` | validates a backup against `BackupSchemaV1` |
+| `BackupSchemaV1` | static | `logic/backup_validator.dart` | limits of `backup_schema_v1.json` in Dart |
+| `DailyCardRules` | class | `logic/daily_card_rules.dart` | one card per local day, `today(...)` |
+| `DailyCardPick` | freezed | `logic/daily_card_rules.dart` | today's card + whether it was just drawn |
+| `LocalDates` | static | `logic/local_dates.dart` | `YYYY-MM-DD` arithmetic |
+| `JournalPatterns` | freezed | `logic/patterns.dart` | Journal Patterns card (01 §7.8), `compute(...)` |
+| `PatternWindow` | freezed | `logic/patterns.dart` | patterns over one window of days |
+| `CardCount` | freezed | `logic/patterns.dart` | card + draw count |
+| `QuestionPrecheck` | static | `logic/question_precheck.dart` | client question checks (RC45) |
+| `QuestionCheck` | freezed | `logic/question_precheck.dart` | result of `QuestionPrecheck.check` |
+| `QuestionProblem` | enum | `logic/question_precheck.dart` | `tooLong \| noText` |
+| `ResetSchedule` | static | `logic/reset_schedule.dart` | next sync / next free reading times |
+| `ServerClockOffset` | class | `logic/server_clock.dart` | Worker time minus device time |
+
+### 16.5 Ports and port types (`ports/`)
+
+Adapters and fakes: §9.1. Every port is an `abstract interface class` in the file named.
+
+| Name | Kind | File |
+|---|---|---|
+| `AdsService` | port | `ports/ads_service.dart` |
+| `AdRequestPolicy` | freezed | `ports/ads_service.dart` |
+| `AnalyticsService` | port | `ports/analytics_service.dart` |
+| `AnalyticsConsent` | freezed (`allDenied`, `allGranted`) | `ports/analytics_service.dart` |
+| `AppInfo` | port | `ports/app_info.dart` |
+| `AppPlatform` | enum `ios \| android` | `ports/app_info.dart` |
+| `AttestationService` | port | `ports/attestation_service.dart` |
+| `AttestationType` | enum `app_attest \| play_integrity \| none` | `ports/attestation_service.dart` |
+| `AttestationBlob` | freezed | `ports/attestation_service.dart` |
+| `AssertionBlob` | freezed | `ports/attestation_service.dart` |
+| `DeviceSignal` | freezed | `ports/attestation_service.dart` |
+| `BalanceRepository` | port | `ports/balance_repository.dart` |
+| `Clock` | port | `ports/clock.dart` |
+| `SystemClock` | `Clock` implementation | `ports/system_clock.dart` |
+| `ConnectivityMonitor` | port | `ports/connectivity_monitor.dart` |
+| `ConsentService` | port | `ports/consent_service.dart` |
+| `ConsentStore` | port | `ports/consent_store.dart` |
+| `ContentRepository` | port | `ports/content_repository.dart` |
+| `CrashReporter` | port | `ports/crash_reporter.dart` |
+| `CrisisResourcesRepository` | port | `ports/crisis_resources_repository.dart` |
+| `DailyCardRepository` | port | `ports/daily_card_repository.dart` |
+| `DataDeletionGateway` | port | `ports/data_deletion_gateway.dart` |
+| `EntitlementCache` | port | `ports/entitlement_cache.dart` |
+| `FileTransfer` | port | `ports/file_transfer.dart` |
+| `IapEvent` | sealed union: `.purchased` → `IapPurchased`, `.pending` → `IapPending`, `.cancelled` → `IapCancelled`, `.failed` → `IapFailed`, `.restored` → `IapRestored`, `.entitlementChanged` → `IapEntitlementChanged` | `ports/iap_event.dart` |
+| `CreditGrant` | freezed | `ports/iap_event.dart` |
+| `IapService` | port | `ports/iap_service.dart` |
+| `StoreBuyResult` | sealed union: `.purchased` → `StoreBuyPurchased`, `.pending` → `StoreBuyPending`, `.cancelled` → `StoreBuyCancelled`, `.alreadyOwned` → `StoreBuyAlreadyOwned` | `ports/iap_service.dart` |
+| `IdGenerator` | port | `ports/id_generator.dart` |
+| `InstallRepository` | port | `ports/install_repository.dart` |
+| `JournalRepository` | port | `ports/journal_repository.dart` |
+| `JournalItem` | sealed union: `.reading` → `JournalReadingItem`, `.dailyCard` → `JournalDailyCardItem` | `ports/journal_repository.dart` |
+| `JournalQuery` | freezed (Journal filters) | `ports/journal_repository.dart` |
+| `JournalSnapshot` | freezed (all journal rows, for export / import) | `ports/journal_repository.dart` |
+| `Logger` | port | `ports/logger.dart` |
+| `PurchaseOutbox` | port | `ports/purchase_outbox.dart` |
+| `OutboxEntry` | freezed (`purchase_outbox` row) | `ports/purchase_outbox.dart` |
+| `OutboxStatus` | enum (§7 `purchase_outbox.status`) | `ports/purchase_outbox.dart` |
+| `PurchaseOutcome` | sealed union: `.granted` → `PurchaseGranted`, `.alreadyGranted` → `PurchaseAlreadyGranted`, `.pending` → `PurchaseOutcomePending`, `.cancelled` → `PurchaseOutcomeCancelled`, `.failed` → `PurchaseOutcomeFailed`, `.verificationDelayed` → `PurchaseVerificationDelayed`, `.notAvailable` → `PurchaseNotAvailable`, `.alreadyOwned` → `PurchaseAlreadyOwned` | `ports/purchase_outcome.dart` |
+| `PurchaseVerifier` | port | `ports/purchase_verifier.dart` |
+| `GrantResult` | freezed (E14 response) | `ports/purchase_verifier.dart` |
+| `GrantStatus` | enum `granted \| already_granted \| pending` | `ports/purchase_verifier.dart` |
+| `RandomSource` | port | `ports/random_source.dart` |
+| `SecureRandomSource` | `RandomSource` implementation | `ports/secure_random_source.dart` |
+| `ReadingRepository` | port | `ports/reading_repository.dart` |
+| `ReadingHold` | freezed (E09 response) | `ports/reading_repository.dart` |
+| `ReminderScheduler` | port | `ports/reminder_scheduler.dart` |
+| `RemoteConfigRepository` | port | `ports/remote_config_repository.dart` |
+| `ReportGateway` | port | `ports/report_gateway.dart` |
+| `ReadingReport` | freezed (E13 body) | `ports/report_gateway.dart` |
+| `ReviewPrompter` | port | `ports/review_prompter.dart` |
+| `ReviewTrigger` | enum `positiveRating` | `ports/review_prompter.dart` |
+| `RewardGateway` | port | `ports/reward_gateway.dart` |
+| `RewardIntent` | freezed (E15 response) | `ports/reward_gateway.dart` |
+| `RewardIntentState` | enum (§5.1 reward intent `status`) | `ports/reward_gateway.dart` |
+| `RewardStatus` | freezed (E16 response) | `ports/reward_gateway.dart` |
+| `RewardedShowResult` | enum `earned \| dismissedEarly \| failedToShow \| noFill` | `ports/rewarded_show_result.dart` |
+| `SecureStore` | port | `ports/secure_store.dart` |
+| `SessionTokenStore` | port | `ports/session_token_store.dart` |
+| `SessionToken` | freezed (`taro.session_token`) | `ports/session_token_store.dart` |
+| `SettingsRepository` | port | `ports/settings_repository.dart` |
+| `StoreProduct` | freezed (store listing + localized price) | `ports/store_product.dart` |
+| `StorePurchase` | freezed (delivered store transaction) | `ports/store_purchase.dart` |
+| `StorePlatform` | enum `ios \| android` | `ports/store_purchase.dart` |
+| `SyncReason` | enum `launch \| resume \| resetBoundary \| connectivityRegained \| manual \| preReading` | `ports/sync_reason.dart` |
+| `SyncStatus` | sealed union: `.syncing` → `SyncStatusSyncing`, `.synced` → `SyncStatusSynced`, `.stale` → `SyncStatusStale`, `.unavailable` → `SyncStatusUnavailable` | `ports/sync_status.dart` |
+| `TimezoneProvider` | port | `ports/timezone_provider.dart` |
+| `TrackingAuthorization` | port | `ports/tracking_authorization.dart` |
+
+### 16.6 Use cases (`usecases/`)
+
+Each is a `final class` over ports (02 §19 rule 3: failures return as `Result` / `Failure`, never thrown).
+
+| Use case | File | Returns / related types | 02 § |
+|---|---|---|---|
+| `SyncAccount` | `usecases/sync_account.dart` | launch / resume sync pass (`SyncReason`, `SyncStatus`) | §9.1, §9.2 |
+| `ResolveReadingGate` | `usecases/resolve_reading_gate.dart` | `GateDecision` | §9.3 |
+| `DrawCards` | `usecases/draw_cards.dart` | `Draw` (CSPRNG) | §4.1, §9.3 |
+| `RequestReading` | `usecases/request_reading.dart` | AI reading after `GateDecision.allowed` | §9.3 |
+| `ResumeReading` | `usecases/resume_reading.dart` | resumes `pending` readings (E11) | §9.2, §10 |
+| `StartClassicReading` | `usecases/start_classic_reading.dart` | Classic reading, no Worker call (RC20) | §9.8 |
+| `PurchaseCredits` | `usecases/purchase_credits.dart` | `PurchaseOutcome` | §9.5 |
+| `EarnReward` | `usecases/earn_reward.dart` | `RewardOutcome` (sealed: `.granted` → `RewardGranted`, `.delayed` → `RewardDelayed`, `.dismissed` → `RewardDismissed`, `.notGranted` → `RewardNotGranted`); `Delay` typedef for polling | §9.6 |
+| `ReportReading` | `usecases/report_reading.dart` | E13 (RC22, RC72) | §9.9 |
+| `ExportBackup` | `usecases/export_backup.dart` | `taro-backup-YYYY-MM-DD.json` | §12 |
+| `ImportBackup` | `usecases/import_backup.dart` | `ImportPreview`, then Merge / Replace | §12 |
+| `DeleteAllData` | `usecases/delete_all_data.dart` | `DataDeletionOutcome` = `complete \| partial` | 01 §7.10 (RC37) |
+
+### 16.7 Analytics events (`analytics/`)
+
+Parameters, their types and every value set: [../ANALYTICS_EVENTS.md](../ANALYTICS_EVENTS.md) (checked by `tools/check_analytics_events.py`). `TaroAnalyticsEvent` is sealed; each family below is a sealed subclass (`AppEvent`, `ConsentEvent`, `DailyCardEvent`, `DataEvent`, `ErrorEvent`, `JournalEvent`, `LearnEvent`, `MonetizationEvent`, `NotificationEvent`, `OnboardingEvent`, `ReadingEvent`, `ScreenEvent`, `SettingsEvent`) and every event is built with a `TaroAnalyticsEvent.<factory>`.
+
+Parameter value types (`analytics/analytics_values.dart`; enums mix in `AnalyticsEnum`, wire string via `analyticsWire`): `ScreenId`, `AnalyticsSpread`, `AnalyticsCardId`, `AnalyticsLocale`, `AnalyticsOnboardingStep`, `AiConsentOrigin`, `UmpResultStatus`, `AttResultStatus`, `ReadingFlowSource`, `GateBlockReason`, `HoldResult`, `QuestionLengthBucket`, `CreditType`, `ReadingFailureKind`, `ClassicReadingReason`, `ReportReason`, `CrisisResourcesOrigin`, `ReadingViewOrigin`, `JournalEntryType`, `NoteLengthBucket`, `JournalFilter`, `PatternsRange`, `CardOrientation`, `LearnCardOrigin`, `SearchResultsBucket`, `EntriesBucket`, `GateDecisionKind`, `OutOfReadingsSource`, `StoreSource`, `PaywallSurface`, `PaywallAction`, `IapLoadResult`, `AnalyticsProduct`, `AnalyticsCurrency`, `PurchaseErrorKind`, `IapVerifyStatus`, `RestoreResult`, `RemoveAdsSource`, `RewardedSource`, `RewardedAdResult`, `RewardedGrantResult`, `ConfigKey`, `ExportError`, `ImportMode`, `ImportFailureReason`, `SettingKey`, `SettingValue`, `AppNoticeOrigin`.
+
+| Event class | `eventName` | Family | Factory |
+|---|---|---|---|
+| `AppUpdateRequiredShownEvent` | `app_update_required_shown` | `AppEvent` | `.appUpdateRequiredShown` |
+| `AppUpdateAvailableShownEvent` | `app_update_available_shown` | `AppEvent` | `.appUpdateAvailableShown` |
+| `ReadingsPausedShownEvent` | `readings_paused_shown` | `AppEvent` | `.readingsPausedShown` |
+| `DeviceUnverifiedShownEvent` | `device_unverified_shown` | `AppEvent` | `.deviceUnverifiedShown` |
+| `RatePromptShownEvent` | `rate_prompt_shown` | `AppEvent` | `.ratePromptShown` |
+| `AiConsentDecidedEvent` | `ai_consent_decided` | `ConsentEvent` | `.aiConsentDecided` |
+| `ConsentUmpResultEvent` | `consent_ump_result` | `ConsentEvent` | `.consentUmpResult` |
+| `ConsentAttResultEvent` | `consent_att_result` | `ConsentEvent` | `.consentAttResult` |
+| `AnalyticsToggledEvent` | `analytics_toggled` | `ConsentEvent` | `.analyticsToggled` |
+| `DailyCardRevealedEvent` | `daily_card_revealed` | `DailyCardEvent` | `.dailyCardRevealed` |
+| `DailyCardDeeperTappedEvent` | `daily_card_deeper_tapped` | `DailyCardEvent` | `.dailyCardDeeperTapped` |
+| `ExportCompletedEvent` | `export_completed` | `DataEvent` | `.exportCompleted` |
+| `ExportFailedEvent` | `export_failed` | `DataEvent` | `.exportFailed` |
+| `ImportCompletedEvent` | `import_completed` | `DataEvent` | `.importCompleted` |
+| `ImportFailedEvent` | `import_failed` | `DataEvent` | `.importFailed` |
+| `DataDeletedEvent` | `data_deleted` | `DataEvent` | `.dataDeleted` |
+| `ErrorShownEvent` | `error_shown` | `ErrorEvent` | `.errorShown` |
+| `JournalNoteSavedEvent` | `journal_note_saved` | `JournalEvent` | `.journalNoteSaved` |
+| `JournalEntryDeletedEvent` | `journal_entry_deleted` | `JournalEvent` | `.journalEntryDeleted` |
+| `JournalFavouriteToggledEvent` | `journal_favourite_toggled` | `JournalEvent` | `.journalFavouriteToggled` |
+| `JournalFilterUsedEvent` | `journal_filter_used` | `JournalEvent` | `.journalFilterUsed` |
+| `PatternsViewedEvent` | `patterns_viewed` | `JournalEvent` | `.patternsViewed` |
+| `LearnCardViewedEvent` | `learn_card_viewed` | `LearnEvent` | `.learnCardViewed` |
+| `LearnSearchEvent` | `learn_search` | `LearnEvent` | `.learnSearch` |
+| `LearnSpreadViewedEvent` | `learn_spread_viewed` | `LearnEvent` | `.learnSpreadViewed` |
+| `ReadingGateEvaluatedEvent` | `reading_gate_evaluated` | `MonetizationEvent` | `.readingGateEvaluated` |
+| `FreeReadingUsedEvent` | `free_reading_used` | `MonetizationEvent` | `.freeReadingUsed` |
+| `ReadingCreditConsumedEvent` | `reading_credit_consumed` | `MonetizationEvent` | `.readingCreditConsumed` |
+| `OutOfReadingsViewedEvent` | `out_of_readings_viewed` | `MonetizationEvent` | `.outOfReadingsViewed` |
+| `StoreViewedEvent` | `store_viewed` | `MonetizationEvent` | `.storeViewed` |
+| `PaywallDismissedEvent` | `paywall_dismissed` | `MonetizationEvent` | `.paywallDismissed` |
+| `IapProductsLoadedEvent` | `iap_products_loaded` | `MonetizationEvent` | `.iapProductsLoaded` |
+| `PurchaseStartedEvent` | `purchase_started` | `MonetizationEvent` | `.purchaseStarted` |
+| `PurchasePendingEvent` | `purchase_pending` | `MonetizationEvent` | `.purchasePending` |
+| `PurchaseCancelledEvent` | `purchase_cancelled` | `MonetizationEvent` | `.purchaseCancelled` |
+| `PurchaseFailedEvent` | `purchase_failed` | `MonetizationEvent` | `.purchaseFailed` |
+| `PurchaseVerificationDelayedEvent` | `purchase_verification_delayed` | `MonetizationEvent` | `.purchaseVerificationDelayed` |
+| `IapVerifyResultEvent` | `iap_verify_result` | `MonetizationEvent` | `.iapVerifyResult` |
+| `IapVerifyStuckEvent` | `iap_verify_stuck` | `MonetizationEvent` | `.iapVerifyStuck` |
+| `PurchaseCompletedEvent` | `purchase_completed` | `MonetizationEvent` | `.purchaseCompleted` |
+| `RestoreCompletedEvent` | `restore_completed` | `MonetizationEvent` | `.restoreCompleted` |
+| `RemoveAdsChangedEvent` | `remove_ads_changed` | `MonetizationEvent` | `.removeAdsChanged` |
+| `RewardedOfferShownEvent` | `rewarded_offer_shown` | `MonetizationEvent` | `.rewardedOfferShown` |
+| `RewardedOfferTappedEvent` | `rewarded_offer_tapped` | `MonetizationEvent` | `.rewardedOfferTapped` |
+| `RewardedAdResultEvent` | `rewarded_ad_result` | `MonetizationEvent` | `.rewardedAdResult` |
+| `RewardedGrantResultEvent` | `rewarded_grant_result` | `MonetizationEvent` | `.rewardedGrantResult` |
+| `AdBannerImpressionEvent` | `ad_banner_impression` | `MonetizationEvent` | `.adBannerImpression` |
+| `AdBannerFailedEvent` | `ad_banner_failed` | `MonetizationEvent` | `.adBannerFailed` |
+| `ConfigValueClampedEvent` | `config_value_clamped` | `MonetizationEvent` | `.configValueClamped` |
+| `ReminderOfferAnsweredEvent` | `reminder_offer_answered` | `NotificationEvent` | `.reminderOfferAnswered` |
+| `NotificationPermissionResultEvent` | `notification_permission_result` | `NotificationEvent` | `.notificationPermissionResult` |
+| `ReminderChangedEvent` | `reminder_changed` | `NotificationEvent` | `.reminderChanged` |
+| `ReminderOpenedEvent` | `reminder_opened` | `NotificationEvent` | `.reminderOpened` |
+| `OnboardingStepViewedEvent` | `onboarding_step_viewed` | `OnboardingEvent` | `.onboardingStepViewed` |
+| `OnboardingCompletedEvent` | `onboarding_completed` | `OnboardingEvent` | `.onboardingCompleted` |
+| `DisclaimerAcceptedEvent` | `disclaimer_accepted` | `OnboardingEvent` | `.disclaimerAccepted` |
+| `ReadingFlowStartedEvent` | `reading_flow_started` | `ReadingEvent` | `.readingFlowStarted` |
+| `ReadingGateBlockedEvent` | `reading_gate_blocked` | `ReadingEvent` | `.readingGateBlocked` |
+| `ReadingHoldResultEvent` | `reading_hold_result` | `ReadingEvent` | `.readingHoldResult` |
+| `QuestionSubmittedEvent` | `question_submitted` | `ReadingEvent` | `.questionSubmitted` |
+| `DrawCompletedEvent` | `draw_completed` | `ReadingEvent` | `.drawCompleted` |
+| `ReadingGeneratedEvent` | `reading_generated` | `ReadingEvent` | `.readingGenerated` |
+| `ReadingFailedEvent` | `reading_failed` | `ReadingEvent` | `.readingFailed` |
+| `ClassicReadingStartedEvent` | `classic_reading_started` | `ReadingEvent` | `.classicReadingStarted` |
+| `ClassicReadingCompletedEvent` | `classic_reading_completed` | `ReadingEvent` | `.classicReadingCompleted` |
+| `ReadingReportedEvent` | `reading_reported` | `ReadingEvent` | `.readingReported` |
+| `ReadingRefusedEvent` | `reading_refused` | `ReadingEvent` | `.readingRefused` |
+| `CrisisResourcesViewedEvent` | `crisis_resources_viewed` | `ReadingEvent` | `.crisisResourcesViewed` |
+| `ReadingViewedEvent` | `reading_viewed` | `ReadingEvent` | `.readingViewed` |
+| `ReadingRatedEvent` | `reading_rated` | `ReadingEvent` | `.readingRated` |
+| `ReadingSharedEvent` | `reading_shared` | `ReadingEvent` | `.readingShared` |
+| `ReflectionPromptUsedEvent` | `reflection_prompt_used` | `ReadingEvent` | `.reflectionPromptUsed` |
+| `ScreenViewEvent` | `screen_view` | `ScreenEvent` | `.screenView` |
+| `SettingChangedEvent` | `setting_changed` | `SettingsEvent` | `.themeChanged`, `.languageChanged`, `.reversalsChanged`, `.hapticsChanged` |
 
 ---
 

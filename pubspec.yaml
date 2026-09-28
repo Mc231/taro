@@ -40,8 +40,16 @@ melos:
 
   scripts:
     gen:
-      description: Run every code generator (gen-l10n; build_runner arrives with the first annotated model).
-      run: melos run gen:l10n
+      description: Run every code generator (gen-l10n, then build_runner for freezed).
+      run: melos run gen:l10n && melos run gen:build
+
+    gen:build:
+      description: build_runner (freezed) in every package that uses it; `*.freezed.dart` is committed and excluded from coverage (RC16).
+      exec:
+        command: dart run build_runner build --delete-conflicting-outputs
+        concurrency: 1
+      packageFilters:
+        dependsOn: build_runner
 
     gen:l10n:
       description: Generate TaroLocalizations from the ARB files.

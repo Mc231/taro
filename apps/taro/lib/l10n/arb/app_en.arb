@@ -3,5 +3,153 @@
   "appTitle": "Taro",
   "@appTitle": {
     "description": "App name shown in the app switcher and the placeholder screen. Not translated."
+  },
+  "failureAiConsentRequired": "To get an AI reading, please review and accept the AI consent first.",
+  "@failureAiConsentRequired": {
+    "description": "Failure message: AI readings need the user to accept the current AI consent first (AiConsentRequiredFailure, GLOSSARY §5)."
+  },
+  "failureAiUnavailable": "AI readings are unavailable right now. Please try again in a moment.",
+  "@failureAiUnavailable": {
+    "description": "Failure message: the AI service is temporarily unavailable (AiUnavailableFailure)."
+  },
+  "failureAiUnavailableRegion": "AI readings aren’t available in your region. You can still do a Classic reading.",
+  "@failureAiUnavailableRegion": {
+    "description": "Failure message: AI readings are not offered in the user's region; a Classic reading is still possible (AiUnavailableRegionFailure, RC29)."
+  },
+  "failureAttestation": "We couldn’t verify this device. Please try again later.",
+  "@failureAttestation": {
+    "description": "Failure message: the device could not be verified (AttestationFailure; ErrorKind deviceUnverified)."
+  },
+  "failureBackupInvalid": "This file isn’t a valid Taro backup.",
+  "@failureBackupInvalid": {
+    "description": "Failure message: the chosen import file is not a valid Taro backup (BackupInvalidFailure)."
+  },
+  "failureContract": "Something went wrong. Please try again.",
+  "@failureContract": {
+    "description": "Failure message: a request or response did not match the API contract; shown as a generic error (ContractFailure)."
+  },
+  "failureHoldConflict": "This reading can’t continue. Please start a new one.",
+  "@failureHoldConflict": {
+    "description": "Failure message: the server hold for this reading was lost, so the cards stay face-down (HoldConflictFailure, RC50)."
+  },
+  "failureInsufficientCredits": "You’re out of readings for now.",
+  "@failureInsufficientCredits": {
+    "description": "Failure message: the user has no free, bonus or paid readings left (InsufficientCreditsFailure)."
+  },
+  "failureNetwork": "You’re offline. Check your connection and try again.",
+  "@failureNetwork": {
+    "description": "Failure message: the device is offline or the server could not be reached (NetworkFailure)."
+  },
+  "failureProductUnavailable": "This item isn’t available in the store right now.",
+  "@failureProductUnavailable": {
+    "description": "Failure message: the store product could not be loaded (ProductUnavailableFailure)."
+  },
+  "failurePurchase": "The purchase couldn’t be completed. Please try again.",
+  "@failurePurchase": {
+    "description": "Failure message: the store purchase could not be completed or verified (PurchaseFailure)."
+  },
+  "failurePurchaseAlreadyClaimed": "This purchase has already been used on another device.",
+  "@failurePurchaseAlreadyClaimed": {
+    "description": "Failure message: this store purchase was already credited to another install (PurchaseAlreadyClaimedFailure, RC84)."
+  },
+  "failurePurchaseCancelled": "The purchase was cancelled.",
+  "@failurePurchaseCancelled": {
+    "description": "Failure message: the user cancelled the store sheet (PurchaseCancelledFailure; usually silent)."
+  },
+  "failurePurchasePending": "Your purchase is waiting for approval. Your readings will appear once it’s approved.",
+  "@failurePurchasePending": {
+    "description": "Failure message: the purchase is waiting for approval, e.g. Ask to Buy or a deferred payment (PurchasePendingFailure)."
+  },
+  "failurePurchasesBlocked": "Purchases are unavailable right now.",
+  "@failurePurchasesBlocked": {
+    "description": "Failure message: purchases are not allowed for this install right now (PurchasesBlockedFailure, RC66)."
+  },
+  "failureRateLimited": "Too many requests. Please wait a moment and try again.",
+  "@failureRateLimited": {
+    "description": "Failure message: too many requests; the user should wait before retrying (RateLimitedFailure)."
+  },
+  "failureReadingExpiredRefunded": "This reading expired before it could be delivered. Your credit was returned.",
+  "@failureReadingExpiredRefunded": {
+    "description": "Failure message: the reading expired before delivery and its credit was returned (ReadingExpiredRefundedFailure, RC51)."
+  },
+  "failureReadingsPaused": "AI readings are paused right now. You can still do a Classic reading.",
+  "@failureReadingsPaused": {
+    "description": "Failure message: AI readings are paused (kill switch or budget stop); never shown as a paywall (ReadingsPausedFailure, RC47)."
+  },
+  "failureRequestInProgress": "Your reading is still being prepared. Please wait a moment.",
+  "@failureRequestInProgress": {
+    "description": "Failure message: the same reading request is still being processed on the server (RequestInProgressFailure)."
+  },
+  "failureRewardUnavailable": "A reading from a video isn’t available right now.",
+  "@failureRewardUnavailable": {
+    "description": "Failure message: a reading earned by watching an ad is not available right now (RewardUnavailableFailure)."
+  },
+  "failureServer": "Something went wrong on our side. Please try again.",
+  "@failureServer": {
+    "description": "Failure message: the server returned an internal or unknown error (ServerFailure)."
+  },
+  "failureSessionExpired": "Your session expired. Please try again.",
+  "@failureSessionExpired": {
+    "description": "Failure message: the session expired and could not be renewed silently (SessionExpiredFailure)."
+  },
+  "failureStorage": "Taro couldn’t save or load data on this device.",
+  "@failureStorage": {
+    "description": "Failure message: local storage on the device failed (StorageFailure)."
+  },
+  "failureTimeout": "This is taking too long. Please try again.",
+  "@failureTimeout": {
+    "description": "Failure message: the request took too long (TimeoutFailure)."
+  },
+  "failureTimezoneChangeRejected": "Your daily reset stays on your previous time zone for now.",
+  "@failureTimezoneChangeRejected": {
+    "description": "Failure message: the daily free reading reset keeps the previous time zone for now (TimezoneChangeRejectedFailure)."
+  },
+  "failureUnexpected": "Something unexpected happened. Please try again.",
+  "@failureUnexpected": {
+    "description": "Failure message: an unexpected error that was not mapped to any other kind (UnexpectedFailure)."
+  },
+  "failureUpgradeRequired": "Please update Taro to keep using it.",
+  "@failureUpgradeRequired": {
+    "description": "Failure message: this app version is no longer supported and must be updated (UpgradeRequiredFailure)."
+  },
+  "safetyDeclinedHealth": "Tarot can’t answer health questions. Please talk to a doctor or another professional. You could ask what you can learn about yourself in this situation.",
+  "@safetyDeclinedHealth": {
+    "description": "Refusal card for a declined health question (RefusalCategory.health, GLOSSARY §5.2); the user may rephrase."
+  },
+  "safetyDeclinedPregnancy": "Tarot can’t answer questions about pregnancy. A doctor or midwife can help. You could ask how to take care of yourself right now.",
+  "@safetyDeclinedPregnancy": {
+    "description": "Refusal card for a declined pregnancy question (RefusalCategory.pregnancy); the user may rephrase."
+  },
+  "safetyDeclinedDeath": "Tarot can’t answer questions about death. You could ask what support you need right now.",
+  "@safetyDeclinedDeath": {
+    "description": "Refusal card for a declined question about death (RefusalCategory.death); gentle tone, the user may rephrase."
+  },
+  "safetyDeclinedLegal": "Tarot can’t predict legal outcomes. A lawyer can help with legal questions. You could ask what you can learn about yourself in this situation.",
+  "@safetyDeclinedLegal": {
+    "description": "Refusal card for a declined legal question (RefusalCategory.legal); the user may rephrase."
+  },
+  "safetyDeclinedFinancial": "Tarot can’t give money or investment advice. You could ask what matters most to you in this decision.",
+  "@safetyDeclinedFinancial": {
+    "description": "Refusal card for a declined money or investment question (RefusalCategory.financial); the user may rephrase."
+  },
+  "safetyDeclinedGambling": "Tarot can’t predict gambling results or numbers. You could ask what you are hoping will change.",
+  "@safetyDeclinedGambling": {
+    "description": "Refusal card for a declined gambling question (RefusalCategory.gambling); the user may rephrase."
+  },
+  "safetyDeclinedSelfHarm": "Taro can’t give a reading on this. You deserve support right now. Please reach out to someone you trust or a crisis line.",
+  "@safetyDeclinedSelfHarm": {
+    "description": "Refusal card shown after the crisis resources for a self-harm question (RefusalCategory.selfHarm, S27); no rephrase offered."
+  },
+  "safetyDeclinedHarmToOthers": "Taro can’t give a reading on this. If you or someone else is in danger, please contact local emergency services.",
+  "@safetyDeclinedHarmToOthers": {
+    "description": "Refusal card shown after the crisis resources for a question about harming others (RefusalCategory.harmToOthers, S27); no rephrase offered."
+  },
+  "safetyDeclinedSexualMinors": "Taro can’t help with that.",
+  "@safetyDeclinedSexualMinors": {
+    "description": "Neutral refusal for moderation-blocked content (RefusalCategory.sexualMinors, 05 §4.1); no rephrase offered."
+  },
+  "safetyDeclinedHateOrHarassment": "Taro can’t help with that. Try asking a different question.",
+  "@safetyDeclinedHateOrHarassment": {
+    "description": "Neutral refusal for hateful or harassing content (RefusalCategory.hateOrHarassment, 05 §4.1); the user may rephrase."
   }
 }

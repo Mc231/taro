@@ -9,6 +9,7 @@ environment:
 resolution: workspace
 
 dependencies:
+  characters: ^1.4.1
   clock: ^1.1.2
   collection: ^1.19.1
   crypto: ^3.0.6

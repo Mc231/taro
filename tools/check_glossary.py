@@ -390,6 +390,22 @@ _FAILURE_CLASS = re.compile(r"\b((?:(?:abstract|sealed|base|final|interface)\s+)
 _REFUSAL_ENUM = re.compile(r"\benum\s+RefusalCategory\s*\{([^}]*)\}")
 
 
+def _split_top_level(text: str) -> list[str]:
+    """Splits enum values on commas outside parentheses (constructor args)."""
+    parts: list[str] = []
+    depth = 0
+    current: list[str] = []
+    for char in text:
+        depth += (char == "(") - (char == ")")
+        if char == "," and depth == 0:
+            parts.append("".join(current))
+            current = []
+        else:
+            current.append(char)
+    parts.append("".join(current))
+    return parts
+
+
 def compare_errors(root: Path, g: Glossary) -> tuple[Findings, Notices]:
     findings: Findings = []
     notices: Notices = []
@@ -425,7 +441,9 @@ def compare_errors(root: Path, g: Glossary) -> tuple[Findings, Notices]:
     refusal_files = _files_declaring(core, _REFUSAL_ENUM, ".dart")
     if refusal_files:
         body = _REFUSAL_ENUM.search(mask_dart(refusal_files[0].read_text(encoding="utf-8")))
-        values = {v.strip().split("(")[0] for v in body.group(1).replace(";", ",").split(",") if v.strip()} if body else set()
+        # Enum values end at the first `;`; members (constructor, fields) follow.
+        head = body.group(1).split(";")[0] if body else ""
+        values = {v.strip().split("(")[0] for v in _split_top_level(head) if v.strip()}
         findings += _set_diff(rel(root, refusal_files[0]), "refusal", "RefusalCategory value", values, g.refusals)
         keys = {k for k in g.refusals.values() if k.startswith("safetyDeclined")}
         for key in sorted(keys - set(arb)):

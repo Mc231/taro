@@ -402,8 +402,72 @@ def has_executable_code(path: Path) -> bool:
     text = _COMMENT_RE.sub("", path.read_text(encoding="utf-8", errors="replace"))
     statements = _top_level_statements(text)
     if suffix == ".dart":
-        return any(not _DART_DIRECTIVE_RE.match(st) for st in statements)
+        return any(_dart_statement_has_code(st) for st in statements)
     return any(not _TS_DECLARATION_RE.match(st) for st in statements)
+
+
+_DART_ANNOTATION_RE = re.compile(r"^@[\w$.]+(?:<[^>]*>)?\s*(\(\))?\s*")
+_DART_TYPE_RE = re.compile(
+    r"^(?:(?:abstract|sealed|base|final|interface|mixin)\s+)*(class|mixin|enum)\s+([\w$]+)"
+)
+_DART_REDIRECT_RE = re.compile(r"^(?:const\s+)?factory\s+[\w$.]+\(\)\s*=\s*[\w$.<>, ]+$")
+_DART_STRING_RE = re.compile(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"")
+
+
+def _collapse_parens(text: str) -> str:
+    """Replaces every balanced ``(...)`` group (parameter lists, annotation
+    arguments, defaults) with ``()`` so braces inside them do not count."""
+    out: list[str] = []
+    depth = 0
+    for char in text:
+        if char == "(":
+            if depth == 0:
+                out.append("()")
+            depth += 1
+        elif char == ")":
+            depth -= 1
+        elif depth == 0:
+            out.append(char)
+    return "".join(out)
+
+
+def _dart_statement_has_code(statement: str) -> bool:
+    """Whether one top-level Dart declaration can produce coverage lines.
+
+    Directives, typedefs, enums with only values, final fields and a const
+    constructor, and classes or mixins whose
+    members are all abstract signatures or redirecting factories (interfaces,
+    freezed unions whose code lives in the excluded ``*.freezed.dart`` part)
+    produce none. Anything else, including any constructor, initializer or
+    body, counts.
+    """
+    if _DART_DIRECTIVE_RE.match(statement):
+        return False
+    text = _collapse_parens(_DART_STRING_RE.sub("''", statement))
+    while (stripped := _DART_ANNOTATION_RE.sub("", text, count=1)) != text:
+        text = stripped
+    if text.startswith("typedef "):
+        return False
+    match = _DART_TYPE_RE.match(text)
+    if not match or "{" not in text or not text.endswith("}"):
+        return True
+    kind, name = match.groups()
+    body = text[text.index("{") + 1 : -1]
+    if "{" in body or "=>" in body:
+        return True
+    if kind == "enum":
+        # Const constructors and plain final fields of an enum emit no lines.
+        return "=" in body or ":" in body
+    for member in (m.strip() for m in body.split(";")):
+        if not member:
+            continue
+        while (stripped := _DART_ANNOTATION_RE.sub("", member, count=1)) != member:
+            member = stripped
+        if re.match(rf"^(?:const\s+)?{re.escape(name)}(?:\.[\w$]+)?\(\)", member):
+            return True
+        if "=" in member and not _DART_REDIRECT_RE.match(member):
+            return True
+    return False
 
 
 def _top_level_statements(text: str) -> list[str]:

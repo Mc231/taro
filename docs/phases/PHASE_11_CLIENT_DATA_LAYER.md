@@ -70,7 +70,7 @@ Every adapter passes the shared port contract suite from `packages/taro_core/tes
   - `RetryInterceptor`: at most 3 attempts, exponential backoff with jitter, capped at 8 s; retries only GETs and `Idempotency-Key` requests on connection errors, 408, 429 (`Retry-After` ≤ 30 s) and 502/503/504; never on 4xx business errors;
   - `ErrorInterceptor`: `ApiErrorMapper`, UPPER_SNAKE codes → `Failure` subtypes (RC5); an unknown code → `ServerFailure`; 426 → `UpgradeRequiredFailure`.
 - [ ] `ServerClockOffset` updated from every `Date` header.
-- [ ] DTOs (`json_serializable`) and mappers: `BalanceDto` → `CreditBalance` (RC6, incl. `canReadReason`, `purchasesAllowed`, `purchasesBlockedReason`, `free.paused`; the `ledgerVersion` rule of RC67); `HoldDto`; `ReadingResponseDto` → `ReadingContent` (RC30); declined → `ReadingStatus.refused(SafetyInfo{category, messageKey, canRephrase, crisisResources})` (02 §3, RC27); `410 READING_EXPIRED_REFUNDED` → `DeliveryExpiredFailure`; `409 HOLD_CONFLICT` → `HoldLostFailure`.
+- [ ] DTOs (`json_serializable`) and mappers: `BalanceDto` → `CreditBalance` (RC6, incl. `canReadReason`, `purchasesAllowed`, `purchasesBlockedReason`, `free.paused`; the `ledgerVersion` rule of RC67); `HoldDto`; `ReadingResponseDto` → `ReadingContent` (RC30); declined → `ReadingStatus.refused(SafetyInfo{category, messageKey, canRephrase, crisisResources})` (02 §3, RC27); `410 READING_EXPIRED_REFUNDED` → `ReadingExpiredRefundedFailure`; `409 HOLD_CONFLICT` → `HoldConflictFailure` (RC96).
 - [ ] Tests with a scripted fake `HttpClientAdapter`: headers, retry matrix under `FakeClock`, 401 single-flight refresh, every error-code mapping, timeout → the polling hand-off.
 - [ ] **Contract tests** `test/contract/contract_fixtures_test.dart`: decode every fixture in `test/contract/fixtures/**` and encode requests that validate against the schema (QA15). `melos run contract:sync` + `check_contract_fixtures.py` are green.
 
@@ -87,8 +87,8 @@ Every adapter passes the shared port contract suite from `packages/taro_core/tes
   - `POST /v1/readings` → complete, refused, or classic fallback signals; on `completed` it persists the text, then enqueues `pending_acks` and calls `POST /v1/readings/{clientReadingId}/ack` (retried by `SyncCoordinator`, RC51);
   - on timeout, polls `GET /v1/readings/{clientReadingId}` at 1, 2, 4 and 8 s within a 30 s budget (02 §6.3);
   - `409 HOLD_CONFLICT` / renewal 402 → **keeps** the pending draw face-down for reuse after purchase (RC48; 01 PR6, 04 §12.1); a resubmit uses the same `clientReadingId` and the Worker runs a new attempt (RC49);
-  - `410 READING_EXPIRED_REFUNDED` → status `failed(deliveryExpired)` with "not charged" and retry with the same cards;
-  - `resume(id)`, `watchHistory(ReadingQuery)` with filters (type, spread, card, favourites, FTS search), `setFavourite`, `setNote`, `setRating`, `delete` + undo support (soft-delete for 5 s).
+  - `410 READING_EXPIRED_REFUNDED` → status `ReadingStatus.failed(ReadingExpiredRefundedFailure, refunded: true)` (S08 `deliveryExpired`) with "not charged" and retry with the same cards;
+  - `resume(id)`, `JournalRepository.watchAll(query: JournalQuery)` with filters (type, spread, card, favourites, FTS search), `setFavourite`, `setNote`, `setRating`, `delete` + undo support (soft-delete for 5 s).
 - [ ] `DailyCardRepositoryImpl`: one card per local day (device timezone; 01 §7.6), idempotent.
 - [ ] `SettingsRepositoryImpl` + `ConsentStore`: `UserSettings`, `ConsentState` (AI consent version + timestamp, onboarding step), analytics toggle.
 - [ ] `EntitlementCacheImpl` (drift `entitlements`; cleared only on a definitive store "not owned", MO7). `PurchaseOutboxImpl`: `enqueue` **before** verify, `pending()`, `markGranted`, `markFinished`, `recordAttempt`, `markRejected` (MO8, AR10).
@@ -102,7 +102,7 @@ Every adapter passes the shared port contract suite from `packages/taro_core/tes
 **Tasks:**
 - [ ] `lib/data/backup/backup_codec.dart`: encodes `taro.backup` v1 from `taro_journal.db` (readings with status `complete`, `refused` or `classic`; daily cards; settings) inside the `data` wrapper, computes `checksum` = lowercase hex SHA-256 of the **RFC 8785 (JCS)** canonical JSON of `data`, and runs in an isolate. It **never** writes credits, entitlements, install ID, install secret, tokens, outbox, consent or config (01 §7.11, 06 §2.5, RC70).
 - [ ] `lib/data/backup/backup_schema_v1.json`: a byte-identical copy of `docs/specs/backup_schema_v1.json` (a test compares them). `BackupMigrator` (a stepwise chain; v1 only now, with the pattern tested using a synthetic v0). Golden fixture `test/fixtures/backup_v1_sample.json` with its known checksum.
-- [ ] `ImportBackupUseCase` wiring: size → parse → format → version → migrate → validate (`backup_validator` from Phase 4) → checksum → preview → merge or replace in one drift transaction.
+- [ ] `ImportBackup` wiring: size → parse → format → version → migrate → validate (`backup_validator` from Phase 4) → checksum → preview → merge or replace in one drift transaction.
 - [ ] Tests:
   - a round trip preserves every field;
   - a key scan proves forbidden keys are absent;

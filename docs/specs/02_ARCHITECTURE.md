@@ -263,14 +263,14 @@ sealed class Result<T> {
 final class Ok<T> extends Result<T> { const Ok(this.value); final T value; }
 final class Err<T> extends Result<T> { const Err(this.failure); final Failure failure; }
 
-sealed class Failure { const Failure(); String get code; }   // `code` = stable analytics/log key
+sealed class Failure { const Failure(); String get code; }   // `code` = stable analytics/log key (values: GLOSSARY §16.1, RC96)
 // Transport
 final class NetworkFailure extends Failure       // offline / DNS / socket
 final class TimeoutFailure extends Failure
-final class ServerFailure extends Failure         // 500 INTERNAL, unknown code or unparseable; {int status, String? code, String? requestId}
+final class ServerFailure extends Failure         // 500 INTERNAL, unknown code or unparseable; {int status, String? wireCode, String? requestId}
 final class RateLimitedFailure extends Failure    // 429 RATE_LIMITED; {RateLimitReason reason: burst|dailyLimit|declinedLimit|lowTrustCap|reportLimit, Duration? retryAfter}
 final class UpgradeRequiredFailure extends Failure// 426 UPGRADE_REQUIRED; {String? storeUrl}
-final class ContractFailure extends Failure       // 400 VALIDATION_FAILED / IDEMPOTENCY_KEY_REQUIRED, 422 IDEMPOTENCY_KEY_REUSED / SPREAD_INVALID, 404 NOT_FOUND — a client bug, always reported to crash; {String code}
+final class ContractFailure extends Failure       // 400 VALIDATION_FAILED / IDEMPOTENCY_KEY_REQUIRED, 422 IDEMPOTENCY_KEY_REUSED / SPREAD_INVALID, 404 NOT_FOUND — a client bug, always reported to crash; {String wireCode}
 // Identity / trust
 final class SessionExpiredFailure extends Failure // 401 UNAUTHENTICATED, or TOKEN_EXPIRED after a failed token refresh → re-register
 final class AttestationFailure extends Failure    // 401 ATTESTATION_REQUIRED, 403 ATTESTATION_FAILED; {AttestationFailureKind kind: unsupported|keyInvalidated|rejected|quota|transient}
@@ -290,7 +290,7 @@ final class TimezoneChangeRejectedFailure extends Failure // 409 TIMEZONE_CHANGE
 // Store
 final class PurchaseCancelledFailure extends Failure
 final class PurchasePendingFailure extends Failure       // Ask to Buy / deferred payment, or 202 PURCHASE_PENDING
-final class PurchaseFailure extends Failure              // store error, 422 PURCHASE_INVALID (incl. reason sandbox_cap) or PRODUCT_UNKNOWN; {String code, String? reason}
+final class PurchaseFailure extends Failure              // store error, 422 PURCHASE_INVALID (incl. reason sandbox_cap) or PRODUCT_UNKNOWN; {String wireCode, String? reason}
 final class PurchaseAlreadyClaimedFailure extends Failure // 409 PURCHASE_ALREADY_CLAIMED (iOS binding, RC85); {bool transferEligible, String? transferToken}
 final class PurchasesBlockedFailure extends Failure      // client-side: BalanceDto.purchasesAllowed == false; {PurchasesBlockedReason reason: blocked|refundDebt|storeDisabled} (RC66)
 final class ProductUnavailableFailure extends Failure
@@ -750,7 +750,7 @@ From the S09 / S15 menu for AI readings only. S33 (`editing`, `submitting`, `sub
 - Format, fields and limits: exactly `01_PRODUCT.md` §7.11 and the frozen JSON Schema `docs/specs/backup_schema_v1.json` (RC17, RC70): `{format: "taro.backup", schemaVersion: 1, exportedAt, appVersion, data: {settings, readings[], dailyCards[]}, checksum}` with `checksum` = lowercase hex SHA-256 of the RFC 8785 (JCS) canonical JSON of `data`. File name `taro-backup-YYYY-MM-DD.json`, MIME `application/json`. `apps/taro/lib/data/backup/backup_schema_v1.json` is a byte-identical copy (asserted by a test).
 - **Never included:** credits/balance, `chargeSource`, `deliveryAcked`, entitlements, install id, install secret, session token, purchase binding, attestation key id, purchase outbox, pending acks, consent states, remote config, sync state.
 - Only `complete`, `refused` and `classic` readings are exported (pending/failed are device-local transient state).
-- Import pipeline (`ImportBackupUseCase`): size limit 20 MB → JSON parse → `format` check → `schemaVersion` ≤ current (else `unsupportedVersion`, "update the app") → migrate older versions stepwise (`BackupMigrator`) → validate against `backup_schema_v1.json` (types, enums, id formats, `additionalProperties: false`, lengths) → card ids exist in deck → checksum (mismatch → `BackupInvalidFailure(checksum)`; it catches truncated or hand-edited files) → preview (`n readings, m daily cards`) → user chooses **Merge** (default; newer `updatedAt` wins) or **Replace** (confirmation dialog) → single drift transaction on `taro_journal.db`. Nothing in an import can change the Worker ledger (it is never sent to the Worker).
+- Import pipeline (`ImportBackup`): size limit 20 MB → JSON parse → `format` check → `schemaVersion` ≤ current (else `unsupportedVersion`, "update the app") → migrate older versions stepwise (`BackupMigrator`) → validate against `backup_schema_v1.json` (types, enums, id formats, `additionalProperties: false`, lengths) → card ids exist in deck → checksum (mismatch → `BackupInvalidFailure(checksum)`; it catches truncated or hand-edited files) → preview (`n readings, m daily cards`) → user chooses **Merge** (default; newer `updatedAt` wins) or **Replace** (confirmation dialog) → single drift transaction on `taro_journal.db`. Nothing in an import can change the Worker ledger (it is never sent to the Worker).
 - A golden fixture `test/fixtures/backup_v1_sample.json` with its known checksum pins the canonicalisation.
 - Export/import events are analytics-logged with counts only.
 
@@ -888,7 +888,7 @@ Adding a dependency requires: a port if it touches an external service, a line i
 1. **Layering is law.** Respect §2.1; `tools/check_architecture.dart` must pass. Features never import `lib/data/`, `lib/services/` or vendor SDKs (RC95).
 2. **Every external service is a port** in `taro_core` with Prod + NoOp + Fake implementations and a shared contract test.
 3. **No throws across boundaries.** Repositories/use cases return `Result<T>`; `switch` on `Failure` exhaustively; no `catch (e) {}` without mapping + logging.
-4. **Sealed classes expose factories for every case** (`Failure.network()`, `ReadingStatus.completed()`); states are `@freezed sealed` unions.
+4. **Sealed classes expose factories for every case** (`Failure.network()`, `ReadingStatus.complete()`); states are `@freezed sealed` unions.
 5. **The client never computes credits.** Balance changes only by applying a Worker response. No optimistic decrement.
 6. **Paywall before the draw.** Only `ReadingGate` decides (RC44 order); `CardDrawer.draw` may be called only on `GateDecision.allowed` **and** after `POST /v1/readings/holds` succeeded; cards are revealed only while the hold is valid (RC50). Budget stops and kill switches are never shown as a paywall (RC47).
 7. **Anything clock-dependent runs on launch AND resume** via `SyncCoordinator`, idempotently; ask "what re-runs this when the app has been open since yesterday?".

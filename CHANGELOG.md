@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Phase 4, core domain: `taro_core` with `Result`/`Failure` (27 subtypes), typed IDs and `ErrorKind`, the freezed domain models, the product catalogue and `ProductOffer`, and the pure logic (`CardDrawer`, `ReadingGate`, `ResetSchedule`, `ServerClockOffset`, backup validation, merge and JCS checksum, `BannerPolicy`, journal patterns, question precheck, daily card rules). Also 35 ports, 12 use cases and 74 typed analytics events (`docs/ANALYTICS_EVENTS.md`).
+- Phase 4, test kit: a fake for every port and fluent builders in `packages/taro_core/test/fakes/`, and a `run<Port>Contract` suite per port in `test/contracts/`.
+- Phase 4: the `failure*` and `safetyDeclined*` messages (GLOSSARY §5, §5.2) in all 12 locales, and `melos run gen:build` (build_runner).
+
 - Phase 3: golden harness in `packages/taro_ui/test/helpers/golden/`. It has `TaroGoldenComparator` (0.1 %), bundled Noto Sans, Arabic, JP and KR test fonts (OFL), the golden sizes and `goldenMatrix`, and a sample phone and iPad 13" golden. `pumpTaroWidget` now takes locale, theme mode, text scale and size.
 - Phase 3: `tools/verify.sh [--fast]`, the git hooks (`melos run hooks:install`), `golden:update` guarded to the reference platform, and `contract:sync`. Also `test:integration`, `tools/bump_version.sh`, `tools/bump_worker_version.sh`, `tools/phase_state.py`, `sonar-project.properties` and `docs/TESTING.md`.
 - Phase 2, repository bootstrap: a pub workspace with melos 8 and shared `analysis_options.yaml` (very_good_analysis, strict modes). Compiling skeletons of `taro_core`, `taro_content`, `taro_data`, `taro_services`, `taro_attestation`, `taro_l10n`, `taro_ui` and `taro_testing`, each with a smoke test.
@@ -17,3 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Phase 14, Claude Design handoff: the approved design system and `docs/design/taro.tokens.json` (DTCG, light and dark), screen designs S01–S33 with ★ state, RTL, iPad and 200 % text variants, card back and app icon masters, and the design review.
 - Phase 1, spec reconciliation: `docs/specs/00_DECISIONS.md` (RC1–RC94), `docs/specs/GLOSSARY.md`, specs 01–06 at v1.1 with no conflicts, and the owner decisions (model, hosts, prices, territories, universal form factor, Play account type, support mailbox).
 - The project context, v1 specs and the 23-phase implementation plan.
+
+### Fixed
+
+- `check_coverage.py` no longer reports Dart files holding only interfaces, plain enums or freezed declarations as missing (QA4). `check_glossary.py` reads enhanced `RefusalCategory` enums.
