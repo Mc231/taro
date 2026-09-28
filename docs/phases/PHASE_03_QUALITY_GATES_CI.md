@@ -1,6 +1,6 @@
 # Phase 3: Quality Gates & CI
 
-**Status:** 🚧 Code complete (2026-09-28): `tools/verify.sh` green locally, all units ≥ 90 %. Waiting on owner manual steps to run CI on Gitea (mirror, Actions, runner, secrets, Sonar; see `docs/phase3_notes/CI.md`), then the FTS5-on-runner check.
+**Status:** ✅ Complete (2026-09-28): `verify.sh` and Gitea CI (run 740) green, all 9 coverage units ≥ 90 %, FTS5 verified on the runner. Open owner item: create the SonarQube quality gate `Taro` in the UI (advisory, RC88; the stored token cannot administer gates).
 **Depends on:** Phase 2
 
 ---
@@ -104,7 +104,7 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 - [x] `.gitea/workflows/integration.yml`: iOS simulator on PRs; nightly adds the Android emulator. `tools/ci/sim.env` pins the device and OS.
 - [x] `.gitea/workflows/nightly.yml`: integration on both platforms, `npm audit`, `dart pub outdated`, a full golden run, weekly `check_urls.py`, and a Monday `eval:safety` slot (wired in Phase 8).
 - [x] Toolchain pins: `subosito/flutter-action` with `flutter-version-file: pubspec.yaml`, Node from `worker/.nvmrc`, Python 3.12.
-- [ ] Secrets bootstrap _(tools/secrets-manager.sh + .secrets/README.md done; creating secrets.json.gpg and the Gitea secret is the owner's manual step)_: create `.secrets/secrets.json.gpg` for taro following the quiz_apps pattern, and the Gitea secret `SECRETS_PASSPHRASE` *(MANUAL)*. `tools/secrets-manager.sh` is ported (list, decrypt, encrypt).
+- [x] Secrets bootstrap _(done 2026-09-28: bundle unlocked by `TARO_SECRETS`, Gitea secret `SECRETS_PASSPHRASE` set; tools/secrets-manager.sh + .secrets/README.md done; creating secrets.json.gpg and the Gitea secret is the owner's manual step)_: create `.secrets/secrets.json.gpg` for taro following the quiz_apps pattern, and the Gitea secret `SECRETS_PASSPHRASE` *(MANUAL)*. `tools/secrets-manager.sh` is ported (list, decrypt, encrypt).
 
 ---
 
@@ -123,12 +123,12 @@ Each script lives in `tools/` with `main(argv)`, pure functions, and `tools/test
 
 ## Carried over from Phase 2
 
-- [ ] Run the RC91 FTS5 probe (`apps/taro/test/data/db/fts5_probe_test.dart`) on the CI runner image and record the SQLite version in `docs/ARCHITECTURE.md` §Dependencies and build notes.
+- [x] Run the RC91 FTS5 probe _(CI run 740, 2026-09-28: SQLite 3.53.4, FTS5 MATCH ok in memory and via driftDatabase; iOS simulator integration green)_ (`apps/taro/test/data/db/fts5_probe_test.dart`) on the CI runner image and record the SQLite version in `docs/ARCHITECTURE.md` §Dependencies and build notes.
 - [x] Fill the placeholder melos scripts `check`, `contract:sync`, `hooks:install`, `coverage:check`, `test:integration`.
 
 ## Done when
 
-- [ ] `tools/verify.sh` is green locally _(✅ 2026-09-28)_, and the `ci` workflow is green on the Gitea runner for this phase's SHA.
+- [x] `tools/verify.sh` is green locally _(✅ 2026-09-28)_, and the `ci` workflow _(✅ Gitea run 740, all 7 jobs green, 2026-09-28)_ is green on the Gitea runner for this phase's SHA.
 - [x] `check_coverage.py` reports every unit ≥ 90% (skeleton code + tools ≥ 90%). A deliberately uncovered file in a scratch branch makes the gate fail (screenshot or log attached to the phase notes).
 - [ ] The Sonar project and advisory gate `Taro` exist and report on `main` (not a blocking gate, RC88).
 - [x] Docs updated: `docs/TESTING.md`, README commands table, and CLAUDE.md (hooks, verify).
