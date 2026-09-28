@@ -56,6 +56,9 @@ jobs:
           "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
 
       - name: melos run test:coverage
+        env:
+          # Worker, tools and native units run in their own jobs (ci.yml).
+          TARO_COVERAGE_SCOPE: dart
         run: |
           ulimit -n 65536 || true
           command -v lcov >/dev/null || { echo "::error::lcov is not on the runner PATH"; exit 1; }

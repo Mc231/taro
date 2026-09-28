@@ -8,6 +8,9 @@
 #   native (RC40)-> packages/taro_attestation/coverage/{ios,android}/lcov.info
 # Env: TARO_SKIP_NATIVE_COVERAGE=1 skips the two native units (their reports
 # are then missing and check_coverage.py fails them, by design).
+#      TARO_COVERAGE_SCOPE=dart runs only the Dart units. CI uses it in the
+#      flutter-test job: worker, tools and native have their own jobs with
+#      their own toolchains (npm ci, python venv, JDK 17).
 set -uo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
@@ -29,6 +32,18 @@ for dir in packages/*/ apps/taro/ tools/dart_tools/; do
   run "$dir" bash tools/ci/dart_coverage.sh "$dir"
 done
 
+if [[ "${TARO_COVERAGE_SCOPE:-all}" == "dart" ]]; then
+  if [[ ${#failed[@]} -gt 0 ]]; then
+    echo "test:coverage: failed: ${failed[*]}" >&2
+    exit 1
+  fi
+  echo "test:coverage: Dart units written (TARO_COVERAGE_SCOPE=dart)"
+  exit 0
+fi
+
+if [[ ! -d worker/node_modules ]]; then
+  (cd worker && npm ci --silent) || failed+=(worker-npm-ci)
+fi
 run worker bash -c 'cd worker && npm run --silent test:coverage'
 
 python="$repo_root/tools/.venv/bin/python"
