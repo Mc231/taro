@@ -118,3 +118,15 @@ Merged from 02 §19 and 06 §13. Phases may add rules; they never weaken these.
 ## Python tools
 
 `tools/` is a coverage unit (QA1). Scripts keep logic in importable functions; `main(argv)` is a thin argument parser tested through `main([...])`. Shared helpers live in `tools/taro_tools/`. Each check has fixture trees under `tools/tests/fixtures/<check>/{pass,fail_*}/`. The venv is `tools/.venv` (gitignored); CI uses Python 3.12.
+
+## Secrets
+
+All CI and deploy secrets live in `.secrets/secrets.json.gpg` (see `.secrets/README.md`). The passphrase is in `~/.zshrc` as `TARO_SECRETS` (never commit or print it); Gitea holds the same value as the Actions secret `SECRETS_PASSPHRASE`.
+
+```bash
+SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh list            # keys only
+SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh get shared sonar_host_url
+SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh decrypt   # edit, then `encrypt`
+```
+
+SonarQube (advisory, RC88): project `taro`, gate `Taro`, `http://localhost:9000`; token in the bundle as `shared.sonar_token` and in Gitea as `SONAR_TOKEN` / `SONAR_HOST_URL`. `tools/ci/setup_sonar.sh` created them (re-run with `SKIP_TOKEN=1` to fix the gate only).

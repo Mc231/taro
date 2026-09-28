@@ -1,6 +1,6 @@
 # Secrets bundle
 
-Every CI and deploy secret for Taro lives in one file, `.secrets/secrets.json.gpg`. It is AES-256 symmetric GPG, unlocked by a single passphrase. This is the quiz_apps pattern (06 QA10). The Gitea repository holds only that passphrase, as the Actions secret `SECRETS_PASSPHRASE`.
+Every CI and deploy secret for Taro lives in one file, `.secrets/secrets.json.gpg`. It is AES-256 symmetric GPG, unlocked by a single passphrase. Locally it lives in `~/.zshrc` as `export TARO_SECRETS="…"` (separate from quiz_apps' `QUIZ_SECRETS`); pass it as `SECRETS_PASSPHRASE=$TARO_SECRETS`. This is the quiz_apps pattern (06 QA10). The Gitea repository holds only that passphrase, as the Actions secret `SECRETS_PASSPHRASE`.
 
 | File | What | Committed |
 |---|---|---|
@@ -35,7 +35,7 @@ Prerequisites: `brew install gnupg jq`.
 
 Confirm that the passphrase works non-interactively, which is how CI uses it:
 ```bash
-SECRETS_PASSPHRASE='…' tools/secrets-manager.sh list
+SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh list
 tools/secrets-manager.sh clean
 ```
 
