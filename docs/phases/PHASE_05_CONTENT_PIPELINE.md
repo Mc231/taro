@@ -92,10 +92,10 @@ Each card has: name, upright and reversed keywords (3–6 each), short upright a
 
 ## Done when
 
-- [ ] `tools/content/validate` and `sync_check` are green in CI. The generated assets are committed and their builds reproducible (`git diff --exit-code` after a rebuild). *(Green locally in `verify.sh` and reproducible; waits for the first CI run after the commit.)*
+- [x] `tools/content/validate` and `sync_check` are green in CI. The generated assets are committed and their builds reproducible (`git diff --exit-code` after a rebuild). *(Green locally in `verify.sh` and reproducible; waits for the first CI run after the commit.)* _(Gitea run 754, 2026-09-29.)_
 - [x] `apps/taro` (incl. `lib/data/content/`) ≥ 90%, and `tools/dart_tools` ≥ 90% (`check_coverage.py`). Evidence: apps/taro 100 % (319/319), dart_tools 99.41 %, tools 99.52 %, worker 100 % (`verify.sh`, 2026-09-29).
 - [x] Docs: STYLE_GUIDE, REVIEW_CHECKLIST, ART_PROVENANCE stub, and `docs/ARCHITECTURE.md` §Content pipeline. CHANGELOG updated. Evidence: `docs/ARCHITECTURE.md` "Content pipeline (Phase 5)"; `CHANGELOG.md` Unreleased.
-- [ ] One commit: `feat(taro): Phase 5 — Deck content pipeline`.
+- [x] One commit: `feat(taro): Phase 5 — Deck content pipeline`.
 
 ## Next phase
 
