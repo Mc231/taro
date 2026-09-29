@@ -338,11 +338,11 @@ Owner: 03 §1, §2.4, §8.1, §11.
 | `RL_BURST` | Workers Rate Limiting binding | keys `inst:{id}`, `ip:{prefix hash}` |
 | `RL_READINGS` | Workers Rate Limiting binding | key `inst:{id}` |
 
-| Environment (`ENVIRONMENT`) | Worker name | D1 | Anthropic workspace | Host |
+| Environment (`ENVIRONMENT`) | Worker name | D1 | AI provider accounts (RC97) | Host |
 |---|---|---|---|---|
 | `dev` | local `wrangler dev` | local miniflare | none (`AI_PROVIDER=fake`) | `http://localhost:8787` |
-| `staging` | `taro-api-staging` | `taro-staging` | `taro-staging` | `api-staging.taro.vshyrochuk.com` |
-| `prod` | `taro-api` | `taro-prod` | `taro-prod` | `api.taro.vshyrochuk.com` |
+| `staging` | `taro-api-staging` | `taro-staging` | Anthropic workspace + OpenAI project `taro-staging` | `api-staging.taro.vshyrochuk.com` |
+| `prod` | `taro-api` | `taro-prod` | Anthropic workspace + OpenAI project `taro-prod` | `api.taro.vshyrochuk.com` |
 
 Cron triggers (03 §12): `*/15 * * * *` (`BudgetService.check`, `releaseExpiredHolds`, `refundStaleHolds`, intent expiry, `AlertService.check`), `7 * * * *` (`refundUndeliveredReadings`, idempotency and challenge purges, pending Google acknowledgements), `30 3 * * *` (Voided Purchases backstop, retention purge, daily summary).
 
@@ -423,13 +423,13 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `ai.model.paid` | string | `"claude-opus-5"` | Worker |
 | `ai.model.free` | string | `"claude-sonnet-5"` (BE Q1 deferred to Phase 21 cost data, owner 2026-09-27) | Worker |
 | `ai.model.freeFallback` | string | `"claude-haiku-4-5"` (soft tier) | Worker |
-| `ai.effort` | string | `"low"` | Worker |
+| `ai.effort` | string | `"low"` (hint; each `AiProvider` adapter maps or ignores it, RC97) | Worker |
 | `ai.promptVersion` | string | `"v1"` | Worker |
 | `ai.maxTokensBySpread` | map\<spreadId,int\> | see §2 | Worker |
-| `ai.blockedCountries` | list\<string\> (ISO 3166-1 alpha-2) | `CN, RU, SA, AE, QA, KW, BH, OM` + Anthropic-unsupported snapshot (dated in 00_DECISIONS.md) | Worker (→ `403 AI_UNAVAILABLE_REGION`) |
+| `ai.blockedCountries` | list\<string\> (ISO 3166-1 alpha-2) | `CN, RU, SA, AE, QA, KW, BH, OM` + union of the countries where any routable AI provider is not offered (Anthropic, OpenAI; snapshots dated in 00_DECISIONS.md, RC97) | Worker (→ `403 AI_UNAVAILABLE_REGION`) |
 | `ai.timeoutMs` | int | `40000` | Worker |
 | `ai.maxRetries` | int | `1` | Worker |
-| `ai.refusalFallbacks` | bool | `true` | Worker |
+| `ai.refusalFallbacks` | bool | `true` (Anthropic adapter only, RC97) | Worker |
 | `ai.deadlineMs` | int | `55000` | Worker |
 | `ai.budget.freeUsdPerDau` | number | `0.03` | Worker |
 | `ai.budget.softFloorUsd` | number | `50` | Worker |
@@ -457,6 +457,20 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `safety.maxDeclinedPerDay` | int | `10` | Worker |
 | `rl.install.perMinute` | int | `60` (`RL_BURST`) | Worker |
 | `rl.readings.perMinute` | int | `6` (`RL_READINGS`) | Worker |
+
+### 8.3 Server-only keys specified for Phase 8 (RC97, not yet in the defaults file)
+
+Owner: 03 §8.2, 00_DECISIONS.md RC97. These keys are canonical names now; they enter `worker/config/remote_config.default.json` and `worker/src/config/schema.ts` in Phase 8, and then move into the §8.2 table (the first column of this table is deliberately not `Key`, so `tools/check_glossary.py` / `check_remote_config.py` do not yet require them in the defaults file).
+
+| Key (Phase 8, RC97) | Type | Default | Enforcer |
+|---|---|---|---|
+| `ai.provider.paid` | string (`anthropic` \| `openai`) | `"anthropic"` | Worker |
+| `ai.provider.free` | string (`anthropic` \| `openai`) | `"anthropic"` | Worker |
+| `ai.provider.freeFallback` | string (`anthropic` \| `openai`) | `"anthropic"` (soft tier) | Worker |
+| `ai.outageFallback.provider` | string \| null | `null` (off); cross-provider fallback on `timeout` / `rate_limited` / `upstream` only | Worker |
+| `ai.outageFallback.model` | string \| null | `null` | Worker |
+| `ai.moderation.provider` | string (`none` \| `openai`) | `"none"` | Worker |
+| `ai.disclosedProviders` | list\<string\> | `["anthropic", "openai"]`; routing outside it is rejected by `config-push` | Worker (`config-push`) |
 
 Not remote-configurable by design (04 §13): credits per product, cost per reading, refund clawback, `kBannerAllowList`, interstitials, consent order, client ad unit IDs. Flavor config (not remote): `iap.storekit2_enabled` (02 Risks).
 
@@ -514,7 +528,7 @@ Owner: 03 §1 (composition root `buildApp(deps: Deps)`, prod deps `makeProdDeps(
 
 | Port | Prod adapter | Fake |
 |---|---|---|
-| `AiProvider` | `AnthropicAiProvider` (`adapters/anthropic/`) | `FakeAiProvider` |
+| `AiProvider` | one adapter per vendor, chosen per tier by `ai.provider.*` (RC97): `AnthropicProvider` (`adapters/anthropic/`), `OpenAiProvider` (`adapters/openai/`); optional `moderate` capability used when `ai.moderation.provider` names the vendor | `FakeAiProvider` |
 | `AppAttestVerifier` | `adapters/apple/` | `FakeAppAttestVerifier` |
 | `PlayIntegrityVerifier` | `adapters/google/` (Standard API only, RC87) | `FakePlayIntegrityVerifier` |
 | `AppStoreServerApi` | `adapters/apple/` | `FakeAppStoreServerApi` |
@@ -608,7 +622,8 @@ Owner: 03 §11 (secrets set with `wrangler secret put --env <env>`; owner copy i
 
 | Name | Kind | Envs | Purpose |
 |---|---|---|---|
-| `ANTHROPIC_API_KEY` | secret | staging, prod (dev optional) | Claude API |
+| `ANTHROPIC_API_KEY` | secret | staging, prod (dev optional); optional, a tier routed to Anthropic without it is disabled with an alert (RC97) | Anthropic API (`AnthropicProvider`) |
+| `OPENAI_API_KEY` | secret | staging, prod (dev optional); optional, a tier routed to OpenAI without it is disabled with an alert (RC97) | OpenAI API (`OpenAiProvider`) |
 | `TOKEN_SIGNING_KEYS` | secret | all | JWKS, Ed25519 keys (current + previous `kid`) |
 | `CHALLENGE_KEY` | secret | all | HMAC for stateless challenges |
 | `IDEMPOTENCY_ENC_KEY` | secret | all | AES-256-GCM replay bodies |
@@ -627,7 +642,7 @@ Owner: 03 §11 (secrets set with `wrangler secret put --env <env>`; owner copy i
 | `DEBUG_ATTESTATION_TOKEN` | secret | **dev, staging only** | honoured only with `ALLOW_DEBUG_ATTESTATION` |
 | `ENVIRONMENT` | `[vars]` | all | `dev \| staging \| prod` |
 | `ALLOW_DEBUG_ATTESTATION` | `[env.dev]` / `[env.staging]` var | **dev, staging only** | debug attestation (`"true"`) |
-| `AI_PROVIDER` | `[env.dev]` / `[env.staging]` var | **dev, staging only** | `fake` (dev) / `anthropic` |
+| `AI_PROVIDER` | `[env.dev]` / `[env.staging]` var | **dev, staging only** | `fake` (dev) forces `FakeAiProvider`; staging's `anthropic` value is dropped in Phase 8, real providers are routed by `ai.provider.*` (RC97) |
 
 `makeProdDeps(env)` throws and `tools/check_worker_env.py` fails if `ALLOW_DEBUG_ATTESTATION`, `AI_PROVIDER` or `DEBUG_ATTESTATION_TOKEN` is set for prod. CI secrets (06 §8, 03 §14.2): `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, GPG bundle `.secrets/secrets.json.gpg` + `SECRETS_PASSPHRASE`. Signing material lives in `~/pet/secure/taro/`.
 
@@ -669,7 +684,7 @@ Owner: 02 §18 (checked 2026-09-26; Flutter 3.44.x, `sdk: ^3.9.0`). `flutter_riv
 
 ### 14.3 Worker dependencies
 
-Owner: 03 §1. `hono`, `@hono/zod-openapi`, `zod`, `jose`, `@anthropic-ai/sdk`, `cbor-x`, `@peculiar/x509`; dev: `vitest`, `@cloudflare/vitest-pool-workers`, `@vitest/coverage-istanbul`, `fast-check`, `eslint`, `typescript`. Node 22 LTS (`worker/.nvmrc`); Python 3.12 for `tools/`.
+Owner: 03 §1. `hono`, `@hono/zod-openapi`, `zod`, `jose`, `@anthropic-ai/sdk`, `openai` (RC97; Sprint 8.1 may replace it with plain `fetch`), `cbor-x`, `@peculiar/x509`; dev: `vitest`, `@cloudflare/vitest-pool-workers`, `@vitest/coverage-istanbul`, `fast-check`, `eslint`, `typescript`. Node 22 LTS (`worker/.nvmrc`); Python 3.12 for `tools/`.
 
 ## 15. Other canonical identifiers
 
