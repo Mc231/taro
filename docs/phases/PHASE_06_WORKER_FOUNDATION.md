@@ -1,6 +1,6 @@
 # Phase 6: Worker Foundation: Identity, Attestation, Config
 
-**Status:** 🚧 Code complete (2026-09-29); Cloudflare setup + staging deploy pending
+**Status:** ✅ Complete (2026-09-29): code, Cloudflare resources, staging live at `api-staging.taro.vshyrochuk.com`, smoke green. Open: Anthropic workspaces/keys (needed from Phase 8) and the optional alert webhook.
 **Depends on:** Phase 3 (CI), Phase 1 (RC4, RC5, RC8). No dependency on Phase 10: the Cloudflare and Anthropic accounts are created here in Sprint 6.0 (RC83).
 **Parallel with:** Phases 4, 5, 9, 10
 
@@ -37,16 +37,16 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 ## Sprint 6.0: Cloudflare, Anthropic & Worker secrets *(MANUAL + scripted; moved from Phase 10.1, RC83)*
 
 **Tasks:**
-- [ ] Cloudflare:
+- [x] Cloudflare: _(Done 2026-09-29: D1 `taro-staging`/`taro-prod`, 3 KV per env, custom domains `api-staging.taro.vshyrochuk.com` (live) and `api.taro.vshyrochuk.com` (config only), Analytics Engine enabled by owner, workers.dev subdomain `vshyrochuk` created for cron triggers; real IDs in `wrangler.toml`.)_
   - DNS for `taro.vshyrochuk.com` (asa web hosting; follow the quiz_apps DNS note: gray cloud for Firebase Hosting A records if used), plus `api.taro.vshyrochuk.com` and `api-staging.taro.vshyrochuk.com` Worker custom domains (BE Q5, M11);
   - D1 `taro-staging` and `taro-prod`, KV namespaces ×3 per env, Rate Limiting bindings, and an Analytics Engine dataset;
   - fill in the binding IDs in `worker/wrangler.toml`.
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
-- [ ] Cloudflare API token scoped to Workers, D1 and KV edit on this account only → the secrets bundle as `cloudflare_api_token` and `cloudflare_account_id` (03 §14.2).
+- [x] Cloudflare API token scoped to Workers, D1 and KV edit on this account only → the secrets bundle as `cloudflare_api_token` and `cloudflare_account_id` (03 §14.2). _(Done: owner token `taro-worker` (env `TARO_CLAUDEFLRE_TOKEN`) with Workers Scripts/D1/KV edit, Account Settings/Analytics read, zone Workers Routes/DNS edit; stored as `worker.cloudflare_api_token` / `cloudflare_account_id` and as Gitea secrets `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
 - [ ] Anthropic Console: workspaces `taro-staging` (low monthly limit) and `taro-prod` (monthly spend limit above `31 × ai.budget.dailyHardUsd`, 03 §10.2), with API keys → `wrangler secret put ANTHROPIC_API_KEY --env staging|prod`.
   - Blocked: needs Cloudflare token with Workers/D1/KV rights (the keys are set as Worker secrets); the Anthropic workspaces are an owner step.
-- [ ] Generate and set the Worker secrets for staging and prod (03 §11): `TOKEN_SIGNING_KEYS` (Ed25519 JWKS via `worker/scripts/gen-keys.ts`), `CHALLENGE_KEY`, `IDEMPOTENCY_ENC_KEY`, `IP_HASH_KEY`, `PLAY_ACCOUNT_KEY`, `APPLE_ACCOUNT_NS`, `DEVICE_KEY_SECRET`, `TRANSFER_TOKEN_KEY`, `ALERT_WEBHOOK_URL`, and `DEBUG_ATTESTATION_TOKEN` (staging only). There is no admin bearer secret (RC84). Copies go into `.secrets/secrets.json.gpg` (06 QA10). Store-issued secrets (`APPLE_ASC_*`, `APPLE_DEVICECHECK_*`, `GOOGLE_*`) are added in Phase 10.
+- [x] Generate and set the Worker secrets for staging and prod (03 §11): `TOKEN_SIGNING_KEYS` (Ed25519 JWKS via `worker/scripts/gen-keys.ts`), `CHALLENGE_KEY`, `IDEMPOTENCY_ENC_KEY`, `IP_HASH_KEY`, `PLAY_ACCOUNT_KEY`, `APPLE_ACCOUNT_NS`, `DEVICE_KEY_SECRET`, `TRANSFER_TOKEN_KEY`, `ALERT_WEBHOOK_URL`, and `DEBUG_ATTESTATION_TOKEN` (staging only). There is no admin bearer secret (RC84). Copies go into `.secrets/secrets.json.gpg` (06 QA10). Store-issued secrets (`APPLE_ASC_*`, `APPLE_DEVICECHECK_*`, `GOOGLE_*`) are added in Phase 10. _(Done for staging (9 secrets set via `wrangler secret bulk`) and generated for prod (stored as `worker.prod_secrets_json`; uploaded at the first prod deploy). `ALERT_WEBHOOK_URL` not set yet (optional; alerts log only). Copies in the bundle: `worker.staging_secrets_json`, `worker.staging_debug_attestation_token`.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights. The generator exists (`npm run gen-keys -- --env <env>`, `worker/src/admin/genKeys.ts`); `worker.staging_debug_attestation_token` must also go into the secrets bundle for the staging smoke step.
 - [x] `docs/runbooks/SECRET_ROTATION.md`, first version per secret (06 §13).
   - Evidence: `docs/runbooks/SECRET_ROTATION.md` (every 03 §11 Worker secret with format, rotation and grace period; generated with `worker/scripts/gen-keys.ts` over `src/admin/genKeys.ts`, tested in `worker/test/unit/scripts/genKeys.test.ts`). The secrets themselves are not generated or set yet (no Cloudflare access).
@@ -169,7 +169,7 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
   - Prod deploys are triggered only by the tag `worker-v*`.
 - [x] `worker/scripts/smoke.ts` (thin CLI over `src/admin/smoke.ts`, covered) / `tools/worker_smoke.sh`: health, config, and registration with the debug attestation token on staging only (enabled by the staging env var, never by a header alone).
   - Evidence: `worker/src/admin/smoke.ts`, `worker/scripts/smoke.ts`, `tools/worker_smoke.sh` (shellcheck clean); `worker/test/unit/scripts/smoke.test.ts` (against the real app), `tools/tests/test_worker_smoke.py`.
-- [ ] Apply migrations and deploy to the staging resources created in Sprint 6.0.
+- [x] Apply migrations and deploy to the staging resources created in Sprint 6.0. _(Done 2026-09-29: `0001_init.sql` applied to remote `taro-staging`; version 69e5e3e1 deployed.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
   - Ready locally: `wrangler deploy --dry-run --env staging` bundles; `worker-deploy.yml` skips with a warning until the token and real IDs exist.
 - [x] `docs/runbooks/WORKER_ROLLBACK.md` first version (`wrangler rollback`, `versions deploy <old>@100%`, D1 Time Travel).
@@ -181,12 +181,12 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 
 - [x] `npm run test:coverage` in `worker/` passes lines, statements and functions ≥ 90% and branches ≥ 85%. `check_coverage.py --unit worker` is green.
   - Evidence (2026-09-29, `CI=true npm run test:coverage`): 618 tests in 53 files; statements 99.71 % (2109/2115), branches 95.17 % (1263/1327), functions 99.79 % (491/492), lines 99.71 % (2069/2075); `check_coverage.py` worker row ok.
-- [ ] Staging responds on the chosen host (BE Q5) to `/v1/health` and `/v1/config`. Registration with the debug bypass succeeds from `tools/worker_smoke.sh staging`.
+- [x] Staging responds on the chosen host (BE Q5) to `/v1/health` and `/v1/config`. Registration with the debug bypass succeeds from `tools/worker_smoke.sh staging`. _(Done 2026-09-29: `tools/worker_smoke.sh staging` ok: health, config v1, register trust high, balance canRead.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
 - [x] Contract fixtures are synced and `check_contract_fixtures.py` is green.
 - [x] Docs updated: `docs/ARCHITECTURE.md` §Worker, `worker/COVERAGE.md` (exclusions mirror of 06 §5.3: generated code and eval case data only, RC61), `worker/CHANGELOG.md` and the runbook.
   - Evidence: `docs/ARCHITECTURE.md` §Worker notes 1 and 8–13, `worker/COVERAGE.md`, `worker/CHANGELOG.md`, `CHANGELOG.md`, `docs/runbooks/{WORKER_ROLLBACK,SECRET_ROTATION}.md`.
-- [ ] One commit: `feat(worker): Phase 6 — Worker foundation: identity, attestation, config`.
+- [x] One commit: `feat(worker): Phase 6 — Worker foundation: identity, attestation, config`.
   - Blocked: needs Cloudflare token with Workers/D1/KV rights (the commit follows the staging deploy; nothing is committed yet).
 
 ## Next phase

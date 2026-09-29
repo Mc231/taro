@@ -1,8 +1,9 @@
 # taro-api — Cloudflare Worker (03_BACKEND_WORKER.md §1, §11; GLOSSARY §6.1)
 #
 # Bindings are NOT inherited by [env.*] blocks, so every environment declares
-# its own. All IDs below are PLACEHOLDERS until Phase 6 Sprint 6.0 creates the
-# real D1 databases, KV namespaces and rate-limit namespaces.
+# its own. [env.dev] keeps placeholder IDs (local miniflare only); staging and
+# prod hold the real D1/KV IDs created in Phase 6 Sprint 6.0 (2026-09-29).
+# Rate-limit namespace_ids are account-unique integers we choose.
 #
 # Test-only vars (ALLOW_DEBUG_ATTESTATION, AI_PROVIDER, DEBUG_ATTESTATION_TOKEN)
 # may appear ONLY under [env.dev] / [env.staging] (BE20, RC86). [env.prod] must
@@ -71,6 +72,7 @@ crons = ["*/15 * * * *", "7 * * * *", "30 3 * * *"]
 # ---------------------------------------------------------------------------
 [env.staging]
 name = "taro-api-staging"
+routes = [{ pattern = "api-staging.taro.vshyrochuk.com", custom_domain = true }]
 
 [env.staging.vars]
 ENVIRONMENT = "staging"
@@ -80,20 +82,20 @@ AI_PROVIDER = "anthropic"
 [[env.staging.d1_databases]]
 binding = "DB"
 database_name = "taro-staging"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "ad790568-1aa5-40db-89e1-12765782548f"
 migrations_dir = "migrations"
 
 [[env.staging.kv_namespaces]]
 binding = "CONFIG_KV"
-id = "00000000000000000000000000000011"
+id = "3496c85a92e34e1b8e734dcb7c302ed8"
 
 [[env.staging.kv_namespaces]]
 binding = "RL_KV"
-id = "00000000000000000000000000000012"
+id = "1e385c09d3594792b3c6f66d581e54f3"
 
 [[env.staging.kv_namespaces]]
 binding = "CACHE_KV"
-id = "00000000000000000000000000000013"
+id = "1bd5a308e162423d8c5ce1aba494d8ab"
 
 [[env.staging.analytics_engine_datasets]]
 binding = "METRICS"
@@ -118,6 +120,7 @@ crons = ["*/15 * * * *", "7 * * * *", "30 3 * * *"]
 # ---------------------------------------------------------------------------
 [env.prod]
 name = "taro-api"
+routes = [{ pattern = "api.taro.vshyrochuk.com", custom_domain = true }]
 
 [env.prod.vars]
 ENVIRONMENT = "prod"
@@ -125,20 +128,20 @@ ENVIRONMENT = "prod"
 [[env.prod.d1_databases]]
 binding = "DB"
 database_name = "taro-prod"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "db4b87ea-ddaa-4b99-90b8-85ddba0b766c"
 migrations_dir = "migrations"
 
 [[env.prod.kv_namespaces]]
 binding = "CONFIG_KV"
-id = "00000000000000000000000000000021"
+id = "3142a148a98144a3a7f88be2468bfbf3"
 
 [[env.prod.kv_namespaces]]
 binding = "RL_KV"
-id = "00000000000000000000000000000022"
+id = "3f2b18f2be8a4866939c6f9ba8e5fb3c"
 
 [[env.prod.kv_namespaces]]
 binding = "CACHE_KV"
-id = "00000000000000000000000000000023"
+id = "637cf532bef24939b3004f975598c976"
 
 [[env.prod.analytics_engine_datasets]]
 binding = "METRICS"
