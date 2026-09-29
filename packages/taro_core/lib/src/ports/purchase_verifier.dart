@@ -56,8 +56,11 @@ abstract class GrantResult with _$GrantResult {
 // ignore: one_member_abstracts
 abstract interface class PurchaseVerifier {
   /// Verifies [purchase] with the outbox row's [idempotencyKey].
+  /// [transferToken] is sent only when the "Move readings" support flow
+  /// re-submits a transaction (RC84).
   Future<Result<GrantResult>> verify(
     StorePurchase purchase, {
     required String idempotencyKey,
+    String? transferToken,
   });
 }

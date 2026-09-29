@@ -4,19 +4,35 @@ import 'dart:typed_data';
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:taro/data/api/request_context.dart';
+import 'package:taro/data/secure/keys.dart';
 import 'package:taro_core/taro_core.dart';
+
+/// Reads the App Attest key ID of the last registration (iOS; `null` on
+/// Android or before registration).
+typedef AttestationKeyIdReader = Future<String?> Function();
 
 /// Third in the chain (02 §6.3, 03 §3.4): `X-Taro-Attestation` on the four
 /// **attest** routes (RC11, RC50). The header is `aa1.<assertion>` (iOS) or
 /// `pi1.<token>` (Android) over [clientDataHash], or `none` on a device
 /// without platform attestation (low trust). A failed assertion stops the
 /// request with its [AttestationFailure] (e.g. `keyInvalidated` →
-/// re-registration, 02 §6.4).
+/// re-registration, 02 §6.4). Each assertion names the stored App Attest
+/// key read by [AttestationKeyIdReader] (none by default).
 final class AttestationInterceptor extends Interceptor {
   /// Creates the interceptor.
-  AttestationInterceptor(this._attestation);
+  AttestationInterceptor(this._attestation, {AttestationKeyIdReader? keyId})
+    : _keyId = keyId ?? _noKeyId;
 
   final AttestationService _attestation;
+  final AttestationKeyIdReader _keyId;
+
+  static Future<String?> _noKeyId() async => null;
+
+  /// A reader of `taro.attest_key_id` in [store]; an unreadable store reads
+  /// as no key, which the platform adapter answers with
+  /// `AttestationFailure(keyInvalidated)` (re-registration, 02 §6.4).
+  static AttestationKeyIdReader storedKeyId(SecureStore store) =>
+      () async => (await store.read(SecureKeys.attestKeyId)).valueOrNull;
 
   /// The `none` header of an unsupported device.
   static const String none = 'none';
@@ -54,7 +70,8 @@ final class AttestationInterceptor extends Interceptor {
       body: data is Uint8List ? data : const <int>[],
       idempotencyKey: options.idempotencyKey,
     );
-    switch (await _attestation.assert_(clientDataHash: hash)) {
+    final keyId = await _keyId();
+    switch (await _attestation.assert_(clientDataHash: hash, keyId: keyId)) {
       case Ok(:final value):
         options.headers[TaroHeaders.attestation] = value.header;
         handler.next(options);

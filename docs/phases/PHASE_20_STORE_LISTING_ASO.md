@@ -40,7 +40,7 @@ Nothing is submitted for review yet; that happens in Phase 22.
   - IAP IDs `readings_3/10/30` + `remove_ads` (RC3), with display names "3 Readings", "10 Readings", "30 Readings" and "Remove Banner Ads" (RC80, ≤ 30 chars per locale) and the 04 §4 descriptions in all 12 locales; the EN description keeps the free daily card (no AI) separate from "one free AI reading every day" (05 §8.1, RC64);
   - `age_rating` from 05 §6.1 with `override: THIRTEEN_PLUS`;
   - `capabilities: [IN_APP_PURCHASE, APP_ATTEST]`;
-  - `availability.excluded_territories` (CS16 + the Anthropic list snapshot);
+  - `availability.excluded_territories` (CS16 fixed list + the union of the supported-countries snapshots of every routable AI provider, v1 Anthropic and OpenAI; RC97);
   - `firebase.project_id: taro-prod` (RC36);
   - `admob:` real IDs;
   - `terms_url`;

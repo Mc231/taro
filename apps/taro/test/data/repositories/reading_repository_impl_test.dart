@@ -31,6 +31,9 @@ final class _ContractHarness implements ReadingRepositoryHarness {
 
   @override
   void failNextWorkerCall(Failure failure) => h.server.failNext(failure);
+
+  @override
+  void advance(Duration by) => h.clock.advance(by);
 }
 
 ResponseBody _stateReply(

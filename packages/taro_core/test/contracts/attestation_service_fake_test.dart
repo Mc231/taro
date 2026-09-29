@@ -24,11 +24,24 @@ void main() {
     );
     final attestation = FakeAttestationService()
       ..failNext(const Failure.attestation(kind: AttestationFailureKind.quota));
-    expect((await attestation.attest(challenge: 'c')).isErr, isTrue);
+    const signal = DeviceSignal(deviceCheckToken: 'dc');
+    expect(
+      (await attestation.attest(
+        challenge: 'c',
+        installId: 'install-1',
+        signal: signal,
+      )).isErr,
+      isTrue,
+    );
     attestation.failNext(
       const Failure.attestation(kind: AttestationFailureKind.transient),
     );
-    expect((await attestation.assert_(clientDataHash: [1])).isErr, isTrue);
+    expect(
+      (await attestation.assert_(clientDataHash: [1], keyId: 'key-1')).isErr,
+      isTrue,
+    );
     expect(attestation.challenges, ['c']);
+    expect(attestation.attestedInstalls, [('install-1', signal)]);
+    expect(attestation.assertionKeyIds, ['key-1']);
   });
 }

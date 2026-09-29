@@ -55,14 +55,14 @@ final class JournalRepositoryImpl implements JournalRepository {
     return ids;
   };
 
-  /// Readings and daily cards newest first, filtered by [query] and, when
-  /// [cardId] is set, only readings containing that card (and the daily
-  /// cards that drew it).
+  /// Readings and daily cards newest first, filtered by [query]; with
+  /// `query.cardId`, only readings containing that card (and the daily cards
+  /// that drew it).
   @override
   Stream<List<JournalItem>> watchAll({
     JournalQuery query = const JournalQuery(),
-    CardId? cardId,
   }) {
+    final cardId = query.cardId;
     final readings = _db.readingsDao.watchAll(
       favouritesOnly: query.favouritesOnly,
       spreadId: query.spreadId?.value,

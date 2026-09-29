@@ -19,9 +19,9 @@ Status legend: ⬜ Not started · 🚧 In progress · ✅ Completed · ⏸️ Bl
 | [3](./PHASE_03_QUALITY_GATES_CI.md) | Quality Gates & CI | ✅ | 2 | `check_coverage.py` (90% per unit, 70% per file, no pragmas, native units), all `tools/check_*.py`, golden harness, Gitea workflows, Sonar, hooks, `verify.sh`, `bump_version.sh` |
 | [4](./PHASE_04_CORE_DOMAIN.md) | Core Domain, Ports & Test Kit | ✅ (2026-09-28) | 3 | `taro_core` (Result/Failure, models, ports, CardDrawer, ReadingGate, BackupMerge, BannerPolicy, analytics events), test kit in `taro_core/test/fakes/` + `test/contracts/` (fakes, contract suites, builders; RC95) |
 | [5](./PHASE_05_CONTENT_PIPELINE.md) | Deck Content Pipeline (EN) | ⬜ | 4 | Style guide, glossary, 78 EN cards, 6 spreads, articles, crisis YAML, `tools/content` (validate, build, translate, sync_check), content repos in `apps/taro/lib/data/content/`, placeholder art, Worker feeds |
-| [6](./PHASE_06_WORKER_FOUNDATION.md) | Worker Foundation: Identity, Attestation, Config | ✅ (2026-09-29) | 3, 1 | **Sprint 6.0: Cloudflare, Anthropic workspaces, Worker secrets (moved from 10.1, RC83)**; Hono app + Deps, middleware, D1 migration 0001, config, challenge/installs/token/timezone/erasure/balance routes, install secret + device key, OpenAPI + contract fixtures, staging deploy |
+| [6](./PHASE_06_WORKER_FOUNDATION.md) | Worker Foundation: Identity, Attestation, Config | ✅ (2026-09-29) | 3, 1 | **Sprint 6.0: Cloudflare, Worker secrets (moved from 10.1, RC83; AI provider accounts moved to 8.0, RC97)**; Hono app + Deps, middleware, D1 migration 0001, config, challenge/installs/token/timezone/erasure/balance routes, install secret + device key, OpenAPI + contract fixtures, staging deploy |
 | [7](./PHASE_07_WORKER_CREDITS_PURCHASES_REWARDS.md) | Worker Credits, Purchases & Rewarded Ads | ✅ (2026-09-29) | 6 | Ledger hold/refund with CAS (no balance cache), device-scoped free allowance, `PRODUCT_CATALOG`, purchase verify (Apple and Google) with sandbox caps, webhooks, refunds, SSV rewarded with intent cancel, support transfer script, crons |
-| [8](./PHASE_08_WORKER_AI_READINGS_SAFETY.md) | Worker AI Readings, Safety & Evals | ⬜ | 7, 5 | Prompt v1, Anthropic adapter, pre-draw hold, reading pipeline + state machine, delivery ack, stale-hold/undelivered crons, L1–L3 safety, crisis selection, budget tiers, alerts, report endpoint, retention, eval and safety suites + first report |
+| [8](./PHASE_08_WORKER_AI_READINGS_SAFETY.md) | Worker AI Readings, Safety & Evals | ⬜ | 7, 5 | Sprint 8.0 AI provider accounts/keys (RC97), provider-neutral prompt v1, `AiProvider` adapters (Anthropic, OpenAI) + per-tier routing, pre-draw hold, reading pipeline + state machine, delivery ack, stale-hold/undelivered crons, L1–L3 safety, crisis selection, budget tiers, alerts, report endpoint, retention, eval and safety suites + first report |
 | [9](./PHASE_09_ASA_GAPS.md) | `asa` CLI Gap Fixes | ⬜ | 1 | ASA-1 to ASA-7, ASA-9 and ASA-10 in `app-store-automation` (Lifestyle, capabilities, age rating incl. advertising, localized IAPs and listings, `asa validate`, custom web pages, `.well-known` files, territories) |
 | [10](./PHASE_10_ACCOUNTS_STORE_SETUP.md) | Accounts, Store Registration, AdMob, Firebase & Signing | ⬜ | 1, 9 (for 10.3), 6.5 (webhook/SSV URLs only) | Firebase/ASC/Play/AdMob set up, store-issued Worker secrets, IAP products, SSV/webhook URLs, `prodStaging` build, signing, fastlane, deploy workflows, first TestFlight + internal AAB |
 | [11](./PHASE_11_CLIENT_DATA_LAYER.md) | Client Data Layer & Worker Client | ✅ (2026-09-29; reading-route contract fixtures follow in Phase 8) | 4, 6 | `apps/taro/lib/data/`: drift DB, secure store, WorkerClient + interceptors, repositories, purchase outbox, backup codec; contract tests |
@@ -46,7 +46,7 @@ Status legend: ⬜ Not started · 🚧 In progress · ✅ Completed · ⏸️ Bl
 flowchart LR
   P1[1 Reconcile] --> P2[2 Bootstrap] --> P3[3 Quality gates & CI]
   P3 --> P4[4 Core domain & test kit] --> P5[5 Content pipeline]
-  P3 --> P6[6 Worker foundation incl. 6.0 Cloudflare/Anthropic] --> P7[7 Credits/IAP/Rewarded] --> P8[8 AI readings & safety]
+  P3 --> P6[6 Worker foundation incl. 6.0 Cloudflare] --> P7[7 Credits/IAP/Rewarded] --> P8[8 AI readings & safety]
   P5 --> P8
   P1 --> P9[9 asa gaps] --> P10[10 Accounts & stores]
   P6 -. "6.5 staging URL (webhook/SSV steps only)" .-> P10
@@ -67,7 +67,7 @@ flowchart LR
 
 - **Infrastructure and tests first:** Phases 2–4 build the repo, the ≥ 90% gates and the test kit before any feature code. The pure domain logic (paywall-before-draw gate, CSPRNG draw, backup merge) is test-driven in Phase 4.
 - **Worker track (6 → 7 → 8)** runs in parallel with the client track (11, 12 → 13) once Phase 3 is done. Contract fixtures (QA15) keep the two in sync.
-- **Store and admin track (9 → 10)** is mostly manual console work and can run beside coding from Phase 1 onwards. The Cloudflare and Anthropic setup lives in Phase 6 Sprint 6.0, so Phase 6 has no upstream store dependency; Phase 10 needs only the staging Worker URL from Sprint 6.5 for the webhook and SSV registration steps. Phase 12's on-device Sprint 12.6 waits for Phase 10 but is a separate exit criterion, so Phase 12 can close and Phase 13 can start without it (RC83).
+- **Store and admin track (9 → 10)** is mostly manual console work and can run beside coding from Phase 1 onwards. The Cloudflare setup lives in Phase 6 Sprint 6.0 and the AI provider accounts in Phase 8 Sprint 8.0 (RC97), so Phase 6 has no upstream store dependency; Phase 10 needs only the staging Worker URL from Sprint 6.5 for the webhook and SSV registration steps. Phase 12's on-device Sprint 12.6 waits for Phase 10 but is a separate exit criterion, so Phase 12 can close and Phase 13 can start without it (RC83).
 - **UI is built after the design handoff:** Phase 13 ships every screen's state machine behind skeleton widgets and produces `STATE_INVENTORY.md`. Claude Design (Phase 14) designs against it, and Phases 15–17 implement visuals only.
 - **Content workstreams:** English content comes early (Phase 5) so the Worker prompts and tests use real data. The art (D15) and the 11-locale translation come after the UI strings stabilise (Phase 18).
 - **Compliance hardening → ASO → beta → submission** close out v1. Phase 23 holds the committed v1.1 backlog and is the 4.3 escalation lever (PR11).
@@ -243,7 +243,7 @@ Every locked decision in every spec maps to at least one phase and sprint below.
 | CS3 | Framing + banned-phrase linter | 3.2, 5.1, 18.4, 20.1 |
 | CS4 | 13+; Play 13+; AdMob T | 9.2, 10.5, 20.4 (RC23) |
 | CS5 | No subscriptions | 10.3, 20.1 |
-| CS6 | AI consent sheet names Anthropic; Classic reading on decline | 13.4, 16.1 (RC20) |
+| CS6 | AI consent sheet names every provider in `ai.disclosedProviders` (v1 Anthropic and OpenAI); Classic reading on decline | 13.4, 16.1 (RC20, RC97) |
 | CS7 | In-app "Report this reading" | 8.5, 13.4, 16.4 (RC22) |
 | CS8 | Refusal categories + pre-submission safety suite | 8.4, 8.6, 19.3, 22.1 |
 | CS9 | `aso.yaml` single source of truth | 20 |

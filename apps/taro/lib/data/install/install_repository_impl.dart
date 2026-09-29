@@ -221,7 +221,7 @@ final class InstallRepositoryImpl implements InstallRepository {
     final signal = await _attestation.deviceSignal();
     final RegistrationAttestationDto attestation;
     final String? keyId;
-    switch (await _attest(dto, installId)) {
+    switch (await _attest(dto, installId, signal)) {
       case Ok(value: (final body, final id)):
         (attestation, keyId) = (body, id);
       case Err(:final failure):
@@ -257,12 +257,21 @@ final class InstallRepositoryImpl implements InstallRepository {
   }
 
   /// The registration attestation: the platform one, or `type: none` with a
-  /// proof of work when the platform has none (03 §3.3).
-  Future<Result<_Attested>> _attest(ChallengeDto dto, String installId) async {
+  /// proof of work when the platform has none (03 §3.3). The platform proof
+  /// binds [installId] and the device [signal] (02 §6.4, 03 §3.7).
+  Future<Result<_Attested>> _attest(
+    ChallengeDto dto,
+    String installId,
+    DeviceSignal signal,
+  ) async {
     if (!_attestation.isSupported) {
       return Result.ok(await _none(dto, installId, 'unsupported'));
     }
-    final result = await _attestation.attest(challenge: dto.challenge);
+    final result = await _attestation.attest(
+      challenge: dto.challenge,
+      installId: installId,
+      signal: signal,
+    );
     switch (result) {
       case Ok(:final value):
         return Result.ok((

@@ -7,6 +7,7 @@ import 'package:taro/data/api/endpoints.dart';
 import 'package:taro/data/api/interceptors/ai_consent_interceptor.dart';
 import 'package:taro/data/api/interceptors/attestation_interceptor.dart';
 import 'package:taro/data/api/request_context.dart';
+import 'package:taro/data/secure/keys.dart';
 import 'package:taro_core/taro_core.dart';
 
 import '../../../../../packages/taro_core/test/contracts/contract_support.dart';
@@ -336,6 +337,20 @@ void main() {
         'aa1.assertion-1',
         'aa1.assertion-2',
       ]);
+    });
+
+    test('each assertion names the stored App Attest key', () async {
+      final h = WorkerClientHarness();
+      h.adapter
+        ..reply(201, json: _holdResponse())
+        ..reply(201, json: _holdResponse())
+        ..reply(201, json: _holdResponse());
+      expectOk(await h.client.createHold(_hold()));
+      h.secure.values[SecureKeys.attestKeyId] = 'key-7';
+      expectOk(await h.client.createHold(_hold()));
+      h.secure.failNext(const Failure.storage(), on: 'read');
+      expectOk(await h.client.createHold(_hold()));
+      expect(h.attestation.assertionKeyIds, [null, 'key-7', null]);
     });
 
     test('a foreign request passes untouched', () async {

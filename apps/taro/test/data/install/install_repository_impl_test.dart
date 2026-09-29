@@ -138,6 +138,13 @@ void main() {
         expect(h.attestation.challenges, [
           fixture('installs.challenge.response')['challenge'],
         ]);
+        // The proof binds the install ID and the device signal (03 §3.3).
+        expect(h.attestation.attestedInstalls, [
+          (
+            identity.installId.value,
+            const DeviceSignal(deviceCheckToken: 'devicecheck-token'),
+          ),
+        ]);
         final register = h.adapter.requests.last;
         final body = _body(register);
         expect(body, {
@@ -195,6 +202,9 @@ void main() {
       expect(body['platform'], 'android');
       expect(body['deviceKey'], 'device-key');
       expect(body.containsKey('deviceCheckToken'), isFalse);
+      expect(a.attestation.attestedInstalls, [
+        (identity.installId.value, const DeviceSignal(deviceKey: 'device-key')),
+      ]);
       expect(body['attestation'], {
         'type': 'play_integrity',
         'challenge': fixture('installs.challenge.response')['challenge'],
@@ -506,7 +516,8 @@ void main() {
         isFalse,
       );
       expectOk(await h.repo.reRegister());
-      expect(h.secure.values[SecureKeys.attestKeyId], 'key-1');
+      // Each registration attests a new App Attest key.
+      expect(h.secure.values[SecureKeys.attestKeyId], 'key-2');
     });
 
     test('joins a registration already running', () async {

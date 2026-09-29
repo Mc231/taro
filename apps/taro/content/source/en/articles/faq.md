@@ -75,7 +75,7 @@ Your remaining readings and Remove Banner Ads are kept, because they are purchas
 
 ### What does allowing AI readings share?
 
-When you ask for an AI reading, Taro sends your question (if any), the spread, the cards you drew and your app language to its server, which asks Anthropic's Claude AI to write the interpretation. Taro never sends your name, email address or advertising ID. Your question is not stored on Taro's server. The reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. Anthropic does not use this data to train its models. The privacy policy in **Settings → About** has the full details.
+When you ask for an AI reading, Taro sends your question (if any), the spread, the cards you drew and your app language to its server, which asks an AI model from one of Taro's AI providers (Anthropic's Claude or OpenAI's GPT models) to write the interpretation. Taro never sends your name, email address or advertising ID. Your question is not stored on Taro's server. The reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. Taro's AI providers do not use this data to train their models. The privacy policy in **Settings → About** has the full details.
 
 ### Can I change my mind about AI consent?
 

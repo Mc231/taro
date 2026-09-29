@@ -48,7 +48,7 @@ This phase submits 1.0.0 to both stores, handles review, releases gradually, and
   - **4.3(b):** reply in the Resolution Center with a short video of the journal + spread-aware reading + Learn + the original deck, and the differentiation table (`docs/compliance/DIFFERENTIATION.md`). **Do not resubmit unchanged.** If it is rejected a second time, pull the PR11 home-screen widget forward (Phase 23 Sprint 23.1) and resubmit.
   - **1.1.6:** point to the framing on every surface, the refusal behaviour and the Lifestyle category, and adjust copy if the reviewer quotes a specific phrase (then add that phrase to `banned_phrases.yaml`).
   - **2.1 purchase failure:** check the Worker logs for the reviewer's sandbox transaction (the environment tag), fix, and resubmit with notes.
-  - **5.1.2(i):** show the consent sheet naming Anthropic, and the decline → Classic reading path.
+  - **5.1.2(i):** show the consent sheet naming the AI provider(s) in the final `ai.disclosedProviders` list (confirmed by the owner before submission; v1 default Anthropic and OpenAI, RC97), and the decline → Classic reading path.
 
 ---
 

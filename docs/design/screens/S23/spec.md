@@ -11,7 +11,7 @@
 ## Layout (top → bottom)
 Padding `space.10` / `layout.gutter` / `space.7`; gap `space.6`.
 1. Back; title "Privacy choices" serif 28; body "Taro works fully whatever you choose here."
-2. **AI readings** (h2 caption): a status row (min 68, `color.bg.surface`, `radius.lg`): a status dot (`color.status.success`) **plus the text** "Allowed", subtitle "Your question and cards go to Claude by Anthropic to write readings."; an outlined pill "Withdraw" (44 → 48 hit). When declined: "Not allowed" (dot `color.text.tertiary`) + an "Allow" pill → S04.
+2. **AI readings** (h2 caption): a status row (min 68, `color.bg.surface`, `radius.lg`): a status dot (`color.status.success`) **plus the text** "Allowed", subtitle "Your question and cards go to an AI service (Anthropic or OpenAI) to write readings." (names the providers in `ai.disclosedProviders`, RC97); an outlined pill "Withdraw" (44 → 48 hit). When declined: "Not allowed" (dot `color.text.tertiary`) + an "Allow" pill → S04.
 3. **Ads**: a group with "Ad personalisation" + subtitle "Managed by Google's consent form. Ads never appear inside a reading." + a full-width `TaroButton.secondary` "Review ad choices"; the Tracking row (iOS only) "Not allowed · change in iOS Settings" → opens iOS Settings.
 4. **Improving Taro**: one "Usage analytics" switch ("Which screens get used, and crash reports. Never your questions or readings."). **Resolved**: the separate "Crash reports" switch was removed from `PrivacyChoices.dc.html`. 01 §7.10 lists only the usage analytics toggle, and 02 §13 binds Crashlytics collection to that toggle (`setCrashlyticsCollectionEnabled`), so one switch controls both; 05 §5 still discloses crash data.
 5. Flexible spacer; link "Read the privacy policy".
@@ -32,7 +32,7 @@ Padding `space.10` / `layout.gutter` / `space.7`; gap `space.6`.
 Switches `motion.duration.fast`; reduced: instant.
 
 ## Semantics / reading order
-Back → title → body → "AI readings" (header) → "Allowed. Your question and cards go to Claude by Anthropic…" → Withdraw → "Ads" (header) → Ad personalisation + Review ad choices → Tracking → "Improving Taro" (header) → the usage analytics switch → privacy policy link.
+Back → title → body → "AI readings" (header) → "Allowed. Your question and cards go to an AI service (Anthropic or OpenAI)…" → Withdraw → "Ads" (header) → Ad personalisation + Review ad choices → Tracking → "Improving Taro" (header) → the usage analytics switch → privacy policy link.
 
 ## RTL
 Mirrored; the dot sits at the start of the status text.

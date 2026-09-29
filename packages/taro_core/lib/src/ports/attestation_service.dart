@@ -64,12 +64,29 @@ abstract class DeviceSignal with _$DeviceSignal {
 
 /// Platform attestation (App Attest / Play Integrity, 02 §5, §6.4).
 abstract interface class AttestationService {
-  /// Attests for registration against [challenge].
-  Future<Result<AttestationBlob>> attest({required String challenge});
+  /// Attests for registration (`POST /v1/installs`) against [challenge],
+  /// binding [installId] and the device [signal] (from [deviceSignal]) into
+  /// the platform proof (02 §6.4, 03 §3.3, §3.7): iOS generates a new App
+  /// Attest key and attests it over
+  /// `SHA256(challenge ‖ installId ‖ deviceCheckToken?)`, returning its
+  /// [AttestationBlob.keyId]; Android requests a Standard integrity token
+  /// with `requestHash = base64url(SHA256(challenge ‖ installId ‖
+  /// deviceKey))`.
+  Future<Result<AttestationBlob>> attest({
+    required String challenge,
+    required String installId,
+    required DeviceSignal signal,
+  });
 
-  /// Asserts one [attest]-protected call over [clientDataHash].
+  /// Asserts one [attest]-protected call over [clientDataHash] (03 §3.4).
+  /// [keyId] is the App Attest key of the last registration (iOS; `null` on
+  /// Android). A key the OS no longer knows fails with
+  /// `AttestationFailure(keyInvalidated)`, which re-registers (02 §6.4).
   // Named after 02 §5: `assert` is a reserved word.
-  Future<Result<AssertionBlob>> assert_({required List<int> clientDataHash});
+  Future<Result<AssertionBlob>> assert_({
+    required List<int> clientDataHash,
+    String? keyId,
+  });
 
   /// The device-scoped abuse signal.
   Future<DeviceSignal> deviceSignal();

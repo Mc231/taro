@@ -327,7 +327,9 @@ mixin _$JournalQuery {
 /// Only favourites.
  bool get favouritesOnly;/// Only readings of this spread (daily cards are excluded when set).
  SpreadId? get spreadId;/// Include daily cards.
- bool get includeDailyCards;
+ bool get includeDailyCards;/// Only readings containing this card, and the daily cards that drew
+/// it.
+ CardId? get cardId;
 /// Create a copy of JournalQuery
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -338,16 +340,16 @@ $JournalQueryCopyWith<JournalQuery> get copyWith => _$JournalQueryCopyWithImpl<J
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards)&&(identical(other.cardId, cardId) || other.cardId == cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards);
+int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards,cardId);
 
 @override
 String toString() {
-  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards)';
+  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards, cardId: $cardId)';
 }
 
 
@@ -358,7 +360,7 @@ abstract mixin class $JournalQueryCopyWith<$Res>  {
   factory $JournalQueryCopyWith(JournalQuery value, $Res Function(JournalQuery) _then) = _$JournalQueryCopyWithImpl;
 @useResult
 $Res call({
- bool favouritesOnly, SpreadId? spreadId, bool includeDailyCards
+ bool favouritesOnly, SpreadId? spreadId, bool includeDailyCards, CardId? cardId
 });
 
 
@@ -375,12 +377,13 @@ class _$JournalQueryCopyWithImpl<$Res>
 
 /// Create a copy of JournalQuery
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? favouritesOnly = null,Object? spreadId = freezed,Object? includeDailyCards = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? favouritesOnly = null,Object? spreadId = freezed,Object? includeDailyCards = null,Object? cardId = freezed,}) {
   return _then(_self.copyWith(
 favouritesOnly: null == favouritesOnly ? _self.favouritesOnly : favouritesOnly // ignore: cast_nullable_to_non_nullable
 as bool,spreadId: freezed == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId?,includeDailyCards: null == includeDailyCards ? _self.includeDailyCards : includeDailyCards // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,cardId: freezed == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
+as CardId?,
   ));
 }
 
@@ -465,10 +468,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards,  CardId? cardId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _JournalQuery() when $default != null:
-return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);case _:
+return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards,_that.cardId);case _:
   return orElse();
 
 }
@@ -486,10 +489,10 @@ return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards,  CardId? cardId)  $default,) {final _that = this;
 switch (_that) {
 case _JournalQuery():
-return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);case _:
+return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards,_that.cardId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -506,10 +509,10 @@ return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);cas
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool favouritesOnly,  SpreadId? spreadId,  bool includeDailyCards,  CardId? cardId)?  $default,) {final _that = this;
 switch (_that) {
 case _JournalQuery() when $default != null:
-return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);case _:
+return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards,_that.cardId);case _:
   return null;
 
 }
@@ -521,7 +524,7 @@ return $default(_that.favouritesOnly,_that.spreadId,_that.includeDailyCards);cas
 
 
 class _JournalQuery implements JournalQuery {
-  const _JournalQuery({this.favouritesOnly = false, this.spreadId, this.includeDailyCards = true});
+  const _JournalQuery({this.favouritesOnly = false, this.spreadId, this.includeDailyCards = true, this.cardId});
   
 
 /// Only favourites.
@@ -530,6 +533,9 @@ class _JournalQuery implements JournalQuery {
 @override final  SpreadId? spreadId;
 /// Include daily cards.
 @override@JsonKey() final  bool includeDailyCards;
+/// Only readings containing this card, and the daily cards that drew
+/// it.
+@override final  CardId? cardId;
 
 /// Create a copy of JournalQuery
 /// with the given fields replaced by the non-null parameter values.
@@ -541,16 +547,16 @@ _$JournalQueryCopyWith<_JournalQuery> get copyWith => __$JournalQueryCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards)&&(identical(other.cardId, cardId) || other.cardId == cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards);
+int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards,cardId);
 
 @override
 String toString() {
-  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards)';
+  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards, cardId: $cardId)';
 }
 
 
@@ -561,7 +567,7 @@ abstract mixin class _$JournalQueryCopyWith<$Res> implements $JournalQueryCopyWi
   factory _$JournalQueryCopyWith(_JournalQuery value, $Res Function(_JournalQuery) _then) = __$JournalQueryCopyWithImpl;
 @override @useResult
 $Res call({
- bool favouritesOnly, SpreadId? spreadId, bool includeDailyCards
+ bool favouritesOnly, SpreadId? spreadId, bool includeDailyCards, CardId? cardId
 });
 
 
@@ -578,12 +584,13 @@ class __$JournalQueryCopyWithImpl<$Res>
 
 /// Create a copy of JournalQuery
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? favouritesOnly = null,Object? spreadId = freezed,Object? includeDailyCards = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? favouritesOnly = null,Object? spreadId = freezed,Object? includeDailyCards = null,Object? cardId = freezed,}) {
   return _then(_JournalQuery(
 favouritesOnly: null == favouritesOnly ? _self.favouritesOnly : favouritesOnly // ignore: cast_nullable_to_non_nullable
 as bool,spreadId: freezed == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId?,includeDailyCards: null == includeDailyCards ? _self.includeDailyCards : includeDailyCards // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,cardId: freezed == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
+as CardId?,
   ));
 }
 

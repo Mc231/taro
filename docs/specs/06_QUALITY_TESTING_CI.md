@@ -381,7 +381,7 @@ Rules:
 - Concurrency: `ci` cancels superseded runs on the same branch; deploy and Sonar never cancel in-flight runs.
 - Deploy workflows verify that the pubspec build number is greater than the last uploaded build (fastlane `latest_testflight_build_number` / `google_play_track_version_codes`) before building.
 - App builds read `--dart-define-from-file=config/<config>.json` (`dev`, `staging`, `prod_staging`, `prod`; 02 AR17: Worker base URL, AdMob unit IDs, `TARO_ENV`). Real ad unit IDs are used only in release builds; debug and CI use Google test IDs, asserted by a unit test on the config loader.
-- Secrets never go to `/tmp`; they are decrypted into `$RUNNER_TEMP` and shredded in an `always()` step. Worker runtime secrets (Anthropic key, App Store Server API key, Play service account) are set with `wrangler secret put` from the bundle only in `worker-deploy.yml` and never appear in logs (`::add-mask::`).
+- Secrets never go to `/tmp`; they are decrypted into `$RUNNER_TEMP` and shredded in an `always()` step. Worker runtime secrets (AI provider keys `ANTHROPIC_API_KEY` / `OPENAI_API_KEY`, RC97; App Store Server API key, Play service account) are set with `wrangler secret put` from the bundle only in `worker-deploy.yml` and never appear in logs (`::add-mask::`).
 
 ## 9. SonarQube
 
@@ -473,7 +473,7 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC18–RC21, RC23, RC24, RC33–RC35, R
 
 **Store**
 - [ ] Metadata pushed via `asa` from `apps/taro/store/aso.yaml` for 12 locales (iPhone and iPad 13" screenshot sets); ASC and Play listings re-read afterwards (ASC can hold stale text).
-- [ ] App Privacy labels / Data safety form match `05_COMPLIANCE_STORE_ASO.md` (AdMob, Anthropic via the Worker, install ID, Android device key); Apple age rating 13+ and Play target audience 16–17 and 18+ answered as documented (RC23, RC93).
+- [ ] App Privacy labels / Data safety form match `05_COMPLIANCE_STORE_ASO.md` (AdMob, the AI providers in `ai.disclosedProviders` via the Worker (v1 Anthropic and OpenAI, RC97), install ID, Android device key); Apple age rating 13+ and Play target audience 16–17 and 18+ answered as documented (RC23, RC93).
 - [ ] Review notes: entertainment framing, how to get extra readings for testing (sandbox), AI consent location, Classic reading, refusal behaviour, that there are no accounts; quoted button labels match `app_en.arb` (RC79).
 - [ ] Screenshots current; no Android or Google wording in Apple copy (checker green).
 - [ ] Tag `app-vX.Y.Z+B`; submit; iOS phased release on; Play staged rollout 20%.
@@ -488,9 +488,9 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC18–RC21, RC23, RC24, RC33–RC35, R
 | `docs/ANALYTICS_EVENTS.md` | every event, parameters, when fired, consent gating | `check_analytics_events.py` |
 | `docs/TESTING.md` | how to write tests here: harness, fakes, builders, goldens, contract suites, determinism | per phase |
 | `docs/runbooks/RELEASE.md` | §12 checklist + commands per step | per release |
-| `docs/runbooks/INCIDENT.md` | severity levels; first 15 minutes (check the Worker dashboard, `/v1/health`, Anthropic status); kill switches in remote config (`readings.enabled` is the only reading kill switch, RC8; `rewarded.enabled`, `ads.enabled`, `store.enabled`; model downgrade via `ai.model.free` / `ai.model.freeFallback`); user-comms template; post-mortem template | reviewed quarterly |
+| `docs/runbooks/INCIDENT.md` | severity levels; first 15 minutes (check the Worker dashboard, `/v1/health`, the status page of each AI provider in use, RC97); kill switches in remote config (`readings.enabled` is the only reading kill switch, RC8; `rewarded.enabled`, `ads.enabled`, `store.enabled`; model downgrade via `ai.model.free` / `ai.model.freeFallback`, provider switch via `ai.provider.*` or `ai.outageFallback.*` within `ai.disclosedProviders`, RC97); user-comms template; post-mortem template | reviewed quarterly |
 | `docs/runbooks/WORKER_ROLLBACK.md` | `wrangler deployments list`, `wrangler rollback <version-id>` / `versions deploy <old>@100%`; why migrations are expand/contract; D1 Time Travel restore (`wrangler d1 time-travel restore`) for data incidents; remote-config revert via KV history | tested once before launch (staging drill) |
-| `docs/runbooks/SECRET_ROTATION.md` | per secret (names per 03 §11): Anthropic API key, App Store Server API key (.p8), ASC API key, Play service account, upload keystore (never rotated: use the Play upload-key reset procedure), Cloudflare API token, Sonar token, GPG bundle passphrase. Steps: create new → `wrangler secret put` / bundle update → deploy → verify → revoke old | staging drill before launch |
+| `docs/runbooks/SECRET_ROTATION.md` | per secret (names per 03 §11): AI provider keys (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, RC97), App Store Server API key (.p8), ASC API key, Play service account, upload keystore (never rotated: use the Play upload-key reset procedure), Cloudflare API token, Sonar token, GPG bundle passphrase. Steps: create new → `wrangler secret put` / bundle update → deploy → verify → revoke old | staging drill before launch |
 | `CHANGELOG.md`, `worker/CHANGELOG.md` | QA13 | `check_changelog.py` |
 
 **CLAUDE.md coding rules (minimum set; phases may add rules):**

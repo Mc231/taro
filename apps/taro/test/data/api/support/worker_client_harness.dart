@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:taro/data/api/interceptors/attestation_interceptor.dart';
 import 'package:taro/data/api/worker_client.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -66,6 +67,7 @@ final class WorkerClientHarness {
       ids: ids,
       random: random,
       logger: logger,
+      attestationKeyId: AttestationInterceptor.storedKeyId(secure),
       adapter: adapter,
       sleep: (d) async {
         sleeps.add(d);
@@ -83,6 +85,9 @@ final class WorkerClientHarness {
   final FakeSessionTokenStore tokens;
   final FakeAttestationService attestation;
   final FakeConsentStore consent;
+
+  /// Secure storage holding the App Attest key ID (empty at first).
+  final InMemorySecureStore secure = InMemorySecureStore();
   final List<Duration> sleeps = [];
   late final WorkerClient client;
 

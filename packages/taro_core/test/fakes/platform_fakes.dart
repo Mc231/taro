@@ -346,16 +346,27 @@ final class FakeAttestationService
   /// Challenges passed to [attest].
   final List<String> challenges = [];
 
+  /// `(installId, signal)` of every [attest] call.
+  final List<(String, DeviceSignal)> attestedInstalls = [];
+
   /// Client data hashes passed to [assert_].
   final List<List<int>> assertions = [];
+
+  /// Key IDs passed to [assert_], in order.
+  final List<String?> assertionKeyIds = [];
 
   @override
   bool get isSupported => kind != AttestationType.none;
 
   @override
-  Future<Result<AttestationBlob>> attest({required String challenge}) async {
+  Future<Result<AttestationBlob>> attest({
+    required String challenge,
+    required String installId,
+    required DeviceSignal signal,
+  }) async {
     record('attest');
     challenges.add(challenge);
+    attestedInstalls.add((installId, signal));
     final failure = takeFailure('attest');
     if (failure != null) return Result.err(failure);
     return Result.ok(
@@ -363,7 +374,9 @@ final class FakeAttestationService
         type: kind,
         challenge: challenge,
         payload: isSupported ? 'attestation-${challenges.length}' : null,
-        keyId: kind == AttestationType.appAttest ? 'key-1' : null,
+        keyId: kind == AttestationType.appAttest
+            ? 'key-${challenges.length}'
+            : null,
       ),
     );
   }
@@ -371,9 +384,11 @@ final class FakeAttestationService
   @override
   Future<Result<AssertionBlob>> assert_({
     required List<int> clientDataHash,
+    String? keyId,
   }) async {
     record('assert');
     assertions.add(clientDataHash);
+    assertionKeyIds.add(keyId);
     final failure = takeFailure('assert');
     if (failure != null) return Result.err(failure);
     final n = assertions.length;

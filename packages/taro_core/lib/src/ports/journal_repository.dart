@@ -38,6 +38,10 @@ abstract class JournalQuery with _$JournalQuery {
 
     /// Include daily cards.
     @Default(true) bool includeDailyCards,
+
+    /// Only readings containing this card, and the daily cards that drew
+    /// it.
+    CardId? cardId,
   }) = _JournalQuery;
 }
 

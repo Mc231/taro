@@ -59,7 +59,7 @@ final class ReadingRepositoryImpl implements ReadingRepository {
   final Map<ReadingId, ({Reading reading, DateTime deletedAt})> _trash = {};
 
   /// How long a deleted reading can be restored (01 §7.8).
-  static const Duration undoWindow = Duration(seconds: 5);
+  static const Duration undoWindow = ReadingRepository.undoWindow;
 
   // Worker calls ------------------------------------------------------------
 
@@ -396,6 +396,7 @@ final class ReadingRepositoryImpl implements ReadingRepository {
 
   /// Restores the reading [id] deleted less than [undoWindow] ago; returns
   /// whether it was restored (01 §7.8 Undo).
+  @override
   Future<Result<bool>> undoDelete(ReadingId id) => _local(() async {
     _purgeTrash();
     final deleted = _trash.remove(id);

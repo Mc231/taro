@@ -82,14 +82,14 @@ flowchart LR
   end
 
   Worker["Cloudflare Worker /v1<br/>(D1 ledger, KV config)"]
-  Anthropic["Anthropic Claude API"]
+  AI["LLM provider API<br/>(Anthropic or OpenAI, per tier by config; RC97)"]
   Stores["App Store / Google Play"]
   AdMob["AdMob (+UMP)"]
   Firebase["Firebase Analytics + Crashlytics"]
   Attest["Apple App Attest / Play Integrity"]
 
   Data -- "HTTPS JSON, Bearer session,<br/>Idempotency-Key, attestation" --> Worker
-  Worker --> Anthropic
+  Worker -- "AiProvider port" --> AI
   Worker -- "verify JWS / purchase token" --> Stores
   AdMob -- "SSV callback (intentId)" --> Worker
   Worker -- "verify attestation" --> Attest
@@ -383,7 +383,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (app `dat
 | `RemoteConfigRepository` | `RemoteConfig get current`, `Stream<RemoteConfig> watch()`, `Future<Result<RemoteConfig>> refresh()` | Worker `GET /v1/config` with ETag, drift cache | `StaticRemoteConfigRepository` (defaults; tests/offline dev) |
 | `SettingsRepository` | `watch()`, `update(UserSettings Function(UserSettings))`, consent persistence (`ConsentStore`) | drift | — |
 | `IapService` | `Future<Result<List<StoreProduct>>> products(Set<ProductId>)`, `Future<Result<PurchaseOutcome>> buy(ProductId, {PurchaseBinding binding})`, `Future<Result<void>> restore()`, `Stream<IapEvent> events`, `Set<ProductId> get pending` | `StoreIapService` (`in_app_purchase` + SK2) | `NoOpIapService` (products empty; flavor flag `iapEnabled=false`) |
-| `PurchaseVerifier` | `Future<Result<GrantResult>> verify(StorePurchase)` | Worker `POST /v1/purchases/verify` (single route, `platform` discriminator) | — |
+| `PurchaseVerifier` | `Future<Result<GrantResult>> verify(StorePurchase, {required String idempotencyKey, String? transferToken})` (RC84) | Worker `POST /v1/purchases/verify` (single route, `platform` discriminator) | — |
 | `PurchaseOutbox` | `enqueue`, `pending()`, `markGranted`, `markFinished`, `recordAttempt` | drift `purchase_outbox` (`taro_device.db`) | — |
 | `EntitlementCache` | `Entitlement read()`, `write(Entitlement)` | drift `entitlements` (`taro_device.db`) | — |
 | `AdsService` | `Future<void> initialize(AdRequestPolicy)`, `Future<Result<RewardedShowResult>> showRewarded(RewardIntent)`, `Future<void> preloadRewarded()`, `bool get isInitialized` | `AdMobAdsService` | `NoOpAdsService` (Remove Ads owned + rewarded disabled, `adsEnabled=false`, tests) |
@@ -394,7 +394,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (app `dat
 | `AnalyticsService` | `log(AnalyticsEvent)`, `screen(String)`, `setCollectionEnabled(bool)`, `setConsent(AnalyticsConsent)` | `FirebaseAnalyticsService`; `ConsoleAnalyticsService` (dev) ; `CompositeAnalyticsService` | `NoOpAnalyticsService` |
 | `CrashReporter` | `recordError(Object, StackTrace, {bool fatal, Map context})`, `log(String breadcrumb)`, `setCollectionEnabled(bool)` | `FirebaseCrashReporter` | `NoOpCrashReporter` (dev) |
 | `ReminderScheduler` | `schedule(ReminderSettings, String locale)`, `cancelAll()`, `Future<bool> requestPermission()`, `Stream<String> taps` (route) | `LocalReminderScheduler` (`flutter_local_notifications` + `timezone`) | `NoOpReminderScheduler` |
-| `AttestationService` | `Future<Result<AttestationBlob>> attest({required String challenge})` (registration), `Future<Result<AssertionBlob>> assert_({required List<int> clientDataHash})` (per-call hash of 03 §3.4), `Future<DeviceSignal> deviceSignal()` (Android `deviceKey`, iOS DeviceCheck token; 03 §3.7), `bool get isSupported` | `PlatformAttestationService` (via `taro_attestation`) | `DebugAttestationService` (dev flavor + simulators/emulators; sends the dev/staging `DEBUG_ATTESTATION_TOKEN` instead of a platform attestation (format per 03 §11), which the Worker honours only when its deploy env sets `ALLOW_DEBUG_ATTESTATION`; never switched by headers alone, RC86) |
+| `AttestationService` | `Future<Result<AttestationBlob>> attest({required String challenge, required String installId, required DeviceSignal signal})` (registration; binds challenge ‖ installId ‖ device signal, §6.4), `Future<Result<AssertionBlob>> assert_({required List<int> clientDataHash, String? keyId})` (`keyId` = App Attest key, iOS) (per-call hash of 03 §3.4), `Future<DeviceSignal> deviceSignal()` (Android `deviceKey`, iOS DeviceCheck token; 03 §3.7), `bool get isSupported` | `PlatformAttestationService` (via `taro_attestation`) | `DebugAttestationService` (dev flavor + simulators/emulators; sends the dev/staging `DEBUG_ATTESTATION_TOKEN` instead of a platform attestation (format per 03 §11), which the Worker honours only when its deploy env sets `ALLOW_DEBUG_ATTESTATION`; never switched by headers alone, RC86) |
 | `Clock` | `DateTime now()` (UTC), `DateTime nowLocal()` | `SystemClock` (wraps `package:clock`) | `FixedClock`/`FakeClock` (tests) |
 | `TimezoneProvider` | `Future<String> currentIana()` | `FlutterTimezoneProvider` | `FixedTimezoneProvider` |
 | `RandomSource` | `int nextInt(int max)`, `bool nextBool()` | `SecureRandomSource` (`Random.secure()`) | `SeededRandomSource` (tests, goldens, screenshot mode only — asserted unreachable in prod builds) |

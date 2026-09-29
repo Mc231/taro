@@ -29,14 +29,14 @@ flowchart LR
   end
 
   Worker["Cloudflare Worker /v1<br/>(D1 ledger, KV config)"]
-  Anthropic["Anthropic Claude API"]
+  AI["LLM provider API<br/>(Anthropic or OpenAI, per tier by config; RC97)"]
   Stores["App Store / Google Play"]
   AdMob["AdMob (+UMP)"]
   Firebase["Firebase Analytics + Crashlytics"]
   Attest["Apple App Attest / Play Integrity"]
 
   Data -- "HTTPS JSON, Bearer session,<br/>Idempotency-Key, attestation" --> Worker
-  Worker --> Anthropic
+  Worker -- "AiProvider port" --> AI
   Worker -- "verify JWS / purchase token" --> Stores
   AdMob -- "SSV callback (intentId)" --> Worker
   Worker -- "verify attestation" --> Attest
@@ -132,7 +132,7 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 | @hono/zod-openapi | 1.6.3 | BE1 |
 | zod | 4.6.5 | |
 | jose | 6.2.12 | |
-| @anthropic-ai/sdk | 0.128.0 | |
+| @anthropic-ai/sdk | 0.128.0 | imported only by `adapters/anthropic/` (RC97); the OpenAI adapter's client is chosen and pinned in Phase 8 Sprint 8.1 |
 | cbor-x | 1.6.6 | |
 | @peculiar/x509 | 2.1.0 | |
 | wrangler | 4.142.0 | |

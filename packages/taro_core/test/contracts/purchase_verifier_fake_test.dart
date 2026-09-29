@@ -48,11 +48,16 @@ void main() {
       expect(pending.status, GrantStatus.pending);
       verifier.failNext(const Failure.network());
       expect(
-        (await verifier.verify(aStorePurchase(), idempotencyKey: 'b')).isErr,
+        (await verifier.verify(
+          aStorePurchase(),
+          idempotencyKey: 'b',
+          transferToken: 'tt1.x',
+        )).isErr,
         isTrue,
       );
       expect(seen, ['a', 'b']);
       expect(verifier.verifications, hasLength(2));
+      expect(verifier.transferTokens, [null, 'tt1.x']);
     });
 
     test('grants bump paid credits and the ledger version', () async {

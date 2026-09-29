@@ -115,6 +115,17 @@ describe('POST /v1/purchases/verify — iOS', () => {
     expect(h.appStore.lookups).toEqual([]);
   });
 
+  it('accepts the optional support transferToken (RC84); an empty one is 400', async () => {
+    const h = harness();
+    const id = await seedInstall();
+    const txn = h.appStore.add({ transactionId: txnId() });
+    const res = await verify(h, id, iosBody(txn.transactionId, { transferToken: 'tt1.a.b' }));
+    expect(res.status).toBe(200);
+    expect((await res.json<{ status: string }>()).status).toBe('granted');
+    const empty = await verify(h, id, iosBody(txnId(), { transferToken: '' }));
+    expect(empty.status).toBe(400);
+  });
+
   it('400 without Idempotency-Key, 401 for an unknown or deleted install', async () => {
     const h = harness();
     const id = await seedInstall();

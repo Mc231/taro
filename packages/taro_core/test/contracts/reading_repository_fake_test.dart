@@ -12,6 +12,9 @@ final class _Harness implements ReadingRepositoryHarness {
 
   @override
   void failNextWorkerCall(Failure failure) => repo.failNextWorkerCall(failure);
+
+  @override
+  void advance(Duration by) => repo.clock.advance(by);
 }
 
 void main() {
@@ -87,6 +90,7 @@ void main() {
         'pending',
         'setNote',
         'delete',
+        'undoDelete',
         'flushPendingAcks',
       ]) {
         repo.failNext(const Failure.storage(), on: m);
@@ -96,6 +100,7 @@ void main() {
       expect((await repo.pending()).isErr, isTrue);
       expect((await repo.setNote(r.id, 'x')).isErr, isTrue);
       expect((await repo.delete(r.id)).isErr, isTrue);
+      expect((await repo.undoDelete(r.id)).isErr, isTrue);
       expect((await repo.flushPendingAcks()).isErr, isTrue);
     });
   });

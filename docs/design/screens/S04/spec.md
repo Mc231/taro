@@ -20,7 +20,7 @@ Padding `space.12` / `space.7` / `space.9`; column gap `space.7`.
 
 **Sign-off items (CS6, 05 §3), both resolved on `AiConsent.dc.html`:**
 - *Equal visual weight.* **Resolved**: both buttons now use the same tonal style (`color.accent.subtle` fill + `color.border.strong` outline, 52, `radius.md`). Code uses the same `TaroButton` variant and size for both, in the same order in every locale.
-- *Copy.* **Resolved**: the title is `aiConsentTitle` "Your readings use AI" and the body is the exact `aiConsentBody` string, which includes every required claim (name, email and advertising ID never sent; question not stored; reading kept encrypted at most 7 days; a reported reading kept 90 days; Anthropic does not train on this data; readings are AI-generated and may be wrong or unexpected) and names Anthropic's Claude, as CS6 requires.
+- *Copy.* **Resolved**: the title is `aiConsentTitle` "Your readings use AI" and the body is the exact `aiConsentBody` string, which includes every required claim (name, email and advertising ID never sent; question not stored; reading kept encrypted at most 7 days; a reported reading kept 90 days; the named AI providers do not train on this data; readings are AI-generated and may be wrong or unexpected) and names every provider in `ai.disclosedProviders` ("Anthropic's Claude or OpenAI's GPT models"), as CS6 requires (RC97: the Worker's provider is chosen by server config, so the copy names every provider it may route to).
 
 ## Components
 `TaroButton` ×2 (same variant), `TaroIconButton` (re-entry Back), `TaroScaffold`.

@@ -289,7 +289,7 @@ void main() {
     });
 
     test(
-      'the transferToken field of 02 §6.3 is not in the Worker schema yet',
+      'the transferToken field of 02 §6.3 is in the Worker schema (RC84)',
       () {
         final withTransfer = VerifyPurchaseRequestDto.fromDomain(
           const StorePurchase(
@@ -302,8 +302,14 @@ void main() {
         ).toJson();
         expect(
           openApi.validate('VerifyPurchaseRequest', withTransfer),
+          isEmpty,
+        );
+        expect(
+          openApi.validate('VerifyPurchaseRequest', {
+            ...withTransfer,
+            'transferToken': '',
+          }),
           isNotEmpty,
-          reason: 'flip this when the Worker declares transferToken (RC84)',
         );
       },
     );

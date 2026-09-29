@@ -75,8 +75,10 @@ final class WorkerClientConfig {
 /// client knows nothing about which LLM provider generates a reading
 /// (RC97): prompt versions and model IDs are opaque strings.
 final class WorkerClient {
-  /// Creates the client. [adapter] replaces dio's HTTP adapter (tests use a
-  /// scripted one); [sleep] replaces the retry wait.
+  /// Creates the client. [attestationKeyId] names the App Attest key of
+  /// each assertion (see [AttestationInterceptor.storedKeyId]); [adapter]
+  /// replaces dio's HTTP adapter (tests use a scripted one); [sleep]
+  /// replaces the retry wait.
   WorkerClient({
     required WorkerClientConfig config,
     required SessionTokenStore tokens,
@@ -87,6 +89,7 @@ final class WorkerClient {
     required RandomSource random,
     required Logger logger,
     ServerClockTracker? serverClock,
+    AttestationKeyIdReader? attestationKeyId,
     HttpClientAdapter? adapter,
     Sleep sleep = realSleep,
     void Function()? onSessionExpired,
@@ -120,7 +123,7 @@ final class WorkerClient {
         refresh: refreshSessionToken,
         onSessionExpired: onSessionExpired,
       ),
-      AttestationInterceptor(attestation),
+      AttestationInterceptor(attestation, keyId: attestationKeyId),
       AiConsentInterceptor(consent),
       RetryInterceptor(
         dio: _dio,

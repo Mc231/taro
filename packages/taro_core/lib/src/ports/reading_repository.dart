@@ -55,6 +55,10 @@ abstract class ReadingHold with _$ReadingHold {
 /// any balance the Worker returns with a reading to the `BalanceRepository`
 /// itself.
 abstract interface class ReadingRepository {
+  /// How long [undoDelete] can restore a deleted reading (01 §7.8 Undo
+  /// snackbar).
+  static const Duration undoWindow = Duration(seconds: 5);
+
   /// `POST /v1/readings/holds` for [readingId] (same key on renewal).
   Future<Result<ReadingHold>> hold(
     ReadingId readingId,
@@ -106,6 +110,11 @@ abstract interface class ReadingRepository {
   /// Sets the local `reported` flag after a successful report (S33).
   Future<Result<void>> markReported(ReadingId id);
 
-  /// Deletes one reading.
+  /// Deletes one reading; [undoDelete] can restore it for [undoWindow].
   Future<Result<void>> delete(ReadingId id);
+
+  /// Restores the reading [id] deleted less than [undoWindow] ago; returns
+  /// whether it was restored (`false` when it was never deleted, the window
+  /// has passed or it was already restored).
+  Future<Result<bool>> undoDelete(ReadingId id);
 }

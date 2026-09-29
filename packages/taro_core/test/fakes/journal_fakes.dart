@@ -65,14 +65,18 @@ final class FakeJournalRepository
   final List<BackupData> replaced = [];
 
   List<JournalItem> _items(JournalQuery query) {
+    final card = query.cardId;
     final items = <JournalItem>[
       for (final r in journal.readings.values)
         if ((query.spreadId == null || r.spreadId == query.spreadId) &&
-            (!query.favouritesOnly || r.favourite))
+            (!query.favouritesOnly || r.favourite) &&
+            (card == null || r.cards.any((c) => c.cardId == card)))
           JournalItem.reading(r),
       if (query.includeDailyCards && query.spreadId == null)
         for (final d in journal.dailyCards.values)
-          if (!query.favouritesOnly || d.favourite) JournalItem.dailyCard(d),
+          if ((!query.favouritesOnly || d.favourite) &&
+              (card == null || d.cardId == card))
+            JournalItem.dailyCard(d),
     ];
     return _newestFirst(items);
   }

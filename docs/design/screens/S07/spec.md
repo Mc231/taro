@@ -16,7 +16,7 @@ Padding `space.10` / `layout.gutter` / `space.8`; gap `space.6`.
 4. The inline guidance under the field (01 §7.2), `type.caption` `color.text.secondary`: "Open questions work best. Taro can't answer medical, legal, financial or pregnancy questions." (ARB, copy owned by 05; the field references it with `aria-describedby`). **Resolved**: drawn on `Question.dc.html` under the counter.
 5. "Ideas" caption + 3–4 suggestion chips (outlined `color.border.strong`, `radius.full`, 40 visual / 48 hit, `type.label`); they wrap. A tap fills the field.
 6. Flexible spacer.
-7. `TaroButton.primary` "Begin", full width, 52. Below it the charge note `type.caption` `color.text.tertiary`: "Uses your free reading. Your question is sent to Claude to write the reading and isn't stored." (the variant follows `nextSource`, e.g. "Uses 1 of your 3 readings").
+7. `TaroButton.primary` "Begin", full width, 52. Below it the charge note `type.caption` `color.text.tertiary`: "Uses your free reading. Your question is sent to an AI service to write the reading and isn't stored." (provider-neutral, RC97) (the variant follows `nextSource`, e.g. "Uses 1 of your 3 readings").
 
 With the keyboard open, the body scrolls, and Begin stays reachable above the keyboard inset.
 

@@ -1,14 +1,14 @@
 # Phase 10: Accounts, Store Registration, AdMob, Firebase & Signing
 
 **Status:** ⬜ Not Started
-**Depends on:** Phase 1 (owner decisions), Phase 9 (for Sprint 10.3), Phase 6 Sprint 6.5 (staging Worker URL, only for the webhook and SSV registration steps). The Cloudflare and Anthropic setup formerly in Sprint 10.1 now lives in Phase 6 Sprint 6.0, which removes the 6 ↔ 10 cycle (RC83).
+**Depends on:** Phase 1 (owner decisions), Phase 9 (for Sprint 10.3), Phase 6 Sprint 6.5 (staging Worker URL, only for the webhook and SSV registration steps). The Cloudflare setup formerly in Sprint 10.1 now lives in Phase 6 Sprint 6.0, which removes the 6 ↔ 10 cycle (RC83); the AI provider accounts (Anthropic, OpenAI) are Phase 8 Sprint 8.0 (RC97).
 **Parallel with:** Phases 4–8, 11–13. Most of this phase is **MANUAL** console work, so it can run beside coding.
 
 ---
 
 ## Overview
 
-This phase registers every external store/ads account and identifier Taro needs, and wires their credentials into the secrets bundle and Worker secrets (Cloudflare and Anthropic are done in Phase 6 Sprint 6.0):
+This phase registers every external store/ads account and identifier Taro needs, and wires their credentials into the secrets bundle and Worker secrets (Cloudflare is done in Phase 6 Sprint 6.0 and the AI provider accounts in Phase 8 Sprint 8.0, RC97):
 - Firebase projects;
 - App Store Connect (bundle IDs, app record, IAP products, API keys, server notifications);
 - Google Play Console (app, first AAB, IAP products, RTDN, Play Integrity, service account);
@@ -34,7 +34,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
 ## Sprint 10.1: *(moved to Phase 6 Sprint 6.0, RC83)*
 
 **Tasks:**
-- [ ] Confirm Phase 6 Sprint 6.0 is done: Cloudflare zone and resources, Anthropic workspaces, Worker secrets. Add the store-issued secrets from Sprints 10.3–10.4 (`APPLE_ASC_*`, `APPLE_DEVICECHECK_*`, `GOOGLE_*`) with `wrangler secret put` and to `docs/runbooks/SECRET_ROTATION.md`.
+- [ ] Confirm Phase 6 Sprint 6.0 is done (Cloudflare zone and resources, Worker secrets) and Phase 8 Sprint 8.0 is done (AI provider accounts and keys for every provider in `ai.disclosedProviders` that the config routes to: Anthropic workspaces, OpenAI projects; RC97). Add the store-issued secrets from Sprints 10.3–10.4 (`APPLE_ASC_*`, `APPLE_DEVICECHECK_*`, `GOOGLE_*`) with `wrangler secret put` and to `docs/runbooks/SECRET_ROTATION.md`.
 
 ---
 

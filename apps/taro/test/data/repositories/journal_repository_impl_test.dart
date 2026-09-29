@@ -126,13 +126,15 @@ void main() {
 
     test('watchAll filters by card', () async {
       final items = await journal
-          .watchAll(cardId: const CardId('major_11'))
+          .watchAll(query: const JournalQuery(cardId: CardId('major_11')))
           .first;
       expect(keys(items), [star.localDate, tower.id.value]);
       final none = await journal
           .watchAll(
-            query: const JournalQuery(includeDailyCards: false),
-            cardId: const CardId('major_18'),
+            query: const JournalQuery(
+              includeDailyCards: false,
+              cardId: CardId('major_18'),
+            ),
           )
           .first;
       expect(none, isEmpty);

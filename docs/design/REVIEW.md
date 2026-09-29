@@ -91,7 +91,7 @@
 | # | Item | Result | Evidence |
 |---|---|---|---|
 | D1 | "Allow AI readings" and "Not now" have equal visual weight | PASS | `AiConsent:27–28`: identical style strings (full width, 52 min height, `radius` 12, `accent.subtle` fill + 1.5 px `border.strong` inset, 16/500) |
-| D2 | Exact `aiConsentTitle` and `aiConsentBody` | PASS | `AiConsent:21–22`, script-compared verbatim with 05 §3 (names Anthropic's Claude) |
+| D2 | Exact `aiConsentTitle` and `aiConsentBody` | PASS | `AiConsent:21–22`, script-compared verbatim with 05 §3. **Consent copy changed per RC97 (2026-09-29):** the body now names both providers ("Anthropic's Claude or OpenAI's GPT models") and says "These AI providers do not use this data to train their models"; `AiConsent.dc.html` was updated to the new exact string (re-compared verbatim). The same change made S07 (`Question`), S23 (`PrivacyChoices`) and `Legal` provider-neutral. The 05 wording is pending 05 review and the owner's final provider list (Phase 22) |
 | D3 | "Not now" present; privacy link; free path stated | PASS | `AiConsent:28`, `:24`, `:29` ("Without AI you still get the daily card, classic readings, Learn and the journal…") |
 | D4 | S04 re-entry `declined` variant (Allow / Back, equal weight) | PASS (derived in code) | S04 spec states table |
 | D5 | ATT pre-prompt is neutral | PASS | `AttPrompt:18–32`: "Either answer is fine", no incentive, one "Continue" to the system prompt (04 §10, CS14); no banner |
@@ -193,6 +193,8 @@ Required contrast pairs computed: 44, all pass (K6–K10). For information: `bor
 - **A36:** reference frames are named per artboard, not per `Sxx-state-mode-locale-device`, because one board can serve several screens; `frames/README.md` maps S-IDs to frames. Light/`ar`/tablet frames exist only for the designed representatives; the rest come from goldens.
 
 **Docs drift:** fixed (`README.md` says 58 artboards; `components.md` lists `TaroCoachmark`, `TaroToast`, `ReadingRatingControl`).
+
+**Consent copy changed per RC97 (2026-09-29, after sign-off review):** the AI layer is provider-agnostic, so `aiConsentBody` (05 §3) now names Anthropic and OpenAI (every provider in `ai.disclosedProviders`). The S04 artboard and the Claude Design copy carry the new exact string; S07, S23 and Legal no longer name a single provider (see D2). The final provider list is confirmed by the owner before submission (Phase 22); if it shrinks, the canvas copy is narrowed with 05 §3.
 
 ---
 

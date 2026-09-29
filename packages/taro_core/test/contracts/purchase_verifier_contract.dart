@@ -63,6 +63,19 @@ void runPurchaseVerifierContract(PurchaseVerifierHarness Function() create) {
       expect(b.isFirstPurchase, isFalse);
     });
 
+    test('a transfer token does not change the grant (RC84)', () async {
+      final purchase = harness.validPurchase();
+      final grant = expectOk(
+        await verifier.verify(
+          purchase,
+          idempotencyKey: 'key-t',
+          transferToken: 'tt1.payload.mac',
+        ),
+      );
+      expect(grant.status, GrantStatus.granted);
+      expect(grant.productId, purchase.productId);
+    });
+
     test('an invalid purchase is a PurchaseFailure', () async {
       final failure = expectErr(
         await verifier.verify(harness.invalidPurchase(), idempotencyKey: 'x'),

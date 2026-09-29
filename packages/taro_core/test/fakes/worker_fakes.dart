@@ -432,9 +432,27 @@ final class FakeReadingRepository
     record('delete');
     final failure = takeFailure('delete');
     if (failure != null) return Result.err(failure);
-    journal.readings.remove(id);
+    final removed = journal.readings.remove(id);
+    if (removed != null) _trash[id] = (reading: removed, at: clock.now());
     journal.notify();
     return const Result.ok(null);
+  }
+
+  /// Readings deleted recently enough for [undoDelete], by ID.
+  final Map<ReadingId, ({Reading reading, DateTime at})> _trash = {};
+
+  @override
+  Future<Result<bool>> undoDelete(ReadingId id) async {
+    record('undoDelete');
+    final failure = takeFailure('undoDelete');
+    if (failure != null) return Result.err(failure);
+    final deleted = _trash.remove(id);
+    if (deleted == null ||
+        clock.now().difference(deleted.at) >= ReadingRepository.undoWindow) {
+      return const Result.ok(false);
+    }
+    journal.putReading(deleted.reading);
+    return const Result.ok(true);
   }
 }
 
@@ -500,6 +518,9 @@ final class FakePurchaseVerifier
   /// Every call: `(purchase, idempotencyKey)`.
   final List<(StorePurchase, String)> verifications = [];
 
+  /// The `transferToken` of every call, in order (`null` = none, RC84).
+  final List<String?> transferTokens = [];
+
   /// `txnKey`s already granted.
   final Set<String> granted = {};
 
@@ -516,9 +537,11 @@ final class FakePurchaseVerifier
   Future<Result<GrantResult>> verify(
     StorePurchase purchase, {
     required String idempotencyKey,
+    String? transferToken,
   }) async {
     record('verify');
     verifications.add((purchase, idempotencyKey));
+    transferTokens.add(transferToken);
     onVerify?.call(purchase, idempotencyKey);
     final failure = takeFailure('verify');
     if (failure != null) return Result.err(failure);

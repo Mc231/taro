@@ -38,12 +38,19 @@ npm run gen-keys -- --env prod --rotate "$RUNNER_TEMP/current.json"   # keyrings
 | `REPORT_ENC_KEY` | keyring (Phase 8) | Added in Phase 8 with its keyring format; reports are kept 90 days. | 90 days |
 | `DEBUG_ATTESTATION_TOKEN` | ≥ 16 chars, **dev/staging only** | `gen-keys --env staging --only DEBUG_ATTESTATION_TOKEN`, `secret put --env staging`, update `worker.staging_debug_attestation_token` in the bundle (used by the staging smoke test). Never set it on prod (`check_worker_env.py`, RC86). | none |
 | `ALERT_WEBHOOK_URL` | URL | Create a new incoming webhook, `secret put`, send a test alert, delete the old webhook. | none |
-| `ANTHROPIC_API_KEY` | vendor | See "Anthropic API key". | minutes |
+| `ANTHROPIC_API_KEY` | vendor, optional (RC97) | See "Anthropic API key". | minutes |
+| `OPENAI_API_KEY` | vendor, optional (RC97) | See "OpenAI API key". | minutes |
 | `APPLE_DEVICECHECK_KEY_ID` / `_PRIVATE_KEY`, `APPLE_ASC_*`, `GOOGLE_*` | vendor | Phase 10 (sections below). | — |
 
 ## Anthropic API key
 
 Per workspace (`taro-staging`, `taro-prod`): create a new key in the Anthropic Console under the same workspace, `npx wrangler secret put ANTHROPIC_API_KEY --env <env>`, verify with a staging reading (Phase 8 smoke step), then revoke the old key in the Console. Keep the workspace spend limits unchanged (03 §10.2).
+
+Either AI key may be absent (RC97, 03 §11): a tier routed to a provider without a key is disabled (`503 AI_UNAVAILABLE`, alert `ai_provider_unavailable`). Set the new key before revoking the old one, so a tier never loses its provider; if a key is revoked by mistake, route the affected tiers to the other provider with `ai.provider.*` (it must be in `ai.disclosedProviders`) until the new key is set.
+
+## OpenAI API key
+
+Per project (`taro-staging`, `taro-prod`, Phase 8 Sprint 8.0): create a new project API key in the OpenAI platform dashboard under the same project, `npx wrangler secret put OPENAI_API_KEY --env <env>`, update the copy in the `.secrets/` bundle, verify with a staging reading routed to OpenAI (Phase 8 smoke step), then revoke the old key in the dashboard. Keep the project monthly spend limits unchanged (03 §10.2). Set the key only for an environment whose config may route to OpenAI and only while `openai` is in `ai.disclosedProviders`.
 
 ## App Store Server API key
 

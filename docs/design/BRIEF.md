@@ -247,7 +247,7 @@ Still to design before sign-off (not yet on the canvas): the light, tablet and `
 - "Report this reading" is in the overflow of every AI reading (S33).
 
 **Consent (CS6, PR10, PR12)**
-- AI consent names Anthropic, and **"Allow AI readings" and "Not now" have equal visual weight** (same size, width, type and prominence). Declining never blocks the app; the free path (daily card, Classic, Learn, Journal) is stated on the screen.
+- AI consent names every AI provider in `ai.disclosedProviders` (v1: Anthropic and OpenAI; RC97, the provider is chosen by server config), and **"Allow AI readings" and "Not now" have equal visual weight** (same size, width, type and prominence). Declining never blocks the app; the free path (daily card, Classic, Learn, Journal) is stated on the screen.
 - The ATT pre-prompt is neutral, with equal-weight options.
 - *Review note:* the current S04 artboard gives both buttons the same width, height and label style, but "Allow" is filled ultramarine and "Not now" is outlined. REVIEW.md must either accept this as equal weight or give both the same treatment. The S10 "Not now" follows the same pattern.
 

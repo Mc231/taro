@@ -646,6 +646,12 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 20000
+              },
+              "transferToken": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024,
+                "description": "Support transfer code being re-submitted (RC84); informational"
               }
             },
             "required": [
@@ -678,6 +684,12 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 200
+              },
+              "transferToken": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1024,
+                "description": "Support transfer code being re-submitted (RC84); informational"
               }
             },
             "required": [

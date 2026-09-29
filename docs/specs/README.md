@@ -72,12 +72,12 @@ Only product or business decisions are listed. Each has a default that the specs
 
 | # | Decision | Default in the specs | Where |
 |---|---|---|---|
-| 1 | **AI model and budget for free readings.** Quality vs cost of the free daily reading (≈ $0.017 per three-card reading on Sonnet 5, ≈ $0.009 on Haiku 4.5, ≈ $0.04 on Opus 5). | Free: `claude-sonnet-5`, falling back to `claude-haiku-4-5` in the soft budget tier. Paid: `claude-opus-5`. Budget sized at $0.03 per daily active install; hard stop $300/day. Revisit after the beta. | 03 BE10, §10.2, Q1; RC64 |
+| 1 | **AI model and budget for free readings.** Quality vs cost of the free daily reading (≈ $0.017 per three-card reading on Sonnet 5, ≈ $0.009 on Haiku 4.5, ≈ $0.04 on Opus 5). | Free: `claude-sonnet-5`, falling back to `claude-haiku-4-5` in the soft budget tier. Paid: `claude-opus-5`. These are the Anthropic defaults; each tier's provider is server config (`ai.provider.*`, Anthropic or OpenAI, RC97). Budget sized at $0.03 per daily active install; hard stop $300/day. Revisit after the beta. | 03 BE10, §10.2, Q1; RC64 |
 | 2 | **Pack sizes and prices.** | 3 / 10 / 30 readings at $1.99 / $4.99 / $9.99; Remove Banner Ads $3.99. Enrol in the App Store Small Business Program and the Play 15 % tier. | 04 §4, §4.1, Q6 |
 | 3 | **Free AI readings per day.** | 1 (config range 1–5; never 0, because the store copy promises it). | 04 MO14, 03 §8.2 |
 | 4 | **Rewarded ads.** | On; +1 reading per ad; 3 per day; 5-minute cooldown; offered only when the free reading is used up. | 04 §9, Q7; RC57 |
 | 5 | **Play target audience.** Including 13–15-year-olds widens reach but needs age-dependent ad consent in the EEA. | Play 16–17 and 18+; Apple rating 13+; AI processing based on contract; the policy says "not directed at children under 16". | 05 CS4, Q5; RC93 |
-| 6 | **Territories excluded at launch.** | China mainland, Russia, Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, Oman, plus countries where the Anthropic API is not offered. | 05 CS16, Q2 |
+| 6 | **Territories excluded at launch.** | China mainland, Russia, Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, Oman, plus countries where the API of any routable AI provider (v1 Anthropic, OpenAI) is not offered. | 05 CS16, Q2; RC97 |
 | 7 | **Family Sharing for Remove Banner Ads** (irreversible in App Store Connect). | On. | 04 MO17, Q8 |
 | 8 | **Recovering paid credits after an Android reinstall or a new iPhone without Keychain migration.** | Manual support transfer, run by the owner, only with a transfer code proving the same store account. No automatic cross-device credits. | 03 §6.6, 04 §12.9; RC84 |
 | 9 | **Send Apple consumption information on refund requests** (can reduce refund abuse; needs a privacy-policy update). | Off in v1. | 03 Q4, 04 Q3 |

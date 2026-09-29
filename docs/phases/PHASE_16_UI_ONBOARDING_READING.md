@@ -37,7 +37,7 @@ Controllers already exist and are tested (Phase 13). This phase only adds views,
 - [ ] S01 `LaunchView` (bootstrapping, fatal `storageError` with "Contact support").
 - [ ] S02 `WelcomePager` (up to 3 pages, skippable to S03). S03 `DisclaimerView` (must tap "I understand"; copy keys `disclaimerOnboarding*` per 05 §3).
 - [ ] S04 `AiConsentView`, in the onboarding and re-entry variants:
-  - it names Anthropic, lists what is sent and what is not, and links the privacy policy (05 §3 `aiConsentBody`);
+  - it names every AI provider in `ai.disclosedProviders` (v1 Anthropic and OpenAI, RC97), lists what is sent and what is not, and links the privacy policy (05 §3 `aiConsentBody`);
   - equal-weight **Allow AI readings** / **Not now**, with no pre-checked boxes (CS6).
   - The re-entry variant from the gate explains "AI readings need your permission" and also offers a **Classic reading** (RC20).
 - [ ] ATT neutral pre-prompt view (RC19, 04 §10: a single "Continue" leading to the system prompt, no incentive), shown by `ConsentOrchestrator` only when allowed.

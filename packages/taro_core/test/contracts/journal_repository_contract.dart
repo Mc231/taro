@@ -97,6 +97,32 @@ void runJournalRepositoryContract(JournalRepository Function() create) {
       expect(noDaily, hasLength(3));
     });
 
+    test('watchAll filters by card: readings and daily cards', () async {
+      await journal.replaceAll(data);
+      // Only the three-card readings drew their second card.
+      final second = newer.cards[1].cardId;
+      expect(older.cards.map((c) => c.cardId), isNot(contains(second)));
+      final byCard = await journal
+          .watchAll(query: JournalQuery(cardId: second))
+          .first;
+      expect(byCard, [
+        JournalItem.reading(newer),
+        JournalItem.reading(classic),
+      ]);
+
+      final byDaily = await journal
+          .watchAll(query: JournalQuery(cardId: daily.cardId))
+          .first;
+      expect(byDaily, [JournalItem.dailyCard(daily)]);
+
+      final noDaily = await journal
+          .watchAll(
+            query: JournalQuery(cardId: daily.cardId, includeDailyCards: false),
+          )
+          .first;
+      expect(noDaily, isEmpty);
+    });
+
     test('watchAll emits again after a change', () async {
       final seen = <List<JournalItem>>[];
       final sub = journal.watchAll().listen(seen.add);

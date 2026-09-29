@@ -1,7 +1,7 @@
 # Phase 6: Worker Foundation: Identity, Attestation, Config
 
-**Status:** ✅ Complete (2026-09-29): code, Cloudflare resources, staging live at `api-staging.taro.vshyrochuk.com`, smoke green. Open: Anthropic workspaces/keys (needed from Phase 8) and the optional alert webhook.
-**Depends on:** Phase 3 (CI), Phase 1 (RC4, RC5, RC8). No dependency on Phase 10: the Cloudflare and Anthropic accounts are created here in Sprint 6.0 (RC83).
+**Status:** ✅ Complete (2026-09-29): code, Cloudflare resources, staging live at `api-staging.taro.vshyrochuk.com`, smoke green. Open: the optional alert webhook. The AI provider accounts and keys (Anthropic workspaces, OpenAI projects) moved to Phase 8 Sprint 8.0 (RC97).
+**Depends on:** Phase 3 (CI), Phase 1 (RC4, RC5, RC8). No dependency on Phase 10: the Cloudflare account and Worker secrets are set up here in Sprint 6.0 (RC83); the AI provider accounts follow in Phase 8 Sprint 8.0 (RC97).
 **Parallel with:** Phases 4, 5, 9, 10
 
 ---
@@ -18,7 +18,7 @@ This phase stands up the `taro-api` Worker skeleton that every other backend fea
 It ends with automated staging deploys. Everything runs locally with fakes (`AI_PROVIDER=fake`, fake attestation) and inside the real workerd runtime in tests.
 
 **Output of this phase:**
-- Cloudflare zone, D1/KV/Rate-Limit/Analytics Engine per env, Anthropic workspaces and all Worker secrets (Sprint 6.0, moved from Phase 10.1 by RC83).
+- Cloudflare zone, D1/KV/Rate-Limit/Analytics Engine per env and the non-AI Worker secrets (Sprint 6.0, moved from Phase 10.1 by RC83). The AI provider accounts and keys are Phase 8 Sprint 8.0 (RC97).
 - `worker/migrations/0001_init.sql` (03 §4 as amended by the review pass: no `balances` table, `device_daily_usage`, reading hold columns, route-scoped idempotency; + `reading_reports` per RC22 + `purchases.is_test` per RC7).
 - Routes: `GET /v1/health`, `GET /v1/config`, `POST /v1/attest/challenge`, `POST /v1/installs`, `POST /v1/installs/token`, `PUT /v1/installs/me/timezone`, `DELETE /v1/installs/me`, `GET /v1/balance` (reads only; spending logic comes in Phase 7).
 - `worker/openapi/openapi.json` committed, plus contract fixtures in `worker/test/contract/fixtures/`.
@@ -34,7 +34,7 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
 
 ---
 
-## Sprint 6.0: Cloudflare, Anthropic & Worker secrets *(MANUAL + scripted; moved from Phase 10.1, RC83)*
+## Sprint 6.0: Cloudflare & Worker secrets *(MANUAL + scripted; moved from Phase 10.1, RC83)*
 
 **Tasks:**
 - [x] Cloudflare: _(Done 2026-09-29: D1 `taro-staging`/`taro-prod`, 3 KV per env, custom domains `api-staging.taro.vshyrochuk.com` (live) and `api.taro.vshyrochuk.com` (config only), Analytics Engine enabled by owner, workers.dev subdomain `vshyrochuk` created for cron triggers; real IDs in `wrangler.toml`.)_
@@ -44,8 +44,7 @@ It ends with automated staging deploys. Everything runs locally with fakes (`AI_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
 - [x] Cloudflare API token scoped to Workers, D1 and KV edit on this account only → the secrets bundle as `cloudflare_api_token` and `cloudflare_account_id` (03 §14.2). _(Done: owner token `taro-worker` (env `TARO_CLAUDEFLRE_TOKEN`) with Workers Scripts/D1/KV edit, Account Settings/Analytics read, zone Workers Routes/DNS edit; stored as `worker.cloudflare_api_token` / `cloudflare_account_id` and as Gitea secrets `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights.
-- [ ] Anthropic Console: workspaces `taro-staging` (low monthly limit) and `taro-prod` (monthly spend limit above `31 × ai.budget.dailyHardUsd`, 03 §10.2), with API keys → `wrangler secret put ANTHROPIC_API_KEY --env staging|prod`.
-  - Blocked: needs Cloudflare token with Workers/D1/KV rights (the keys are set as Worker secrets); the Anthropic workspaces are an owner step.
+- [x] ~~Anthropic Console workspaces and `ANTHROPIC_API_KEY`~~ → **moved to Phase 8 Sprint 8.0 (RC97)**: per-environment accounts for each AI provider the config may route to (v1: Anthropic workspaces and OpenAI projects `taro-staging` / `taro-prod`, each with a monthly spend limit above `31 × ai.budget.dailyHardUsd` in prod, 03 §10.2) and the keys `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (either may be absent, 03 §11).
 - [x] Generate and set the Worker secrets for staging and prod (03 §11): `TOKEN_SIGNING_KEYS` (Ed25519 JWKS via `worker/scripts/gen-keys.ts`), `CHALLENGE_KEY`, `IDEMPOTENCY_ENC_KEY`, `IP_HASH_KEY`, `PLAY_ACCOUNT_KEY`, `APPLE_ACCOUNT_NS`, `DEVICE_KEY_SECRET`, `TRANSFER_TOKEN_KEY`, `ALERT_WEBHOOK_URL`, and `DEBUG_ATTESTATION_TOKEN` (staging only). There is no admin bearer secret (RC84). Copies go into `.secrets/secrets.json.gpg` (06 QA10). Store-issued secrets (`APPLE_ASC_*`, `APPLE_DEVICECHECK_*`, `GOOGLE_*`) are added in Phase 10. _(Done for staging (9 secrets set via `wrangler secret bulk`) and generated for prod (stored as `worker.prod_secrets_json`; uploaded at the first prod deploy). `ALERT_WEBHOOK_URL` not set yet (optional; alerts log only). Copies in the bundle: `worker.staging_secrets_json`, `worker.staging_debug_attestation_token`.)_
   - Blocked: needs Cloudflare token with Workers/D1/KV rights. The generator exists (`npm run gen-keys -- --env <env>`, `worker/src/admin/genKeys.ts`); `worker.staging_debug_attestation_token` must also go into the secrets bundle for the staging smoke step.
 - [x] `docs/runbooks/SECRET_ROTATION.md`, first version per secret (06 §13).

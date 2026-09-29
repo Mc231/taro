@@ -10,6 +10,19 @@ import { BalanceDtoSchema, errorResponses, requireInstall, tokenRouteGuards } fr
 
 const productId = z.string().min(1).max(200).openapi({ example: 'com.vshyrochuk.taro.readings_3' });
 
+/**
+ * Optional support `transferToken` the "Move readings" flow sends when it
+ * re-submits a transaction (02 §6.3, RC84). Accepted for the client contract;
+ * the grant does not depend on it (the owner-run transfer script checks it,
+ * 03 §6.6).
+ */
+const transferToken = z
+  .string()
+  .min(1)
+  .max(1024)
+  .optional()
+  .openapi({ description: 'Support transfer code being re-submitted (RC84); informational' });
+
 /** `POST /v1/purchases/verify` body (03 §6.2, §6.3; RC4): `platform` must equal `X-Taro-Platform`. */
 export const VerifyPurchaseRequestSchema = z
   .discriminatedUnion('platform', [
@@ -18,12 +31,14 @@ export const VerifyPurchaseRequestSchema = z
       productId,
       transactionId: z.string().regex(/^\d{1,40}$/, 'expected a numeric transaction ID'),
       signedTransaction: z.string().min(1).max(20000).optional(),
+      transferToken,
     }),
     z.object({
       platform: z.literal('android'),
       productId,
       purchaseToken: z.string().min(1).max(4096),
       orderId: z.string().min(1).max(200).optional(),
+      transferToken,
     }),
   ])
   .openapi('VerifyPurchaseRequest');

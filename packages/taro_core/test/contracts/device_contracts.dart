@@ -61,8 +61,17 @@ void runAttestationServiceContract(AttestationService Function() create) {
 
     setUp(() => attestation = create());
 
+    const installId = '3f1c2b1e-0000-4000-8000-000000000001';
+
     test('attest answers the challenge with a matching kind', () async {
-      final blob = expectOk(await attestation.attest(challenge: 'chal-1'));
+      final signal = await attestation.deviceSignal();
+      final blob = expectOk(
+        await attestation.attest(
+          challenge: 'chal-1',
+          installId: installId,
+          signal: signal,
+        ),
+      );
       expect(blob.challenge, 'chal-1');
       if (attestation.isSupported) {
         expect(blob.type, isNot(AttestationType.none));
@@ -70,11 +79,26 @@ void runAttestationServiceContract(AttestationService Function() create) {
       } else {
         expect(blob.type, AttestationType.none);
       }
+      // An App Attest registration names the key later assertions use.
+      if (blob.type == AttestationType.appAttest) {
+        expect(blob.keyId, isNotEmpty);
+      }
     });
 
     test('assertion headers use the 03 §3.4 form', () async {
+      final signal = await attestation.deviceSignal();
+      final attested = expectOk(
+        await attestation.attest(
+          challenge: 'chal-2',
+          installId: installId,
+          signal: signal,
+        ),
+      );
       final blob = expectOk(
-        await attestation.assert_(clientDataHash: List<int>.filled(32, 7)),
+        await attestation.assert_(
+          clientDataHash: List<int>.filled(32, 7),
+          keyId: attested.keyId,
+        ),
       );
       expect(blob.header, matches(RegExp(r'^(aa1\..+|pi1\..+|none)$')));
       expect(blob.header == 'none', !attestation.isSupported);

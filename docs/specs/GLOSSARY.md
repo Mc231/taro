@@ -766,6 +766,7 @@ Owner: 02 §3, §4, §4.1, §5, §9, §12 (code: `packages/taro_core/lib/src/`, 
 | `kSupportedLocales` | `List<String>` | `model/user_settings.dart` | the 12 §15 locales |
 | `kForbiddenBackupKeys` | `Set<String>` | `logic/backup_validator.dart` | keys that make a backup invalid anywhere in the file |
 | `kUint32Range` | `int` | `logic/uniform_int.dart` | `2^32` (CSPRNG word range) |
+| `ReadingRepository.undoWindow` | `Duration` | `ports/reading_repository.dart` | 5 s: how long `undoDelete` restores a deleted reading (01 §7.8) |
 
 ### 16.3 Models (`model/`, `monetization/`)
 
@@ -851,7 +852,7 @@ Adapters and fakes: §9.1. Every port is an `abstract interface class` in the fi
 | `AnalyticsConsent` | freezed (`allDenied`, `allGranted`) | `ports/analytics_service.dart` |
 | `AppInfo` | port | `ports/app_info.dart` |
 | `AppPlatform` | enum `ios \| android` | `ports/app_info.dart` |
-| `AttestationService` | port | `ports/attestation_service.dart` |
+| `AttestationService` | port: `attest({challenge, installId, signal})` binds the install ID and `DeviceSignal` (02 §6.4, 03 §3.3, §3.7); `assert_({clientDataHash, keyId?})` names the App Attest key (03 §3.4); `deviceSignal()`; `isSupported` | `ports/attestation_service.dart` |
 | `BackupExclusion` | port (excludes `taro_device.db` files from OS backup, RC75) | `ports/backup_exclusion.dart` |
 | `NoOpBackupExclusion` | `BackupExclusion` implementation (Android, tests) | `ports/backup_exclusion.dart` |
 | `AttestationType` | enum `app_attest \| play_integrity \| none` | `ports/attestation_service.dart` |
@@ -879,19 +880,19 @@ Adapters and fakes: §9.1. Every port is an `abstract interface class` in the fi
 | `InstallRepository` | port | `ports/install_repository.dart` |
 | `JournalRepository` | port | `ports/journal_repository.dart` |
 | `JournalItem` | sealed union: `.reading` → `JournalReadingItem`, `.dailyCard` → `JournalDailyCardItem` | `ports/journal_repository.dart` |
-| `JournalQuery` | freezed (Journal filters) | `ports/journal_repository.dart` |
+| `JournalQuery` | freezed (Journal filters: `favouritesOnly`, `spreadId`, `includeDailyCards`, `cardId`) | `ports/journal_repository.dart` |
 | `JournalSnapshot` | freezed (all journal rows, for export / import) | `ports/journal_repository.dart` |
 | `Logger` | port | `ports/logger.dart` |
 | `PurchaseOutbox` | port | `ports/purchase_outbox.dart` |
 | `OutboxEntry` | freezed (`purchase_outbox` row) | `ports/purchase_outbox.dart` |
 | `OutboxStatus` | enum (§7 `purchase_outbox.status`) | `ports/purchase_outbox.dart` |
 | `PurchaseOutcome` | sealed union: `.granted` → `PurchaseGranted`, `.alreadyGranted` → `PurchaseAlreadyGranted`, `.pending` → `PurchaseOutcomePending`, `.cancelled` → `PurchaseOutcomeCancelled`, `.failed` → `PurchaseOutcomeFailed`, `.verificationDelayed` → `PurchaseVerificationDelayed`, `.notAvailable` → `PurchaseNotAvailable`, `.alreadyOwned` → `PurchaseAlreadyOwned` | `ports/purchase_outcome.dart` |
-| `PurchaseVerifier` | port | `ports/purchase_verifier.dart` |
+| `PurchaseVerifier` | port: `verify(StorePurchase, {idempotencyKey, transferToken?})` (`transferToken` for the support re-submit, RC84) | `ports/purchase_verifier.dart` |
 | `GrantResult` | freezed (E14 response) | `ports/purchase_verifier.dart` |
 | `GrantStatus` | enum `granted \| already_granted \| pending` | `ports/purchase_verifier.dart` |
 | `RandomSource` | port | `ports/random_source.dart` |
 | `SecureRandomSource` | `RandomSource` implementation | `ports/secure_random_source.dart` |
-| `ReadingRepository` | port | `ports/reading_repository.dart` |
+| `ReadingRepository` | port (incl. `delete` + `undoDelete` within `undoWindow`) | `ports/reading_repository.dart` |
 | `ReadingHold` | freezed (E09 response) | `ports/reading_repository.dart` |
 | `ReminderScheduler` | port | `ports/reminder_scheduler.dart` |
 | `RemoteConfigRepository` | port | `ports/remote_config_repository.dart` |

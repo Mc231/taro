@@ -11,6 +11,9 @@ abstract interface class ReadingRepositoryHarness {
 
   /// Makes the next Worker call fail with [failure] (transport level).
   void failNextWorkerCall(Failure failure);
+
+  /// Moves the device clock forward by [by].
+  void advance(Duration by);
 }
 
 /// The `ReadingRepository` contract (02 §5, §9.3, RC42, RC50, RC51).
@@ -134,6 +137,28 @@ void runReadingRepositoryContract(ReadingRepositoryHarness Function() create) {
       await settle();
       await sub.cancel();
       expect(seen, [null, classic, null]);
+      expect(expectOk(await readings.get(classic.id)), isNull);
+    });
+
+    test('undoDelete restores a reading within the undo window', () async {
+      final classic = aReading().classic().withNote('keep me').build();
+      expect(expectOk(await readings.undoDelete(classic.id)), isFalse);
+      await readings.saveClassic(classic);
+      expectOk(await readings.delete(classic.id));
+      harness.advance(
+        ReadingRepository.undoWindow - const Duration(seconds: 1),
+      );
+      expect(expectOk(await readings.undoDelete(classic.id)), isTrue);
+      expect(expectOk(await readings.get(classic.id)), classic);
+      expect(expectOk(await readings.undoDelete(classic.id)), isFalse);
+    });
+
+    test('undoDelete after the undo window restores nothing', () async {
+      final classic = aReading().classic().build();
+      await readings.saveClassic(classic);
+      expectOk(await readings.delete(classic.id));
+      harness.advance(ReadingRepository.undoWindow);
+      expect(expectOk(await readings.undoDelete(classic.id)), isFalse);
       expect(expectOk(await readings.get(classic.id)), isNull);
     });
   });
