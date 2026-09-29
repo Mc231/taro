@@ -1,6 +1,6 @@
 # Phase 7: Worker Credits, Purchases & Rewarded Ads
 
-**Status:** 🚧 Code complete (2026-09-29); store credentials + webhook registration in Phase 10
+**Status:** ✅ Complete (2026-09-29): code on staging (run 780). Store credentials and webhook registration follow in Phase 10.
 **Depends on:** Phase 6
 **Parallel with:** Phases 4, 5, 11, 12
 
@@ -119,9 +119,9 @@ Every path is idempotent and property-tested for ledger invariants.
 
 - [x] The Worker coverage thresholds pass (90/90/90/85), including `scripts/**` and `src/admin/**`. All integration flows in 03 §15.2 pass: register → balance → free reading hold → 402 → rewarded → SSV → bonus → purchase → paid → refund webhook → `paidBlocked` + `purchasesAllowed=false`. Readings are still simulated through `BalanceService` until Phase 8. *Evidence:* `npm run test:coverage` → 81 files, 897 tests, statements 99.67 %, branches 96.21 %, functions 99.87 %, lines 99.66 % (`scripts/**`, `src/admin/**` included); `worker/test/integration/flows/moneyFlow.test.ts` (the full flow over `buildApp`, ending `paid = -3`, `paidBlocked`, `purchasesAllowed = false`, `refundDebt`); the other 03 §15.2 Phase 7 regressions in `BalanceService.hold.test.ts`, `PurchaseService.test.ts`, `rewards.test.ts`, `webhooks.test.ts`.
 - [x] `check_iap_ids.py` is green against `catalog.ts`. *Evidence:* `tools/check_iap_ids.py` OK; also green: `check_migrations`, `check_glossary`, `check_remote_config`, `check_worker_env`, `check_forbidden_apis`, `check_changelog`, `check_retention`, `check_contract_fixtures` (39), `openapi:check`, `config:schema:check`, `wrangler deploy --dry-run --env staging`.
-- [ ] Deployed to staging. Webhook URLs registered in App Store Connect (sandbox) and the Play RTDN topic *(MANUAL, Phase 10 Sprints 10.3–10.4)*. Staging deploys run from `.gitea/workflows/worker-deploy.yml` on push to `main`.
+- [ ] Deployed to staging. Webhook URLs registered in App Store Connect (sandbox) and the Play RTDN topic *(MANUAL, Phase 10 Sprints 10.3–10.4)*. Staging deploys run from `.gitea/workflows/worker-deploy.yml` on push to `main`. _(Staging deploy done 2026-09-29: worker-deploy run 780 green incl. smoke. Webhook URL registration stays open for Phase 10.3–10.4.)_
 - [x] Docs: `docs/ARCHITECTURE.md` (purchase and rewarded sequence diagrams), the support runbook and `worker/CHANGELOG.md`. *Evidence:* `docs/ARCHITECTURE.md` §Ledger (incl. "End-to-end money flow"), §Purchases, §Store webhooks and refunds, §Rewarded ads, §Support tooling and metrics (mermaid sequence diagrams); `docs/runbooks/SUPPORT_CREDITS.md`; `worker/CHANGELOG.md` and root `CHANGELOG.md` `[Unreleased]`.
-- [ ] One commit: `feat(worker): Phase 7 — Credits, purchases & rewarded ads`.
+- [x] One commit: `feat(worker): Phase 7 — Credits, purchases & rewarded ads`. _(f839c63)_
 
 ## Next phase
 
