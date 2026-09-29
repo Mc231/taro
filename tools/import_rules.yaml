@@ -85,6 +85,10 @@ sdk_packages:
   - package: drift_flutter
     ports: []
     allowed: [apps/taro/lib/data/db/**]
+  # The database directory (data/db/database_location.dart, 02 §6.1).
+  - package: path_provider
+    ports: []
+    allowed: [apps/taro/lib/data/db/**]
   # ReminderScheduler -> LocalReminderScheduler.
   - package: flutter_local_notifications
     ports: [ReminderScheduler]

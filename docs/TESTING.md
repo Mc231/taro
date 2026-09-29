@@ -66,6 +66,21 @@ Every day-boundary test names its timezone and runs over `kBoundaryZones` (06 §
 - **API contract fixtures:** the Worker tests export JSON to `worker/test/contract/fixtures/`. `melos run contract:sync` mirrors them into `apps/taro/test/contract/fixtures/`, and `check_contract_fixtures.py` fails CI on drift (QA15).
 - App tests may import `packages/taro_core/test/{fakes,contracts}/**` and `packages/taro_ui/test/helpers/**` by relative path. That is the only cross-package test import `check_architecture.dart` allows. Nothing under `lib/` may import test support.
 
+## Worker contract fixtures in the app (QA15, Phase 11)
+
+- **Source and sync:** the Worker's contract tests write `worker/test/contract/fixtures/**/*.{request,response}.json`. `melos run contract:sync` mirrors them into `apps/taro/test/contract/fixtures/` (never edit the copies), and `tools/check_contract_fixtures.py` fails when the two trees differ.
+- **The test:** `apps/taro/test/contract/contract_fixtures_test.dart` creates one test per fixture file. A `*.response.json` is decoded through the matching DTO and domain mapper and validated against `worker/openapi/openapi.json` (`test/contract/support/openapi_schema.dart`, a small validator for the OpenAPI subset the Worker uses). A `*.request.json` is re-encoded from domain inputs, must equal the fixture exactly and must pass a strict schema check (no extra fields). A fixture with no decoder or encoder fails on purpose, so a new Worker fixture cannot go unchecked.
+- **Adding a route:** add the fixture on the Worker side, run `contract:sync`, then add its entry to the decoder/encoder tables in `contract_fixtures_test.dart`.
+- **Pending (Phase 8):** the reading routes (`POST /v1/readings/holds`, `POST /v1/readings`, `GET /v1/readings/{id}`, ack, report) have no fixtures yet. Until Phase 8 exports them, the client calls are tested against `ScriptedHttpAdapter` (`test/data/api/`) and the in-memory fake Worker (`test/data/repositories/support/fake_worker_server.dart`) built from 03 §9.
+- **Known gap:** the Worker's `VerifyPurchaseRequest` schema has no `transferToken` (RC84, 02 §6.3); the client already sends it, and the test `the transferToken field of 02 §6.3 is not in the Worker schema yet` pins the gap; it fails once the Worker declares the field and is then flipped.
+
+## drift databases and migrations (02 §6.1)
+
+- DAO tests run on `NativeDatabase.memory()` (`apps/taro/test/data/db/`); file behaviour (WAL, `shareAcrossIsolates`, backup exclusion, the RC75 restore simulation) runs on `DatabaseLocation` over a temp directory.
+- Schemas are SQL in `lib/data/db/{journal/journal.drift,device/device.drift}`. After a schema change: `cd apps/taro && dart run build_runner build`, then `dart run drift_dev make-migrations` (dumps `db/schema/<db>/drift_schema_v<n>.json`) and `dart run drift_dev schema generate db/schema/<db>/ test/data/db/migrations/<db>/generated/`. Commit the dumps and helpers.
+- `test/data/db/migrations/schema_test.dart` proves the code creates exactly the dumped schema (`SchemaVerifier.migrateAndValidate` from `startAt(n)`, `validateDatabaseSchema`) and that rows written at a version read back. A version bump (`schemaVersion` n+1) adds a `MigrationStrategy.onUpgrade` step and, per database, a `migrateAndValidate` test from **every** older version plus a data-integrity test (`schemaAt(old)` → insert through `rawDatabase` → open the app database → `migrateAndValidate(db, n+1)` → read back).
+- `drift` is pinned to `drift_dev`'s version (2.34.0): the drift_dev 2.34.0 CLI and `SchemaVerifier` do not compile against drift 2.34.4.
+
 ## Widget harness
 
 - **`pumpTaroWidget(tester, child, {locale, theme, textScale, size})`**, in `apps/taro/test/helpers/pump_taro_widget.dart`, is for widgets without providers. It wraps the child in:

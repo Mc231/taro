@@ -16,6 +16,8 @@ analyzer:
     - "**/lib/l10n/generated/**"
     - "**/lib/src/tokens/generated/**"
     - "**/firebase_options_*.dart"
+    # drift_dev `schema generate` output (migration-test helpers).
+    - "**/test/**/migrations/**/generated/**"
 
 linter:
   rules:

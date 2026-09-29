@@ -160,6 +160,7 @@ worker/
 | `X-Taro-Attestation` | see §3.4 | required on routes marked **[attest]** |
 | `X-Taro-AI-Consent` | `2` | AI consent version the user accepted; required on `POST /v1/readings/holds` and `POST /v1/readings`; below `ai.consentVersion` (or missing) → `412 AI_CONSENT_REQUIRED` (RC28). There is no consent endpoint and no body field. |
 | `X-Request-Id` | UUID | optional; echoed, otherwise generated |
+| `X-Taro-Flavor` | `staging` | dev/staging app builds only (never prod); informational for logs, not validated |
 
 - Every response carries `X-Request-Id`. There is no CORS: browser `Origin` requests to app routes get `403`.
 

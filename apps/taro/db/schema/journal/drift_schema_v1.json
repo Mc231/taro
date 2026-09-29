@@ -1,0 +1,869 @@
+{
+  "_meta": {
+    "description": "This file contains a serialized version of schema entities for drift.",
+    "version": "1.3.0"
+  },
+  "options": {
+    "store_date_time_values_as_text": false
+  },
+  "entities": [
+    {
+      "id": 0,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "readings",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "id",
+            "getter_name": "id",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL PRIMARY KEY",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              "primary-key"
+            ]
+          },
+          {
+            "name": "spread_id",
+            "getter_name": "spreadId",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "spread_version",
+            "getter_name": "spreadVersion",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "local_date",
+            "getter_name": "localDate",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "question",
+            "getter_name": "question",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "status",
+            "getter_name": "status",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL CHECK (status IN ('pending', 'complete', 'failed', 'refused', 'classic'))",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "content_json",
+            "getter_name": "contentJson",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "safety_json",
+            "getter_name": "safetyJson",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "failure_json",
+            "getter_name": "failureJson",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "content_locale",
+            "getter_name": "contentLocale",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "prompt_version",
+            "getter_name": "promptVersion",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "model_id",
+            "getter_name": "modelId",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "charge_source",
+            "getter_name": "chargeSource",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "note",
+            "getter_name": "note",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "favourite",
+            "getter_name": "favourite",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL DEFAULT FALSE",
+            "default_dart": "const CustomExpression('FALSE')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "rating",
+            "getter_name": "rating",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "CHECK (rating IN ('up', 'down'))",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "rating_reason",
+            "getter_name": "ratingReason",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "delivery_acked",
+            "getter_name": "deliveryAcked",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL DEFAULT FALSE",
+            "default_dart": "const CustomExpression('FALSE')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "reported",
+            "getter_name": "reported",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL DEFAULT FALSE",
+            "default_dart": "const CustomExpression('FALSE')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "drawn_at",
+            "getter_name": "drawnAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          },
+          {
+            "name": "created_at",
+            "getter_name": "createdAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          },
+          {
+            "name": "updated_at",
+            "getter_name": "updatedAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": []
+      }
+    },
+    {
+      "id": 1,
+      "references": [
+        0
+      ],
+      "type": "table",
+      "data": {
+        "name": "reading_cards",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "reading_id",
+            "getter_name": "readingId",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL REFERENCES readings(id)ON DELETE CASCADE",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              {
+                "foreign_key": {
+                  "to": {
+                    "table": "readings",
+                    "column": "id"
+                  },
+                  "initially_deferred": false,
+                  "on_update": null,
+                  "on_delete": "cascade"
+                }
+              }
+            ]
+          },
+          {
+            "name": "position_id",
+            "getter_name": "positionId",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "position_order",
+            "getter_name": "positionOrder",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "card_id",
+            "getter_name": "cardId",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "reversed",
+            "getter_name": "reversed",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": [
+          "PRIMARY KEY(reading_id, position_id)"
+        ],
+        "explicit_pk": [
+          "reading_id",
+          "position_id"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "daily_cards",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "local_date",
+            "getter_name": "localDate",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL PRIMARY KEY",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              "primary-key"
+            ]
+          },
+          {
+            "name": "card_id",
+            "getter_name": "cardId",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "reversed",
+            "getter_name": "reversed",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "drawn_at",
+            "getter_name": "drawnAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          },
+          {
+            "name": "note",
+            "getter_name": "note",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "favourite",
+            "getter_name": "favourite",
+            "moor_type": "bool",
+            "nullable": false,
+            "customConstraints": "NOT NULL DEFAULT FALSE",
+            "default_dart": "const CustomExpression('FALSE')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "created_at",
+            "getter_name": "createdAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          },
+          {
+            "name": "updated_at",
+            "getter_name": "updatedAt",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [],
+            "type_converter": {
+              "dart_expr": "const InstantConverter()",
+              "dart_type_name": "DateTime"
+            }
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": []
+      }
+    },
+    {
+      "id": 3,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "settings",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "key",
+            "getter_name": "key",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL PRIMARY KEY",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              "primary-key"
+            ]
+          },
+          {
+            "name": "value_json",
+            "getter_name": "valueJson",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": []
+      }
+    },
+    {
+      "id": 4,
+      "references": [
+        0
+      ],
+      "type": "index",
+      "data": {
+        "on": 0,
+        "name": "readings_created_at",
+        "sql": "CREATE INDEX readings_created_at ON readings (created_at DESC);",
+        "unique": false,
+        "columns": []
+      }
+    },
+    {
+      "id": 5,
+      "references": [
+        0
+      ],
+      "type": "index",
+      "data": {
+        "on": 0,
+        "name": "readings_favourite_created_at",
+        "sql": "CREATE INDEX readings_favourite_created_at ON readings (favourite, created_at);",
+        "unique": false,
+        "columns": []
+      }
+    },
+    {
+      "id": 6,
+      "references": [
+        1
+      ],
+      "type": "index",
+      "data": {
+        "on": 1,
+        "name": "reading_cards_card_id",
+        "sql": "CREATE INDEX reading_cards_card_id ON reading_cards (card_id);",
+        "unique": false,
+        "columns": []
+      }
+    },
+    {
+      "id": 7,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "journal_search_refs",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "fts_rowid",
+            "getter_name": "ftsRowid",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": "NOT NULL PRIMARY KEY",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              "primary-key"
+            ]
+          },
+          {
+            "name": "kind",
+            "getter_name": "kind",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL CHECK (kind IN ('reading', 'daily'))",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "ref",
+            "getter_name": "ref",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "NOT NULL",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": false,
+        "without_rowid": false,
+        "constraints": [
+          "UNIQUE(kind, ref)"
+        ],
+        "unique_keys": [
+          [
+            "kind",
+            "ref"
+          ]
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "references": [],
+      "type": "table",
+      "data": {
+        "name": "journal_fts",
+        "was_declared_in_moor": true,
+        "columns": [
+          {
+            "name": "question",
+            "getter_name": "question",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "note",
+            "getter_name": "note",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": "",
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          }
+        ],
+        "is_virtual": true,
+        "create_virtual_stmt": "CREATE VIRTUAL TABLE \"journal_fts\" USING fts5(question, note, tokenize = 'trigram case_sensitive 0 remove_diacritics 1')",
+        "without_rowid": false,
+        "constraints": []
+      }
+    },
+    {
+      "id": 9,
+      "references": [
+        0,
+        7,
+        8
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 0,
+        "references_in_body": [
+          0,
+          7,
+          8
+        ],
+        "name": "readings_fts_insert",
+        "sql": "CREATE TRIGGER readings_fts_insert AFTER INSERT ON readings BEGIN\n  INSERT INTO journal_search_refs (kind, ref) VALUES ('reading', new.id);\n  INSERT INTO journal_fts (rowid, question, note) VALUES (\n    (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = new.id),\n    new.question,\n    new.note\n  );\nEND;"
+      }
+    },
+    {
+      "id": 10,
+      "references": [
+        0,
+        8,
+        7
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 0,
+        "references_in_body": [
+          0,
+          8,
+          7
+        ],
+        "name": "readings_fts_update",
+        "sql": "CREATE TRIGGER readings_fts_update AFTER UPDATE OF question, note ON readings BEGIN\n  UPDATE journal_fts SET question = new.question, note = new.note\n    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);\nEND;"
+      }
+    },
+    {
+      "id": 11,
+      "references": [
+        0,
+        8,
+        7
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 0,
+        "references_in_body": [
+          0,
+          8,
+          7
+        ],
+        "name": "readings_fts_delete",
+        "sql": "CREATE TRIGGER readings_fts_delete AFTER DELETE ON readings BEGIN\n  DELETE FROM journal_fts\n    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);\n  DELETE FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id;\nEND;"
+      }
+    },
+    {
+      "id": 12,
+      "references": [
+        2,
+        7,
+        8
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 2,
+        "references_in_body": [
+          2,
+          7,
+          8
+        ],
+        "name": "daily_cards_fts_insert",
+        "sql": "CREATE TRIGGER daily_cards_fts_insert AFTER INSERT ON daily_cards BEGIN\n  INSERT INTO journal_search_refs (kind, ref) VALUES ('daily', new.local_date);\n  INSERT INTO journal_fts (rowid, question, note) VALUES (\n    (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = new.local_date),\n    NULL,\n    new.note\n  );\nEND;"
+      }
+    },
+    {
+      "id": 13,
+      "references": [
+        2,
+        8,
+        7
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 2,
+        "references_in_body": [
+          2,
+          8,
+          7
+        ],
+        "name": "daily_cards_fts_update",
+        "sql": "CREATE TRIGGER daily_cards_fts_update AFTER UPDATE OF note ON daily_cards BEGIN\n  UPDATE journal_fts SET note = new.note\n    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);\nEND;"
+      }
+    },
+    {
+      "id": 14,
+      "references": [
+        2,
+        8,
+        7
+      ],
+      "type": "trigger",
+      "data": {
+        "on": 2,
+        "references_in_body": [
+          2,
+          8,
+          7
+        ],
+        "name": "daily_cards_fts_delete",
+        "sql": "CREATE TRIGGER daily_cards_fts_delete AFTER DELETE ON daily_cards BEGIN\n  DELETE FROM journal_fts\n    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);\n  DELETE FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date;\nEND;"
+      }
+    }
+  ],
+  "fixed_sql": [
+    {
+      "name": "readings",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"readings\" (\"id\" TEXT NOT NULL PRIMARY KEY, \"spread_id\" TEXT NOT NULL, \"spread_version\" INTEGER NOT NULL, \"local_date\" TEXT NOT NULL, \"question\" TEXT, \"status\" TEXT NOT NULL CHECK (status IN ('pending', 'complete', 'failed', 'refused', 'classic')), \"content_json\" TEXT, \"safety_json\" TEXT, \"failure_json\" TEXT, \"content_locale\" TEXT NOT NULL, \"prompt_version\" TEXT, \"model_id\" TEXT, \"charge_source\" TEXT, \"note\" TEXT, \"favourite\" INTEGER NOT NULL DEFAULT FALSE, \"rating\" TEXT CHECK (rating IN ('up', 'down')), \"rating_reason\" TEXT, \"delivery_acked\" INTEGER NOT NULL DEFAULT FALSE, \"reported\" INTEGER NOT NULL DEFAULT FALSE, \"drawn_at\" INTEGER NOT NULL, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL);"
+        }
+      ]
+    },
+    {
+      "name": "reading_cards",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"reading_cards\" (\"reading_id\" TEXT NOT NULL REFERENCES readings(id)ON DELETE CASCADE, \"position_id\" TEXT NOT NULL, \"position_order\" INTEGER NOT NULL, \"card_id\" TEXT NOT NULL, \"reversed\" INTEGER NOT NULL, PRIMARY KEY(reading_id, position_id));"
+        }
+      ]
+    },
+    {
+      "name": "daily_cards",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"daily_cards\" (\"local_date\" TEXT NOT NULL PRIMARY KEY, \"card_id\" TEXT NOT NULL, \"reversed\" INTEGER NOT NULL, \"drawn_at\" INTEGER NOT NULL, \"note\" TEXT, \"favourite\" INTEGER NOT NULL DEFAULT FALSE, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL);"
+        }
+      ]
+    },
+    {
+      "name": "settings",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"settings\" (\"key\" TEXT NOT NULL PRIMARY KEY, \"value_json\" TEXT NOT NULL);"
+        }
+      ]
+    },
+    {
+      "name": "readings_created_at",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX readings_created_at ON readings (created_at DESC)"
+        }
+      ]
+    },
+    {
+      "name": "readings_favourite_created_at",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX readings_favourite_created_at ON readings (favourite, created_at)"
+        }
+      ]
+    },
+    {
+      "name": "reading_cards_card_id",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE INDEX reading_cards_card_id ON reading_cards (card_id)"
+        }
+      ]
+    },
+    {
+      "name": "journal_search_refs",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TABLE IF NOT EXISTS \"journal_search_refs\" (\"fts_rowid\" INTEGER NOT NULL PRIMARY KEY, \"kind\" TEXT NOT NULL CHECK (kind IN ('reading', 'daily')), \"ref\" TEXT NOT NULL, UNIQUE(kind, ref));"
+        }
+      ]
+    },
+    {
+      "name": "journal_fts",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE VIRTUAL TABLE IF NOT EXISTS \"journal_fts\" USING fts5(question, note, tokenize = 'trigram case_sensitive 0 remove_diacritics 1');"
+        }
+      ]
+    },
+    {
+      "name": "readings_fts_insert",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER readings_fts_insert AFTER INSERT ON readings BEGIN INSERT INTO journal_search_refs (kind, ref) VALUES ('reading', new.id);INSERT INTO journal_fts (\"rowid\", question, note) VALUES ((SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = new.id), new.question, new.note);END"
+        }
+      ]
+    },
+    {
+      "name": "readings_fts_update",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER readings_fts_update AFTER UPDATE OF question, note ON readings BEGIN UPDATE journal_fts SET question = new.question, note = new.note WHERE \"rowid\" = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);END"
+        }
+      ]
+    },
+    {
+      "name": "readings_fts_delete",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER readings_fts_delete AFTER DELETE ON readings BEGIN DELETE FROM journal_fts WHERE \"rowid\" = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);DELETE FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id;END"
+        }
+      ]
+    },
+    {
+      "name": "daily_cards_fts_insert",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER daily_cards_fts_insert AFTER INSERT ON daily_cards BEGIN INSERT INTO journal_search_refs (kind, ref) VALUES ('daily', new.local_date);INSERT INTO journal_fts (\"rowid\", question, note) VALUES ((SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = new.local_date), NULL, new.note);END"
+        }
+      ]
+    },
+    {
+      "name": "daily_cards_fts_update",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER daily_cards_fts_update AFTER UPDATE OF note ON daily_cards BEGIN UPDATE journal_fts SET note = new.note WHERE \"rowid\" = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);END"
+        }
+      ]
+    },
+    {
+      "name": "daily_cards_fts_delete",
+      "sql": [
+        {
+          "dialect": "sqlite",
+          "sql": "CREATE TRIGGER daily_cards_fts_delete AFTER DELETE ON daily_cards BEGIN DELETE FROM journal_fts WHERE \"rowid\" = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);DELETE FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date;END"
+        }
+      ]
+    }
+  ]
+}

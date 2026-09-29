@@ -1,0 +1,75 @@
+-- taro_device.db schema (02 AR7, §6.1, RC75): device-bound state, excluded
+-- from OS backup and device transfer. Tables are SQL so every line of Dart
+-- in data/db is executable and covered. Instants are INTEGER UTC
+-- microseconds (InstantConverter). Single-row tables use id = 1, which the
+-- DAO always writes (an INTEGER PRIMARY KEY ignores its DEFAULT).
+import '../instant_converter.dart';
+
+-- The last Worker balance (display-only, AR8): BalanceDto JSON (03 §5.1).
+CREATE TABLE balance_cache (
+  id INTEGER NOT NULL PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  json TEXT NOT NULL,
+  ledger_version INTEGER NOT NULL,
+  server_time INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  synced_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS BalanceCacheRow;
+
+-- The last GET /v1/config body and its ETag.
+CREATE TABLE remote_config_cache (
+  id INTEGER NOT NULL PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  json TEXT NOT NULL,
+  etag TEXT,
+  fetched_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS RemoteConfigCacheRow;
+
+-- Remove Banner Ads cache (04 §6.4): key remove_ads, EntitlementState and
+-- EntitlementSource names. Cleared only on a definitive store "not owned"
+-- (MO7); kept by "Delete all data" (RC37).
+CREATE TABLE entitlements (
+  "key" TEXT NOT NULL PRIMARY KEY,
+  state TEXT NOT NULL,
+  source TEXT NOT NULL,
+  verified_at INTEGER MAPPED BY `const InstantConverter()`
+) AS EntitlementRow;
+
+-- The purchase outbox (04 §6.2, MO8, AR10): written before verification,
+-- never exported, kept by "Delete all data", pruned 30 days after
+-- finished. txn_key = StoreKit transaction ID or SHA-256 of the Play
+-- purchase token; verification_data = JWS or purchase token (never logged).
+CREATE TABLE purchase_outbox (
+  txn_key TEXT NOT NULL PRIMARY KEY,
+  product_id TEXT NOT NULL,
+  platform TEXT NOT NULL CHECK (platform IN ('ios', 'android')),
+  transaction_id TEXT,
+  verification_data TEXT,
+  order_id TEXT,
+  idempotency_key TEXT NOT NULL,
+  status TEXT NOT NULL
+    CHECK (status IN ('awaitingVerification', 'granted', 'finished', 'rejected')),
+  attempts INTEGER NOT NULL DEFAULT 0,
+  last_error TEXT,
+  created_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  updated_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS "PurchaseOutboxRow/PurchaseOutboxTable";
+
+-- ConsentState JSON; never backed up or exported (asked again after an OS
+-- restore).
+CREATE TABLE consent_state (
+  id INTEGER NOT NULL PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+  json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS "ConsentStateRow/ConsentStates";
+
+-- Small device markers: last sync instant, last timezone sent, a queued
+-- DELETE /v1/installs/me (S26 partial).
+CREATE TABLE sync_state (
+  "key" TEXT NOT NULL PRIMARY KEY,
+  value TEXT NOT NULL
+) AS SyncStateRow;
+
+-- Delivery acks retried by SyncCoordinator (RC51).
+CREATE TABLE pending_acks (
+  reading_id TEXT NOT NULL PRIMARY KEY,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS PendingAckRow;

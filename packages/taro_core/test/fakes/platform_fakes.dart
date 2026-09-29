@@ -487,6 +487,24 @@ final class FakeReviewPrompter with FakeBehaviour implements ReviewPrompter {
   }
 }
 
+/// OS-backup exclusion: [excluded] keeps every path passed, in order.
+final class FakeBackupExclusion with FakeBehaviour implements BackupExclusion {
+  @override
+  String get fakeName => 'BackupExclusion';
+
+  /// Every excluded path, oldest first (duplicates kept).
+  final List<String> excluded = [];
+
+  @override
+  Future<Result<void>> exclude(List<String> paths) async {
+    record('exclude');
+    final failure = takeFailure('exclude');
+    if (failure != null) return Result.err(failure);
+    excluded.addAll(paths);
+    return const Result.ok(null);
+  }
+}
+
 /// Static app facts.
 final class FakeAppInfo implements AppInfo {
   /// Facts with test defaults.

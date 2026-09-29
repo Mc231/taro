@@ -176,6 +176,33 @@ void runConnectivityMonitorContract(
   });
 }
 
+/// The `BackupExclusion` contract (02 §6.1, RC75): [paths] are files the
+/// harness created; excluding them, an absent path, or the same path twice
+/// succeeds.
+void runBackupExclusionContract(
+  BackupExclusion Function() create, {
+  List<String> Function()? paths,
+}) {
+  group('BackupExclusion contract', () {
+    test('excludes existing files and skips absent ones', () async {
+      final exclusion = create();
+      final existing = paths?.call() ?? const <String>['/taro/taro_device.db'];
+      expectOk(await exclusion.exclude([...existing, '/absent/x.db-wal']));
+    });
+
+    test('is idempotent', () async {
+      final exclusion = create();
+      final existing = paths?.call() ?? const <String>['/taro/taro_device.db'];
+      expectOk(await exclusion.exclude(existing));
+      expectOk(await exclusion.exclude(existing));
+    });
+
+    test('accepts an empty list', () async {
+      expectOk(await create().exclude(const []));
+    });
+  });
+}
+
 /// The `AppInfo` contract (02 §5).
 void runAppInfoContract(AppInfo Function() create) {
   group('AppInfo contract', () {

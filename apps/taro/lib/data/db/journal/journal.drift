@@ -1,0 +1,138 @@
+-- taro_journal.db schema: tables, indexes and journal search (02 §6.1, RC91).
+--
+-- Search engine: FTS5, verified on iOS, Android and CI by the Phase 2.2
+-- spike (docs/ARCHITECTURE.md "Spike RC91"). The trigram tokenizer gives
+-- case- and diacritic-insensitive substring search in every locale,
+-- including ja/ko, which have no word separators. Queries shorter than
+-- three characters use LIKE over the same table (ReadingsDao.search).
+--
+-- LIKE fallback (RC91), should a platform ever ship SQLite without FTS5:
+-- replace journal_fts with a plain table `journal_search(fts_rowid PK,
+-- search_text TEXT)` holding lower(question || ' ' || note), indexed on
+-- search_text, keep the same triggers, and make ReadingsDao.search use
+-- `search_text LIKE '%' || lower(?) || '%'` for every token. That is a
+-- schema version bump with a migration step.
+import '../instant_converter.dart';
+
+-- Tables are SQL (not Dart DSL classes) so every line of Dart in data/db
+-- is executable and covered. Instants are INTEGER UTC microseconds
+-- (InstantConverter); booleans are INTEGER 0/1.
+
+-- One row per reading (01 §10.4); written before the network call (PR6).
+-- failure_json holds the ReadingStatus.failed payload {code, refunded}
+-- (device-local, never exported).
+CREATE TABLE readings (
+  id TEXT NOT NULL PRIMARY KEY,
+  spread_id TEXT NOT NULL,
+  spread_version INTEGER NOT NULL,
+  local_date TEXT NOT NULL,
+  question TEXT,
+  status TEXT NOT NULL
+    CHECK (status IN ('pending', 'complete', 'failed', 'refused', 'classic')),
+  content_json TEXT,
+  safety_json TEXT,
+  failure_json TEXT,
+  content_locale TEXT NOT NULL,
+  prompt_version TEXT,
+  model_id TEXT,
+  charge_source TEXT,
+  note TEXT,
+  favourite BOOLEAN NOT NULL DEFAULT FALSE,
+  rating TEXT CHECK (rating IN ('up', 'down')),
+  rating_reason TEXT,
+  delivery_acked BOOLEAN NOT NULL DEFAULT FALSE,
+  reported BOOLEAN NOT NULL DEFAULT FALSE,
+  drawn_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  created_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  updated_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS ReadingRow;
+
+-- One row per drawn card, deleted with its reading.
+CREATE TABLE reading_cards (
+  reading_id TEXT NOT NULL REFERENCES readings (id) ON DELETE CASCADE,
+  position_id TEXT NOT NULL,
+  position_order INTEGER NOT NULL,
+  card_id TEXT NOT NULL,
+  reversed BOOLEAN NOT NULL,
+  PRIMARY KEY (reading_id, position_id)
+) AS ReadingCardRow;
+
+-- The card of the day, one per local date (01 §7.6).
+CREATE TABLE daily_cards (
+  local_date TEXT NOT NULL PRIMARY KEY,
+  card_id TEXT NOT NULL,
+  reversed BOOLEAN NOT NULL,
+  drawn_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  note TEXT,
+  favourite BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`,
+  updated_at INTEGER NOT NULL MAPPED BY `const InstantConverter()`
+) AS DailyCardRow;
+
+-- UserSettings as key/JSON pairs (exported in backups).
+CREATE TABLE settings (
+  "key" TEXT NOT NULL PRIMARY KEY,
+  value_json TEXT NOT NULL
+) AS SettingRow;
+
+CREATE INDEX readings_created_at ON readings (created_at DESC);
+CREATE INDEX readings_favourite_created_at ON readings (favourite, created_at);
+CREATE INDEX reading_cards_card_id ON reading_cards (card_id);
+
+-- One row per searchable journal item (not named journal_fts_*: that prefix
+-- is reserved for FTS5 shadow tables, which drift's schema tools skip): `kind` is `reading` (ref =
+-- readings.id) or `daily` (ref = daily_cards.local_date). Its integer key is
+-- the journal_fts rowid, so trigger updates and deletes are index lookups
+-- (FTS5 cannot index UNINDEXED columns).
+CREATE TABLE journal_search_refs (
+  fts_rowid INTEGER NOT NULL PRIMARY KEY,
+  kind TEXT NOT NULL CHECK (kind IN ('reading', 'daily')),
+  ref TEXT NOT NULL,
+  UNIQUE (kind, ref)
+);
+
+CREATE VIRTUAL TABLE journal_fts USING fts5(
+  question,
+  note,
+  tokenize = 'trigram case_sensitive 0 remove_diacritics 1'
+);
+
+CREATE TRIGGER readings_fts_insert AFTER INSERT ON readings BEGIN
+  INSERT INTO journal_search_refs (kind, ref) VALUES ('reading', new.id);
+  INSERT INTO journal_fts (rowid, question, note) VALUES (
+    (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = new.id),
+    new.question,
+    new.note
+  );
+END;
+
+CREATE TRIGGER readings_fts_update AFTER UPDATE OF question, note ON readings BEGIN
+  UPDATE journal_fts SET question = new.question, note = new.note
+    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);
+END;
+
+CREATE TRIGGER readings_fts_delete AFTER DELETE ON readings BEGIN
+  DELETE FROM journal_fts
+    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id);
+  DELETE FROM journal_search_refs WHERE kind = 'reading' AND ref = old.id;
+END;
+
+CREATE TRIGGER daily_cards_fts_insert AFTER INSERT ON daily_cards BEGIN
+  INSERT INTO journal_search_refs (kind, ref) VALUES ('daily', new.local_date);
+  INSERT INTO journal_fts (rowid, question, note) VALUES (
+    (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = new.local_date),
+    NULL,
+    new.note
+  );
+END;
+
+CREATE TRIGGER daily_cards_fts_update AFTER UPDATE OF note ON daily_cards BEGIN
+  UPDATE journal_fts SET note = new.note
+    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);
+END;
+
+CREATE TRIGGER daily_cards_fts_delete AFTER DELETE ON daily_cards BEGIN
+  DELETE FROM journal_fts
+    WHERE rowid = (SELECT fts_rowid FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date);
+  DELETE FROM journal_search_refs WHERE kind = 'daily' AND ref = old.local_date;
+END;

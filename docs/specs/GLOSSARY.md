@@ -180,6 +180,7 @@ Owner: 03 §2.1.
 | `X-Taro-Attestation` | `aa1.<assertion>` (iOS), `pi1.<standard integrity token>` (Android), `none` (low trust) | [attest] routes |
 | `X-Taro-AI-Consent` | granted consent version (int) | E09, E10 (RC28) |
 | `X-Request-Id` | UUID per attempt | optional; echoed on every response |
+| `X-Taro-Flavor` | `dev` \| `staging` | dev/staging app builds only, never prod (Phase 11 `HeadersInterceptor`); informational, the Worker ignores it |
 | `X-Taro-Debug-Attestation` | `DEBUG_ATTESTATION_TOKEN` | dev/staging `DebugAttestationService` only (E04 and [attest] routes); ignored unless the deploy env sets `ALLOW_DEBUG_ATTESTATION` (RC86) |
 | `Idempotent-Replayed` | `true` | response header on a replay |
 
@@ -348,26 +349,27 @@ Cron triggers (03 §12): `*/15 * * * *` (`BudgetService.check`, `releaseExpiredH
 
 ## 7. drift tables (client)
 
-Owner: 02 §6.1 as edited by RC14, RC17, RC51, RC75, RC91. Two files, each `schemaVersion` 1, opened with `driftDatabase(name: 'taro_journal' | 'taro_device')`. Schema dumps: `db/schema/{journal,device}/drift_schema_v{n}.json`.
+Owner: 02 §6.1 as edited by RC14, RC17, RC51, RC75, RC91. Two files, each `schemaVersion` 1, opened with `driftDatabase(name: 'taro_journal' | 'taro_device')` at `<documents>/<name>.db`. Schemas are SQL in `apps/taro/lib/data/db/{journal/journal.drift,device/device.drift}`; DAOs `ReadingsDao`, `DailyCardsDao`, `SettingsDao`, `CacheDao`, `EntitlementsDao`, `OutboxDao`, `PendingAcksDao`. Schema dumps: `apps/taro/db/schema/{journal,device}/drift_schema_v{n}.json`.
 
 | DB file | Database class | Table | Key | Notes |
 |---|---|---|---|---|
-| `taro_journal.db` | `JournalDatabase` | `readings` | `id` (= `clientReadingId`) | `status` ∈ `pending \| complete \| failed \| refused \| classic`; `content_json`, `safety_json`, `charge_source`, `delivery_acked`, `reported` |
+| `taro_journal.db` | `JournalDatabase` | `readings` | `id` (= `clientReadingId`) | `status` ∈ `pending \| complete \| failed \| refused \| classic`; `content_json`, `safety_json`, `failure_json`, `charge_source`, `delivery_acked`, `reported` |
 | `taro_journal.db` | `JournalDatabase` | `reading_cards` | `(reading_id, position_id)` | FK `ON DELETE CASCADE` |
 | `taro_journal.db` | `JournalDatabase` | `daily_cards` | `local_date` | |
-| `taro_journal.db` | `JournalDatabase` | `settings` | `key` | `UserSettings` only (exported) |
-| `taro_journal.db` | `JournalDatabase` | `journal_fts` | — | FTS5, or indexed lowercase column + `LIKE` per the Phase 2.2 spike (RC91) |
+| `taro_journal.db` | `JournalDatabase` | `settings` | `key` | `UserSettings` only (exported); one row per field, JSON values: `theme`, `localeOverride`, `reversalsEnabled`, `hapticsEnabled`, `reminder` (`{enabled, time}`), plus the device-only `reduceMotion` (never exported) (`SettingsKeys`) |
+| `taro_journal.db` | `JournalDatabase` | `journal_fts` | — | FTS5 (Phase 2.2 spike, RC91), trigram tokenizer over `question`, `note`; the documented fallback is an indexed lowercase column + `LIKE` |
+| `taro_journal.db` | `JournalDatabase` | `journal_search_refs` | `fts_rowid` | maps a `journal_fts` row to `(kind, ref)`: `reading` + `readings.id` or `daily` + `daily_cards.local_date`; maintained by triggers |
 | `taro_device.db` | `DeviceDatabase` | `balance_cache` | single row | `BalanceDto` JSON, `ledger_version`, `server_time`, `synced_at` |
 | `taro_device.db` | `DeviceDatabase` | `remote_config_cache` | single row | `json`, `etag`, `fetched_at` |
 | `taro_device.db` | `DeviceDatabase` | `entitlements` | `key` (`remove_ads`) | kept by "Delete all data" |
 | `taro_device.db` | `DeviceDatabase` | `purchase_outbox` | `txn_key` | `status` ∈ `awaitingVerification \| granted \| finished \| rejected`; kept by "Delete all data" |
 | `taro_device.db` | `DeviceDatabase` | `consent_state` | single row | `ConsentState` JSON |
-| `taro_device.db` | `DeviceDatabase` | `sync_state` | `key` | e.g. queued `DELETE /v1/installs/me` |
+| `taro_device.db` | `DeviceDatabase` | `sync_state` | `key` | `pending_erasure` (the queued `DELETE /v1/installs/me` idempotency key, `DataDeletionGatewayImpl`, S26 `partial`); `install_registration` (JSON `{installId, registeredAt, trust, timezone}`, written by `InstallRepositoryImpl` after `POST /v1/installs`) |
 | `taro_device.db` | `DeviceDatabase` | `pending_acks` | `reading_id` | ack retry queue (RC51) |
 
 `taro_journal.db` may be included in OS backups; `taro_device.db` (plus `-wal`/`-shm`) is excluded on iOS (`NSURLIsExcludedFromBackupKey`) and Android (`data_extraction_rules.xml`, `full_backup_content.xml`) (RC75).
 
-Backup file: `taro-backup-YYYY-MM-DD.json`, `format: "taro.backup"`, `schemaVersion: 1`, JSON Schema `docs/specs/backup_schema_v1.json` (copy: `apps/taro/lib/data/backup/backup_schema_v1.json`), checksum SHA-256 over RFC 8785 JCS of `data` (RC70). Exported reading statuses: `complete`, `refused`, `classic`.
+Backup file: `taro-backup-YYYY-MM-DD.json`, `format: "taro.backup"`, `schemaVersion: 1`, JSON Schema `docs/specs/backup_schema_v1.json` (copy: `apps/taro/lib/data/backup/backup_schema_v1.json`), checksum SHA-256 over RFC 8785 JCS of `data` (RC70). Exported reading statuses: `complete`, `refused`, `classic`. App classes (`apps/taro/lib/data/`): `BackupCodec` (encode/decode in a background isolate; `EncodedBackup`), `BackupMigrator` with one `BackupMigration` per source version (`kBackupMigrations`, empty for v1), `JournalBackupStore` (snapshot, export, `replaceAll` and `importBackup` = read → `BackupMerge` → write in one drift transaction), `JournalRowMapper` (`data/db/journal/`, lossless row ↔ domain mapping; `failure_json` = `{code, refunded}`).
 
 ## 8. Remote-config keys
 
@@ -491,7 +493,8 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 | `ContentRepository` | `apps/taro/lib/data/content/` asset repositories (`AssetDeckRepository`, `AssetSpreadRepository`, `AssetCardTextRepository`) | `FakeContentRepository` |
 | `CrisisResourcesRepository` (RC25, RC81) | `AssetCrisisRepository` (`apps/taro/lib/data/content/`) | `FakeCrisisResourcesRepository` |
 | `RemoteConfigRepository` | `RemoteConfigRepositoryImpl` (E02 + drift cache) | `StaticRemoteConfigRepository` |
-| `SettingsRepository` (incl. `ConsentStore`) | `SettingsRepositoryImpl` (drift) | `FakeSettingsRepository` |
+| `SettingsRepository` | `SettingsRepositoryImpl` (drift `settings`, `taro_journal.db`) | `FakeSettingsRepository` |
+| `ConsentStore` | `ConsentStoreImpl` (drift `consent_state`, `taro_device.db`) | `FakeConsentStore` |
 | `IapService` | `StoreIapService` | `NoOpIapService` |
 | `PurchaseVerifier` | `PurchaseVerifierImpl` (Worker E14) | `FakePurchaseVerifier` |
 | `PurchaseOutbox` | `PurchaseOutboxImpl` (drift `purchase_outbox`) | `FakePurchaseOutbox` |
@@ -517,8 +520,9 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 | `ReviewPrompter` | `InAppReviewPrompter` | `NoOpReviewPrompter` |
 | `AppInfo` | `PackageInfoAppInfo` | `FakeAppInfo` |
 | `SecureStore` | `FlutterSecureStore` | `InMemorySecureStore` |
+| `BackupExclusion` (RC75) | `PlatformBackupExclusion` (iOS `NSURLIsExcludedFromBackupKey`, channel `taro/backup_exclusion`, `apps/taro/lib/services/backup/`) | `NoOpBackupExclusion` (Android: declarative XML rules; tests), `FakeBackupExclusion` |
 
-Not ports (pure logic or orchestration, same names everywhere): `ReadingGate` → `GateDecision`, `CardDrawer`, `ResetSchedule`, `BackupMerge`, `ProductOffer`, `BannerPolicy`, `PendingPurchaseTracker`, `IapCatalog`, `ConsentOrchestrator`, `SyncCoordinator`, `ResetTimer`, `ApiErrorMapper`, `WorkerClient`, `Redactor`, `ServerClockOffset`, `TaroEnvironment` / `ProductionEnvironment` (RC76). Controllers (Riverpod `Notifier`s, 02 §7): `QuestionController`, `DrawController`, `ReadingResultController`, `OutOfReadingsController`, `StoreController`, `RewardedController`, `ReportReadingController`, `DailyCardController`, `BackupController`. App-wide providers: `balanceProvider`, `entitlementProvider`, `consentProvider`, `remoteConfigProvider`, `connectivityProvider`, `settingsProvider`. Removed from v1: `DailyCardWidgetBridge` (Phase 23.1, RC89).
+Not ports (pure logic or orchestration, same names everywhere): `ReadingGate` → `GateDecision`, `CardDrawer`, `ResetSchedule`, `BackupMerge`, `ProductOffer`, `BannerPolicy`, `PendingPurchaseTracker`, `IapCatalog`, `ConsentOrchestrator`, `SyncCoordinator`, `ResetTimer`, `ApiErrorMapper`, `WorkerClient`, `Redactor`, `ServerClockOffset` (held by the app's `ServerClockTracker`, fed from every `Date` header and balance), `TaroEnvironment` / `ProductionEnvironment` (RC76). Controllers (Riverpod `Notifier`s, 02 §7): `QuestionController`, `DrawController`, `ReadingResultController`, `OutOfReadingsController`, `StoreController`, `RewardedController`, `ReportReadingController`, `DailyCardController`, `BackupController`. App-wide providers: `balanceProvider`, `entitlementProvider`, `consentProvider`, `remoteConfigProvider`, `connectivityProvider`, `settingsProvider`. Removed from v1: `DailyCardWidgetBridge` (Phase 23.1, RC89).
 
 `GateDecision` (02 §4.1, RC44, RC74): `deviceUnverified | needsAiConsent | offline | readingsPaused({freePaused}) | aiUnavailableRegion | spreadDisabled | needsCredits(PaywallOptions) | dailyLimitReached | needsSync | allowed(ChargeSource)`; check order registration/trust → AI consent → online → `readings.enabled` / region → spread enabled → balance.
 
@@ -848,6 +852,8 @@ Adapters and fakes: §9.1. Every port is an `abstract interface class` in the fi
 | `AppInfo` | port | `ports/app_info.dart` |
 | `AppPlatform` | enum `ios \| android` | `ports/app_info.dart` |
 | `AttestationService` | port | `ports/attestation_service.dart` |
+| `BackupExclusion` | port (excludes `taro_device.db` files from OS backup, RC75) | `ports/backup_exclusion.dart` |
+| `NoOpBackupExclusion` | `BackupExclusion` implementation (Android, tests) | `ports/backup_exclusion.dart` |
 | `AttestationType` | enum `app_attest \| play_integrity \| none` | `ports/attestation_service.dart` |
 | `AttestationBlob` | freezed | `ports/attestation_service.dart` |
 | `AssertionBlob` | freezed | `ports/attestation_service.dart` |

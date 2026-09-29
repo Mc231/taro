@@ -1,0 +1,23 @@
+# build_runner options for apps/taro (drift, json_serializable).
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Two databases (02 §6.1, RC75). `dart run drift_dev make-migrations`
+          # dumps each schema to db/schema/<name>/drift_schema_v<n>.json and
+          # writes the SchemaVerifier helpers under test/data/db/migrations/.
+          databases:
+            journal: lib/data/db/journal/journal_database.dart
+            device: lib/data/db/device/device_database.dart
+          schema_dir: db/schema/
+          test_dir: test/data/db/migrations/
+          store_date_time_values_as_text: false
+          sql:
+            dialect: sqlite
+            options:
+              # sqlite3 via build hooks is >= 3.50 (Phase 2 spike); trigram
+              # remove_diacritics needs >= 3.45.
+              version: "3.45"
+              modules:
+                - fts5

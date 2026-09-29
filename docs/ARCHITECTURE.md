@@ -77,7 +77,7 @@ The root cause of every deviation: Flutter 3.44.8 pins `meta 1.18.0`, `clock 1.1
 | very_good_analysis | ^11.0.0 | ^10.3.0 | 10.3.0 | 11.x needs Dart ^3.13 |
 | freezed | ^4.0.2 | ^3.2.5 | 3.2.5 | 4.x stable needs Dart 3.13; `test` (test_api 0.7.11) caps analyzer < 13, freezed 4 dev builds need analyzer 13 |
 | build_runner | ^2.16.1 | ^2.15.1 | 2.15.1 | 2.16 needs analyzer >= 13.3 (which needs meta ^1.18.3) |
-| drift / drift_dev | ^2.35.0 | ^2.34.0 | 2.34.4 / 2.34.0 | drift_dev >= 2.34.1 needs analyzer 13 |
+| drift / drift_dev | ^2.35.0 | 2.34.0 (pinned) / ^2.34.0 | 2.34.0 / 2.34.0 | drift_dev >= 2.34.1 needs analyzer 13; drift_dev 2.34.0's CLI (`make-migrations`, `schema`) and `SchemaVerifier` do not compile against drift 2.34.4, so drift is pinned to 2.34.0 (Phase 11.1) |
 | meta | ^1.19.0 | ^1.18.0 | 1.18.0 | SDK pin |
 | clock | ^1.1.3 | ^1.1.2 | 1.1.2 | SDK pin |
 | intl | ^0.20.2 | ^0.20.2 | 0.20.2 | SDK pin |
@@ -85,6 +85,8 @@ The root cause of every deviation: Flutter 3.44.8 pins `meta 1.18.0`, `clock 1.1
 | cli_util (transitive) | – | root `dependency_overrides: ^0.5.0` | 0.5.2 | drift_dev 2.34.0 declares ^0.4, melos 8 needs >= 0.5; drift_dev only uses `Ansi`/`Logger` (unchanged; 2.34.1 widened to <0.6). Remove with the upgrade below. |
 
 All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, mocktail 1.0.5, patrol 4.10.0, melos 8.9.0. `pubspec.lock` at the root is the single workspace lock (commit it).
+
+`apps/taro` (Phase 11.1) also depends directly on `path_provider` ^2.1.6 (resolved 2.1.6, BSD-3-Clause, already in the lock through drift_flutter) for the database directory in `lib/data/db/database_location.dart`, the only file allowed to import it (`tools/import_rules.yaml`).
 
 `tools/dart_tools` (Phase 5, `tools/content`) depends on `args` ^2.7.0, `crypto` ^3.0.7, `http` ^1.6.0 and `yaml` ^3.1.4 (resolved 2.7.0, 3.0.7, 1.6.0, 3.1.4; `yaml` MIT, the others BSD-3-Clause; all already in the lock as transitive dependencies). `http` is the Claude Messages API call of `tools/content translate`, behind the `ClaudeClient` interface (tests use a fake; the key comes from `ANTHROPIC_API_KEY`). Repo tooling only, never bundled. Sprint 5.4 adds `image` ^4.10.1 (resolved 4.10.1, MIT, already in the lock as a transitive dependency) for `tools/content/placeholder_art`: its pure-Dart `WebPEncoder` writes the placeholder cards as lossless WebP, so no native `cwebp` is needed.
 
@@ -100,7 +102,7 @@ All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3,
 - Android: AGP 9 disables `resValue` by default, so the launcher label comes from the `appName` manifest placeholder. Core library desugaring (`desugar_jdk_libs 2.1.5`) is enabled for flutter_local_notifications. `minSdk 24`, `targetSdk 36`.
 - Android: build warns that firebase_analytics, firebase_core, firebase_crashlytics, flutter_timezone, in_app_review and patrol apply the Kotlin Gradle Plugin ("future Flutter versions will fail"). Watch plugin updates.
 - Android orientation: `screenOrientation="portrait"`; Android 16 (targetSdk 36) ignores it on sw >= 600dp, so tablets rotate (01 PR16).
-- Android backup: `data_extraction_rules.xml` (cloud-backup + device-transfer) and `full_backup_content.xml` exclude flutter_secure_storage's prefs (`FlutterSecureStorage.xml`, `FlutterSecureKeyStorage.xml`, `FlutterSecureStorageConfiguration*.xml`, default names; update if Phase 11 sets `sharedPreferencesName`/`storageNamespace`) and `taro_device.{db,sqlite}` + `-wal/-shm/-journal` in `app_flutter/` and the `database` domain. drift_flutter's `driftDatabase(name:)` creates `<name>.sqlite`; Phase 11 must pass `databasePath` to get `taro_device.db` (or keep the `.sqlite` name; both are excluded).
+- Android backup: `data_extraction_rules.xml` (cloud-backup + device-transfer) and `full_backup_content.xml` exclude flutter_secure_storage's prefs (`FlutterSecureStorage.xml`, `FlutterSecureKeyStorage.xml`, `FlutterSecureStorageConfiguration*.xml`, default names; Phase 11.2 `FlutterSecureStore` keeps them and sets only `resetOnError: false`) and `app_flutter/taro_device.db` + `-wal/-shm/-journal` (Phase 11.1: `DatabaseLocation` passes drift_flutter an explicit `databasePath`, so the `.sqlite` names and the `database` domain were dropped; `test/data/db/backup_rules_test.dart` pins the lists). iOS excludes the same files at every open through the `BackupExclusion` port (`PlatformBackupExclusion` → `BackupExclusionPlugin` in `ios/Runner/AppDelegate.swift`).
 - Cleartext: `network_security_config.xml` denies cleartext; the `dev` source set overrides it for localhost/127.0.0.1/10.0.2.2, and `usesCleartextTraffic` is a placeholder (`true` only for dev).
 - Flavor config: `--dart-define-from-file` needs flat primitive values, so `config/*.json` uses dotted keys (`admob.ios.banner`, ...). A build without the file still starts (empty values); a file for another flavor throws at bootstrap.
 - `prodStaging` (RC78) build configuration / build type is not created yet.
@@ -560,6 +562,60 @@ Every port is an `abstract interface class` (02 §5, AR18, rule 2). Fakes live i
 | `SecureStore` | keychain / keystore | `FlutterSecureStore` (11) | — | `InMemorySecureStore` |
 
 Port value types: `IapEvent`, `PurchaseOutcome`, `StoreBuyResult`, `StorePurchase`, `StoreProduct`, `GrantResult`, `RewardedShowResult`, `SyncReason`, `SyncStatus`. `BannerSlotView` is a presentation port with its adapters in `apps/taro/lib/services/presentation/` (Phase 12), so it is not in core. There is no `DailyCardWidgetBridge` in v1 (RC89).
+
+## Data layer (`apps/taro/lib/data/`, Phase 11)
+
+`data/` imports only `taro_core` and its storage/HTTP dependencies (drift, dio, flutter_secure_storage, crypto, path_provider in `db/database_location.dart` only). It never imports `services/`, `features/`, `taro_ui` or Riverpod (`check_architecture.dart`, `tools/import_rules.yaml`). Every port adapter here runs its `run<Port>Contract` suite from `packages/taro_core/test/contracts/` in `apps/taro/test/data/`. The client is **LLM-provider agnostic**: `promptVersion` and `modelId` are opaque strings stored and shown as-is, no class or field names a provider, and a backup carries only `promptVersion` (RC97).
+
+| Folder | Contents |
+|---|---|
+| `db/` | `JournalDatabase` (`taro_journal.db`, backed up) and `DeviceDatabase` (`taro_device.db`, excluded from backup through the `BackupExclusion` port, RC75); SQL schemas in `.drift` files; DAOs (`ReadingsDao`, `DailyCardsDao`, `SettingsDao`, `CacheDao`, `EntitlementsDao`, `OutboxDao`, `PendingAcksDao`); `JournalRowMapper` (lossless row ↔ domain); `DatabaseLocation` (WAL, `shareAcrossIsolates`) |
+| `secure/` | `SecureKeys`, `FlutterSecureStore` (`first_unlock_this_device`, Android `resetOnError: false`), `SecureSessionTokenStore` |
+| `install/` | `InstallRepositoryImpl` (ID + secret first, registration, re-registration, timezone), `InstallSecret`, proof of work |
+| `api/` | `WorkerClient`, `Endpoints` (RC4, E02–E17), `ApiTimeouts`, `ApiErrorMapper`, `ServerClockTracker` (holds the core `ServerClockOffset`), the six interceptors, `json_serializable` DTOs in `api/dto/` (`*.g.dart` committed, excluded from coverage) |
+| `repositories/` | `BalanceRepositoryImpl`, `RemoteConfigRepositoryImpl`, `SettingsRepositoryImpl`, `ConsentStoreImpl`, `DailyCardRepositoryImpl`, `EntitlementCacheImpl`, `PurchaseOutboxImpl`, `ReadingRepositoryImpl`, `JournalRepositoryImpl`, `PurchaseVerifierImpl`, `RewardGatewayImpl`, `ReportGatewayImpl`, `DataDeletionGatewayImpl`; `SerialValue` (serialised writes + reload on table change) |
+| `backup/` | `BackupCodec` (encode/decode in `Isolate.run`), `BackupMigrator`, `JournalBackupStore` (import in one transaction), `backup_schema_v1.json` |
+| `content/` | bundled deck, spreads and crisis repositories (Phase 5) |
+
+**Interceptor chain** (`WorkerClient`, 02 §6.3). Requests go down the list, responses and errors come back up. The client encodes each body once; the same bytes are hashed for attestation and sent.
+
+```
+request ──▶ HeadersInterceptor    X-Taro-Platform/-App-Version/-Locale, -Flavor (dev/staging), X-Request-Id per attempt,
+                                   Idempotency-Key per user action (= clientReadingId for holds/readings, RC42;
+                                   fresh per registration attempt, RC55); feeds every Date header to ServerClockTracker
+        ──▶ AuthInterceptor       Bearer token from SessionTokenStore; 401 TOKEN_EXPIRED → single-flight
+                                   POST /v1/installs/token + one retry; UNAUTHENTICATED → SessionExpiredFailure
+                                   + onSessionExpired (re-register)
+        ──▶ AttestationInterceptor X-Taro-Attestation aa1./pi1./none on the RC11/RC50 routes over
+                                   SHA256(method ‖ path ‖ SHA256(body) ‖ Idempotency-Key); fresh per attempt
+        ──▶ AiConsentInterceptor  X-Taro-AI-Consent on POST /v1/readings/holds and POST /v1/readings (RC28)
+        ──▶ RetryInterceptor      ≤ 3 attempts, 0.5 s × 2ⁿ ±30 % jitter capped at 8 s; GET or Idempotency-Key only;
+                                   connection errors, 408, 429 (Retry-After ≤ 30 s), 502/503/504; a reading
+                                   receive timeout is never retried (→ TimeoutFailure → GET polling 1/2/4/8 s in 30 s)
+        ──▶ ErrorInterceptor      ApiErrorMapper: UPPER_SNAKE code → Failure (RC5); unknown → ServerFailure(code);
+                                   426 → UpgradeRequiredFailure
+        ──▶ dio adapter ──▶ Worker
+```
+
+`WorkerClient` never throws: every call returns `Result`. Tests replace the adapter with `ScriptedHttpAdapter` and the retry sleep with `FakeClock`.
+
+**Balance (RC67).** Every Worker response that carries a balance (sync, hold, reading, refund, purchase, reward) goes through `BalanceRepositoryImpl.apply`, which replaces the cache only when `incoming.shouldReplace(cached)`, inside one `CacheDao.replaceBalanceIf` transaction. Concurrent `sync()` calls share one request.
+
+**Purchase outbox (MO8, AR10, rule 8).** `PurchaseOutboxImpl` over `purchase_outbox` in `taro_device.db`:
+
+```
+store delivery ─▶ enqueue (awaitingVerification) ─▶ PurchaseVerifier (POST /v1/purchases/verify)
+                     │ recordAttempt on failure          │ ok / already_granted
+                     ▼                                   ▼
+                 pending() on launch/resume ──▶      markGranted ─▶ IapService.finish ─▶ markFinished
+                                                     rejected ─▶ markRejected       (pruned 30 days after finish)
+```
+
+The row is written **before** verification, so a crash between the store callback and the Worker grant is replayed from `pending()`. `verification_data` holds the iOS JWS or the Play token and is never logged. The outbox and `entitlements` survive "Delete all data" (RC37).
+
+**Readings.** `ReadingRepositoryImpl.submit` stores the draw as `pending` before `POST /v1/readings` (PR6); a delivered reading is stored, then queued in `pending_acks` before the ack (RC51). `409 HOLD_CONFLICT` and `402` keep the draw face-down for a resubmit with the same `clientReadingId` (RC48, RC49); `410` and `503 AI_UNAVAILABLE` store a refunded failure.
+
+**Open wiring (Phase 13 DI):** the providers, `open()`/`close()` of the stateful repositories, `WorkerClient.onSessionExpired` → `InstallRepositoryImpl.reRegister`, and `PlatformBackupExclusion` (iOS) / `NoOpBackupExclusion` (Android).
 
 ## Content pipeline (Phase 5)
 

@@ -1,0 +1,144 @@
+{
+  "format": "taro.backup",
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-26T08:15:00Z",
+  "appVersion": "1.0.0+1",
+  "data": {
+    "settings": {
+      "theme": "dark",
+      "reversalsEnabled": true,
+      "hapticsEnabled": false,
+      "reminder": {
+        "enabled": true,
+        "time": "21:30"
+      },
+      "localeOverride": "uk"
+    },
+    "readings": [
+      {
+        "id": "0c6e2b1e-1111-4222-8333-444455556666",
+        "createdAt": "2026-09-25T08:00:00Z",
+        "updatedAt": "2026-09-25T09:30:00.250Z",
+        "localDate": "2026-09-25",
+        "spreadId": "three_ppf",
+        "question": "Як мені підійти до змін на роботі? 🔮 «цитата» \"quoted\" back\\slash",
+        "cards": [
+          {
+            "positionId": "past",
+            "cardId": "major_16",
+            "reversed": false
+          },
+          {
+            "positionId": "present",
+            "cardId": "cups_03",
+            "reversed": true
+          },
+          {
+            "positionId": "future",
+            "cardId": "pentacles_14",
+            "reversed": false
+          }
+        ],
+        "status": "complete",
+        "content": {
+          "title": "A turning point",
+          "summary": "Line one\nLine two\ttabbed",
+          "positions": [
+            {
+              "positionId": "past",
+              "text": "Past \u0001 control"
+            },
+            {
+              "positionId": "present",
+              "text": "今の状況"
+            },
+            {
+              "positionId": "future",
+              "text": "مستقبل"
+            }
+          ],
+          "synthesis": "Synthesis with € and 👨‍👩‍👧 and   separator",
+          "reflectionPrompts": [
+            "What changes?",
+            "What stays?"
+          ]
+        },
+        "contentLocale": "uk",
+        "promptVersion": "v1",
+        "note": "Note\r\nwith CRLF",
+        "favourite": true,
+        "rating": "down",
+        "ratingReason": "too_generic"
+      },
+      {
+        "id": "9f1d7c3a-2222-4333-8444-555566667777",
+        "createdAt": "2026-09-20T18:45:10Z",
+        "updatedAt": "2026-09-20T18:45:10Z",
+        "localDate": "2026-09-20",
+        "spreadId": "single",
+        "question": null,
+        "cards": [
+          {
+            "positionId": "focus",
+            "cardId": "wands_01",
+            "reversed": true
+          }
+        ],
+        "status": "classic",
+        "content": null,
+        "contentLocale": "en",
+        "promptVersion": null,
+        "note": null,
+        "favourite": false,
+        "rating": null,
+        "ratingReason": null
+      },
+      {
+        "id": "5b2a8e4f-3333-4444-8555-666677778888",
+        "createdAt": "2026-09-21T10:00:00Z",
+        "updatedAt": "2026-09-21T10:00:00Z",
+        "localDate": "2026-09-21",
+        "spreadId": "two_paths",
+        "question": "Should I bet my savings?",
+        "cards": [
+          {
+            "positionId": "path_a",
+            "cardId": "swords_11",
+            "reversed": false
+          }
+        ],
+        "status": "refused",
+        "content": null,
+        "contentLocale": "en",
+        "promptVersion": "v1",
+        "note": "",
+        "favourite": false,
+        "rating": null,
+        "ratingReason": null
+      }
+    ],
+    "dailyCards": [
+      {
+        "localDate": "2026-09-25",
+        "cardId": "major_17",
+        "reversed": false,
+        "drawnAt": "2026-09-25T07:00:00Z",
+        "createdAt": "2026-09-25T07:00:00Z",
+        "updatedAt": "2026-09-25T07:05:00Z",
+        "note": "Hope ✨",
+        "favourite": true
+      },
+      {
+        "localDate": "2026-09-24",
+        "cardId": "cups_14",
+        "reversed": true,
+        "drawnAt": "2026-09-24T06:59:59Z",
+        "createdAt": "2026-09-24T06:59:59Z",
+        "updatedAt": "2026-09-24T06:59:59Z",
+        "note": null,
+        "favourite": false
+      }
+    ]
+  },
+  "checksum": "a83d19893d77cfdfb279fd3d3999a52b03b1115d50dcd35e400ee96d91752389"
+}

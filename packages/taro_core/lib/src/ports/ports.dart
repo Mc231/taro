@@ -7,6 +7,7 @@ export 'ads_service.dart';
 export 'analytics_service.dart';
 export 'app_info.dart';
 export 'attestation_service.dart';
+export 'backup_exclusion.dart';
 export 'balance_repository.dart';
 export 'clock.dart';
 export 'connectivity_monitor.dart';
