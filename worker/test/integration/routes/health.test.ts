@@ -1,15 +1,18 @@
 import { exports } from 'cloudflare:workers';
 import { describe, expect, it } from 'vitest';
 import { buildApp } from '../../../src/app';
-import type { Deps } from '../../../src/deps';
 import { HealthResponseSchema } from '../../../src/routes/health';
 import { WORKER_VERSION } from '../../../src/version';
+import { createHarness } from '../../fakes/testDeps';
 
-const fakeDeps: Deps = { environment: 'staging', workerVersion: '9.9.9' };
+function fakeDeps() {
+  const h = createHarness();
+  return { ...h.deps, environment: 'staging' as const, workerVersion: '9.9.9' };
+}
 
 describe('GET /v1/health', () => {
   it('returns status, workerVersion and environment from deps', async () => {
-    const res = await buildApp(fakeDeps).request('/v1/health');
+    const res = await buildApp(fakeDeps()).request('/v1/health');
 
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toContain('application/json');
@@ -25,6 +28,7 @@ describe('GET /v1/health', () => {
     const res = await exports.default.fetch('http://localhost/v1/health');
 
     expect(res.status).toBe(200);
+    expect(res.headers.get('X-Request-Id')).toMatch(/^[0-9a-f-]{36}$/);
     expect(await res.json()).toEqual({
       status: 'ok',
       workerVersion: WORKER_VERSION,
@@ -32,9 +36,10 @@ describe('GET /v1/health', () => {
     });
   });
 
-  it('does not serve unknown routes', async () => {
-    const res = await buildApp(fakeDeps).request('/v1/nope');
+  it('answers unknown routes with the 404 envelope', async () => {
+    const res = await buildApp(fakeDeps()).request('/v1/nope');
 
     expect(res.status).toBe(404);
+    expect((await res.json<{ error: { code: string } }>()).error.code).toBe('NOT_FOUND');
   });
 });

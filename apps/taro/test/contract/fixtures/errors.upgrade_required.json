@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "UPGRADE_REQUIRED",
+    "message": "App version is too old.",
+    "requestId": "req-upgrade",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

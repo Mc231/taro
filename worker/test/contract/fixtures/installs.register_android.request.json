@@ -1,0 +1,14 @@
+{
+  "installId": "c0a80101-0000-4000-8000-000000000002",
+  "installSecret": "BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc",
+  "platform": "android",
+  "appVersion": "1.2.0+14",
+  "locale": "de",
+  "timezone": "Europe/Berlin",
+  "deviceKey": "CQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk",
+  "attestation": {
+    "type": "play_integrity",
+    "challenge": "QgKCBhojWbYqO8o9CSQ-_gAAAABqt5jMrplLLebiirGfd7bLVxmUgA",
+    "integrityToken": "integrity.token"
+  }
+}

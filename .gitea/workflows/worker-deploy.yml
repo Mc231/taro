@@ -1,0 +1,359 @@
+name: Worker deploy
+
+# 03 BE18, §14.2; 06 §8; Phase 6 Sprint 6.5. Deploys the `taro-api` Worker
+# with wrangler Workers versions:
+#
+#   push to main (worker/** changed)       → staging: tests → check_migrations
+#     → D1 migrations --remote → versions upload → versions deploy @100%
+#     → tools/worker_smoke.sh staging (health, config, debug-attested
+#       registration + balance).
+#   push of tag worker-vX.Y.Z               → production canary: the same
+#     gates + check_worker_env.py (no debug/test vars in [env.prod], RC86)
+#     → versions deploy <new>@10% <current>@90% → smoke (health, config).
+#   workflow_dispatch env=production on the worker-v* tag, approve=true,
+#     promote_version_id=<id from the canary summary>
+#                                           → versions deploy <id>@100% → smoke.
+#     Promote only after 30 min without alerts (03 §14.2). Prod never deploys
+#     from a branch: production dispatches on a non-tag ref fail.
+#   workflow_dispatch env=staging           → staging, as for a push.
+#
+# Until Sprint 6.0 has created the Cloudflare resources, the repository
+# secrets CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID are absent (or
+# wrangler.toml still holds placeholder IDs): the `plan` job then emits a
+# warning and every other job is skipped, so the workflow stays green.
+#
+# Rollback: docs/runbooks/WORKER_ROLLBACK.md. Secrets: docs/runbooks/SECRET_ROTATION.md.
+# Runner: self-hosted Gitea act_runner, label `macos` (host mode, capacity 1).
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'worker-v*'
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+        default: staging
+      approve:
+        description: 'production only: I approve promoting the canary to 100% (manual approval, 03 §14.2)'
+        required: false
+        type: boolean
+        default: false
+      promote_version_id:
+        description: 'production only: Worker version ID of the 10% canary to promote to 100%'
+        required: false
+        type: string
+        default: ''
+
+# Deploys never cancel an in-flight run (06 §8 Rules); runs per target queue.
+concurrency:
+  group: worker-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Plan (target, credentials, placeholders)
+    runs-on: macos
+    timeout-minutes: 10
+    outputs:
+      enabled: ${{ steps.plan.outputs.enabled }}
+      target: ${{ steps.plan.outputs.target }}
+      wrangler_env: ${{ steps.plan.outputs.wrangler_env }}
+      mode: ${{ steps.plan.outputs.mode }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decide target and check credentials
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+          BEFORE: ${{ github.event.before }}
+          INPUT_ENV: ${{ inputs.env }}
+          INPUT_APPROVE: ${{ inputs.approve }}
+          INPUT_PROMOTE: ${{ inputs.promote_version_id }}
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          skip() {
+            echo "::warning::Worker deploy skipped: $1"
+            {
+              echo "### Worker deploy skipped"
+              echo ""
+              echo "$1"
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          }
+          is_worker_tag=false
+          if [ "$REF_TYPE" = "tag" ] && [[ "$REF_NAME" == worker-v* ]]; then
+            is_worker_tag=true
+          fi
+
+          mode=deploy
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            target="$INPUT_ENV"
+            if [ "$target" = "production" ]; then
+              if [ "$is_worker_tag" != "true" ]; then
+                echo "::error::Production deploys run only on a worker-v* tag (BE18); dispatched on $REF_TYPE $REF_NAME"
+                exit 1
+              fi
+              if [ -n "$INPUT_PROMOTE" ]; then
+                if [ "$INPUT_APPROVE" != "true" ]; then
+                  echo "::error::Promoting to 100% needs the approve input (manual approval, 03 §14.2)"
+                  exit 1
+                fi
+                if ! [[ "$INPUT_PROMOTE" =~ ^[0-9a-f-]{36}$ ]]; then
+                  echo "::error::promote_version_id is not a Worker version ID"
+                  exit 1
+                fi
+                mode=promote
+              fi
+            fi
+          elif [ "$is_worker_tag" = "true" ]; then
+            target=production
+          else
+            target=staging
+            zero=0000000000000000000000000000000000000000
+            if [ -n "$BEFORE" ] && [ "$BEFORE" != "$zero" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+              if git diff --quiet "$BEFORE" HEAD -- worker .gitea/workflows/worker-deploy.yml; then
+                echo "No worker/ changes in $BEFORE..HEAD."
+                echo "enabled=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+            fi
+          fi
+
+          case "$target" in
+            staging) wrangler_env=staging ;;
+            production) wrangler_env=prod ;;
+            *) echo "::error::Unknown target $target"; exit 1 ;;
+          esac
+          {
+            echo "target=$target"
+            echo "wrangler_env=$wrangler_env"
+            echo "mode=$mode"
+          } >> "$GITHUB_OUTPUT"
+
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ACCOUNT" ]; then
+            skip "CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID are not set (Phase 6 Sprint 6.0). Nothing was deployed to $target."
+          fi
+          if awk -v env="$wrangler_env" '
+                /^\[/ { in_env = index($0, "[[env." env ".d1_databases]]") == 1 }
+                in_env && /^database_id/ && /"00000000-0000-0000-0000-000000000000"/ { found = 1 }
+                END { exit found ? 0 : 1 }
+              ' worker/wrangler.toml; then
+            skip "worker/wrangler.toml [env.$wrangler_env] still has placeholder binding IDs (Phase 6 Sprint 6.0). Nothing was deployed to $target."
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+          echo "Target: $target (wrangler --env $wrangler_env), mode: $mode"
+
+  test:
+    name: Worker tests
+    needs: plan
+    if: ${{ needs.plan.outputs.enabled == 'true' && needs.plan.outputs.mode == 'deploy' }}
+    uses: ./.gitea/workflows/reusable-worker-test.yml
+
+  deploy:
+    name: Deploy ${{ needs.plan.outputs.target }}
+    needs: [plan, test]
+    if: ${{ needs.plan.outputs.enabled == 'true' && needs.plan.outputs.mode == 'deploy' }}
+    runs-on: macos
+    timeout-minutes: 30
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      WRANGLER_ENV: ${{ needs.plan.outputs.wrangler_env }}
+      TARGET: ${{ needs.plan.outputs.target }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (worker/.nvmrc, QA14)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci
+        working-directory: worker
+        run: npm ci
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: check_migrations
+        run: tools/.venv/bin/python tools/check_migrations.py
+
+      - name: check_worker_env (no test-only vars in [env.prod], RC86)
+        run: tools/.venv/bin/python tools/check_worker_env.py
+
+      - name: Tag matches worker/package.json version
+        if: ${{ needs.plan.outputs.target == 'production' }}
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          version=$(node -p "require('./worker/package.json').version")
+          if [ "$REF_NAME" != "worker-v$version" ]; then
+            echo "::error::Tag $REF_NAME does not match worker/package.json version $version (06 §10.1)"
+            exit 1
+          fi
+
+      - name: OpenAPI document is current
+        working-directory: worker
+        run: npm run openapi:check
+
+      - name: D1 migrations (remote, backward compatible by rule)
+        working-directory: worker
+        run: npx wrangler d1 migrations apply DB --env "$WRANGLER_ENV" --remote
+
+      - name: Upload the Worker version
+        id: upload
+        working-directory: worker
+        env:
+          SHA: ${{ github.sha }}
+        run: |
+          out="$RUNNER_TEMP/versions-upload.txt"
+          npx wrangler versions upload --env "$WRANGLER_ENV" --message "ci ${SHA:0:12}" | tee "$out"
+          version_id=$(grep -Eio 'Version ID: *[0-9a-f-]{36}' "$out" | grep -Eio '[0-9a-f-]{36}' | head -n 1)
+          if [ -z "$version_id" ]; then
+            echo "::error::Could not read the Worker version ID from wrangler versions upload"
+            exit 1
+          fi
+          echo "version_id=$version_id" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy the version (staging 100%, production 10% canary)
+        working-directory: worker
+        env:
+          VERSION_ID: ${{ steps.upload.outputs.version_id }}
+        run: |
+          if [ "$TARGET" = "staging" ]; then
+            npx wrangler versions deploy "$VERSION_ID@100%" --env "$WRANGLER_ENV" --yes
+            exit 0
+          fi
+          current=$(npx wrangler deployments status --env "$WRANGLER_ENV" --json \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const v=(JSON.parse(s).versions||[]).sort((a,b)=>b.percentage-a.percentage)[0];process.stdout.write(v?v.version_id:"")})')
+          if [ -z "$current" ] || [ "$current" = "$VERSION_ID" ]; then
+            echo "::warning::No previous production version; deploying $VERSION_ID at 100%"
+            npx wrangler versions deploy "$VERSION_ID@100%" --env "$WRANGLER_ENV" --yes
+          else
+            npx wrangler versions deploy "$VERSION_ID@10%" "$current@90%" --env "$WRANGLER_ENV" --yes
+          fi
+
+      - name: Smoke test
+        env:
+          SECRETS_PASSPHRASE: ${{ secrets.SECRETS_PASSPHRASE }}
+        run: |
+          if [ "$TARGET" = "staging" ]; then
+            token=""
+            if [ -n "${SECRETS_PASSPHRASE:-}" ]; then
+              token=$(tools/secrets-manager.sh get worker staging_debug_attestation_token 2>/dev/null || true)
+            fi
+            if [ -n "$token" ]; then
+              echo "::add-mask::$token"
+              export DEBUG_ATTESTATION_TOKEN="$token"
+            else
+              echo "::warning::worker.staging_debug_attestation_token is not in the secrets bundle; the registration smoke step is skipped"
+            fi
+          fi
+          tools/worker_smoke.sh "$WRANGLER_ENV"
+
+      - name: Record the deployed version
+        if: ${{ always() && steps.upload.outputs.version_id != '' }}
+        env:
+          VERSION_ID: ${{ steps.upload.outputs.version_id }}
+          SHA: ${{ github.sha }}
+        run: |
+          {
+            echo "### Worker deploy: $TARGET"
+            echo ""
+            echo "| env | version id | commit | rollout |"
+            echo "|---|---|---|---|"
+            if [ "$TARGET" = "production" ]; then
+              echo "| $WRANGLER_ENV | \`$VERSION_ID\` | \`${SHA:0:12}\` | 10% canary |"
+              echo ""
+              echo "Promote after 30 min without alerts: run this workflow on the same tag with"
+              echo "\`env: production\`, \`approve: true\`, \`promote_version_id: $VERSION_ID\`."
+            else
+              echo "| $WRANGLER_ENV | \`$VERSION_ID\` | \`${SHA:0:12}\` | 100% |"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  promote:
+    name: Promote production canary to 100%
+    needs: plan
+    if: ${{ needs.plan.outputs.enabled == 'true' && needs.plan.outputs.mode == 'promote' }}
+    runs-on: macos
+    timeout-minutes: 20
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      VERSION_ID: ${{ inputs.promote_version_id }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node (worker/.nvmrc, QA14)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci
+        working-directory: worker
+        run: npm ci
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: check_worker_env (no test-only vars in [env.prod], RC86)
+        run: tools/.venv/bin/python tools/check_worker_env.py
+
+      - name: Deploy the canary version at 100%
+        working-directory: worker
+        run: npx wrangler versions deploy "$VERSION_ID@100%" --env prod --yes
+
+      - name: Smoke test
+        run: tools/worker_smoke.sh prod
+
+      - name: Record the promotion
+        env:
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          {
+            echo "### Worker deploy: production promoted"
+            echo ""
+            echo "| env | version id | tag | rollout |"
+            echo "|---|---|---|---|"
+            echo "| prod | \`$VERSION_ID\` | \`$REF_NAME\` | 100% |"
+          } >> "$GITHUB_STEP_SUMMARY"

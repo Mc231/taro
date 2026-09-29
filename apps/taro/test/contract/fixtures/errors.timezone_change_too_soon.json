@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "TIMEZONE_CHANGE_TOO_SOON",
+    "message": "Timezone was changed too recently.",
+    "requestId": "req-tz-too-soon",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "allowedAfter": "2026-09-27T10:00:00.000Z"
+    }
+  }
+}

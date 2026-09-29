@@ -280,6 +280,12 @@ jobs:
       - name: Prettier --check
         run: npm run format:check
 
+      - name: OpenAPI document is current (03 §14.2)
+        run: npm run openapi:check
+
+      - name: Remote-config JSON Schema is current (03 §8.1)
+        run: npm run config:schema:check
+
       - name: wrangler deploy --dry-run (staging) + bundle size
         run: |
           rm -rf dist

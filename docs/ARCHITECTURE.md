@@ -141,6 +141,7 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 | eslint / @eslint/js | 10.11.0 / 10.0.1 | |
 | prettier | 3.9.9 | |
 | fast-check | 4.10.2 | |
+| esbuild | 0.28.1 | MIT; dev only. Already in the tree via wrangler/vite; pinned directly because `scripts/run.mjs` bundles the owner CLIs (`npm run config:push`, `config:schema`) for Node (Phase 6.2) |
 | @types/node | 22.20.4 | for config files only (`tsconfig.node.json`) |
 
 #### Deviations / spec updates suggested
@@ -150,7 +151,11 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
    `defineConfig({ plugins: [cloudflareTest({ wrangler: { configPath, environment: 'dev' } })], test: { coverage } })`.
    Bindings come from `[env.dev]` of `wrangler.toml`, so the `miniflare: { d1Databases, kvNamespaces }` block
    is unnecessary. Coverage settings are unchanged (istanbul, 90/90/90/85, `perFile: false`).
-   `isolatedStorage` is no longer an option (storage is isolated per test file by default) — 06 §7 "Pool setup" should be re-checked in Phase 6.
+   `isolatedStorage` is no longer an option (storage is isolated per test file by default). Resolved in
+   Phase 6.1: `cloudflareTest(async () => …)` injects `TEST_MIGRATIONS` via `readD1Migrations`,
+   `test/setup/apply_migrations.ts` applies them once per test file, and tests inside a file share D1/KV, so
+   they use unique install IDs and keys (`uniqueId()` in `test/fakes/testDeps.ts`). 06 §7 "Pool setup" and
+   the Phase 6.2 "`isolatedStorage: true`" note still need the matching spec edit.
 2. **Health response.** Phase 2 doc says `{status, workerVersion}`; 03 §2.1/§14.2 and GLOSSARY say
    `{status, workerVersion, environment}`. Implemented the spec/GLOSSARY shape (superset). Suggest editing PHASE_02.
 3. **compatibility_date = 2026-08-15.** Must not exceed the workerd bundled with vitest-pool-workers
@@ -166,11 +171,67 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
    (`vitest.config.ts`, `eslint.config.js` with Node types). `npm run typecheck` runs both. ESLint uses both
    via `parserOptions.project`.
 8. **`makeProdDeps(env)` already enforces BE20/RC86** (throws if `ALLOW_DEBUG_ATTESTATION`, `AI_PROVIDER`
-   or `DEBUG_ATTESTATION_TOKEN` is set with `ENVIRONMENT=prod`); unit tests in `test/unit/deps.test.ts`.
-   Phase 6.1 names that test file `test/unit/deps.prodConfig.test.ts` — rename when ports are added.
-9. **Not done in Phase 2 (belongs to Phase 6):** error envelope / `X-Request-Id` middleware, `scheduled`
-   handler and cron triggers (03 §12), `migrations/` (the `migrations_dir` is configured but empty),
-   `openapi/openapi.json`, `worker/COVERAGE.md`.
+   or `DEBUG_ATTESTATION_TOKEN` is set with `ENVIRONMENT=prod`); unit tests in
+   `test/unit/deps.prodConfig.test.ts` (renamed in Phase 6.1).
+9. **Phase 2 leftovers, done in Phase 6:** error envelope / `X-Request-Id` middleware, `scheduled`
+   handler and cron triggers (03 §12), `migrations/0001_init.sql`, `openapi/openapi.json`,
+   `worker/COVERAGE.md`.
+10. **Identity (Phase 6.3).** `@peculiar/x509` 2.x pulls in `tsyringe`, which refuses to load without
+   `Reflect.getMetadata`. Instead of adding `reflect-metadata`, `src/adapters/apple/reflectShim.ts` installs
+   the three metadata functions tsyringe uses; always import X.509 classes from `src/adapters/apple/x509.ts`
+   (shim first). The pinned Apple App Attestation Root CA is checked by fingerprint and self-signature in
+   `test/unit/adapters/appAttest.test.ts`. The "real-format" App Attest fixture
+   (`test/fixtures/app_attest/attestation.dev.json`) has Apple's exact CBOR/x5c/authData layout but is signed
+   by a test CA; add a device-captured one when a physical device is available (Phase 12). Registration and
+   `[attest]` hashes concatenate the UTF-8 strings as sent (challenge in base64url); the per-call hash uses
+   the raw 32-byte body digest and an empty `Idempotency-Key` when none is sent (02 client must match).
+11. **Contract and ops (Phase 6.5).**
+   - **Route wiring:** every app route builds its middleware with `routeGuards(deps, { auth, rateLimit,
+     flags })` (`src/http/routeGuards.ts`); the same call writes `security`, `x-taro-auth` and
+     `x-taro-flags` into the OpenAPI operation. `test/integration/routes/routeWiring.test.ts` compares them
+     with the GLOSSARY §4 table and checks the running behaviour (missing key → `IDEMPOTENCY_KEY_REQUIRED`,
+     missing attestation → `ATTESTATION_REQUIRED`, no token → `UNAUTHENTICATED`). Chain order: auth →
+     required `X-Taro-*` headers → `RL_BURST` → attestation → idempotency.
+   - **OpenAPI:** `npm run openapi` writes `openapi/openapi.json` from `buildApp(documentDeps())`
+     (`src/admin/openapi.ts`; `info.version` is the API major `v1`, so a Worker version bump does not make
+     it stale). `npm run openapi:check`, `test/contract/openapi.test.ts` and the static CI job fail on drift.
+   - **Contract fixtures:** `test/contract/fixtures.test.ts` drives the real app with fakes, a fixed clock,
+     `SeqIdGenerator` and `SeededCrypto` (deterministic `randomBytes`), validates each body with its zod
+     schema and writes it with vitest `toMatchFileSnapshot` (works in pool-workers 0.22: the snapshot file
+     I/O goes through the Node side). `npm run contract:update` rewrites them; in CI (`CI=true`) a missing
+     or changed fixture fails. `openapi/` and `test/contract/fixtures/` are Prettier-ignored (their bytes
+     are the contract). `melos run contract:sync` → `apps/taro/test/contract/fixtures/`.
+   - **Cron:** `src/scheduled.ts` (`CRON`, `CRON_JOBS`, bounded `drain` loops) and `[env.*.triggers]` in
+     `wrangler.toml`; a test keeps both in sync.
+   - **Deploy:** `.gitea/workflows/worker-deploy.yml` (see its header). It skips with a warning while
+     `CLOUDFLARE_API_TOKEN` is absent or `wrangler.toml` still holds placeholder IDs, so it can live on
+     `main` before Sprint 6.0. The staging smoke step reads `worker.staging_debug_attestation_token` from
+     the secrets bundle.
+   - **Owner CLIs:** `gen-keys`, `smoke`, `export-openapi` join `config-push` and `export-config-schema`
+     under `scripts/run.mjs`; `CliDeps.env` passes `process.env` so secrets never travel in argv.
+12. **Foundation decisions (Phase 6.1, 6.2, 6.4) to fold into 03.**
+   - **Idempotency (03 §2.3):** keys must be UUIDs (else `400 VALIDATION_FAILED`); every row write is a
+     compare-and-set on `(state, created_at)`, so a late original never overwrites a takeover; the row is
+     finalised after the handler, not in the handler's last batch; after `deleteIdempotentBody` or a retired
+     body key a retry runs the handler again. `IDEMPOTENCY_ENC_KEY` = `kid:base64url32,…`, current first.
+   - **Rate limits (03 §2.4):** binding limits are fixed in `wrangler.toml`, so `rl.*` keys cannot tune them;
+     the spec's 20/60 s per-IP public limit runs at `RL_BURST` 60/60 s until a third binding or a spec change.
+     Registration caps answer `429 RATE_LIMITED` with `reason` `lowTrustCap` (type `none`) or `burst`.
+   - **No-CORS 403** has an empty body (no GLOSSARY §5 code fits).
+   - **Remote config (03 §8):** `config/remote_config.default.json` is `{ $schema, public, server }` with flat
+     dotted keys; a push must be complete and strict, a read lays the stored document over the defaults and
+     drops unknown keys; a KV error keeps the last valid document; ranges for keys without a 03/04 range are
+     commented in `src/config/schema.ts`. `reading_reports` uses the 03 §4 `payload_enc` column (RC7), not
+     the phase doc's three columns.
+   - **Erasure (RC37):** readings still `held` and the running DELETE's own idempotency row are kept.
+   - **Wire format:** token `expiresAt` carries milliseconds, `BalanceDto` instants do not; the Dart client
+     must accept both (or the Worker settles on one before Phase 11).
+13. **Phase 6 status (2026-09-29): code complete, run locally only.** No Cloudflare access yet (the owner's
+   token lacks Workers/D1/KV rights): Sprint 6.0 (resources, real binding IDs, secrets, Anthropic
+   workspaces), applying migrations to staging, the first staging deploy and smoke, and the rollback and
+   rotation drills are pending. Local `wrangler dev` needs a `.dev.vars` with `IDEMPOTENCY_ENC_KEY`,
+   `IP_HASH_KEY`, `CHALLENGE_KEY`, `TOKEN_SIGNING_KEYS`, `PLAY_ACCOUNT_KEY`, `DEVICE_KEY_SECRET`,
+   `APPLE_ACCOUNT_NS`, `DEBUG_ATTESTATION_TOKEN` and `APPLE_TEAM_ID` (`npm run gen-keys -- --env dev`).
 
 #### Toolchain / local environment
 

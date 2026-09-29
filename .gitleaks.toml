@@ -43,6 +43,10 @@ regexes = [
   '''0{8}-0{4}-0{4}-0{4}-0{12}''',
 ]
 paths = [
+  # Contract fixtures: install tokens are JWTs signed with keys the Worker test
+  # suite generates at run time, and purchase bindings are derived test UUIDs
+  # (RC38). They grant nothing; real tokens never reach these files.
+  '''^(worker|apps/taro)/test/contract/fixtures/[^/]+\.json$''',
   # Lockfiles hold integrity hashes, not secrets.
   '''(^|/)pubspec\.lock$''',
   '''(^|/)package-lock\.json$''',

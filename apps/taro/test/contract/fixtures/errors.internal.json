@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "INTERNAL",
+    "message": "Internal error.",
+    "requestId": "req-internal",
+    "retryable": true,
+    "retryAfterSec": null
+  }
+}

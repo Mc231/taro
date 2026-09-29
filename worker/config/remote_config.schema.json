@@ -1,0 +1,555 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "public": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "readings.enabled": {
+          "type": "boolean"
+        },
+        "readings.freeDaily": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "readings.maxPerInstallPerDay": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 100
+        },
+        "readings.tzCooldownHours": {
+          "type": "integer",
+          "minimum": 12,
+          "maximum": 168
+        },
+        "spreads.enabled": {
+          "maxItems": 6,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "single",
+              "three_ppf",
+              "three_sao",
+              "relationship",
+              "two_paths",
+              "celtic_cross"
+            ]
+          }
+        },
+        "rewarded.enabled": {
+          "type": "boolean"
+        },
+        "rewarded.amount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "rewarded.dailyCap": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "rewarded.cooldownSec": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3600
+        },
+        "rewarded.intentTtlSec": {
+          "type": "integer",
+          "minimum": 300,
+          "maximum": 3600
+        },
+        "rewarded.loadTimeoutSec": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 30
+        },
+        "rewarded.grantPollTimeoutSec": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 60
+        },
+        "ads.enabled": {
+          "type": "boolean"
+        },
+        "ads.bannerEnabled": {
+          "type": "boolean"
+        },
+        "ads.bannerScreens": {
+          "maxItems": 3,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "home",
+              "journal_list",
+              "learn_library"
+            ]
+          }
+        },
+        "ads.bannerMinCompletedReadings": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "ads.attPrepromptEnabled": {
+          "type": "boolean"
+        },
+        "store.enabled": {
+          "type": "boolean"
+        },
+        "store.packs": {
+          "minItems": 1,
+          "maxItems": 4,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": {
+                "type": "string",
+                "enum": [
+                  "com.vshyrochuk.taro.readings_3",
+                  "com.vshyrochuk.taro.readings_10",
+                  "com.vshyrochuk.taro.readings_30"
+                ]
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "sortOrder": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9
+              }
+            },
+            "required": [
+              "productId",
+              "enabled",
+              "sortOrder"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "store.verifyRetryWindowHours": {
+          "type": "integer",
+          "minimum": 24,
+          "maximum": 168
+        },
+        "store.pendingHoldMinutes": {
+          "type": "integer",
+          "minimum": 5,
+          "maximum": 240
+        },
+        "store.removeAdsEnabled": {
+          "type": "boolean"
+        },
+        "store.showBestValueBadge": {
+          "type": "boolean"
+        },
+        "store.showPerReadingPrice": {
+          "type": "boolean"
+        },
+        "ai.consentVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "ai.questionMaxChars": {
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 1000
+        },
+        "app.minVersion.ios": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\+\\d+)?$"
+        },
+        "app.minVersion.android": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\+\\d+)?$"
+        },
+        "app.recommendedVersion.ios": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\+\\d+)?$"
+        },
+        "app.recommendedVersion.android": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\+\\d+)?$"
+        },
+        "balance.staleAfterSec": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 3600
+        },
+        "balance.resumeSyncThrottleSec": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 600
+        },
+        "review.promptAfterPositiveReadings": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "legal.termsUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "legal.privacyUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "support.email": {
+          "type": "string",
+          "format": "email",
+          "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+        }
+      },
+      "required": [
+        "version",
+        "readings.enabled",
+        "readings.freeDaily",
+        "readings.maxPerInstallPerDay",
+        "readings.tzCooldownHours",
+        "spreads.enabled",
+        "rewarded.enabled",
+        "rewarded.amount",
+        "rewarded.dailyCap",
+        "rewarded.cooldownSec",
+        "rewarded.intentTtlSec",
+        "rewarded.loadTimeoutSec",
+        "rewarded.grantPollTimeoutSec",
+        "ads.enabled",
+        "ads.bannerEnabled",
+        "ads.bannerScreens",
+        "ads.bannerMinCompletedReadings",
+        "ads.attPrepromptEnabled",
+        "store.enabled",
+        "store.packs",
+        "store.verifyRetryWindowHours",
+        "store.pendingHoldMinutes",
+        "store.removeAdsEnabled",
+        "store.showBestValueBadge",
+        "store.showPerReadingPrice",
+        "ai.consentVersion",
+        "ai.questionMaxChars",
+        "app.minVersion.ios",
+        "app.minVersion.android",
+        "app.recommendedVersion.ios",
+        "app.recommendedVersion.android",
+        "balance.staleAfterSec",
+        "balance.resumeSyncThrottleSec",
+        "review.promptAfterPositiveReadings",
+        "legal.termsUrl",
+        "legal.privacyUrl",
+        "support.email"
+      ],
+      "additionalProperties": false
+    },
+    "server": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "ai.model.paid": {
+          "type": "string",
+          "pattern": "^claude-[a-z0-9.-]+$"
+        },
+        "ai.model.free": {
+          "type": "string",
+          "pattern": "^claude-[a-z0-9.-]+$"
+        },
+        "ai.model.freeFallback": {
+          "type": "string",
+          "pattern": "^claude-[a-z0-9.-]+$"
+        },
+        "ai.effort": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "ai.promptVersion": {
+          "type": "string",
+          "pattern": "^v\\d+$"
+        },
+        "ai.maxTokensBySpread": {
+          "type": "object",
+          "properties": {
+            "single": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "three_ppf": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "three_sao": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "relationship": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "two_paths": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "celtic_cross": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            },
+            "*": {
+              "type": "integer",
+              "minimum": 256,
+              "maximum": 32000
+            }
+          },
+          "required": [
+            "single",
+            "three_ppf",
+            "three_sao",
+            "relationship",
+            "two_paths",
+            "celtic_cross",
+            "*"
+          ],
+          "additionalProperties": false
+        },
+        "ai.blockedCountries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "ai.timeoutMs": {
+          "type": "integer",
+          "minimum": 5000,
+          "maximum": 60000
+        },
+        "ai.maxRetries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "ai.refusalFallbacks": {
+          "type": "boolean"
+        },
+        "ai.deadlineMs": {
+          "type": "integer",
+          "minimum": 10000,
+          "maximum": 60000
+        },
+        "ai.budget.freeUsdPerDau": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "ai.budget.softFloorUsd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "ai.budget.freeStopFloorUsd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "ai.budget.dailyHardUsd": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "readings.holdTtlSec": {
+          "type": "integer",
+          "minimum": 60,
+          "maximum": 3600
+        },
+        "rewarded.allowedAdUnitIds": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "attest.allowedAppIds": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "attest.requiredOnReadings": {
+          "type": "boolean"
+        },
+        "purchases.allowedBundleIds": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "purchases.sandboxMaxCreditsPerInstallPerDay": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "purchases.sandboxGlobalCreditsPerDay": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "purchases.apple.sendConsumptionInfo": {
+          "type": "boolean"
+        },
+        "alerts.error5xxRatePct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "alerts.readingFailedRatePct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "alerts.webhookSigFailuresPer15m": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "abuse.lowTrust.freeDaily": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "abuse.lowTrust.freePerIpPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "abuse.lowTrust.freePerCgnatPrefixPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000
+        },
+        "abuse.lowTrust.cgnatAsns": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4294967295
+          }
+        },
+        "abuse.lowTrust.powBits": {
+          "type": "integer",
+          "minimum": 8,
+          "maximum": 28
+        },
+        "abuse.lowTrust.registrationsPerPrefixPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "abuse.lowTrust.alertPerBucketPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000
+        },
+        "abuse.refundBlockThreshold": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "safety.maxDeclinedPerDay": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "rl.install.perMinute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "rl.readings.perMinute": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        }
+      },
+      "required": [
+        "version",
+        "ai.model.paid",
+        "ai.model.free",
+        "ai.model.freeFallback",
+        "ai.effort",
+        "ai.promptVersion",
+        "ai.maxTokensBySpread",
+        "ai.blockedCountries",
+        "ai.timeoutMs",
+        "ai.maxRetries",
+        "ai.refusalFallbacks",
+        "ai.deadlineMs",
+        "ai.budget.freeUsdPerDau",
+        "ai.budget.softFloorUsd",
+        "ai.budget.freeStopFloorUsd",
+        "ai.budget.dailyHardUsd",
+        "readings.holdTtlSec",
+        "rewarded.allowedAdUnitIds",
+        "attest.allowedAppIds",
+        "attest.requiredOnReadings",
+        "purchases.allowedBundleIds",
+        "purchases.sandboxMaxCreditsPerInstallPerDay",
+        "purchases.sandboxGlobalCreditsPerDay",
+        "purchases.apple.sendConsumptionInfo",
+        "alerts.error5xxRatePct",
+        "alerts.readingFailedRatePct",
+        "alerts.webhookSigFailuresPer15m",
+        "abuse.lowTrust.freeDaily",
+        "abuse.lowTrust.freePerIpPerDay",
+        "abuse.lowTrust.freePerCgnatPrefixPerDay",
+        "abuse.lowTrust.cgnatAsns",
+        "abuse.lowTrust.powBits",
+        "abuse.lowTrust.registrationsPerPrefixPerDay",
+        "abuse.lowTrust.alertPerBucketPerDay",
+        "abuse.refundBlockThreshold",
+        "safety.maxDeclinedPerDay",
+        "rl.install.perMinute",
+        "rl.readings.perMinute"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "public",
+    "server"
+  ],
+  "additionalProperties": false,
+  "$id": "https://taro.vshyrochuk.com/schemas/remote_config.schema.json",
+  "title": "Taro remote config (config:public + config:server)",
+  "description": "Generated from worker/src/config/schema.ts by scripts/export-config-schema.ts; do not edit."
+}

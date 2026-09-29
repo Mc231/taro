@@ -6,5 +6,5 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["vitest.config.ts", "eslint.config.js"]
+  "include": ["vitest.config.ts", "eslint.config.js", "scripts/run.mjs"]
 }

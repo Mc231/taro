@@ -2,7 +2,7 @@
   "name": "taro-api",
   "version": "0.0.0",
   "private": true,
-  "description": "Taro API — Cloudflare Worker (Hono on workerd)",
+  "description": "Taro API \u2014 Cloudflare Worker (Hono on workerd)",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -17,7 +17,15 @@
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
     "types": "wrangler types",
     "types:check": "wrangler types --check",
-    "deploy:dry": "wrangler deploy --dry-run --outdir dist --env staging"
+    "deploy:dry": "wrangler deploy --dry-run --outdir dist --env staging",
+    "config:schema": "node scripts/run.mjs export-config-schema",
+    "config:schema:check": "node scripts/run.mjs export-config-schema --check",
+    "config:push": "node scripts/run.mjs config-push",
+    "openapi": "node scripts/run.mjs export-openapi",
+    "openapi:check": "node scripts/run.mjs export-openapi --check",
+    "contract:update": "vitest run test/contract --update",
+    "smoke": "node scripts/run.mjs smoke",
+    "gen-keys": "node scripts/run.mjs gen-keys"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.128.0",
@@ -33,6 +41,7 @@
     "@eslint/js": "10.0.1",
     "@types/node": "22.20.4",
     "@vitest/coverage-istanbul": "4.1.11",
+    "esbuild": "0.28.1",
     "eslint": "10.11.0",
     "fast-check": "4.10.2",
     "prettier": "3.9.9",

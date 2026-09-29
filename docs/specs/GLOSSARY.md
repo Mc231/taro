@@ -164,7 +164,7 @@ Owner: 03 §2.1 (complete v1 surface). Reconciled by 00_DECISIONS.md RC4, RC11, 
 
 Success statuses: E04 `201` new / `200` existing; E07 `204`; E09 `201`; E10 `200` (`status: completed | declined`); E13 `201`; E14 `200 granted` or `202 pending`; E15 `201`; E12 and E17 `204` (04 §7). The only non-`/v1` route is the RC92 fallback `taro.vshyrochuk.com/.well-known/*`, used only if static hosting cannot set the content type.
 
-Owner-run CLIs instead of routes (03 §1): `worker/scripts/config-push.ts`, `ledger-adjust.ts`, `credits-transfer.ts`, `reports-export.ts`, `metrics.ts`, `smoke.ts`, each over `src/admin/*`.
+Owner-run CLIs instead of routes (03 §1): `worker/scripts/config-push.ts`, `ledger-adjust.ts`, `credits-transfer.ts`, `reports-export.ts`, `metrics.ts`, `smoke.ts`, `gen-keys.ts`, `export-openapi.ts`, `export-config-schema.ts`, each over `src/admin/*`. OpenAPI operations carry `x-taro-auth` (`public`, `token` or `tokenMayBeExpired`) and `x-taro-flags` (`idem`, `attest`) mirroring the table above.
 
 ### 4.1 Request headers
 
@@ -180,6 +180,7 @@ Owner: 03 §2.1.
 | `X-Taro-Attestation` | `aa1.<assertion>` (iOS), `pi1.<standard integrity token>` (Android), `none` (low trust) | [attest] routes |
 | `X-Taro-AI-Consent` | granted consent version (int) | E09, E10 (RC28) |
 | `X-Request-Id` | UUID per attempt | optional; echoed on every response |
+| `X-Taro-Debug-Attestation` | `DEBUG_ATTESTATION_TOKEN` | dev/staging `DebugAttestationService` only (E04 and [attest] routes); ignored unless the deploy env sets `ALLOW_DEBUG_ATTESTATION` (RC86) |
 | `Idempotent-Replayed` | `true` | response header on a replay |
 
 ## 5. Error codes → HTTP → `Failure` → ARB key
@@ -330,7 +331,7 @@ Owner: 03 §1, §2.4, §8.1, §11.
 | `DB` | D1 binding | the one D1 database (`taro-staging`, `taro-prod`; local miniflare in dev) |
 | `CONFIG_KV` | KV namespace | keys `config:public`, `config:server` |
 | `RL_KV` | KV namespace | approximate counters `lt:ip:{hash}:{yyyymmdd}`, `lt:bucket:{plat}:{ver}:{yyyymmdd}`, registration counters |
-| `CACHE_KV` | KV namespace | Google OAuth token, Google JWKS, AdMob verifier keys, alert dedupe timestamps |
+| `CACHE_KV` | KV namespace | Google OAuth token, Google JWKS, AdMob verifier keys, alert dedupe timestamps (`alert:last:{bucket}`, bucket = alert kind or `Alert.dedupeKey`) |
 | `METRICS` | Analytics Engine dataset `taro_api_events` | metrics events (03 §14.1) |
 | `RL_BURST` | Workers Rate Limiting binding | keys `inst:{id}`, `ip:{prefix hash}` |
 | `RL_READINGS` | Workers Rate Limiting binding | key `inst:{id}` |
@@ -528,7 +529,7 @@ Owner: 03 §1 (composition root `buildApp(deps: Deps)`, prod deps `makeProdDeps(
 | `Logger` | `console.log` → Workers Logs | `CapturingLogger` (`expectNoSensitive()`) |
 | `Alerter` | `ALERT_WEBHOOK_URL` | — |
 
-Services (`src/services/`): `InstallService`, `BalanceService`, `ReadingService`, `PurchaseService` (`verifyApple`, `verifyGoogle`), `RewardService`, `RefundService`, `ConfigService`, `BudgetService`, `AlertService`. Repos (`src/repos/`): `InstallRepo`, `LedgerRepo`, `DailyUsageRepo`, `DeviceUsageRepo`, `PurchaseRepo`, `RewardRepo`, `ReadingRepo`, `IdempotencyRepo`, `WebhookEventRepo`, `SpendRepo`. Domain (`src/domain/`): `dayBoundary`, `allowance`, `ledgerRules`, `consumptionOrder`, `pricing`, `spreadValidation`, `safetyPolicy`, `outputValidator`. Admin (`src/admin/`): `ledgerAdjust`, `creditsTransfer`, `reportsExport`, `configPush`. `AiResult` = `ok | refused | truncated | error{timeout | rate_limited | upstream | invalid_output}`.
+Services (`src/services/`): `InstallService`, `BalanceService`, `ReadingService`, `PurchaseService` (`verifyApple`, `verifyGoogle`), `RewardService`, `RefundService`, `ConfigService`, `BudgetService`, `AlertService`. Repos (`src/repos/`): `InstallRepo`, `LedgerRepo`, `DailyUsageRepo`, `DeviceUsageRepo`, `PurchaseRepo`, `RewardRepo`, `ReadingRepo`, `IdempotencyRepo`, `WebhookEventRepo`, `SpendRepo`, `ReportRepo` (`reading_reports`, RC22), `UsedChallengeRepo` (`used_challenges`, 03 §3.2). Domain (`src/domain/`): `challenge` (03 §3.2), `dayBoundary`, `allowance`, `ledgerRules`, `consumptionOrder`, `pricing`, `spreadValidation`, `safetyPolicy`, `outputValidator`. Admin (`src/admin/`): `ledgerAdjust`, `creditsTransfer`, `reportsExport`, `configPush`, `smoke`, `genKeys`, `openapi`, `configSchemaExport`. Cron jobs (`src/scheduled.ts`, 03 §12): `purgeIdempotencyKeys`, `purgeUsedChallenges` (Phase 6); the rest per GLOSSARY §6.1. `AiResult` = `ok | refused | truncated | error{timeout | rate_limited | upstream | invalid_output}`.
 
 ## 10. Screens S01–S33
 

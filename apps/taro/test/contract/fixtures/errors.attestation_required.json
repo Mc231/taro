@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "ATTESTATION_REQUIRED",
+    "message": "A valid attestation header is required.",
+    "requestId": "req-attestation-required",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

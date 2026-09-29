@@ -1,0 +1,106 @@
+{
+  "installToken": "eyJhbGciOiJFZERTQSIsImtpZCI6Imt0MiIsInR5cCI6IkpXVCJ9.eyJnZW4iOjEsInRydXN0IjoiaGlnaCIsInBsYXQiOiJhbmRyb2lkIiwic3ViIjoiYzBhODAxMDEtMDAwMC00MDAwLTgwMDAtMDAwMDAwMDAwMDAyIiwiaXNzIjoidGFyby1hcGkiLCJhdWQiOiJ0YXJvLWFwcCIsImlhdCI6MTc5MDQxNjgwMCwiZXhwIjoxNzkxMDIxNjAwfQ.aPANQlX1qNFWhk90v0C6vwQ8PI_hP317v27eWaIZAfH2Q91O3CdqpoDrumXjoYQqCtaimJpc__1cnRvqWwFQCw",
+  "expiresAt": "2026-10-03T10:00:00.000Z",
+  "trust": "high",
+  "purchaseBinding": {
+    "playAccountId": "vf6BiFwhVO0F5b8s4zDZtHbZnkNdRwZdL4bSD2is8Jo"
+  },
+  "balance": {
+    "free": {
+      "limit": 1,
+      "used": 0,
+      "remaining": 1,
+      "localDate": "2026-09-26",
+      "resetsAt": "2026-09-26T22:00:00Z",
+      "timezone": "Europe/Berlin",
+      "paused": false
+    },
+    "bonus": 0,
+    "paid": 0,
+    "canRead": true,
+    "canReadReason": null,
+    "nextSource": "free",
+    "rewarded": {
+      "enabled": true,
+      "amount": 1,
+      "dailyCap": 3,
+      "grantedToday": 0,
+      "available": true,
+      "cooldownEndsAt": null
+    },
+    "paidBlocked": false,
+    "purchasesAllowed": true,
+    "purchasesBlockedReason": null,
+    "ledgerVersion": 0,
+    "serverTime": "2026-09-26T10:00:00Z"
+  },
+  "config": {
+    "version": 1,
+    "readings.enabled": true,
+    "readings.freeDaily": 1,
+    "readings.maxPerInstallPerDay": 30,
+    "readings.tzCooldownHours": 24,
+    "spreads.enabled": [
+      "single",
+      "three_ppf",
+      "three_sao",
+      "relationship",
+      "two_paths",
+      "celtic_cross"
+    ],
+    "rewarded.enabled": true,
+    "rewarded.amount": 1,
+    "rewarded.dailyCap": 3,
+    "rewarded.cooldownSec": 300,
+    "rewarded.intentTtlSec": 900,
+    "rewarded.loadTimeoutSec": 10,
+    "rewarded.grantPollTimeoutSec": 20,
+    "ads.enabled": true,
+    "ads.bannerEnabled": true,
+    "ads.bannerScreens": [
+      "home",
+      "journal_list",
+      "learn_library"
+    ],
+    "ads.bannerMinCompletedReadings": 1,
+    "ads.attPrepromptEnabled": true,
+    "store.enabled": true,
+    "store.packs": [
+      {
+        "productId": "com.vshyrochuk.taro.readings_3",
+        "enabled": true,
+        "sortOrder": 0,
+        "credits": 3
+      },
+      {
+        "productId": "com.vshyrochuk.taro.readings_10",
+        "enabled": true,
+        "sortOrder": 1,
+        "credits": 10
+      },
+      {
+        "productId": "com.vshyrochuk.taro.readings_30",
+        "enabled": true,
+        "sortOrder": 2,
+        "credits": 30
+      }
+    ],
+    "store.verifyRetryWindowHours": 72,
+    "store.pendingHoldMinutes": 30,
+    "store.removeAdsEnabled": true,
+    "store.showBestValueBadge": true,
+    "store.showPerReadingPrice": true,
+    "ai.consentVersion": 1,
+    "ai.questionMaxChars": 300,
+    "app.minVersion.ios": "1.0.0",
+    "app.minVersion.android": "1.0.0",
+    "app.recommendedVersion.ios": "1.0.0",
+    "app.recommendedVersion.android": "1.0.0",
+    "balance.staleAfterSec": 300,
+    "balance.resumeSyncThrottleSec": 30,
+    "review.promptAfterPositiveReadings": 3,
+    "legal.termsUrl": "https://taro.vshyrochuk.com/terms",
+    "legal.privacyUrl": "https://taro.vshyrochuk.com/privacy",
+    "support.email": "volodymyr.shyrochuk@gmail.com"
+  }
+}

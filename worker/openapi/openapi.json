@@ -1,0 +1,1104 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Taro API",
+    "version": "v1",
+    "description": "Generated from worker/src/routes by scripts/export-openapi.ts; do not edit. Errors use the 03 §2.2 envelope with GLOSSARY §5 codes."
+  },
+  "servers": [
+    {
+      "url": "https://api.taro.vshyrochuk.com",
+      "description": "prod"
+    },
+    {
+      "url": "https://api-staging.taro.vshyrochuk.com",
+      "description": "staging"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "installToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "EdDSA install token, 7-day TTL (03 §3.4)."
+      }
+    },
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ]
+          },
+          "workerVersion": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string",
+            "enum": [
+              "dev",
+              "staging",
+              "prod"
+            ]
+          }
+        },
+        "required": [
+          "status",
+          "workerVersion",
+          "environment"
+        ]
+      },
+      "PublicConfigDto": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "additionalProperties": {},
+        "description": "Public remote config (03 §8.2). Keys are the GLOSSARY §8.1 names; store.packs[] carries the Worker-injected credits."
+      },
+      "AttestChallenge": {
+        "type": "object",
+        "properties": {
+          "challenge": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "powBits": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "challenge",
+          "expiresAt",
+          "powBits"
+        ],
+        "description": "Stateless challenge (03 §3.2): base64url(nonce16 ‖ exp8 ‖ HMAC[0..16]), valid 5 minutes. powBits applies only to a `type: none` registration (§2.4)."
+      },
+      "ErrorEnvelope": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "VALIDATION_FAILED",
+                  "IDEMPOTENCY_KEY_REQUIRED",
+                  "UNAUTHENTICATED",
+                  "TOKEN_EXPIRED",
+                  "ATTESTATION_REQUIRED",
+                  "INSUFFICIENT_CREDITS",
+                  "ATTESTATION_FAILED",
+                  "REWARDED_DISABLED",
+                  "AI_UNAVAILABLE_REGION",
+                  "NOT_FOUND",
+                  "REQUEST_IN_PROGRESS",
+                  "HOLD_CONFLICT",
+                  "PURCHASE_ALREADY_CLAIMED",
+                  "REWARDED_DAILY_CAP",
+                  "TIMEZONE_CHANGE_TOO_SOON",
+                  "READING_EXPIRED_REFUNDED",
+                  "AI_CONSENT_REQUIRED",
+                  "IDEMPOTENCY_KEY_REUSED",
+                  "PURCHASE_INVALID",
+                  "PRODUCT_UNKNOWN",
+                  "SPREAD_INVALID",
+                  "UPGRADE_REQUIRED",
+                  "RATE_LIMITED",
+                  "INTERNAL",
+                  "AI_UNAVAILABLE",
+                  "AI_BUDGET_EXHAUSTED",
+                  "READINGS_DISABLED"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "retryable": {
+                "type": "boolean"
+              },
+              "retryAfterSec": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "details": {
+                "type": "object",
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId",
+              "retryable",
+              "retryAfterSec"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "installToken": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "trust": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ]
+          },
+          "purchaseBinding": {
+            "$ref": "#/components/schemas/PurchaseBinding"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          },
+          "config": {
+            "$ref": "#/components/schemas/PublicConfigDto"
+          }
+        },
+        "required": [
+          "installToken",
+          "expiresAt",
+          "trust",
+          "purchaseBinding",
+          "balance",
+          "config"
+        ]
+      },
+      "PurchaseBinding": {
+        "type": "object",
+        "properties": {
+          "appleAccountToken": {
+            "type": "string"
+          },
+          "playAccountId": {
+            "type": "string"
+          }
+        }
+      },
+      "BalanceDto": {
+        "type": "object",
+        "properties": {
+          "free": {
+            "type": "object",
+            "properties": {
+              "limit": {
+                "type": "integer"
+              },
+              "used": {
+                "type": "integer"
+              },
+              "remaining": {
+                "type": "integer"
+              },
+              "localDate": {
+                "type": "string",
+                "format": "date",
+                "example": "2026-09-26"
+              },
+              "resetsAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2026-09-26T22:00:00Z"
+              },
+              "timezone": {
+                "type": "string",
+                "example": "Europe/Berlin"
+              },
+              "paused": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "limit",
+              "used",
+              "remaining",
+              "localDate",
+              "resetsAt",
+              "timezone",
+              "paused"
+            ]
+          },
+          "bonus": {
+            "type": "integer"
+          },
+          "paid": {
+            "type": "integer"
+          },
+          "canRead": {
+            "type": "boolean"
+          },
+          "canReadReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "noCredits",
+              "dailyLimit",
+              "lowTrustCap",
+              "readingsPaused",
+              null
+            ]
+          },
+          "nextSource": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "free",
+              "bonus",
+              "paid",
+              null
+            ]
+          },
+          "rewarded": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              },
+              "amount": {
+                "type": "integer"
+              },
+              "dailyCap": {
+                "type": "integer"
+              },
+              "grantedToday": {
+                "type": "integer"
+              },
+              "available": {
+                "type": "boolean"
+              },
+              "cooldownEndsAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time",
+                "example": "2026-09-26T22:00:00Z"
+              }
+            },
+            "required": [
+              "enabled",
+              "amount",
+              "dailyCap",
+              "grantedToday",
+              "available",
+              "cooldownEndsAt"
+            ]
+          },
+          "paidBlocked": {
+            "type": "boolean"
+          },
+          "purchasesAllowed": {
+            "type": "boolean"
+          },
+          "purchasesBlockedReason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "blocked",
+              "refundDebt",
+              "storeDisabled",
+              null
+            ]
+          },
+          "ledgerVersion": {
+            "type": "integer"
+          },
+          "serverTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-09-26T22:00:00Z"
+          }
+        },
+        "required": [
+          "free",
+          "bonus",
+          "paid",
+          "canRead",
+          "canReadReason",
+          "nextSource",
+          "rewarded",
+          "paidBlocked",
+          "purchasesAllowed",
+          "purchasesBlockedReason",
+          "ledgerVersion",
+          "serverTime"
+        ]
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "installId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "installSecret": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$",
+            "description": "32 random bytes, base64url; sent only on this route (RC54)."
+          },
+          "platform": {
+            "type": "string",
+            "enum": [
+              "ios",
+              "android"
+            ]
+          },
+          "appVersion": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ar",
+              "de",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ko",
+              "nl",
+              "pt",
+              "tr",
+              "uk"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "deviceCheckToken": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192,
+            "description": "iOS DeviceCheck token (03 §3.7)."
+          },
+          "deviceKey": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{43}$",
+            "description": "Android: base64url(SHA256(\"taro-device-v1\" ‖ ANDROID_ID)) (03 §3.7)."
+          },
+          "attestation": {
+            "$ref": "#/components/schemas/RegistrationAttestation"
+          }
+        },
+        "required": [
+          "installId",
+          "installSecret",
+          "platform",
+          "appVersion",
+          "locale",
+          "timezone",
+          "attestation"
+        ]
+      },
+      "RegistrationAttestation": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "app_attest"
+                ]
+              },
+              "challenge": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "keyId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "attestationObject": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32768
+              },
+              "previousKeyAssertion": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8192,
+                "description": "iOS only: App Attest assertion by the previously stored key over the registration hash, proving ownership when the install secret was lost (03 §3.3, RC54)."
+              }
+            },
+            "required": [
+              "type",
+              "challenge",
+              "keyId",
+              "attestationObject"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "play_integrity"
+                ]
+              },
+              "challenge": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "integrityToken": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32768
+              }
+            },
+            "required": [
+              "type",
+              "challenge",
+              "integrityToken"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "none"
+                ]
+              },
+              "challenge": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "reason": {
+                "type": "string",
+                "enum": [
+                  "unsupported",
+                  "error",
+                  "timeout"
+                ]
+              },
+              "pow": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              "previousKeyAssertion": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8192,
+                "description": "iOS only: App Attest assertion by the previously stored key over the registration hash, proving ownership when the install secret was lost (03 §3.3, RC54)."
+              }
+            },
+            "required": [
+              "type",
+              "challenge",
+              "reason"
+            ]
+          }
+        ]
+      },
+      "InstallTokenResponse": {
+        "type": "object",
+        "properties": {
+          "installToken": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "trust": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ]
+          }
+        },
+        "required": [
+          "installToken",
+          "expiresAt",
+          "trust"
+        ]
+      },
+      "TimezoneRequest": {
+        "type": "object",
+        "properties": {
+          "timezone": {
+            "type": "string",
+            "example": "America/New_York"
+          }
+        },
+        "required": [
+          "timezone"
+        ]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "security": [],
+        "x-taro-auth": "public",
+        "x-taro-flags": [],
+        "summary": "Liveness and version (public smoke check, 03 §14.2)",
+        "responses": {
+          "200": {
+            "description": "Worker is up",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/config": {
+      "get": {
+        "tags": [
+          "config"
+        ],
+        "security": [],
+        "x-taro-auth": "public",
+        "x-taro-flags": [],
+        "summary": "Public remote config with ETag (03 §8.1)",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "if-none-match",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Active public config",
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicConfigDto"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Unchanged since the ETag in If-None-Match",
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/attest/challenge": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Attestation challenge (public, rate-limited per IP prefix)",
+        "security": [],
+        "x-taro-auth": "public",
+        "x-taro-flags": [],
+        "responses": {
+          "200": {
+            "description": "A fresh challenge",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttestChallenge"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing client headers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited (`reason = burst`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/installs": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Register or re-register an install with attestation (03 §3.3)",
+        "security": [],
+        "x-taro-auth": "public",
+        "x-taro-flags": [
+          "idem"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing install re-registered (ownership proven, old tokens revoked)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "New install registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed or Idempotency-Key missing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ATTESTATION_FAILED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "REQUEST_IN_PROGRESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "IDEMPOTENCY_KEY_REUSED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED (`burst` or `lowTrustCap`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/installs/token": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Refresh the install token with a fresh attestation (03 §3.4)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "tokenMayBeExpired",
+        "x-taro-flags": [
+          "attest"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4)."
+            },
+            "required": false,
+            "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4).",
+            "name": "x-taro-attestation",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A fresh 7-day install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InstallTokenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UNAUTHENTICATED or ATTESTATION_REQUIRED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "ATTESTATION_FAILED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/balance": {
+      "get": {
+        "tags": [
+          "balance"
+        ],
+        "summary": "Balance, free allowance and rewarded status (03 §5.1)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [],
+        "responses": {
+          "200": {
+            "description": "Current balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalanceDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/installs/me/timezone": {
+      "put": {
+        "tags": [
+          "installs"
+        ],
+        "summary": "Change the install timezone (24 h cooldown) and return the balance (03 §3.5)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimezoneRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Timezone stored (or unchanged); the resulting balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BalanceDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid timezone or missing Idempotency-Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "TIMEZONE_CHANGE_TOO_SOON (details.allowedAfter) or REQUEST_IN_PROGRESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/installs/me": {
+      "delete": {
+        "tags": [
+          "installs"
+        ],
+        "summary": "Erase personal usage data; keeps the install, ledger and purchases (03 §3.6)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Erased"
+          },
+          "400": {
+            "description": "Missing Idempotency-Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "REQUEST_IN_PROGRESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}

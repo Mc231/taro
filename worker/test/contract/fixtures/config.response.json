@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "readings.enabled": true,
+  "readings.freeDaily": 1,
+  "readings.maxPerInstallPerDay": 30,
+  "readings.tzCooldownHours": 24,
+  "spreads.enabled": [
+    "single",
+    "three_ppf",
+    "three_sao",
+    "relationship",
+    "two_paths",
+    "celtic_cross"
+  ],
+  "rewarded.enabled": true,
+  "rewarded.amount": 1,
+  "rewarded.dailyCap": 3,
+  "rewarded.cooldownSec": 300,
+  "rewarded.intentTtlSec": 900,
+  "rewarded.loadTimeoutSec": 10,
+  "rewarded.grantPollTimeoutSec": 20,
+  "ads.enabled": true,
+  "ads.bannerEnabled": true,
+  "ads.bannerScreens": [
+    "home",
+    "journal_list",
+    "learn_library"
+  ],
+  "ads.bannerMinCompletedReadings": 1,
+  "ads.attPrepromptEnabled": true,
+  "store.enabled": true,
+  "store.packs": [
+    {
+      "productId": "com.vshyrochuk.taro.readings_3",
+      "enabled": true,
+      "sortOrder": 0,
+      "credits": 3
+    },
+    {
+      "productId": "com.vshyrochuk.taro.readings_10",
+      "enabled": true,
+      "sortOrder": 1,
+      "credits": 10
+    },
+    {
+      "productId": "com.vshyrochuk.taro.readings_30",
+      "enabled": true,
+      "sortOrder": 2,
+      "credits": 30
+    }
+  ],
+  "store.verifyRetryWindowHours": 72,
+  "store.pendingHoldMinutes": 30,
+  "store.removeAdsEnabled": true,
+  "store.showBestValueBadge": true,
+  "store.showPerReadingPrice": true,
+  "ai.consentVersion": 1,
+  "ai.questionMaxChars": 300,
+  "app.minVersion.ios": "1.0.0",
+  "app.minVersion.android": "1.0.0",
+  "app.recommendedVersion.ios": "1.0.0",
+  "app.recommendedVersion.android": "1.0.0",
+  "balance.staleAfterSec": 300,
+  "balance.resumeSyncThrottleSec": 30,
+  "review.promptAfterPositiveReadings": 3,
+  "legal.termsUrl": "https://taro.vshyrochuk.com/terms",
+  "legal.privacyUrl": "https://taro.vshyrochuk.com/privacy",
+  "support.email": "volodymyr.shyrochuk@gmail.com"
+}

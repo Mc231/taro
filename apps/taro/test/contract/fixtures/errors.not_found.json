@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Not found.",
+    "requestId": "req-not-found",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

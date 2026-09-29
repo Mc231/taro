@@ -1,0 +1,26 @@
+{
+  "tokenPayloadExternal": {
+    "requestDetails": {
+      "requestPackageName": "com.vshyrochuk.taro",
+      "timestampMillis": "1790416795000",
+      "requestHash": "REPLACED_BY_TEST"
+    },
+    "appIntegrity": {
+      "appRecognitionVerdict": "PLAY_RECOGNIZED",
+      "packageName": "com.vshyrochuk.taro",
+      "certificateSha256Digest": ["sanitised-certificate-digest"],
+      "versionCode": "14"
+    },
+    "deviceIntegrity": {
+      "deviceRecognitionVerdict": ["MEETS_DEVICE_INTEGRITY"],
+      "recentDeviceActivity": { "deviceActivityLevel": "LEVEL_1" }
+    },
+    "accountDetails": {
+      "appLicensingVerdict": "LICENSED"
+    },
+    "environmentDetails": {
+      "appAccessRiskVerdict": { "appsDetected": ["KNOWN_INSTALLED", "UNKNOWN_INSTALLED"] },
+      "playProtectVerdict": "NO_ISSUES"
+    }
+  }
+}

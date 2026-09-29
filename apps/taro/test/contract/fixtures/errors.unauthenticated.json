@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "UNAUTHENTICATED",
+    "message": "Missing or invalid install token.",
+    "requestId": "req-unauthenticated",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

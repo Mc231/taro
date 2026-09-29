@@ -1,0 +1,14 @@
+{
+  "installId": "c0a80101-0000-4000-8000-000000000001",
+  "installSecret": "BwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwc",
+  "platform": "ios",
+  "appVersion": "1.2.0+14",
+  "locale": "de",
+  "timezone": "Europe/Berlin",
+  "attestation": {
+    "type": "app_attest",
+    "challenge": "CAiRGTO560_yKaXk2z5XFAAAAABqt5jMD571xG5G_pOucnLBULbWbQ",
+    "keyId": "a2V5LWlk",
+    "attestationObject": "b2JqZWN0"
+  }
+}

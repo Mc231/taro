@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "TOKEN_EXPIRED",
+    "message": "Install token expired.",
+    "requestId": "req-token-expired",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "ATTESTATION_FAILED",
+    "message": "Attestation failed.",
+    "requestId": "req-attestation-failed",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}
