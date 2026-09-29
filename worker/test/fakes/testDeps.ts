@@ -6,17 +6,14 @@ import { lazy, parseHmacKey, parseKeyring, parseUuidSecret } from '../../src/cry
 import type { Deps } from '../../src/deps';
 import type { Env } from '../../src/env';
 import type { AiProvider } from '../../src/ports/AiProvider';
-import type {
-  AdmobKeyProvider,
-  AppStoreServerApi,
-  GoogleOidcVerifier,
-  PlayDeveloperApi,
-} from '../../src/ports/StoreApis';
+import type { AdmobKeyProvider, GoogleOidcVerifier } from '../../src/ports/StoreApis';
 import { CapturingAlerter } from './CapturingAlerter';
 import { CapturingLogger } from './CapturingLogger';
 import { FakeAppAttestVerifier } from './FakeAppAttestVerifier';
+import { FakeAppStoreServerApi } from './FakeAppStoreServerApi';
 import { FakeConfigStore } from './FakeConfigStore';
 import { FakeDeviceCheckApi } from './FakeDeviceCheckApi';
+import { FakePlayDeveloperApi } from './FakePlayDeveloperApi';
 import { FakePlayIntegrityVerifier } from './FakePlayIntegrityVerifier';
 import { FakeRateLimiter } from './FakeRateLimiter';
 import { FixedClock } from './FixedClock';
@@ -33,7 +30,11 @@ export const TEST_PLAY_ACCOUNT_KEY = 'test-play-account-key-0123456789ab';
 export const TEST_DEVICE_KEY_SECRET = 'test-device-key-secret-0123456789a';
 export const TEST_APPLE_ACCOUNT_NS = '6f1c2b1e-9a4d-4c3b-8e2f-0a1b2c3d4e5f';
 export const TEST_APPLE_TEAM_ID = 'TEAMID1234';
+export const TEST_TRANSFER_TOKEN_KEY = 'test-transfer-token-key-0123456789';
 export const TEST_DEBUG_ATTESTATION_TOKEN = 'test-debug-attestation-token-0123456789';
+/** Expected Pub/Sub push claims (`GOOGLE_PUBSUB_AUDIENCE`, `GOOGLE_PUBSUB_SA`); test values. */
+export const TEST_PUBSUB_AUDIENCE = 'https://api.test.taro.invalid/v1/webhooks/googleplay';
+export const TEST_PUBSUB_SA = 'rtdn-push@taro-test.iam.gserviceaccount.com';
 /** Ed25519 JWKS (current `kt2`, previous `kt1`), generated for tests only. */
 export const TEST_TOKEN_SIGNING_KEYS = JSON.stringify({
   keys: [
@@ -69,6 +70,8 @@ export interface TestHarness {
   readonly burst: FakeRateLimiter;
   readonly readings: FakeRateLimiter;
   readonly deviceCheck: FakeDeviceCheckApi;
+  readonly appStore: FakeAppStoreServerApi;
+  readonly playDeveloper: FakePlayDeveloperApi;
 }
 
 export interface HarnessOptions {
@@ -95,6 +98,8 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
   const burst = new FakeRateLimiter();
   const readings = new FakeRateLimiter();
   const deviceCheck = new FakeDeviceCheckApi();
+  const appStore = new FakeAppStoreServerApi();
+  const playDeveloper = new FakePlayDeveloperApi();
   const keyring = options.idempotencyKeyring ?? TEST_IDEMPOTENCY_KEYRING;
   const ipKey = options.ipHashKey ?? TEST_IP_HASH_KEY;
   const deps: Deps = {
@@ -103,10 +108,11 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
     ai: unimplementedPort<AiProvider>('AiProvider', 'Phase 8'),
     appAttest,
     playIntegrity,
-    appStore: unimplementedPort<AppStoreServerApi>('AppStoreServerApi', 'Phase 7'),
-    playDeveloper: unimplementedPort<PlayDeveloperApi>('PlayDeveloperApi', 'Phase 7'),
+    appStore,
+    playDeveloper,
     admobKeys: unimplementedPort<AdmobKeyProvider>('AdmobKeyProvider', 'Phase 7'),
     googleOidc: unimplementedPort<GoogleOidcVerifier>('GoogleOidcVerifier', 'Phase 7'),
+    pubsubPush: { audience: TEST_PUBSUB_AUDIENCE, email: TEST_PUBSUB_SA },
     deviceCheck,
     tokenSigner: new Ed25519TokenSigner(() => TEST_TOKEN_SIGNING_KEYS),
     clock,
@@ -127,6 +133,7 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
       playAccount: lazy(() => parseHmacKey(TEST_PLAY_ACCOUNT_KEY, 'PLAY_ACCOUNT_KEY')),
       deviceKey: lazy(() => parseHmacKey(TEST_DEVICE_KEY_SECRET, 'DEVICE_KEY_SECRET')),
       appleAccountNs: lazy(() => parseUuidSecret(TEST_APPLE_ACCOUNT_NS, 'APPLE_ACCOUNT_NS')),
+      transferToken: lazy(() => parseHmacKey(TEST_TRANSFER_TOKEN_KEY, 'TRANSFER_TOKEN_KEY')),
     },
     appleTeamId: TEST_APPLE_TEAM_ID,
     debugAttestationToken:
@@ -146,6 +153,8 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
     burst,
     readings,
     deviceCheck,
+    appStore,
+    playDeveloper,
   };
 }
 

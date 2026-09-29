@@ -1,3 +1,5 @@
+import { PREV_APPLIED } from './batchGuard';
+
 /**
  * `ledger` (03 §4, §5.3; BE5, RC7, RC49). Append-only: the
  * `ledger_no_update` / `ledger_no_delete` triggers reject every change, and
@@ -132,6 +134,57 @@ export class LedgerRepo {
          ON CONFLICT (reason, ref_type, ref_id, bucket) DO NOTHING`,
       )
       .bind(input.installId, input.bucket, readingRef(input.readingId, input.attempt), input.now);
+  }
+
+  /**
+   * `entry` chained after a gate (`PREV_APPLIED`). No `ON CONFLICT`: a
+   * duplicate `(reason, ref_type, ref_id, bucket)` aborts the whole batch,
+   * gate included (`batchGuard` rule 3).
+   */
+  appendAfterStmt(entry: LedgerEntryInput): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO ledger (install_id, bucket, delta, reason, ref_type, ref_id, note, created_at)
+         SELECT ?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8 WHERE ${PREV_APPLIED}`,
+      )
+      .bind(
+        entry.installId,
+        entry.bucket,
+        entry.delta,
+        entry.reason,
+        entry.refType,
+        entry.refId,
+        entry.note ?? null,
+        entry.createdAt,
+      );
+  }
+
+  /**
+   * A purchase clawback or re-grant chained after its `purchases` CAS
+   * (`PREV_APPLIED`, 03 §6.4–§6.5): `paid`, `delta`, `ref_type = 'purchase'`.
+   * A purchase can be refunded, reversed and refunded again, so each cycle
+   * needs its own `ref_id` under `UNIQUE (reason, ref_type, ref_id, bucket)`:
+   * the first movement of a reason uses `purchaseId`, the n-th `purchaseId#n`.
+   * The cycle number is counted inside the batch, so it is exact under races.
+   */
+  purchaseMovementAfterStmt(entry: {
+    readonly installId: string;
+    readonly delta: number;
+    readonly reason: 'refund_revoke' | 'purchase_reversal_regrant';
+    readonly purchaseId: string;
+    readonly createdAt: string;
+  }): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO ledger (install_id, bucket, delta, reason, ref_type, ref_id, created_at)
+         SELECT ?1, 'paid', ?2, ?3, 'purchase',
+                CASE cycle.n WHEN 0 THEN ?4 ELSE ?4 || '#' || (cycle.n + 1) END, ?5
+           FROM (SELECT COUNT(*) AS n FROM ledger
+                  WHERE reason = ?3 AND ref_type = 'purchase'
+                    AND (ref_id = ?4 OR substr(ref_id, 1, length(?4) + 1) = ?4 || '#')) AS cycle
+          WHERE ${PREV_APPLIED}`,
+      )
+      .bind(entry.installId, entry.delta, entry.reason, entry.purchaseId, entry.createdAt);
   }
 
   /** Entries of one install, oldest first (admin scripts, tests). */

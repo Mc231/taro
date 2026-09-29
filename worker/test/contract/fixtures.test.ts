@@ -14,8 +14,23 @@ import {
   RegistrationResponseSchema,
 } from '../../src/routes/installs';
 import { TimezoneRequestSchema } from '../../src/routes/installsMe';
+import {
+  VerifyPurchaseGrantedSchema,
+  VerifyPurchasePendingSchema,
+  VerifyPurchaseRequestSchema,
+} from '../../src/routes/purchases';
+import {
+  RewardIntentRequestSchema,
+  RewardIntentSchema,
+  RewardIntentStatusSchema,
+} from '../../src/routes/rewards';
+import { ATTESTATION_HEADER } from '../../src/http/middleware/attestation';
+import { FakeAdmobKeyProvider } from '../fakes/FakeAdmobKeyProvider';
+import { FakeAppStoreServerApi } from '../fakes/FakeAppStoreServerApi';
 import { SeededCrypto } from '../fakes/SeededCrypto';
+import { SeqIdGenerator } from '../fakes/SeqIdGenerator';
 import { createHarness, type TestHarness } from '../fakes/testDeps';
+import { newSsvSigner, signedSsvPath } from '../helpers/admobSsv';
 import { solvePow } from '../helpers/identity';
 
 /**
@@ -33,7 +48,8 @@ import { solvePow } from '../helpers/identity';
  *
  * Every test uses fixed install IDs, idempotency keys, request IDs and IPs,
  * so the files are byte-stable. Groups: installs, balance, config, timezone,
- * errors (one file per `code`, named `errors.<code>.json`).
+ * purchases (`purchases.verify.*`), rewards (`rewards.intent.*`), errors (one
+ * file per `code`, named `errors.<code>.json`).
  */
 
 const HEADERS = {
@@ -72,10 +88,24 @@ interface Fixture {
  * A fresh app per test. `seed` must differ per test: challenge nonces come
  * from the seeded stream and `used_challenges` is shared by the whole file.
  */
-function fixtureApp(seed: number): Fixture {
+function fixtureApp(seed: number, overrides: Parameters<typeof createHarness>[0] = {}): Fixture {
   const crypto = new SeededCrypto(seed);
-  const h = createHarness({ overrides: { crypto } });
+  const h = createHarness({ ...overrides, overrides: { crypto, ...overrides.overrides } });
   return { h, app: buildApp(h.deps) };
+}
+
+/** Row IDs unique in this file (shared D1): UUID prefix and opaque intent IDs per test. */
+class FixtureIds extends SeqIdGenerator {
+  private opaqueSeq = 0;
+
+  constructor(private readonly tag: string) {
+    super(tag);
+  }
+
+  override opaque(): string {
+    this.opaqueSeq++;
+    return `rw${this.tag}${String(this.opaqueSeq).padStart(4, '0')}`;
+  }
 }
 
 async function json(res: Response): Promise<unknown> {
@@ -480,5 +510,217 @@ describe('contract fixtures: errors (03 §2.2 envelope, GLOSSARY §5 codes)', ()
       ),
     );
     broken.logger.expectNoSensitive();
+  });
+});
+
+describe('contract fixtures: purchases (03 §6.2, §6.3)', () => {
+  const verify = (
+    app: App,
+    token: string,
+    body: unknown,
+    key: string,
+    extra: Record<string, string> = {},
+  ) =>
+    app.request('/v1/purchases/verify', {
+      method: 'POST',
+      headers: authed(token, {
+        'content-type': 'application/json',
+        'Idempotency-Key': key,
+        ...extra,
+      }),
+      body: JSON.stringify(body),
+    });
+
+  it('exports iOS granted / already_granted, 409 with a transfer code, and 422s', async () => {
+    const { h, app } = fixtureApp(20, { overrides: { ids: new FixtureIds('c0a8f020') } });
+    const buyer = await registered(app, {
+      installId: 'c0a80101-0000-4000-8000-000000000020',
+      ip: '198.51.100.20',
+      key: '0e0e0e0e-0000-4000-8000-000000000020',
+    });
+    const txn = h.appStore.add({ transactionId: '2000000100000020' });
+    const request = parsed(VerifyPurchaseRequestSchema, {
+      platform: 'ios',
+      productId: 'com.vshyrochuk.taro.readings_3',
+      transactionId: txn.transactionId,
+    });
+    const granted = await verify(app, buyer.token, request, '0e0e0e0e-0000-4000-8000-000000000021');
+    expect(granted.status).toBe(200);
+    await exportFixture('purchases.verify.ios.request', request);
+    await exportFixture(
+      'purchases.verify.granted.response',
+      parsed(VerifyPurchaseGrantedSchema, await json(granted)),
+    );
+    const again = await verify(app, buyer.token, request, '0e0e0e0e-0000-4000-8000-000000000022');
+    expect(again.status).toBe(200);
+    await exportFixture(
+      'purchases.verify.already_granted.response',
+      parsed(VerifyPurchaseGrantedSchema, await json(again)),
+    );
+
+    const other = await registered(app, {
+      installId: 'c0a80101-0000-4000-8000-000000000023',
+      ip: '198.51.100.23',
+      key: '0e0e0e0e-0000-4000-8000-000000000023',
+    });
+    await exportFixture(
+      'errors.purchase_already_claimed',
+      await expectError(
+        await verify(
+          app,
+          other.token,
+          { ...request, signedTransaction: FakeAppStoreServerApi.signed(txn.transactionId) },
+          '0e0e0e0e-0000-4000-8000-000000000024',
+          { 'X-Request-Id': 'req-purchase-already-claimed' },
+        ),
+        'PURCHASE_ALREADY_CLAIMED',
+      ),
+    );
+    await exportFixture(
+      'errors.purchase_invalid',
+      await expectError(
+        await verify(
+          app,
+          other.token,
+          { ...request, transactionId: '2000000100000099' },
+          '0e0e0e0e-0000-4000-8000-000000000025',
+          { 'X-Request-Id': 'req-purchase-invalid' },
+        ),
+        'PURCHASE_INVALID',
+      ),
+    );
+    const removeAds = h.appStore.add({
+      transactionId: '2000000100000026',
+      productId: 'com.vshyrochuk.taro.remove_ads',
+      type: 'Non-Consumable',
+    });
+    await exportFixture(
+      'errors.product_unknown',
+      await expectError(
+        await verify(
+          app,
+          other.token,
+          { ...request, productId: removeAds.productId, transactionId: removeAds.transactionId },
+          '0e0e0e0e-0000-4000-8000-000000000026',
+          { 'X-Request-Id': 'req-product-unknown' },
+        ),
+        'PRODUCT_UNKNOWN',
+      ),
+    );
+    h.logger.expectNoSensitive();
+  });
+
+  it('exports an Android request and a pending (202) response', async () => {
+    const { h, app } = fixtureApp(21, { overrides: { ids: new FixtureIds('c0a8f021') } });
+    const { token } = await registered(app, {
+      installId: 'c0a80101-0000-4000-8000-000000000027',
+      ip: '198.51.100.27',
+      key: '0e0e0e0e-0000-4000-8000-000000000027',
+      platform: 'android',
+    });
+    h.playDeveloper.add('fixture-purchase-token-pending', {
+      productId: 'com.vshyrochuk.taro.readings_10',
+      purchaseState: 2,
+    });
+    const request = parsed(VerifyPurchaseRequestSchema, {
+      platform: 'android',
+      productId: 'com.vshyrochuk.taro.readings_10',
+      purchaseToken: 'fixture-purchase-token-pending',
+      orderId: 'GPA.3300-0000-0000-00001',
+    });
+    const res = await app.request('/v1/purchases/verify', {
+      method: 'POST',
+      headers: {
+        ...ANDROID,
+        Authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+        'Idempotency-Key': '0e0e0e0e-0000-4000-8000-000000000028',
+      },
+      body: JSON.stringify(request),
+    });
+    expect(res.status).toBe(202);
+    await exportFixture('purchases.verify.android.request', request);
+    await exportFixture(
+      'purchases.verify.pending.response',
+      parsed(VerifyPurchasePendingSchema, await json(res)),
+    );
+  });
+});
+
+describe('contract fixtures: rewards (03 §7.1, §7.3)', () => {
+  it('exports intent create / status (issued, granted) and the rewarded errors', async () => {
+    const keys = new FakeAdmobKeyProvider();
+    const signer = await newSsvSigner(3335741209);
+    keys.set(signer.keyId, signer.spki);
+    const { h, app } = fixtureApp(22, {
+      overrides: { ids: new FixtureIds('c0a8f022'), admobKeys: keys },
+    });
+    const { token } = await registered(app, {
+      installId: 'c0a80101-0000-4000-8000-000000000029',
+      ip: '198.51.100.29',
+      key: '0e0e0e0e-0000-4000-8000-000000000029',
+    });
+    const attested = (extra: Record<string, string> = {}) =>
+      authed(token, { [ATTESTATION_HEADER]: 'aa1.YXNzZXJ0aW9u', ...extra });
+    const request = parsed(RewardIntentRequestSchema, {
+      adUnitId: 'ca-app-pub-3940256099942544/1712485313',
+    });
+    const create = (key: string, extra: Record<string, string> = {}) =>
+      app.request('/v1/rewards/intents', {
+        method: 'POST',
+        headers: attested({ 'content-type': 'application/json', 'Idempotency-Key': key, ...extra }),
+        body: JSON.stringify(request),
+      });
+
+    const res = await create('0e0e0e0e-0000-4000-8000-00000000002a');
+    expect(res.status).toBe(201);
+    const intent = parsed(RewardIntentSchema, await json(res));
+    await exportFixture('rewards.intent.request', request);
+    await exportFixture('rewards.intent.response', intent);
+
+    const status = async () => {
+      const r = await app.request(`/v1/rewards/intents/${intent.intentId}`, {
+        headers: authed(token),
+      });
+      expect(r.status).toBe(200);
+      return parsed(RewardIntentStatusSchema, await json(r));
+    };
+    await exportFixture('rewards.intent.status_issued.response', await status());
+
+    const ssv = await app.request(
+      await signedSsvPath(signer, {
+        ad_network: '5450213213286189855',
+        ad_unit: '1712485313',
+        custom_data: intent.intentId,
+        reward_amount: '1',
+        reward_item: 'Reading',
+        timestamp: String(h.clock.now().getTime() - 1500),
+        transaction_id: 'fixture-ssv-txn-0001',
+        user_id: intent.intentId,
+      }),
+    );
+    expect(ssv.status).toBe(200);
+    await exportFixture('rewards.intent.status_granted.response', await status());
+
+    await exportFixture(
+      'errors.rewarded_daily_cap',
+      await expectError(
+        await create('0e0e0e0e-0000-4000-8000-00000000002b', {
+          'X-Request-Id': 'req-rewarded-daily-cap',
+        }),
+        'REWARDED_DAILY_CAP',
+      ),
+    );
+    h.config.set({ 'rewarded.enabled': false });
+    await exportFixture(
+      'errors.rewarded_disabled',
+      await expectError(
+        await create('0e0e0e0e-0000-4000-8000-00000000002c', {
+          'X-Request-Id': 'req-rewarded-disabled',
+        }),
+        'REWARDED_DISABLED',
+      ),
+    );
+    h.logger.expectNoSensitive();
   });
 });

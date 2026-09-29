@@ -1,3 +1,5 @@
+import { PREV_APPLIED } from './batchGuard';
+
 /**
  * `daily_usage` (03 §4, §5.2, §5.3). One row per install and local date,
  * created lazily on first use. `free_limit` snapshots `readings.freeDaily`
@@ -122,6 +124,76 @@ export class DailyUsageRepo {
           WHERE install_id = ?1 AND local_date = ?2`,
       )
       .bind(day.installId, day.localDate);
+  }
+
+  /**
+   * Chained after a free-hold gate (`PREV_APPLIED`, 03 §5.3 step 1): `free_used + 1`,
+   * `readings_total + 1` and the `free_limit` snapshot raised to `current`. The gate
+   * already checked the allowance; the CHECK aborts the batch if it was wrong.
+   */
+  takeFreeAfterStmt(day: UsageDay, current: number): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO daily_usage (install_id, local_date, free_limit, free_used, readings_total)
+         SELECT ?1, ?2, ?3, 1, 1 WHERE ${PREV_APPLIED}
+         ON CONFLICT (install_id, local_date) DO UPDATE SET
+           free_limit = MAX(free_limit, excluded.free_limit),
+           free_used = free_used + 1,
+           readings_total = readings_total + 1`,
+      )
+      .bind(day.installId, day.localDate, current);
+  }
+
+  /** Chained `readings_total + 1` for a bonus or paid hold (always one row). */
+  countReadingAfterStmt(day: UsageDay, freeLimit: number): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO daily_usage (install_id, local_date, free_limit, readings_total)
+         SELECT ?1, ?2, ?3, 1 WHERE ${PREV_APPLIED}
+         ON CONFLICT (install_id, local_date) DO UPDATE SET readings_total = readings_total + 1`,
+      )
+      .bind(day.installId, day.localDate, freeLimit);
+  }
+
+  /**
+   * Chained refund on the hold's own date (never "today", 03 §5.3 step 3):
+   * `readings_total - 1`, and `free_used - 1` for a free hold, floored at 0.
+   * An upsert, so it changes one row even if erasure removed that day's row
+   * (the chain must not break, `batchGuard`).
+   */
+  refundAfterStmt(day: UsageDay, free: boolean): D1PreparedStatement {
+    const freeUsed = free ? 'MAX(free_used - 1, 0)' : 'free_used';
+    return this.db
+      .prepare(
+        `INSERT INTO daily_usage (install_id, local_date, free_limit, free_used, readings_total)
+         SELECT ?1, ?2, 0, 0, 0 WHERE ${PREV_APPLIED}
+         ON CONFLICT (install_id, local_date) DO UPDATE SET
+           free_used = ${freeUsed},
+           readings_total = MAX(readings_total - 1, 0)`,
+      )
+      .bind(day.installId, day.localDate);
+  }
+
+  /** Chained `rewarded_granted + 1` of an SSV grant (03 §7.2 step 4); always one row. */
+  rewardedGrantAfterStmt(day: UsageDay, freeLimit: number): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO daily_usage (install_id, local_date, free_limit, rewarded_granted)
+         SELECT ?1, ?2, ?3, 1 WHERE ${PREV_APPLIED}
+         ON CONFLICT (install_id, local_date) DO UPDATE SET rewarded_granted = rewarded_granted + 1`,
+      )
+      .bind(day.installId, day.localDate, freeLimit);
+  }
+
+  /** Chained `declined_count + 1` (safety refusals only, RC74). */
+  declinedAfterStmt(day: UsageDay, freeLimit: number): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO daily_usage (install_id, local_date, free_limit, declined_count)
+         SELECT ?1, ?2, ?3, 1 WHERE ${PREV_APPLIED}
+         ON CONFLICT (install_id, local_date) DO UPDATE SET declined_count = declined_count + 1`,
+      )
+      .bind(day.installId, day.localDate, freeLimit);
   }
 
   /** Erasure: every row except today's (03 §3.6, RC37). */

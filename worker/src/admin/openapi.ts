@@ -31,6 +31,7 @@ export function documentDeps(): Deps {
     playDeveloper: port('PlayDeveloperApi'),
     admobKeys: port('AdmobKeyProvider'),
     googleOidc: port('GoogleOidcVerifier'),
+    pubsubPush: { audience: undefined, email: undefined },
     deviceCheck: port('DeviceCheckApi'),
     tokenSigner: port('TokenSigner'),
     clock: port('Clock'),

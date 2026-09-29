@@ -1314,7 +1314,7 @@ These feed the App Store privacy label and the Play Data Safety form in `05_COMP
 - Structured JSON logs (`Logger` port, `console.log` adapter picked up by Workers Logs) with `{ts, level, requestId, route, status, latencyMs, inst8, plat, appVer, code}`. `inst8` is the first 8 characters of the install UUID. Workers Logs is enabled in `wrangler.toml` with `head_sampling_rate = 1` on staging and `0.2` on prod for info level; errors are always logged.
 - Analytics Engine dataset `taro_api_events` (`Metrics` port): `writeDataPoint({ blobs: [event, platform, locale, model, promptVersion, chargeSource, safetyCategory|code], doubles: [costMicroUsd, latencyMs, inputTokens, outputTokens, credits], indexes: [event] })`. Events:
   - `reading_completed`, `reading_declined`, `reading_failed`;
-  - `purchase_granted`, `purchase_revoked`;
+  - `purchase_granted`, `purchase_revoked`, `purchase_verify` (every verify outcome in `code`, for the verify error rate);
   - `reward_issued`, `reward_granted`, `reward_rejected`;
   - `reading_reported` (with reason, §9.7);
   - `install_registered` (with trust);

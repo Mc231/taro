@@ -7,7 +7,13 @@ export type AlertKind =
   | 'low_trust_bucket'
   | 'error_rate'
   | 'reading_failed_rate'
-  | 'webhook_sig_failures';
+  | 'webhook_sig_failures'
+  /** Purchase verify error rate > 2 % over 10 min (04 §12.3; `scripts/metrics.ts`). */
+  | 'verify_error_rate'
+  /** `ssv_rejected` spike (04 Risks; `scripts/metrics.ts`). */
+  | 'ssv_rejected_spike'
+  /** Grant to a blocked or indebted install; support may refund via the store (03 §6.5). */
+  | 'blocked_purchase';
 
 export interface Alert {
   readonly kind: AlertKind;

@@ -243,6 +243,256 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 - Port 8787 was occupied by an unrelated local process on the owner's machine; `wrangler dev --port 8799`
   was used for the smoke check. Default port stays 8787 (GLOSSARY §6.1).
 
+## Ledger (Worker, Phase 7)
+
+### Spike: conditional statements in a D1 batch (Phase 7.1, 03 §5.3 step 1)
+
+**Question.** Can later statements of one D1 `batch` depend on whether an earlier statement changed a row,
+or does a hold need separate batches with an explicit rollback?
+
+**Finding** (`worker/test/integration/db/batchConditional.test.ts`, run on workerd's D1, i.e. SQLite):
+
+- A batch runs its statements in order, in one serialised transaction, on one connection. Parallel batches
+  never interleave (four racing CAS gates → exactly one follow-up).
+- `changes()` is the row count of the most recently **completed** INSERT/UPDATE/DELETE. Inside statement N it
+  therefore reads statement N−1 (or the last DML before it: a SELECT in between does not reset it), and a
+  multi-row UPDATE does not see its own count.
+- `INSERT … SELECT … WHERE (SELECT changes()) = 1 ON CONFLICT … DO UPDATE` reports 1 on both the insert and the
+  update path; an upsert whose `DO UPDATE … WHERE` is false and an UPDATE that matches nothing report 0.
+- Any failing statement (CHECK, UNIQUE) rolls back the whole batch, earlier statements included.
+
+**Chosen pattern** (`worker/src/repos/batchGuard.ts`, `PREV_APPLIED = '(SELECT changes()) = 1'`): no second
+batch, no rollback statement.
+
+1. The **gate** is the batch's first statement of a path: one compare-and-set on `readings.hold_state` and
+   `attempt` that also carries every balance condition (free: `free_used < MAX(free_limit, current)` on today's
+   `daily_usage` and, on Android, `device_daily_usage.free_used < current`; bonus/paid:
+   `SUM(ledger.delta) >= 1`).
+2. Every later statement is guarded by `PREV_APPLIED` and shaped to change **exactly one row** while the chain
+   is live (single-row UPDATEs on rows that must exist, upserts for usage rows, including refunds on a day row
+   that erasure removed), so the chain can never stop half way. A zero-change statement would silently break
+   it; that is why refund decrements are floored upserts, not `WHERE free_used > 0` updates.
+3. What cannot happen fails loudly: a ledger entry is a plain `INSERT … SELECT` (no `ON CONFLICT`), so a
+   duplicate `(reason, ref_type, ref_id, bucket)` aborts the batch; `free_used > free_limit` hits the CHECK.
+4. Alternative paths share one batch: `hold` sends the free, bonus and paid chains together. Once one gate
+   applies, the row is `held` and the later gates no longer match. After the chains, a state-guarded
+   `no_credit` update and a read of the row finish the batch: one round trip per hold, commit or refund.
+
+A hold, refund and commit each apply at most once per `(reading, attempt)`. A new hold after a refund is a new
+attempt (`attempt + 1`), including the re-hold of a commit that lost to the stale-hold cron. 03 §5.3 step 4 says
+"for the same attempt"; reusing it would collide with the ledger UNIQUE key and break "one hold per attempt".
+Every applied chain bumps `installs.state_version` (RC67).
+
+**Production caveat.** The spike ran on the D1 simulator in workerd (SQLite 3 with the same statement
+semantics). Production D1 is also SQLite, so the same behaviour is expected, but it has not been run against
+a remote database yet (no Cloudflare access, Phase 6.0 pending). Once staging exists, run the spike file's
+statements there once (or take one hold per bucket in the staging smoke test) before relying on it in prod.
+
+### Other Phase 7.1 decisions
+
+- `BalanceService.hold/refund/commit` take a `readings.id`. Until Phase 8 adds `POST /v1/readings/holds`, the
+  test driver `worker/test/helpers/readingDriver.ts` creates or loads the row by `clientReadingId` the way the
+  route will.
+- The daily-limit gate (`readings.maxPerInstallPerDay` → `429 dailyLimit`), the hard budget and kill-switch
+  gates, and "at most one open hold per install" (refund reason `released`) belong to the Phase 8 route. The
+  free-stop and hard tiers skip the free bucket inside `hold` (`details.reason = freePaused`).
+- A refund of a bonus or paid hold also decrements `readings_total` on the hold date (03 §5.3 names it only
+  for free), so failed or declined readings never count toward the daily limit.
+- Low-trust caps: a free hold of a low-trust install is skipped when `lt:ip:{hash}:{yyyymmdd}` has reached
+  `abuse.lowTrust.freePerIpPerDay` (`freePerCgnatPrefixPerDay` for `abuse.lowTrust.cgnatAsns`); an applied
+  one counts that key and the alert-only `lt:bucket:{plat}:{ver}:{yyyymmdd}`. A refund does not give the KV
+  count back (approximate soft cap, 03 §2.4).
+
+### End-to-end money flow (03 §15.2)
+
+`worker/test/integration/flows/moneyFlow.test.ts` walks one iOS install through the whole Phase 7 path over
+`buildApp` and real D1/KV: register → `GET /v1/balance` → free hold + commit → `402 INSUFFICIENT_CREDITS` →
+`POST /v1/rewards/intents` → signed `GET /v1/ads/admob/ssv` → bonus hold → `POST /v1/purchases/verify`
+(`FakeAppStoreServerApi`) → paid holds → `POST /v1/webhooks/appstore` `REFUND` → balance `paid = -3`,
+`paidBlocked`, `purchasesAllowed = false` (`refundDebt`), `canRead = false`. Reading holds go through
+`ReadingDriver` until Phase 8 adds the readings routes.
+
+## Purchases (Worker, Phase 7.2)
+
+`services/PurchaseService.ts` (`verifyApple`, `verifyGoogle`), route `routes/purchases.ts` (E14), adapters
+`adapters/apple/{AppStoreServerApi,AppleJwsVerifier,appleRootG3}.ts` and `adapters/google/PlayDeveloperApi.ts`
+(wired by `src/storeDeps.ts`), grant batch `PurchaseRepo.grantBatch` (03 §6, BE8; RC4, RC9, RC10, RC63, RC66, RC85).
+
+```mermaid
+sequenceDiagram
+  participant C as App
+  participant W as Worker
+  participant S as App Store / Play
+  C->>W: POST /v1/purchases/verify {platform, productId, transactionId | purchaseToken} [idem]
+  W->>S: iOS GET /inApps/v1/transactions/{id} (prod, sandbox on 4040010) | Play products.get
+  S-->>W: signedTransactionInfo (JWS, x5c → pinned Apple Root CA G3) | ProductPurchase
+  W->>W: bundle, catalog consumable, not revoked, environment | purchaseState 0/1/2, consumed
+  W->>W: iOS appAccountToken bound to another active install → grant to that install, 409 to the caller
+  W->>W: one batch: INSERT purchases (gate: unique txn/token + RC63 sandbox caps), ledger paid +credits, state_version + 1
+  W->>S: Android: :acknowledge (failure → pending_ack + CACHE_KV ack:pending:{purchaseId})
+  W-->>C: 200 {status: granted | already_granted, purchaseId, productId, creditsGranted, isFirstPurchase, balance} | 202 pending
+  C->>C: finishTransaction / consumePurchase only after 200
+```
+
+Decisions:
+
+- **Sandbox caps live in the insert gate.** `INSERT … SELECT … WHERE is_test = 0 OR (per-install SUM + credits
+  ≤ cap AND global SUM + credits ≤ cap) ON CONFLICT DO NOTHING`, so parallel test purchases cannot overshoot.
+  When the gate inserts nothing the service reads the existing row (`already_granted` / `409`); no row means
+  `422 sandbox_cap`. Caps count per UTC day in every environment (staging sets its own values).
+- **RC85 binding:** a transaction whose `appAccountToken` maps to a different `active` install is granted to
+  that install (the same routine as the ASSN `ONE_TIME_CHARGE` safety net), never to the caller, who gets
+  `409 PURCHASE_ALREADY_CLAIMED`. A `blocked`/`deleted` or unknown binding falls back to first claim wins.
+- **Transfer proof (03 §6.6):** `transferEligible = true` and a `transferToken` are returned only when the caller
+  proved the store account: on iOS a client `signedTransaction` (StoreKit 2 JWS) of the same transaction, on
+  Android the purchase token itself. A transaction ID alone (receipts, screenshots) never earns a token. The
+  token is `tt1.<base64url {p: purchaseId, n: newInstallId, e: exp}>.<HMAC(TRANSFER_TOKEN_KEY)>`, 7 days;
+  single use is the Sprint 7.5 script's job. A missing key degrades to `409` without a token.
+- **Quantity:** credits = catalog credits × store `quantity` (Apple `quantity`, Play `quantity`).
+- **Play test purchases** (`purchaseType = 0`) are stored with `is_test = 1` and `environment = 'sandbox'` so
+  revenue KPIs exclude them like Apple sandbox.
+- **Store outages** (network, 401/429/5xx, missing `APPLE_ASC_*` or service account) answer `500 INTERNAL`
+  (retryable; the idempotency row is released, the client keeps the transaction in its outbox). Not found and
+  failed JWS verification are `422 PURCHASE_INVALID` (`not_found`, `invalid_signature`).
+- The Play `androidpublisher` OAuth token is cached in `CACHE_KV` `google:oauth:androidpublisher` (50 min).
+
+## Store webhooks and refunds (Worker, Phase 7.3)
+
+`services/WebhookService.ts` (App Store and Play webhooks, Voided Purchases backstop), `services/RefundService.ts`
+(`revoke`, `regrant`), route `routes/webhooks.ts` (E19, E20), adapter `adapters/google/GoogleOidcVerifier.ts`
+(`GoogleJwksOidcVerifier`), crons `retryPendingAcks` (hourly) and `voidedPurchasesBackstop` (daily) in
+`src/scheduled.ts` (03 §6.4–§6.5, §12; MO16, RC66).
+
+```mermaid
+sequenceDiagram
+  participant A as App Store / Pub/Sub
+  participant W as Worker
+  participant D as D1
+  A->>W: POST /v1/webhooks/appstore {signedPayload} | /googleplay (Bearer OIDC JWT, {message})
+  W->>W: verify JWS x5c → Apple Root CA G3 (+ inner signedTransactionInfo) | OIDC: iss, aud, email (JWKS in CACHE_KV)
+  alt bad signature / token
+    W-->>A: 400 (Apple) | 401 (Pub/Sub)
+  end
+  W->>D: webhook_events[notificationUUID | messageId]: processed/ignored → duplicate, stop
+  W->>D: REFUND / voided: batch [purchases CAS → revoked, ledger refund_revoke −credits, refund_count + 1, state_version + 1, blocked at threshold]
+  W->>D: REFUND_REVERSED: batch [CAS revoked → reversal_regranted, ledger purchase_reversal_regrant +credits, state_version + 1]
+  W->>D: ONE_TIME_CHARGE / ONE_TIME_PRODUCT_PURCHASED: PurchaseService grant batch to the bound install (+ Play :acknowledge)
+  W->>D: webhook_events outcome (failed on an exception → 500, the store retries)
+  W-->>A: 200 (Apple) | 204 (Pub/Sub)
+```
+
+Decisions:
+
+- **Dedupe is outcome-based.** The event row is written after the handler with its outcome (`processed`,
+  `ignored`, or `failed` on an exception). A `failed` event runs again on the store's retry; the handlers are
+  idempotent on their own (CAS on `purchases.status`, unique store transaction), so two racing deliveries of one
+  event still move the ledger once.
+- **Refund cycles.** A purchase can be refunded, reversed and refunded again. Each ledger movement of one reason
+  needs its own `ref_id` under `UNIQUE (reason, ref_type, ref_id, bucket)`: the first is `purchaseId`, the n-th
+  `purchaseId#n`, counted inside the batch (`LedgerRepo.purchaseMovementAfterStmt`).
+- **Block threshold** is applied in the same `UPDATE installs` as `refund_count + 1` (SET reads the old row), so
+  it is exact under races. A reversal does not lower `refund_count` or unblock; support decides that
+  (`scripts/ledger-adjust.ts --unblock`).
+- **Webhook grants never 409.** `ONE_TIME_CHARGE` / `ONE_TIME_PRODUCT_PURCHASED` grant only to the install bound
+  by `appAccountToken` / `obfuscatedExternalAccountId`, through the same checks and grant batch as verify.
+  Anything verify would reject (unknown product, revoked, wrong bundle, sandbox cap, unbound) is `ignored` with
+  a 200/204, so the store stops retrying.
+- **`CONSUMPTION_REQUEST`** is answered only while `purchases.apple.sendConsumptionInfo` is on (default off, BE Q4):
+  delivery status 0 and a consumption status from the paid balance vs the purchase's credits (≥ credits → not
+  consumed, ≤ 0 → fully consumed, else partially); every other field is "undeclared".
+- **Pub/Sub auth runs before body validation** (route middleware), so an unauthenticated caller learns nothing.
+  Missing `GOOGLE_PUBSUB_AUDIENCE` / `GOOGLE_PUBSUB_SA` refuses every push (logged `pubsub_push_unconfigured`).
+- **Store outages** in a webhook (Play `products.get` unavailable, consumption PUT failing) answer 500 so the store
+  retries; the backstop cron fails the job (logged) and tomorrow's two-day window overlaps.
+
+## Rewarded ads (Worker, Phase 7.4)
+
+`services/RewardService.ts`, routes `routes/rewards.ts` (E15–E17) and `routes/admobSsv.ts` (E18), adapters
+`adapters/admob/{AdmobKeyProvider,SsvVerifier}.ts`, rules `domain/rewardRules.ts` (03 §7, 04 §9; BE14, RC56, RC57).
+
+```mermaid
+sequenceDiagram
+  participant C as App
+  participant W as Worker
+  participant A as AdMob
+  C->>W: POST /v1/rewards/intents {adUnitId} [idem][attest]
+  W->>W: enabled, cap (install + device), cooldown from last grant, device_reused, low-trust IP cap
+  W->>W: one batch: INSERT ad_rewards (cap + cooldown re-checked in SQL), state_version + 1, cancel other open intent
+  W-->>C: 201 {intentId, customData = userId = intentId, amount, expiresAt}
+  C->>A: show ad (SSV userId = customData = intentId)
+  A->>W: GET /v1/ads/admob/ssv?...&signature=…&key_id=…
+  W->>W: ECDSA-SHA256 over the raw query prefix (keys: gstatic, CACHE_KV 24 h) → 403 if bad
+  W->>W: dedupe ssv:{transaction_id}; user_id == custom_data; ad_unit allowed; intent live (no cap re-check)
+  W->>W: one batch: ad_rewards granted, ledger bonus +snapshot, daily_usage (+ device) rewarded_granted + 1, state_version + 1
+  W-->>A: 200 (also for every signed rejection, logged ssv_rejected{reason})
+  loop every 1.5 s, up to rewarded.grantPollTimeoutSec
+    C->>W: GET /v1/rewards/intents/{intentId}
+    W-->>C: {status, amount, balance once granted}
+  end
+```
+
+Decisions:
+
+- **Cancel grace without a new column.** Cancelling (the cancel route, or a new intent replacing an open one)
+  sets `status = 'cancelled'` and lowers `expires_at` to `MIN(expires_at, now + 120 s)`. For a `cancelled` row
+  `expires_at` is therefore the SSV grant deadline, and the grant gate is simply `status IN ('issued',
+  'cancelled') AND expires_at > now`. No migration was needed. The expiry cron only touches `issued` rows.
+- **Ad unit forms.** The app sends the full ID (`ca-app-pub-…/1712485313`); an SSV callback carries only the
+  numeric part. `adUnitAllowed` accepts either form against `rewarded.allowedAdUnitIds`.
+- **Low-trust installs** (03 Q8) share the per-IP-prefix free cap `lt:ip:*`: an intent is refused with
+  `409 REWARDED_DAILY_CAP` `reason=cap` (available at the next UTC midnight) once the prefix is used up, and an
+  issued intent counts one. Cancelled intents are not given back (approximate soft cap).
+- **Order of intent errors:** `403 REWARDED_DISABLED` (also `rewarded.dailyCap = 0`), `409` cap / cooldown,
+  then `400 VALIDATION_FAILED` (`adUnitId` not allowed), then the low-trust cap.
+- **The grant counts on the grant's local date** (install timezone at SSV time), which is what the cap and
+  cooldown read.
+- **Key refetch throttle.** An unknown `key_id` refetches gstatic at most once per 60 s, so signed-looking
+  forgeries cannot hammer it; a fetch failure answers `500` so AdMob retries. An unknown key after the refetch
+  is a bad signature (`403`).
+- **SSV response bodies are empty** (`200`/`403`): AdMob reads only the status, and the error envelope is
+  for the app.
+- `expireRewardIntents` (15-minute cron) expires `issued` rows past `expires_at` and bumps `state_version`
+  of their installs in the same batch (RC67).
+
+## Support tooling and metrics (Worker, Phase 7.5)
+
+Owner-run CLIs, no admin route (RC84). Each is a thin `main(argv, deps)` in `worker/scripts/` over a tested
+module in `src/admin/` (RC61); `scripts/run.mjs` bundles and runs them. Runbook: `docs/runbooks/SUPPORT_CREDITS.md`.
+
+```mermaid
+sequenceDiagram
+  participant O as Owner (credits-transfer)
+  participant W as wrangler d1 execute DB
+  participant D as D1
+  O->>O: verify transfer code (TRANSFER_TOKEN_KEY, 7 d) + Support ID = SHA-256(newInstallId)[0..8]
+  O->>W: snapshot SELECT (purchase, both installs, ticket legs, other tickets for the purchase)
+  W->>D: read
+  O->>O: planTransfer: min(unspent paid of old, purchase credits) or refuse / already applied
+  O->>W: guarded #out insert, #in copy of #out, state_version bump (one --command)
+  W->>D: write
+  O->>W: snapshot again; success only if both legs exist
+```
+
+- **D1 access** is `wrangler d1 execute DB --env <env> --remote|--local --json --command <sql>` (the binding
+  name works as the database argument; the JSON is one result object per statement). Values are validated and
+  rendered as SQL literals (`src/admin/d1.ts`); statements are joined with `;\n`, which no literal contains.
+- **Paired legs need distinct `ref_id`s.** The ledger's unique key `(reason, ref_type, ref_id, bucket)` has no
+  install column, so the two legs of a ticket are `{ticket}#out` and `{ticket}#in` (03 §6.6 says
+  `ref_id = ticket id`). Both start with the ticket, so a re-run is a no-op.
+- **Single use** is per purchase: the `#out` note carries `purchase=<id> ` and the `#out` insert only runs while
+  no other `#out` row names that purchase. A transfer code names one purchase, so it moves credits once, and a
+  second code for the same purchase (a third device) is refused too.
+- **Every statement guards itself** (`#out` on the old balance, `#in` copies the `#out` delta), so a command
+  that failed half way is completed by re-running it (`resume`), never doubled. Remote `--command` execution
+  is not relied on to be atomic.
+- **ledger-adjust** resolves the install by Support ID: with `--txn` / `--install` it checks the hash; with the
+  Support ID alone it scans install IDs in keyset pages of 1,000 and hashes them locally (D1 has no SHA-256).
+- **Metrics.** `purchase_verify` (outcome in `code`, latency) gives the verify error rate (`internal` / all);
+  `ssv_grant_lag_ms` is derived from `reward_granted.latencyMs` rather than written twice. `scripts/metrics.ts`
+  queries the Analytics Engine SQL API (`SUM(_sample_interval)` counts, `quantileExactWeighted`) and evaluates
+  the alert rules of `src/admin/metrics.ts`; the Phase 8 `AlertService` is meant to run the same rules in the
+  15-minute cron. `blocked_purchase` grants alert at grant time through the `Alerter`.
+
 
 ## Domain (`taro_core`, Phase 4)
 

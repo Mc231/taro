@@ -37,3 +37,48 @@ export type PackProductId = (typeof PACK_PRODUCT_IDS)[number];
 export function packCredits(productId: PackProductId): number {
   return PRODUCT_CATALOG[productId].credits;
 }
+
+/** A verifiable consumable (active or retired) and the credits it grants per unit. */
+export interface ConsumableProduct {
+  readonly productId: string;
+  readonly credits: number;
+  readonly retired: boolean;
+}
+
+/**
+ * The catalog consumable for a store product ID (03 §6.2 step 3), active or
+ * retired (a retired product is not offered but its old transactions still
+ * verify); null for Remove Ads or an unknown ID (`422 PRODUCT_UNKNOWN`).
+ */
+export function consumableProduct(
+  productId: string,
+  catalog: Readonly<Record<string, CatalogEntry>> = PRODUCT_CATALOG,
+): ConsumableProduct | null {
+  const entry = Object.hasOwn(catalog, productId) ? catalog[productId] : undefined;
+  return entry?.kind === 'consumable' && entry.credits !== undefined
+    ? { productId, credits: entry.credits, retired: entry.retired === true }
+    : null;
+}
+
+/** `test/fixtures/product_ids.json`: IDs and kinds only, for the Dart `TaroProducts` test (04 §15). */
+export interface ProductIdsFixture {
+  readonly products: readonly {
+    readonly id: string;
+    readonly kind: ProductKind;
+    readonly retired: boolean;
+  }[];
+}
+
+export function productIdsFixture(
+  catalog: Readonly<Record<string, CatalogEntry>> = PRODUCT_CATALOG,
+): ProductIdsFixture {
+  return {
+    products: Object.entries(catalog)
+      .map(([id, entry]: [string, CatalogEntry]) => ({
+        id,
+        kind: entry.kind,
+        retired: entry.retired === true,
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id)),
+  };
+}

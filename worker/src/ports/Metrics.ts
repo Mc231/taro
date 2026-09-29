@@ -4,6 +4,8 @@ export type MetricEvent =
   | 'reading_declined'
   | 'reading_failed'
   | 'purchase_granted'
+  /** Every `POST /v1/purchases/verify` outcome (`code`), for the verify error rate (04 §14). */
+  | 'purchase_verify'
   | 'purchase_revoked'
   | 'reward_issued'
   | 'reward_granted'
@@ -17,6 +19,7 @@ export type MetricEvent =
   | 'reading_undelivered_refund'
   | 'blocked_purchase'
   | 'sandbox_grant'
+  | 'binding_mismatch'
   | 'devicecheck_error'
   | 'webhook_sig_failed';
 

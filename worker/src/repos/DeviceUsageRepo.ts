@@ -1,3 +1,5 @@
+import { PREV_APPLIED } from './batchGuard';
+
 /**
  * `device_daily_usage` (03 §3.7, §4; BE19, RC53). Android only: the free and
  * rewarded counters per `device_key_hash` and local date, shared by every
@@ -68,11 +70,46 @@ export class DeviceUsageRepo {
       .bind(day.deviceKeyHash, day.localDate);
   }
 
+  /** Chained after a free-hold gate that checked the device counter (03 §5.3 step 1). */
+  takeFreeAfterStmt(day: DeviceDay): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO device_daily_usage (device_key_hash, local_date, free_used)
+         SELECT ?1, ?2, 1 WHERE ${PREV_APPLIED}
+         ON CONFLICT (device_key_hash, local_date) DO UPDATE SET free_used = free_used + 1`,
+      )
+      .bind(day.deviceKeyHash, day.localDate);
+  }
+
+  /** Chained free refund on the hold's date, floored at 0; always one row (`batchGuard`). */
+  refundFreeAfterStmt(day: DeviceDay): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO device_daily_usage (device_key_hash, local_date, free_used)
+         SELECT ?1, ?2, 0 WHERE ${PREV_APPLIED}
+         ON CONFLICT (device_key_hash, local_date) DO UPDATE SET
+           free_used = MAX(free_used - 1, 0)`,
+      )
+      .bind(day.deviceKeyHash, day.localDate);
+  }
+
   rewardedGrantStmt(day: DeviceDay): D1PreparedStatement {
     return this.db
       .prepare(
         `INSERT INTO device_daily_usage (device_key_hash, local_date, rewarded_granted)
          VALUES (?1, ?2, 1)
+         ON CONFLICT (device_key_hash, local_date) DO UPDATE SET
+           rewarded_granted = rewarded_granted + 1`,
+      )
+      .bind(day.deviceKeyHash, day.localDate);
+  }
+
+  /** Chained device `rewarded_granted + 1` of an SSV grant (03 §3.7, §7.2); always one row. */
+  rewardedGrantAfterStmt(day: DeviceDay): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `INSERT INTO device_daily_usage (device_key_hash, local_date, rewarded_granted)
+         SELECT ?1, ?2, 1 WHERE ${PREV_APPLIED}
          ON CONFLICT (device_key_hash, local_date) DO UPDATE SET
            rewarded_granted = rewarded_granted + 1`,
       )

@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "PURCHASE_INVALID",
+    "message": "Purchase could not be verified.",
+    "requestId": "req-purchase-invalid",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "reason": "not_found"
+    }
+  }
+}

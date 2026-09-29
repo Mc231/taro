@@ -16,6 +16,9 @@ import { AppleAppAttestVerifier } from '../../src/adapters/apple/AppAttestVerifi
 import { AppleDeviceCheckApi } from '../../src/adapters/apple/DeviceCheckApi';
 import { Ed25519TokenSigner } from '../../src/adapters/cf/Ed25519TokenSigner';
 import { GooglePlayIntegrityVerifier } from '../../src/adapters/google/PlayIntegrityVerifier';
+import { AppleAppStoreServerApi } from '../../src/adapters/apple/AppStoreServerApi';
+import { GooglePlayDeveloperApi } from '../../src/adapters/google/PlayDeveloperApi';
+import { GoogleJwksOidcVerifier } from '../../src/adapters/google/GoogleOidcVerifier';
 import { parseUuidSecret } from '../../src/crypto/keyring';
 import { debugAttestationToken } from '../../src/identityDeps';
 import {
@@ -100,7 +103,71 @@ describe('makeProdDeps', () => {
   it('rejects calls to adapters of later phases instead of pretending success', async () => {
     const deps = makeProdDeps(bindings);
     await expect(deps.ai.generate({} as never)).rejects.toThrow('Phase 8');
-    await expect(deps.appStore.getTransactionInfo('1')).rejects.toThrow('Phase 7');
+  });
+
+  it('wires the Phase 7.2 store adapters; missing secrets are unavailable, never a grant', async () => {
+    const deps = makeProdDeps(
+      withVars({
+        APPLE_ASC_ISSUER_ID: undefined,
+        APPLE_ASC_KEY_ID: undefined,
+        APPLE_ASC_PRIVATE_KEY: undefined,
+        GOOGLE_SERVICE_ACCOUNT_JSON: undefined,
+        TRANSFER_TOKEN_KEY: undefined,
+      }),
+    );
+    expect(deps.appStore).toBeInstanceOf(AppleAppStoreServerApi);
+    expect(deps.playDeveloper).toBeInstanceOf(GooglePlayDeveloperApi);
+    expect(await deps.appStore.getTransaction('2000000000000001')).toEqual({
+      ok: false,
+      reason: 'unavailable',
+    });
+    expect(
+      await deps.playDeveloper.getProductPurchase({
+        packageName: 'com.vshyrochuk.taro',
+        productId: 'com.vshyrochuk.taro.readings_3',
+        purchaseToken: 't',
+      }),
+    ).toEqual({ ok: false, reason: 'unavailable' });
+    // Partly or fully set but unusable ASC secrets fail before any request is sent.
+    for (const vars of [
+      { APPLE_ASC_ISSUER_ID: 'issuer', APPLE_ASC_KEY_ID: undefined, APPLE_ASC_PRIVATE_KEY: 'k' },
+      { APPLE_ASC_ISSUER_ID: 'issuer', APPLE_ASC_KEY_ID: 'KEY', APPLE_ASC_PRIVATE_KEY: ' ' },
+      { APPLE_ASC_ISSUER_ID: ' ', APPLE_ASC_KEY_ID: 'KEY', APPLE_ASC_PRIVATE_KEY: 'k' },
+      {
+        APPLE_ASC_ISSUER_ID: 'issuer',
+        APPLE_ASC_KEY_ID: 'KEY',
+        APPLE_ASC_PRIVATE_KEY: 'not a pem',
+      },
+    ]) {
+      expect(
+        await makeProdDeps(withVars(vars)).appStore.getTransaction('1'),
+        JSON.stringify(vars),
+      ).toEqual({
+        ok: false,
+        reason: 'unavailable',
+      });
+    }
+    expect(() => deps.keys.transferToken()).toThrow('TRANSFER_TOKEN_KEY');
+    const keyed = makeProdDeps(withVars({ TRANSFER_TOKEN_KEY: 'transfer-key-0123456789abcdef' }));
+    expect(keyed.keys.transferToken().length).toBe(29);
+  });
+
+  it('wires the Phase 7.3 Pub/Sub OIDC verifier and its expected claims', () => {
+    const unset = makeProdDeps(
+      withVars({ GOOGLE_PUBSUB_AUDIENCE: undefined, GOOGLE_PUBSUB_SA: ' ' }),
+    );
+    expect(unset.googleOidc).toBeInstanceOf(GoogleJwksOidcVerifier);
+    expect(unset.pubsubPush).toEqual({ audience: undefined, email: undefined });
+    const set = makeProdDeps(
+      withVars({
+        GOOGLE_PUBSUB_AUDIENCE: 'https://api.taro.vshyrochuk.com/v1/webhooks/googleplay',
+        GOOGLE_PUBSUB_SA: 'rtdn@taro.iam.gserviceaccount.com',
+      }),
+    );
+    expect(set.pubsubPush).toEqual({
+      audience: 'https://api.taro.vshyrochuk.com/v1/webhooks/googleplay',
+      email: 'rtdn@taro.iam.gserviceaccount.com',
+    });
   });
 
   it('parses secrets lazily and fails only when one is used', () => {

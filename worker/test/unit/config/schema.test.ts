@@ -16,7 +16,9 @@ import {
   PUBLIC_CONFIG_KEYS,
   PublicConfigReadSchema,
   PublicConfigSchema,
+  RemoteConfigFileSchema,
   SERVER_CONFIG_KEYS,
+  ServerConfigReadSchema,
   ServerConfigSchema,
   SPREAD_IDS,
   toPublicConfig,
@@ -175,6 +177,28 @@ describe('ServerConfigSchema', () => {
     expect(firstIssue(serverWith({ 'ai.blockedCountries': ['CN', 'CN'] }))).toContain(
       'duplicate CN',
     );
+  });
+});
+
+describe('sandbox caps (RC63)', () => {
+  it.each(['purchases.sandboxMaxCreditsPerInstallPerDay', 'purchases.sandboxGlobalCreditsPerDay'])(
+    'a prod config without %s is rejected on push and on read',
+    (key) => {
+      const server: Record<string, unknown> = { ...DEFAULT_SERVER_CONFIG };
+      Reflect.deleteProperty(server, key);
+      const push = ServerConfigSchema.safeParse(server);
+      expect(push.success).toBe(false);
+      expect(firstIssue(push)).toContain(key);
+      expect(ServerConfigReadSchema.safeParse(server).success).toBe(false);
+      expect(
+        RemoteConfigFileSchema.safeParse({ public: DEFAULT_PUBLIC_CONFIG, server }).success,
+      ).toBe(false);
+    },
+  );
+
+  it('ships the RC63 defaults (30 per install, 1,000 globally per UTC day)', () => {
+    expect(DEFAULT_SERVER_CONFIG['purchases.sandboxMaxCreditsPerInstallPerDay']).toBe(30);
+    expect(DEFAULT_SERVER_CONFIG['purchases.sandboxGlobalCreditsPerDay']).toBe(1000);
   });
 });
 

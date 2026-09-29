@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "PRODUCT_UNKNOWN",
+    "message": "Unknown product.",
+    "requestId": "req-product-unknown",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

@@ -488,9 +488,10 @@ def _top_level_statements(text: str) -> list[str]:
             depth += 1
         elif char in "})]":
             depth -= 1
-            # `export { a } from './a';` continues after its brace.
+            # `export { a } from './a';` continues after its brace, and so does a
+            # TS union or intersection whose first member is an object type.
             rest = text[index + 1 :].lstrip()
-            if depth == 0 and char == "}" and not rest.startswith(("from", ";", ",", ")")):
+            if depth == 0 and char == "}" and not rest.startswith(("from", ";", ",", ")", "|", "&")):
                 statements.append("".join(current))
                 current = []
         elif char == ";" and depth == 0:

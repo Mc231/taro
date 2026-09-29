@@ -571,6 +571,243 @@
         "required": [
           "timezone"
         ]
+      },
+      "VerifyPurchaseGranted": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "granted",
+              "already_granted"
+            ]
+          },
+          "purchaseId": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "string"
+          },
+          "creditsGranted": {
+            "type": "integer"
+          },
+          "isFirstPurchase": {
+            "type": "boolean"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          }
+        },
+        "required": [
+          "status",
+          "purchaseId",
+          "productId",
+          "creditsGranted",
+          "isFirstPurchase",
+          "balance"
+        ]
+      },
+      "VerifyPurchasePending": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "VerifyPurchaseRequest": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "enum": [
+                  "ios"
+                ]
+              },
+              "productId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "example": "com.vshyrochuk.taro.readings_3"
+              },
+              "transactionId": {
+                "type": "string",
+                "pattern": "^\\d{1,40}$"
+              },
+              "signedTransaction": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 20000
+              }
+            },
+            "required": [
+              "platform",
+              "productId",
+              "transactionId"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "enum": [
+                  "android"
+                ]
+              },
+              "productId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "example": "com.vshyrochuk.taro.readings_3"
+              },
+              "purchaseToken": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "orderId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "platform",
+              "productId",
+              "purchaseToken"
+            ]
+          }
+        ]
+      },
+      "RewardIntent": {
+        "type": "object",
+        "properties": {
+          "intentId": {
+            "type": "string",
+            "example": "q8ZpYf1bQ0a3xT9mK2nR7w"
+          },
+          "customData": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-09-26T10:15:00Z"
+          }
+        },
+        "required": [
+          "intentId",
+          "customData",
+          "userId",
+          "amount",
+          "expiresAt"
+        ]
+      },
+      "RewardIntentRequest": {
+        "type": "object",
+        "properties": {
+          "adUnitId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "example": "ca-app-pub-3940256099942544/1712485313"
+          }
+        },
+        "required": [
+          "adUnitId"
+        ]
+      },
+      "RewardIntentStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "issued",
+              "granted",
+              "cancelled",
+              "expired",
+              "rejected"
+            ]
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          }
+        },
+        "required": [
+          "status",
+          "amount"
+        ]
+      },
+      "AppStoreNotification": {
+        "type": "object",
+        "properties": {
+          "signedPayload": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100000,
+            "description": "JWS (x5c → Apple Root CA G3) of `responseBodyV2DecodedPayload`"
+          }
+        },
+        "required": [
+          "signedPayload"
+        ]
+      },
+      "PubsubPush": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "object",
+            "properties": {
+              "messageId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "data": {
+                "type": "string",
+                "maxLength": 100000,
+                "description": "base64 JSON of the RTDN `DeveloperNotification`"
+              },
+              "publishTime": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "messageId"
+            ]
+          },
+          "subscription": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ]
       }
     },
     "parameters": {}
@@ -1095,6 +1332,548 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/v1/purchases/verify": {
+      "post": {
+        "tags": [
+          "purchases"
+        ],
+        "summary": "Verify a store purchase and grant its credits (03 §6.2, §6.3)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyPurchaseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Granted now, or an idempotent replay for this install (`already_granted`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyPurchaseGranted"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Android pending purchase; nothing granted yet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyPurchasePending"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid body or missing Idempotency-Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "PURCHASE_ALREADY_CLAIMED (details.transferEligible, details.transferToken) or REQUEST_IN_PROGRESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "PURCHASE_INVALID (details.reason, e.g. sandbox_cap) or PRODUCT_UNKNOWN",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Store unavailable; retry later",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rewards/intents": {
+      "post": {
+        "tags": [
+          "rewards"
+        ],
+        "summary": "Open a reward intent before showing a rewarded ad (03 §7.1)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem",
+          "attest"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4)."
+            },
+            "required": false,
+            "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4).",
+            "name": "x-taro-attestation",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RewardIntentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Intent issued; pass `intentId` as SSV `userId` and `customData`",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RewardIntent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ad unit or missing Idempotency-Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "REWARDED_DISABLED or ATTESTATION_FAILED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "REWARDED_DAILY_CAP (details.reason cap|cooldown, details.availableAt) or REQUEST_IN_PROGRESS",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rewards/intents/{intentId}": {
+      "get": {
+        "tags": [
+          "rewards"
+        ],
+        "summary": "Poll a reward intent; `balance` is included once granted (03 §7.3)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "q8ZpYf1bQ0a3xT9mK2nR7w"
+            },
+            "required": true,
+            "name": "intentId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Intent status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RewardIntentStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such intent for this install",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/rewards/intents/{intentId}/cancel": {
+      "post": {
+        "tags": [
+          "rewards"
+        ],
+        "summary": "Cancel an open reward intent after a load failure or early dismissal (03 §7.3)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "q8ZpYf1bQ0a3xT9mK2nR7w"
+            },
+            "required": true,
+            "name": "intentId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Cancelled (or already settled)"
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No such intent for this install",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/ads/admob/ssv": {
+      "get": {
+        "tags": [
+          "rewards"
+        ],
+        "summary": "AdMob server-side verification callback (03 §7.2)",
+        "security": [],
+        "x-taro-auth": "signature",
+        "x-taro-flags": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "ad_network",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "ad_unit",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "The reward `intentId` (RC56)"
+            },
+            "required": false,
+            "description": "The reward `intentId` (RC56)",
+            "name": "custom_data",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "key_id",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "Ignored: the intent snapshot wins"
+            },
+            "required": false,
+            "description": "Ignored: the intent snapshot wins",
+            "name": "reward_amount",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "reward_item",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "timestamp",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "transaction_id",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "Must equal `custom_data` (RC56)"
+            },
+            "required": false,
+            "description": "Must equal `custom_data` (RC56)",
+            "name": "user_id",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "signature",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accepted: granted, duplicate, or rejected without a grant"
+          },
+          "403": {
+            "description": "Invalid or unverifiable signature"
+          }
+        }
+      }
+    },
+    "/v1/webhooks/appstore": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "App Store Server Notifications v2 (03 §6.4)",
+        "security": [],
+        "x-taro-auth": "signature",
+        "x-taro-flags": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppStoreNotification"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verified: handled, duplicate or ignored"
+          },
+          "400": {
+            "description": "Invalid body or signature"
+          },
+          "500": {
+            "description": "Handling failed; Apple retries"
+          }
+        }
+      }
+    },
+    "/v1/webhooks/googleplay": {
+      "post": {
+        "tags": [
+          "webhooks"
+        ],
+        "summary": "Google Play RTDN via Pub/Sub push (03 §6.4)",
+        "security": [],
+        "x-taro-auth": "signature",
+        "x-taro-flags": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PubsubPush"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Handled, duplicate or ignored"
+          },
+          "400": {
+            "description": "Invalid body"
+          },
+          "401": {
+            "description": "Missing or invalid Pub/Sub OIDC token"
+          },
+          "500": {
+            "description": "Handling failed; Pub/Sub retries"
           }
         }
       }

@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "PURCHASE_ALREADY_CLAIMED",
+    "message": "Transaction was granted to another install.",
+    "requestId": "req-purchase-already-claimed",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "transferEligible": true,
+      "transferToken": "tt1.eyJwIjoiYzBhOGYwMjAtMDAwMC03MDAwLTgwMDAtMDAwMDAwMDAwMDAzIiwibiI6ImMwYTgwMTAxLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAyMyIsImUiOjE3OTEwMjE2MDB9.Vb9vfzD8wekbHLy1zXKWk4N-FT4QxRnBe4CeTCuiKho"
+    }
+  }
+}

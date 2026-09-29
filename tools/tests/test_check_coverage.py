@@ -437,6 +437,12 @@ def test_script_entry_point(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> 
         ("d.ts", "declare const x: number;\nexport * from './a';\nexport { b } from './b';\n", False),
         ("e.ts", "/* c */ export const a = 1;\n", True),
         ("f.ts", "export interface I { a: string }\nexport function f() { return 1; }\n", True),
+        (
+            "union.ts",
+            "export type R =\n  { readonly ok: true } | F;\nexport type N =\n  | { a: 1 }\n  | { b: 2 };\n"
+            "export type I = { a: 1 } & { b: 2 };\n",
+            False,
+        ),
         ("g.swift", "", True),
         # Dart type-only declarations: interfaces, plain enums, freezed unions.
         (

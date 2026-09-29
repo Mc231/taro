@@ -38,6 +38,8 @@ keywords = ["private key-----"]
 description = "Public-by-design values and generated files"
 # Google's published AdMob sample app / ad unit IDs (02 §15 test ads).
 regexes = [
+  # The fixed fake appAccountToken used by the Worker store tests.
+  '''(?i)abcdef01-2345-4678-9abc-def012345678''',
   '''ca-app-pub-3940256099942544[~/]\d{10}''',
   # wrangler.toml placeholder IDs until Phase 6 Sprint 6.0.
   '''0{8}-0{4}-0{4}-0{4}-0{12}''',

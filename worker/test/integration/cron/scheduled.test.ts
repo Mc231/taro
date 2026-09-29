@@ -60,9 +60,10 @@ describe('scheduled() (03 §12)', () => {
     expect(CRON_JOBS[CRON.hourly].map((job) => job.name)).toEqual([
       'purgeIdempotencyKeys',
       'purgeUsedChallenges',
+      'retryPendingAcks',
     ]);
-    expect(CRON_JOBS[CRON.quarterHourly]).toEqual([]);
-    expect(CRON_JOBS[CRON.daily]).toEqual([]);
+    expect(CRON_JOBS[CRON.quarterHourly].map((job) => job.name)).toContain('expireRewardIntents');
+    expect(CRON_JOBS[CRON.daily].map((job) => job.name)).toEqual(['voidedPurchasesBackstop']);
   });
 
   it('the hourly trigger purges expired idempotency keys and used challenges via the entrypoint', async () => {
@@ -85,13 +86,15 @@ describe('scheduled() (03 §12)', () => {
     expect(await exists('used_challenges', 'nonce', liveNonce)).toBe(true);
   });
 
-  it('the other triggers run no job yet and keep the rows', async () => {
+  it('the other triggers do not purge idempotency keys', async () => {
     const expiredKey = await seedIdempotency(PAST);
     const h = createHarness();
     await runScheduled(h.deps, CRON.quarterHourly);
     await runScheduled(h.deps, CRON.daily);
     expect(await exists('idempotency_keys', 'key', expiredKey)).toBe(true);
-    expect(h.logger.find('cron_job')).toEqual([]);
+    expect(h.logger.find('cron_job').map((e) => e.fields['job'])).not.toContain(
+      'purgeIdempotencyKeys',
+    );
   });
 
   it('logs each job with its count, and an unknown cron as a warning', async () => {
@@ -99,7 +102,11 @@ describe('scheduled() (03 §12)', () => {
     const h = createHarness();
     await runScheduled(h.deps, CRON.hourly);
     const logged = h.logger.find('cron_job').map((e) => e.fields);
-    expect(logged.map((f) => f['job'])).toEqual(['purgeIdempotencyKeys', 'purgeUsedChallenges']);
+    expect(logged.map((f) => f['job'])).toEqual([
+      'purgeIdempotencyKeys',
+      'purgeUsedChallenges',
+      'retryPendingAcks',
+    ]);
     expect(logged[1]).toMatchObject({ cron: CRON.hourly, latencyMs: 0 });
     expect(Number(logged[1]?.['count'])).toBeGreaterThanOrEqual(1);
 

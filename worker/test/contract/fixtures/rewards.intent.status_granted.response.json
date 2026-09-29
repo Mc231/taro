@@ -1,0 +1,33 @@
+{
+  "status": "granted",
+  "amount": 1,
+  "balance": {
+    "free": {
+      "limit": 1,
+      "used": 0,
+      "remaining": 1,
+      "localDate": "2026-09-26",
+      "resetsAt": "2026-09-26T22:00:00Z",
+      "timezone": "Europe/Berlin",
+      "paused": false
+    },
+    "bonus": 1,
+    "paid": 0,
+    "canRead": true,
+    "canReadReason": null,
+    "nextSource": "free",
+    "rewarded": {
+      "enabled": true,
+      "amount": 1,
+      "dailyCap": 3,
+      "grantedToday": 1,
+      "available": false,
+      "cooldownEndsAt": "2026-09-26T10:05:00Z"
+    },
+    "paidBlocked": false,
+    "purchasesAllowed": true,
+    "purchasesBlockedReason": null,
+    "ledgerVersion": 2,
+    "serverTime": "2026-09-26T10:00:00Z"
+  }
+}

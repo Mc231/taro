@@ -1,3 +1,4 @@
+import { GstaticAdmobKeyProvider } from './adapters/admob/AdmobKeyProvider';
 import { AnalyticsEngineMetrics } from './adapters/cf/AnalyticsEngineMetrics';
 import { CryptoIdGenerator } from './adapters/cf/CryptoIdGenerator';
 import { consoleSink, JsonLogger } from './adapters/cf/JsonLogger';
@@ -28,6 +29,7 @@ import type {
 import type { TokenSigner } from './ports/TokenSigner';
 import { ConfigService, isolateConfigCache } from './services/ConfigService';
 import { identityDeps } from './identityDeps';
+import { storeDeps } from './storeDeps';
 import { WORKER_VERSION } from './version';
 
 /** Parsed secrets, resolved on first use (a missing one fails only the requests that need it). */
@@ -44,6 +46,8 @@ export interface SecretKeys {
   readonly deviceKey: () => Uint8Array;
   /** `APPLE_ACCOUNT_NS` (UUID namespace of `appleAccountToken`, 03 §3.3, RC9). */
   readonly appleAccountNs: () => string;
+  /** `TRANSFER_TOKEN_KEY` (HMAC of the support `transferToken`, 03 §6.6, RC84). */
+  readonly transferToken: () => Uint8Array;
 }
 
 /**
@@ -62,6 +66,15 @@ export interface Deps {
   readonly playDeveloper: PlayDeveloperApi;
   readonly admobKeys: AdmobKeyProvider;
   readonly googleOidc: GoogleOidcVerifier;
+  /**
+   * Expected claims of the Pub/Sub push token (`GOOGLE_PUBSUB_AUDIENCE`,
+   * `GOOGLE_PUBSUB_SA`, 03 §6.4); undefined when the secret is not set, and
+   * `POST /v1/webhooks/googleplay` then refuses every push.
+   */
+  readonly pubsubPush: {
+    readonly audience: string | undefined;
+    readonly email: string | undefined;
+  };
   readonly deviceCheck: DeviceCheckApi;
   readonly tokenSigner: TokenSigner;
 
@@ -132,11 +145,12 @@ export function makeProdDeps(env: Env): Deps {
     // TODO(Phase 8): AnthropicAiProvider, or FakeAiProvider when AI_PROVIDER=fake (dev only).
     ai: unimplementedPort<AiProvider>('AiProvider', 'Phase 8'),
     // appAttest, playIntegrity, deviceCheck, tokenSigner: identityDeps() below (Phase 6.3).
-    // TODO(Phase 7): store APIs, AdMob keys, Pub/Sub OIDC.
-    appStore: unimplementedPort<AppStoreServerApi>('AppStoreServerApi', 'Phase 7'),
-    playDeveloper: unimplementedPort<PlayDeveloperApi>('PlayDeveloperApi', 'Phase 7'),
-    admobKeys: unimplementedPort<AdmobKeyProvider>('AdmobKeyProvider', 'Phase 7'),
-    googleOidc: unimplementedPort<GoogleOidcVerifier>('GoogleOidcVerifier', 'Phase 7'),
+    // Store APIs, Pub/Sub OIDC: storeDeps below.
+    admobKeys: new GstaticAdmobKeyProvider({
+      fetch: fetch.bind(globalThis),
+      clock,
+      cache: env.CACHE_KV,
+    }),
     clock,
     ids: new CryptoIdGenerator(crypto, clock),
     crypto,
@@ -158,7 +172,10 @@ export function makeProdDeps(env: Env): Deps {
       playAccount: lazy(() => parseHmacKey(env.PLAY_ACCOUNT_KEY, 'PLAY_ACCOUNT_KEY')),
       deviceKey: lazy(() => parseHmacKey(env.DEVICE_KEY_SECRET, 'DEVICE_KEY_SECRET')),
       appleAccountNs: lazy(() => parseUuidSecret(env.APPLE_ACCOUNT_NS, 'APPLE_ACCOUNT_NS')),
+      transferToken: lazy(() => parseHmacKey(env.TRANSFER_TOKEN_KEY, 'TRANSFER_TOKEN_KEY')),
     },
     ...identityDeps(env, environment, clock, crypto),
+    // Store adapters (Phase 7.2/7.3): App Store Server API, Play Developer API, Pub/Sub OIDC.
+    ...storeDeps(env, clock),
   };
 }

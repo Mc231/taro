@@ -39,7 +39,16 @@
 set -uo pipefail
 
 ROOT="${TARO_VERIFY_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-MELOS="${TARO_MELOS:-melos}"
+# The global melos snapshot is shared with the CI runner's ~/.pub-cache and can
+# be compiled by a different Dart; fall back to the workspace's pinned melos.
+melos_workspace() { dart run melos "$@"; }
+if [[ -n "${TARO_MELOS:-}" ]]; then
+  MELOS="$TARO_MELOS"
+elif command -v melos >/dev/null 2>&1 && melos --version >/dev/null 2>&1; then
+  MELOS=melos
+else
+  MELOS=melos_workspace
+fi
 DART="${TARO_DART:-dart}"
 NPM="${TARO_NPM:-npm}"
 GIT="${TARO_GIT:-git}"

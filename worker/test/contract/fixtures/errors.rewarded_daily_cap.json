@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "REWARDED_DAILY_CAP",
+    "message": "Rewarded readings are capped or cooling down.",
+    "requestId": "req-rewarded-daily-cap",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "reason": "cooldown",
+      "availableAt": "2026-09-26T10:05:00Z"
+    }
+  }
+}

@@ -37,6 +37,18 @@ export class WebhookEventRepo {
       .bind(event.id, event.source, event.type, event.status, event.receivedAt);
   }
 
+  /** Inserts or overwrites the event's outcome (a retried `failed` delivery ends `processed`). */
+  async save(event: WebhookEvent): Promise<void> {
+    await this.db
+      .prepare(
+        `INSERT INTO webhook_events (id, source, type, status, received_at)
+         VALUES (?1, ?2, ?3, ?4, ?5)
+         ON CONFLICT (id) DO UPDATE SET type = excluded.type, status = excluded.status`,
+      )
+      .bind(event.id, event.source, event.type, event.status, event.receivedAt)
+      .run();
+  }
+
   async find(id: string): Promise<WebhookEvent | null> {
     const raw = await this.db
       .prepare(`SELECT * FROM webhook_events WHERE id = ?1`)

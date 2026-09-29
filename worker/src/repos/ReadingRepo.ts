@@ -102,6 +102,34 @@ interface RawReading {
   acked_at: string | null;
 }
 
+/** The row a hold compare-and-set expects to find (RC52). */
+export interface HoldExpectation {
+  readonly id: string;
+  readonly installId: string;
+  readonly state: HoldState;
+  readonly attempt: number;
+}
+
+/** What a hold gate writes when it applies. */
+export interface HoldTarget {
+  readonly attempt: number;
+  readonly source: HoldSource;
+  readonly localDate: string;
+  readonly expiresAt: string;
+  readonly status: ReadingStatus;
+}
+
+/** The balance condition of one hold gate (03 §5.3 steps 1–2). */
+export type HoldCondition =
+  | {
+      readonly bucket: 'free';
+      /** Today's allowance (`readings.freeDaily`, low-trust capped). */
+      readonly current: number;
+      /** Android: the device counter must also be below `current` (03 §3.7). */
+      readonly deviceKeyHash: string | null;
+    }
+  | { readonly bucket: 'bonus' | 'paid' };
+
 export class ReadingRepo {
   constructor(private readonly db: D1Database) {}
 
@@ -159,6 +187,130 @@ export class ReadingRepo {
           WHERE id = ?1 AND hold_state IN ('none', 'refunded')`,
       )
       .bind(input.id, input.attempt, input.source, input.holdLocalDate, input.holdExpiresAt);
+  }
+
+  /**
+   * The gate of a hold batch (03 §5.3, `batchGuard`): `expected → held` for
+   * `target.attempt`, only while the bucket still has a reading. For free,
+   * `free_used < MAX(free_limit, current)` on today's `daily_usage` row (and
+   * `device_daily_usage.free_used < current` on Android); for bonus/paid,
+   * `SUM(ledger.delta) >= 1`. The conditions are read inside the same
+   * serialised batch, so two holds can never both take the last reading.
+   */
+  holdGateStmt(
+    expected: HoldExpectation,
+    target: HoldTarget,
+    condition: HoldCondition,
+  ): D1PreparedStatement {
+    let guard: string;
+    const params: (string | number)[] = [];
+    if (condition.bucket === 'free') {
+      params.push(condition.current);
+      guard = `COALESCE((SELECT free_used FROM daily_usage
+                          WHERE install_id = ?2 AND local_date = ?6), 0)
+               < MAX(COALESCE((SELECT free_limit FROM daily_usage
+                                WHERE install_id = ?2 AND local_date = ?6), 0), ?10)`;
+      if (condition.deviceKeyHash !== null) {
+        params.push(condition.deviceKeyHash);
+        guard += ` AND COALESCE((SELECT free_used FROM device_daily_usage
+                                  WHERE device_key_hash = ?11 AND local_date = ?6), 0) < ?10`;
+      }
+    } else {
+      guard = `(SELECT COALESCE(SUM(delta), 0) FROM ledger
+                 WHERE install_id = ?2 AND bucket = ?5) >= 1`;
+    }
+    return this.db
+      .prepare(
+        `UPDATE readings SET hold_state = 'held', hold_source = ?5, hold_local_date = ?6,
+                hold_expires_at = ?7, attempt = ?8, status = ?9, charge_source = ?5
+          WHERE id = ?1 AND install_id = ?2 AND hold_state = ?3 AND attempt = ?4
+            AND ${guard}`,
+      )
+      .bind(
+        expected.id,
+        expected.installId,
+        expected.state,
+        expected.attempt,
+        target.source,
+        target.localDate,
+        target.expiresAt,
+        target.attempt,
+        target.status,
+        ...params,
+      );
+  }
+
+  /** After a failed hold batch: `no_credit`, only if the row is still as the gate expected. */
+  noCreditStmt(expected: HoldExpectation): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE readings SET status = 'no_credit'
+          WHERE id = ?1 AND install_id = ?2 AND hold_state = ?3 AND attempt = ?4`,
+      )
+      .bind(expected.id, expected.installId, expected.state, expected.attempt);
+  }
+
+  /** The refund gate: `held → refunded` for exactly this attempt and bucket (RC52). */
+  refundGateStmt(
+    id: string,
+    attempt: number,
+    source: HoldSource,
+    status: ReadingStatus,
+  ): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE readings SET hold_state = 'refunded', status = ?4
+          WHERE id = ?1 AND hold_state = 'held' AND attempt = ?2 AND hold_source = ?3`,
+      )
+      .bind(id, attempt, source, status);
+  }
+
+  /**
+   * `held → consumed`, `completed` for exactly this attempt (03 §5.3 step 4).
+   * Also the state-guarded consume after a commit's re-hold: the row can only
+   * be `held` at the new attempt if that re-hold applied.
+   */
+  consumeGateStmt(id: string, attempt: number, completedAt: string): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE readings SET hold_state = 'consumed', status = 'completed', completed_at = ?3
+          WHERE id = ?1 AND hold_state = 'held' AND attempt = ?2`,
+      )
+      .bind(id, attempt, completedAt);
+  }
+
+  /**
+   * A commit whose re-hold found no credit: the reading is delivered anyway
+   * (`commit_after_refund`, a free reading for the user, 03 §5.3 step 4).
+   */
+  completeUnchargedStmt(id: string, attempt: number, completedAt: string): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE readings SET status = 'completed', charge_source = 'none', completed_at = ?3
+          WHERE id = ?1 AND hold_state = 'refunded' AND attempt = ?2`,
+      )
+      .bind(id, attempt, completedAt);
+  }
+
+  /** Renews a live hold's TTL (03 §9.0); not a balance change. */
+  async extendHold(id: string, attempt: number, expiresAt: string): Promise<boolean> {
+    const result = await this.db
+      .prepare(
+        `UPDATE readings SET hold_expires_at = ?3
+          WHERE id = ?1 AND hold_state = 'held' AND attempt = ?2`,
+      )
+      .bind(id, attempt, expiresAt)
+      .run();
+    return result.meta.changes === 1;
+  }
+
+  /** `findById` as a batch statement; map the row with `ReadingRepo.parse`. */
+  findByIdStmt(id: string): D1PreparedStatement {
+    return this.db.prepare(`SELECT * FROM readings WHERE id = ?1`).bind(id);
+  }
+
+  static parse(raw: unknown): ReadingRow {
+    return toReading(raw as RawReading);
   }
 
   /** `held → refunded` (CAS). Only when this changed a row may the refund itself run (RC52). */

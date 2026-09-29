@@ -15,3 +15,10 @@ export function resolveAllowedAppIds(
     .map((id) => (appleTeamId === undefined ? id : id.split(TEAM_PLACEHOLDER).join(appleTeamId)))
     .filter((id) => !id.includes('{'));
 }
+
+/**
+ * The store app ID: the App Store bundle ID and the Google Play package name
+ * of the prod and `prodStaging` builds (GLOSSARY §15, RC78). Store purchases
+ * exist only for this ID; the `.stg` and `.dev` bundles have no IAP products.
+ */
+export const STORE_APP_ID = 'com.vshyrochuk.taro';

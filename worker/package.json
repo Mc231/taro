@@ -25,7 +25,10 @@
     "openapi:check": "node scripts/run.mjs export-openapi --check",
     "contract:update": "vitest run test/contract --update",
     "smoke": "node scripts/run.mjs smoke",
-    "gen-keys": "node scripts/run.mjs gen-keys"
+    "gen-keys": "node scripts/run.mjs gen-keys",
+    "credits-transfer": "node scripts/run.mjs credits-transfer",
+    "ledger-adjust": "node scripts/run.mjs ledger-adjust",
+    "metrics": "node scripts/run.mjs metrics"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.128.0",

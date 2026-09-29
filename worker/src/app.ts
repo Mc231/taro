@@ -16,6 +16,10 @@ import { registerConfigRoutes } from './routes/config';
 import { registerHealthRoutes } from './routes/health';
 import { registerInstallRoutes } from './routes/installs';
 import { registerInstallMeRoutes } from './routes/installsMe';
+import { registerPurchaseRoutes } from './routes/purchases';
+import { registerAdmobSsvRoute } from './routes/admobSsv';
+import { registerRewardRoutes } from './routes/rewards';
+import { registerWebhookRoutes } from './routes/webhooks';
 
 export type App = OpenAPIHono<AppEnv>;
 
@@ -57,5 +61,12 @@ export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
   const tokenAuth = options.auth ?? auth(deps);
   registerBalanceRoutes(app, deps, tokenAuth);
   registerInstallMeRoutes(app, deps, tokenAuth);
+  // Purchases (Sprint 7.2).
+  registerPurchaseRoutes(app, deps, tokenAuth);
+  // Rewarded ads (Sprint 7.4): reward intents and the AdMob SSV callback.
+  registerRewardRoutes(app, deps, tokenAuth);
+  registerAdmobSsvRoute(app, deps);
+  // Store webhooks (Sprint 7.3): App Store Server Notifications, Play RTDN.
+  registerWebhookRoutes(app, deps);
   return app;
 }

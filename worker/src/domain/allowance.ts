@@ -4,8 +4,19 @@ import type { DeviceUsageRow } from '../repos/DeviceUsageRepo';
 import type { InstallStatus } from '../repos/InstallRepo';
 import type { Balances } from '../repos/LedgerRepo';
 import type { BudgetTier } from './budget';
+import {
+  insufficientReason,
+  nextSource,
+  paidBlocked,
+  purchases,
+  type HoldBucket,
+  type InsufficientReason,
+  type PurchasesBlockedReason,
+} from './consumptionOrder';
 import { isoSeconds, localDate, nextResetUtc } from './dayBoundary';
 import type { Trust } from './types';
+
+export type { PurchasesBlockedReason } from './consumptionOrder';
 
 /**
  * `BalanceDto` (03 §5.1; RC6, RC64, RC66, RC67, RC74) as a pure function of
@@ -14,8 +25,7 @@ import type { Trust } from './types';
  */
 
 export type CanReadReason = 'noCredits' | 'dailyLimit' | 'lowTrustCap' | 'readingsPaused';
-export type NextSource = 'free' | 'bonus' | 'paid';
-export type PurchasesBlockedReason = 'blocked' | 'refundDebt' | 'storeDisabled';
+export type NextSource = HoldBucket;
 
 export interface FreeAllowanceDto {
   readonly limit: number;
@@ -85,11 +95,12 @@ export function currentFreeDaily(trust: Trust, config: RuntimeConfig): number {
 }
 
 /** An iOS `device_reused` install gets free readings and rewarded ads from its next local day. */
-function reusedDeviceFirstDay(input: AllowanceInput, today: string): boolean {
-  return (
-    input.install.deviceReused &&
-    localDate(new Date(input.install.createdAt), input.timezone) === today
-  );
+export function reusedDeviceFirstDay(
+  install: Pick<AllowanceInstall, 'deviceReused' | 'createdAt'>,
+  timezone: string,
+  today: string,
+): boolean {
+  return install.deviceReused && localDate(new Date(install.createdAt), timezone) === today;
 }
 
 interface FreeState {
@@ -109,7 +120,7 @@ function freeState(input: AllowanceInput, today: string): FreeState {
   if (input.device !== null) {
     remaining = Math.min(remaining, Math.max(0, current - input.device.freeUsed));
   }
-  if (reusedDeviceFirstDay(input, today)) {
+  if (reusedDeviceFirstDay(input.install, input.timezone, today)) {
     remaining = 0;
   }
   const highTrustRemaining = Math.max(0, input.config['readings.freeDaily'] - used);
@@ -143,7 +154,7 @@ function rewardedStatus(input: AllowanceInput, today: string): RewardedStatusDto
     enabled &&
     grantedToday < dailyCap &&
     cooldownEndsAt === null &&
-    !reusedDeviceFirstDay(input, today);
+    !reusedDeviceFirstDay(input.install, input.timezone, today);
   return {
     enabled,
     amount: config['rewarded.amount'],
@@ -152,21 +163,6 @@ function rewardedStatus(input: AllowanceInput, today: string): RewardedStatusDto
     available,
     cooldownEndsAt,
   };
-}
-
-function purchases(input: AllowanceInput): {
-  allowed: boolean;
-  reason: PurchasesBlockedReason | null;
-} {
-  let reason: PurchasesBlockedReason | null = null;
-  if (input.install.status === 'blocked') {
-    reason = 'blocked';
-  } else if (input.balances.paid < 0) {
-    reason = 'refundDebt';
-  } else if (!input.config['store.enabled']) {
-    reason = 'storeDisabled';
-  }
-  return { allowed: reason === null, reason };
 }
 
 interface ReadDecision {
@@ -202,19 +198,21 @@ function readDecision(input: AllowanceInput, free: FreeState, paused: boolean): 
     return denied('dailyLimit');
   }
   const freeUsable = free.remaining > 0 && !input.lowTrustIpCapReached;
-  if (freeUsable && !paused) {
-    return allowed('free');
+  const source = nextSource({
+    freeUsable,
+    freePaused: paused,
+    bonus: balances.bonus,
+    paid: balances.paid,
+  });
+  if (source !== null) {
+    return allowed(source);
   }
-  if (balances.bonus > 0) {
-    return allowed('bonus');
-  }
-  if (balances.paid > 0) {
-    return allowed('paid');
-  }
-  if (freeUsable) {
-    return denied('readingsPaused');
-  }
-  return denied(free.lowTrustLimited ? 'lowTrustCap' : 'noCredits');
+  const reason = insufficientReason({
+    freeUsable,
+    freePaused: paused,
+    lowTrustLimited: free.lowTrustLimited,
+  });
+  return denied(reason === 'freePaused' ? 'readingsPaused' : reason);
 }
 
 export function computeBalance(input: AllowanceInput): BalanceDto {
@@ -222,7 +220,11 @@ export function computeBalance(input: AllowanceInput): BalanceDto {
   const free = freeState(input, today);
   const paused = input.budgetTier === 'freeStop';
   const decision = readDecision(input, free, paused);
-  const purchase = purchases(input);
+  const purchase = purchases({
+    status: input.install.status,
+    paid: input.balances.paid,
+    storeEnabled: input.config['store.enabled'],
+  });
   return {
     free: {
       limit: free.limit,
@@ -237,10 +239,23 @@ export function computeBalance(input: AllowanceInput): BalanceDto {
     paid: input.balances.paid,
     ...decision,
     rewarded: rewardedStatus(input, today),
-    paidBlocked: input.balances.paid < 0,
+    paidBlocked: paidBlocked(input.balances.paid),
     purchasesAllowed: purchase.allowed,
     purchasesBlockedReason: purchase.reason,
     ledgerVersion: input.install.stateVersion,
     serverTime: isoSeconds(input.now),
   };
+}
+
+/** `details.reason` of a `402 INSUFFICIENT_CREDITS` from the state read after a failed hold. */
+export function holdFailureReason(
+  input: AllowanceInput,
+  freePausedNow: boolean,
+): InsufficientReason {
+  const free = freeState(input, localDate(input.now, input.timezone));
+  return insufficientReason({
+    freeUsable: free.remaining > 0 && !input.lowTrustIpCapReached,
+    freePaused: freePausedNow,
+    lowTrustLimited: free.lowTrustLimited,
+  });
 }

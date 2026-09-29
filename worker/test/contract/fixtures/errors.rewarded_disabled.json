@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "REWARDED_DISABLED",
+    "message": "Rewarded ads are disabled.",
+    "requestId": "req-rewarded-disabled",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

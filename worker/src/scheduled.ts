@@ -1,6 +1,9 @@
 import type { Deps } from './deps';
 import { IdempotencyRepo } from './repos/IdempotencyRepo';
+import { RewardRepo } from './repos/RewardRepo';
 import { UsedChallengeRepo } from './repos/UsedChallengeRepo';
+import { PurchaseService } from './services/PurchaseService';
+import { WebhookService } from './services/WebhookService';
 
 /**
  * Cron triggers (03 §12, GLOSSARY §6.1). The expressions must equal
@@ -68,6 +71,35 @@ export const purgeUsedChallenges: CronJob = {
   },
 };
 
+/** `ad_rewards` still `issued` past `expires_at` → `expired` (03 §7.3, §12). */
+export const expireRewardIntents: CronJob = {
+  name: 'expireRewardIntents',
+  run: (deps, now, limits) => {
+    const repo = new RewardRepo(deps.db);
+    return drain(limits, (limit) => repo.expireDue(now.toISOString(), limit));
+  },
+};
+
+/**
+ * Failed Google acknowledgements (`ack:pending:*`, 03 §6.3 step 4, §12,
+ * RC10): re-checked with the store and acknowledged, `batchSize` markers per
+ * run.
+ */
+export const retryPendingAcks: CronJob = {
+  name: 'retryPendingAcks',
+  run: (deps, _now, limits) => new PurchaseService(deps).retryPendingAcks(limits.batchSize),
+};
+
+/**
+ * Google Voided Purchases backstop (03 §6.4, §12): the last two days of
+ * `voidedpurchases.list`, revoking anything the RTDN missed. At most
+ * `maxBatches` pages per run.
+ */
+export const voidedPurchasesBackstop: CronJob = {
+  name: 'voidedPurchasesBackstop',
+  run: (deps, now, limits) => new WebhookService(deps).voidedBackstop(now, limits.maxBatches),
+};
+
 /**
  * The job table. Phase 7 registers `releaseExpiredHolds`, `refundStaleHolds`,
  * intent expiry, Google acknowledgements and the Voided Purchases backstop;
@@ -75,9 +107,9 @@ export const purgeUsedChallenges: CronJob = {
  * `refundUndeliveredReadings`, the retention purge and the daily summary.
  */
 export const CRON_JOBS: Readonly<Record<CronExpression, readonly CronJob[]>> = {
-  [CRON.quarterHourly]: [],
-  [CRON.hourly]: [purgeIdempotencyKeys, purgeUsedChallenges],
-  [CRON.daily]: [],
+  [CRON.quarterHourly]: [expireRewardIntents],
+  [CRON.hourly]: [purgeIdempotencyKeys, purgeUsedChallenges, retryPendingAcks],
+  [CRON.daily]: [voidedPurchasesBackstop],
 };
 
 function isCron(cron: string): cron is CronExpression {

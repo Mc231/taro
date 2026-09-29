@@ -1,3 +1,4 @@
+import { PREV_APPLIED } from './batchGuard';
 import { blobToBytes } from '../crypto/encoding';
 import type { Platform, Trust } from '../domain/types';
 
@@ -237,6 +238,15 @@ export class InstallRepo {
       .bind(id);
   }
 
+  /** `state_version + 1` chained after a gate (`PREV_APPLIED`, `batchGuard`). */
+  bumpStateVersionAfterStmt(id: string): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE installs SET state_version = state_version + 1 WHERE id = ?1 AND ${PREV_APPLIED}`,
+      )
+      .bind(id);
+  }
+
   /** `refund_count + 1` (03 §6.5); returns the new count. */
   async incrementRefundCount(id: string): Promise<number | null> {
     const row = await this.db
@@ -246,6 +256,25 @@ export class InstallRepo {
       .bind(id)
       .first<{ refund_count: number }>();
     return row?.refund_count ?? null;
+  }
+
+  /**
+   * A refund clawback's install update chained after it (`PREV_APPLIED`,
+   * 03 §6.5, RC66): `refund_count + 1`, `state_version + 1`, and an `active`
+   * install whose new count reaches `blockThreshold` becomes `blocked`
+   * (SET expressions read the old row, so `refund_count + 1` is the new count).
+   */
+  recordRefundAfterStmt(id: string, blockThreshold: number): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE installs
+            SET refund_count = refund_count + 1,
+                state_version = state_version + 1,
+                status = CASE WHEN status = 'active' AND refund_count + 1 >= ?2
+                              THEN 'blocked' ELSE status END
+          WHERE id = ?1 AND ${PREV_APPLIED}`,
+      )
+      .bind(id, blockThreshold);
   }
 
   /** Erasure keeps the row and nulls `locale` only (03 §3.6, RC37). */

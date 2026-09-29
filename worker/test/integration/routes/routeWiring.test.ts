@@ -75,7 +75,9 @@ describe('route wiring (03 §2.1, GLOSSARY §4, RC11)', () => {
         auth: canonical?.auth,
         flags: canonical?.flags,
       });
-      expect(op.security).toEqual(op.auth === 'public' ? [] : [{ installToken: [] }]);
+      expect(op.security).toEqual(
+        op.auth === 'public' || op.auth === 'signature' ? [] : [{ installToken: [] }],
+      );
     }
   });
 
@@ -92,11 +94,24 @@ describe('route wiring (03 §2.1, GLOSSARY §4, RC11)', () => {
     for (const op of operations()) {
       const flags = op.flags as Flag[];
       const noKey = await app.request(op.path, { method: op.method, headers });
-      const code = noKey.status >= 400 ? (await errorOf(noKey)).code : undefined;
-      if (flags.includes('idem')) {
-        expect({ id: op.id, code }).toEqual({ id: op.id, code: 'IDEMPOTENCY_KEY_REQUIRED' });
-      } else if (flags.includes('attest')) {
+      // Signature routes (AdMob, stores) answer their callers without the app envelope.
+      const enveloped = noKey.headers.get('content-type')?.includes('json') === true;
+      const code = noKey.status >= 400 && enveloped ? (await errorOf(noKey)).code : undefined;
+      if (flags.includes('attest')) {
+        // Call attestation runs before the idempotency row is claimed (routeGuards).
         expect({ id: op.id, code }).toEqual({ id: op.id, code: 'ATTESTATION_REQUIRED' });
+        if (flags.includes('idem')) {
+          const attested = await app.request(op.path, {
+            method: op.method,
+            headers: { ...headers, 'X-Taro-Attestation': 'aa1.YXNzZXJ0aW9u' },
+          });
+          expect({ id: op.id, code: (await errorOf(attested)).code }).toEqual({
+            id: op.id,
+            code: 'IDEMPOTENCY_KEY_REQUIRED',
+          });
+        }
+      } else if (flags.includes('idem')) {
+        expect({ id: op.id, code }).toEqual({ id: op.id, code: 'IDEMPOTENCY_KEY_REQUIRED' });
       } else {
         expect({ id: op.id, code }).not.toEqual({ id: op.id, code: 'IDEMPOTENCY_KEY_REQUIRED' });
       }
