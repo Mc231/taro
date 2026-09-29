@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taro.vshyrochuk.com/schema/content/crisis.schema.json",
+  "title": "Crisis resources source (apps/taro/content/source/crisis/crisis_resources.yaml)",
+  "description": "Canonical CrisisResource directory (03 §9.5, RC25, RC81). verifiedAt is null until a person verifies the entry (Phase 18.4). tools/content validate also requires: localeFallback for all 12 locales pointing at a listed country or null, the 05 §4.2 countries, findahelpline.com in international, verifiedAt not in the future, and (with --release) every entry verified within 200 days.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["localeFallback", "countries", "international"],
+  "properties": {
+    "localeFallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["en", "ar", "de", "es", "fr", "it", "ja", "ko", "nl", "pt", "tr", "uk"],
+      "patternProperties": {
+        "^(en|ar|de|es|fr|it|ja|ko|nl|pt|tr|uk)$": {
+          "anyOf": [{ "type": "string", "pattern": "^[A-Z]{2}$" }, { "type": "null" }]
+        }
+      }
+    },
+    "countries": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[A-Z]{2}$": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/resource" } }
+      }
+    },
+    "international": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/resource" } }
+  },
+  "$defs": {
+    "resource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "languages", "verifiedAt"],
+      "anyOf": [{ "required": ["phone"] }, { "required": ["sms"] }, { "required": ["url"] }],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "phone": { "type": "string", "pattern": "^[0-9+][0-9 ()+-]*$" },
+        "sms": { "type": "string", "pattern": "^[0-9+][0-9 ()+-]*$" },
+        "url": { "type": "string", "pattern": "^https://[^\\s]+$" },
+        "hours": { "type": "string", "minLength": 1 },
+        "languages": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$" }
+        },
+        "verifiedAt": {
+          "anyOf": [{ "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }, { "type": "null" }]
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 name: taro_dart_tools
-description: Dart repo tooling (coverage_all generator; more in Phase 3).
+description: Dart repo tooling (coverage_all, check_architecture, tools/content).
 version: 0.0.0
 publish_to: none
 
@@ -7,6 +7,13 @@ environment:
   sdk: ^3.9.0
 
 resolution: workspace
+
+dependencies:
+  args: ^2.7.0
+  crypto: ^3.0.7
+  http: ^1.6.0
+  image: ^4.10.1
+  yaml: ^3.1.4
 
 dev_dependencies:
   test: ^1.31.0

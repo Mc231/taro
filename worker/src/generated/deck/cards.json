@@ -1,0 +1,1826 @@
+{
+  "cards": [
+    {
+      "arcana": "major",
+      "artKey": "major_00",
+      "astrology": "uranus",
+      "element": "air",
+      "id": "major_00",
+      "keywordsReversed": [
+        "hesitation",
+        "careless risk",
+        "waiting for readiness",
+        "scattered focus"
+      ],
+      "keywordsUpright": [
+        "fresh start",
+        "curiosity",
+        "openness",
+        "a leap into the unknown",
+        "beginner's mind"
+      ],
+      "name": "The Fool",
+      "number": 0,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_01",
+      "astrology": "mercury",
+      "element": "air",
+      "id": "major_01",
+      "keywordsReversed": [
+        "untapped ability",
+        "scattered effort",
+        "self-doubt",
+        "clever shortcuts",
+        "realigning intent"
+      ],
+      "keywordsUpright": [
+        "focused will",
+        "resourcefulness",
+        "skill in action",
+        "clear intention",
+        "making it real"
+      ],
+      "name": "The Magician",
+      "number": 1,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_02",
+      "astrology": "moon",
+      "element": "water",
+      "id": "major_02",
+      "keywordsReversed": [
+        "ignored instincts",
+        "noisy mind",
+        "secrets kept too long",
+        "returning inward"
+      ],
+      "keywordsUpright": [
+        "inner knowing",
+        "stillness",
+        "listening",
+        "the unspoken",
+        "patience"
+      ],
+      "name": "The High Priestess",
+      "number": 2,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_03",
+      "astrology": "venus",
+      "element": "earth",
+      "id": "major_03",
+      "keywordsReversed": [
+        "self-neglect",
+        "smothering care",
+        "creative block",
+        "reconnecting with body"
+      ],
+      "keywordsUpright": [
+        "nurturing",
+        "abundance",
+        "creativity",
+        "comfort of the senses",
+        "growth"
+      ],
+      "name": "The Empress",
+      "number": 3,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_04",
+      "astrology": "aries",
+      "element": "fire",
+      "id": "major_04",
+      "keywordsReversed": [
+        "rigidity",
+        "control",
+        "shaky foundations",
+        "reclaiming authority"
+      ],
+      "keywordsUpright": [
+        "structure",
+        "steady leadership",
+        "responsibility",
+        "clear boundaries",
+        "protection"
+      ],
+      "name": "The Emperor",
+      "number": 4,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_05",
+      "astrology": "taurus",
+      "element": "earth",
+      "id": "major_05",
+      "keywordsReversed": [
+        "questioning convention",
+        "personal beliefs",
+        "outgrown rules",
+        "finding your own way"
+      ],
+      "keywordsUpright": [
+        "tradition",
+        "shared values",
+        "learning from others",
+        "mentorship",
+        "belonging"
+      ],
+      "name": "The Hierophant",
+      "number": 5,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_06",
+      "astrology": "gemini",
+      "element": "air",
+      "id": "major_06",
+      "keywordsReversed": [
+        "inner conflict",
+        "misalignment",
+        "avoided decision",
+        "reconnecting with values"
+      ],
+      "keywordsUpright": [
+        "connection",
+        "meaningful choice",
+        "alignment of values",
+        "honesty",
+        "mutual respect"
+      ],
+      "name": "The Lovers",
+      "number": 6,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_07",
+      "astrology": "cancer",
+      "element": "water",
+      "id": "major_07",
+      "keywordsReversed": [
+        "lost direction",
+        "forcing it",
+        "competing pulls",
+        "regaining the reins"
+      ],
+      "keywordsUpright": [
+        "determination",
+        "direction",
+        "self-control",
+        "forward momentum",
+        "harnessing opposites"
+      ],
+      "name": "The Chariot",
+      "number": 7,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_08",
+      "astrology": "leo",
+      "element": "fire",
+      "id": "major_08",
+      "keywordsReversed": [
+        "self-doubt",
+        "frayed patience",
+        "harsh self-talk",
+        "rebuilding courage"
+      ],
+      "keywordsUpright": [
+        "gentle courage",
+        "patience",
+        "compassion",
+        "inner steadiness",
+        "quiet confidence"
+      ],
+      "name": "Strength",
+      "number": 8,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_09",
+      "astrology": "virgo",
+      "element": "earth",
+      "id": "major_09",
+      "keywordsReversed": [
+        "isolation",
+        "avoiding reflection",
+        "lost in thought",
+        "returning to others"
+      ],
+      "keywordsUpright": [
+        "solitude",
+        "reflection",
+        "inner guidance",
+        "searching",
+        "wisdom through quiet"
+      ],
+      "name": "The Hermit",
+      "number": 9,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_10",
+      "astrology": "jupiter",
+      "element": "fire",
+      "id": "major_10",
+      "keywordsReversed": [
+        "resisting change",
+        "feeling stuck",
+        "repeating patterns",
+        "finding your footing"
+      ],
+      "keywordsUpright": [
+        "cycles",
+        "change",
+        "turning points",
+        "adaptability",
+        "perspective"
+      ],
+      "name": "Wheel of Fortune",
+      "number": 10,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_11",
+      "astrology": "libra",
+      "element": "air",
+      "id": "major_11",
+      "keywordsReversed": [
+        "imbalance",
+        "avoiding responsibility",
+        "self-judgment",
+        "seeking fairness"
+      ],
+      "keywordsUpright": [
+        "fairness",
+        "honesty",
+        "accountability",
+        "clear judgment",
+        "cause and effect"
+      ],
+      "name": "Justice",
+      "number": 11,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_12",
+      "astrology": "neptune",
+      "element": "water",
+      "id": "major_12",
+      "keywordsReversed": [
+        "stalling",
+        "resisting the pause",
+        "indecision",
+        "ready to move again"
+      ],
+      "keywordsUpright": [
+        "pause",
+        "surrender",
+        "new perspective",
+        "letting go",
+        "waiting with purpose"
+      ],
+      "name": "The Hanged Man",
+      "number": 12,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_13",
+      "astrology": "scorpio",
+      "element": "water",
+      "id": "major_13",
+      "keywordsReversed": [
+        "holding on",
+        "resisting change",
+        "lingering endings",
+        "slow transition"
+      ],
+      "keywordsUpright": [
+        "endings",
+        "transformation",
+        "clearing space",
+        "closing a chapter",
+        "release"
+      ],
+      "name": "Death",
+      "number": 13,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_14",
+      "astrology": "sagittarius",
+      "element": "fire",
+      "id": "major_14",
+      "keywordsReversed": [
+        "excess",
+        "imbalance",
+        "impatience",
+        "recalibrating"
+      ],
+      "keywordsUpright": [
+        "balance",
+        "moderation",
+        "blending",
+        "patience",
+        "finding the middle path"
+      ],
+      "name": "Temperance",
+      "number": 14,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_15",
+      "astrology": "capricorn",
+      "element": "earth",
+      "id": "major_15",
+      "keywordsReversed": [
+        "loosening ties",
+        "breaking a pattern",
+        "reclaiming choice",
+        "facing the shadow"
+      ],
+      "keywordsUpright": [
+        "attachment",
+        "habits that bind",
+        "temptation",
+        "shadow self",
+        "honest awareness"
+      ],
+      "name": "The Devil",
+      "number": 15,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_16",
+      "astrology": "mars",
+      "element": "fire",
+      "id": "major_16",
+      "keywordsReversed": [
+        "averting upheaval",
+        "slow unraveling",
+        "resisting change",
+        "rebuilding"
+      ],
+      "keywordsUpright": [
+        "sudden change",
+        "clearing away",
+        "breakthrough",
+        "shaken assumptions",
+        "truth revealed"
+      ],
+      "name": "The Tower",
+      "number": 16,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_17",
+      "astrology": "aquarius",
+      "element": "air",
+      "id": "major_17",
+      "keywordsReversed": [
+        "discouragement",
+        "disconnection",
+        "fading self-belief",
+        "rekindling hope"
+      ],
+      "keywordsUpright": [
+        "hope",
+        "renewal",
+        "calm",
+        "openness",
+        "quiet inspiration"
+      ],
+      "name": "The Star",
+      "number": 17,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_18",
+      "astrology": "pisces",
+      "element": "water",
+      "id": "major_18",
+      "keywordsReversed": [
+        "clearing confusion",
+        "facing worries",
+        "self-deception",
+        "trusting the path"
+      ],
+      "keywordsUpright": [
+        "uncertainty",
+        "intuition",
+        "dreams",
+        "the unknown",
+        "shifting feelings"
+      ],
+      "name": "The Moon",
+      "number": 18,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_19",
+      "astrology": "sun",
+      "element": "fire",
+      "id": "major_19",
+      "keywordsReversed": [
+        "dimmed joy",
+        "self-doubt",
+        "overexposure",
+        "finding light again"
+      ],
+      "keywordsUpright": [
+        "joy",
+        "clarity",
+        "warmth",
+        "confidence",
+        "vitality"
+      ],
+      "name": "The Sun",
+      "number": 19,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_20",
+      "astrology": "pluto",
+      "element": "fire",
+      "id": "major_20",
+      "keywordsReversed": [
+        "self-criticizm",
+        "ignoring the call",
+        "doubt",
+        "learning from the past"
+      ],
+      "keywordsUpright": [
+        "awakening",
+        "reckoning",
+        "renewal",
+        "answering a calling",
+        "honest reflection"
+      ],
+      "name": "Judgement",
+      "number": 20,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_21",
+      "astrology": "saturn",
+      "element": "earth",
+      "id": "major_21",
+      "keywordsReversed": [
+        "unfinished business",
+        "seeking closure",
+        "loose ends",
+        "one last step"
+      ],
+      "keywordsUpright": [
+        "completion",
+        "wholeness",
+        "integration",
+        "accomplishment",
+        "belonging"
+      ],
+      "name": "The World",
+      "number": 21,
+      "suit": null
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_01",
+      "astrology": null,
+      "element": "fire",
+      "id": "wands_01",
+      "keywordsReversed": [
+        "delayed start",
+        "scattered energy",
+        "creative block",
+        "waiting to catch",
+        "quiet incubation"
+      ],
+      "keywordsUpright": [
+        "spark of inspiration",
+        "creative impulse",
+        "enthusiasm",
+        "fresh energy",
+        "a new idea"
+      ],
+      "name": "Ace of Wands",
+      "number": 1,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_02",
+      "astrology": "mars_in_aries",
+      "element": "fire",
+      "id": "wands_02",
+      "keywordsReversed": [
+        "staying in the familiar",
+        "fear of the unknown",
+        "unclear direction",
+        "planning without acting",
+        "rethinking the map"
+      ],
+      "keywordsUpright": [
+        "planning ahead",
+        "wider horizons",
+        "bold intention",
+        "weighing options",
+        "personal vision"
+      ],
+      "name": "Two of Wands",
+      "number": 2,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_03",
+      "astrology": "sun_in_aries",
+      "element": "fire",
+      "id": "wands_03",
+      "keywordsReversed": [
+        "impatience",
+        "slow returns",
+        "frustrated plans",
+        "adjusting course",
+        "limited view"
+      ],
+      "keywordsUpright": [
+        "momentum",
+        "expansion",
+        "looking ahead",
+        "early progress",
+        "trust in your efforts"
+      ],
+      "name": "Three of Wands",
+      "number": 3,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_04",
+      "astrology": "venus_in_aries",
+      "element": "fire",
+      "id": "wands_04",
+      "keywordsReversed": [
+        "unsettled ground",
+        "muted celebration",
+        "feeling left out",
+        "private gratitude",
+        "rebuilding foundations"
+      ],
+      "keywordsUpright": [
+        "celebration",
+        "homecoming",
+        "stability",
+        "shared milestones",
+        "belonging"
+      ],
+      "name": "Four of Wands",
+      "number": 4,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_05",
+      "astrology": "saturn_in_leo",
+      "element": "fire",
+      "id": "wands_05",
+      "keywordsReversed": [
+        "avoiding conflict",
+        "finding common ground",
+        "inner tug-of-war",
+        "tension easing",
+        "clearing the air"
+      ],
+      "keywordsUpright": [
+        "friction",
+        "competing ideas",
+        "lively debate",
+        "testing strength",
+        "restless energy"
+      ],
+      "name": "Five of Wands",
+      "number": 5,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_06",
+      "astrology": "jupiter_in_leo",
+      "element": "fire",
+      "id": "wands_06",
+      "keywordsReversed": [
+        "seeking approval",
+        "unnoticed effort",
+        "self-doubt",
+        "quiet success",
+        "redefining success"
+      ],
+      "keywordsUpright": [
+        "recognition",
+        "confidence",
+        "public achievement",
+        "encouragement",
+        "pride in your work"
+      ],
+      "name": "Six of Wands",
+      "number": 6,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_07",
+      "astrology": "mars_in_leo",
+      "element": "fire",
+      "id": "wands_07",
+      "keywordsReversed": [
+        "feeling overwhelmed",
+        "defensiveness",
+        "choosing battles",
+        "wavering resolve",
+        "letting some go"
+      ],
+      "keywordsUpright": [
+        "standing your ground",
+        "conviction",
+        "perseverance",
+        "protecting boundaries",
+        "courage under pressure"
+      ],
+      "name": "Seven of Wands",
+      "number": 7,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_08",
+      "astrology": "mercury_in_sagittarius",
+      "element": "fire",
+      "id": "wands_08",
+      "keywordsReversed": [
+        "delays",
+        "rushing ahead",
+        "crossed signals",
+        "slowing down",
+        "scattered focus"
+      ],
+      "keywordsUpright": [
+        "swift movement",
+        "momentum",
+        "messages in motion",
+        "focused energy",
+        "things aligning"
+      ],
+      "name": "Eight of Wands",
+      "number": 8,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_09",
+      "astrology": "moon_in_sagittarius",
+      "element": "fire",
+      "id": "wands_09",
+      "keywordsReversed": [
+        "exhaustion",
+        "guardedness",
+        "reaching limits",
+        "asking for help",
+        "lowering defenses"
+      ],
+      "keywordsUpright": [
+        "resilience",
+        "persistence",
+        "the last stretch",
+        "hard-won wisdom",
+        "watchful strength"
+      ],
+      "name": "Nine of Wands",
+      "number": 9,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_10",
+      "astrology": "saturn_in_sagittarius",
+      "element": "fire",
+      "id": "wands_10",
+      "keywordsReversed": [
+        "setting down burdens",
+        "delegating",
+        "saying no",
+        "relief",
+        "carrying it alone"
+      ],
+      "keywordsUpright": [
+        "heavy load",
+        "responsibility",
+        "overcommitment",
+        "pushing through",
+        "nearing completion"
+      ],
+      "name": "Ten of Wands",
+      "number": 10,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_11",
+      "astrology": null,
+      "element": "fire",
+      "id": "wands_11",
+      "keywordsReversed": [
+        "restlessness",
+        "unfinished starts",
+        "hesitant curiosity",
+        "lack of direction",
+        "ideas waiting to form"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "exploration",
+        "playful enthusiasm",
+        "eager learning",
+        "bold first steps"
+      ],
+      "name": "Page of Wands",
+      "number": 11,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_12",
+      "astrology": "sagittarius",
+      "element": "fire",
+      "id": "wands_12",
+      "keywordsReversed": [
+        "impulsiveness",
+        "haste",
+        "scattered passion",
+        "frustration",
+        "channeling energy"
+      ],
+      "keywordsUpright": [
+        "adventure",
+        "bold action",
+        "passion",
+        "spontaneity",
+        "fearless energy"
+      ],
+      "name": "Knight of Wands",
+      "number": 12,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_13",
+      "astrology": "aries",
+      "element": "fire",
+      "id": "wands_13",
+      "keywordsReversed": [
+        "self-doubt",
+        "burnout",
+        "dimmed confidence",
+        "jealousy",
+        "reclaiming your spark"
+      ],
+      "keywordsUpright": [
+        "warm confidence",
+        "charisma",
+        "independence",
+        "creative vitality",
+        "generous presence"
+      ],
+      "name": "Queen of Wands",
+      "number": 13,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_14",
+      "astrology": "leo",
+      "element": "fire",
+      "id": "wands_14",
+      "keywordsReversed": [
+        "impatience",
+        "overbearing drive",
+        "unrealiztic goals",
+        "lost direction",
+        "leading by listening"
+      ],
+      "keywordsUpright": [
+        "visionary leadership",
+        "direction",
+        "integrity",
+        "taking initiative",
+        "inspiring others"
+      ],
+      "name": "King of Wands",
+      "number": 14,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_01",
+      "astrology": "root_of_water",
+      "element": "water",
+      "id": "cups_01",
+      "keywordsReversed": [
+        "feelings held back",
+        "emptied reserves",
+        "inner refilling",
+        "guarded heart"
+      ],
+      "keywordsUpright": [
+        "open heart",
+        "new feeling",
+        "receptivity",
+        "emotional renewal",
+        "compassion"
+      ],
+      "name": "Ace of Cups",
+      "number": 1,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_02",
+      "astrology": "venus_in_cancer",
+      "element": "water",
+      "id": "cups_02",
+      "keywordsReversed": [
+        "imbalance",
+        "miscommunication",
+        "repairing trust",
+        "partnering yourself"
+      ],
+      "keywordsUpright": [
+        "mutual connection",
+        "reciprocity",
+        "partnership",
+        "shared respect",
+        "attraction"
+      ],
+      "name": "Two of Cups",
+      "number": 2,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_03",
+      "astrology": "mercury_in_cancer",
+      "element": "water",
+      "id": "cups_03",
+      "keywordsReversed": [
+        "overindulgence",
+        "feeling left out",
+        "social fatigue",
+        "drifting apart",
+        "choosing your circle"
+      ],
+      "keywordsUpright": [
+        "friendship",
+        "celebration",
+        "community",
+        "shared joy",
+        "belonging"
+      ],
+      "name": "Three of Cups",
+      "number": 3,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_04",
+      "astrology": "moon_in_cancer",
+      "element": "water",
+      "id": "cups_04",
+      "keywordsReversed": [
+        "renewed interest",
+        "noticing offers",
+        "re-engaging",
+        "restlessness",
+        "habit of saying no"
+      ],
+      "keywordsUpright": [
+        "contemplation",
+        "apathy",
+        "withdrawal",
+        "reevaluation",
+        "turning inward"
+      ],
+      "name": "Four of Cups",
+      "number": 4,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_05",
+      "astrology": "mars_in_scorpio",
+      "element": "water",
+      "id": "cups_05",
+      "keywordsReversed": [
+        "acceptance",
+        "moving forward",
+        "forgiveness",
+        "finding what remains"
+      ],
+      "keywordsUpright": [
+        "disappointment",
+        "grief",
+        "regret",
+        "focusing on loss",
+        "mourning"
+      ],
+      "name": "Five of Cups",
+      "number": 5,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_06",
+      "astrology": "sun_in_scorpio",
+      "element": "water",
+      "id": "cups_06",
+      "keywordsReversed": [
+        "stuck in the past",
+        "idealized memories",
+        "moving forward",
+        "updating old stories"
+      ],
+      "keywordsUpright": [
+        "nostalgia",
+        "childhood memories",
+        "innocence",
+        "simple kindness",
+        "reunion"
+      ],
+      "name": "Six of Cups",
+      "number": 6,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_07",
+      "astrology": "venus_in_scorpio",
+      "element": "water",
+      "id": "cups_07",
+      "keywordsReversed": [
+        "clarity",
+        "grounded choices",
+        "focus",
+        "disillusionment",
+        "fear of choosing"
+      ],
+      "keywordsUpright": [
+        "many options",
+        "imagination",
+        "daydreams",
+        "wishful thinking",
+        "choices"
+      ],
+      "name": "Seven of Cups",
+      "number": 7,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_08",
+      "astrology": "saturn_in_pisces",
+      "element": "water",
+      "id": "cups_08",
+      "keywordsReversed": [
+        "fear of leaving",
+        "indecision",
+        "staying to try again",
+        "aimless drifting"
+      ],
+      "keywordsUpright": [
+        "walking away",
+        "seeking meaning",
+        "letting go",
+        "inner search",
+        "moving on"
+      ],
+      "name": "Eight of Cups",
+      "number": 8,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_09",
+      "astrology": "jupiter_in_pisces",
+      "element": "water",
+      "id": "cups_09",
+      "keywordsReversed": [
+        "dissatisfaction",
+        "excess",
+        "hollow success",
+        "inner fulfillment"
+      ],
+      "keywordsUpright": [
+        "contentment",
+        "satisfaction",
+        "gratitude",
+        "pleasure",
+        "enjoying what you have"
+      ],
+      "name": "Nine of Cups",
+      "number": 9,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_10",
+      "astrology": "mars_in_pisces",
+      "element": "water",
+      "id": "cups_10",
+      "keywordsReversed": [
+        "disconnection",
+        "strained harmony",
+        "idealized image",
+        "rebuilding closeness"
+      ],
+      "keywordsUpright": [
+        "emotional fulfillment",
+        "harmony",
+        "belonging",
+        "home",
+        "shared happiness"
+      ],
+      "name": "Ten of Cups",
+      "number": 10,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_11",
+      "astrology": "earth_of_water",
+      "element": "water",
+      "id": "cups_11",
+      "keywordsReversed": [
+        "emotional immaturity",
+        "creative block",
+        "insecurity",
+        "idle daydreaming",
+        "tender beginnings"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "creative spark",
+        "sensitivity",
+        "playfulness",
+        "intuitive nudge"
+      ],
+      "name": "Page of Cups",
+      "number": 11,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_12",
+      "astrology": "fire_of_water",
+      "element": "water",
+      "id": "cups_12",
+      "keywordsReversed": [
+        "moodiness",
+        "unrealiztic ideals",
+        "unkept promises",
+        "grounding a dream"
+      ],
+      "keywordsUpright": [
+        "romance",
+        "idealizm",
+        "following the heart",
+        "invitation",
+        "charm"
+      ],
+      "name": "Knight of Cups",
+      "number": 12,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_13",
+      "astrology": "water_of_water",
+      "element": "water",
+      "id": "cups_13",
+      "keywordsReversed": [
+        "over-giving",
+        "emotional overwhelm",
+        "needing boundaries",
+        "inner care"
+      ],
+      "keywordsUpright": [
+        "compassion",
+        "emotional attunement",
+        "intuition",
+        "calm presence",
+        "nurturing"
+      ],
+      "name": "Queen of Cups",
+      "number": 13,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_14",
+      "astrology": "air_of_water",
+      "element": "water",
+      "id": "cups_14",
+      "keywordsReversed": [
+        "suppressed feelings",
+        "emotional control",
+        "moodiness",
+        "finding steadiness"
+      ],
+      "keywordsUpright": [
+        "emotional balance",
+        "calm leadership",
+        "diplomacy",
+        "mature care",
+        "wisdom"
+      ],
+      "name": "King of Cups",
+      "number": 14,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_01",
+      "astrology": "root_of_air",
+      "element": "air",
+      "id": "swords_01",
+      "keywordsReversed": [
+        "clouded thinking",
+        "overthinking",
+        "words held back",
+        "sharpness without care",
+        "waiting for clarity"
+      ],
+      "keywordsUpright": [
+        "clarity",
+        "a new idea",
+        "honest truth",
+        "cutting through",
+        "fresh perspective"
+      ],
+      "name": "Ace of Swords",
+      "number": 1,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_02",
+      "astrology": "moon_in_libra",
+      "element": "air",
+      "id": "swords_02",
+      "keywordsReversed": [
+        "information surfacing",
+        "indecision easing",
+        "avoidance",
+        "pressure to choose",
+        "opening the eyes"
+      ],
+      "keywordsUpright": [
+        "a difficult choice",
+        "stalemate",
+        "weighing options",
+        "guarded balance",
+        "pausing to decide"
+      ],
+      "name": "Two of Swords",
+      "number": 2,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_03",
+      "astrology": "saturn_in_libra",
+      "element": "air",
+      "id": "swords_03",
+      "keywordsReversed": [
+        "slow recovery",
+        "releasing hurt",
+        "holding pain in",
+        "forgiveness in time",
+        "the storm passing"
+      ],
+      "keywordsUpright": [
+        "sorrow",
+        "hurtful words",
+        "grief",
+        "painful truth",
+        "letting tears come"
+      ],
+      "name": "Three of Swords",
+      "number": 3,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_04",
+      "astrology": "jupiter_in_libra",
+      "element": "air",
+      "id": "swords_04",
+      "keywordsReversed": [
+        "restlessness",
+        "rest postponed",
+        "returning to activity",
+        "burnout signals",
+        "stillness as avoidance"
+      ],
+      "keywordsUpright": [
+        "rest",
+        "recovery",
+        "quiet retreat",
+        "stillness",
+        "restoring energy"
+      ],
+      "name": "Four of Swords",
+      "number": 4,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_05",
+      "astrology": "venus_in_aquarius",
+      "element": "air",
+      "id": "swords_05",
+      "keywordsReversed": [
+        "making amends",
+        "letting it go",
+        "lingering resentment",
+        "walking away",
+        "reconciliation"
+      ],
+      "keywordsUpright": [
+        "conflict",
+        "winning at a cost",
+        "pride",
+        "strained goodwill",
+        "choosing your battles"
+      ],
+      "name": "Five of Swords",
+      "number": 5,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_06",
+      "astrology": "mercury_in_aquarius",
+      "element": "air",
+      "id": "swords_06",
+      "keywordsReversed": [
+        "resisting change",
+        "unfinished business",
+        "a delayed departure",
+        "carrying old weight",
+        "returning to reflect"
+      ],
+      "keywordsUpright": [
+        "transition",
+        "moving on",
+        "calmer waters",
+        "leaving the familiar",
+        "gradual change"
+      ],
+      "name": "Six of Swords",
+      "number": 6,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_07",
+      "astrology": "moon_in_aquarius",
+      "element": "air",
+      "id": "swords_07",
+      "keywordsReversed": [
+        "coming clean",
+        "rethinking a plan",
+        "self-deception",
+        "asking for help",
+        "secrets surfacing"
+      ],
+      "keywordsUpright": [
+        "strategy",
+        "acting alone",
+        "avoidance",
+        "hidden motives",
+        "getting away with it"
+      ],
+      "name": "Seven of Swords",
+      "number": 7,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_08",
+      "astrology": "jupiter_in_gemini",
+      "element": "air",
+      "id": "swords_08",
+      "keywordsReversed": [
+        "new perspective",
+        "release",
+        "loosening beliefs",
+        "small freedoms",
+        "old patterns returning"
+      ],
+      "keywordsUpright": [
+        "feeling stuck",
+        "self-limiting beliefs",
+        "restriction",
+        "fear of moving",
+        "narrow view"
+      ],
+      "name": "Eight of Swords",
+      "number": 8,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_09",
+      "astrology": "mars_in_gemini",
+      "element": "air",
+      "id": "swords_09",
+      "keywordsReversed": [
+        "worry lifting",
+        "reaching out",
+        "hidden stress",
+        "perspective returning",
+        "sharing the load"
+      ],
+      "keywordsUpright": [
+        "worry",
+        "sleepless thoughts",
+        "mental weight",
+        "fears growing at night",
+        "rumination"
+      ],
+      "name": "Nine of Swords",
+      "number": 9,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_10",
+      "astrology": "sun_in_gemini",
+      "element": "air",
+      "id": "swords_10",
+      "keywordsReversed": [
+        "slow recovery",
+        "rising again",
+        "resisting an ending",
+        "lessons gathered",
+        "dawn after night"
+      ],
+      "keywordsUpright": [
+        "an ending",
+        "rock bottom",
+        "exhaustion",
+        "letting a chapter close",
+        "setting the weight down"
+      ],
+      "name": "Ten of Swords",
+      "number": 10,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_11",
+      "astrology": "earth_of_air",
+      "element": "air",
+      "id": "swords_11",
+      "keywordsReversed": [
+        "scattered focus",
+        "gossip",
+        "talking before listening",
+        "defensiveness",
+        "untested ideas"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "eager questions",
+        "learning",
+        "alertness",
+        "new ideas"
+      ],
+      "name": "Page of Swords",
+      "number": 11,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_12",
+      "astrology": "fire_of_air",
+      "element": "air",
+      "id": "swords_12",
+      "keywordsReversed": [
+        "rushing ahead",
+        "impatience",
+        "bluntness",
+        "slowing down",
+        "scattered force"
+      ],
+      "keywordsUpright": [
+        "decisive action",
+        "drive",
+        "speaking up",
+        "fast thinking",
+        "determination"
+      ],
+      "name": "Knight of Swords",
+      "number": 12,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_13",
+      "astrology": "water_of_air",
+      "element": "air",
+      "id": "swords_13",
+      "keywordsReversed": [
+        "coldness",
+        "harsh criticizm",
+        "guardedness",
+        "bitterness",
+        "softening the edge"
+      ],
+      "keywordsUpright": [
+        "clear judgment",
+        "honest boundaries",
+        "independence",
+        "wisdom from experience",
+        "direct kindness"
+      ],
+      "name": "Queen of Swords",
+      "number": 13,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_14",
+      "astrology": "air_of_air",
+      "element": "air",
+      "id": "swords_14",
+      "keywordsReversed": [
+        "rigidity",
+        "cold logic",
+        "misused authority",
+        "second-guessing",
+        "reason with empathy"
+      ],
+      "keywordsUpright": [
+        "intellectual authority",
+        "fairness",
+        "clear principles",
+        "reasoned decisions",
+        "integrity"
+      ],
+      "name": "King of Swords",
+      "number": 14,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_01",
+      "astrology": null,
+      "element": "earth",
+      "id": "pentacles_01",
+      "keywordsReversed": [
+        "a chance left unplanted",
+        "shaky foundations",
+        "rushing the groundwork",
+        "rethinking the plan"
+      ],
+      "keywordsUpright": [
+        "a seed of something real",
+        "practical beginnings",
+        "grounded opportunity",
+        "tending the basics"
+      ],
+      "name": "Ace of Pentacles",
+      "number": 1,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_02",
+      "astrology": "jupiter_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_02",
+      "keywordsReversed": [
+        "too many plates",
+        "scattered attention",
+        "rigid scheduling",
+        "choosing what to drop"
+      ],
+      "keywordsUpright": [
+        "juggling priorities",
+        "adaptability",
+        "keeping rhythm",
+        "flexible balance"
+      ],
+      "name": "Two of Pentacles",
+      "number": 2,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_03",
+      "astrology": "mars_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_03",
+      "keywordsReversed": [
+        "misaligned efforts",
+        "unclear roles",
+        "working alone",
+        "revisiting the blueprint"
+      ],
+      "keywordsUpright": [
+        "collaboration",
+        "shared craft",
+        "skills that complement",
+        "building together"
+      ],
+      "name": "Three of Pentacles",
+      "number": 3,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_04",
+      "astrology": "sun_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_04",
+      "keywordsReversed": [
+        "loosening the grip",
+        "fear of loss",
+        "hoarding energy",
+        "learning to share"
+      ],
+      "keywordsUpright": [
+        "holding on",
+        "security",
+        "protecting resources",
+        "control",
+        "careful boundaries"
+      ],
+      "name": "Four of Pentacles",
+      "number": 4,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_05",
+      "astrology": "mercury_in_taurus",
+      "element": "earth",
+      "id": "pentacles_05",
+      "keywordsReversed": [
+        "returning warmth",
+        "accepting help",
+        "lingering worry",
+        "finding shelter"
+      ],
+      "keywordsUpright": [
+        "hard times",
+        "feeling left out",
+        "scarcity",
+        "overlooked support"
+      ],
+      "name": "Five of Pentacles",
+      "number": 5,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_06",
+      "astrology": "moon_in_taurus",
+      "element": "earth",
+      "id": "pentacles_06",
+      "keywordsReversed": [
+        "uneven exchange",
+        "strings attached",
+        "giving too much",
+        "rebalancing"
+      ],
+      "keywordsUpright": [
+        "giving and receiving",
+        "generosity",
+        "fair exchange",
+        "mutual support"
+      ],
+      "name": "Six of Pentacles",
+      "number": 6,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_07",
+      "astrology": "saturn_in_taurus",
+      "element": "earth",
+      "id": "pentacles_07",
+      "keywordsReversed": [
+        "impatience",
+        "effort without direction",
+        "rethinking effort",
+        "frustration with pace"
+      ],
+      "keywordsUpright": [
+        "patient assessment",
+        "long-term effort",
+        "taking stock",
+        "slow growth"
+      ],
+      "name": "Seven of Pentacles",
+      "number": 7,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_08",
+      "astrology": "sun_in_virgo",
+      "element": "earth",
+      "id": "pentacles_08",
+      "keywordsReversed": [
+        "perfectionism",
+        "working on autopilot",
+        "rushed work",
+        "rediscovering care"
+      ],
+      "keywordsUpright": [
+        "dedicated practice",
+        "craftsmanship",
+        "attention to detail",
+        "learning by doing"
+      ],
+      "name": "Eight of Pentacles",
+      "number": 8,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_09",
+      "astrology": "venus_in_virgo",
+      "element": "earth",
+      "id": "pentacles_09",
+      "keywordsReversed": [
+        "dependence on approval",
+        "overwork",
+        "hollow comfort",
+        "reclaiming ease"
+      ],
+      "keywordsUpright": [
+        "self-sufficiency",
+        "enjoying what you built",
+        "quiet refinement",
+        "independence",
+        "self-worth"
+      ],
+      "name": "Nine of Pentacles",
+      "number": 9,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_10",
+      "astrology": "mercury_in_virgo",
+      "element": "earth",
+      "id": "pentacles_10",
+      "keywordsReversed": [
+        "inherited pressure",
+        "family tension",
+        "unstable foundations",
+        "redefining home"
+      ],
+      "keywordsUpright": [
+        "legacy",
+        "belonging",
+        "lasting foundations",
+        "generations",
+        "shared roots"
+      ],
+      "name": "Ten of Pentacles",
+      "number": 10,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_11",
+      "astrology": null,
+      "element": "earth",
+      "id": "pentacles_11",
+      "keywordsReversed": [
+        "distraction",
+        "plans without action",
+        "fear of starting",
+        "learning at your pace"
+      ],
+      "keywordsUpright": [
+        "eager learning",
+        "curiosity",
+        "practical study",
+        "a new skill",
+        "steady focus"
+      ],
+      "name": "Page of Pentacles",
+      "number": 11,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_12",
+      "astrology": "virgo",
+      "element": "earth",
+      "id": "pentacles_12",
+      "keywordsReversed": [
+        "stuck in routine",
+        "overcaution",
+        "boredom",
+        "small changes of pace"
+      ],
+      "keywordsUpright": [
+        "reliability",
+        "steady progress",
+        "routine",
+        "thoroughness",
+        "commitment"
+      ],
+      "name": "Knight of Pentacles",
+      "number": 12,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_13",
+      "astrology": "capricorn",
+      "element": "earth",
+      "id": "pentacles_13",
+      "keywordsReversed": [
+        "self-neglect",
+        "overextending",
+        "care as control",
+        "making room for you"
+      ],
+      "keywordsUpright": [
+        "nurturing care",
+        "resourcefulness",
+        "a welcoming home",
+        "practical warmth",
+        "groundedness"
+      ],
+      "name": "Queen of Pentacles",
+      "number": 13,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_14",
+      "astrology": "taurus",
+      "element": "earth",
+      "id": "pentacles_14",
+      "keywordsReversed": [
+        "rigidity",
+        "status over substance",
+        "overcontrol",
+        "rethinking success"
+      ],
+      "keywordsUpright": [
+        "stewardship",
+        "stability",
+        "generous leadership",
+        "steady provision",
+        "mastery of the practical"
+      ],
+      "name": "King of Pentacles",
+      "number": 14,
+      "suit": "pentacles"
+    }
+  ],
+  "deckId": "rws_original",
+  "version": 1
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# tools/content/validate: thin wrapper around tools/dart_tools/bin/content_validate.dart
+# (Phase 5 Sprint 5.2). All options: tools/content/validate --help
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$repo_root"
+exec dart run tools/dart_tools/bin/content_validate.dart --repo-root "$repo_root" "$@"

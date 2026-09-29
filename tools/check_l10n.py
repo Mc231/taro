@@ -15,7 +15,9 @@
   ``tools/l10n_untranslated_allowlist.yaml``;
 * a ``Text('…')`` / ``label: '…'`` / ``tooltip: '…'`` literal with a letter
   sits in a widget ``lib/`` file (debug-only folders excepted);
-* deck content is missing a card or a locale (once Phase 5 lands);
+* deck content is missing an ``en`` card (source or build), a card file has
+  an empty field, or a built locale lacks a card; untranslated locales are
+  notices until Phase 18 (``--require-all-locales`` makes them findings);
 * a store field in ``apps/taro/store/aso.yaml`` exceeds its limit;
 * a ``failure*`` / ``safetyDeclined*`` key of GLOSSARY §5 / §5.2 is missing
   from ``app_en.arb`` (RC94; enforced once the first such key exists, or
@@ -451,8 +453,31 @@ def _strings(value: Any) -> set[str]:
     return set()
 
 
-def deck_findings(root: Path) -> tuple[list[Finding], list[str]]:
-    """Deck content completeness (78 cards x 12 locales, RC26)."""
+def _card_fields(root: Path, locale: str, card: str) -> list[Finding] | None:
+    """Findings of one card source file, or ``None`` when it is missing."""
+    label = f"{CONTENT_SOURCE}/{locale}/cards/{card}.yaml"
+    path = root / label
+    if not path.is_file():
+        return None
+    data = load_yaml(path, label)
+    if not isinstance(data, dict) or not data:
+        raise InputError(label, "card source must be a non-empty mapping")
+    empty = sorted(k for k, v in data.items() if v is None or (isinstance(v, str) and not v.strip()))
+    if empty:
+        return [Finding(label, 0, "deck_empty_field", f"empty fields: {', '.join(map(str, empty))}")]
+    return []
+
+
+def deck_findings(root: Path, require_all_locales: bool = False) -> tuple[list[Finding], list[str]]:
+    """Deck content completeness (78 cards x 12 locales, RC26).
+
+    ``en`` must be complete in the source and in the build. A missing
+    translation (card file or built ``<locale>.json``) is only a notice until
+    Phase 18 (``tools/content validate`` prints the staleness report);
+    ``require_all_locales`` makes it a finding. A built locale file must
+    always hold all 78 cards (``tools/content build`` writes only complete
+    locales).
+    """
     findings: list[Finding] = []
     notices: list[str] = []
     source = root / CONTENT_SOURCE
@@ -460,18 +485,22 @@ def deck_findings(root: Path) -> tuple[list[Finding], list[str]]:
         notices.append(f"{CONTENT_SOURCE} not present yet (Phase 5); deck content not checked")
     else:
         for locale in LOCALES:
+            missing: list[str] = []
             for card in CARD_IDS:
-                label = f"{CONTENT_SOURCE}/{locale}/cards/{card}.yaml"
-                path = root / label
-                if not path.is_file():
-                    findings.append(Finding(label, 0, "deck_missing_card", "card source file is missing"))
-                    continue
-                data = load_yaml(path, label)
-                if not isinstance(data, dict) or not data:
-                    raise InputError(label, "card source must be a non-empty mapping")
-                empty = sorted(k for k, v in data.items() if v is None or (isinstance(v, str) and not v.strip()))
-                if empty:
-                    findings.append(Finding(label, 0, "deck_empty_field", f"empty fields: {', '.join(map(str, empty))}"))
+                result = _card_fields(root, locale, card)
+                if result is None:
+                    missing.append(card)
+                else:
+                    findings += result
+            if not missing:
+                continue
+            if locale == "en" or require_all_locales:
+                findings += [
+                    Finding(f"{CONTENT_SOURCE}/{locale}/cards/{card}.yaml", 0, "deck_missing_card", "card source file is missing")
+                    for card in missing
+                ]
+            else:
+                notices.append(f"{CONTENT_SOURCE}/{locale}/cards: {len(missing)} of {len(CARD_IDS)} cards not translated yet (Phase 18)")
     assets = root / DECK_ASSETS
     built = sorted(assets.glob("*.json")) if assets.is_dir() else []
     if not built:
@@ -481,13 +510,16 @@ def deck_findings(root: Path) -> tuple[list[Finding], list[str]]:
         label = f"{DECK_ASSETS}/{locale}.json"
         path = root / label
         if not path.is_file():
-            findings.append(Finding(label, 0, "deck_missing_locale", "built deck texts are missing"))
+            if locale == "en" or require_all_locales:
+                findings.append(Finding(label, 0, "deck_missing_locale", "built deck texts are missing"))
+            else:
+                notices.append(f"{label} not built (locale incomplete until Phase 18)")
             continue
         strings = _strings(load_json(path, label))
-        missing = [card for card in CARD_IDS if card not in strings]
-        if missing:
+        missing_cards = [card for card in CARD_IDS if card not in strings]
+        if missing_cards:
             findings.append(
-                Finding(label, 0, "deck_missing_card", f"{len(missing)} card(s) missing, e.g. {missing[0]}")
+                Finding(label, 0, "deck_missing_card", f"{len(missing_cards)} card(s) missing, e.g. {missing_cards[0]}")
             )
     return findings, notices
 
@@ -530,7 +562,9 @@ def glossary_findings(
 # --------------------------------------------------------------------------
 
 
-def check(root: Path, require_glossary_keys: bool = False) -> tuple[list[Finding], list[str]]:
+def check(
+    root: Path, require_glossary_keys: bool = False, require_all_locales: bool = False
+) -> tuple[list[Finding], list[str]]:
     """Findings and notices for the repository at ``root``."""
     findings: list[Finding] = []
     notices: list[str] = []
@@ -547,7 +581,7 @@ def check(root: Path, require_glossary_keys: bool = False) -> tuple[list[Finding
         notices.append(f"{ARB_DIR} not present yet; ARB checks skipped")
     for path in literal_files(root):
         findings += literal_findings(rel(root, path), path.read_text(encoding="utf-8"))
-    deck, notes = deck_findings(root)
+    deck, notes = deck_findings(root, require_all_locales)
     findings += deck
     notices += notes
     aso = load_aso(root)
@@ -566,9 +600,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="fail on missing GLOSSARY §5 keys even before the first one lands",
     )
+    parser.add_argument(
+        "--require-all-locales",
+        action="store_true",
+        help="fail on untranslated deck locales (Phase 18; default: notice only)",
+    )
     args = parser.parse_args(argv)
     root = resolve_root(args.root, __file__)
-    return run_check(NAME, lambda: check(root, args.require_glossary_keys))
+    return run_check(NAME, lambda: check(root, args.require_glossary_keys, args.require_all_locales))
 
 
 if __name__ == "__main__":

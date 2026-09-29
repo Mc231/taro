@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taro.vshyrochuk.com/schema/content/card.schema.json",
+  "title": "Card text source (apps/taro/content/source/<locale>/cards/<cardId>.yaml)",
+  "description": "01 §10.1 CardText. Word bounds are the x-words annotations (min/max whitespace-separated words, en; other locales x0.7/x1.4, ja not word-checked) and are enforced by tools/content validate, together with plain-text, glossary, banned-phrase and bidi rules. element/astrology are en only; sourceHash is required for non-en and forbidden for en.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cardId",
+    "reviewStatus",
+    "name",
+    "keywordsUpright",
+    "keywordsReversed",
+    "shortUpright",
+    "shortReversed",
+    "meaningUpright",
+    "meaningReversed",
+    "aspects",
+    "reflectionQuestions",
+    "imageryNote"
+  ],
+  "properties": {
+    "cardId": {
+      "type": "string",
+      "pattern": "^(major_(0\\d|1\\d|2[01])|(wands|cups|swords|pentacles)_(0[1-9]|1[0-4]))$"
+    },
+    "reviewStatus": { "enum": ["machine", "reviewed"] },
+    "sourceHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "element": { "enum": ["fire", "water", "air", "earth"] },
+    "astrology": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "name": { "$ref": "#/$defs/line" },
+    "keywordsUpright": { "$ref": "#/$defs/keywords" },
+    "keywordsReversed": { "$ref": "#/$defs/keywords" },
+    "shortUpright": { "$ref": "#/$defs/short" },
+    "shortReversed": { "$ref": "#/$defs/short" },
+    "meaningUpright": { "$ref": "#/$defs/prose", "x-words": { "min": 120, "max": 220 } },
+    "meaningReversed": { "$ref": "#/$defs/prose", "x-words": { "min": 100, "max": 200 } },
+    "aspects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relationshipsUpright",
+        "relationshipsReversed",
+        "workUpright",
+        "workReversed",
+        "growthUpright",
+        "growthReversed"
+      ],
+      "properties": {
+        "relationshipsUpright": { "$ref": "#/$defs/aspect" },
+        "relationshipsReversed": { "$ref": "#/$defs/aspect" },
+        "workUpright": { "$ref": "#/$defs/aspect" },
+        "workReversed": { "$ref": "#/$defs/aspect" },
+        "growthUpright": { "$ref": "#/$defs/aspect" },
+        "growthReversed": { "$ref": "#/$defs/aspect" }
+      }
+    },
+    "reflectionQuestions": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "type": "string", "minLength": 1, "maxLength": 120, "pattern": "[?؟？]$" }
+    },
+    "imageryNote": { "$ref": "#/$defs/prose", "x-words": { "min": 40, "max": 100 } }
+  },
+  "$defs": {
+    "line": { "type": "string", "minLength": 1, "pattern": "^[^\\n]+$" },
+    "prose": { "type": "string", "minLength": 1 },
+    "short": { "type": "string", "minLength": 1, "maxLength": 160, "pattern": "^[^\\n]+$" },
+    "keywords": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 24, "pattern": "^[^\\n]+$" }
+    },
+    "aspect": { "type": "string", "minLength": 1, "x-words": { "min": 40, "max": 90 } }
+  }
+}

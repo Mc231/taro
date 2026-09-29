@@ -1,0 +1,145 @@
+# Crisis resources directory: the one source for the app asset and the Worker
+# (01 §7.5, 03 §9.5, 05 §4.2; RC25, RC81). Format: ../README.md.
+#
+# LLM draft (Phase 5 Sprint 5.3). Numbers are copied from the 05 §4.2 minimum
+# set. Names, URLs, hours and languages were drafted from general knowledge
+# and are NOT verified: every entry stays `verifiedAt: null` until the owner
+# checks it against the official source (Phase 18 Sprint 18.4) and records
+# the source list in 00_DECISIONS.md. `validate --release` fails until then.
+#
+# Selection (03 §9.5): country -> localeFallback[locale] -> international; at
+# most 3 entries, always including international, so keep each country to at
+# most 2 entries.
+localeFallback:
+  en: US
+  ar: null
+  de: DE
+  es: ES
+  fr: FR
+  it: IT
+  ja: JP
+  ko: KR
+  nl: NL
+  pt: BR          # pt is Brazilian Portuguese (05 §9.3)
+  tr: TR
+  uk: UA
+countries:
+  US:
+    - name: 988 Suicide & Crisis Lifeline
+      phone: "988"
+      sms: "988"
+      url: https://988lifeline.org
+      hours: 24/7
+      languages: [en, es]
+      verifiedAt: null
+  GB:
+    - name: Samaritans
+      phone: "116 123"
+      url: https://www.samaritans.org
+      hours: 24/7
+      languages: [en]
+      verifiedAt: null
+  IE:
+    - name: Samaritans Ireland
+      phone: "116 123"
+      url: https://www.samaritans.org/ireland/
+      hours: 24/7
+      languages: [en]
+      verifiedAt: null
+  CA:
+    - name: 9-8-8 Suicide Crisis Helpline
+      phone: "988"
+      sms: "988"
+      url: https://988.ca
+      hours: 24/7
+      languages: [en, fr]
+      verifiedAt: null
+  AU:
+    - name: Lifeline Australia
+      phone: "13 11 14"
+      url: https://www.lifeline.org.au
+      hours: 24/7
+      languages: [en]
+      verifiedAt: null
+  DE:
+    - name: TelefonSeelsorge
+      phone: "0800 111 0 111"
+      url: https://www.telefonseelsorge.de
+      hours: 24/7
+      languages: [de]
+      verifiedAt: null
+  FR:
+    - name: 3114 Numéro national de prévention du suicide
+      phone: "3114"
+      url: https://3114.fr
+      hours: 24/7
+      languages: [fr]
+      verifiedAt: null
+  ES:
+    - name: Línea 024 de atención a la conducta suicida
+      phone: "024"
+      hours: 24/7
+      languages: [es]
+      verifiedAt: null
+  IT:
+    - name: Telefono Amico Italia
+      phone: "02 2327 2327"
+      url: https://www.telefonoamico.it
+      languages: [it]
+      verifiedAt: null
+  NL:
+    - name: 113 Zelfmoordpreventie
+      phone: "0800-0113"
+      url: https://www.113.nl
+      hours: 24/7
+      languages: [nl]
+      verifiedAt: null
+    - name: 113 Zelfmoordpreventie (short number)
+      phone: "113"
+      hours: 24/7
+      languages: [nl]
+      verifiedAt: null
+  JP:
+    - name: いのちの電話
+      phone: "0570-783-556"
+      languages: [ja]
+      verifiedAt: null
+  KR:
+    - name: 자살예방상담전화
+      phone: "109"
+      hours: 24/7
+      languages: [ko]
+      verifiedAt: null
+  TR:
+    # 05 §4.2 lists the general emergency number for TR.
+    - name: Acil Çağrı Merkezi
+      phone: "112"
+      hours: 24/7
+      languages: [tr]
+      verifiedAt: null
+  UA:
+    - name: Lifeline Ukraine
+      phone: "7333"
+      url: https://lifelineukraine.com
+      hours: 24/7
+      languages: [uk]
+      verifiedAt: null
+  BR:
+    - name: CVV – Centro de Valorização da Vida
+      phone: "188"
+      url: https://cvv.org.br
+      hours: 24/7
+      languages: [pt]
+      verifiedAt: null
+  PT:
+    # 05 §4.2 names the service but gives no number; only the URL is listed
+    # until the owner verifies the phone number(s) from the official source.
+    - name: SOS Voz Amiga
+      url: https://www.sosvozamiga.org
+      languages: [pt]
+      verifiedAt: null
+international:
+  - name: Find A Helpline
+    url: https://findahelpline.com
+    languages: []
+    verifiedAt: null

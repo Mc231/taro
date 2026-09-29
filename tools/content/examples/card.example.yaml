@@ -1,0 +1,46 @@
+# Shape of apps/taro/content/source/en/cards/<cardId>.yaml
+# (apps/taro/content/source/README.md has every rule). The texts below are
+# placeholders that show the fields only; they are far shorter than the word
+# bounds, so this file would NOT pass `tools/content validate`.
+cardId: cups_03
+reviewStatus: machine        # machine = LLM draft, not yet reviewed; reviewed = a person edited it
+element: water               # en only; minor cards: the suit element
+astrology: mercury_in_cancer # en only; optional snake_case key
+name: Three of Cups          # exactly glossary.yaml cards.cups_03.en
+keywordsUpright:             # 3-6, each <= 24 characters
+  - friendship
+  - shared joy
+  - community
+keywordsReversed:
+  - isolation
+  - overindulgence
+  - drifting apart
+shortUpright: A moment to notice who shares your joys and how you share theirs.   # <= 160 characters
+shortReversed: You might consider where connection has thinned, and why.          # <= 160 characters
+meaningUpright: >-           # 120-220 words; a blank line starts a new paragraph
+  Placeholder text for the upright meaning.
+
+  A second paragraph.
+meaningReversed: >-          # 100-200 words
+  Placeholder text for the reversed meaning.
+aspects:                     # each 40-90 words
+  relationshipsUpright: >-
+    Placeholder.
+  relationshipsReversed: >-
+    Placeholder.
+  workUpright: >-
+    Placeholder.
+  workReversed: >-
+    Placeholder.
+  growthUpright: >-
+    Placeholder.
+  growthReversed: >-
+    Placeholder.
+reflectionQuestions:         # exactly 3, each <= 120 characters, ending in "?"
+  - Who would you like to celebrate with this week?
+  - Where might a shared moment ask more of you than you want to give?
+  - What small ritual could keep a friendship close?
+imageryNote: >-              # 40-100 words about the original art's symbolism
+  Placeholder.
+# Translations (<locale>/cards/cups_03.yaml) drop element/astrology and add:
+# sourceHash: <64 lowercase hex, the en card's hash>

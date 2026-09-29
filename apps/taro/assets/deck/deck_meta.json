@@ -1,0 +1,717 @@
+{
+  "artSet": "placeholder",
+  "cards": [
+    {
+      "arcana": "major",
+      "artKey": "major_00",
+      "astrology": "uranus",
+      "element": "air",
+      "id": "major_00",
+      "number": 0,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_01",
+      "astrology": "mercury",
+      "element": "air",
+      "id": "major_01",
+      "number": 1,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_02",
+      "astrology": "moon",
+      "element": "water",
+      "id": "major_02",
+      "number": 2,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_03",
+      "astrology": "venus",
+      "element": "earth",
+      "id": "major_03",
+      "number": 3,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_04",
+      "astrology": "aries",
+      "element": "fire",
+      "id": "major_04",
+      "number": 4,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_05",
+      "astrology": "taurus",
+      "element": "earth",
+      "id": "major_05",
+      "number": 5,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_06",
+      "astrology": "gemini",
+      "element": "air",
+      "id": "major_06",
+      "number": 6,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_07",
+      "astrology": "cancer",
+      "element": "water",
+      "id": "major_07",
+      "number": 7,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_08",
+      "astrology": "leo",
+      "element": "fire",
+      "id": "major_08",
+      "number": 8,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_09",
+      "astrology": "virgo",
+      "element": "earth",
+      "id": "major_09",
+      "number": 9,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_10",
+      "astrology": "jupiter",
+      "element": "fire",
+      "id": "major_10",
+      "number": 10,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_11",
+      "astrology": "libra",
+      "element": "air",
+      "id": "major_11",
+      "number": 11,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_12",
+      "astrology": "neptune",
+      "element": "water",
+      "id": "major_12",
+      "number": 12,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_13",
+      "astrology": "scorpio",
+      "element": "water",
+      "id": "major_13",
+      "number": 13,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_14",
+      "astrology": "sagittarius",
+      "element": "fire",
+      "id": "major_14",
+      "number": 14,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_15",
+      "astrology": "capricorn",
+      "element": "earth",
+      "id": "major_15",
+      "number": 15,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_16",
+      "astrology": "mars",
+      "element": "fire",
+      "id": "major_16",
+      "number": 16,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_17",
+      "astrology": "aquarius",
+      "element": "air",
+      "id": "major_17",
+      "number": 17,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_18",
+      "astrology": "pisces",
+      "element": "water",
+      "id": "major_18",
+      "number": 18,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_19",
+      "astrology": "sun",
+      "element": "fire",
+      "id": "major_19",
+      "number": 19,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_20",
+      "astrology": "pluto",
+      "element": "fire",
+      "id": "major_20",
+      "number": 20,
+      "suit": null
+    },
+    {
+      "arcana": "major",
+      "artKey": "major_21",
+      "astrology": "saturn",
+      "element": "earth",
+      "id": "major_21",
+      "number": 21,
+      "suit": null
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_01",
+      "astrology": null,
+      "element": "fire",
+      "id": "wands_01",
+      "number": 1,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_02",
+      "astrology": "mars_in_aries",
+      "element": "fire",
+      "id": "wands_02",
+      "number": 2,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_03",
+      "astrology": "sun_in_aries",
+      "element": "fire",
+      "id": "wands_03",
+      "number": 3,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_04",
+      "astrology": "venus_in_aries",
+      "element": "fire",
+      "id": "wands_04",
+      "number": 4,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_05",
+      "astrology": "saturn_in_leo",
+      "element": "fire",
+      "id": "wands_05",
+      "number": 5,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_06",
+      "astrology": "jupiter_in_leo",
+      "element": "fire",
+      "id": "wands_06",
+      "number": 6,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_07",
+      "astrology": "mars_in_leo",
+      "element": "fire",
+      "id": "wands_07",
+      "number": 7,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_08",
+      "astrology": "mercury_in_sagittarius",
+      "element": "fire",
+      "id": "wands_08",
+      "number": 8,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_09",
+      "astrology": "moon_in_sagittarius",
+      "element": "fire",
+      "id": "wands_09",
+      "number": 9,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_10",
+      "astrology": "saturn_in_sagittarius",
+      "element": "fire",
+      "id": "wands_10",
+      "number": 10,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_11",
+      "astrology": null,
+      "element": "fire",
+      "id": "wands_11",
+      "number": 11,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_12",
+      "astrology": "sagittarius",
+      "element": "fire",
+      "id": "wands_12",
+      "number": 12,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_13",
+      "astrology": "aries",
+      "element": "fire",
+      "id": "wands_13",
+      "number": 13,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "wands_14",
+      "astrology": "leo",
+      "element": "fire",
+      "id": "wands_14",
+      "number": 14,
+      "suit": "wands"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_01",
+      "astrology": "root_of_water",
+      "element": "water",
+      "id": "cups_01",
+      "number": 1,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_02",
+      "astrology": "venus_in_cancer",
+      "element": "water",
+      "id": "cups_02",
+      "number": 2,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_03",
+      "astrology": "mercury_in_cancer",
+      "element": "water",
+      "id": "cups_03",
+      "number": 3,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_04",
+      "astrology": "moon_in_cancer",
+      "element": "water",
+      "id": "cups_04",
+      "number": 4,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_05",
+      "astrology": "mars_in_scorpio",
+      "element": "water",
+      "id": "cups_05",
+      "number": 5,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_06",
+      "astrology": "sun_in_scorpio",
+      "element": "water",
+      "id": "cups_06",
+      "number": 6,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_07",
+      "astrology": "venus_in_scorpio",
+      "element": "water",
+      "id": "cups_07",
+      "number": 7,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_08",
+      "astrology": "saturn_in_pisces",
+      "element": "water",
+      "id": "cups_08",
+      "number": 8,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_09",
+      "astrology": "jupiter_in_pisces",
+      "element": "water",
+      "id": "cups_09",
+      "number": 9,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_10",
+      "astrology": "mars_in_pisces",
+      "element": "water",
+      "id": "cups_10",
+      "number": 10,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_11",
+      "astrology": "earth_of_water",
+      "element": "water",
+      "id": "cups_11",
+      "number": 11,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_12",
+      "astrology": "fire_of_water",
+      "element": "water",
+      "id": "cups_12",
+      "number": 12,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_13",
+      "astrology": "water_of_water",
+      "element": "water",
+      "id": "cups_13",
+      "number": 13,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "cups_14",
+      "astrology": "air_of_water",
+      "element": "water",
+      "id": "cups_14",
+      "number": 14,
+      "suit": "cups"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_01",
+      "astrology": "root_of_air",
+      "element": "air",
+      "id": "swords_01",
+      "number": 1,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_02",
+      "astrology": "moon_in_libra",
+      "element": "air",
+      "id": "swords_02",
+      "number": 2,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_03",
+      "astrology": "saturn_in_libra",
+      "element": "air",
+      "id": "swords_03",
+      "number": 3,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_04",
+      "astrology": "jupiter_in_libra",
+      "element": "air",
+      "id": "swords_04",
+      "number": 4,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_05",
+      "astrology": "venus_in_aquarius",
+      "element": "air",
+      "id": "swords_05",
+      "number": 5,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_06",
+      "astrology": "mercury_in_aquarius",
+      "element": "air",
+      "id": "swords_06",
+      "number": 6,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_07",
+      "astrology": "moon_in_aquarius",
+      "element": "air",
+      "id": "swords_07",
+      "number": 7,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_08",
+      "astrology": "jupiter_in_gemini",
+      "element": "air",
+      "id": "swords_08",
+      "number": 8,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_09",
+      "astrology": "mars_in_gemini",
+      "element": "air",
+      "id": "swords_09",
+      "number": 9,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_10",
+      "astrology": "sun_in_gemini",
+      "element": "air",
+      "id": "swords_10",
+      "number": 10,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_11",
+      "astrology": "earth_of_air",
+      "element": "air",
+      "id": "swords_11",
+      "number": 11,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_12",
+      "astrology": "fire_of_air",
+      "element": "air",
+      "id": "swords_12",
+      "number": 12,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_13",
+      "astrology": "water_of_air",
+      "element": "air",
+      "id": "swords_13",
+      "number": 13,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "swords_14",
+      "astrology": "air_of_air",
+      "element": "air",
+      "id": "swords_14",
+      "number": 14,
+      "suit": "swords"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_01",
+      "astrology": null,
+      "element": "earth",
+      "id": "pentacles_01",
+      "number": 1,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_02",
+      "astrology": "jupiter_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_02",
+      "number": 2,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_03",
+      "astrology": "mars_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_03",
+      "number": 3,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_04",
+      "astrology": "sun_in_capricorn",
+      "element": "earth",
+      "id": "pentacles_04",
+      "number": 4,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_05",
+      "astrology": "mercury_in_taurus",
+      "element": "earth",
+      "id": "pentacles_05",
+      "number": 5,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_06",
+      "astrology": "moon_in_taurus",
+      "element": "earth",
+      "id": "pentacles_06",
+      "number": 6,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_07",
+      "astrology": "saturn_in_taurus",
+      "element": "earth",
+      "id": "pentacles_07",
+      "number": 7,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_08",
+      "astrology": "sun_in_virgo",
+      "element": "earth",
+      "id": "pentacles_08",
+      "number": 8,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_09",
+      "astrology": "venus_in_virgo",
+      "element": "earth",
+      "id": "pentacles_09",
+      "number": 9,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_10",
+      "astrology": "mercury_in_virgo",
+      "element": "earth",
+      "id": "pentacles_10",
+      "number": 10,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_11",
+      "astrology": null,
+      "element": "earth",
+      "id": "pentacles_11",
+      "number": 11,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_12",
+      "astrology": "virgo",
+      "element": "earth",
+      "id": "pentacles_12",
+      "number": 12,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_13",
+      "astrology": "capricorn",
+      "element": "earth",
+      "id": "pentacles_13",
+      "number": 13,
+      "suit": "pentacles"
+    },
+    {
+      "arcana": "minor",
+      "artKey": "pentacles_14",
+      "astrology": "taurus",
+      "element": "earth",
+      "id": "pentacles_14",
+      "number": 14,
+      "suit": "pentacles"
+    }
+  ],
+  "checksums": {
+    "crisis_resources.json": "e54c7ec9da6de70afd2e817fcedbf61ff07c3133946de452d16f5d54c0b8f52e",
+    "en.json": "db8b0436b2984ac187c3772c63673bc3531fe75a0370446ddb858787725c9f90",
+    "spreads.json": "385669d88af11ab7f3640b3015d80275205cec2a927c8d76daaa8fe84e835c12"
+  },
+  "id": "rws_original",
+  "locales": [
+    "en"
+  ],
+  "version": 1
+}

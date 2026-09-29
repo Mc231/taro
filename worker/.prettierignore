@@ -4,3 +4,5 @@ coverage/
 .wrangler/
 worker-configuration.d.ts
 package-lock.json
+# Written only by tools/content build (RC26); sync_check guards the bytes.
+src/generated/

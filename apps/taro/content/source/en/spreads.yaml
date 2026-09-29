@@ -1,0 +1,295 @@
+# The 6 v1 spreads (01 §10.2-10.3). Format: ../README.md "en/spreads.yaml".
+# LLM draft (Phase 5 Sprint 5.3), not yet reviewed by the owner.
+#
+# Layout: x/y are the card centers, normalized 0..1 (LTR) against the viewBox of
+# the matching diagram in docs/design/assets/spreads/<spreadId>.svg, rounded
+# to 3 decimals. The app mirrors x in RTL (x -> 1 - x).
+#
+# questionSuggestionKeys are ARB keys in apps/taro/lib/l10n/arb/app_en.arb.
+# Proposed English copy for them is in the comment above each list (the ARB
+# file owns the final text).
+reviewStatus: machine
+spreads:
+  - id: single
+    version: 1
+    allowsReversals: true
+    # 1: What would be helpful to focus on today?
+    # 2: What is asking for my attention right now?
+    # 3: What quality could support me in this situation?
+    questionSuggestionKeys:
+      - spread_single_suggestion_1
+      - spread_single_suggestion_2
+      - spread_single_suggestion_3
+    whenToUse: >-
+      Use a single card when you want one clear prompt to carry through the
+      day, or when a question is simple and you would like a starting point
+      for reflection rather than a detailed map. It also works well when time
+      is short or when you are new to the cards.
+    positions:
+      - id: focus
+        x: 0.5
+        y: 0.5
+        meaning: >-
+          The theme this card invites you to reflect on in relation to your
+          question or your day: a quality, feeling or perspective worth
+          noticing.
+
+  - id: three_ppf
+    version: 1
+    allowsReversals: true
+    # 1: How has my past shaped where I am now?
+    # 2: What do I need to understand about this situation?
+    # 3: Where might this path be heading, and what can I do about it?
+    questionSuggestionKeys:
+      - spread_three_ppf_suggestion_1
+      - spread_three_ppf_suggestion_2
+      - spread_three_ppf_suggestion_3
+    whenToUse: >-
+      Use Past, Present, Future when you want to see how a situation has been
+      developing over time. It helps you notice patterns that brought you
+      here, what is active now, and where things may be heading if nothing
+      changes, so you can decide what you would like to keep or change.
+    positions:
+      - id: past
+        x: 0.123
+        y: 0.5
+        meaning: >-
+          Influences, experiences or choices from before that may still shape
+          the situation, including lessons or habits the reader carries into
+          it.
+      - id: present
+        x: 0.5
+        y: 0.5
+        meaning: >-
+          What is active in the situation right now: the current mood,
+          circumstances or inner stance the reader may want to look at
+          honestly.
+      - id: future
+        x: 0.877
+        y: 0.5
+        meaning: >-
+          Where things may be heading if nothing changes. A possible
+          direction to reflect on, never a fixed fate; the reader's choices
+          can shift it.
+
+  - id: three_sao
+    version: 1
+    allowsReversals: true
+    # 1: What could help me move forward with this?
+    # 2: What step is within my reach right now?
+    # 3: How could I approach this decision with more clarity?
+    questionSuggestionKeys:
+      - spread_three_sao_suggestion_1
+      - spread_three_sao_suggestion_2
+      - spread_three_sao_suggestion_3
+    whenToUse: >-
+      Use Situation, Action, Outcome when you face something practical and
+      want to think about what you could do next. It looks at the situation
+      as it stands, an approach worth considering, and where that approach
+      may lead if you follow it.
+    positions:
+      - id: situation
+        x: 0.123
+        y: 0.5
+        meaning: >-
+          The situation as it stands: the circumstances, pressures and
+          feelings around the question, seen as clearly and kindly as
+          possible.
+      - id: action
+        x: 0.5
+        y: 0.5
+        meaning: >-
+          An approach or attitude the reader might consider taking; a
+          suggestion to weigh against their own judgment, not an
+          instruction.
+      - id: outcome
+        x: 0.877
+        y: 0.5
+        meaning: >-
+          Where things may be heading if the reader follows the suggested
+          approach and nothing else changes. A possibility to reflect on, not
+          a promise.
+
+  - id: relationship
+    version: 1
+    allowsReversals: true
+    # 1: What can I learn from this relationship?
+    # 2: How can I show up more openly in this connection?
+    # 3: What does this relationship need from both of us?
+    # 4: What pattern keeps repeating between us?
+    questionSuggestionKeys:
+      - spread_relationship_suggestion_1
+      - spread_relationship_suggestion_2
+      - spread_relationship_suggestion_3
+      - spread_relationship_suggestion_4
+    whenToUse: >-
+      Use the Relationship spread to reflect on any close bond: a partner,
+      friend, family member or colleague. It looks at what you bring, how the
+      other person may be experiencing things, what connects you, what
+      strains the bond, and what it could grow into. It describes your view
+      of the relationship, not the other person's thoughts.
+    positions:
+      - id: you
+        x: 0.107
+        y: 0.207
+        meaning: >-
+          What the reader brings to the relationship: their feelings, needs,
+          hopes and habits in this connection right now.
+      - id: other
+        x: 0.893
+        y: 0.207
+        meaning: >-
+          How the other person may be experiencing the relationship, offered
+          as a perspective for the reader to consider, never as a claim about
+          what they actually think.
+      - id: connection
+        x: 0.5
+        y: 0.207
+        meaning: >-
+          What the two people share: the common ground, the dynamic between
+          them and the quality of the bond as it is now.
+      - id: challenge
+        x: 0.304
+        y: 0.793
+        meaning: >-
+          A tension, difference or pattern that strains the relationship and
+          may be worth talking about or looking at with care.
+      - id: potential
+        x: 0.696
+        y: 0.793
+        meaning: >-
+          What the relationship could grow into if both people keep investing
+          in it; where it may be heading if nothing changes, not a fixed
+          result.
+
+  - id: two_paths
+    version: 1
+    allowsReversals: true
+    # 1: What should I consider when choosing between these options?
+    # 2: What might each path ask of me?
+    # 3: Which choice fits my values more closely?
+    questionSuggestionKeys:
+      - spread_two_paths_suggestion_1
+      - spread_two_paths_suggestion_2
+      - spread_two_paths_suggestion_3
+    whenToUse: >-
+      Use Two Paths when you are weighing a choice between two options. Name
+      them for yourself before you draw: Path A and Path B. The spread looks
+      at the situation behind the choice, what each path might ask of you,
+      and where each may lead, so you can compare them against your own
+      values. The decision stays yours.
+    positions:
+      - id: situation
+        x: 0.099
+        y: 0.5
+        meaning: >-
+          The situation behind the choice: why the decision matters now and
+          what the reader is hoping to find or protect.
+      - id: path_a
+        x: 0.5
+        y: 0.207
+        meaning: >-
+          The first option as the reader named it: what choosing it might
+          involve, and the qualities or effort it could ask for.
+      - id: path_a_outcome
+        x: 0.901
+        y: 0.207
+        meaning: >-
+          Where the first option may lead if the reader chooses it and
+          nothing else changes; a possibility to weigh, not a prediction.
+      - id: path_b
+        x: 0.5
+        y: 0.793
+        meaning: >-
+          The second option as the reader named it: what choosing it might
+          involve, and the qualities or effort it could ask for.
+      - id: path_b_outcome
+        x: 0.901
+        y: 0.793
+        meaning: >-
+          Where the second option may lead if the reader chooses it and
+          nothing else changes; a possibility to weigh, not a prediction.
+
+  - id: celtic_cross
+    version: 1
+    allowsReversals: true
+    # 1: What do I need to understand about this situation?
+    # 2: What is really at the heart of this question?
+    # 3: What is holding me back, and what could help me grow?
+    # 4: What can I learn from this period of my life?
+    questionSuggestionKeys:
+      - spread_celtic_cross_suggestion_1
+      - spread_celtic_cross_suggestion_2
+      - spread_celtic_cross_suggestion_3
+      - spread_celtic_cross_suggestion_4
+    whenToUse: >-
+      Use the Celtic Cross for a complex situation you want to explore in
+      depth. Its ten positions look at the heart of the matter, what crosses
+      it, its roots, recent events and what may come next, then at you, your
+      surroundings, your hopes and fears, and where things may be heading if
+      nothing changes. Give yourself time to read it slowly.
+    positions:
+      - id: present
+        x: 0.356
+        y: 0.5
+        meaning: >-
+          The heart of the matter: what is happening now and the main energy
+          around the question.
+      - id: challenge
+        x: 0.356
+        y: 0.5
+        rotationDeg: 90
+        meaning: >-
+          What crosses the situation: an obstacle, tension or opposing force
+          the reader is working with. It may also point to something that
+          needs attention.
+      - id: foundation
+        x: 0.356
+        y: 0.743
+        meaning: >-
+          The roots of the situation: deeper causes, underlying feelings or
+          past foundations it rests on, which the reader may not always
+          notice.
+      - id: recent_past
+        x: 0.129
+        y: 0.5
+        meaning: >-
+          Recent events or influences that are fading but still color the
+          situation, and what the reader may be ready to let go of.
+      - id: potential
+        x: 0.356
+        y: 0.257
+        meaning: >-
+          The conscious aim or most hopeful possibility: what the reader is
+          reaching for and what could be possible in this situation.
+      - id: near_future
+        x: 0.582
+        y: 0.5
+        meaning: >-
+          What may come next in the near term if things continue as they
+          are; a likely next step to reflect on, not a certainty.
+      - id: self
+        x: 0.871
+        y: 0.864
+        meaning: >-
+          The reader's own stance: their attitude, feelings and the part they
+          play in the situation, including strengths they can draw on.
+      - id: environment
+        x: 0.871
+        y: 0.621
+        meaning: >-
+          The people, circumstances and influences around the reader, and how
+          others may see or affect the situation.
+      - id: hopes_fears
+        x: 0.871
+        y: 0.379
+        meaning: >-
+          What the reader hopes for, fears, or both at once; the feelings
+          that may color how they see the question.
+      - id: outcome
+        x: 0.871
+        y: 0.136
+        meaning: >-
+          Where things may be heading if nothing changes, drawing the other
+          cards together. A direction to reflect on, never fate; the reader's
+          choices can change it.

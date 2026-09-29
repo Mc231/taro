@@ -1,0 +1,1436 @@
+{
+  "cards": {
+    "cups_01": {
+      "keywordsReversed": [
+        "feelings held back",
+        "emptied reserves",
+        "inner refilling",
+        "guarded heart"
+      ],
+      "keywordsUpright": [
+        "open heart",
+        "new feeling",
+        "receptivity",
+        "emotional renewal",
+        "compassion"
+      ],
+      "name": "Ace of Cups",
+      "shortReversed": "Your cup may need filling before it can pour; consider what would quietly replenish you today.",
+      "shortUpright": "A fresh feeling may be rising; this card invites you to let it in and notice where it wants to flow."
+    },
+    "cups_02": {
+      "keywordsReversed": [
+        "imbalance",
+        "miscommunication",
+        "repairing trust",
+        "partnering yourself"
+      ],
+      "keywordsUpright": [
+        "mutual connection",
+        "reciprocity",
+        "partnership",
+        "shared respect",
+        "attraction"
+      ],
+      "name": "Two of Cups",
+      "shortReversed": "Something between you and another may feel out of balance; consider what each of you is really asking for.",
+      "shortUpright": "A moment to notice where care flows both ways, and what makes a connection feel equal and alive."
+    },
+    "cups_03": {
+      "keywordsReversed": [
+        "overindulgence",
+        "feeling left out",
+        "social fatigue",
+        "drifting apart",
+        "choosing your circle"
+      ],
+      "keywordsUpright": [
+        "friendship",
+        "celebration",
+        "community",
+        "shared joy",
+        "belonging"
+      ],
+      "name": "Three of Cups",
+      "shortReversed": "Connection may feel thin or tiring right now; consider which gatherings nourish you and which only fill time.",
+      "shortUpright": "A moment to notice who shares your joys, and how you might share theirs in return."
+    },
+    "cups_04": {
+      "keywordsReversed": [
+        "renewed interest",
+        "noticing offers",
+        "re-engaging",
+        "restlessness",
+        "habit of saying no"
+      ],
+      "keywordsUpright": [
+        "contemplation",
+        "apathy",
+        "withdrawal",
+        "reevaluation",
+        "turning inward"
+      ],
+      "name": "Four of Cups",
+      "shortReversed": "Interest may be returning after a quiet stretch; consider which invitation feels worth accepting now.",
+      "shortUpright": "You may be turned inward for a while; this card invites you to notice what is being offered while you reflect."
+    },
+    "cups_05": {
+      "keywordsReversed": [
+        "acceptance",
+        "moving forward",
+        "forgiveness",
+        "finding what remains"
+      ],
+      "keywordsUpright": [
+        "disappointment",
+        "grief",
+        "regret",
+        "focusing on loss",
+        "mourning"
+      ],
+      "name": "Five of Cups",
+      "shortReversed": "The weight of a disappointment may be easing; consider what has remained with you and where you want to turn next.",
+      "shortUpright": "A loss may be filling your view; this card invites you to grieve honestly and, in time, notice what still stands."
+    },
+    "cups_06": {
+      "keywordsReversed": [
+        "stuck in the past",
+        "idealized memories",
+        "moving forward",
+        "updating old stories"
+      ],
+      "keywordsUpright": [
+        "nostalgia",
+        "childhood memories",
+        "innocence",
+        "simple kindness",
+        "reunion"
+      ],
+      "name": "Six of Cups",
+      "shortReversed": "The past may be pulling harder than usual; consider which memories nourish you and which keep you from the present.",
+      "shortUpright": "A memory or a simple kindness may bring warmth today; this card invites you to notice what the past still gives you."
+    },
+    "cups_07": {
+      "keywordsReversed": [
+        "clarity",
+        "grounded choices",
+        "focus",
+        "disillusionment",
+        "fear of choosing"
+      ],
+      "keywordsUpright": [
+        "many options",
+        "imagination",
+        "daydreams",
+        "wishful thinking",
+        "choices"
+      ],
+      "name": "Seven of Cups",
+      "shortReversed": "The fog of options may be lifting; consider which choice still feels real once the glow of imagining fades.",
+      "shortUpright": "Many possibilities may be shimmering at once; this card invites you to enjoy imagining, then look closely at each one."
+    },
+    "cups_08": {
+      "keywordsReversed": [
+        "fear of leaving",
+        "indecision",
+        "staying to try again",
+        "aimless drifting"
+      ],
+      "keywordsUpright": [
+        "walking away",
+        "seeking meaning",
+        "letting go",
+        "inner search",
+        "moving on"
+      ],
+      "name": "Eight of Cups",
+      "shortReversed": "You may be torn between staying and going; consider what you would need to know before choosing either one.",
+      "shortUpright": "Something may no longer fill you, even if it looks complete; this card invites you to notice where your heart is pulling next."
+    },
+    "cups_09": {
+      "keywordsReversed": [
+        "dissatisfaction",
+        "excess",
+        "hollow success",
+        "inner fulfillment"
+      ],
+      "keywordsUpright": [
+        "contentment",
+        "satisfaction",
+        "gratitude",
+        "pleasure",
+        "enjoying what you have"
+      ],
+      "name": "Nine of Cups",
+      "shortReversed": "Something may look satisfying without feeling so; consider what would bring you contentment from the inside.",
+      "shortUpright": "A moment to savor what is already good, and to notice how much of it you helped bring about."
+    },
+    "cups_10": {
+      "keywordsReversed": [
+        "disconnection",
+        "strained harmony",
+        "idealized image",
+        "rebuilding closeness"
+      ],
+      "keywordsUpright": [
+        "emotional fulfillment",
+        "harmony",
+        "belonging",
+        "home",
+        "shared happiness"
+      ],
+      "name": "Ten of Cups",
+      "shortReversed": "Harmony may feel strained or out of reach; consider what belonging would mean for you, beyond any ideal picture.",
+      "shortUpright": "A moment to notice where you already feel at home, and who helps you feel you belong."
+    },
+    "cups_11": {
+      "keywordsReversed": [
+        "emotional immaturity",
+        "creative block",
+        "insecurity",
+        "idle daydreaming",
+        "tender beginnings"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "creative spark",
+        "sensitivity",
+        "playfulness",
+        "intuitive nudge"
+      ],
+      "name": "Page of Cups",
+      "shortReversed": "A tender feeling may be hiding or wobbling; consider how you could make it safe to express what you feel.",
+      "shortUpright": "A playful feeling or a small creative idea may surprise you; this card invites you to meet it with curiosity."
+    },
+    "cups_12": {
+      "keywordsReversed": [
+        "moodiness",
+        "unrealiztic ideals",
+        "unkept promises",
+        "grounding a dream"
+      ],
+      "keywordsUpright": [
+        "romance",
+        "idealizm",
+        "following the heart",
+        "invitation",
+        "charm"
+      ],
+      "name": "Knight of Cups",
+      "shortReversed": "Feelings may be running ahead of reality; consider which promises and dreams you can actually carry through.",
+      "shortUpright": "A heartfelt idea or invitation may be moving toward you; this card invites you to follow what you care about with grace."
+    },
+    "cups_13": {
+      "keywordsReversed": [
+        "over-giving",
+        "emotional overwhelm",
+        "needing boundaries",
+        "inner care"
+      ],
+      "keywordsUpright": [
+        "compassion",
+        "emotional attunement",
+        "intuition",
+        "calm presence",
+        "nurturing"
+      ],
+      "name": "Queen of Cups",
+      "shortReversed": "You may be absorbing more than you can hold; consider what care and boundaries would help you feel steady.",
+      "shortUpright": "This card invites you to listen deeply, to others and to yourself, with a calm and compassionate presence."
+    },
+    "cups_14": {
+      "keywordsReversed": [
+        "suppressed feelings",
+        "emotional control",
+        "moodiness",
+        "finding steadiness"
+      ],
+      "keywordsUpright": [
+        "emotional balance",
+        "calm leadership",
+        "diplomacy",
+        "mature care",
+        "wisdom"
+      ],
+      "name": "King of Cups",
+      "shortReversed": "Feelings may be held too tightly or spilling unevenly; consider what would help you meet them with steadiness.",
+      "shortUpright": "This card invites you to stay steady in strong currents, guiding with both feeling and clear thought."
+    },
+    "major_00": {
+      "keywordsReversed": [
+        "hesitation",
+        "careless risk",
+        "waiting for readiness",
+        "scattered focus"
+      ],
+      "keywordsUpright": [
+        "fresh start",
+        "curiosity",
+        "openness",
+        "a leap into the unknown",
+        "beginner's mind"
+      ],
+      "name": "The Fool",
+      "shortReversed": "A pause at the edge: is it caution, or a fear of looking foolish?",
+      "shortUpright": "A step into something new, taken with more curiosity than certainty."
+    },
+    "major_01": {
+      "keywordsReversed": [
+        "untapped ability",
+        "scattered effort",
+        "self-doubt",
+        "clever shortcuts",
+        "realigning intent"
+      ],
+      "keywordsUpright": [
+        "focused will",
+        "resourcefulness",
+        "skill in action",
+        "clear intention",
+        "making it real"
+      ],
+      "name": "The Magician",
+      "shortReversed": "Your tools are on the table, but your attention may be elsewhere. What would help you gather it?",
+      "shortUpright": "You may already hold more of what you need than you think; this card asks what you want to make with it."
+    },
+    "major_02": {
+      "keywordsReversed": [
+        "ignored instincts",
+        "noisy mind",
+        "secrets kept too long",
+        "returning inward"
+      ],
+      "keywordsUpright": [
+        "inner knowing",
+        "stillness",
+        "listening",
+        "the unspoken",
+        "patience"
+      ],
+      "name": "The High Priestess",
+      "shortReversed": "Outside noise may be drowning out a quieter voice inside you; a little silence could help.",
+      "shortUpright": "A quiet invitation to listen to what you already sense but have not yet put into words."
+    },
+    "major_03": {
+      "keywordsReversed": [
+        "self-neglect",
+        "smothering care",
+        "creative block",
+        "reconnecting with body"
+      ],
+      "keywordsUpright": [
+        "nurturing",
+        "abundance",
+        "creativity",
+        "comfort of the senses",
+        "growth"
+      ],
+      "name": "The Empress",
+      "shortReversed": "Care may be flowing outward while your own well is running low. Where could some of it return to you?",
+      "shortUpright": "Something is growing, in you or around you. This card invites you to tend it with patience and warmth."
+    },
+    "major_04": {
+      "keywordsReversed": [
+        "rigidity",
+        "control",
+        "shaky foundations",
+        "reclaiming authority"
+      ],
+      "keywordsUpright": [
+        "structure",
+        "steady leadership",
+        "responsibility",
+        "clear boundaries",
+        "protection"
+      ],
+      "name": "The Emperor",
+      "shortReversed": "Rules that once helped may now feel tight. What would a kinder, sturdier structure look like?",
+      "shortUpright": "A time to build some structure around what matters, and to take calm ownership of your choices."
+    },
+    "major_05": {
+      "keywordsReversed": [
+        "questioning convention",
+        "personal beliefs",
+        "outgrown rules",
+        "finding your own way"
+      ],
+      "keywordsUpright": [
+        "tradition",
+        "shared values",
+        "learning from others",
+        "mentorship",
+        "belonging"
+      ],
+      "name": "The Hierophant",
+      "shortReversed": "An inherited rule may no longer fit. This card invites you to test it against what you truly value.",
+      "shortUpright": "There may be wisdom in what others have walked before you. What tradition or teacher could help right now?"
+    },
+    "major_06": {
+      "keywordsReversed": [
+        "inner conflict",
+        "misalignment",
+        "avoided decision",
+        "reconnecting with values"
+      ],
+      "keywordsUpright": [
+        "connection",
+        "meaningful choice",
+        "alignment of values",
+        "honesty",
+        "mutual respect"
+      ],
+      "name": "The Lovers",
+      "shortReversed": "Part of you may want one thing and part another. This card invites you to listen to both before choosing.",
+      "shortUpright": "A choice made from the heart and the head together, in line with what you truly value."
+    },
+    "major_07": {
+      "keywordsReversed": [
+        "lost direction",
+        "forcing it",
+        "competing pulls",
+        "regaining the reins"
+      ],
+      "keywordsUpright": [
+        "determination",
+        "direction",
+        "self-control",
+        "forward momentum",
+        "harnessing opposites"
+      ],
+      "name": "The Chariot",
+      "shortReversed": "Energy may be pulling in several directions at once. Where could you gently take back the reins?",
+      "shortUpright": "Momentum is possible when you hold your different drives together and point them in one direction."
+    },
+    "major_08": {
+      "keywordsReversed": [
+        "self-doubt",
+        "frayed patience",
+        "harsh self-talk",
+        "rebuilding courage"
+      ],
+      "keywordsUpright": [
+        "gentle courage",
+        "patience",
+        "compassion",
+        "inner steadiness",
+        "quiet confidence"
+      ],
+      "name": "Strength",
+      "shortReversed": "Your inner steadiness may feel thin right now. Gentleness toward yourself could be a strong place to start.",
+      "shortUpright": "Courage does not always roar. Sometimes it looks like patience, kindness and staying with something hard."
+    },
+    "major_09": {
+      "keywordsReversed": [
+        "isolation",
+        "avoiding reflection",
+        "lost in thought",
+        "returning to others"
+      ],
+      "keywordsUpright": [
+        "solitude",
+        "reflection",
+        "inner guidance",
+        "searching",
+        "wisdom through quiet"
+      ],
+      "name": "The Hermit",
+      "shortReversed": "Solitude may have tipped into isolation, or into avoiding the quiet altogether. What balance feels right?",
+      "shortUpright": "A little time apart could help you hear your own thoughts more clearly."
+    },
+    "major_10": {
+      "keywordsReversed": [
+        "resisting change",
+        "feeling stuck",
+        "repeating patterns",
+        "finding your footing"
+      ],
+      "keywordsUpright": [
+        "cycles",
+        "change",
+        "turning points",
+        "adaptability",
+        "perspective"
+      ],
+      "name": "Wheel of Fortune",
+      "shortReversed": "A familiar pattern may be coming round again. What could you do differently this time?",
+      "shortUpright": "Things are turning. This card invites you to notice the cycle you are in and how you want to move with it."
+    },
+    "major_11": {
+      "keywordsReversed": [
+        "imbalance",
+        "avoiding responsibility",
+        "self-judgment",
+        "seeking fairness"
+      ],
+      "keywordsUpright": [
+        "fairness",
+        "honesty",
+        "accountability",
+        "clear judgment",
+        "cause and effect"
+      ],
+      "name": "Justice",
+      "shortReversed": "Something may feel out of balance. This card invites you to look at it clearly, including your own part.",
+      "shortUpright": "A moment to weigh things honestly and act in a way you would feel good explaining later."
+    },
+    "major_12": {
+      "keywordsReversed": [
+        "stalling",
+        "resisting the pause",
+        "indecision",
+        "ready to move again"
+      ],
+      "keywordsUpright": [
+        "pause",
+        "surrender",
+        "new perspective",
+        "letting go",
+        "waiting with purpose"
+      ],
+      "name": "The Hanged Man",
+      "shortReversed": "Waiting may have turned into stalling. What would help you decide whether to stay still or move?",
+      "shortUpright": "A pause, chosen or not, can offer a view you would never see while rushing ahead."
+    },
+    "major_13": {
+      "keywordsReversed": [
+        "holding on",
+        "resisting change",
+        "lingering endings",
+        "slow transition"
+      ],
+      "keywordsUpright": [
+        "endings",
+        "transformation",
+        "clearing space",
+        "closing a chapter",
+        "release"
+      ],
+      "name": "Death",
+      "shortReversed": "Something may be ready to end while part of you holds on. What would help you loosen your grip?",
+      "shortUpright": "A phase may be closing. This card invites you to notice what is ending and the space it leaves."
+    },
+    "major_14": {
+      "keywordsReversed": [
+        "excess",
+        "imbalance",
+        "impatience",
+        "recalibrating"
+      ],
+      "keywordsUpright": [
+        "balance",
+        "moderation",
+        "blending",
+        "patience",
+        "finding the middle path"
+      ],
+      "name": "Temperance",
+      "shortReversed": "Something may be tipping too far one way. This card invites you to notice and gently rebalance.",
+      "shortUpright": "A slower, steadier blend of what you need could bring more ease than any extreme."
+    },
+    "major_15": {
+      "keywordsReversed": [
+        "loosening ties",
+        "breaking a pattern",
+        "reclaiming choice",
+        "facing the shadow"
+      ],
+      "keywordsUpright": [
+        "attachment",
+        "habits that bind",
+        "temptation",
+        "shadow self",
+        "honest awareness"
+      ],
+      "name": "The Devil",
+      "shortReversed": "A pattern that once had a firm hold may be loosening. What would help you step further away?",
+      "shortUpright": "A habit or attachment may be holding you more tightly than you realize. Noticing it is the first step."
+    },
+    "major_16": {
+      "keywordsReversed": [
+        "averting upheaval",
+        "slow unraveling",
+        "resisting change",
+        "rebuilding"
+      ],
+      "keywordsUpright": [
+        "sudden change",
+        "clearing away",
+        "breakthrough",
+        "shaken assumptions",
+        "truth revealed"
+      ],
+      "name": "The Tower",
+      "shortReversed": "Change may be arriving slowly rather than all at once. What could you rebuild more honestly?",
+      "shortUpright": "Something built on shaky ground may be shifting. This card invites you to notice what was not holding."
+    },
+    "major_17": {
+      "keywordsReversed": [
+        "discouragement",
+        "disconnection",
+        "fading self-belief",
+        "rekindling hope"
+      ],
+      "keywordsUpright": [
+        "hope",
+        "renewal",
+        "calm",
+        "openness",
+        "quiet inspiration"
+      ],
+      "name": "The Star",
+      "shortReversed": "Hope may feel far away right now. Small, steady things could help you find your way back to it.",
+      "shortUpright": "After a hard stretch, a quieter hope may be returning. This card invites you to let it in."
+    },
+    "major_18": {
+      "keywordsReversed": [
+        "clearing confusion",
+        "facing worries",
+        "self-deception",
+        "trusting the path"
+      ],
+      "keywordsUpright": [
+        "uncertainty",
+        "intuition",
+        "dreams",
+        "the unknown",
+        "shifting feelings"
+      ],
+      "name": "The Moon",
+      "shortReversed": "A fog may be starting to lift. What do you see more clearly now than you did before?",
+      "shortUpright": "Not everything is clear yet, and that is all right. This card invites you to move slowly and trust your senses."
+    },
+    "major_19": {
+      "keywordsReversed": [
+        "dimmed joy",
+        "self-doubt",
+        "overexposure",
+        "finding light again"
+      ],
+      "keywordsUpright": [
+        "joy",
+        "clarity",
+        "warmth",
+        "confidence",
+        "vitality"
+      ],
+      "name": "The Sun",
+      "shortReversed": "The light is still there, even if clouds are passing. What helps you feel warm and clear?",
+      "shortUpright": "A moment of warmth and clarity. This card invites you to enjoy what is bright and open in your life."
+    },
+    "major_20": {
+      "keywordsReversed": [
+        "self-criticizm",
+        "ignoring the call",
+        "doubt",
+        "learning from the past"
+      ],
+      "keywordsUpright": [
+        "awakening",
+        "reckoning",
+        "renewal",
+        "answering a calling",
+        "honest reflection"
+      ],
+      "name": "Judgement",
+      "shortReversed": "An inner critic may be louder than usual. What would a fair, kind look at your past show you?",
+      "shortUpright": "A moment to look back honestly, forgive what you can and answer what is calling you forward."
+    },
+    "major_21": {
+      "keywordsReversed": [
+        "unfinished business",
+        "seeking closure",
+        "loose ends",
+        "one last step"
+      ],
+      "keywordsUpright": [
+        "completion",
+        "wholeness",
+        "integration",
+        "accomplishment",
+        "belonging"
+      ],
+      "name": "The World",
+      "shortReversed": "Something may be nearly finished. What final step or loose end deserves your attention?",
+      "shortUpright": "A cycle may be coming full circle. This card invites you to pause and honor what you have completed."
+    },
+    "pentacles_01": {
+      "keywordsReversed": [
+        "a chance left unplanted",
+        "shaky foundations",
+        "rushing the groundwork",
+        "rethinking the plan"
+      ],
+      "keywordsUpright": [
+        "a seed of something real",
+        "practical beginnings",
+        "grounded opportunity",
+        "tending the basics"
+      ],
+      "name": "Ace of Pentacles",
+      "shortReversed": "A promising start may need firmer ground. You might check what support it needs before you build on it.",
+      "shortUpright": "A small, solid beginning asks for your attention. Something practical may be ready to be planted and looked after."
+    },
+    "pentacles_02": {
+      "keywordsReversed": [
+        "too many plates",
+        "scattered attention",
+        "rigid scheduling",
+        "choosing what to drop"
+      ],
+      "keywordsUpright": [
+        "juggling priorities",
+        "adaptability",
+        "keeping rhythm",
+        "flexible balance"
+      ],
+      "name": "Two of Pentacles",
+      "shortReversed": "The balancing act may have tipped into strain. Consider which demand could be set down, shared or moved for now.",
+      "shortUpright": "You may be keeping several things in motion at once. Notice the rhythm that lets you adjust without losing your footing."
+    },
+    "pentacles_03": {
+      "keywordsReversed": [
+        "misaligned efforts",
+        "unclear roles",
+        "working alone",
+        "revisiting the blueprint"
+      ],
+      "keywordsUpright": [
+        "collaboration",
+        "shared craft",
+        "skills that complement",
+        "building together"
+      ],
+      "name": "Three of Pentacles",
+      "shortReversed": "A shared effort may be pulling in different directions. It could help to revisit roles, plans and how you listen to each other.",
+      "shortUpright": "Good work often grows between people. Notice how different skills could fit together on something you care about."
+    },
+    "pentacles_04": {
+      "keywordsReversed": [
+        "loosening the grip",
+        "fear of loss",
+        "hoarding energy",
+        "learning to share"
+      ],
+      "keywordsUpright": [
+        "holding on",
+        "security",
+        "protecting resources",
+        "control",
+        "careful boundaries"
+      ],
+      "name": "Four of Pentacles",
+      "shortReversed": "A tight grip may be easing, or asking to. You might explore what you could let flow without feeling unsafe.",
+      "shortUpright": "You may be holding something close to keep it safe. Notice where that protection steadies you and where it starts to restrict you."
+    },
+    "pentacles_05": {
+      "keywordsReversed": [
+        "returning warmth",
+        "accepting help",
+        "lingering worry",
+        "finding shelter"
+      ],
+      "keywordsUpright": [
+        "hard times",
+        "feeling left out",
+        "scarcity",
+        "overlooked support"
+      ],
+      "name": "Five of Pentacles",
+      "shortReversed": "A difficult stretch may be easing. You might notice where warmth and support are starting to reach you again.",
+      "shortUpright": "A season may feel cold or lacking. Help can sometimes be closer than it seems, even when asking feels hard."
+    },
+    "pentacles_06": {
+      "keywordsReversed": [
+        "uneven exchange",
+        "strings attached",
+        "giving too much",
+        "rebalancing"
+      ],
+      "keywordsUpright": [
+        "giving and receiving",
+        "generosity",
+        "fair exchange",
+        "mutual support"
+      ],
+      "name": "Six of Pentacles",
+      "shortReversed": "An exchange may feel lopsided. You might look at what is given, what is expected in return and what would feel more even.",
+      "shortUpright": "Resources, time and care are moving between people. Notice how you give, how you receive and what feels fair to everyone."
+    },
+    "pentacles_07": {
+      "keywordsReversed": [
+        "impatience",
+        "effort without direction",
+        "rethinking effort",
+        "frustration with pace"
+      ],
+      "keywordsUpright": [
+        "patient assessment",
+        "long-term effort",
+        "taking stock",
+        "slow growth"
+      ],
+      "name": "Seven of Pentacles",
+      "shortReversed": "Progress may feel slower than you hoped. You might ask whether the effort needs patience, a new direction or simply a rest.",
+      "shortUpright": "Something you have tended is growing slowly. It may be a good moment to pause, look at your progress and choose what to nurture next."
+    },
+    "pentacles_08": {
+      "keywordsReversed": [
+        "perfectionism",
+        "working on autopilot",
+        "rushed work",
+        "rediscovering care"
+      ],
+      "keywordsUpright": [
+        "dedicated practice",
+        "craftsmanship",
+        "attention to detail",
+        "learning by doing"
+      ],
+      "name": "Eight of Pentacles",
+      "shortReversed": "Work may have become either rushed or endlessly polished. You might look for the care that first drew you to it.",
+      "shortUpright": "Steady, focused practice is shaping a skill. Notice the quiet satisfaction of doing one thing well, again and again."
+    },
+    "pentacles_09": {
+      "keywordsReversed": [
+        "dependence on approval",
+        "overwork",
+        "hollow comfort",
+        "reclaiming ease"
+      ],
+      "keywordsUpright": [
+        "self-sufficiency",
+        "enjoying what you built",
+        "quiet refinement",
+        "independence",
+        "self-worth"
+      ],
+      "name": "Nine of Pentacles",
+      "shortReversed": "Comfort may feel out of reach or strangely empty. You might ask what would let you truly rest in what you already have.",
+      "shortUpright": "You may be ready to enjoy what your own effort has cultivated. Notice the quiet confidence of standing in a space you shaped."
+    },
+    "pentacles_10": {
+      "keywordsReversed": [
+        "inherited pressure",
+        "family tension",
+        "unstable foundations",
+        "redefining home"
+      ],
+      "keywordsUpright": [
+        "legacy",
+        "belonging",
+        "lasting foundations",
+        "generations",
+        "shared roots"
+      ],
+      "name": "Ten of Pentacles",
+      "shortReversed": "Old structures or expectations may feel heavy. You might consider which traditions to keep and which to reshape for yourself.",
+      "shortUpright": "Something built to last may be coming into view. Notice the roots, traditions and people that make you feel part of something larger."
+    },
+    "pentacles_11": {
+      "keywordsReversed": [
+        "distraction",
+        "plans without action",
+        "fear of starting",
+        "learning at your pace"
+      ],
+      "keywordsUpright": [
+        "eager learning",
+        "curiosity",
+        "practical study",
+        "a new skill",
+        "steady focus"
+      ],
+      "name": "Page of Pentacles",
+      "shortReversed": "Interest may be there without follow-through. Consider what small, realiztic step would turn curiosity into practice.",
+      "shortUpright": "A curious, studious energy is present. You might notice something practical you would like to learn, and take a first real step toward it."
+    },
+    "pentacles_12": {
+      "keywordsReversed": [
+        "stuck in routine",
+        "overcaution",
+        "boredom",
+        "small changes of pace"
+      ],
+      "keywordsUpright": [
+        "reliability",
+        "steady progress",
+        "routine",
+        "thoroughness",
+        "commitment"
+      ],
+      "name": "Knight of Pentacles",
+      "shortReversed": "Consistency may have turned into a rut. You might consider where a small change of pace could bring energy back.",
+      "shortUpright": "Steady, reliable effort is moving things forward. Notice the value of showing up consistently, even when progress feels slow."
+    },
+    "pentacles_13": {
+      "keywordsReversed": [
+        "self-neglect",
+        "overextending",
+        "care as control",
+        "making room for you"
+      ],
+      "keywordsUpright": [
+        "nurturing care",
+        "resourcefulness",
+        "a welcoming home",
+        "practical warmth",
+        "groundedness"
+      ],
+      "name": "Queen of Pentacles",
+      "shortReversed": "Care may be flowing outward while you run low. You might look at how to tend your own needs as warmly as others'.",
+      "shortUpright": "Practical warmth and care are available to you. Notice how you create comfort for others, and whether you include yourself."
+    },
+    "pentacles_14": {
+      "keywordsReversed": [
+        "rigidity",
+        "status over substance",
+        "overcontrol",
+        "rethinking success"
+      ],
+      "keywordsUpright": [
+        "stewardship",
+        "stability",
+        "generous leadership",
+        "steady provision",
+        "mastery of the practical"
+      ],
+      "name": "King of Pentacles",
+      "shortReversed": "Security may have become a heavy weight to carry. You might ask what success means to you beyond control or appearances.",
+      "shortUpright": "A steady, capable presence is available to you. Notice how you could use your experience and resources to create stability for yourself and others."
+    },
+    "swords_01": {
+      "keywordsReversed": [
+        "clouded thinking",
+        "overthinking",
+        "words held back",
+        "sharpness without care",
+        "waiting for clarity"
+      ],
+      "keywordsUpright": [
+        "clarity",
+        "a new idea",
+        "honest truth",
+        "cutting through",
+        "fresh perspective"
+      ],
+      "name": "Ace of Swords",
+      "shortReversed": "Clarity may be close but not quite in reach yet; there is room to let the fog settle before deciding.",
+      "shortUpright": "A clear thought arrives; you might notice what becomes simple once you name it plainly."
+    },
+    "swords_02": {
+      "keywordsReversed": [
+        "information surfacing",
+        "indecision easing",
+        "avoidance",
+        "pressure to choose",
+        "opening the eyes"
+      ],
+      "keywordsUpright": [
+        "a difficult choice",
+        "stalemate",
+        "weighing options",
+        "guarded balance",
+        "pausing to decide"
+      ],
+      "name": "Two of Swords",
+      "shortReversed": "The pause may be ending; something you avoided looking at could be asking for a gentle, honest glance.",
+      "shortUpright": "Two options balance each other for now; you might notice what you are keeping out of view to hold the peace."
+    },
+    "swords_03": {
+      "keywordsReversed": [
+        "slow recovery",
+        "releasing hurt",
+        "holding pain in",
+        "forgiveness in time",
+        "the storm passing"
+      ],
+      "keywordsUpright": [
+        "sorrow",
+        "hurtful words",
+        "grief",
+        "painful truth",
+        "letting tears come"
+      ],
+      "name": "Three of Swords",
+      "shortReversed": "The sharpest part of a hurt may be easing; you might notice what helps you breathe a little more freely.",
+      "shortUpright": "A sad or hurtful moment may be asking to be felt rather than explained away; sorrow can be honored gently."
+    },
+    "swords_04": {
+      "keywordsReversed": [
+        "restlessness",
+        "rest postponed",
+        "returning to activity",
+        "burnout signals",
+        "stillness as avoidance"
+      ],
+      "keywordsUpright": [
+        "rest",
+        "recovery",
+        "quiet retreat",
+        "stillness",
+        "restoring energy"
+      ],
+      "name": "Four of Swords",
+      "shortReversed": "Rest may keep getting postponed, or a quiet stretch may be ready to end; you might notice which feels true.",
+      "shortUpright": "A pause is part of the work; this may be a time to lay things down and let your mind grow quiet."
+    },
+    "swords_05": {
+      "keywordsReversed": [
+        "making amends",
+        "letting it go",
+        "lingering resentment",
+        "walking away",
+        "reconciliation"
+      ],
+      "keywordsUpright": [
+        "conflict",
+        "winning at a cost",
+        "pride",
+        "strained goodwill",
+        "choosing your battles"
+      ],
+      "name": "Five of Swords",
+      "shortReversed": "A conflict may be ready to cool; there could be room to let go of being right in favor of peace.",
+      "shortUpright": "An argument may be won while something else is lost; you might ask what the victory actually cost."
+    },
+    "swords_06": {
+      "keywordsReversed": [
+        "resisting change",
+        "unfinished business",
+        "a delayed departure",
+        "carrying old weight",
+        "returning to reflect"
+      ],
+      "keywordsUpright": [
+        "transition",
+        "moving on",
+        "calmer waters",
+        "leaving the familiar",
+        "gradual change"
+      ],
+      "name": "Six of Swords",
+      "shortReversed": "Something may be holding you on the old shore; you might notice what you are not yet ready to leave.",
+      "shortUpright": "You may be moving from rough water toward calmer shores; change can be quiet and slow and still be real."
+    },
+    "swords_07": {
+      "keywordsReversed": [
+        "coming clean",
+        "rethinking a plan",
+        "self-deception",
+        "asking for help",
+        "secrets surfacing"
+      ],
+      "keywordsUpright": [
+        "strategy",
+        "acting alone",
+        "avoidance",
+        "hidden motives",
+        "getting away with it"
+      ],
+      "name": "Seven of Swords",
+      "shortReversed": "A hidden plan may be losing its appeal; honesty with yourself or others could feel lighter than the effort of hiding.",
+      "shortUpright": "A clever plan or quiet workaround may be in play; you might ask whether it fits the person you want to be."
+    },
+    "swords_08": {
+      "keywordsReversed": [
+        "new perspective",
+        "release",
+        "loosening beliefs",
+        "small freedoms",
+        "old patterns returning"
+      ],
+      "keywordsUpright": [
+        "feeling stuck",
+        "self-limiting beliefs",
+        "restriction",
+        "fear of moving",
+        "narrow view"
+      ],
+      "name": "Eight of Swords",
+      "shortReversed": "The ties may be loosening; you might notice a belief that no longer holds you as tightly as it did.",
+      "shortUpright": "You may feel hemmed in, yet some limits live mostly in thought; one small movement might show more room than it seems."
+    },
+    "swords_09": {
+      "keywordsReversed": [
+        "worry lifting",
+        "reaching out",
+        "hidden stress",
+        "perspective returning",
+        "sharing the load"
+      ],
+      "keywordsUpright": [
+        "worry",
+        "sleepless thoughts",
+        "mental weight",
+        "fears growing at night",
+        "rumination"
+      ],
+      "name": "Nine of Swords",
+      "shortReversed": "The weight of worry may be starting to lift, or it may be asking to be shared rather than carried alone.",
+      "shortUpright": "Worries can loom larger in the quiet hours; you might notice which fears are about now and which are about maybe."
+    },
+    "swords_10": {
+      "keywordsReversed": [
+        "slow recovery",
+        "rising again",
+        "resisting an ending",
+        "lessons gathered",
+        "dawn after night"
+      ],
+      "keywordsUpright": [
+        "an ending",
+        "rock bottom",
+        "exhaustion",
+        "letting a chapter close",
+        "setting the weight down"
+      ],
+      "name": "Ten of Swords",
+      "shortReversed": "The lowest point may be behind you; you might notice the first signs of steadiness returning.",
+      "shortUpright": "A hard chapter may be reaching its end; naming it can make room for rest and a slow turn."
+    },
+    "swords_11": {
+      "keywordsReversed": [
+        "scattered focus",
+        "gossip",
+        "talking before listening",
+        "defensiveness",
+        "untested ideas"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "eager questions",
+        "learning",
+        "alertness",
+        "new ideas"
+      ],
+      "name": "Page of Swords",
+      "shortReversed": "Eager thoughts may be scattering in many directions; you could notice where listening would serve better than speaking.",
+      "shortUpright": "Curiosity is awake; you might follow a question with fresh eyes and see where it takes your thinking."
+    },
+    "swords_12": {
+      "keywordsReversed": [
+        "rushing ahead",
+        "impatience",
+        "bluntness",
+        "slowing down",
+        "scattered force"
+      ],
+      "keywordsUpright": [
+        "decisive action",
+        "drive",
+        "speaking up",
+        "fast thinking",
+        "determination"
+      ],
+      "name": "Knight of Swords",
+      "shortReversed": "Speed may be outrunning thought; slowing down briefly could help you arrive where you actually mean to go.",
+      "shortUpright": "Momentum is here; you might channel quick thinking into purposeful action while keeping an eye on who is beside you."
+    },
+    "swords_13": {
+      "keywordsReversed": [
+        "coldness",
+        "harsh criticizm",
+        "guardedness",
+        "bitterness",
+        "softening the edge"
+      ],
+      "keywordsUpright": [
+        "clear judgment",
+        "honest boundaries",
+        "independence",
+        "wisdom from experience",
+        "direct kindness"
+      ],
+      "name": "Queen of Swords",
+      "shortReversed": "Clarity may have hardened into distance; you might notice where warmth could return without losing honesty.",
+      "shortUpright": "Clear sight and a kind, direct voice can go together; you might trust what experience has taught you."
+    },
+    "swords_14": {
+      "keywordsReversed": [
+        "rigidity",
+        "cold logic",
+        "misused authority",
+        "second-guessing",
+        "reason with empathy"
+      ],
+      "keywordsUpright": [
+        "intellectual authority",
+        "fairness",
+        "clear principles",
+        "reasoned decisions",
+        "integrity"
+      ],
+      "name": "King of Swords",
+      "shortReversed": "Logic may have become rigid or detached; you might ask whether your principles still leave room for people.",
+      "shortUpright": "Steady reasoning and fair principles can guide you; you might decide from what is true rather than what is easy."
+    },
+    "wands_01": {
+      "keywordsReversed": [
+        "delayed start",
+        "scattered energy",
+        "creative block",
+        "waiting to catch",
+        "quiet incubation"
+      ],
+      "keywordsUpright": [
+        "spark of inspiration",
+        "creative impulse",
+        "enthusiasm",
+        "fresh energy",
+        "a new idea"
+      ],
+      "name": "Ace of Wands",
+      "shortReversed": "The spark may be there, but something keeps it from catching yet; notice what it needs.",
+      "shortUpright": "A new spark of interest is asking for a little air and attention before it can become a flame."
+    },
+    "wands_02": {
+      "keywordsReversed": [
+        "staying in the familiar",
+        "fear of the unknown",
+        "unclear direction",
+        "planning without acting",
+        "rethinking the map"
+      ],
+      "keywordsUpright": [
+        "planning ahead",
+        "wider horizons",
+        "bold intention",
+        "weighing options",
+        "personal vision"
+      ],
+      "name": "Two of Wands",
+      "shortReversed": "Comfort and caution may be keeping a bigger plan on the shelf; you could look again at what holds you there.",
+      "shortUpright": "You stand at the edge of what you know, looking outward; this is a good moment to sketch where you might want to go."
+    },
+    "wands_03": {
+      "keywordsReversed": [
+        "impatience",
+        "slow returns",
+        "frustrated plans",
+        "adjusting course",
+        "limited view"
+      ],
+      "keywordsUpright": [
+        "momentum",
+        "expansion",
+        "looking ahead",
+        "early progress",
+        "trust in your efforts"
+      ],
+      "name": "Three of Wands",
+      "shortReversed": "Progress may feel slower than you hoped; this could be a time to adjust expectations rather than give up.",
+      "shortUpright": "Something you set in motion is starting to travel; you can watch for what comes back and prepare for the next stage."
+    },
+    "wands_04": {
+      "keywordsReversed": [
+        "unsettled ground",
+        "muted celebration",
+        "feeling left out",
+        "private gratitude",
+        "rebuilding foundations"
+      ],
+      "keywordsUpright": [
+        "celebration",
+        "homecoming",
+        "stability",
+        "shared milestones",
+        "belonging"
+      ],
+      "name": "Four of Wands",
+      "shortReversed": "A celebration may feel quieter or less settled than expected; you might look at what would help you feel at home.",
+      "shortUpright": "A milestone deserves to be marked; this is a moment to gather, give thanks and enjoy a sense of home."
+    },
+    "wands_05": {
+      "keywordsReversed": [
+        "avoiding conflict",
+        "finding common ground",
+        "inner tug-of-war",
+        "tension easing",
+        "clearing the air"
+      ],
+      "keywordsUpright": [
+        "friction",
+        "competing ideas",
+        "lively debate",
+        "testing strength",
+        "restless energy"
+      ],
+      "name": "Five of Wands",
+      "shortReversed": "A clash may be quieting down, or going underground; you might notice which disagreements still need a fair hearing.",
+      "shortUpright": "Many voices and energies are clashing; the friction may be sharpening ideas as much as it is wearing you out."
+    },
+    "wands_06": {
+      "keywordsReversed": [
+        "seeking approval",
+        "unnoticed effort",
+        "self-doubt",
+        "quiet success",
+        "redefining success"
+      ],
+      "keywordsUpright": [
+        "recognition",
+        "confidence",
+        "public achievement",
+        "encouragement",
+        "pride in your work"
+      ],
+      "name": "Six of Wands",
+      "shortReversed": "Recognition may feel missing or less satisfying than hoped; you might ask what success means to you on your own terms.",
+      "shortUpright": "Your effort may be getting noticed; let yourself receive some recognition and notice who helped you get here."
+    },
+    "wands_07": {
+      "keywordsReversed": [
+        "feeling overwhelmed",
+        "defensiveness",
+        "choosing battles",
+        "wavering resolve",
+        "letting some go"
+      ],
+      "keywordsUpright": [
+        "standing your ground",
+        "conviction",
+        "perseverance",
+        "protecting boundaries",
+        "courage under pressure"
+      ],
+      "name": "Seven of Wands",
+      "shortReversed": "Defending everything at once can wear you out; you might choose which ground is truly worth holding.",
+      "shortUpright": "You may be holding a position that matters to you; this card honors the courage it takes to stand firm."
+    },
+    "wands_08": {
+      "keywordsReversed": [
+        "delays",
+        "rushing ahead",
+        "crossed signals",
+        "slowing down",
+        "scattered focus"
+      ],
+      "keywordsUpright": [
+        "swift movement",
+        "momentum",
+        "messages in motion",
+        "focused energy",
+        "things aligning"
+      ],
+      "name": "Eight of Wands",
+      "shortReversed": "Pace and timing may feel off, with delays or too much haste; you might pause to check where your energy is aimed.",
+      "shortUpright": "Things may be moving quickly now; energy that was stuck finds a clear direction, and you can ride the momentum with care."
+    },
+    "wands_09": {
+      "keywordsReversed": [
+        "exhaustion",
+        "guardedness",
+        "reaching limits",
+        "asking for help",
+        "lowering defenses"
+      ],
+      "keywordsUpright": [
+        "resilience",
+        "persistence",
+        "the last stretch",
+        "hard-won wisdom",
+        "watchful strength"
+      ],
+      "name": "Nine of Wands",
+      "shortReversed": "Staying on guard for so long can be tiring; you might notice where it is safe to rest and let others in.",
+      "shortUpright": "You have come through a lot and are still standing; this card honors your resilience on the final stretch."
+    },
+    "wands_10": {
+      "keywordsReversed": [
+        "setting down burdens",
+        "delegating",
+        "saying no",
+        "relief",
+        "carrying it alone"
+      ],
+      "keywordsUpright": [
+        "heavy load",
+        "responsibility",
+        "overcommitment",
+        "pushing through",
+        "nearing completion"
+      ],
+      "name": "Ten of Wands",
+      "shortReversed": "Some of the load may be ready to come off your shoulders; you could look at what you can put down, share or refuse.",
+      "shortUpright": "You may be carrying more than your share; this card invites you to notice the weight and what truly needs carrying."
+    },
+    "wands_11": {
+      "keywordsReversed": [
+        "restlessness",
+        "unfinished starts",
+        "hesitant curiosity",
+        "lack of direction",
+        "ideas waiting to form"
+      ],
+      "keywordsUpright": [
+        "curiosity",
+        "exploration",
+        "playful enthusiasm",
+        "eager learning",
+        "bold first steps"
+      ],
+      "name": "Page of Wands",
+      "shortReversed": "Enthusiasm may be flickering between many things or held back by doubt; you might choose one to explore gently.",
+      "shortUpright": "A curious, playful energy wants to explore; follow what excites you and let yourself be a beginner."
+    },
+    "wands_12": {
+      "keywordsReversed": [
+        "impulsiveness",
+        "haste",
+        "scattered passion",
+        "frustration",
+        "channeling energy"
+      ],
+      "keywordsUpright": [
+        "adventure",
+        "bold action",
+        "passion",
+        "spontaneity",
+        "fearless energy"
+      ],
+      "name": "Knight of Wands",
+      "shortReversed": "Energy may be running ahead of direction; this could be a moment to slow the charge and choose where to aim.",
+      "shortUpright": "A bold, adventurous energy is ready to move; you might follow your passion while keeping an eye on the road."
+    },
+    "wands_13": {
+      "keywordsReversed": [
+        "self-doubt",
+        "burnout",
+        "dimmed confidence",
+        "jealousy",
+        "reclaiming your spark"
+      ],
+      "keywordsUpright": [
+        "warm confidence",
+        "charisma",
+        "independence",
+        "creative vitality",
+        "generous presence"
+      ],
+      "name": "Queen of Wands",
+      "shortReversed": "Your inner fire may be flickering or stretched thin; you could look at what drains your confidence and what renews it.",
+      "shortUpright": "A warm, confident energy is available to you; you might let yourself take up space and share your light with others."
+    },
+    "wands_14": {
+      "keywordsReversed": [
+        "impatience",
+        "overbearing drive",
+        "unrealiztic goals",
+        "lost direction",
+        "leading by listening"
+      ],
+      "keywordsUpright": [
+        "visionary leadership",
+        "direction",
+        "integrity",
+        "taking initiative",
+        "inspiring others"
+      ],
+      "name": "King of Wands",
+      "shortReversed": "Strong drive may be tipping into impatience or control; you might check whether your vision still leaves room for others.",
+      "shortUpright": "A clear, visionary energy invites you to lead with purpose and turn big ideas into a direction others can follow."
+    }
+  },
+  "locale": "en",
+  "version": 1
+}

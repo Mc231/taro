@@ -1,0 +1,182 @@
+{
+  "spreads": [
+    {
+      "allowsReversals": true,
+      "id": "single",
+      "positions": [
+        {
+          "id": "focus",
+          "meaning": "The theme this card invites you to reflect on in relation to your question or your day: a quality, feeling or perspective worth noticing.",
+          "order": 1
+        }
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "three_ppf",
+      "positions": [
+        {
+          "id": "past",
+          "meaning": "Influences, experiences or choices from before that may still shape the situation, including lessons or habits the reader carries into it.",
+          "order": 1
+        },
+        {
+          "id": "present",
+          "meaning": "What is active in the situation right now: the current mood, circumstances or inner stance the reader may want to look at honestly.",
+          "order": 2
+        },
+        {
+          "id": "future",
+          "meaning": "Where things may be heading if nothing changes. A possible direction to reflect on, never a fixed fate; the reader's choices can shift it.",
+          "order": 3
+        }
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "three_sao",
+      "positions": [
+        {
+          "id": "situation",
+          "meaning": "The situation as it stands: the circumstances, pressures and feelings around the question, seen as clearly and kindly as possible.",
+          "order": 1
+        },
+        {
+          "id": "action",
+          "meaning": "An approach or attitude the reader might consider taking; a suggestion to weigh against their own judgment, not an instruction.",
+          "order": 2
+        },
+        {
+          "id": "outcome",
+          "meaning": "Where things may be heading if the reader follows the suggested approach and nothing else changes. A possibility to reflect on, not a promise.",
+          "order": 3
+        }
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "relationship",
+      "positions": [
+        {
+          "id": "you",
+          "meaning": "What the reader brings to the relationship: their feelings, needs, hopes and habits in this connection right now.",
+          "order": 1
+        },
+        {
+          "id": "other",
+          "meaning": "How the other person may be experiencing the relationship, offered as a perspective for the reader to consider, never as a claim about what they actually think.",
+          "order": 2
+        },
+        {
+          "id": "connection",
+          "meaning": "What the two people share: the common ground, the dynamic between them and the quality of the bond as it is now.",
+          "order": 3
+        },
+        {
+          "id": "challenge",
+          "meaning": "A tension, difference or pattern that strains the relationship and may be worth talking about or looking at with care.",
+          "order": 4
+        },
+        {
+          "id": "potential",
+          "meaning": "What the relationship could grow into if both people keep investing in it; where it may be heading if nothing changes, not a fixed result.",
+          "order": 5
+        }
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "two_paths",
+      "positions": [
+        {
+          "id": "situation",
+          "meaning": "The situation behind the choice: why the decision matters now and what the reader is hoping to find or protect.",
+          "order": 1
+        },
+        {
+          "id": "path_a",
+          "meaning": "The first option as the reader named it: what choosing it might involve, and the qualities or effort it could ask for.",
+          "order": 2
+        },
+        {
+          "id": "path_a_outcome",
+          "meaning": "Where the first option may lead if the reader chooses it and nothing else changes; a possibility to weigh, not a prediction.",
+          "order": 3
+        },
+        {
+          "id": "path_b",
+          "meaning": "The second option as the reader named it: what choosing it might involve, and the qualities or effort it could ask for.",
+          "order": 4
+        },
+        {
+          "id": "path_b_outcome",
+          "meaning": "Where the second option may lead if the reader chooses it and nothing else changes; a possibility to weigh, not a prediction.",
+          "order": 5
+        }
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "celtic_cross",
+      "positions": [
+        {
+          "id": "present",
+          "meaning": "The heart of the matter: what is happening now and the main energy around the question.",
+          "order": 1
+        },
+        {
+          "id": "challenge",
+          "meaning": "What crosses the situation: an obstacle, tension or opposing force the reader is working with. It may also point to something that needs attention.",
+          "order": 2
+        },
+        {
+          "id": "foundation",
+          "meaning": "The roots of the situation: deeper causes, underlying feelings or past foundations it rests on, which the reader may not always notice.",
+          "order": 3
+        },
+        {
+          "id": "recent_past",
+          "meaning": "Recent events or influences that are fading but still color the situation, and what the reader may be ready to let go of.",
+          "order": 4
+        },
+        {
+          "id": "potential",
+          "meaning": "The conscious aim or most hopeful possibility: what the reader is reaching for and what could be possible in this situation.",
+          "order": 5
+        },
+        {
+          "id": "near_future",
+          "meaning": "What may come next in the near term if things continue as they are; a likely next step to reflect on, not a certainty.",
+          "order": 6
+        },
+        {
+          "id": "self",
+          "meaning": "The reader's own stance: their attitude, feelings and the part they play in the situation, including strengths they can draw on.",
+          "order": 7
+        },
+        {
+          "id": "environment",
+          "meaning": "The people, circumstances and influences around the reader, and how others may see or affect the situation.",
+          "order": 8
+        },
+        {
+          "id": "hopes_fears",
+          "meaning": "What the reader hopes for, fears, or both at once; the feelings that may color how they see the question.",
+          "order": 9
+        },
+        {
+          "id": "outcome",
+          "meaning": "Where things may be heading if nothing changes, drawing the other cards together. A direction to reflect on, never fate; the reader's choices can change it.",
+          "order": 10
+        }
+      ],
+      "version": 1
+    }
+  ],
+  "version": 1
+}

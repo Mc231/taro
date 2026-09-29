@@ -151,9 +151,28 @@ def test_deck_missing_card_and_locale(tmp_path: Path) -> None:
     (tmp_path / cl.CONTENT_SOURCE / "de/cards/major_13.yaml").unlink()
     (tmp_path / cl.DECK_ASSETS / "uk.json").unlink()
     (tmp_path / cl.DECK_ASSETS / "fr.json").write_text(json.dumps(["major_00"]))
+    findings, notices = cl.deck_findings(tmp_path)
+    assert [f.rule for f in findings] == ["deck_missing_card"]
+    assert any("de/cards: 1 of 78 cards not translated yet" in n for n in notices)
+    assert any("uk.json not built" in n for n in notices)
+    strict, _ = cl.deck_findings(tmp_path, require_all_locales=True)
+    assert {f.rule for f in strict} == {"deck_missing_card", "deck_missing_locale"}
+    assert len(strict) == 3
+
+
+def test_deck_en_is_required(tmp_path: Path) -> None:
+    _deck_tree(tmp_path)
+    (tmp_path / cl.CONTENT_SOURCE / "en/cards/major_13.yaml").unlink()
+    (tmp_path / cl.DECK_ASSETS / "en.json").unlink()
     findings, _ = cl.deck_findings(tmp_path)
-    assert {f.rule for f in findings} == {"deck_missing_card", "deck_missing_locale"}
-    assert len(findings) == 3
+    assert sorted(f.rule for f in findings) == ["deck_missing_card", "deck_missing_locale"]
+
+
+def test_deck_require_all_locales_flag(tmp_path: Path) -> None:
+    _deck_tree(tmp_path)
+    (tmp_path / cl.CONTENT_SOURCE / "de/cards/major_13.yaml").unlink()
+    assert cl.main(["--root", str(tmp_path)]) == 0
+    assert cl.main(["--root", str(tmp_path), "--require-all-locales"]) == 1
 
 
 def test_deck_empty_field_and_malformed_card(tmp_path: Path) -> None:

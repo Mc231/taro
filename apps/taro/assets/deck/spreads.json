@@ -1,0 +1,267 @@
+{
+  "spreads": [
+    {
+      "allowsReversals": true,
+      "id": "single",
+      "positions": [
+        {
+          "id": "focus",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.5
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_single_suggestion_1",
+        "spread_single_suggestion_2",
+        "spread_single_suggestion_3"
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "three_ppf",
+      "positions": [
+        {
+          "id": "past",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.123,
+          "y": 0.5
+        },
+        {
+          "id": "present",
+          "order": 2,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "id": "future",
+          "order": 3,
+          "rotationDeg": 0.0,
+          "x": 0.877,
+          "y": 0.5
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_three_ppf_suggestion_1",
+        "spread_three_ppf_suggestion_2",
+        "spread_three_ppf_suggestion_3"
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "three_sao",
+      "positions": [
+        {
+          "id": "situation",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.123,
+          "y": 0.5
+        },
+        {
+          "id": "action",
+          "order": 2,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.5
+        },
+        {
+          "id": "outcome",
+          "order": 3,
+          "rotationDeg": 0.0,
+          "x": 0.877,
+          "y": 0.5
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_three_sao_suggestion_1",
+        "spread_three_sao_suggestion_2",
+        "spread_three_sao_suggestion_3"
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "relationship",
+      "positions": [
+        {
+          "id": "you",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.107,
+          "y": 0.207
+        },
+        {
+          "id": "other",
+          "order": 2,
+          "rotationDeg": 0.0,
+          "x": 0.893,
+          "y": 0.207
+        },
+        {
+          "id": "connection",
+          "order": 3,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.207
+        },
+        {
+          "id": "challenge",
+          "order": 4,
+          "rotationDeg": 0.0,
+          "x": 0.304,
+          "y": 0.793
+        },
+        {
+          "id": "potential",
+          "order": 5,
+          "rotationDeg": 0.0,
+          "x": 0.696,
+          "y": 0.793
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_relationship_suggestion_1",
+        "spread_relationship_suggestion_2",
+        "spread_relationship_suggestion_3",
+        "spread_relationship_suggestion_4"
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "two_paths",
+      "positions": [
+        {
+          "id": "situation",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.099,
+          "y": 0.5
+        },
+        {
+          "id": "path_a",
+          "order": 2,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.207
+        },
+        {
+          "id": "path_a_outcome",
+          "order": 3,
+          "rotationDeg": 0.0,
+          "x": 0.901,
+          "y": 0.207
+        },
+        {
+          "id": "path_b",
+          "order": 4,
+          "rotationDeg": 0.0,
+          "x": 0.5,
+          "y": 0.793
+        },
+        {
+          "id": "path_b_outcome",
+          "order": 5,
+          "rotationDeg": 0.0,
+          "x": 0.901,
+          "y": 0.793
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_two_paths_suggestion_1",
+        "spread_two_paths_suggestion_2",
+        "spread_two_paths_suggestion_3"
+      ],
+      "version": 1
+    },
+    {
+      "allowsReversals": true,
+      "id": "celtic_cross",
+      "positions": [
+        {
+          "id": "present",
+          "order": 1,
+          "rotationDeg": 0.0,
+          "x": 0.356,
+          "y": 0.5
+        },
+        {
+          "id": "challenge",
+          "order": 2,
+          "rotationDeg": 90.0,
+          "x": 0.356,
+          "y": 0.5
+        },
+        {
+          "id": "foundation",
+          "order": 3,
+          "rotationDeg": 0.0,
+          "x": 0.356,
+          "y": 0.743
+        },
+        {
+          "id": "recent_past",
+          "order": 4,
+          "rotationDeg": 0.0,
+          "x": 0.129,
+          "y": 0.5
+        },
+        {
+          "id": "potential",
+          "order": 5,
+          "rotationDeg": 0.0,
+          "x": 0.356,
+          "y": 0.257
+        },
+        {
+          "id": "near_future",
+          "order": 6,
+          "rotationDeg": 0.0,
+          "x": 0.582,
+          "y": 0.5
+        },
+        {
+          "id": "self",
+          "order": 7,
+          "rotationDeg": 0.0,
+          "x": 0.871,
+          "y": 0.864
+        },
+        {
+          "id": "environment",
+          "order": 8,
+          "rotationDeg": 0.0,
+          "x": 0.871,
+          "y": 0.621
+        },
+        {
+          "id": "hopes_fears",
+          "order": 9,
+          "rotationDeg": 0.0,
+          "x": 0.871,
+          "y": 0.379
+        },
+        {
+          "id": "outcome",
+          "order": 10,
+          "rotationDeg": 0.0,
+          "x": 0.871,
+          "y": 0.136
+        }
+      ],
+      "questionSuggestionKeys": [
+        "spread_celtic_cross_suggestion_1",
+        "spread_celtic_cross_suggestion_2",
+        "spread_celtic_cross_suggestion_3",
+        "spread_celtic_cross_suggestion_4"
+      ],
+      "version": 1
+    }
+  ]
+}

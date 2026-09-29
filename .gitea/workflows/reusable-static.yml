@@ -1,7 +1,9 @@
 name: Reusable - Static checks
 
 # 06 §6, §8; Phase 3 Sprint 3.4. Everything that needs no test run:
-# Dart format + analyze, the architecture check, every tools/check_*.py,
+# Dart format + analyze, the architecture check, the deck content checks
+# (tools/content: validate, build --check, sync_check, placeholder_art
+# --check), every tools/check_*.py,
 # commit messages of the pushed range, the CHANGELOG range check, gitleaks,
 # actionlint, shellcheck, and the Worker's typecheck / eslint / prettier /
 # dry-run bundle (with a size budget) / npm audit.
@@ -94,6 +96,20 @@ jobs:
 
       - name: Architecture check (02 AR2)
         run: dart run tools/dart_tools/bin/check_architecture.dart
+
+      # Deck content pipeline (Phase 5, RC26). Missing translations are only a
+      # report until Phase 18; missing or invalid en content is an error.
+      - name: Content validate (tools/content/validate)
+        run: tools/content/validate
+
+      - name: Generated content is current (tools/content/build --check)
+        run: tools/content/build --check
+
+      - name: App assets vs Worker feeds (tools/content/sync_check)
+        run: tools/content/sync_check
+
+      - name: Placeholder art is current (tools/content/placeholder_art --check)
+        run: tools/content/placeholder_art --check
 
       - name: Repo checks (tools/check_*.py, tools/store_copy/check_*.py)
         run: |

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# tools/content/translate: thin wrapper around tools/dart_tools/bin/content_translate.dart
+# (Phase 5 Sprint 5.2). All options: tools/content/translate --help
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+cd "$repo_root"
+exec dart run tools/dart_tools/bin/content_translate.dart --repo-root "$repo_root" "$@"

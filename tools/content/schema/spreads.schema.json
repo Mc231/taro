@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://taro.vshyrochuk.com/schema/content/spreads.schema.json",
+  "title": "Spreads source (apps/taro/content/source/en/spreads.yaml)",
+  "description": "01 §10.2-10.3 SpreadDefinition. tools/content validate additionally requires exactly the 6 spread ids in 01 §10.3 order with their position ids in draw order (order = index + 1), unique position ids, questionSuggestionKeys named spread_<id>_suggestion_<n>, word bounds (x-words) and plain text. Translations (<locale>/spreads.yaml) use the #/$defs/translation shape.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["reviewStatus", "spreads"],
+  "properties": {
+    "reviewStatus": { "enum": ["machine", "reviewed"] },
+    "spreads": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/spread" }
+    }
+  },
+  "$defs": {
+    "spread": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "allowsReversals", "questionSuggestionKeys", "whenToUse", "positions"],
+      "properties": {
+        "id": { "enum": ["single", "three_ppf", "three_sao", "relationship", "two_paths", "celtic_cross"] },
+        "version": { "type": "integer", "minimum": 1 },
+        "allowsReversals": { "type": "boolean" },
+        "questionSuggestionKeys": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^spread_[a-z_]+_suggestion_[1-4]$" }
+        },
+        "whenToUse": { "type": "string", "minLength": 1, "x-words": { "min": 15, "max": 80 } },
+        "positions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": { "$ref": "#/$defs/position" }
+        }
+      }
+    },
+    "position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "x", "y", "meaning"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rotationDeg": { "type": "number", "minimum": -360, "maximum": 360, "default": 0 },
+        "meaning": { "type": "string", "minLength": 1, "x-words": { "min": 5, "max": 40 } }
+      }
+    },
+    "translation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewStatus", "sourceHash", "whenToUse"],
+      "properties": {
+        "reviewStatus": { "enum": ["machine", "reviewed"] },
+        "sourceHash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "whenToUse": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["single", "three_ppf", "three_sao", "relationship", "two_paths", "celtic_cross"],
+          "patternProperties": { "^[a-z_]+$": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}

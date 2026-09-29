@@ -1,0 +1,223 @@
+{
+  "countries": {
+    "AU": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "en"
+        ],
+        "name": "Lifeline Australia",
+        "phone": "13 11 14",
+        "url": "https://www.lifeline.org.au",
+        "verifiedAt": null
+      }
+    ],
+    "BR": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "pt"
+        ],
+        "name": "CVV – Centro de Valorização da Vida",
+        "phone": "188",
+        "url": "https://cvv.org.br",
+        "verifiedAt": null
+      }
+    ],
+    "CA": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "en",
+          "fr"
+        ],
+        "name": "9-8-8 Suicide Crisis Helpline",
+        "phone": "988",
+        "sms": "988",
+        "url": "https://988.ca",
+        "verifiedAt": null
+      }
+    ],
+    "DE": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "de"
+        ],
+        "name": "TelefonSeelsorge",
+        "phone": "0800 111 0 111",
+        "url": "https://www.telefonseelsorge.de",
+        "verifiedAt": null
+      }
+    ],
+    "ES": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "es"
+        ],
+        "name": "Línea 024 de atención a la conducta suicida",
+        "phone": "024",
+        "verifiedAt": null
+      }
+    ],
+    "FR": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "fr"
+        ],
+        "name": "3114 Numéro national de prévention du suicide",
+        "phone": "3114",
+        "url": "https://3114.fr",
+        "verifiedAt": null
+      }
+    ],
+    "GB": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "en"
+        ],
+        "name": "Samaritans",
+        "phone": "116 123",
+        "url": "https://www.samaritans.org",
+        "verifiedAt": null
+      }
+    ],
+    "IE": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "en"
+        ],
+        "name": "Samaritans Ireland",
+        "phone": "116 123",
+        "url": "https://www.samaritans.org/ireland/",
+        "verifiedAt": null
+      }
+    ],
+    "IT": [
+      {
+        "languages": [
+          "it"
+        ],
+        "name": "Telefono Amico Italia",
+        "phone": "02 2327 2327",
+        "url": "https://www.telefonoamico.it",
+        "verifiedAt": null
+      }
+    ],
+    "JP": [
+      {
+        "languages": [
+          "ja"
+        ],
+        "name": "いのちの電話",
+        "phone": "0570-783-556",
+        "verifiedAt": null
+      }
+    ],
+    "KR": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "ko"
+        ],
+        "name": "자살예방상담전화",
+        "phone": "109",
+        "verifiedAt": null
+      }
+    ],
+    "NL": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "nl"
+        ],
+        "name": "113 Zelfmoordpreventie",
+        "phone": "0800-0113",
+        "url": "https://www.113.nl",
+        "verifiedAt": null
+      },
+      {
+        "hours": "24/7",
+        "languages": [
+          "nl"
+        ],
+        "name": "113 Zelfmoordpreventie (short number)",
+        "phone": "113",
+        "verifiedAt": null
+      }
+    ],
+    "PT": [
+      {
+        "languages": [
+          "pt"
+        ],
+        "name": "SOS Voz Amiga",
+        "url": "https://www.sosvozamiga.org",
+        "verifiedAt": null
+      }
+    ],
+    "TR": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "tr"
+        ],
+        "name": "Acil Çağrı Merkezi",
+        "phone": "112",
+        "verifiedAt": null
+      }
+    ],
+    "UA": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "uk"
+        ],
+        "name": "Lifeline Ukraine",
+        "phone": "7333",
+        "url": "https://lifelineukraine.com",
+        "verifiedAt": null
+      }
+    ],
+    "US": [
+      {
+        "hours": "24/7",
+        "languages": [
+          "en",
+          "es"
+        ],
+        "name": "988 Suicide & Crisis Lifeline",
+        "phone": "988",
+        "sms": "988",
+        "url": "https://988lifeline.org",
+        "verifiedAt": null
+      }
+    ]
+  },
+  "international": [
+    {
+      "languages": [],
+      "name": "Find A Helpline",
+      "url": "https://findahelpline.com",
+      "verifiedAt": null
+    }
+  ],
+  "localeFallback": {
+    "ar": null,
+    "de": "DE",
+    "en": "US",
+    "es": "ES",
+    "fr": "FR",
+    "it": "IT",
+    "ja": "JP",
+    "ko": "KR",
+    "nl": "NL",
+    "pt": "BR",
+    "tr": "TR",
+    "uk": "UA"
+  }
+}

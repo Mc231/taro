@@ -3,13 +3,15 @@
 # tools/verify.sh: reproduce the `ci` workflow locally (06 §6.4).
 #
 #   tools/verify.sh           everything `ci` runs except integration tests:
-#                             format, analyze, every repo check, gitleaks,
+#                             format, analyze, every repo check, the deck
+#                             content checks (tools/content), gitleaks,
 #                             worker lint/typecheck/prettier, `test:coverage`
 #                             (Dart unit + widget + golden, worker vitest,
 #                             tools pytest, native; tools/ci/test_coverage.sh)
 #                             and `coverage:check`.
 #   tools/verify.sh --fast    the pre-push gate: format, analyze, every repo
-#                             check, gitleaks, and `test:fast` (no goldens, no
+#                             check, the content checks, gitleaks, and
+#                             `test:fast` (no goldens, no
 #                             integration) in the packages changed against
 #                             origin/main (all packages when there is no
 #                             origin/main).
@@ -191,6 +193,23 @@ repo_checks() {
   done < <(discover_checks)
 }
 
+# Deck content pipeline (Phase 5, RC26), as in reusable-static.yml: the
+# authored source validates, the generated assets and the placeholder art are
+# current, and the app assets agree with the Worker feeds. The tools find the
+# repository root from the working directory.
+content_checks() {
+  local bin=tools/dart_tools/bin
+  if [[ ! -f "$bin/content_validate.dart" ]]; then
+    skip "content" "no $bin/content_validate.dart"
+    return
+  fi
+  step "content: validate" "$DART" run "$bin/content_validate.dart"
+  step "content: build --check" "$DART" run "$bin/content_build.dart" --check
+  step "content: sync_check" "$DART" run "$bin/content_sync_check.dart"
+  step "content: placeholder_art --check" \
+    "$DART" run "$bin/placeholder_art.dart" --check
+}
+
 secrets_scan() {
   if ! in_path_or_file "$GITLEAKS"; then
     skip "gitleaks" "gitleaks not installed (CI runs it)"
@@ -239,6 +258,7 @@ echo "verify.sh ($([[ $FAST == 1 ]] && echo fast || echo full)) in $ROOT"
 step "format" "$MELOS" run format:check
 step "analyze" "$MELOS" run analyze
 repo_checks
+content_checks
 secrets_scan
 lint_ci_files
 
