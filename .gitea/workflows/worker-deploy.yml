@@ -270,8 +270,15 @@ jobs:
             if [ -n "${SECRETS_PASSPHRASE:-}" ]; then
               token=$(tools/secrets-manager.sh get worker staging_debug_attestation_token 2>/dev/null || true)
             fi
+            # Mask before any other use, and refuse anything that is not one
+            # plain token (a multi-line value would leak its other lines).
             if [ -n "$token" ]; then
               echo "::add-mask::$token"
+            fi
+            case "$token" in
+              *[[:space:]]*) echo "::error::debug attestation token has whitespace; refusing to use it"; exit 1 ;;
+            esac
+            if [ -n "$token" ]; then
               export DEBUG_ATTESTATION_TOKEN="$token"
             else
               echo "::warning::worker.staging_debug_attestation_token is not in the secrets bundle; the registration smoke step is skipped"

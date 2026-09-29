@@ -3,6 +3,8 @@
 #
 # Ported from quiz_apps/.secrets/secrets-manager.sh. One GPG-encrypted JSON
 # bundle, .secrets/secrets.json.gpg (AES-256, symmetric), unlocked by one
+# Status and progress messages go to stderr; stdout carries only data (the
+# value for `get`, the listing for `list`), so `x=$(… get …)` is safe.
 # passphrase: the Gitea repository secret SECRETS_PASSPHRASE in CI, or a
 # pinentry prompt locally. Only the .gpg file is ever committed.
 #
@@ -115,9 +117,9 @@ decrypt_secrets() {
     echo "  Discard them:  FORCE_DECRYPT=1 $0 decrypt" >&2
     exit 1
   fi
-  printf '%b\n' "${BLUE}Decrypting secrets...${NC}"
+  printf '%b\n' "${BLUE}Decrypting secrets...${NC}" >&2
   gpg_decrypt "$DECRYPTED_FILE"
-  printf '%b\n' "${GREEN}✓ Decrypted to $DECRYPTED_FILE (never commit it)${NC}"
+  printf '%b\n' "${GREEN}✓ Decrypted to $DECRYPTED_FILE (never commit it)${NC}" >&2
 }
 
 decrypt_to() {
@@ -136,7 +138,7 @@ encrypt_secrets() {
   need gpg gnupg
   jq empty "$DECRYPTED_FILE" 2>/dev/null || die "invalid JSON in $DECRYPTED_FILE"
 
-  printf '%b\n' "${BLUE}Encrypting secrets...${NC}"
+  printf '%b\n' "${BLUE}Encrypting secrets...${NC}" >&2
   if [ -n "${SECRETS_PASSPHRASE:-}" ]; then
     printf '%s' "$SECRETS_PASSPHRASE" \
       | gpg --batch --yes --quiet --pinentry-mode loopback --passphrase-fd 0 \
@@ -144,9 +146,9 @@ encrypt_secrets() {
   else
     gpg --yes --quiet --symmetric --cipher-algo AES256 --output "$ENCRYPTED_FILE" "$DECRYPTED_FILE"
   fi
-  printf '%b\n' "${GREEN}✓ Encrypted to $ENCRYPTED_FILE${NC}"
+  printf '%b\n' "${GREEN}✓ Encrypted to $ENCRYPTED_FILE${NC}" >&2
   remove_plaintext "$DECRYPTED_FILE"
-  printf '%b\n' "${GREEN}✓ Removed plaintext${NC}"
+  printf '%b\n' "${GREEN}✓ Removed plaintext${NC}" >&2
 }
 
 remove_plaintext() {
