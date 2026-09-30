@@ -16,6 +16,11 @@ abstract final class SecureKeys {
   /// The registration `purchaseBinding` (JSON, RC9, RC85).
   static const String purchaseBinding = 'taro.purchase_binding';
 
+  /// The in-app review policy state (JSON, 01 §6.1). Owned by the services
+  /// layer (`SecureStoreReviewPromptLedger`), which declares the same literal
+  /// because `services/` may not import `data/`.
+  static const String reviewPrompt = 'taro.review_prompt';
+
   /// Every key, in the 02 §6.2 order.
   static List<String> get all => const [
     installId,
@@ -23,5 +28,6 @@ abstract final class SecureKeys {
     sessionToken,
     purchaseBinding,
     attestKeyId,
+    reviewPrompt,
   ];
 }

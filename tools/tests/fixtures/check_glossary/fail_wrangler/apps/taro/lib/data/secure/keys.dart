@@ -3,5 +3,6 @@ abstract final class SecureKeys {
   static const installid = 'taro.install_id';
   static const installsecret = 'taro.install_secret';
   static const purchasebinding = 'taro.purchase_binding';
+  static const reviewprompt = 'taro.review_prompt';
   static const sessiontoken = 'taro.session_token';
 }

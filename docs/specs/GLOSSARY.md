@@ -524,6 +524,8 @@ Owner: 02 §5 + RC41. Every port has a Prod adapter, a NoOp (shipped) where list
 
 Not ports (pure logic or orchestration, same names everywhere): `ReadingGate` → `GateDecision`, `CardDrawer`, `ResetSchedule`, `BackupMerge`, `ProductOffer`, `BannerPolicy`, `PendingPurchaseTracker`, `IapCatalog`, `ConsentOrchestrator`, `SyncCoordinator`, `ResetTimer`, `ApiErrorMapper`, `WorkerClient`, `Redactor`, `ServerClockOffset` (held by the app's `ServerClockTracker`, fed from every `Date` header and balance), `TaroEnvironment` / `ProductionEnvironment` (RC76). Controllers (Riverpod `Notifier`s, 02 §7): `QuestionController`, `DrawController`, `ReadingResultController`, `OutOfReadingsController`, `StoreController`, `RewardedController`, `ReportReadingController`, `DailyCardController`, `BackupController`. App-wide providers: `balanceProvider`, `entitlementProvider`, `consentProvider`, `remoteConfigProvider`, `connectivityProvider`, `settingsProvider`. Removed from v1: `DailyCardWidgetBridge` (Phase 23.1, RC89).
 
+Services-layer helpers (Phase 12, `apps/taro/lib/services/`; not ports): `PurchaseCoordinator` (`PurchaseUpdate`), `RemoveAdsEntitlement` over `StoreOwnership` (silent store ownership check, implemented by `StoreIapService`), `ReminderCopy` (reminder texts per locale), `AnalyticsUserProperties` and `TaroAnalyticsBackend` (an `AnalyticsService` that also sets the 01 §15 user properties), the log sinks `ConsoleLogSink` and `CrashBreadcrumbSink`, `SecureStoreReviewPromptLedger` (`taro.review_prompt`). `taro_attestation` plugin API: `TaroAttestation`, `TaroAttestationException` with `AttestationErrorKind` (`unsupported | keyInvalidated | rejected | quota | transient`, mapped to `AttestationFailureKind`); native seams `AppAttestServicing` / `DeviceCheckServicing` (Swift) and `IntegrityProvider` / `AndroidIdProvider` (Kotlin).
+
 `GateDecision` (02 §4.1, RC44, RC74): `deviceUnverified | needsAiConsent | offline | readingsPaused({freePaused}) | aiUnavailableRegion | spreadDisabled | needsCredits(PaywallOptions) | dailyLimitReached | needsSync | allowed(ChargeSource)`; check order registration/trust → AI consent → online → `readings.enabled` / region → spread enabled → balance.
 
 ### 9.2 Worker ports (`worker/src/ports`)
@@ -619,6 +621,7 @@ Owner: 02 §6.2 (`apps/taro/lib/data/secure/keys.dart`, over `flutter_secure_sto
 | `taro.session_token` | Worker `installToken` (EdDSA JWT, 7 days) + `expiresAt` |
 | `taro.purchase_binding` | `purchaseBinding{appleAccountToken?, playAccountId?}` (RC9, RC85) |
 | `taro.attest_key_id` | App Attest key ID (iOS only) |
+| `taro.review_prompt` | in-app review policy state `{positiveRatings, lastPromptAt, refused}` (JSON; `SecureStoreReviewPromptLedger`, `apps/taro/lib/services/review/`, 01 §6.1) |
 
 ## 13. Worker secrets and vars
 

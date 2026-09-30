@@ -24,16 +24,21 @@ sdk_packages:
       - apps/taro/lib/services/ads/**
       - apps/taro/lib/services/consent/**
       - apps/taro/lib/services/presentation/**
-  # IapService -> StoreIapService (in_app_purchase + SK2, consume).
+  # IapService -> StoreIapService (in_app_purchase + SK2, consume). Only the
+  # adapter file itself may import the IAP SDK (Phase 12.2); the coordinator,
+  # tracker and entitlement in services/iap/ stay SDK-free.
   - package: in_app_purchase
     ports: [IapService]
-    allowed: [apps/taro/lib/services/iap/**]
+    allowed: [apps/taro/lib/services/iap/store_iap_service.dart]
   - package: in_app_purchase_storekit
     ports: [IapService]
-    allowed: [apps/taro/lib/services/iap/**]
+    allowed: [apps/taro/lib/services/iap/store_iap_service.dart]
   - package: in_app_purchase_android
     ports: [IapService]
-    allowed: [apps/taro/lib/services/iap/**]
+    allowed: [apps/taro/lib/services/iap/store_iap_service.dart]
+  - package: in_app_purchase_platform_interface
+    ports: [IapService]
+    allowed: [apps/taro/lib/services/iap/store_iap_service.dart]
   # TrackingAuthorization (ATT) -> AttTrackingAuthorization (consent area).
   - package: app_tracking_transparency
     ports: [TrackingAuthorization]

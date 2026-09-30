@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:taro_core/src/ports/ads_service.dart';
 import 'package:taro_core/src/ports/balance_repository.dart';
 import 'package:taro_core/src/ports/clock.dart';
+import 'package:taro_core/src/ports/connectivity_monitor.dart';
 import 'package:taro_core/src/ports/consent_store.dart';
 import 'package:taro_core/src/ports/logger.dart';
 import 'package:taro_core/src/ports/remote_config_repository.dart';
@@ -46,6 +47,7 @@ final class EarnReward {
     required BalanceRepository balance,
     required RemoteConfigRepository config,
     required ConsentStore consent,
+    required ConnectivityMonitor connectivity,
     required Clock clock,
     required Logger logger,
     Delay? delay,
@@ -54,6 +56,7 @@ final class EarnReward {
        _balance = balance,
        _config = config,
        _consent = consent,
+       _connectivity = connectivity,
        _clock = clock,
        _logger = logger,
        _delay = delay ?? Future<void>.delayed;
@@ -66,6 +69,7 @@ final class EarnReward {
   final BalanceRepository _balance;
   final RemoteConfigRepository _config;
   final ConsentStore _consent;
+  final ConnectivityMonitor _connectivity;
   final Clock _clock;
   final Logger _logger;
   final Delay _delay;
@@ -95,10 +99,19 @@ final class EarnReward {
   }
 
   /// Creates an intent, shows the ad and polls for the SSV grant.
+  ///
+  /// Offline → `NetworkFailure` before any Worker call (RC34 "online"). The
+  /// `AdsService` adapter loads the ad (or uses the preloaded one) within
+  /// `rewarded.loadTimeoutSec` and answers `noFill` past it; `noFill`, a
+  /// show failure and an early dismissal cancel the intent (best effort)
+  /// and are never polled (RC57).
   Future<Result<RewardOutcome>> call({required String adUnitId}) async {
     final reason = unavailableReason();
     if (reason != null) {
       return Result.err(Failure.rewardUnavailable(reason: reason));
+    }
+    if (!await _connectivity.isOnline()) {
+      return const Result.err(Failure.network());
     }
     final created = await _gateway.createIntent(adUnitId);
     if (created case Err(:final failure)) return Result.err(failure);

@@ -207,6 +207,15 @@ Set by the analytics adapter (Phase 12), not events. Same PR18 rules.
 | `has_purchased` | bool |
 | `journal_size_bucket` | 0\|1-10\|11-50\|51-200\|201+ |
 
+## Emitters in the services layer (Phase 12)
+
+Phase 12 adds no event; it wires the existing monetization events to their emitters and puts the consent gate in front of every event.
+
+- **`PurchaseCoordinator`** (`apps/taro/lib/services/iap/`): `purchase_pending`, `purchase_cancelled`, `purchase_failed`, `purchase_verification_delayed`, `iap_verify_result` (every Worker answer, with `attempt`), `iap_verify_stuck` (outbox row older than `store.verifyRetryWindowHours`), `purchase_completed` (**only** on `granted`, also for a new Remove Ads purchase with `credits` 0; never on `already_granted`, so revenue is logged once), `restore_completed`.
+- **`RemoveAdsEntitlement`**: `remove_ads_changed` when the entitlement flips (`purchase`, `restore`, `ownership_check`, `revoked`).
+- **Not yet fired** (Phase 13, app side): `purchase_started`, `rewarded_offer_*`, `rewarded_ad_result`, `rewarded_grant_result` (`RewardedController` over `EarnReward`), and `consent_ump_result` / `consent_att_result` (onboarding and S23; `form_shown` is not visible through the `ConsentService` port, so the onboarding controller that shows the step fires them).
+- **Consent gate (RC68).** `ConsentAwareAnalytics` wraps `CompositeAnalyticsService(FirebaseAnalyticsService, ConsoleAnalyticsService in dev)`. Until `ConsentOrchestrator.whenResolved` it keeps the first 50 events (later ones are dropped) and merges user properties; then it flushes them in order when analytics storage is granted and collection is on, or drops them. A failed resolution counts as denied. After that, every event is dropped while analytics storage is denied or the Settings toggle is off. Firebase gets no user ID; `screen_view` goes through `logScreenView`; `bool` parameters are sent as `"true"`/`"false"`.
+
 ## Differences from the specs
 
 - `prompt_version` is an `int` (the `N` of `ai.promptVersion` `vN`, BE11) instead of 01's "str enum", so no string value is open-ended.

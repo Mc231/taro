@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:taro_attestation/taro_attestation.dart';
 
-void main() => runApp(ExampleApp(plugin: TaroAttestation()));
+void main() => runApp(const ExampleApp(plugin: TaroAttestation()));
 
+/// Host app of the plugin's native tests: shows whether platform
+/// attestation is available on this device.
 class ExampleApp extends StatefulWidget {
+  /// An app over [plugin].
   const ExampleApp({required this.plugin, super.key});
 
+  /// The plugin under test.
   final TaroAttestation plugin;
 
   @override
@@ -14,7 +17,7 @@ class ExampleApp extends StatefulWidget {
 }
 
 class _ExampleAppState extends State<ExampleApp> {
-  String _platformVersion = 'Unknown';
+  String _status = 'Checking…';
 
   @override
   void initState() {
@@ -23,14 +26,14 @@ class _ExampleAppState extends State<ExampleApp> {
   }
 
   Future<void> _load() async {
-    String version;
+    String status;
     try {
-      version = await widget.plugin.getPlatformVersion() ?? 'Unknown';
-    } on PlatformException {
-      version = 'Failed to get platform version.';
+      status = await widget.plugin.isSupported() ? 'supported' : 'unsupported';
+    } on TaroAttestationException catch (e) {
+      status = 'error: ${e.kind.name}';
     }
     if (!mounted) return;
-    setState(() => _platformVersion = version);
+    setState(() => _status = status);
   }
 
   @override
@@ -38,7 +41,7 @@ class _ExampleAppState extends State<ExampleApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('taro_attestation example')),
-        body: Center(child: Text('Running on: $_platformVersion')),
+        body: Center(child: Text('Attestation: $_status')),
       ),
     );
   }

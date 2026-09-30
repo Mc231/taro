@@ -20,20 +20,25 @@ void main() {
         null,
       ),
     );
-    await tester.pumpWidget(ExampleApp(plugin: TaroAttestation()));
+    await tester.pumpWidget(const ExampleApp(plugin: TaroAttestation()));
     await tester.pumpAndSettle();
   }
 
-  testWidgets('shows the platform version', (tester) async {
-    await pumpWith(tester, (_) async => 'iOS 26');
-    expect(find.text('Running on: iOS 26'), findsOneWidget);
+  testWidgets('shows a supported device', (tester) async {
+    await pumpWith(tester, (_) async => true);
+    expect(find.text('Attestation: supported'), findsOneWidget);
   });
 
-  testWidgets('shows a failure message on PlatformException', (tester) async {
-    await pumpWith(tester, (_) async => throw PlatformException(code: 'x'));
-    expect(
-      find.text('Running on: Failed to get platform version.'),
-      findsOneWidget,
+  testWidgets('shows an unsupported device', (tester) async {
+    await pumpWith(tester, (_) async => false);
+    expect(find.text('Attestation: unsupported'), findsOneWidget);
+  });
+
+  testWidgets('shows the error kind of a failure', (tester) async {
+    await pumpWith(
+      tester,
+      (_) async => throw PlatformException(code: 'transient'),
     );
+    expect(find.text('Attestation: error: transient'), findsOneWidget);
   });
 }

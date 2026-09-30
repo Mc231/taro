@@ -2,7 +2,7 @@
 
 **Status:** stub (Phase 2). This is the living architecture doc (06 §13). It is derived from `specs/02_ARCHITECTURE.md` and `specs/03_BACKEND_WORKER.md` and is updated as the code changes. When this doc and the specs disagree about what the code *does*, this doc wins; about what it *should* do, the specs win.
 
-§Domain and §Ports describe `taro_core` (Phase 4). Later phases add: data flow and sequence diagrams for the reading, purchase and rewarded-grant flows (Phases 11–13).
+§Domain and §Ports describe `taro_core` (Phase 4), §Data layer the app's `data/` (Phase 11) and §Services layer the platform adapters with the client purchase, rewarded and consent sequences (Phase 12). Phase 13 adds the reading flow and the DI wiring.
 
 ## Packages and system context
 
@@ -84,11 +84,13 @@ The root cause of every deviation: Flutter 3.44.8 pins `meta 1.18.0`, `clock 1.1
 | test (dev, taro_core, dart_tools) | – | ^1.31.0 | 1.31.0 | highest compatible with test_api 0.7.11 |
 | cli_util (transitive) | – | root `dependency_overrides: ^0.5.0` | 0.5.2 | drift_dev 2.34.0 declares ^0.4, melos 8 needs >= 0.5; drift_dev only uses `Ansi`/`Logger` (unchanged; 2.34.1 widened to <0.6). Remove with the upgrade below. |
 
-All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, mocktail 1.0.5, patrol 4.10.0, melos 8.9.0. `pubspec.lock` at the root is the single workspace lock (commit it).
+All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, in_app_purchase_platform_interface 1.4.1 (direct since Phase 12.2: the adapter takes the platform by injection), flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, mocktail 1.0.5, patrol 4.10.0, melos 8.9.0. `pubspec.lock` at the root is the single workspace lock (commit it).
 
 `apps/taro` (Phase 11.1) also depends directly on `path_provider` ^2.1.6 (resolved 2.1.6, BSD-3-Clause, already in the lock through drift_flutter) for the database directory in `lib/data/db/database_location.dart`, the only file allowed to import it (`tools/import_rules.yaml`).
 
 `tools/dart_tools` (Phase 5, `tools/content`) depends on `args` ^2.7.0, `crypto` ^3.0.7, `http` ^1.6.0 and `yaml` ^3.1.4 (resolved 2.7.0, 3.0.7, 1.6.0, 3.1.4; `yaml` MIT, the others BSD-3-Clause; all already in the lock as transitive dependencies). `http` is the Claude Messages API call of `tools/content translate`, behind the `ClaudeClient` interface (tests use a fake; the key comes from `ANTHROPIC_API_KEY`). Repo tooling only, never bundled. Sprint 5.4 adds `image` ^4.10.1 (resolved 4.10.1, MIT, already in the lock as a transitive dependency) for `tools/content/placeholder_art`: its pure-Dart `WebPEncoder` writes the placeholder cards as lossless WebP, so no native `cwebp` is needed.
+
+Phase 12 adds, for the services layer: `in_app_purchase_platform_interface` (above, BSD-3-Clause); dev dependencies `firebase_core_platform_interface` ^8.1.1, `firebase_analytics_platform_interface` ^6.0.7 and `firebase_crashlytics_platform_interface` ^3.9.0 (resolved 8.1.1, 6.0.7, 3.9.0; BSD-3-Clause; already in the lock through the Firebase plugins) so tests replace the platform instances with fakes; and, in `packages/taro_attestation/android`, `com.google.android.play:integrity` 1.6.0 (Play Integrity Standard API only, RC87; distributed under the Play Core Software Development Kit Terms of Service, which allow use in apps distributed on Google Play; no Classic API). JVM tests of the plugin use `mockito-core` 5.0.0 (already present) with `unitTests.isReturnDefaultValues = true`.
 
 `taro_core` (Phase 4) also depends on `characters` ^1.4.1 (resolved 1.4.1, pinned by the Flutter SDK; grapheme counting in `QuestionPrecheck`, BSD-3-Clause). It is not in 02 §18. `json_annotation`/`json_serializable` stay app-only: core JSON mappers are hand-written.
 
@@ -554,7 +556,7 @@ Every port is an `abstract interface class` (02 §5, AR18, rule 2). Fakes live i
 | `TimezoneProvider` | current IANA zone | `FlutterTimezoneProvider` (12) | `FixedTimezoneProvider` | `FakeTimezoneProvider` (also `FakeClock`) |
 | `RandomSource` | CSPRNG for draws | `SecureRandomSource` (in core, `Random.secure()`) | — | `SeededRandomSource`, `ScriptedRandomSource` |
 | `IdGenerator` | UUIDv4 IDs and idempotency keys | `SecureIdGenerator` (11) | — | `SequentialIdGenerator` |
-| `Logger` | leveled logging (RC41) | `PackageLoggingLogger` (11) | `SilentLogger` | `CapturingLogger` |
+| `Logger` | leveled logging (RC41) | `PackageLoggingLogger` (12) | `SilentLogger` | `CapturingLogger` |
 | `FileTransfer` | share and pick backup files | `PlatformFileTransfer` (12) | — | `FakeFileTransfer` |
 | `ConnectivityMonitor` | online hint | `ConnectivityPlusMonitor` (12) | `AlwaysOnlineMonitor` | `FakeConnectivityMonitor` |
 | `ReviewPrompter` | in-app review | `InAppReviewPrompter` (12) | `NoOpReviewPrompter` | `FakeReviewPrompter` |
@@ -616,6 +618,144 @@ The row is written **before** verification, so a crash between the store callbac
 **Readings.** `ReadingRepositoryImpl.submit` stores the draw as `pending` before `POST /v1/readings` (PR6); a delivered reading is stored, then queued in `pending_acks` before the ack (RC51). `409 HOLD_CONFLICT` and `402` keep the draw face-down for a resubmit with the same `clientReadingId` (RC48, RC49); `410` and `503 AI_UNAVAILABLE` store a refunded failure.
 
 **Open wiring (Phase 13 DI):** the providers, `open()`/`close()` of the stateful repositories, `WorkerClient.onSessionExpired` → `InstallRepositoryImpl.reRegister`, and `PlatformBackupExclusion` (iOS) / `NoOpBackupExclusion` (Android).
+
+## Services layer (`apps/taro/lib/services/`, Phase 12)
+
+`services/` holds every platform-SDK adapter behind its `taro_core` port (02 §5, AR18, rule 2) plus the monetization orchestration that runs outside the widget tree. It imports only `taro_core`, `taro_attestation`, Flutter and its own SDKs; never `data/`, `features/`, `taro_ui` or Riverpod (`check_architecture.dart`). Each SDK is imported only by the files `tools/import_rules.yaml` allows (`check_forbidden_apis.py` reads the same file, so the two cannot drift). Adapters take SDK entry points by injection (platform-interface instances, method channels, callbacks, delays), so every branch runs in `flutter test` without a device. Every adapter and NoOp runs its `run<Port>Contract` suite from `apps/taro/test/services/<area>/`.
+
+| Folder | Adapters (port) | NoOp / alternative | SDK |
+|---|---|---|---|
+| `iap/` | `StoreIapService` (`IapService`, also `StoreOwnership`); `PurchaseCoordinator`, `PendingPurchaseTracker`, `RemoveAdsEntitlement` (SDK-free orchestration) | `NoOpIapService` | `in_app_purchase*` (only `store_iap_service.dart`) |
+| `ads/` | `AdMobAdsService` (`AdsService`) | `NoOpAdsService` (`applies(config, entitlement)`) | `google_mobile_ads` |
+| `presentation/` | `AdMobBannerSlotView`, `AdMobBanner` widget (`BannerSlotView`, app-side presentation port) | `NoOpBannerSlotView` | `google_mobile_ads` |
+| `consent/` | `UmpConsentService` (`ConsentService`), `AttTrackingAuthorization` (`TrackingAuthorization`), `ConsentOrchestrator` | `NoOpConsentService`, `NotSupportedTrackingAuthorization` | `google_mobile_ads` (UMP), `app_tracking_transparency` |
+| `analytics/` | `FirebaseAnalyticsService` (`AnalyticsService` + `TaroAnalyticsBackend.setUserProperties`), `ConsentAwareAnalytics`, `CompositeAnalyticsService`, `ConsoleAnalyticsService` | `NoOpAnalyticsService` | `firebase_analytics`, `firebase_core` |
+| `crash/` | `FirebaseCrashReporter` (`CrashReporter`) | `NoOpCrashReporter` | `firebase_crashlytics`, `firebase_core` |
+| `logging/` | `PackageLoggingLogger` (`Logger`), `Redactor`, `ConsoleLogSink`, `CrashBreadcrumbSink` | `SilentLogger` | `logging` |
+| `attestation/` | `PlatformAttestationService` (`AttestationService`, over the `taro_attestation` plugin) | `DebugAttestationService` (non-prod only) | `taro_attestation` |
+| `notifications/` | `LocalReminderScheduler` (`ReminderScheduler`), `ReminderCopy` | `NoOpReminderScheduler` | `flutter_local_notifications`, `timezone` |
+| `timezone/` | `FlutterTimezoneProvider` (`TimezoneProvider`) | `FixedTimezoneProvider` | `flutter_timezone`, `timezone` |
+| `files/` | `PlatformFileTransfer` (`FileTransfer`) | — | `share_plus`, `file_picker` |
+| `connectivity/` | `ConnectivityPlusMonitor` (`ConnectivityMonitor`) | `AlwaysOnlineMonitor` | `connectivity_plus` |
+| `review/` | `InAppReviewPrompter` (`ReviewPrompter`), `SecureStoreReviewPromptLedger` (`taro.review_prompt`) | `NoOpReviewPrompter` | `in_app_review` |
+| `device/` | `PackageInfoAppInfo` (`AppInfo`) | — | `package_info_plus`, `device_info_plus` |
+| `ids/` | `SecureIdGenerator` (`IdGenerator`, Phase 11) | — | `uuid` |
+| `backup/` | `PlatformBackupExclusion` (`BackupExclusion`, Phase 11) | — | method channel |
+
+`SystemClock` and `SecureRandomSource` stay in `taro_core` (`ports/`): they are the only files allowed to call `DateTime.now` and `Random.secure` (`api_allowlist` in `import_rules.yaml`). `SecureRandomSource` draws 32-bit words with explicit rejection sampling and has a `slow`-tagged χ² smoke test (06 §2.1).
+
+**Rules the adapters keep.**
+
+- **Money (rule 7, 8; MO7, MO8).** `PurchaseCoordinator` is built at bootstrap and subscribes to the store deliveries at construction. It never finishes a transaction before the Worker answered `granted`, `already_granted` or `422`; a seeded randomized-order property test checks it. `RemoveAdsEntitlement` reads the cache instantly, bounds the silent ownership check at 10 s, and revokes only when the store answers without the product, never on silence.
+- **Consent first (RC19, RC68).** Firebase consent mode is denied natively (`Info.plist`, `AndroidManifest.xml`) and by `setConsent(allDenied)` before the first event; `ConsentAwareAnalytics` buffers ≤ 50 events until `ConsentOrchestrator.whenResolved`. `AdsService.initialize` never runs before `canRequestAds`.
+- **No secrets in logs (PR18).** Every log line goes through the one `Redactor` in `PackageLoggingLogger` before any sink; Crashlytics gets breadcrumbs INFO+ in prod only. The install ID is cut to 8 characters; registered exact secrets (install secret, device key) are replaced wherever they appear.
+- **Attestation (AR9, RC87).** iOS: App Attest key + `SHA256(challenge ‖ installId ‖ deviceCheckToken?)`, headers `aa1.`; Android: Play Integrity Standard, `requestHash = base64url(SHA256(challenge ‖ installId ‖ deviceKey))`, `deviceKey = base64url(SHA-256("taro-device-v1" ‖ ANDROID_ID))` computed in Dart; unsupported devices answer `none`. `DebugAttestationService.select` never returns the debug service for a prod `FlavorConfig`.
+
+### Purchase (client, 04 §6.2, 02 §9.5)
+
+```mermaid
+sequenceDiagram
+  participant U as S10 / S11
+  participant PC as PurchaseCoordinator
+  participant IAP as StoreIapService
+  participant S as StoreKit 2 / Play Billing
+  participant O as PurchaseOutbox (drift)
+  participant V as PurchaseVerifier (Worker E14)
+  participant B as BalanceRepository
+  U->>PC: buy(product)
+  PC->>IAP: buy(product, applicationUserName = appleAccountToken | playAccountId)
+  IAP->>S: buyConsumable(autoConsume: iOS only)
+  S-->>IAP: purchase update (pending | purchased | restored | error | cancelled)
+  IAP-->>PC: IapEvent (deliveries stream, buffered until subscribed)
+  alt store pending (Ask to Buy, slow card)
+    PC->>PC: PendingPurchaseTracker (lapses after store.pendingHoldMinutes), no Worker call
+  else purchased / restored
+    PC->>PC: in-flight dedupe by txnKey
+    PC->>O: enqueue (awaitingVerification) BEFORE verify
+    PC->>V: POST /v1/purchases/verify [idem]
+    alt 200 granted / already_granted
+      PC->>O: markGranted
+      PC->>B: apply(balance)
+      PC->>IAP: finish = completePurchase (+ Play consumePurchase for packs)
+      PC->>O: markFinished
+      PC-->>U: granted (purchase_completed only on granted)
+    else 202 pending
+      PC-->>U: pending (row kept open)
+    else 422 PURCHASE_INVALID
+      PC->>IAP: finish (sandbox_cap → neutral message, RC63)
+      PC->>O: markRejected
+    else 409 PURCHASE_ALREADY_CLAIMED
+      PC->>O: markRejected (never finished, RC84)
+    else transport, 5xx, 401/403
+      PC-->>U: verificationDelayed ("Your purchase is safe")
+      PC->>PC: retry after 2 s, 10 s, 60 s, then drainOutbox on launch / resume / connectivity
+      PC->>PC: older than store.verifyRetryWindowHours → iap_verify_stuck
+    end
+  end
+```
+
+### Rewarded ad (client, 04 §9.2, 02 §9.6)
+
+```mermaid
+sequenceDiagram
+  participant U as S10 / S11 (RewardedController, Phase 13)
+  participant E as EarnReward (taro_core)
+  participant G as RewardGateway (Worker E15–E17)
+  participant A as AdMobAdsService
+  participant M as AdMob
+  U->>E: call(adUnitId) (explicit tap only, RC34)
+  E->>E: unavailableReason(): ads/rewarded enabled, canRequestAds, free.remaining == 0, cap, cooldown
+  E->>E: ConnectivityMonitor.isOnline() else NetworkFailure
+  E->>G: POST /v1/rewards/intents
+  G-->>E: intentId (userId = customData = intentId, never the install ID)
+  E->>A: showRewarded(intent)
+  A->>M: use the preloaded ad (≤ 1 h old) or load within rewarded.loadTimeoutSec
+  A->>M: setServerSideOptions(userId, customData = intentId), show
+  alt earned
+    M-->>A: onUserEarnedReward
+    A-->>E: earned
+    loop every 1.5 s up to rewarded.grantPollTimeoutSec
+      E->>G: GET /v1/rewards/intents/{intentId}
+    end
+    E-->>U: granted (balance applied) | delayed | notGranted
+  else dismissed early / failed to show / noFill
+    A-->>E: dismissedEarly | failedToShow | noFill
+    E->>G: POST /v1/rewards/intents/{intentId}/cancel (best effort, no poll, RC57)
+  end
+  Note over U: back to S07 with Begin enabled; nothing auto-starts (RC58)
+```
+
+### Consent (client, 02 §9.7, 04 §6.7, 05 CS14)
+
+```mermaid
+sequenceDiagram
+  participant Boot as bootstrap
+  participant CA as ConsentAwareAnalytics
+  participant CO as ConsentOrchestrator
+  participant UMP as UmpConsentService
+  participant ATT as AttTrackingAuthorization
+  participant Ads as AdMobAdsService
+  Boot->>CA: setConsent(allDenied) before any event (native defaults also denied)
+  Note over CA: buffers ≤ 50 events + user properties
+  Boot->>CO: run() (null until onboarding reaches the UMP step)
+  CO->>UMP: gather: requestConsentInfoUpdate (tagForUnderAgeOfConsent false) + loadAndShowConsentFormIfRequired
+  UMP-->>CO: AdsConsent{status, canRequestAds, privacyOptionsRequired}
+  CO->>CO: persist ConsentState.ads; analyticsConsentFor(ads, TCF purposes)
+  CO->>CA: setConsent(from UMP) → whenResolved completes
+  CA->>CA: flush buffer in order, or drop it when analytics storage is denied
+  alt canRequestAds
+    CO->>ATT: status()
+    opt iOS and notDetermined
+      CO->>CO: neutral pre-prompt when ads.attPrepromptEnabled (RC19)
+      CO->>ATT: request()
+    end
+    CO->>Ads: initialize(policy) when the policy needs the SDK
+  else canRequestAds == false
+    Note over CO: no ATT, no SDK init this launch; banners hidden, rewarded "Ads unavailable"
+  end
+```
+
+**Open wiring (Phase 13 DI):** providers for every adapter, `PurchaseCoordinator` + `RemoveAdsEntitlement.refresh()` + `drainOutbox()` in `SyncCoordinator`, `PlatformAttestationService.warmUp()` (02 §9.1 step 7), the `X-Taro-Debug-Attestation` header from `DebugAttestationService.headers` in the Worker client, the ATT pre-prompt and debug-EEA hooks on `ConsentOrchestrator`, `ReminderCopy` from ARB, and the on-device TCF purpose read (`IABTCF_PurposeConsents`).
 
 ## Content pipeline (Phase 5)
 

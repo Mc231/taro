@@ -59,6 +59,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            // android.jar stubs answer defaults instead of throwing, so the
+            // real IntegrityManagerFactory can be built in a JVM test.
+            isReturnDefaultValues = true
             all {
                 it.useJUnitPlatform()
 
@@ -80,6 +83,9 @@ kotlin {
 }
 
 dependencies {
+    // Play Integrity Standard API only (02 AR9, RC87); no Classic API.
+    implementation("com.google.android.play:integrity:1.6.0")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.mockito:mockito-core:5.0.0")
 }

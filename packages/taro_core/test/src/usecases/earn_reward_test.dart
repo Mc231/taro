@@ -10,6 +10,7 @@ void main() {
   late FakeBalanceRepository balance;
   late FakeRemoteConfigRepository config;
   late FakeConsentStore consent;
+  late FakeConnectivityMonitor connectivity;
   late FakeClock clock;
   late CapturingLogger logger;
   late EarnReward earn;
@@ -32,12 +33,14 @@ void main() {
     config = FakeRemoteConfigRepository();
     consent = FakeConsentStore(adsAllowed);
     logger = CapturingLogger();
+    connectivity = FakeConnectivityMonitor();
     earn = EarnReward(
       gateway: gateway,
       ads: ads,
       balance: balance,
       config: config,
       consent: consent,
+      connectivity: connectivity,
       clock: clock,
       logger: logger,
       delay: clock.delay,
@@ -109,6 +112,16 @@ void main() {
         const Failure.rewardUnavailable(
           reason: RewardUnavailableReason.consent,
         ),
+      );
+      expect(gateway.calls, isEmpty);
+      expect(ads.shown, isEmpty);
+    });
+
+    test('offline fails before any Worker call (RC34)', () async {
+      connectivity.setOnline(online: false);
+      expect(
+        expectErr(await earn(adUnitId: kTestAdUnitId)),
+        const Failure.network(),
       );
       expect(gateway.calls, isEmpty);
       expect(ads.shown, isEmpty);
@@ -251,6 +264,7 @@ void main() {
       balance: balance,
       config: config,
       consent: consent,
+      connectivity: connectivity,
       clock: clock,
       logger: logger,
     );

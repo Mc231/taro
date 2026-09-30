@@ -1,3 +1,6 @@
-## 0.0.1
+## Unreleased
 
-* TODO: Describe initial release.
+* Phase 12.1: the attestation API (App Attest, DeviceCheck, Play Integrity
+  Standard, ANDROID_ID) with `TaroAttestationException` /
+  `AttestationErrorKind`, Swift and Kotlin implementations behind injectable
+  service protocols, and native unit suites gated at >= 90 % (RC40).

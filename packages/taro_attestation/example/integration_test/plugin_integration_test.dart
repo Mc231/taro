@@ -5,8 +5,9 @@ import 'package:taro_attestation/taro_attestation.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion returns a non-empty string', (_) async {
-    final version = await TaroAttestation().getPlatformVersion();
-    expect(version, isNotEmpty);
+  // Answers on every device: false on a simulator or emulator without Play
+  // services, true on a real device (Sprint 12.6 checks the rest by hand).
+  testWidgets('isSupported answers', (_) async {
+    expect(await const TaroAttestation().isSupported(), isA<bool>());
   });
 }
