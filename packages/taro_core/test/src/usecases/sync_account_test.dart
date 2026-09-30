@@ -9,8 +9,7 @@ void main() {
   late FakeRemoteConfigRepository config;
   late FakeClock clock;
   late FakeBalanceRepository balance;
-  late FakePurchaseOutbox outbox;
-  late FakeIapService iap;
+  late FakePurchaseOutboxDrainer drainer;
   late FakeReadingRepository readings;
   late FakeDataDeletionGateway deletion;
   late FakeReminderScheduler reminders;
@@ -34,8 +33,7 @@ void main() {
     clock = FakeClock();
     balance = FakeBalanceRepository(cached: cached, server: server)
       ..recorder = recorder;
-    outbox = FakePurchaseOutbox()..recorder = recorder;
-    iap = FakeIapService();
+    drainer = FakePurchaseOutboxDrainer()..recorder = recorder;
     final journal = InMemoryJournal();
     readings = FakeReadingRepository(journal: journal, clock: clock)
       ..recorder = recorder;
@@ -55,18 +53,7 @@ void main() {
       config: config,
       timezone: clock,
       balance: balance,
-      purchases: PurchaseCredits(
-        iap: iap,
-        verifier: FakePurchaseVerifier(),
-        outbox: outbox,
-        entitlements: FakeEntitlementCache(),
-        balance: balance,
-        install: install,
-        config: config,
-        ids: ids,
-        clock: clock,
-        logger: logger,
-      ),
+      purchases: drainer,
       resume: ResumeReading(readings: readings, logger: logger),
       readings: readings,
       deletion: DeleteAllData(
@@ -85,15 +72,7 @@ void main() {
 
   test('runs every step in order and reports synced', () async {
     readings.journal.putReading(aReading().pending().build());
-    outbox.seed(
-      OutboxEntry(
-        purchase: aStorePurchase(),
-        idempotencyKey: 'k',
-        status: OutboxStatus.awaitingVerification,
-        createdAt: kTestNow,
-        updatedAt: kTestNow,
-      ),
-    );
+    drainer.outcomes = {'txn-1': const PurchaseOutcome.alreadyGranted()};
     readings.pendingAcks.add(const ReadingId('queued-ack'));
     deletion.queuedKey = 'erase-1';
 
@@ -101,13 +80,12 @@ void main() {
 
     expect(status, SyncStatus.synced(at: clock.now()));
     expect(
-      recorder.calls.where((c) => !c.startsWith('PurchaseOutbox.mark')),
+      recorder.calls,
       [
         'InstallRepository.ensureRegistered',
         'RemoteConfigRepository.refresh',
         'BalanceRepository.sync',
-        'PurchaseOutbox.pending',
-        'BalanceRepository.apply',
+        'PurchaseOutboxDrainer.drainOutbox',
         'ReadingRepository.pending',
         'ReadingRepository.resume',
         'ReadingRepository.ack',
@@ -120,7 +98,7 @@ void main() {
     );
     expect(balance.syncReasons, [SyncReason.launch]);
     expect(install.calls, isNot(contains('refreshToken')));
-    expect(outbox.rows['txn-1']!.status, OutboxStatus.finished);
+    expect(drainer.reasons, [SyncReason.launch]);
     expect(readings.acked, contains(const ReadingId('queued-ack')));
     expect(deletion.erased, ['erase-1']);
     expect(reminders.scheduled?.$1.time, '20:00');
@@ -227,7 +205,7 @@ void main() {
 
   test('failed steps are logged and the pass continues', () async {
     config.failNext(const Failure.timeout());
-    outbox.failNext(const Failure.storage(), on: 'pending');
+    drainer.failNext(const Failure.storage());
     readings
       ..failNext(const Failure.storage(), on: 'pending')
       ..failNext(const Failure.network(), on: 'flushPendingAcks');

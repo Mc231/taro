@@ -44,6 +44,25 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- Deep links (02 §8.2): App Links on
+                 https://taro.vshyrochuk.com/app/* (verified; assetlinks.json
+                 is hosted in Phase 20) and the taro:// scheme. The router
+                 sanitizes every link through DeepLinkPolicy. -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:host="taro.vshyrochuk.com" />
+                <data android:pathPrefix="/app/" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="taro" />
+            </intent-filter>
         </activity>
         <!-- Portrait on phones (01 PR16). Android 16+ ignores the orientation
              lock on large screens (sw >= 600dp), so tablets rotate. -->

@@ -38,7 +38,7 @@ Install the hooks once per clone: `melos run hooks:install`. It sets `core.hooks
 | Unit (pure Dart) | `packages/taro_core/test/src/**` (mirrors `lib/src/**`) | none | every push |
 | Widget | `apps/taro/test/**`, `packages/taro_ui/test/src/**` | none | every push |
 | Golden | `packages/taro_ui/test/golden/`, `apps/taro/test/golden/` | `golden` | every push, on the reference platform |
-| Integration | `apps/taro/integration_test/` (spikes), `apps/taro/patrol_test/` (flows, Phase 13) | none | `melos run test:integration`, integration.yml |
+| Integration | `apps/taro/integration_test/{flows,perf,staging}/` + spikes; `apps/taro/patrol_test/` (native-dialog flows, when added) | none | `melos run test:integration`, integration.yml |
 | Worker | `worker/test/{unit,integration}/**` | none | every push |
 | Tools | `tools/tests/test_*.py` with fixture trees in `tools/tests/fixtures/<check>/{pass,fail_*}/` | none | every push |
 
@@ -90,13 +90,15 @@ Every day-boundary test names its timezone and runs over `kBoundaryZones` (06 §
 
   The surface is `size` logical pixels at a device pixel ratio of 1.0. The defaults are `en`, light, 1.0 and `kPhoneSmall`. It is Riverpod-free (RC77).
 - **`pumpTaro(tester, {fakes, ...})`**, in `apps/taro/test/helpers/pump_app.dart` (Phase 13.1), adds `ProviderScope(overrides: fakes.toOverrides())` on top for screens.
+- **`TaroFakes`** (same file) bundles every `taro_core` fake with defaults (registered install, default balance and config, onboarding done, online) sharing one `FakeClock` and `InMemoryJournal`; `toOverrides()` overrides every port provider, `container()` builds a disposed-at-teardown `ProviderContainer` with retry off. Fields are replaceable before use (`timezone`, `warmUp`, `attestationPort`, …).
+- **`FakeTaroEnvironment`** and **`TestControlPort`** (`apps/taro/test/helpers/test_environment.dart`) boot the real `bootstrap()` over `TaroFakes` (in-memory drift DBs, no platform channel); the control port moves the `FakeClock`, the time zone and scripts the Worker fakes. The `TARO_ENV=test` integration flows boot through it (a lib-side `overrides_test.dart` would ship the fakes, so the test graph lives in `test/helpers/`).
 - **`pumpTaroUiWidget(...)`**, in `packages/taro_ui/test/helpers/pump_taro_ui_widget.dart`, is the same wrapper for `taro_ui` components. The package cannot import the app, so it has no `TaroLocalizations` and the locale only sets the text direction.
 - Every package's `test/flutter_test_config.dart` loads the bundled test fonts and installs `TaroGoldenComparator` before any test runs. Text in widget tests is therefore measured with real glyphs, not the square `FlutterTest` font.
 
 ## Goldens (QA8, 06 §3, RC24)
 
 - Goldens use Flutter's `matchesGoldenFile` only. `TaroGoldenComparator` (`packages/taro_ui/test/helpers/golden/taro_golden_comparator.dart`) passes a diff of up to 0.1 % of pixels. Above that, it writes masked diffs to `test/golden/failures/` (gitignored), which CI uploads.
-- **Fonts:** Noto Sans (Latin, Greek, Cyrillic), Noto Sans Arabic, Noto Sans JP and Noto Sans KR, regular weight, OFL 1.1. They live in `packages/taro_ui/test/helpers/golden/fonts/`; `NOTICE.md` there has the sources and the subset recipe. Noto Sans is also registered as `Roboto` and the Cupertino system families. `withTaroTestFonts(theme)` adds the Arabic, Japanese and Korean fallbacks.
+- **Fonts:** the bundled `taro_ui` fonts (`packages/taro_ui/fonts/`, Phase 15) are loaded under their `packages/taro_ui/<family>` names, so the token text styles render with the real Taro typefaces; the Flutter SDK's Material Icons font is loaded too. Noto Sans (Latin, Greek, Cyrillic), Noto Sans Arabic, Noto Sans JP and Noto Sans KR (regular, OFL 1.1, in `packages/taro_ui/test/helpers/golden/fonts/`; `NOTICE.md` has the sources) back Material's default families: Noto Sans is registered as `Roboto` and the Cupertino system families. `withTaroTestFonts(theme)` returns the theme unchanged since Phase 15. `pumpTaroUiWidget` builds the theme for the locale's script (`TaroScript.forLocale`).
 - **Sizes** (`golden_sizes.dart`):
   - `kPhoneSmall` 375×667 and `kPhoneLarge` 430×932 for every golden;
   - `kTabletIpad13` 1032×1376 and `kTabletAndroid` 800×1280 for ★ screens.
@@ -118,7 +120,25 @@ Every day-boundary test names its timezone and runs over `kBoundaryZones` (06 §
 - `TARO_INTEGRATION_PLATFORM` (`ios` or `android`);
 - `TARO_DEVICE_ID` (simulator UDID or adb serial).
 
-It runs the `dev` flavor with `config/dev.json`. patrol flows in `apps/taro/patrol_test/` run with `patrol test`. Until they land in Phase 13, the `integration_test/` spikes run with `flutter test integration_test`. CI pins its devices in `tools/ci/sim.env`.
+It runs `flutter test integration_test --flavor dev --dart-define-from-file=config/dev.json --dart-define=TARO_ENV=test` on that device (every file under `integration_test/`, one app build per file). A future `apps/taro/patrol_test/` (flows that drive the native UMP / ATT / StoreKit dialogs) takes precedence and runs with `patrol test`. CI pins its devices in `tools/ci/sim.env`.
+
+| Folder | What | Needs |
+|---|---|---|
+| `integration_test/flows/` | the 14 fake-backed flows of 06 §4 / Phase 13.6 (F1–F8, rewarded, Remove Ads, daily reset, RTL, reinstall, OS restore, time zone) | `TARO_ENV=test` (a flow fails fast without it) |
+| `integration_test/perf/` | `cold_start_test.dart` (the real `dev` composition root) and `draw_screen_perf_test.dart` (frame timings of the S08 ritual); both print `PERF <name> {json}` and fill `reportData` | the `dev` flavor |
+| `integration_test/staging/smoke_test.dart` | the staging Worker: register, balance, one free reading | manual dispatch only: `--flavor staging --dart-define-from-file=config/staging.json --dart-define=TARO_STAGING_SMOKE=1 --dart-define=TARO_DEBUG_ATTESTATION_TOKEN=…` (skipped otherwise) |
+| `integration_test/*_test.dart` | spikes (RC91 FTS5) | — |
+
+**The flow harness** (`integration_test/support/flow_harness.dart`):
+
+- `taroFlow(description, body)` registers a patrol test (`patrolWidgetTest` from `patrol_finders`, generous waits, best-effort settling because the loading kit animates forever). It asserts `TARO_ENV=test`.
+- `FlowApp.launch($, {fakes})` boots the real `bootstrap()` over `FakeTaroEnvironment` (`TaroFakes`, in-memory drift DBs, nothing on a platform channel), mounts the app and returns the running app: `fakes`, `control` (`TestControlPort`: clock, time zone, Worker scripting), `container`, and the `orchestrator`. Analytics follow the production path (RC68): the fakes' `FakeAnalyticsService` is the sink behind `AnalyticsConsentTap` + `ConsentAwareAnalytics`, released by the orchestrator's `whenResolved` (`TaroFakes.analyticsPort` / `orchestratorPort`).
+- `flowFakes({consent})` = `TaroFakes` with a session and, by default, an onboarded install with AI consent granted and ATT already answered (`authorized`, so the neutral pre-prompt stays away); `onboardedConsent(aiGranted:)`. A flow that sets `fakes.tracking` to `notDetermined` sees the pre-prompt after UMP and taps its Continue (`consent_denied_test`).
+- Steps: `waitForScreen(ScreenId)` (every screen is keyed by its S-ID; on timeout the failure lists the texts on screen), `tapText`, `tapButton` (the `TaroButton` with that label, not a coachmark or notice with the same words), `tapFinder`, `enterQuestion`, `waitUntil(condition)`, `backgroundAndResume(whileAway:)` (paused → the clock moves → resumed; nothing pumps while paused, since a paused binding draws no frames), `shutdown()` (a process death; a flow can then `launch` again with fakes that share, e.g., the store or the secure store), and the reading steps `openQuestion`, `begin`, `drawAndRevealAll`. Progress is logged as `FLOW:` lines.
+- Scripting notes: queue Worker failures with `fakes.readings.failNext(failure, on: 'hold' | 'submit')` after launch, not `failNextWorkerCall` (the launch sync's ack flush would take it); a resume within `balance.resumeSyncThrottleSec` of the last sync is skipped, so move the clock in `whileAway`; a `holdTtl` under 120 s makes the reveal renew the hold (RC50); a scripted server balance keeps its `syncedAt`, so bump `ledgerVersion` and `syncedAt` when the gate needs a fresh one.
+- Iterating on the host is quicker than on a simulator: `flutter test integration_test/flows/<flow>_test.dart --dart-define=TARO_ENV=test -d flutter-tester`.
+
+**Devices:** PR runs on the iOS simulator; nightly adds the Android emulator (06 §4). Performance numbers from a simulator are debug-mode baselines only (see `docs/ARCHITECTURE.md` §Performance baseline); budgets are enforced on devices in profile mode in Phase 19.
 
 ## Python tools
 

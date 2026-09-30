@@ -114,6 +114,47 @@ def test_require_glossary_keys_flag(tmp_path: Path) -> None:
     assert cl.main(["--root", str(root), "--require-glossary-keys"]) == 1
 
 
+def _mark_untranslated(root: Path, locale: str = "tr") -> None:
+    """Copies ``greeting`` from en into ``locale`` with an x-translate marker."""
+    path = root / f"apps/taro/lib/l10n/arb/app_{locale}.arb"
+    data = json.loads(path.read_text())
+    data["greeting"] = "Hello {name}"
+    data["@greeting"] = {cl.X_TRANSLATE: True}
+    path.write_text(json.dumps(data, ensure_ascii=False))
+
+
+def test_x_translate_marker_allows_english_copy(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    root = materialize(CHECK, "pass", tmp_path, REAL)
+    _mark_untranslated(root)
+    findings, notices = cl.check(root)
+    assert findings == []
+    assert any("1 key(s) marked x-translate" in n and "app_tr.arb" in n for n in notices)
+    assert cl.main(["--root", str(root)]) == 0
+    assert "x-translate" in capsys.readouterr().out
+
+
+def test_strict_translations_rejects_markers(tmp_path: Path) -> None:
+    root = materialize(CHECK, "pass", tmp_path, REAL)
+    _mark_untranslated(root)
+    findings, notices = cl.check(root, strict_translations=True)
+    assert {f.rule for f in findings} == {"x_translate"}
+    assert not any("x-translate" in n for n in notices)
+    assert cl.main(["--root", str(root), "--strict-translations"]) == 1
+
+
+def test_x_translate_keys_ignores_other_metadata() -> None:
+    arb = {
+        "@@locale": "de",
+        "a": "A",
+        "@a": {cl.X_TRANSLATE: True},
+        "b": "B",
+        "@b": {cl.X_TRANSLATE: False},
+        "@c": "not an object",
+    }
+    assert cl.x_translate_keys(arb) == {"a"}
+    assert cl.x_translate_notices({"en": arb, "de": arb})[0].startswith("apps/taro/lib/l10n/arb/app_de.arb: 1 key")
+
+
 def test_missing_inputs_are_skipped(tmp_path: Path) -> None:
     findings, notices = cl.check(tmp_path)
     assert findings == []

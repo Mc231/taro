@@ -31,6 +31,18 @@ abstract final class CrashKeys {
 final class FirebaseCrashReporter implements CrashReporter {
   FirebaseCrashReporter._(this._crashlytics, this._redactor, this._enabled);
 
+  /// [create] over the plugin singleton (after `Firebase.initializeApp`).
+  static Future<FirebaseCrashReporter> fromPlugin({
+    required String flavor,
+    required bool collectionEnabled,
+    required Redactor redactor,
+  }) => create(
+    FirebaseCrashlytics.instance,
+    flavor: flavor,
+    collectionEnabled: collectionEnabled,
+    redactor: redactor,
+  );
+
   /// Creates the reporter over [crashlytics] (`FirebaseCrashlytics.instance`
   /// in production), applies [collectionEnabled] and sets the `flavor` key.
   static Future<FirebaseCrashReporter> create(

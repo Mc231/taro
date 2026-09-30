@@ -80,7 +80,7 @@ final class PurchaseUpdate {
 /// [PendingPurchaseTracker] without a Worker call. Remove Banner Ads is
 /// cached through [RemoveAdsEntitlement] and finished without a Worker
 /// call.
-final class PurchaseCoordinator {
+final class PurchaseCoordinator implements PurchaseOutboxDrainer {
   /// Creates the coordinator and subscribes to [iap] (and to
   /// [connectivity], which drains the outbox when it comes back).
   ///
@@ -211,6 +211,7 @@ final class PurchaseCoordinator {
   /// registration, resume, connectivity regained). Rows older than
   /// `store.verifyRetryWindowHours` log `iap_verify_stuck` and are retried
   /// on [SyncReason.launch] only. Returns the outcome per `txnKey`.
+  @override
   Future<Result<Map<String, PurchaseOutcome>>> drainOutbox({
     required SyncReason reason,
   }) async {

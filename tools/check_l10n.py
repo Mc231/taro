@@ -12,7 +12,10 @@
   CLDR category the locale does not have;
 * a value is empty; an ``en`` key lacks ``@key.description``;
 * a non-``en`` value equals ``en`` and the key is not in
-  ``tools/l10n_untranslated_allowlist.yaml``;
+  ``tools/l10n_untranslated_allowlist.yaml`` and not marked
+  ``"@key": {"x-translate": true}`` (a development-mode placeholder copied
+  from ``en``, Phase 13; the markers are counted as notices, and
+  ``--strict-translations`` (Phase 18) makes every marker a finding);
 * a ``Text('…')`` / ``label: '…'`` / ``tooltip: '…'`` literal with a letter
   sits in a widget ``lib/`` file (debug-only folders excepted);
 * deck content is missing an ``en`` card (source or build), a card file has
@@ -102,6 +105,7 @@ _LITERAL = re.compile(
 _INTERPOLATION = re.compile(r"\$\{[^}]*\}|\$[A-Za-z_]\w*")
 _LETTER = re.compile(r"[^\W\d_]")
 _GLOSSARY_KEY = re.compile(r"`((?:failure|safetyDeclined)[A-Z]\w*)`")
+X_TRANSLATE = "x-translate"
 
 
 # --------------------------------------------------------------------------
@@ -292,6 +296,15 @@ class Allowlist:
         return key in self.keys or key in self.per_locale.get(locale, frozenset())
 
 
+def x_translate_keys(arb: Mapping[str, Any]) -> set[str]:
+    """Keys marked ``"@key": {"x-translate": true}`` (awaiting translation)."""
+    return {
+        key[1:]
+        for key, meta in arb.items()
+        if key.startswith("@") and not key.startswith("@@") and isinstance(meta, dict) and meta.get(X_TRANSLATE) is True
+    }
+
+
 def load_allowlist(root: Path) -> Allowlist:
     """``tools/l10n_untranslated_allowlist.yaml`` (empty when absent)."""
     path = root / ALLOWLIST_PATH
@@ -316,8 +329,14 @@ def load_allowlist(root: Path) -> Allowlist:
     return Allowlist(frozenset(keys), per)
 
 
-def check_arbs(arbs: Mapping[str, Mapping[str, Any]], allowlist: Allowlist) -> list[Finding]:
-    """Parity, ICU, emptiness, description and untranslated-value findings."""
+def check_arbs(
+    arbs: Mapping[str, Mapping[str, Any]], allowlist: Allowlist, strict_translations: bool = False
+) -> list[Finding]:
+    """Parity, ICU, emptiness, description and untranslated-value findings.
+
+    ``strict_translations`` (Phase 18) reports every ``x-translate`` marker;
+    otherwise a marked key may keep the English text.
+    """
     findings: list[Finding] = []
     en = arbs["en"]
     en_path = arb_path("en")
@@ -347,6 +366,16 @@ def check_arbs(arbs: Mapping[str, Mapping[str, Any]], allowlist: Allowlist) -> l
                 findings.append(Finding(path, 0, "empty_value", f"{key} is empty"))
         if locale == "en":
             continue
+        pending = x_translate_keys(arb)
+        if strict_translations and pending:
+            findings.append(
+                Finding(
+                    path,
+                    0,
+                    "x_translate",
+                    f"{len(pending)} key(s) still marked {X_TRANSLATE}, e.g. {sorted(pending)[0]}",
+                )
+            )
         missing = sorted(set(en_messages) - set(messages))
         extra = sorted(set(messages) - set(en_messages))
         if missing:
@@ -380,6 +409,7 @@ def check_arbs(arbs: Mapping[str, Mapping[str, Any]], allowlist: Allowlist) -> l
                 value == en_messages[key]
                 and _LETTER.search(re.sub(r"\{[^{}]*\}", "", text))
                 and not allowlist.allows(locale, key)
+                and key not in pending
             ):
                 findings.append(
                     Finding(path, 0, "untranslated", f"{key} equals en ({value!r}); translate or allowlist it")
@@ -562,8 +592,21 @@ def glossary_findings(
 # --------------------------------------------------------------------------
 
 
+def x_translate_notices(arbs: Mapping[str, Mapping[str, Any]]) -> list[str]:
+    """One notice per locale that still has ``x-translate`` markers."""
+    notices = []
+    for locale in LOCALES:
+        count = len(x_translate_keys(arbs.get(locale, {})))
+        if count and locale != "en":
+            notices.append(f"{arb_path(locale)}: {count} key(s) marked {X_TRANSLATE} (translated in Phase 18)")
+    return notices
+
+
 def check(
-    root: Path, require_glossary_keys: bool = False, require_all_locales: bool = False
+    root: Path,
+    require_glossary_keys: bool = False,
+    require_all_locales: bool = False,
+    strict_translations: bool = False,
 ) -> tuple[list[Finding], list[str]]:
     """Findings and notices for the repository at ``root``."""
     findings: list[Finding] = []
@@ -572,7 +615,9 @@ def check(
         arbs, file_findings = load_arbs(root)
         findings += file_findings
         if len(arbs) == len(LOCALES):
-            findings += check_arbs(arbs, load_allowlist(root))
+            findings += check_arbs(arbs, load_allowlist(root), strict_translations)
+            if not strict_translations:
+                notices += x_translate_notices(arbs)
         if "en" in arbs:
             extra, notes = glossary_findings(root, arbs["en"], require_glossary_keys)
             findings += extra
@@ -605,9 +650,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="fail on untranslated deck locales (Phase 18; default: notice only)",
     )
+    parser.add_argument(
+        "--strict-translations",
+        action="store_true",
+        help=f"fail on any {X_TRANSLATE} marker left in a non-en ARB (Phase 18)",
+    )
     args = parser.parse_args(argv)
     root = resolve_root(args.root, __file__)
-    return run_check(NAME, lambda: check(root, args.require_glossary_keys, args.require_all_locales))
+    return run_check(
+        NAME,
+        lambda: check(root, args.require_glossary_keys, args.require_all_locales, args.strict_translations),
+    )
 
 
 if __name__ == "__main__":

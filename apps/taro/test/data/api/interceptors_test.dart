@@ -7,6 +7,7 @@ import 'package:taro/data/api/endpoints.dart';
 import 'package:taro/data/api/interceptors/ai_consent_interceptor.dart';
 import 'package:taro/data/api/interceptors/attestation_interceptor.dart';
 import 'package:taro/data/api/request_context.dart';
+import 'package:taro/data/api/worker_client.dart';
 import 'package:taro/data/secure/keys.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -52,6 +53,28 @@ void main() {
       expect(prod.last.header('x-taro-flavor'), isNull);
       expect(prod.last.header('x-taro-platform'), 'android');
       expect(prod.last.header('x-taro-locale'), 'uk');
+    });
+
+    test('the dev/staging debug attestation header (RC86)', () async {
+      final h = WorkerClientHarness(
+        flavor: 'dev',
+        extraHeaders: const {'X-Taro-Debug-Attestation': 'debug-token'},
+      );
+      h.adapter.reply(200, json: balanceJson());
+      await h.client.fetchBalance();
+      expect(h.last.header('x-taro-debug-attestation'), 'debug-token');
+    });
+
+    test('a prod config with debug headers is refused (02 §15)', () {
+      expect(
+        () => WorkerClientConfig.fromAppInfo(
+          const FakeAppInfo(),
+          baseUrl: 'https://api.test',
+          locale: () => 'en',
+          extraHeaders: const {'X-Taro-Debug-Attestation': 'debug-token'},
+        ),
+        throwsStateError,
+      );
     });
 
     test('a body is JSON; X-Request-Id is new per attempt while the '

@@ -20,6 +20,10 @@ final class FirebaseAnalyticsService implements TaroAnalyticsBackend {
   FirebaseAnalyticsService(this._analytics, {required Logger logger})
     : _log = logger.child('analytics');
 
+  /// The adapter over the plugin singleton (after `Firebase.initializeApp`).
+  factory FirebaseAnalyticsService.fromPlugin({required Logger logger}) =>
+      FirebaseAnalyticsService(FirebaseAnalytics.instance, logger: logger);
+
   final FirebaseAnalytics _analytics;
   final Logger _log;
   bool _enabled = true;

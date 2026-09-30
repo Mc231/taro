@@ -28,7 +28,7 @@ sealed class StoreBuyResult with _$StoreBuyResult {
 /// The store (StoreKit 2 / Play Billing, 02 §5, 04 §6.1).
 ///
 /// Verification is not the adapter's job: consumable transactions reach the
-/// `PurchaseCredits` use case (from [buy] or [deliveries]), which verifies
+/// app's `PurchaseCoordinator` (from [buy] or [deliveries]), which verifies
 /// with the Worker and calls [finish] only after the grant (rule 8).
 abstract interface class IapService {
   /// Localized products for [ids].

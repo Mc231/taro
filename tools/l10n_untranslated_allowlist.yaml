@@ -6,4 +6,22 @@
 # locales: {<locale>: [keys]} allowed in that locale only
 keys:
   - appTitle  # the brand "Taro", Latin script in every locale (05 §8.1 rule 4)
-locales: {}
+locales:
+  # Glossary terms (apps/taro/content/source/glossary.yaml) that are spelled
+  # the same as in English.
+  de:
+    - spread_three_sao_pos_situation_name  # "Situation"
+    - spread_two_paths_pos_situation_name  # "Situation"
+    - cardElementLabel  # "Element"
+  fr:
+    - tabJournal  # "Journal" is the French word too
+    - spread_three_sao_pos_situation_name  # "Situation"
+    - spread_three_sao_pos_action_name  # "Action"
+    - spread_two_paths_pos_situation_name  # "Situation"
+    - elementAir  # "Air"
+  nl:
+    - spread_single_pos_focus_name  # "Focus"
+    - cardElementLabel  # "Element"
+    - elementWater  # "Water"
+  tr:
+    - cardElementLabel  # "Element"

@@ -1,4 +1,5 @@
 import 'package:taro/bootstrap/bootstrap.dart';
 import 'package:taro/bootstrap/flavor_config.dart';
+import 'package:taro/bootstrap/taro_environment.dart';
 
-Future<void> main() => bootstrap(Flavor.staging);
+void main() => bootstrap(ProductionEnvironment(Flavor.staging));

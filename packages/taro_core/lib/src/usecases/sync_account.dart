@@ -4,6 +4,7 @@ import 'package:taro_core/src/ports/balance_repository.dart';
 import 'package:taro_core/src/ports/clock.dart';
 import 'package:taro_core/src/ports/install_repository.dart';
 import 'package:taro_core/src/ports/logger.dart';
+import 'package:taro_core/src/ports/purchase_outbox_drainer.dart';
 import 'package:taro_core/src/ports/reading_repository.dart';
 import 'package:taro_core/src/ports/reminder_scheduler.dart';
 import 'package:taro_core/src/ports/remote_config_repository.dart';
@@ -15,7 +16,6 @@ import 'package:taro_core/src/ports/timezone_provider.dart';
 import 'package:taro_core/src/result/failure.dart';
 import 'package:taro_core/src/result/result.dart';
 import 'package:taro_core/src/usecases/delete_all_data.dart';
-import 'package:taro_core/src/usecases/purchase_credits.dart';
 import 'package:taro_core/src/usecases/resume_reading.dart';
 
 /// One launch/resume sync pass (02 §9.1 step 6, §9.2; rule 6).
@@ -33,7 +33,7 @@ final class SyncAccount {
     required RemoteConfigRepository config,
     required TimezoneProvider timezone,
     required BalanceRepository balance,
-    required PurchaseCredits purchases,
+    required PurchaseOutboxDrainer purchases,
     required ResumeReading resume,
     required ReadingRepository readings,
     required DeleteAllData deletion,
@@ -60,7 +60,7 @@ final class SyncAccount {
   final RemoteConfigRepository _config;
   final TimezoneProvider _timezone;
   final BalanceRepository _balance;
-  final PurchaseCredits _purchases;
+  final PurchaseOutboxDrainer _purchases;
   final ResumeReading _resume;
   final ReadingRepository _readings;
   final DeleteAllData _deletion;
@@ -100,7 +100,7 @@ final class SyncAccount {
     await _syncTimezone();
     final synced = await _balance.sync(reason: reason);
     _logIfErr('balance', synced);
-    _logIfErr('outbox', await _purchases.flushOutbox(reason: reason));
+    _logIfErr('outbox', await _purchases.drainOutbox(reason: reason));
     _logIfErr('resume', await _resume.resumeAll());
     _logIfErr('acks', await _readings.flushPendingAcks());
     await _deletion.retryQueued();

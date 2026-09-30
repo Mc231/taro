@@ -9,7 +9,7 @@ import 'package:taro_core/taro_core.dart';
 /// `PRODUCT_UNKNOWN` → [PurchaseFailure]; `409 PURCHASE_ALREADY_CLAIMED` →
 /// [PurchaseAlreadyClaimedFailure] carrying `transferEligible` and the
 /// single-use `transferToken` the "Move readings" support screen shows
-/// (RC84). The caller applies the returned balance (`PurchaseCredits`).
+/// (RC84). The caller applies the returned balance (`PurchaseCoordinator`).
 final class PurchaseVerifierImpl implements PurchaseVerifier {
   /// Creates the verifier.
   PurchaseVerifierImpl(this._client);

@@ -27,6 +27,7 @@ export 'install_repository.dart';
 export 'journal_repository.dart';
 export 'logger.dart';
 export 'purchase_outbox.dart';
+export 'purchase_outbox_drainer.dart';
 export 'purchase_outcome.dart';
 export 'purchase_verifier.dart';
 export 'random_source.dart';

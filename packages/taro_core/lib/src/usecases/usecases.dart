@@ -6,7 +6,6 @@ export 'draw_cards.dart';
 export 'earn_reward.dart';
 export 'export_backup.dart';
 export 'import_backup.dart';
-export 'purchase_credits.dart';
 export 'report_reading.dart';
 export 'request_reading.dart';
 export 'resolve_reading_gate.dart';

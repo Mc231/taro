@@ -21,6 +21,14 @@ abstract final class SecureKeys {
   /// because `services/` may not import `data/`.
   static const String reviewPrompt = 'taro.review_prompt';
 
+  /// `1` once the S05 first-run coachmark was dismissed. Owned by
+  /// `features/home/` (`HomeNoticeKeys`), which declares the same literal.
+  static const String homeFirstRunDone = 'taro.home_first_run_done';
+
+  /// The `app.recommendedVersion` whose S05 update notice was shown (RC73;
+  /// `HomeNoticeKeys`).
+  static const String updateNoticeVersion = 'taro.update_notice_version';
+
   /// Every key, in the 02 §6.2 order.
   static List<String> get all => const [
     installId,
@@ -29,5 +37,7 @@ abstract final class SecureKeys {
     purchaseBinding,
     attestKeyId,
     reviewPrompt,
+    homeFirstRunDone,
+    updateNoticeVersion,
   ];
 }

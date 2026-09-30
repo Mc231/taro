@@ -151,5 +151,3257 @@
   "safetyDeclinedHateOrHarassment": "Taro can’t help with that. Try asking a different question.",
   "@safetyDeclinedHateOrHarassment": {
     "description": "Neutral refusal for hateful or harassing content (RefusalCategory.hateOrHarassment, 05 §4.1); the user may rephrase."
+  },
+  "tabToday": "Today",
+  "@tabToday": {
+    "description": "Bottom navigation tab 1 (S05 Home, 01 §8.1, RC17)."
+  },
+  "tabJournal": "Journal",
+  "@tabJournal": {
+    "description": "Bottom navigation tab 2 (S14 Journal list)."
+  },
+  "tabLearn": "Learn",
+  "@tabLearn": {
+    "description": "Bottom navigation tab 3 (S16 Learn deck browser)."
+  },
+  "tabSettings": "Settings",
+  "@tabSettings": {
+    "description": "Bottom navigation tab 4 (S20 Settings)."
+  },
+  "bootstrapStorageErrorTitle": "Taro can’t open its storage",
+  "@bootstrapStorageErrorTitle": {
+    "description": "S01 storageError title: secure storage or the database could not be opened at launch (02 §6.2)."
+  },
+  "bootstrapStorageErrorBody": "Something on this device is blocking Taro’s storage. Try again, and contact support if it keeps happening.",
+  "@bootstrapStorageErrorBody": {
+    "description": "S01 storageError body; neutral, no technical detail."
+  },
+  "bootstrapRetry": "Try again",
+  "@bootstrapRetry": {
+    "description": "S01 storageError primary action: run the launch again."
+  },
+  "bootstrapContactSupport": "Contact support",
+  "@bootstrapContactSupport": {
+    "description": "S01 storageError secondary action: e-mail support."
+  },
+  "drawLeaveTitle": "Leave this reading?",
+  "@drawLeaveTitle": {
+    "description": "S08 back confirmation after the first card is picked (01 §9.1)."
+  },
+  "drawLeaveBody": "The cards you’ve picked so far won’t be kept.",
+  "@drawLeaveBody": {
+    "description": "S08 back confirmation body."
+  },
+  "drawLeaveStay": "Keep drawing",
+  "@drawLeaveStay": {
+    "description": "S08 back confirmation: stay on the draw."
+  },
+  "drawLeaveConfirm": "Leave",
+  "@drawLeaveConfirm": {
+    "description": "S08 back confirmation: leave the draw."
+  },
+  "reminderChannelName": "Daily reminder",
+  "@reminderChannelName": {
+    "description": "Android notification channel name of the daily reminder (shown in system settings, 01 §7.7)."
+  },
+  "reminderChannelDescription": "A gentle daily reminder to draw your card.",
+  "@reminderChannelDescription": {
+    "description": "Android notification channel description of the daily reminder."
+  },
+  "reminderBody1": "Your daily card is waiting whenever you’re ready.",
+  "@reminderBody1": {
+    "description": "Daily reminder text, variant 1 of 6 (01 §7.7): never reveals a card, no urgency."
+  },
+  "reminderBody2": "A quiet moment for today’s card?",
+  "@reminderBody2": {
+    "description": "Daily reminder text, variant 2 of 6."
+  },
+  "reminderBody3": "Take a breath and draw today’s card.",
+  "@reminderBody3": {
+    "description": "Daily reminder text, variant 3 of 6."
+  },
+  "reminderBody4": "Today’s card is here when you want it.",
+  "@reminderBody4": {
+    "description": "Daily reminder text, variant 4 of 6."
+  },
+  "reminderBody5": "A few minutes for yourself: draw your daily card.",
+  "@reminderBody5": {
+    "description": "Daily reminder text, variant 5 of 6."
+  },
+  "reminderBody6": "Pause and reflect with today’s card.",
+  "@reminderBody6": {
+    "description": "Daily reminder text, variant 6 of 6."
+  },
+  "disclaimerShort": "For entertainment and self-reflection. Not professional advice.",
+  "@disclaimerShort": {
+    "description": "05 §3 compliance string (fixed copy). Reading footer on every AI and Classic reading state incl. loading/error, share text footer, paywall footer."
+  },
+  "disclaimerOnboardingTitle": "Tarot for reflection",
+  "@disclaimerOnboardingTitle": {
+    "description": "05 §3 compliance string (fixed copy). S03 onboarding disclaimer title; S29 disclaimer heading."
+  },
+  "disclaimerOnboardingBody": "Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice.",
+  "@disclaimerOnboardingBody": {
+    "description": "05 §3 compliance string (fixed copy). S03 onboarding disclaimer body; Settings → About; S29 first paragraph."
+  },
+  "aiConsentTitle": "Your readings use AI",
+  "@aiConsentTitle": {
+    "description": "05 §3 compliance string (fixed copy). S04 AI consent sheet title."
+  },
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks an AI service (Anthropic’s Claude or OpenAI’s GPT models) to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. These AI providers do not use this data to train their models. Readings are AI-generated and may be wrong or unexpected.",
+  "@aiConsentBody": {
+    "description": "05 §3 compliance string (fixed copy, CS6, RC97). S04 AI consent sheet body and S23; provider names must equal ai.disclosedProviders."
+  },
+  "aiConsentAccept": "Allow AI readings",
+  "@aiConsentAccept": {
+    "description": "05 §3 compliance string. S04 accept button; equal visual weight with aiConsentDecline."
+  },
+  "aiConsentDecline": "Not now",
+  "@aiConsentDecline": {
+    "description": "05 §3 compliance string. S04 decline button; equal visual weight with aiConsentAccept."
+  },
+  "aiLabel": "AI-generated",
+  "@aiLabel": {
+    "description": "05 §3 compliance string. Badge on every AI reading header (S09, S15)."
+  },
+  "refusalGeneric": "Tarot can’t answer questions about health, pregnancy, death, legal or money decisions, or gambling. Try asking what you can learn about yourself in this situation.",
+  "@refusalGeneric": {
+    "description": "05 §3 compliance string. Refusal card fallback for an unknown messageKey or a model refusal (RefusalCategory.other)."
+  },
+  "crisisTitle": "You’re not alone",
+  "@crisisTitle": {
+    "description": "05 §3 compliance string. S27 crisis resources title."
+  },
+  "crisisBody": "If you are thinking about harming yourself, please reach out now. Talking to someone can help.",
+  "@crisisBody": {
+    "description": "05 §3 compliance string. S27 crisis resources body, above the hotline rows."
+  },
+  "reportReadingTitle": "Report this reading",
+  "@reportReadingTitle": {
+    "description": "05 §3 compliance string. Overflow action on every AI reading and S33 sheet title (RC72)."
+  },
+  "reportReadingDisclosure": "Your question and this reading will be sent to Taro and kept for 90 days.",
+  "@reportReadingDisclosure": {
+    "description": "05 §3 compliance string. S33 disclosure shown above Send."
+  },
+  "commonRetry": "Try again",
+  "@commonRetry": {
+    "description": "Generic retry button (errors, failed loads)."
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "description": "Generic cancel button in dialogs and sheets."
+  },
+  "commonClose": "Close",
+  "@commonClose": {
+    "description": "Accessibility label of a close (X) button."
+  },
+  "commonBack": "Back",
+  "@commonBack": {
+    "description": "Accessibility label of a back button; also a text button."
+  },
+  "commonDone": "Done",
+  "@commonDone": {
+    "description": "Generic done button."
+  },
+  "commonContinue": "Continue",
+  "@commonContinue": {
+    "description": "Generic continue button."
+  },
+  "commonNotNow": "Not now",
+  "@commonNotNow": {
+    "description": "Neutral decline button (no confirmshaming, 04 §11)."
+  },
+  "commonOpenSettings": "Open settings",
+  "@commonOpenSettings": {
+    "description": "Opens the system settings of the app (notifications, tracking)."
+  },
+  "commonMore": "More options",
+  "@commonMore": {
+    "description": "Accessibility label of an overflow (more) menu button."
+  },
+  "commonDismiss": "Dismiss",
+  "@commonDismiss": {
+    "description": "Accessibility label of the close button on a dismissible notice."
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "description": "Destructive confirm button in a delete dialog."
+  },
+  "commonUndo": "Undo",
+  "@commonUndo": {
+    "description": "Snackbar action that restores a deleted entry (5 s)."
+  },
+  "commonShare": "Share",
+  "@commonShare": {
+    "description": "Share action (system share sheet)."
+  },
+  "commonCopy": "Copy",
+  "@commonCopy": {
+    "description": "Copies a value to the clipboard."
+  },
+  "commonCopied": "Copied",
+  "@commonCopied": {
+    "description": "Snackbar after copying a value."
+  },
+  "commonSaving": "Saving…",
+  "@commonSaving": {
+    "description": "Autosave status while a note is being written."
+  },
+  "commonSavedOnDevice": "Saved on this device",
+  "@commonSavedOnDevice": {
+    "description": "Autosave status of a note once it is stored locally."
+  },
+  "commonLoading": "Loading…",
+  "@commonLoading": {
+    "description": "Screen-reader label of a loading state."
+  },
+  "commonLearnMore": "Learn more",
+  "@commonLearnMore": {
+    "description": "Link that opens more detail."
+  },
+  "commonTerms": "Terms",
+  "@commonTerms": {
+    "description": "Footer link to the Terms of Use (S10, S11)."
+  },
+  "commonPrivacy": "Privacy",
+  "@commonPrivacy": {
+    "description": "Footer link to the Privacy Policy (S10, S11)."
+  },
+  "commonPrivacyPolicy": "Privacy policy",
+  "@commonPrivacyPolicy": {
+    "description": "Link to the Privacy Policy (S04, S23)."
+  },
+  "commonDailyCard": "Daily card",
+  "@commonDailyCard": {
+    "description": "Link or pill to the daily card (S13)."
+  },
+  "commonLearn": "Learn",
+  "@commonLearn": {
+    "description": "Link or pill to Learn (S16)."
+  },
+  "commonJournal": "Journal",
+  "@commonJournal": {
+    "description": "Link or pill to the Journal (S14)."
+  },
+  "commonBackToToday": "Back to Today",
+  "@commonBackToToday": {
+    "description": "Button that returns to Home (S05)."
+  },
+  "commonUpright": "Upright",
+  "@commonUpright": {
+    "description": "Card orientation label: upright."
+  },
+  "commonReversed": "Reversed",
+  "@commonReversed": {
+    "description": "Card orientation label, always shown as text next to the rotated art (01 §12)."
+  },
+  "commonFavourite": "Favourite",
+  "@commonFavourite": {
+    "description": "Accessibility label of the favourite toggle when off."
+  },
+  "commonUnfavourite": "Remove from favourites",
+  "@commonUnfavourite": {
+    "description": "Accessibility label of the favourite toggle when on."
+  },
+  "commonAddNote": "Add note",
+  "@commonAddNote": {
+    "description": "Action that opens the note editor."
+  },
+  "commonYourNote": "Your note",
+  "@commonYourNote": {
+    "description": "Label of the note field (S13, S15)."
+  },
+  "commonNoteHint": "Write what you notice…",
+  "@commonNoteHint": {
+    "description": "Placeholder of the note field."
+  },
+  "commonNoteCounter": "{count} / {max}",
+  "@commonNoteCounter": {
+    "description": "Character counter of a limited text field.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "commonStepOf": "Step {step} of {total}",
+  "@commonStepOf": {
+    "description": "Onboarding step indicator label (S02-S04).",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "commonItemSeparator": "{first} · {second}",
+  "@commonItemSeparator": {
+    "description": "Joins two short labels with a middle dot (e.g. position names, meta lines).",
+    "placeholders": {
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
+    }
+  },
+  "commonAdLabel": "Ad",
+  "@commonAdLabel": {
+    "description": "Marker shown in the reserved banner container (the loaded creative carries its own label)."
+  },
+  "commonAdSemantics": "Advertisement",
+  "@commonAdSemantics": {
+    "description": "Screen-reader label of the banner slot."
+  },
+  "commonExternalLink": "Opens outside Taro",
+  "@commonExternalLink": {
+    "description": "Screen-reader hint on links that open the browser or another app."
+  },
+  "durationHoursMinutes": "{hours} h {minutes} min",
+  "@durationHoursMinutes": {
+    "description": "Compact duration: hours and minutes (countdowns).",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationMinutes": "{minutes, plural, one{1 min} other{{minutes} min}}",
+  "@durationMinutes": {
+    "description": "Compact duration in minutes.",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "durationLessThanMinute": "less than a minute",
+  "@durationLessThanMinute": {
+    "description": "Compact duration below one minute."
+  },
+  "relativeToday": "Today",
+  "@relativeToday": {
+    "description": "Relative day label in lists."
+  },
+  "relativeYesterday": "Yesterday",
+  "@relativeYesterday": {
+    "description": "Relative day label in lists."
+  },
+  "errorNetworkTitle": "You’re offline",
+  "@errorNetworkTitle": {
+    "description": "ErrorKind.network title (TaroErrorView)."
+  },
+  "errorNetworkBody": "Check your connection and try again. Your journal, daily card and Learn still work.",
+  "@errorNetworkBody": {
+    "description": "ErrorKind.network body."
+  },
+  "errorServerTitle": "Something went wrong on our side",
+  "@errorServerTitle": {
+    "description": "ErrorKind.server title."
+  },
+  "errorServerBody": "Please try again in a moment.",
+  "@errorServerBody": {
+    "description": "ErrorKind.server body."
+  },
+  "errorRateLimitedTitle": "Please wait a moment",
+  "@errorRateLimitedTitle": {
+    "description": "ErrorKind.rateLimited title."
+  },
+  "errorRateLimitedBody": "Too many requests in a short time. Try again shortly.",
+  "@errorRateLimitedBody": {
+    "description": "ErrorKind.rateLimited body."
+  },
+  "errorDeviceUnverifiedTitle": "Readings unavailable on this device",
+  "@errorDeviceUnverifiedTitle": {
+    "description": "ErrorKind.deviceUnverified title (also the S05 chip replacement)."
+  },
+  "errorDeviceUnverifiedBody": "Taro couldn’t verify this device. Your journal, daily card and Learn still work.",
+  "@errorDeviceUnverifiedBody": {
+    "description": "ErrorKind.deviceUnverified body."
+  },
+  "errorStorageTitle": "Taro can’t read its storage",
+  "@errorStorageTitle": {
+    "description": "ErrorKind.storage title."
+  },
+  "errorStorageBody": "Something on this device is blocking Taro’s storage. Try again, and contact support if it keeps happening.",
+  "@errorStorageBody": {
+    "description": "ErrorKind.storage body."
+  },
+  "errorInvalidFileTitle": "This file can’t be used",
+  "@errorInvalidFileTitle": {
+    "description": "ErrorKind.invalidFile title."
+  },
+  "errorInvalidFileBody": "Choose another file and try again.",
+  "@errorInvalidFileBody": {
+    "description": "ErrorKind.invalidFile body."
+  },
+  "errorUnknownTitle": "Something went wrong",
+  "@errorUnknownTitle": {
+    "description": "ErrorKind.unknown title."
+  },
+  "errorUnknownBody": "Please try again.",
+  "@errorUnknownBody": {
+    "description": "ErrorKind.unknown body."
+  },
+  "offlineBanner": "You’re offline. Your journal still works.",
+  "@offlineBanner": {
+    "description": "TaroOfflineBanner message at the top of a screen (01 §8.2)."
+  },
+  "offlineFirstLaunchNote": "Connect to start AI readings",
+  "@offlineFirstLaunchNote": {
+    "description": "S05 note on a first launch while offline (01 F1 step 7)."
+  },
+  "balanceReadings": "{count, plural, =0{0 readings} one{1 reading} other{{count} readings}}",
+  "@balanceReadings": {
+    "description": "Purchased and earned readings (paid + bonus) on the balance chip.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "balanceFreeReadings": "{count, plural, one{1 free reading} other{{count} free readings}}",
+  "@balanceFreeReadings": {
+    "description": "Free readings left today, when nothing else is shown (S05 chip).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "balanceFreeToday": "{count, plural, one{1 free today} other{{count} free today}}",
+  "@balanceFreeToday": {
+    "description": "Free readings left today, as the second part of the chip (\"3 readings · 1 free today\").",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "balanceFreeReadingsToday": "{count, plural, one{1 free reading today} other{{count} free readings today}}",
+  "@balanceFreeReadingsToday": {
+    "description": "S07 chip text when only free readings remain.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "balanceFreeUsed": "Free reading used",
+  "@balanceFreeUsed": {
+    "description": "Chip text once today's free reading is used."
+  },
+  "balanceSyncing": "Updating your readings…",
+  "@balanceSyncing": {
+    "description": "Screen-reader announcement while the balance syncs."
+  },
+  "balanceStale": "Last known balance, you’re offline",
+  "@balanceStale": {
+    "description": "Screen-reader hint of the stale chip (offline glyph)."
+  },
+  "balanceUnavailable": "Readings unavailable on this device",
+  "@balanceUnavailable": {
+    "description": "Chip replacement when the device could not be verified (S05 deviceUnverified)."
+  },
+  "balanceUnknown": "Readings",
+  "@balanceUnknown": {
+    "description": "Chip text before the first balance is known (first launch offline)."
+  },
+  "balanceOpensOptions": "Shows reading options",
+  "@balanceOpensOptions": {
+    "description": "Screen-reader hint of the chip (opens S10/S11)."
+  },
+  "balanceNextFreeIn": "Next free reading in {duration}",
+  "@balanceNextFreeIn": {
+    "description": "Real countdown to the install's local midnight (01 §7.1); never a fake timer.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "balanceNextFreeInAt": "Next free reading in {duration} (at {time})",
+  "@balanceNextFreeInAt": {
+    "description": "S10 free path: countdown plus the local reset time (04 §11).",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "balanceNextFreeTomorrow": "Your next free reading arrives at midnight",
+  "@balanceNextFreeTomorrow": {
+    "description": "Free path when the exact countdown is unknown (offline)."
+  },
+  "balanceUpdated": "Balance updated: {balance}",
+  "@balanceUpdated": {
+    "description": "Live-region announcement after the balance changed.",
+    "placeholders": {
+      "balance": {
+        "type": "String"
+      }
+    }
+  },
+  "launchSemantics": "Taro",
+  "@launchSemantics": {
+    "description": "S01 splash: the whole frame is one node with this label."
+  },
+  "welcomeTitle": "A quiet place to reflect with tarot",
+  "@welcomeTitle": {
+    "description": "S02 headline."
+  },
+  "welcomeLead": "Draw a spread, read a thoughtful interpretation, and keep what you notice in a private journal.",
+  "@welcomeLead": {
+    "description": "S02 lead paragraph."
+  },
+  "welcomeFeatureFreeReading": "One free AI reading every day",
+  "@welcomeFeatureFreeReading": {
+    "description": "S02 feature row 1."
+  },
+  "welcomeFeatureDailyCard": "A free daily card, even offline",
+  "@welcomeFeatureDailyCard": {
+    "description": "S02 feature row 2."
+  },
+  "welcomeFeatureJournal": "Your journal stays on this phone",
+  "@welcomeFeatureJournal": {
+    "description": "S02 feature row 3."
+  },
+  "welcomeGetStarted": "Get started",
+  "@welcomeGetStarted": {
+    "description": "S02 primary button → S03."
+  },
+  "disclaimerNoticeAi": "Readings are written by AI and may be wrong or unexpected.",
+  "@disclaimerNoticeAi": {
+    "description": "S03 notice card 1 (01 §7.12 step 2: AI-generated content)."
+  },
+  "disclaimerNoticeYouDecide": "You decide what a card means for you; Taro never tells you what to do.",
+  "@disclaimerNoticeYouDecide": {
+    "description": "S03 notice card 2."
+  },
+  "disclaimerNoticeSupport": "If you’re going through something hard, support lines are listed under Help.",
+  "@disclaimerNoticeSupport": {
+    "description": "S03 notice card 3."
+  },
+  "disclaimerAcknowledge": "I understand",
+  "@disclaimerAcknowledge": {
+    "description": "S03 primary button: acknowledge the disclaimer."
+  },
+  "disclaimerReadFull": "Read the full disclaimer",
+  "@disclaimerReadFull": {
+    "description": "S03 link → S29 /legal/disclaimer."
+  },
+  "aiConsentFootnote": "Without AI you still get the daily card, classic readings, Learn and the journal. Change this any time in Settings.",
+  "@aiConsentFootnote": {
+    "description": "S04 footnote under the buttons."
+  },
+  "aiConsentReentryTitle": "AI readings need your permission",
+  "@aiConsentReentryTitle": {
+    "description": "S04 re-entry variant title (from the reading gate, F7)."
+  },
+  "aiConsentReentryAllow": "Allow",
+  "@aiConsentReentryAllow": {
+    "description": "S04 re-entry variant: allow button (equal weight with Back)."
+  },
+  "aiConsentReentryBack": "Back",
+  "@aiConsentReentryBack": {
+    "description": "S04 re-entry variant: back button (equal weight with Allow)."
+  },
+  "attPrepromptTitle": "About ad tracking",
+  "@attPrepromptTitle": {
+    "description": "ATT neutral pre-prompt title (iOS only, CS14)."
+  },
+  "attPrepromptBody": "Taro is free and shows some ads. Next, iOS will ask whether Taro may use your device’s advertising identifier to tailor those ads. Either answer is fine.",
+  "@attPrepromptBody": {
+    "description": "ATT pre-prompt body; neutral, no incentive (iOS only)."
+  },
+  "attPrepromptAllowTitle": "If you allow",
+  "@attPrepromptAllowTitle": {
+    "description": "ATT pre-prompt row heading."
+  },
+  "attPrepromptAllowBody": "Ads may be more relevant to you. You’ll see the same number of ads.",
+  "@attPrepromptAllowBody": {
+    "description": "ATT pre-prompt row body."
+  },
+  "attPrepromptDenyTitle": "If you don’t",
+  "@attPrepromptDenyTitle": {
+    "description": "ATT pre-prompt row heading."
+  },
+  "attPrepromptDenyBody": "Ads are less tailored. The app works the same way.",
+  "@attPrepromptDenyBody": {
+    "description": "ATT pre-prompt row body."
+  },
+  "attPrepromptEitherTitle": "Either way",
+  "@attPrepromptEitherTitle": {
+    "description": "ATT pre-prompt row heading."
+  },
+  "attPrepromptEitherBody": "Your readings, journal and credits aren’t affected, and your questions are never used for ads.",
+  "@attPrepromptEitherBody": {
+    "description": "ATT pre-prompt row body."
+  },
+  "attPrepromptContinue": "Continue",
+  "@attPrepromptContinue": {
+    "description": "ATT pre-prompt single button that triggers the system prompt."
+  },
+  "attPrepromptFootnote": "You can change this any time in iOS Settings, under Privacy & Security, Tracking.",
+  "@attPrepromptFootnote": {
+    "description": "ATT pre-prompt footnote (iOS only)."
+  },
+  "nsUserTrackingUsageDescription": "Allow tracking to see more relevant ads. You’ll still get the same app either way.",
+  "@nsUserTrackingUsageDescription": {
+    "description": "Source text of the iOS NSUserTrackingUsageDescription (InfoPlist.strings, localized ×12, 05 §1 5.1.2). Not rendered by Flutter."
+  },
+  "homeGreetingMorning": "Good morning",
+  "@homeGreetingMorning": {
+    "description": "S05 greeting before noon (local time)."
+  },
+  "homeGreetingAfternoon": "Good afternoon",
+  "@homeGreetingAfternoon": {
+    "description": "S05 greeting from noon to 18:00."
+  },
+  "homeGreetingEvening": "Good evening",
+  "@homeGreetingEvening": {
+    "description": "S05 greeting after 18:00."
+  },
+  "homeDailyOverline": "YOUR DAILY CARD",
+  "@homeDailyOverline": {
+    "description": "S05 daily card tile overline (uppercase by design)."
+  },
+  "homeDailyTitleNotDrawn": "One card to sit with today",
+  "@homeDailyTitleNotDrawn": {
+    "description": "S05 tile title before today's card is drawn."
+  },
+  "homeDailyCaption": "Free, works offline, no AI.",
+  "@homeDailyCaption": {
+    "description": "S05 tile caption under the title."
+  },
+  "homeDailyReveal": "Reveal card",
+  "@homeDailyReveal": {
+    "description": "S05 tile button → S13."
+  },
+  "homeDailyOpen": "Open",
+  "@homeDailyOpen": {
+    "description": "S05 tile button once the daily card is drawn → S13."
+  },
+  "homeDailySemanticsNotDrawn": "Your daily card, not revealed yet",
+  "@homeDailySemanticsNotDrawn": {
+    "description": "S05 tile screen-reader label before the reveal."
+  },
+  "homeDailySemanticsDrawn": "Your daily card: {card}",
+  "@homeDailySemanticsDrawn": {
+    "description": "S05 tile screen-reader label after the reveal.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "homeReadingTitle": "Ask the cards a question",
+  "@homeReadingTitle": {
+    "description": "S05 reading CTA card title."
+  },
+  "homeReadingBody": "Choose a spread, write a question if you like, and get a thoughtful AI interpretation.",
+  "@homeReadingBody": {
+    "description": "S05 reading CTA card body."
+  },
+  "homeStartReading": "Start a reading",
+  "@homeStartReading": {
+    "description": "S05 primary button → S06 (also the coachmark target)."
+  },
+  "homeRecent": "Recent",
+  "@homeRecent": {
+    "description": "S05 recent readings section heading."
+  },
+  "homeCoachmark": "Start here: choose a spread and ask a question.",
+  "@homeCoachmark": {
+    "description": "S05 firstRun coachmark text pointing at Start a reading."
+  },
+  "homeUpdateAvailable": "A new version of Taro is available",
+  "@homeUpdateAvailable": {
+    "description": "S05 updateAvailable notice (at most once per version, RC73)."
+  },
+  "homeUpdateAction": "Update",
+  "@homeUpdateAction": {
+    "description": "S05 updateAvailable notice action → store."
+  },
+  "spreadsTitle": "Choose a spread",
+  "@spreadsTitle": {
+    "description": "S06 title."
+  },
+  "spreadsSubtitle": "Every spread uses one reading, whatever its size.",
+  "@spreadsSubtitle": {
+    "description": "S06 subtitle (PR3, RC62: 1 credit per spread)."
+  },
+  "spreadsHowTheyWork": "How spreads work",
+  "@spreadsHowTheyWork": {
+    "description": "S06 link → S18."
+  },
+  "spreadCardCount": "{count, plural, one{1 card} other{{count} cards}}",
+  "@spreadCardCount": {
+    "description": "Number of cards in a spread (S06, S18 meta).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "spreadRowSemantics": "{name}. {cards}. {meta}",
+  "@spreadRowSemantics": {
+    "description": "S06 row screen-reader label.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "cards": {
+        "type": "String"
+      },
+      "meta": {
+        "type": "String"
+      }
+    }
+  },
+  "spreadUsesOneReading": "uses one reading",
+  "@spreadUsesOneReading": {
+    "description": "S18 detail meta suffix."
+  },
+  "spread_single_name": "Single card",
+  "@spread_single_name": {
+    "description": "Name of the spread `single` (01 §10.3)."
+  },
+  "spread_single_meta": "one clear prompt",
+  "@spread_single_meta": {
+    "description": "Short description of the spread `single` after the card count (S06 row, S18)."
+  },
+  "spread_single_whenToUse": "Use a single card when you want one clear prompt to carry through the day, or when a question is simple and you would like a starting point for reflection. It also works well when time is short or when you are new to the cards.",
+  "@spread_single_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `single`."
+  },
+  "spread_three_ppf_name": "Past, Present, Future",
+  "@spread_three_ppf_name": {
+    "description": "Name of the spread `three_ppf` (01 §10.3)."
+  },
+  "spread_three_ppf_meta": "how a situation is moving",
+  "@spread_three_ppf_meta": {
+    "description": "Short description of the spread `three_ppf` after the card count (S06 row, S18)."
+  },
+  "spread_three_ppf_whenToUse": "Use Past, Present, Future to see how a situation has been developing over time: the patterns that brought you here, what is active now, and where things may be heading if nothing changes.",
+  "@spread_three_ppf_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `three_ppf`."
+  },
+  "spread_three_sao_name": "Situation, Action, Outcome",
+  "@spread_three_sao_name": {
+    "description": "Name of the spread `three_sao` (01 §10.3)."
+  },
+  "spread_three_sao_meta": "what you could do next",
+  "@spread_three_sao_meta": {
+    "description": "Short description of the spread `three_sao` after the card count (S06 row, S18)."
+  },
+  "spread_three_sao_whenToUse": "Use Situation, Action, Outcome when you face something practical and want to think about a next step: the situation as it stands, an approach worth considering, and where it may lead.",
+  "@spread_three_sao_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `three_sao`."
+  },
+  "spread_relationship_name": "Relationship",
+  "@spread_relationship_name": {
+    "description": "Name of the spread `relationship` (01 §10.3)."
+  },
+  "spread_relationship_meta": "a close bond, from both sides",
+  "@spread_relationship_meta": {
+    "description": "Short description of the spread `relationship` after the card count (S06 row, S18)."
+  },
+  "spread_relationship_whenToUse": "Use the Relationship spread to reflect on a close bond: what you bring, how the other person may be experiencing it, what connects you, what strains it and what it could grow into. It describes your view, not the other person’s thoughts.",
+  "@spread_relationship_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `relationship`."
+  },
+  "spread_two_paths_name": "Two Paths",
+  "@spread_two_paths_name": {
+    "description": "Name of the spread `two_paths` (01 §10.3)."
+  },
+  "spread_two_paths_meta": "weighing a choice",
+  "@spread_two_paths_meta": {
+    "description": "Short description of the spread `two_paths` after the card count (S06 row, S18)."
+  },
+  "spread_two_paths_whenToUse": "Use Two Paths when you are weighing a choice between two options. Name them for yourself before you draw. The spread looks at each path and where it may lead, so you can compare them against your own values. The decision stays yours.",
+  "@spread_two_paths_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `two_paths`."
+  },
+  "spread_celtic_cross_name": "Celtic Cross",
+  "@spread_celtic_cross_name": {
+    "description": "Name of the spread `celtic_cross` (01 §10.3)."
+  },
+  "spread_celtic_cross_meta": "a full picture",
+  "@spread_celtic_cross_meta": {
+    "description": "Short description of the spread `celtic_cross` after the card count (S06 row, S18)."
+  },
+  "spread_celtic_cross_whenToUse": "Use the Celtic Cross for a complex situation you want to explore in depth: the heart of the matter, what crosses it, its roots, you, your surroundings, your hopes and fears, and where things may be heading if nothing changes.",
+  "@spread_celtic_cross_whenToUse": {
+    "description": "S18 'When to use it' paragraph for the spread `celtic_cross`."
+  },
+  "spread_single_pos_focus_name": "Focus",
+  "@spread_single_pos_focus_name": {
+    "description": "Position name `focus` of the spread `single` (GLOSSARY §2)."
+  },
+  "spread_single_pos_focus_desc": "The theme this card invites you to reflect on today.",
+  "@spread_single_pos_focus_desc": {
+    "description": "Short description of the position `focus` of the spread `single` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_ppf_pos_past_name": "Past",
+  "@spread_three_ppf_pos_past_name": {
+    "description": "Position name `past` of the spread `three_ppf` (GLOSSARY §2)."
+  },
+  "spread_three_ppf_pos_past_desc": "What from before may still shape the situation.",
+  "@spread_three_ppf_pos_past_desc": {
+    "description": "Short description of the position `past` of the spread `three_ppf` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_ppf_pos_present_name": "Present",
+  "@spread_three_ppf_pos_present_name": {
+    "description": "Position name `present` of the spread `three_ppf` (GLOSSARY §2)."
+  },
+  "spread_three_ppf_pos_present_desc": "What is active in the situation right now.",
+  "@spread_three_ppf_pos_present_desc": {
+    "description": "Short description of the position `present` of the spread `three_ppf` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_ppf_pos_future_name": "Future",
+  "@spread_three_ppf_pos_future_name": {
+    "description": "Position name `future` of the spread `three_ppf` (GLOSSARY §2)."
+  },
+  "spread_three_ppf_pos_future_desc": "Where things may be heading if nothing changes.",
+  "@spread_three_ppf_pos_future_desc": {
+    "description": "Short description of the position `future` of the spread `three_ppf` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_sao_pos_situation_name": "Situation",
+  "@spread_three_sao_pos_situation_name": {
+    "description": "Position name `situation` of the spread `three_sao` (GLOSSARY §2)."
+  },
+  "spread_three_sao_pos_situation_desc": "The situation as it stands.",
+  "@spread_three_sao_pos_situation_desc": {
+    "description": "Short description of the position `situation` of the spread `three_sao` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_sao_pos_action_name": "Action",
+  "@spread_three_sao_pos_action_name": {
+    "description": "Position name `action` of the spread `three_sao` (GLOSSARY §2)."
+  },
+  "spread_three_sao_pos_action_desc": "An approach worth considering, not an instruction.",
+  "@spread_three_sao_pos_action_desc": {
+    "description": "Short description of the position `action` of the spread `three_sao` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_three_sao_pos_outcome_name": "Outcome",
+  "@spread_three_sao_pos_outcome_name": {
+    "description": "Position name `outcome` of the spread `three_sao` (GLOSSARY §2)."
+  },
+  "spread_three_sao_pos_outcome_desc": "Where things may be heading if you follow that approach and nothing else changes.",
+  "@spread_three_sao_pos_outcome_desc": {
+    "description": "Short description of the position `outcome` of the spread `three_sao` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_relationship_pos_you_name": "You",
+  "@spread_relationship_pos_you_name": {
+    "description": "Position name `you` of the spread `relationship` (GLOSSARY §2)."
+  },
+  "spread_relationship_pos_you_desc": "What you bring to the relationship right now.",
+  "@spread_relationship_pos_you_desc": {
+    "description": "Short description of the position `you` of the spread `relationship` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_relationship_pos_other_name": "The Other Person",
+  "@spread_relationship_pos_other_name": {
+    "description": "Position name `other` of the spread `relationship` (GLOSSARY §2)."
+  },
+  "spread_relationship_pos_other_desc": "How the other person may be experiencing it, as a perspective to consider.",
+  "@spread_relationship_pos_other_desc": {
+    "description": "Short description of the position `other` of the spread `relationship` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_relationship_pos_connection_name": "Connection",
+  "@spread_relationship_pos_connection_name": {
+    "description": "Position name `connection` of the spread `relationship` (GLOSSARY §2)."
+  },
+  "spread_relationship_pos_connection_desc": "What the two of you share.",
+  "@spread_relationship_pos_connection_desc": {
+    "description": "Short description of the position `connection` of the spread `relationship` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_relationship_pos_challenge_name": "Challenge",
+  "@spread_relationship_pos_challenge_name": {
+    "description": "Position name `challenge` of the spread `relationship` (GLOSSARY §2)."
+  },
+  "spread_relationship_pos_challenge_desc": "A tension or pattern that strains the bond.",
+  "@spread_relationship_pos_challenge_desc": {
+    "description": "Short description of the position `challenge` of the spread `relationship` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_relationship_pos_potential_name": "Potential",
+  "@spread_relationship_pos_potential_name": {
+    "description": "Position name `potential` of the spread `relationship` (GLOSSARY §2)."
+  },
+  "spread_relationship_pos_potential_desc": "What the relationship could grow into; where it may be heading if nothing changes.",
+  "@spread_relationship_pos_potential_desc": {
+    "description": "Short description of the position `potential` of the spread `relationship` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_two_paths_pos_situation_name": "Situation",
+  "@spread_two_paths_pos_situation_name": {
+    "description": "Position name `situation` of the spread `two_paths` (GLOSSARY §2)."
+  },
+  "spread_two_paths_pos_situation_desc": "The situation behind the choice.",
+  "@spread_two_paths_pos_situation_desc": {
+    "description": "Short description of the position `situation` of the spread `two_paths` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_two_paths_pos_path_a_name": "Path A",
+  "@spread_two_paths_pos_path_a_name": {
+    "description": "Position name `path_a` of the spread `two_paths` (GLOSSARY §2)."
+  },
+  "spread_two_paths_pos_path_a_desc": "What choosing the first option might involve.",
+  "@spread_two_paths_pos_path_a_desc": {
+    "description": "Short description of the position `path_a` of the spread `two_paths` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_two_paths_pos_path_a_outcome_name": "Path A Outcome",
+  "@spread_two_paths_pos_path_a_outcome_name": {
+    "description": "Position name `path_a_outcome` of the spread `two_paths` (GLOSSARY §2)."
+  },
+  "spread_two_paths_pos_path_a_outcome_desc": "Where the first option may be heading if nothing else changes.",
+  "@spread_two_paths_pos_path_a_outcome_desc": {
+    "description": "Short description of the position `path_a_outcome` of the spread `two_paths` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_two_paths_pos_path_b_name": "Path B",
+  "@spread_two_paths_pos_path_b_name": {
+    "description": "Position name `path_b` of the spread `two_paths` (GLOSSARY §2)."
+  },
+  "spread_two_paths_pos_path_b_desc": "What choosing the second option might involve.",
+  "@spread_two_paths_pos_path_b_desc": {
+    "description": "Short description of the position `path_b` of the spread `two_paths` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_two_paths_pos_path_b_outcome_name": "Path B Outcome",
+  "@spread_two_paths_pos_path_b_outcome_name": {
+    "description": "Position name `path_b_outcome` of the spread `two_paths` (GLOSSARY §2)."
+  },
+  "spread_two_paths_pos_path_b_outcome_desc": "Where the second option may be heading if nothing else changes.",
+  "@spread_two_paths_pos_path_b_outcome_desc": {
+    "description": "Short description of the position `path_b_outcome` of the spread `two_paths` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_present_name": "Present",
+  "@spread_celtic_cross_pos_present_name": {
+    "description": "Position name `present` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_present_desc": "The heart of the matter right now.",
+  "@spread_celtic_cross_pos_present_desc": {
+    "description": "Short description of the position `present` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_challenge_name": "Challenge",
+  "@spread_celtic_cross_pos_challenge_name": {
+    "description": "Position name `challenge` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_challenge_desc": "What crosses the situation.",
+  "@spread_celtic_cross_pos_challenge_desc": {
+    "description": "Short description of the position `challenge` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_foundation_name": "Foundation",
+  "@spread_celtic_cross_pos_foundation_name": {
+    "description": "Position name `foundation` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_foundation_desc": "The roots the situation rests on.",
+  "@spread_celtic_cross_pos_foundation_desc": {
+    "description": "Short description of the position `foundation` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_recent_past_name": "Recent Past",
+  "@spread_celtic_cross_pos_recent_past_name": {
+    "description": "Position name `recent_past` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_recent_past_desc": "What is fading but still colours the situation.",
+  "@spread_celtic_cross_pos_recent_past_desc": {
+    "description": "Short description of the position `recent_past` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_potential_name": "Potential",
+  "@spread_celtic_cross_pos_potential_name": {
+    "description": "Position name `potential` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_potential_desc": "What you are reaching for.",
+  "@spread_celtic_cross_pos_potential_desc": {
+    "description": "Short description of the position `potential` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_near_future_name": "Near Future",
+  "@spread_celtic_cross_pos_near_future_name": {
+    "description": "Position name `near_future` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_near_future_desc": "What may come next if things continue as they are.",
+  "@spread_celtic_cross_pos_near_future_desc": {
+    "description": "Short description of the position `near_future` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_self_name": "Self",
+  "@spread_celtic_cross_pos_self_name": {
+    "description": "Position name `self` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_self_desc": "Your own stance and the part you play.",
+  "@spread_celtic_cross_pos_self_desc": {
+    "description": "Short description of the position `self` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_environment_name": "Environment",
+  "@spread_celtic_cross_pos_environment_name": {
+    "description": "Position name `environment` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_environment_desc": "The people and circumstances around you.",
+  "@spread_celtic_cross_pos_environment_desc": {
+    "description": "Short description of the position `environment` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_hopes_fears_name": "Hopes and Fears",
+  "@spread_celtic_cross_pos_hopes_fears_name": {
+    "description": "Position name `hopes_fears` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_hopes_fears_desc": "What you hope for, fear, or both at once.",
+  "@spread_celtic_cross_pos_hopes_fears_desc": {
+    "description": "Short description of the position `hopes_fears` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_celtic_cross_pos_outcome_name": "Outcome",
+  "@spread_celtic_cross_pos_outcome_name": {
+    "description": "Position name `outcome` of the spread `celtic_cross` (GLOSSARY §2)."
+  },
+  "spread_celtic_cross_pos_outcome_desc": "Where things may be heading if nothing changes; never fate.",
+  "@spread_celtic_cross_pos_outcome_desc": {
+    "description": "Short description of the position `outcome` of the spread `celtic_cross` (S18, S32); future/outcome wording never states fate (01 §10.3)."
+  },
+  "spread_single_suggestion_1": "What would be helpful to focus on today?",
+  "@spread_single_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `single` (01 §7.2); tapping fills the field."
+  },
+  "spread_single_suggestion_2": "What is asking for my attention right now?",
+  "@spread_single_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `single` (01 §7.2); tapping fills the field."
+  },
+  "spread_single_suggestion_3": "What quality could support me in this situation?",
+  "@spread_single_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `single` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_ppf_suggestion_1": "How has my past shaped where I am now?",
+  "@spread_three_ppf_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `three_ppf` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_ppf_suggestion_2": "What do I need to understand about this situation?",
+  "@spread_three_ppf_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `three_ppf` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_ppf_suggestion_3": "Where might this path be heading, and what can I do about it?",
+  "@spread_three_ppf_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `three_ppf` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_sao_suggestion_1": "What could help me move forward with this?",
+  "@spread_three_sao_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `three_sao` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_sao_suggestion_2": "What step is within my reach right now?",
+  "@spread_three_sao_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `three_sao` (01 §7.2); tapping fills the field."
+  },
+  "spread_three_sao_suggestion_3": "How could I approach this decision with more clarity?",
+  "@spread_three_sao_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `three_sao` (01 §7.2); tapping fills the field."
+  },
+  "spread_relationship_suggestion_1": "What can I learn from this relationship?",
+  "@spread_relationship_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `relationship` (01 §7.2); tapping fills the field."
+  },
+  "spread_relationship_suggestion_2": "How can I show up more openly in this connection?",
+  "@spread_relationship_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `relationship` (01 §7.2); tapping fills the field."
+  },
+  "spread_relationship_suggestion_3": "What does this relationship need from both of us?",
+  "@spread_relationship_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `relationship` (01 §7.2); tapping fills the field."
+  },
+  "spread_relationship_suggestion_4": "What pattern keeps repeating between us?",
+  "@spread_relationship_suggestion_4": {
+    "description": "Question suggestion chip 4 for the spread `relationship` (01 §7.2); tapping fills the field."
+  },
+  "spread_two_paths_suggestion_1": "What should I consider when choosing between these options?",
+  "@spread_two_paths_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `two_paths` (01 §7.2); tapping fills the field."
+  },
+  "spread_two_paths_suggestion_2": "What might each path ask of me?",
+  "@spread_two_paths_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `two_paths` (01 §7.2); tapping fills the field."
+  },
+  "spread_two_paths_suggestion_3": "Which choice fits my values more closely?",
+  "@spread_two_paths_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `two_paths` (01 §7.2); tapping fills the field."
+  },
+  "spread_celtic_cross_suggestion_1": "What do I need to understand about this situation?",
+  "@spread_celtic_cross_suggestion_1": {
+    "description": "Question suggestion chip 1 for the spread `celtic_cross` (01 §7.2); tapping fills the field."
+  },
+  "spread_celtic_cross_suggestion_2": "What is really at the heart of this question?",
+  "@spread_celtic_cross_suggestion_2": {
+    "description": "Question suggestion chip 2 for the spread `celtic_cross` (01 §7.2); tapping fills the field."
+  },
+  "spread_celtic_cross_suggestion_3": "What is holding me back, and what could help me grow?",
+  "@spread_celtic_cross_suggestion_3": {
+    "description": "Question suggestion chip 3 for the spread `celtic_cross` (01 §7.2); tapping fills the field."
+  },
+  "spread_celtic_cross_suggestion_4": "What can I learn from this period of my life?",
+  "@spread_celtic_cross_suggestion_4": {
+    "description": "Question suggestion chip 4 for the spread `celtic_cross` (01 §7.2); tapping fills the field."
+  },
+  "questionTitle": "What would you like to reflect on?",
+  "@questionTitle": {
+    "description": "S07 title."
+  },
+  "questionLabel": "Your question (optional)",
+  "@questionLabel": {
+    "description": "S07 field label."
+  },
+  "questionHint": "Open questions work well. Taro can’t answer health, legal, money or pregnancy questions.",
+  "@questionHint": {
+    "description": "S07 inline guidance under the field (01 §7.2)."
+  },
+  "questionIdeas": "Ideas",
+  "@questionIdeas": {
+    "description": "S07 caption above the suggestion chips."
+  },
+  "questionSuggestionSemantics": "Suggestion: {text}. Fills the question",
+  "@questionSuggestionSemantics": {
+    "description": "S07 suggestion chip screen-reader label.",
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "questionPersonalDetails": "Avoid sharing personal details like emails or phone numbers.",
+  "@questionPersonalDetails": {
+    "description": "S07 non-blocking warning when the text looks like an email or phone number (01 §7.2)."
+  },
+  "questionOnlySymbols": "Please use words, or leave the question empty.",
+  "@questionOnlySymbols": {
+    "description": "S07 validation when the text is only emoji or punctuation."
+  },
+  "questionBegin": "Begin",
+  "@questionBegin": {
+    "description": "S07 primary button: runs the pre-draw gate (RC44) and hold."
+  },
+  "questionChargeFree": "Uses your free reading. Your question is sent to an AI service to write the reading and isn’t stored.",
+  "@questionChargeFree": {
+    "description": "S07 charge note when the next reading uses the free allowance (nextSource free, RC97 provider-neutral)."
+  },
+  "questionChargeCredits": "{count, plural, one{Uses your last reading. Your question is sent to an AI service to write the reading and isn’t stored.} other{Uses 1 of your {count} readings. Your question is sent to an AI service to write the reading and isn’t stored.}}",
+  "@questionChargeCredits": {
+    "description": "S07 charge note when the next reading uses a purchased or earned reading.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "questionOfflineNotice": "You’re offline. Connect to start an AI reading.",
+  "@questionOfflineNotice": {
+    "description": "S07 offline: Begin disabled with this notice."
+  },
+  "questionDeviceUnverified": "Readings unavailable on this device",
+  "@questionDeviceUnverified": {
+    "description": "S07 deviceUnverified notice title (with Retry)."
+  },
+  "questionDailyLimitTitle": "You’ve reached today’s reading limit",
+  "@questionDailyLimitTitle": {
+    "description": "S07 dailyLimitReached card title; no paywall (RC74)."
+  },
+  "questionDailyLimitBody": "You can start new readings tomorrow. The daily card, Learn and a classic reading are still here for you.",
+  "@questionDailyLimitBody": {
+    "description": "S07 dailyLimitReached card body."
+  },
+  "questionRateLimited": "Please wait a moment and try again.",
+  "@questionRateLimited": {
+    "description": "S07 rateLimited (burst) notice."
+  },
+  "questionRephraseTitle": "Try asking it another way",
+  "@questionRephraseTitle": {
+    "description": "S07 rephrase notice title (declined, canRephrase)."
+  },
+  "questionRephraseExamples": "For example:",
+  "@questionRephraseExamples": {
+    "description": "S07 rephrase notice label above the example rewordings."
+  },
+  "questionRephraseExample1": "What can I learn from this situation?",
+  "@questionRephraseExample1": {
+    "description": "S07 rephrase example rewording 1."
+  },
+  "questionRephraseExample2": "What would help me feel more steady right now?",
+  "@questionRephraseExample2": {
+    "description": "S07 rephrase example rewording 2."
+  },
+  "questionReflectWithoutQuestion": "Reflect on the cards without a question",
+  "@questionReflectWithoutQuestion": {
+    "description": "S07 rephrase/refused action: same cards, question removed."
+  },
+  "questionRefusedTitle": "Taro can’t help with this kind of question",
+  "@questionRefusedTitle": {
+    "description": "S07 refused(category) card title."
+  },
+  "questionRefusedProfessional": "A qualified professional can help with this.",
+  "@questionRefusedProfessional": {
+    "description": "S07 refused card extra line for the advice categories."
+  },
+  "questionSpreadDisabled": "This spread isn’t available right now. Please choose another one.",
+  "@questionSpreadDisabled": {
+    "description": "S07 when the chosen spread was disabled by remote config."
+  },
+  "questionTryClassic": "Try a classic reading",
+  "@questionTryClassic": {
+    "description": "S07/S31 button that starts a Classic reading (F8)."
+  },
+  "questionClassicCaption": "Uses the card meanings for each position. Free, no AI, works offline.",
+  "@questionClassicCaption": {
+    "description": "Caption under the Classic reading button (S31)."
+  },
+  "questionConsentDeclinedNotice": "AI readings are off. You can still do a classic reading.",
+  "@questionConsentDeclinedNotice": {
+    "description": "S07 notice after Not now on the S04 re-entry (F7)."
+  },
+  "pausedTitle": "Readings are resting for a moment",
+  "@pausedTitle": {
+    "description": "S31 readingsPaused card title (RC47)."
+  },
+  "pausedFreeTitle": "Free readings are resting until tomorrow",
+  "@pausedFreeTitle": {
+    "description": "S31 freePaused copy variant title (RC64)."
+  },
+  "pausedBody": "This is on our side, and nothing has been used from your balance. Your question is kept here for later. Your journal, daily card and Learn still work as usual.",
+  "@pausedBody": {
+    "description": "S31 card body."
+  },
+  "pausedRegionTitle": "AI readings aren’t available in your region",
+  "@pausedRegionTitle": {
+    "description": "S07 aiUnavailableRegion card title (RC29); same Classic CTA."
+  },
+  "pausedRegionBody": "You can still draw cards and read their meanings in a classic reading.",
+  "@pausedRegionBody": {
+    "description": "S07 aiUnavailableRegion card body."
+  },
+  "drawShuffleTitle": "Shuffle the deck",
+  "@drawShuffleTitle": {
+    "description": "S08 shuffling title."
+  },
+  "drawShuffleButton": "Shuffle",
+  "@drawShuffleButton": {
+    "description": "S08 hold-or-tap shuffle button (alternative to the hold gesture)."
+  },
+  "drawShuffleHint": "Hold or tap to shuffle, then continue when you feel ready.",
+  "@drawShuffleHint": {
+    "description": "S08 shuffling subtitle."
+  },
+  "drawPickTitle": "{remaining, plural, one{Pick one more card} other{Pick {remaining} cards}}",
+  "@drawPickTitle": {
+    "description": "S08 picking title.",
+    "placeholders": {
+      "remaining": {
+        "type": "int"
+      }
+    }
+  },
+  "drawPickSubtitle": "Take your time. Tap a card that draws you.",
+  "@drawPickSubtitle": {
+    "description": "S08 picking subtitle."
+  },
+  "drawPickedProgress": "{picked} of {total} picked",
+  "@drawPickedProgress": {
+    "description": "S08 progress in the top bar (polite live region).",
+    "placeholders": {
+      "picked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "drawForMe": "Draw for me",
+  "@drawForMe": {
+    "description": "S08 button that picks the remaining cards automatically."
+  },
+  "drawPickThis": "Pick this card",
+  "@drawPickThis": {
+    "description": "S08 button that picks the focused card (switch/keyboard alternative)."
+  },
+  "drawCardBackSemantics": "Card back, position {position} of {total}, double-tap to pick",
+  "@drawCardBackSemantics": {
+    "description": "Face-down card in the fan or slot (01 §12).",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "drawEmptySlotSemantics": "Empty position {position}: {name}",
+  "@drawEmptySlotSemantics": {
+    "description": "Empty spread slot screen-reader label.",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "drawRevealTitle": "Reveal your cards",
+  "@drawRevealTitle": {
+    "description": "S08 revealing title."
+  },
+  "drawRevealHint": "Tap each card to turn it over, in order.",
+  "@drawRevealHint": {
+    "description": "S08 revealing subtitle."
+  },
+  "drawRevealAll": "Reveal all",
+  "@drawRevealAll": {
+    "description": "S08 button that turns all cards over."
+  },
+  "drawCardSemantics": "{card}, {orientation}, position: {position}",
+  "@drawCardSemantics": {
+    "description": "Revealed card screen-reader label, e.g. 'Three of Cups, reversed, position: Past' (01 §12).",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      },
+      "orientation": {
+        "type": "String"
+      },
+      "position": {
+        "type": "String"
+      }
+    }
+  },
+  "drawAwaitingTitle": "Writing your reading…",
+  "@drawAwaitingTitle": {
+    "description": "S08 awaitingReading progress line; no percentage (PR8)."
+  },
+  "drawAwaitingBody": "The reading is forming. Here are your cards’ keywords while you wait.",
+  "@drawAwaitingBody": {
+    "description": "S08 awaitingReading body above the keywords list."
+  },
+  "drawSlowReading": "This is taking a little longer than usual",
+  "@drawSlowReading": {
+    "description": "S08 slowReading line after 20 s."
+  },
+  "drawTimeoutPolling": "Still checking…",
+  "@drawTimeoutPolling": {
+    "description": "S08 timeoutPolling line after the 60 s client timeout (RC31)."
+  },
+  "drawReadingReady": "Reading ready",
+  "@drawReadingReady": {
+    "description": "Live-region announcement when the reading arrives."
+  },
+  "drawGenerationFailedTitle": "We couldn’t create your reading",
+  "@drawGenerationFailedTitle": {
+    "description": "S08 generationFailed title."
+  },
+  "drawGenerationFailedBody": "You haven’t been charged. Your cards are saved.",
+  "@drawGenerationFailedBody": {
+    "description": "S08 generationFailed body (F6)."
+  },
+  "drawFinishLater": "Save and finish later",
+  "@drawFinishLater": {
+    "description": "S08 generationFailed secondary action: keeps the reading pending in the Journal."
+  },
+  "drawDeliveryExpired": "We couldn’t deliver this reading, so you weren’t charged",
+  "@drawDeliveryExpired": {
+    "description": "S08 deliveryExpired (410 READING_EXPIRED_REFUNDED, RC51)."
+  },
+  "drawHoldLost": "Your cards are saved face-down. Choose how to continue.",
+  "@drawHoldLost": {
+    "description": "S08 holdLost line shown with S10 over the face-down cards (RC50)."
+  },
+  "readingDone": "Done",
+  "@readingDone": {
+    "description": "S09 top bar close button (→ Home)."
+  },
+  "readingSummary": "Summary",
+  "@readingSummary": {
+    "description": "S09 section heading."
+  },
+  "readingSynthesis": "How the cards connect",
+  "@readingSynthesis": {
+    "description": "S09 synthesis section heading."
+  },
+  "readingReflectionPrompts": "Questions to reflect on",
+  "@readingReflectionPrompts": {
+    "description": "S09 reflection prompts heading."
+  },
+  "readingWriteAboutThis": "Write about this",
+  "@readingWriteAboutThis": {
+    "description": "S09 action under a reflection prompt; opens the note editor."
+  },
+  "readingPositionHeading": "{position} · {card}",
+  "@readingPositionHeading": {
+    "description": "Position section heading, e.g. 'Present · The Star, reversed'.",
+    "placeholders": {
+      "position": {
+        "type": "String"
+      },
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "readingCardReversed": "{card}, reversed",
+  "@readingCardReversed": {
+    "description": "Card name with the reversed orientation in text.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "readingQuestionQuoted": "“{question}”",
+  "@readingQuestionQuoted": {
+    "description": "The user's question shown in quotes.",
+    "placeholders": {
+      "question": {
+        "type": "String"
+      }
+    }
+  },
+  "readingFullDisclaimer": "Full disclaimer",
+  "@readingFullDisclaimer": {
+    "description": "Link next to the disclaimer footer → S29."
+  },
+  "readingRateUp": "Helpful",
+  "@readingRateUp": {
+    "description": "Thumbs-up rating button label."
+  },
+  "readingRateDown": "Not helpful",
+  "@readingRateDown": {
+    "description": "Thumbs-down rating button label."
+  },
+  "readingRatingThanks": "Thanks for the feedback",
+  "@readingRatingThanks": {
+    "description": "Toast after rating a reading."
+  },
+  "readingReasonTooGeneric": "Too generic",
+  "@readingReasonTooGeneric": {
+    "description": "Thumbs-down reason chip."
+  },
+  "readingReasonMismatch": "Didn’t match the cards",
+  "@readingReasonMismatch": {
+    "description": "Thumbs-down reason chip."
+  },
+  "readingReasonTone": "Tone",
+  "@readingReasonTone": {
+    "description": "Thumbs-down reason chip."
+  },
+  "readingReasonOther": "Other",
+  "@readingReasonOther": {
+    "description": "Thumbs-down reason chip."
+  },
+  "readingReported": "Reported",
+  "@readingReported": {
+    "description": "S09/S15 overflow item after a report (disabled)."
+  },
+  "readingContentLocaleNote": "Written in {language}",
+  "@readingContentLocaleNote": {
+    "description": "Small label when a reading's language differs from the app language (01 §13).",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "readingFavouriteAdded": "Added to favourites",
+  "@readingFavouriteAdded": {
+    "description": "Snackbar after favouriting."
+  },
+  "shareIncludeQuestion": "Include my question",
+  "@shareIncludeQuestion": {
+    "description": "Share sheet toggle; off by default (PR19)."
+  },
+  "shareTitle": "Share this reading",
+  "@shareTitle": {
+    "description": "Share options sheet title."
+  },
+  "shareCardsLine": "Cards: {cards}",
+  "@shareCardsLine": {
+    "description": "Share text line listing the localized card names.",
+    "placeholders": {
+      "cards": {
+        "type": "String"
+      }
+    }
+  },
+  "shareQuestionLine": "My question: {question}",
+  "@shareQuestionLine": {
+    "description": "Share text line when the question is included.",
+    "placeholders": {
+      "question": {
+        "type": "String"
+      }
+    }
+  },
+  "shareFooter": "Shared from Taro",
+  "@shareFooter": {
+    "description": "Share text last line before the disclaimer."
+  },
+  "classicLabel": "Classic reading",
+  "@classicLabel": {
+    "description": "Badge on Classic readings instead of the AI label (S32, S14, S15)."
+  },
+  "classicCaption": "Built from the meaning of each card in its position. No AI, free and works offline.",
+  "@classicCaption": {
+    "description": "S32 caption under the Classic label."
+  },
+  "classicTryAi": "Try an AI reading",
+  "@classicTryAi": {
+    "description": "S32 button, only when the gate would allow one."
+  },
+  "readingNotFound": "This reading isn’t on this device anymore.",
+  "@readingNotFound": {
+    "description": "S09/S32/S15 when the entry no longer exists."
+  },
+  "reportBody": "Tell us what felt wrong so we can look into it.",
+  "@reportBody": {
+    "description": "S33 body under the title."
+  },
+  "reportReasonLegend": "What’s the problem?",
+  "@reportReasonLegend": {
+    "description": "S33 reason fieldset legend."
+  },
+  "reportReasonOffensive": "Offensive",
+  "@reportReasonOffensive": {
+    "description": "S33 reason offensive."
+  },
+  "reportReasonHarmfulAdvice": "Harmful advice",
+  "@reportReasonHarmfulAdvice": {
+    "description": "S33 reason harmful_advice."
+  },
+  "reportReasonSexual": "Sexual content",
+  "@reportReasonSexual": {
+    "description": "S33 reason sexual."
+  },
+  "reportReasonHateful": "Hateful",
+  "@reportReasonHateful": {
+    "description": "S33 reason hateful."
+  },
+  "reportReasonOther": "Something else",
+  "@reportReasonOther": {
+    "description": "S33 reason other."
+  },
+  "reportDetailsLabel": "Details (optional)",
+  "@reportDetailsLabel": {
+    "description": "S33 note field label (≤ 500 chars)."
+  },
+  "reportDetailsHint": "For example, which card or sentence",
+  "@reportDetailsHint": {
+    "description": "S33 note field placeholder."
+  },
+  "reportSend": "Send report",
+  "@reportSend": {
+    "description": "S33 primary button; disabled until a reason is chosen."
+  },
+  "reportChooseReason": "Choose a reason to send your report.",
+  "@reportChooseReason": {
+    "description": "S33 hint under Send while no reason is chosen."
+  },
+  "reportSubmitted": "Thanks. We’ll review this reading.",
+  "@reportSubmitted": {
+    "description": "S33 submitted snackbar."
+  },
+  "reportFailed": "We couldn’t send your report.",
+  "@reportFailed": {
+    "description": "S33 failed notice (with Retry)."
+  },
+  "reportOffline": "You’re offline. Connect to send your report.",
+  "@reportOffline": {
+    "description": "S33 offline notice; Send disabled."
+  },
+  "reportRateLimited": "You’ve sent the most reports allowed for today.",
+  "@reportRateLimited": {
+    "description": "S33 rateLimited (10 per day)."
+  },
+  "outOfReadingsTitle": "You’ve used today’s free reading",
+  "@outOfReadingsTitle": {
+    "description": "S10 sheet title."
+  },
+  "outOfReadingsLowTrustTitle": "Free readings aren’t available on this device right now",
+  "@outOfReadingsLowTrustTitle": {
+    "description": "S10 lowTrustLimited title (RC74); packs and rewarded stay available."
+  },
+  "outOfReadingsBody": "Your question and spread are saved.",
+  "@outOfReadingsBody": {
+    "description": "S10 body."
+  },
+  "rewardedOfferTitle": "{count, plural, one{Watch an ad for 1 reading} other{Watch an ad for {count} readings}}",
+  "@rewardedOfferTitle": {
+    "description": "Rewarded option title; says it is an ad (04 §9.1).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardedOfferLeft": "{count, plural, one{Optional · 1 left today} other{Optional · {count} left today}}",
+  "@rewardedOfferLeft": {
+    "description": "Rewarded option meta line.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardedCoolingDown": "Another ad reward is available in {duration}",
+  "@rewardedCoolingDown": {
+    "description": "Rewarded option disabled while cooling down (RC35).",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "rewardedCapped": "You’ve used today’s ad rewards",
+  "@rewardedCapped": {
+    "description": "Rewarded option disabled after the daily cap."
+  },
+  "rewardedNoFill": "No ads available right now",
+  "@rewardedNoFill": {
+    "description": "Rewarded option disabled for 60 s after no fill."
+  },
+  "outOfReadingsGetMore": "Get more readings",
+  "@outOfReadingsGetMore": {
+    "description": "S10 option → S11."
+  },
+  "outOfReadingsFromPrice": "From {price} for {count} · readings don’t expire",
+  "@outOfReadingsFromPrice": {
+    "description": "S10 packs option meta (store-localized price).",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "outOfReadingsUntilThen": "Until then:",
+  "@outOfReadingsUntilThen": {
+    "description": "S10 label before the daily card / Learn links."
+  },
+  "outOfReadingsPurchasesUnavailable": "Purchases aren’t available right now.",
+  "@outOfReadingsPurchasesUnavailable": {
+    "description": "S10 neutral line when packs are hidden (store unavailable or blocked)."
+  },
+  "storeTitle": "More readings",
+  "@storeTitle": {
+    "description": "S11 title."
+  },
+  "storeBody": "One reading is one spread of any size. Readings don’t expire, and your free daily reading continues.",
+  "@storeBody": {
+    "description": "S11 body."
+  },
+  "storePackTitle": "{count, plural, one{1 reading} other{{count} readings}}",
+  "@storePackTitle": {
+    "description": "S11 pack row title; the count comes from the Worker config.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storePerReading": "{price} per reading",
+  "@storePerReading": {
+    "description": "S11 per-reading price (computed from the store price).",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "storeLowestPerReading": "Lowest price per reading",
+  "@storeLowestPerReading": {
+    "description": "S11 honest badge on the pack with the lowest computed per-reading price (04 §11)."
+  },
+  "storePackSemantics": "{count, plural, one{1 reading for {price}, {perReading} per reading} other{{count} readings for {price}, {perReading} per reading}}",
+  "@storePackSemantics": {
+    "description": "S11 pack screen-reader label (04 §11 accessibility).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      },
+      "perReading": {
+        "type": "String"
+      }
+    }
+  },
+  "storeBuyPack": "Buy for {price}",
+  "@storeBuyPack": {
+    "description": "S11 buy button semantics.",
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "storeRemoveAdsTitle": "Remove Banner Ads",
+  "@storeRemoveAdsTitle": {
+    "description": "S11/S20 Remove Banner Ads title (display name, RC80)."
+  },
+  "storeRemoveAdsBody": "One-time purchase. Optional reward videos stay available.",
+  "@storeRemoveAdsBody": {
+    "description": "S11 Remove Banner Ads body (04 §11)."
+  },
+  "storeRemoveAdsOwned": "Banner ads removed ✓",
+  "@storeRemoveAdsOwned": {
+    "description": "S11/S20 once Remove Banner Ads is owned."
+  },
+  "storeRestore": "Restore purchases",
+  "@storeRestore": {
+    "description": "S11 footer link and S20 row."
+  },
+  "storeConsumableDisclosure": "Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases.",
+  "@storeConsumableDisclosure": {
+    "description": "S11 footer consumable disclosure, verbatim from 04 §11."
+  },
+  "storePricesUnavailable": "Prices unavailable — retry",
+  "@storePricesUnavailable": {
+    "description": "S11 pack buttons disabled when the price did not load (04 §12.19)."
+  },
+  "storeUnavailable": "Purchases aren’t available on this device",
+  "@storeUnavailable": {
+    "description": "S11 storeUnavailable (e.g. parental controls or products failed to load)."
+  },
+  "storePending": "Waiting for approval",
+  "@storePending": {
+    "description": "S11 pending (Ask to Buy / Play pending)."
+  },
+  "storeVerifying": "Confirming your purchase…",
+  "@storeVerifying": {
+    "description": "S11 verifying."
+  },
+  "storeVerificationDelayed": "Your purchase is safe. We’ll add your readings when you’re back online.",
+  "@storeVerificationDelayed": {
+    "description": "S11 verificationDelayed (Worker unreachable)."
+  },
+  "storeGranted": "{count, plural, one{+1 reading} other{+{count} readings}}",
+  "@storeGranted": {
+    "description": "S11 success toast.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "storePurchasesBlocked": "Reading packs can’t be bought on this install right now. Contact support if you have questions.",
+  "@storePurchasesBlocked": {
+    "description": "S11 purchasesBlocked(blocked) neutral line (RC66)."
+  },
+  "storeRefundDebt": "A refunded purchase was deducted, so reading packs are paused for now. Contact support if you have questions.",
+  "@storeRefundDebt": {
+    "description": "S11 purchasesBlocked(refundDebt) neutral line (04 §12.21)."
+  },
+  "storeDisabled": "Reading packs aren’t available right now.",
+  "@storeDisabled": {
+    "description": "S11 store.enabled = false kill switch line."
+  },
+  "storeContactSupport": "Contact support",
+  "@storeContactSupport": {
+    "description": "S11 support link in the blocked state."
+  },
+  "storeServiceWarning": "Taro’s service is unreachable. Purchases work, and readings are added once it’s back.",
+  "@storeServiceWarning": {
+    "description": "S11 warning when the Worker is down (04 §12.3)."
+  },
+  "storeTransferHint": "This purchase belongs to another install. Use “Move readings from another device” in Settings.",
+  "@storeTransferHint": {
+    "description": "S11 failed(PURCHASE_ALREADY_CLAIMED) hint (RC84)."
+  },
+  "restoreNothingFound": "No purchases to restore. Reading packs are tied to this app installation and can’t be restored.",
+  "@restoreNothingFound": {
+    "description": "Restore result: nothing found (S20 snackbar, 04 §7)."
+  },
+  "restoreRemoveAds": "Remove Banner Ads restored",
+  "@restoreRemoveAds": {
+    "description": "Restore result: Remove Banner Ads found."
+  },
+  "restoreFailed": "We couldn’t restore purchases.",
+  "@restoreFailed": {
+    "description": "Restore failed notice (with Retry)."
+  },
+  "rewardedLoadingAd": "Loading a short ad…",
+  "@rewardedLoadingAd": {
+    "description": "S12 loadingAd title."
+  },
+  "rewardedGrantingTitle": "Adding your reading…",
+  "@rewardedGrantingTitle": {
+    "description": "S12 granting title."
+  },
+  "rewardedGrantingBody": "This usually takes a few seconds.",
+  "@rewardedGrantingBody": {
+    "description": "S12 granting body."
+  },
+  "rewardedCloseNote": "If you close this, your reading will still be added.",
+  "@rewardedCloseNote": {
+    "description": "S12 caption."
+  },
+  "rewardedGrantedTitle": "Reading added",
+  "@rewardedGrantedTitle": {
+    "description": "S12 granted title."
+  },
+  "rewardedGrantedBody": "{count, plural, one{+1 reading} other{+{count} readings}}",
+  "@rewardedGrantedBody": {
+    "description": "S12 granted body.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rewardedGrantDelayed": "Your reading will appear shortly",
+  "@rewardedGrantDelayed": {
+    "description": "S12 grantDelayed snackbar (non-blocking)."
+  },
+  "rewardedDismissedEarly": "The ad closed early, so no reading was added.",
+  "@rewardedDismissedEarly": {
+    "description": "S12 dismissedEarly snackbar (neutral, no blame)."
+  },
+  "dailyOverline": "YOUR DAILY CARD",
+  "@dailyOverline": {
+    "description": "S13 top bar overline (uppercase by design)."
+  },
+  "dailyNotDrawnTitle": "One card to sit with today",
+  "@dailyNotDrawnTitle": {
+    "description": "S13 notDrawn title."
+  },
+  "dailyReveal": "Reveal card",
+  "@dailyReveal": {
+    "description": "S13 notDrawn primary button."
+  },
+  "dailyNotDrawnCaption": "Free, works offline, no AI.",
+  "@dailyNotDrawnCaption": {
+    "description": "S13 notDrawn caption."
+  },
+  "dailyMeta": "{arcana} · {number} · {orientation}",
+  "@dailyMeta": {
+    "description": "S13 meta line, e.g. 'Major Arcana · XVII · Upright'.",
+    "placeholders": {
+      "arcana": {
+        "type": "String"
+      },
+      "number": {
+        "type": "String"
+      },
+      "orientation": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyReflectDeeper": "Reflect deeper with AI",
+  "@dailyReflectDeeper": {
+    "description": "S13 primary action → S07 single spread with this card pre-set (PR4)."
+  },
+  "dailyAddNote": "Add a note",
+  "@dailyAddNote": {
+    "description": "S13 secondary action."
+  },
+  "dailyCaption": "Your daily card is free, works offline and uses no AI. Reflecting deeper starts a single-card reading and uses one reading.",
+  "@dailyCaption": {
+    "description": "S13 caption under the actions."
+  },
+  "dailyReminderOfferTitle": "Would you like a gentle daily reminder?",
+  "@dailyReminderOfferTitle": {
+    "description": "S13 reminderOffer card (once, 01 §7.7)."
+  },
+  "dailyReminderOfferYes": "Yes, remind me",
+  "@dailyReminderOfferYes": {
+    "description": "S13 reminderOffer accept (equal weight)."
+  },
+  "dailyReminderOfferNo": "No thanks",
+  "@dailyReminderOfferNo": {
+    "description": "S13 reminderOffer decline (equal weight)."
+  },
+  "dailyCardFaceSemantics": "{card}, {orientation}",
+  "@dailyCardFaceSemantics": {
+    "description": "Card face screen-reader label outside a spread.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      },
+      "orientation": {
+        "type": "String"
+      }
+    }
+  },
+  "journalTitle": "Journal",
+  "@journalTitle": {
+    "description": "S14 title."
+  },
+  "journalSearchHint": "Search questions and notes",
+  "@journalSearchHint": {
+    "description": "S14 search placeholder (also the hidden label)."
+  },
+  "journalFilterAll": "All",
+  "@journalFilterAll": {
+    "description": "S14 filter chip."
+  },
+  "journalFilterReadings": "Readings",
+  "@journalFilterReadings": {
+    "description": "S14 filter chip."
+  },
+  "journalFilterDailyCards": "Daily cards",
+  "@journalFilterDailyCards": {
+    "description": "S14 filter chip."
+  },
+  "journalFilterFavourites": "Favourites",
+  "@journalFilterFavourites": {
+    "description": "S14 filter chip."
+  },
+  "journalFilterMore": "Filter",
+  "@journalFilterMore": {
+    "description": "S14 trailing chip that opens the spread / card filter sheet."
+  },
+  "journalFilterSpread": "Spread",
+  "@journalFilterSpread": {
+    "description": "S14 filter sheet: spread type section."
+  },
+  "journalFilterCard": "Contains card",
+  "@journalFilterCard": {
+    "description": "S14 filter sheet: card section."
+  },
+  "journalFilterAnySpread": "Any spread",
+  "@journalFilterAnySpread": {
+    "description": "S14 filter sheet: no spread filter."
+  },
+  "journalFilterAnyCard": "Any card",
+  "@journalFilterAnyCard": {
+    "description": "S14 filter sheet: no card filter."
+  },
+  "journalFilterApply": "Show entries",
+  "@journalFilterApply": {
+    "description": "S14 filter sheet apply button."
+  },
+  "journalPatternsTitle": "Patterns · last {days} days",
+  "@journalPatternsTitle": {
+    "description": "S14 patterns card title.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPatternsCount": "{count, plural, one{1 entry} other{{count} entries}}",
+  "@journalPatternsCount": {
+    "description": "S14 patterns card count caption.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPatternsMostDrawn": "{count, plural, one{Most drawn: {card}, once} other{Most drawn: {card}, {count} times}}",
+  "@journalPatternsMostDrawn": {
+    "description": "S14 patterns most-drawn line (links to S17).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "journalPatternsRange30": "30 days",
+  "@journalPatternsRange30": {
+    "description": "S14 patterns range segment."
+  },
+  "journalPatternsRange90": "90 days",
+  "@journalPatternsRange90": {
+    "description": "S14 patterns range segment."
+  },
+  "journalPatternsMajorMinor": "Major {major} · Minor {minor}",
+  "@journalPatternsMajorMinor": {
+    "description": "S14 patterns major vs minor counts.",
+    "placeholders": {
+      "major": {
+        "type": "int"
+      },
+      "minor": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPatternsReversed": "Reversed: {percent}%",
+  "@journalPatternsReversed": {
+    "description": "S14 patterns reversed ratio.",
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPatternsFootnote": "Patterns in your draws, not predictions.",
+  "@journalPatternsFootnote": {
+    "description": "S14 patterns footnote (01 §7.8)."
+  },
+  "journalPatternsSuitBalance": "Suit balance",
+  "@journalPatternsSuitBalance": {
+    "description": "S14 patterns chart semantics heading."
+  },
+  "journalPatternsLegendItem": "{name} {count}",
+  "@journalPatternsLegendItem": {
+    "description": "S14 patterns legend item, e.g. 'Major 9'.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPending": "Pending",
+  "@journalPending": {
+    "description": "S14 badge/meta on a pending reading."
+  },
+  "journalFinishReading": "Finish reading",
+  "@journalFinishReading": {
+    "description": "S14/S15 action on a pending or failed reading (PR6)."
+  },
+  "journalEmptyTitle": "Your readings will live here",
+  "@journalEmptyTitle": {
+    "description": "S14 empty title."
+  },
+  "journalEmptyBody": "Every reading and daily card you draw is saved on this phone.",
+  "@journalEmptyBody": {
+    "description": "S14 empty body."
+  },
+  "journalFilteredEmpty": "Nothing matches this filter",
+  "@journalFilteredEmpty": {
+    "description": "S14 filteredEmpty title."
+  },
+  "journalClearFilter": "Clear filter",
+  "@journalClearFilter": {
+    "description": "S14 filteredEmpty action."
+  },
+  "journalSearchEmpty": "No entries match “{query}”",
+  "@journalSearchEmpty": {
+    "description": "S14 searchEmpty title.",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "journalDeleteTitle": "Delete this entry?",
+  "@journalDeleteTitle": {
+    "description": "Delete confirmation title (S14, S15)."
+  },
+  "journalDeleteBody": "You can undo this for a few seconds.",
+  "@journalDeleteBody": {
+    "description": "Delete confirmation body."
+  },
+  "journalDeleted": "Entry deleted",
+  "@journalDeleted": {
+    "description": "Undo snackbar text (5 s)."
+  },
+  "journalEntryFavourite": "Favourite",
+  "@journalEntryFavourite": {
+    "description": "S14 row trailing glyph semantics."
+  },
+  "journalEntryHasNote": "Has a note",
+  "@journalEntryHasNote": {
+    "description": "S14 row trailing glyph semantics."
+  },
+  "journalDailyCardTitle": "Daily card: {card}",
+  "@journalDailyCardTitle": {
+    "description": "S14 row title for a daily card entry.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "journalMonthHeader": "{month}",
+  "@journalMonthHeader": {
+    "description": "S14 month section header (formatted by DateFormat.yMMMM).",
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "entryPendingNotice": "This reading isn’t finished yet",
+  "@entryPendingNotice": {
+    "description": "S15 pending notice."
+  },
+  "entryFailedNotice": "We couldn’t create this reading. You weren’t charged.",
+  "@entryFailedNotice": {
+    "description": "S15 failed notice (Try again with the same cards)."
+  },
+  "entryDelete": "Delete entry",
+  "@entryDelete": {
+    "description": "S15 destructive text button."
+  },
+  "entryFullReading": "Full reading",
+  "@entryFullReading": {
+    "description": "S15 link that expands the full reading."
+  },
+  "entryReflectionQuestion": "Reflection question",
+  "@entryReflectionQuestion": {
+    "description": "S15 daily-card entry heading."
+  },
+  "entryNoteLimit": "Notes can be up to {max} characters.",
+  "@entryNoteLimit": {
+    "description": "S15 note limit hint (5,000 chars).",
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "learnTitle": "Learn",
+  "@learnTitle": {
+    "description": "S16 title."
+  },
+  "learnSearchHint": "Search cards",
+  "@learnSearchHint": {
+    "description": "S16 search placeholder (also the hidden label)."
+  },
+  "learnSectionLegend": "Deck section",
+  "@learnSectionLegend": {
+    "description": "S16 segmented control group label."
+  },
+  "learnSectionMajor": "Major Arcana",
+  "@learnSectionMajor": {
+    "description": "S16 section segment and grid heading."
+  },
+  "arcanaMinor": "Minor Arcana",
+  "@arcanaMinor": {
+    "description": "Arcana label (S17 facts)."
+  },
+  "suitWands": "Wands",
+  "@suitWands": {
+    "description": "Suit name (S16 segment, S17 facts, patterns legend)."
+  },
+  "suitCups": "Cups",
+  "@suitCups": {
+    "description": "Suit name."
+  },
+  "suitSwords": "Swords",
+  "@suitSwords": {
+    "description": "Suit name."
+  },
+  "suitPentacles": "Pentacles",
+  "@suitPentacles": {
+    "description": "Suit name."
+  },
+  "learnSearchEmpty": "No cards match “{query}”",
+  "@learnSearchEmpty": {
+    "description": "S16 searchEmpty title.",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "learnSpreadsGuide": "Spreads guide",
+  "@learnSpreadsGuide": {
+    "description": "S16 link row → S18."
+  },
+  "learnAbout": "About tarot & Taro",
+  "@learnAbout": {
+    "description": "S16 link row → S19; S19 title."
+  },
+  "cardPosition": "{suit} · {index} of {total}",
+  "@cardPosition": {
+    "description": "S17 top bar caption, e.g. 'Cups · 3 of 14'.",
+    "placeholders": {
+      "suit": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "cardPrevious": "Previous card: {card}",
+  "@cardPrevious": {
+    "description": "S17 previous button semantics.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "cardNext": "Next card: {card}",
+  "@cardNext": {
+    "description": "S17 next button semantics.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "cardElementLabel": "Element",
+  "@cardElementLabel": {
+    "description": "S17 fact label."
+  },
+  "cardElementValue": "Element: {element}",
+  "@cardElementValue": {
+    "description": "S17 fact line.",
+    "placeholders": {
+      "element": {
+        "type": "String"
+      }
+    }
+  },
+  "elementFire": "Fire",
+  "@elementFire": {
+    "description": "Element name."
+  },
+  "elementWater": "Water",
+  "@elementWater": {
+    "description": "Element name."
+  },
+  "elementAir": "Air",
+  "@elementAir": {
+    "description": "Element name."
+  },
+  "elementEarth": "Earth",
+  "@elementEarth": {
+    "description": "Element name."
+  },
+  "cardNumberValue": "Number: {number}",
+  "@cardNumberValue": {
+    "description": "S17 fact line (localized numeral or name).",
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "cardOrientationLegend": "Card orientation",
+  "@cardOrientationLegend": {
+    "description": "S17 Upright/Reversed toggle group label."
+  },
+  "cardMeaning": "Meaning",
+  "@cardMeaning": {
+    "description": "S17 meaning heading."
+  },
+  "cardKeywords": "Keywords",
+  "@cardKeywords": {
+    "description": "Keyword chips group label."
+  },
+  "cardAspectRelationships": "Relationships",
+  "@cardAspectRelationships": {
+    "description": "S17 aspect label (01 §7.9)."
+  },
+  "cardAspectWork": "Work & purpose",
+  "@cardAspectWork": {
+    "description": "S17 aspect label."
+  },
+  "cardAspectGrowth": "Personal growth",
+  "@cardAspectGrowth": {
+    "description": "S17 aspect label."
+  },
+  "cardReflectionQuestions": "Questions to reflect on",
+  "@cardReflectionQuestions": {
+    "description": "S17 reflection questions heading."
+  },
+  "cardDrawnTimes": "{count, plural, =0{Not in your journal yet} one{In your journal: drawn once} other{In your journal: drawn {count} times}}",
+  "@cardDrawnTimes": {
+    "description": "S17 journal link row (local count).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cardZoomSemantics": "Card art, full screen. Pinch to zoom.",
+  "@cardZoomSemantics": {
+    "description": "S17 zoomed semantics."
+  },
+  "cardZoomOpen": "Show the card art full screen",
+  "@cardZoomOpen": {
+    "description": "S17 hero art tap hint."
+  },
+  "spreadGuideTitle": "Spreads guide",
+  "@spreadGuideTitle": {
+    "description": "S18 title and top caption."
+  },
+  "spreadGuidePager": "Spreads guide · {index} of {total}",
+  "@spreadGuidePager": {
+    "description": "S18 detail top caption.",
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "spreadGuidePositions": "Positions",
+  "@spreadGuidePositions": {
+    "description": "S18 positions list heading."
+  },
+  "spreadGuideWhenToUse": "When to use it",
+  "@spreadGuideWhenToUse": {
+    "description": "S18 heading."
+  },
+  "spreadGuideStart": "Start this spread",
+  "@spreadGuideStart": {
+    "description": "S18 primary button → S07 (01 §7.9)."
+  },
+  "spreadGuideCross": "The cross",
+  "@spreadGuideCross": {
+    "description": "S18 Celtic Cross diagram group caption."
+  },
+  "spreadGuideStaff": "The staff",
+  "@spreadGuideStaff": {
+    "description": "S18 Celtic Cross diagram group caption."
+  },
+  "spreadGuidePrevious": "Previous spread",
+  "@spreadGuidePrevious": {
+    "description": "S18 previous button semantics."
+  },
+  "spreadGuideNext": "Next spread",
+  "@spreadGuideNext": {
+    "description": "S18 next button semantics."
+  },
+  "aboutSupportLines": "Support and crisis lines",
+  "@aboutSupportLines": {
+    "description": "S19 link row → S27."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "S20 title."
+  },
+  "settingsSectionReadings": "Readings",
+  "@settingsSectionReadings": {
+    "description": "S20 section heading."
+  },
+  "settingsSectionExperience": "Experience",
+  "@settingsSectionExperience": {
+    "description": "S20 section heading."
+  },
+  "settingsSectionPrivacyData": "Privacy & data",
+  "@settingsSectionPrivacyData": {
+    "description": "S20 section heading."
+  },
+  "settingsSectionHelp": "Help",
+  "@settingsSectionHelp": {
+    "description": "S20 section heading."
+  },
+  "settingsSectionAbout": "About",
+  "@settingsSectionAbout": {
+    "description": "S20 section heading."
+  },
+  "settingsGetMore": "Get more readings",
+  "@settingsGetMore": {
+    "description": "S20 balance row action → S11."
+  },
+  "settingsLanguage": "Language",
+  "@settingsLanguage": {
+    "description": "S20 row → S21."
+  },
+  "settingsLanguageSystem": "System",
+  "@settingsLanguageSystem": {
+    "description": "S20 language value when following the phone."
+  },
+  "settingsReminder": "Daily reminder",
+  "@settingsReminder": {
+    "description": "S20 row → S22."
+  },
+  "settingsReminderOff": "Off",
+  "@settingsReminderOff": {
+    "description": "S20 reminder value when disabled."
+  },
+  "settingsReversals": "Reversed cards",
+  "@settingsReversals": {
+    "description": "S20 switch (PR7)."
+  },
+  "settingsReversalsSubtitle": "Cards can land upside down",
+  "@settingsReversalsSubtitle": {
+    "description": "S20 reversed cards subtitle."
+  },
+  "settingsHaptics": "Haptics",
+  "@settingsHaptics": {
+    "description": "S20 switch."
+  },
+  "settingsTheme": "Theme",
+  "@settingsTheme": {
+    "description": "S20 row → theme sheet."
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "Theme option."
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Theme option."
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Theme option."
+  },
+  "settingsAiReadings": "AI readings",
+  "@settingsAiReadings": {
+    "description": "S20 row → S23 AI section."
+  },
+  "settingsAiAllowed": "Allowed",
+  "@settingsAiAllowed": {
+    "description": "AI readings status value."
+  },
+  "settingsAiNotAllowed": "Not allowed",
+  "@settingsAiNotAllowed": {
+    "description": "AI readings status value."
+  },
+  "settingsPrivacyChoices": "Privacy choices",
+  "@settingsPrivacyChoices": {
+    "description": "S20 row → S23."
+  },
+  "settingsExport": "Export backup",
+  "@settingsExport": {
+    "description": "S20 row → S24."
+  },
+  "settingsImport": "Import backup",
+  "@settingsImport": {
+    "description": "S20 row → S25."
+  },
+  "settingsDeleteAll": "Delete all data",
+  "@settingsDeleteAll": {
+    "description": "S20 row → S26."
+  },
+  "settingsHelpFaq": "Help & FAQ",
+  "@settingsHelpFaq": {
+    "description": "S20 row → S28."
+  },
+  "settingsSupportLines": "Support lines",
+  "@settingsSupportLines": {
+    "description": "S20 row → S27 (also S28)."
+  },
+  "settingsSupportLinesSubtitle": "People you can talk to, wherever you are",
+  "@settingsSupportLinesSubtitle": {
+    "description": "S20/S28 support lines subtitle."
+  },
+  "settingsMoveReadings": "Move readings from another device",
+  "@settingsMoveReadings": {
+    "description": "S20 row: re-check past purchases and show a transfer code (RC84)."
+  },
+  "settingsMoveReadingsSubtitle": "Get a transfer code to send to support",
+  "@settingsMoveReadingsSubtitle": {
+    "description": "S20 move readings subtitle."
+  },
+  "settingsTransferChecking": "Checking your past purchases…",
+  "@settingsTransferChecking": {
+    "description": "Move readings: in progress."
+  },
+  "settingsTransferCodeTitle": "Your transfer code",
+  "@settingsTransferCodeTitle": {
+    "description": "Move readings: code dialog title."
+  },
+  "settingsTransferCodeBody": "Email this code together with your Support ID to support. We’ll move your unused readings to this device.",
+  "@settingsTransferCodeBody": {
+    "description": "Move readings: code dialog body."
+  },
+  "settingsTransferNothing": "No readings from other devices were found for this store account.",
+  "@settingsTransferNothing": {
+    "description": "Move readings: nothing found."
+  },
+  "settingsTransferNotEligible": "These purchases can’t be moved automatically. Contact support with your Support ID.",
+  "@settingsTransferNotEligible": {
+    "description": "Move readings: not eligible."
+  },
+  "settingsTransferFailed": "We couldn’t check your purchases. Please try again.",
+  "@settingsTransferFailed": {
+    "description": "Move readings: failed."
+  },
+  "settingsLegal": "Legal",
+  "@settingsLegal": {
+    "description": "S20 row → S29."
+  },
+  "settingsLegalSubtitle": "Terms, privacy, licences",
+  "@settingsLegalSubtitle": {
+    "description": "S20 legal subtitle."
+  },
+  "settingsRate": "Rate Taro",
+  "@settingsRate": {
+    "description": "S20 row: opens the store review sheet."
+  },
+  "settingsVersion": "Taro {version} ({build})",
+  "@settingsVersion": {
+    "description": "S20 about: app version and build.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "build": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsSupportId": "Support ID {id}",
+  "@settingsSupportId": {
+    "description": "S20/S28 Support ID (first 8 hex chars of SHA-256(installId), RC43).",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsCopyId": "Copy ID",
+  "@settingsCopyId": {
+    "description": "Copies the Support ID."
+  },
+  "settingsSupportIdCaption": "Share the Support ID if you contact us. It doesn’t identify you.",
+  "@settingsSupportIdCaption": {
+    "description": "S20 about caption."
+  },
+  "settingsRestoreInProgress": "Restoring purchases…",
+  "@settingsRestoreInProgress": {
+    "description": "S20 restoreInProgress semantics."
+  },
+  "languageTitle": "Language",
+  "@languageTitle": {
+    "description": "S21 title."
+  },
+  "languageBody": "Menus, card meanings and new readings use this language.",
+  "@languageBody": {
+    "description": "S21 body."
+  },
+  "languageLegend": "App language",
+  "@languageLegend": {
+    "description": "S21 radio group legend (visually hidden)."
+  },
+  "languageUsePhone": "Use phone language",
+  "@languageUsePhone": {
+    "description": "S21 system option."
+  },
+  "languageFromPhone": "{language}, from your phone settings",
+  "@languageFromPhone": {
+    "description": "S21 system option subtitle.",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "languageChoose": "Choose a language",
+  "@languageChoose": {
+    "description": "S21 caption above the list."
+  },
+  "languageNote": "Past readings in your journal keep the language they were written in. Only new readings change.",
+  "@languageNote": {
+    "description": "S21 info notice (01 §13)."
+  },
+  "reminderTitle": "Daily reminder",
+  "@reminderTitle": {
+    "description": "S22 title."
+  },
+  "reminderBody": "A gentle nudge for your daily card.",
+  "@reminderBody": {
+    "description": "S22 body."
+  },
+  "reminderToggle": "Daily card reminder",
+  "@reminderToggle": {
+    "description": "S22 switch row."
+  },
+  "reminderAt": "Remind me at",
+  "@reminderAt": {
+    "description": "S22 time block caption."
+  },
+  "reminderChange": "Change",
+  "@reminderChange": {
+    "description": "S22 time button action → time picker."
+  },
+  "reminderPreviewCaption": "What you’ll see",
+  "@reminderPreviewCaption": {
+    "description": "S22 preview caption."
+  },
+  "reminderPreviewNote": "The wording changes a little from day to day. It never shows your card.",
+  "@reminderPreviewNote": {
+    "description": "S22 preview footnote."
+  },
+  "reminderPermissionNote": "Your phone asks for permission to send notifications when you turn this on.",
+  "@reminderPermissionNote": {
+    "description": "S22 info notice."
+  },
+  "reminderPermissionDenied": "Notifications are off in system settings",
+  "@reminderPermissionDenied": {
+    "description": "S22 permissionDenied notice (with Open settings)."
+  },
+  "reminderTimeSemantics": "Reminder time {time}. Double-tap to change",
+  "@reminderTimeSemantics": {
+    "description": "S22 time button semantics.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "privacyTitle": "Privacy choices",
+  "@privacyTitle": {
+    "description": "S23 title."
+  },
+  "privacyBody": "Taro works fully whatever you choose here.",
+  "@privacyBody": {
+    "description": "S23 body."
+  },
+  "privacyAiHeading": "AI readings",
+  "@privacyAiHeading": {
+    "description": "S23 section heading."
+  },
+  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (Anthropic or OpenAI) to write readings.",
+  "@privacyAiAllowedSubtitle": {
+    "description": "S23 AI status subtitle (providers of ai.disclosedProviders, RC97)."
+  },
+  "privacyAiNotAllowedSubtitle": "Nothing is sent. You can still use classic readings.",
+  "@privacyAiNotAllowedSubtitle": {
+    "description": "S23 AI status subtitle when declined."
+  },
+  "privacyAiWithdraw": "Withdraw",
+  "@privacyAiWithdraw": {
+    "description": "S23 AI withdraw pill."
+  },
+  "privacyAiAllow": "Allow",
+  "@privacyAiAllow": {
+    "description": "S23 AI allow pill → S04."
+  },
+  "privacyWithdrawTitle": "Stop AI readings?",
+  "@privacyWithdrawTitle": {
+    "description": "S23 withdraw dialog title."
+  },
+  "privacyWithdrawBody": "You can still use classic readings, the daily card, Learn and your journal.",
+  "@privacyWithdrawBody": {
+    "description": "S23 withdraw dialog body."
+  },
+  "privacyWithdrawConfirm": "Stop AI readings",
+  "@privacyWithdrawConfirm": {
+    "description": "S23 withdraw dialog confirm (equal weight with Cancel)."
+  },
+  "privacyAdsHeading": "Ads",
+  "@privacyAdsHeading": {
+    "description": "S23 section heading."
+  },
+  "privacyAdPersonalisation": "Ad personalisation",
+  "@privacyAdPersonalisation": {
+    "description": "S23 UMP row title (shown when privacy options are required)."
+  },
+  "privacyAdPersonalisationSubtitle": "Managed through the ad consent form. Ads never appear inside a reading.",
+  "@privacyAdPersonalisationSubtitle": {
+    "description": "S23 UMP row subtitle."
+  },
+  "privacyReviewAdChoices": "Review ad choices",
+  "@privacyReviewAdChoices": {
+    "description": "S23 button: opens the UMP privacy options form."
+  },
+  "privacyTracking": "Tracking",
+  "@privacyTracking": {
+    "description": "S23 ATT row title (iOS only)."
+  },
+  "privacyTrackingAllowed": "Allowed · change in iOS Settings",
+  "@privacyTrackingAllowed": {
+    "description": "S23 ATT status authorized (iOS only)."
+  },
+  "privacyTrackingNotAllowed": "Not allowed · change in iOS Settings",
+  "@privacyTrackingNotAllowed": {
+    "description": "S23 ATT status denied or restricted (iOS only)."
+  },
+  "privacyTrackingNotAsked": "Not asked yet",
+  "@privacyTrackingNotAsked": {
+    "description": "S23 ATT status not determined (iOS only)."
+  },
+  "privacyImprovingHeading": "Improving Taro",
+  "@privacyImprovingHeading": {
+    "description": "S23 section heading."
+  },
+  "privacyAnalytics": "Usage analytics",
+  "@privacyAnalytics": {
+    "description": "S23 analytics switch."
+  },
+  "privacyAnalyticsSubtitle": "Which screens get used, and crash reports. Never your questions or readings.",
+  "@privacyAnalyticsSubtitle": {
+    "description": "S23 analytics switch subtitle."
+  },
+  "privacyReadPolicy": "Read the privacy policy",
+  "@privacyReadPolicy": {
+    "description": "S23 link."
+  },
+  "exportTitle": "Export backup",
+  "@exportTitle": {
+    "description": "S24 title."
+  },
+  "exportBody": "Keep a copy of your journal in one file.",
+  "@exportBody": {
+    "description": "S24 body."
+  },
+  "exportIncluded": "Included",
+  "@exportIncluded": {
+    "description": "S24 panel heading."
+  },
+  "exportJournal": "Your journal",
+  "@exportJournal": {
+    "description": "S24 included item."
+  },
+  "exportJournalCount": "{count, plural, one{1 entry} other{{count} entries}}",
+  "@exportJournalCount": {
+    "description": "S24 journal count at the end of the item.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportNotes": "Your notes",
+  "@exportNotes": {
+    "description": "S24 included item."
+  },
+  "exportFavourites": "Favourites",
+  "@exportFavourites": {
+    "description": "S24 included item."
+  },
+  "exportSettings": "Settings: theme, language, reminder",
+  "@exportSettings": {
+    "description": "S24 included item."
+  },
+  "exportNotIncluded": "Not included",
+  "@exportNotIncluded": {
+    "description": "S24 panel heading."
+  },
+  "exportBalance": "Readings balance and purchases",
+  "@exportBalance": {
+    "description": "S24 excluded item."
+  },
+  "exportBalanceCaption": "They stay with this install.",
+  "@exportBalanceCaption": {
+    "description": "S24 excluded item caption."
+  },
+  "exportConsent": "Privacy and AI choices",
+  "@exportConsent": {
+    "description": "S24 excluded item."
+  },
+  "exportConsentCaption": "You make them again on a new phone.",
+  "@exportConsentCaption": {
+    "description": "S24 excluded item caption."
+  },
+  "exportButton": "Export backup",
+  "@exportButton": {
+    "description": "S24 primary button."
+  },
+  "exportPreparing": "Preparing…",
+  "@exportPreparing": {
+    "description": "S24 preparing button label."
+  },
+  "exportButtonCaption": "Opens the share sheet: Files, Drive, email and more.",
+  "@exportButtonCaption": {
+    "description": "S24 caption under the button."
+  },
+  "exportDoneTitle": "Backup saved.",
+  "@exportDoneTitle": {
+    "description": "S24 done notice title."
+  },
+  "exportDoneBody": "Keep it somewhere private: it holds your questions and notes.",
+  "@exportDoneBody": {
+    "description": "S24 done notice body."
+  },
+  "exportFailed": "We couldn’t create the backup file.",
+  "@exportFailed": {
+    "description": "S24 failed(storage) notice (with Retry)."
+  },
+  "importTitle": "Import backup",
+  "@importTitle": {
+    "description": "S25 title."
+  },
+  "importBody": "Check what’s in the file, then choose how to bring it in.",
+  "@importBody": {
+    "description": "S25 body."
+  },
+  "importChooseFile": "Choose a file",
+  "@importChooseFile": {
+    "description": "S25 picking primary button."
+  },
+  "importChooseAnother": "Choose another file",
+  "@importChooseAnother": {
+    "description": "S25 link / primary after an invalid file."
+  },
+  "importValidating": "Checking the file…",
+  "@importValidating": {
+    "description": "S25 validating progress row."
+  },
+  "importExportedOn": "Exported {date}",
+  "@importExportedOn": {
+    "description": "S25 file card date (DateFormat per locale).",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "importSummary": "{readings, plural, one{1 reading} other{{readings} readings}} · {dailyCards, plural, one{1 daily card} other{{dailyCards} daily cards}}",
+  "@importSummary": {
+    "description": "S25 file card summary.",
+    "placeholders": {
+      "readings": {
+        "type": "int"
+      },
+      "dailyCards": {
+        "type": "int"
+      }
+    }
+  },
+  "importChecked": "File checked. Everything looks right.",
+  "@importChecked": {
+    "description": "S25 status row after validation."
+  },
+  "importBalanceNote": "Backups don’t include readings balance or purchases, so yours stays as it is.",
+  "@importBalanceNote": {
+    "description": "S25 caption under Import (01 F5)."
+  },
+  "importModeLegend": "How to bring it in",
+  "@importModeLegend": {
+    "description": "S25 mode fieldset legend."
+  },
+  "importMerge": "Merge with my journal",
+  "@importMerge": {
+    "description": "S25 merge option (default)."
+  },
+  "importMergeBody": "Adds what you don’t have yet. If an entry is in both, the newer version is kept.",
+  "@importMergeBody": {
+    "description": "S25 merge description."
+  },
+  "importReplace": "Replace my journal",
+  "@importReplace": {
+    "description": "S25 replace option."
+  },
+  "importReplaceBody": "Removes the journal on this phone and uses the backup instead. You’ll confirm first.",
+  "@importReplaceBody": {
+    "description": "S25 replace description."
+  },
+  "importButton": "Import",
+  "@importButton": {
+    "description": "S25 primary button."
+  },
+  "importInvalidNotTaro": "This isn’t a Taro backup file",
+  "@importInvalidNotTaro": {
+    "description": "S25 invalid(notTaro)."
+  },
+  "importInvalidNewerVersion": "Update Taro to import this backup",
+  "@importInvalidNewerVersion": {
+    "description": "S25 invalid(newerVersion) (01 §7.11)."
+  },
+  "importInvalidCorrupt": "This file is damaged and can’t be imported",
+  "@importInvalidCorrupt": {
+    "description": "S25 invalid(corrupt)."
+  },
+  "importInvalidTooLarge": "This file is larger than 20 MB",
+  "@importInvalidTooLarge": {
+    "description": "S25 invalid(tooLarge)."
+  },
+  "importConfirmReplaceTitle": "Replace your journal?",
+  "@importConfirmReplaceTitle": {
+    "description": "S25 confirmReplace dialog title."
+  },
+  "importConfirmReplaceBody": "{count, plural, one{The 1 entry on this phone will be removed.} other{The {count} entries on this phone will be removed.}}",
+  "@importConfirmReplaceBody": {
+    "description": "S25 confirmReplace dialog body.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importConfirmReplaceAction": "Replace",
+  "@importConfirmReplaceAction": {
+    "description": "S25 confirmReplace destructive button."
+  },
+  "importProgress": "Importing {done} of {total}…",
+  "@importProgress": {
+    "description": "S25 importing progress.",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "importDone": "Imported {readings, plural, one{1 reading} other{{readings} readings}} and {dailyCards, plural, one{1 daily card} other{{dailyCards} daily cards}}",
+  "@importDone": {
+    "description": "S25 done summary.",
+    "placeholders": {
+      "readings": {
+        "type": "int"
+      },
+      "dailyCards": {
+        "type": "int"
+      }
+    }
+  },
+  "importOpenJournal": "Open Journal",
+  "@importOpenJournal": {
+    "description": "S25 done primary button."
+  },
+  "importFailed": "We couldn’t import this backup. Your journal is unchanged.",
+  "@importFailed": {
+    "description": "S25 failed notice (with Retry)."
+  },
+  "deleteTitle": "Delete all data",
+  "@deleteTitle": {
+    "description": "S26 title."
+  },
+  "deleteBody": "This can’t be undone. If you might want your journal later, export a backup first.",
+  "@deleteBody": {
+    "description": "S26 body."
+  },
+  "deleteExportFirst": "Export a backup",
+  "@deleteExportFirst": {
+    "description": "S26 inline link → S24."
+  },
+  "deleteErasedHeading": "What’s erased",
+  "@deleteErasedHeading": {
+    "description": "S26 panel heading."
+  },
+  "deleteErasedJournal": "{count, plural, =0{Your journal} one{Your journal: 1 entry} other{Your journal: {count} readings and daily cards}}",
+  "@deleteErasedJournal": {
+    "description": "S26 erased item.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteErasedNotes": "Your notes and favourites",
+  "@deleteErasedNotes": {
+    "description": "S26 erased item."
+  },
+  "deleteErasedSettings": "Settings and reminders on this phone",
+  "@deleteErasedSettings": {
+    "description": "S26 erased item."
+  },
+  "deleteErasedServer": "Readings waiting on our server to be delivered",
+  "@deleteErasedServer": {
+    "description": "S26 erased item."
+  },
+  "deleteKeptHeading": "What’s kept",
+  "@deleteKeptHeading": {
+    "description": "S26 panel heading."
+  },
+  "deleteKeptBalance": "Your readings balance: {balance}",
+  "@deleteKeptBalance": {
+    "description": "S26 kept item (RC37).",
+    "placeholders": {
+      "balance": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteKeptRemoveAds": "Your Remove Banner Ads purchase",
+  "@deleteKeptRemoveAds": {
+    "description": "S26 kept item."
+  },
+  "deleteKeptCaption": "So you don’t lose what you paid for.",
+  "@deleteKeptCaption": {
+    "description": "S26 kept caption."
+  },
+  "deleteConfirmLabel": "Type {word} to confirm",
+  "@deleteConfirmLabel": {
+    "description": "S26 typed confirmation label.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteConfirmWord": "DELETE",
+  "@deleteConfirmWord": {
+    "description": "S26 word the user types (compared case-insensitively)."
+  },
+  "deleteButton": "Delete all data",
+  "@deleteButton": {
+    "description": "S26 destructive button; enabled when the word matches."
+  },
+  "deleteDoneTitle": "Your data is deleted",
+  "@deleteDoneTitle": {
+    "description": "S26 done title."
+  },
+  "deleteDoneBody": "Your remaining readings and Remove Banner Ads are kept.",
+  "@deleteDoneBody": {
+    "description": "S26 done body (RC37, CS15)."
+  },
+  "deletePartial": "Deleted on this phone. We’ll finish removing server data when you’re back online.",
+  "@deletePartial": {
+    "description": "S26 partial notice."
+  },
+  "deleteFailed": "We couldn’t delete your data. Nothing was removed.",
+  "@deleteFailed": {
+    "description": "S26 failed notice (with Retry)."
+  },
+  "crisisEmergency": "If you’re in immediate danger, call {number}",
+  "@crisisEmergency": {
+    "description": "S27 emergency card line; the number comes from the country entry.",
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisCallNumber": "Call {number}",
+  "@crisisCallNumber": {
+    "description": "S27 emergency call button.",
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisSupportIn": "Support in {country}",
+  "@crisisSupportIn": {
+    "description": "S27 section caption; the country name is localized.",
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisCall": "Call",
+  "@crisisCall": {
+    "description": "S27 row action (tel:)."
+  },
+  "crisisText": "Text",
+  "@crisisText": {
+    "description": "S27 row action (sms:)."
+  },
+  "crisisOpen": "Open",
+  "@crisisOpen": {
+    "description": "S27 row action (url)."
+  },
+  "crisisHours": "{contact} · {hours}",
+  "@crisisHours": {
+    "description": "S27 contact line, e.g. '116 123 · free, 24/7'.",
+    "placeholders": {
+      "contact": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisInternationalName": "Find a helpline in another country",
+  "@crisisInternationalName": {
+    "description": "S27 international entry name."
+  },
+  "crisisInternationalBody": "Free, confidential support lines worldwide",
+  "@crisisInternationalBody": {
+    "description": "S27 international entry description."
+  },
+  "crisisOtherCountry": "Show resources for another country",
+  "@crisisOtherCountry": {
+    "description": "S27 text button → country picker sheet."
+  },
+  "crisisCountryPicker": "Choose a country",
+  "@crisisCountryPicker": {
+    "description": "S27 country picker sheet title."
+  },
+  "crisisLastChecked": "Last checked {date}",
+  "@crisisLastChecked": {
+    "description": "S27 footer from verifiedAt.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "helpTitle": "Help & FAQ",
+  "@helpTitle": {
+    "description": "S28 title."
+  },
+  "helpSearchHint": "Search help",
+  "@helpSearchHint": {
+    "description": "S28 search placeholder (also the hidden label)."
+  },
+  "helpCommonQuestions": "Common questions",
+  "@helpCommonQuestions": {
+    "description": "S28 section heading."
+  },
+  "helpSearchEmpty": "No answers match “{query}”",
+  "@helpSearchEmpty": {
+    "description": "S28 search no results.",
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "helpContactHeading": "Contact support",
+  "@helpContactHeading": {
+    "description": "S28 section heading."
+  },
+  "helpEmail": "Email",
+  "@helpEmail": {
+    "description": "S28 contact card label."
+  },
+  "helpEmailSupport": "Email support",
+  "@helpEmailSupport": {
+    "description": "S28 primary button (mailto with version, OS, locale, Support ID)."
+  },
+  "helpEmailSubject": "Taro support ({supportId})",
+  "@helpEmailSubject": {
+    "description": "Support e-mail subject.",
+    "placeholders": {
+      "supportId": {
+        "type": "String"
+      }
+    }
+  },
+  "helpEmailBody": "App: {version}\nSystem: {os}\nLanguage: {locale}\nSupport ID: {supportId}\n\n",
+  "@helpEmailBody": {
+    "description": "Support e-mail body prefix; no user content.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "os": {
+        "type": "String"
+      },
+      "locale": {
+        "type": "String"
+      },
+      "supportId": {
+        "type": "String"
+      }
+    }
+  },
+  "legalTitle": "Legal",
+  "@legalTitle": {
+    "description": "S29 title."
+  },
+  "legalDisclaimer": "Disclaimer",
+  "@legalDisclaimer": {
+    "description": "S29 tab."
+  },
+  "legalTerms": "Terms of use",
+  "@legalTerms": {
+    "description": "S29 tab."
+  },
+  "legalPrivacy": "Privacy policy",
+  "@legalPrivacy": {
+    "description": "S29 tab."
+  },
+  "legalLicences": "Open-source licences",
+  "@legalLicences": {
+    "description": "S29 tab."
+  },
+  "legalVersion": "v{version} · effective {date}",
+  "@legalVersion": {
+    "description": "S29 article version caption.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "legalWebNote": "Terms and privacy policy are also at taro.vshyrochuk.com",
+  "@legalWebNote": {
+    "description": "S29 footer caption."
+  },
+  "legalOpenInBrowser": "Open in browser",
+  "@legalOpenInBrowser": {
+    "description": "S29 offline fallback link."
+  },
+  "legalDisclaimerBody": "Taro does not predict the future. The cards are prompts for your own reflection, and what a card means for you is your decision. If you are going through something difficult, please talk to someone you trust or a support line.",
+  "@legalDisclaimerBody": {
+    "description": "S29 disclaimer second paragraph (after disclaimerOnboardingBody)."
+  },
+  "updateTitle": "Please update Taro",
+  "@updateTitle": {
+    "description": "S30 title."
+  },
+  "updateBody": "This version of Taro can no longer get new readings. Update to keep drawing readings.",
+  "@updateBody": {
+    "description": "S30 body."
+  },
+  "updateSafeTitle": "Your journal is safe.",
+  "@updateSafeTitle": {
+    "description": "S30 reassurance panel title."
+  },
+  "updateSafeBody": "It stays on this phone, and your readings balance and purchases stay too.",
+  "@updateSafeBody": {
+    "description": "S30 reassurance panel body."
+  },
+  "updateButton": "Update",
+  "@updateButton": {
+    "description": "S30 primary button → store link."
+  },
+  "updateCaptionIos": "Opens the App Store · You have Taro {version}",
+  "@updateCaptionIos": {
+    "description": "S30 caption on iOS only.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateCaptionAndroid": "Opens Google Play · You have Taro {version}",
+  "@updateCaptionAndroid": {
+    "description": "S30 caption on Android only.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "screenOutOfReadings": "Reading options",
+  "@screenOutOfReadings": {
+    "description": "Screen-reader name of the S10 sheet."
+  },
+  "screenRewarded": "Rewarded ad",
+  "@screenRewarded": {
+    "description": "Screen-reader name of the S12 overlay."
+  },
+  "screenReport": "Report",
+  "@screenReport": {
+    "description": "Screen-reader name of the S33 sheet."
+  },
+  "drawLeaveBodySaved": "Your cards are saved and you can finish it from the Journal.",
+  "@drawLeaveBodySaved": {
+    "description": "S08 back confirmation body once the reading is saved as pending (after the last pick, 01 §9.1)."
+  },
+  "storeOfflineNotice": "You’re offline. Connect to buy readings.",
+  "@storeOfflineNotice": {
+    "description": "S11 notice while the device is offline (the store needs the network)."
+  },
+  "cardPreviousAction": "Previous card",
+  "@cardPreviousAction": {
+    "description": "S17 button that opens the previous card in deck order."
+  },
+  "cardNextAction": "Next card",
+  "@cardNextAction": {
+    "description": "S17 button that opens the next card in deck order."
+  },
+  "importImporting": "Importing…",
+  "@importImporting": {
+    "description": "S25 importing state (progress bar label)."
+  },
+  "journalFailedLabel": "Not created",
+  "@journalFailedLabel": {
+    "description": "S14 status label of a failed reading (the user was not charged)."
+  },
+  "readingRatingPrompt": "Was this reading helpful?",
+  "@readingRatingPrompt": {
+    "description": "S09 rating control prompt above the thumbs (01 §7.4)."
+  },
+  "shareQuestionLabel": "My question",
+  "@shareQuestionLabel": {
+    "description": "Label before the question in shared reading text, when the user opts in (PR19)."
   }
 }

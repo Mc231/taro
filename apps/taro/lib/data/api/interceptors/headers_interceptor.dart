@@ -8,7 +8,8 @@ import 'package:taro_core/taro_core.dart';
 /// back it feeds every `Date` header into the [ServerClockTracker].
 final class HeadersInterceptor extends Interceptor {
   /// Creates the interceptor. [flavor] is sent only when not `null` (dev and
-  /// staging builds); [locale] is read per request.
+  /// staging builds); [locale] is read per request; [extraHeaders] (the
+  /// dev/staging debug attestation token, RC86) go on every request.
   HeadersInterceptor({
     required AppPlatform platform,
     required String appVersion,
@@ -17,13 +18,15 @@ final class HeadersInterceptor extends Interceptor {
     required Clock clock,
     required ServerClockTracker serverClock,
     String? flavor,
+    Map<String, String> extraHeaders = const {},
   }) : _platform = platform,
        _appVersion = appVersion,
        _locale = locale,
        _ids = ids,
        _clock = clock,
        _serverClock = serverClock,
-       _flavor = flavor;
+       _flavor = flavor,
+       _extraHeaders = extraHeaders;
 
   final AppPlatform _platform;
   final String _appVersion;
@@ -32,6 +35,7 @@ final class HeadersInterceptor extends Interceptor {
   final Clock _clock;
   final ServerClockTracker _serverClock;
   final String? _flavor;
+  final Map<String, String> _extraHeaders;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -42,6 +46,7 @@ final class HeadersInterceptor extends Interceptor {
       ..headers[TaroHeaders.locale] = _locale()
       ..headers[TaroHeaders.requestId] = _ids.uuidV4();
     if (_flavor != null) options.headers[TaroHeaders.flavor] = _flavor;
+    options.headers.addAll(_extraHeaders);
     final key = options.idempotencyKey;
     if (key != null) options.headers[TaroHeaders.idempotencyKey] = key;
     if (options.data != null) {

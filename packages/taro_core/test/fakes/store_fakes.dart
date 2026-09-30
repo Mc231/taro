@@ -156,3 +156,35 @@ final class FakeIapService with FakeBehaviour implements IapService {
     return const Result.ok(null);
   }
 }
+
+/// A [PurchaseOutboxDrainer] with scripted outcomes (the app's
+/// `PurchaseCoordinator` in production).
+///
+/// [drainOutbox] records the reason and returns [outcomes] unless a failure
+/// is queued with `failNext`.
+final class FakePurchaseOutboxDrainer
+    with FakeBehaviour
+    implements PurchaseOutboxDrainer {
+  /// A drainer answering [outcomes] (none by default).
+  FakePurchaseOutboxDrainer([this.outcomes = const {}]);
+
+  @override
+  String get fakeName => 'PurchaseOutboxDrainer';
+
+  /// What every [drainOutbox] returns.
+  Map<String, PurchaseOutcome> outcomes;
+
+  /// The reason of every [drainOutbox] call.
+  final List<SyncReason> reasons = [];
+
+  @override
+  Future<Result<Map<String, PurchaseOutcome>>> drainOutbox({
+    required SyncReason reason,
+  }) async {
+    record('drainOutbox');
+    reasons.add(reason);
+    final failure = takeFailure('drainOutbox');
+    if (failure != null) return Result.err(failure);
+    return Result.ok(outcomes);
+  }
+}

@@ -31,23 +31,36 @@ final class WorkerClientConfig {
     required this.appVersion,
     required this.locale,
     this.flavor,
+    this.extraHeaders = const {},
   });
 
   /// Settings from the [AppInfo] port: `X-Taro-App-Version` is
   /// `version+buildNumber` (`1.2.0+34`). Pass [flavor] only for non-prod
   /// builds.
+  ///
+  /// [extraHeaders] is the debug attestation hook of dev and staging
+  /// builds (`X-Taro-Debug-Attestation`, RC86): a prod build ([flavor]
+  /// `null`) with extra headers is a wiring mistake and throws
+  /// [StateError] (02 §15).
   factory WorkerClientConfig.fromAppInfo(
     AppInfo info, {
     required String baseUrl,
     required String Function() locale,
     String? flavor,
-  }) => WorkerClientConfig(
-    baseUrl: baseUrl,
-    platform: info.platform,
-    appVersion: '${info.version}+${info.buildNumber}',
-    locale: locale,
-    flavor: flavor,
-  );
+    Map<String, String> extraHeaders = const {},
+  }) {
+    if (flavor == null && extraHeaders.isNotEmpty) {
+      throw StateError('A prod build must not send debug headers.');
+    }
+    return WorkerClientConfig(
+      baseUrl: baseUrl,
+      platform: info.platform,
+      appVersion: '${info.version}+${info.buildNumber}',
+      locale: locale,
+      flavor: flavor,
+      extraHeaders: extraHeaders,
+    );
+  }
 
   /// The Worker origin, e.g. `https://api.taro.vshyrochuk.com` (paths
   /// carry `/v1`).
@@ -64,6 +77,9 @@ final class WorkerClientConfig {
 
   /// `X-Taro-Flavor` for dev/staging; `null` in prod.
   final String? flavor;
+
+  /// Headers added to every request (dev/staging debug attestation only).
+  final Map<String, String> extraHeaders;
 }
 
 /// The dio client of the Worker API (02 §6.3; the RC4 route set).
@@ -113,6 +129,7 @@ final class WorkerClient {
         appVersion: config.appVersion,
         locale: config.locale,
         flavor: config.flavor,
+        extraHeaders: config.extraHeaders,
         ids: ids,
         clock: clock,
         serverClock: this.serverClock,

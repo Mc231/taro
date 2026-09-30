@@ -66,6 +66,9 @@ dev_dependencies:
   json_serializable: ^6.14.1
   mocktail: ^1.0.5
   patrol: ^4.10.0
+  # The finders API (`PatrolTester`, `patrolWidgetTest`) of the fake-backed
+  # flows in integration_test/flows (RC13); already resolved through patrol.
+  patrol_finders: ^3.6.0
   very_good_analysis: ^10.3.0
 
 flutter:

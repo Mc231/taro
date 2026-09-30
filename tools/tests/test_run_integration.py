@@ -51,7 +51,7 @@ def _add(repo: Path, rel: str) -> None:
 def test_nothing_to_run(repo: Path) -> None:
     code, out, calls = _run(repo)
     assert code == 0
-    assert "no integration tests yet" in out
+    assert "no integration tests" in out
     assert calls == []
 
 
@@ -60,7 +60,7 @@ def test_spikes_run_with_flutter_test_on_the_device(repo: Path) -> None:
     code, out, calls = _run(repo, TARO_DEVICE_ID="SIM-1", TARO_INTEGRATION_PLATFORM="ios")
     assert code == 0, out
     assert calls == ["flutter taro test integration_test --flavor dev "
-                     "--dart-define-from-file=config/dev.json -d SIM-1"]
+                     "--dart-define-from-file=config/dev.json --dart-define=TARO_ENV=test -d SIM-1"]
     assert "platform=ios device=SIM-1" in out
 
 
@@ -69,7 +69,17 @@ def test_patrol_flows_win_and_device_is_optional(repo: Path) -> None:
     _add(repo, "patrol_test/onboarding_test.dart")
     code, out, calls = _run(repo, TARO_INTEGRATION_PLATFORM="android")
     assert code == 0, out
-    assert calls == ["patrol taro test --flavor dev --dart-define-from-file=config/dev.json"]
+    assert calls == ["patrol taro test --flavor dev --dart-define-from-file=config/dev.json "
+                     "--dart-define=TARO_ENV=test"]
+
+
+def test_flow_folders_run_with_flutter_test_and_taro_env_test(repo: Path) -> None:
+    _add(repo, "integration_test/flows/first_launch_free_reading_test.dart")
+    _add(repo, "integration_test/perf/cold_start_test.dart")
+    code, out, calls = _run(repo, TARO_INTEGRATION_PLATFORM="ios")
+    assert code == 0, out
+    assert calls == ["flutter taro test integration_test --flavor dev "
+                     "--dart-define-from-file=config/dev.json --dart-define=TARO_ENV=test"]
 
 
 def test_failures_propagate(repo: Path) -> None:

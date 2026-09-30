@@ -1,0 +1,4 @@
+# Fixture allowlist: overrides the real one (whose keys name real ARB keys
+# the fixture ARBs do not have, which would be stale here).
+keys:
+  - appTitle
