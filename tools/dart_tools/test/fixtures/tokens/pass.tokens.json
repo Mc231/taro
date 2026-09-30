@@ -1,0 +1,77 @@
+{
+  "$extensions": { "taro.modes": ["light", "dark"] },
+  "color": {
+    "$type": "color",
+    "bg": {
+      "canvas": {
+        "$value": "#FFFFFF",
+        "$description": "Canvas.",
+        "$extensions": { "taro.modes": { "light": "#FFFFFF", "dark": "#000000" } }
+      }
+    },
+    "text": {
+      "primary": {
+        "$value": "#111111",
+        "$extensions": { "taro.modes": { "light": "#111111", "dark": "#EEEEEE" } }
+      },
+      "link": { "$value": "{color.text.primary}" }
+    }
+  },
+  "space": {
+    "0": { "$type": "dimension", "$value": "0px" },
+    "4": { "$type": "dimension", "$value": "12px" }
+  },
+  "elevation": {
+    "1": {
+      "shadow": {
+        "$type": "shadow",
+        "$value": "0 1px 2px rgba(20, 23, 41, 0.08)",
+        "$extensions": {
+          "taro.modes": {
+            "light": "0 1px 2px rgba(20, 23, 41, 0.08), 0 1px 3px 1px #00000010",
+            "dark": "none"
+          }
+        }
+      },
+      "overlay": { "$type": "number", "$value": "0.03" }
+    }
+  },
+  "motion": {
+    "duration": {
+      "fast": {
+        "$type": "duration",
+        "$value": "150ms",
+        "$extensions": { "taro.reducedMotion": { "$type": "duration", "$value": "0ms" } }
+      }
+    },
+    "easing": {
+      "standard": {
+        "$type": "cubicBezier",
+        "$value": [0.2, 0, 0, 1],
+        "$extensions": { "taro.reducedMotion": { "$value": [0, 0, 1, 1] } }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "body": {
+        "latin": { "$type": "fontFamily", "$value": "Sans" },
+        "cyrillic": { "$type": "fontFamily", "$value": "Sans" },
+        "arabic": { "$type": "fontFamily", "$value": "Sans Arabic" }
+      }
+    }
+  },
+  "type": {
+    "body": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.family.body.latin}",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "lineHeight": "24px",
+        "letterSpacing": "0px"
+      }
+    }
+  },
+  "haptic": { "pick": { "$type": "string", "$value": "selection" } }
+}

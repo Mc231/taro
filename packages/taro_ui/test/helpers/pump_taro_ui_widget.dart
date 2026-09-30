@@ -18,9 +18,9 @@ TextDirection textDirectionOf(Locale locale) =>
 /// the package cannot import the app, so no `TaroLocalizations`; components
 /// take localised strings as parameters).
 ///
-/// [locale] only sets the text direction (`ar` is RTL); [textScale] and
-/// [size] match the app-level `pumpTaroWidget`. Animations are disabled
-/// (reduced motion).
+/// [locale] sets the text direction (`ar` is RTL) and the font script;
+/// [textScale] and [size] match the app-level `pumpTaroWidget`. Animations
+/// are disabled (reduced motion).
 Future<void> pumpTaroUiWidget(
   WidgetTester tester,
   Widget child, {
@@ -31,11 +31,12 @@ Future<void> pumpTaroUiWidget(
 }) {
   applyTestViewSize(tester, size);
   final direction = textDirectionOf(locale);
+  final script = TaroScript.forLocale(locale);
   return tester.pumpWidget(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: withTaroTestFonts(TaroTheme.light()),
-      darkTheme: withTaroTestFonts(TaroTheme.dark()),
+      theme: withTaroTestFonts(TaroTheme.light(script: script)),
+      darkTheme: withTaroTestFonts(TaroTheme.dark(script: script)),
       themeMode: themeMode,
       builder: (context, app) => MediaQuery(
         data: MediaQuery.of(context).copyWith(

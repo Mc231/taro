@@ -467,6 +467,12 @@ def test_script_entry_point(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> 
         ("named_ctor.dart", "@freezed\nabstract class U with _$U {\n  const U._();\n  const factory U() = _U;\n}\n", True),
         ("getter.dart", "abstract class G {\n  int get x => 1;\n}\n", True),
         ("field.dart", "class F {\n  final int x = 1;\n}\n", True),
+        (
+            "consts.dart",
+            "abstract final class K {\n  /// Doc.\n  static const double a = 1;\n  static const b = 1.5;\n}\n",
+            False,
+        ),
+        ("consts_and_field.dart", "class K {\n  static const a = 1;\n  static final b = [a];\n}\n", True),
         ("enum_init.dart", "enum E {\n  a(1);\n\n  const E(this.v) : assert(v > 0);\n\n  final int v;\n}\n", True),
         ("enum_static.dart", "enum E {\n  a;\n\n  static const all = [a];\n}\n", True),
         ("function.dart", "@visibleForTesting\nint f() {\n  return 1;\n}\n", True),

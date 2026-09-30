@@ -45,14 +45,39 @@ void main() {
     }
   });
 
-  test('withTaroTestFonts sets the family and script fallbacks', () {
-    final theme = withTaroTestFonts(ThemeData());
-    final style = theme.textTheme.bodyMedium!;
-    expect(style.fontFamily, kTaroTestFontFamily);
-    expect(style.fontFamilyFallback, kTaroTestFontFallback);
-    expect(
-      theme.primaryTextTheme.titleLarge!.fontFamilyFallback,
-      kTaroTestFontFallback,
-    );
+  test('every bundled taro_ui font file exists and is declared', () {
+    final dir = findTaroBundledFontsDir();
+    final pubspec = File('${dir.parent.path}/pubspec.yaml').readAsStringSync();
+    for (final MapEntry(key: family, value: files)
+        in kTaroBundledFonts.entries) {
+      expect(pubspec, contains('- family: $family'), reason: family);
+      for (final file in files) {
+        expect(File('${dir.path}/$file').existsSync(), isTrue, reason: file);
+        expect(pubspec, contains('asset: fonts/$file'), reason: file);
+      }
+    }
+  });
+
+  testWidgets('the bundled token fonts are loaded under their package names', (
+    tester,
+  ) async {
+    for (final family in kTaroBundledFonts.keys) {
+      final name = 'packages/taro_ui/$family';
+      expect(
+        _width('iiii', name),
+        lessThan(_width('MMMM', name)),
+        reason: name,
+      );
+    }
+  });
+
+  test('loadMaterialIconsFont needs the Flutter SDK', () async {
+    expect(await loadMaterialIconsFont(flutterRoot: '/nonexistent'), isFalse);
+    expect(await loadMaterialIconsFont(), isTrue);
+  });
+
+  test('withTaroTestFonts keeps the theme (token fonts are loaded)', () {
+    final theme = ThemeData();
+    expect(withTaroTestFonts(theme), same(theme));
   });
 }

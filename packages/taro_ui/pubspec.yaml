@@ -18,3 +18,77 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^1.0.5
   very_good_analysis: ^10.3.0
+
+# Bundled OFL fonts per script (01 §13, Phase 15 Sprint 15.1): no runtime
+# Google Fonts fetch. Families are the `font.family.*` token values; the
+# files are built by fonts/build_fonts.sh (sources, subsets and size budget:
+# fonts/README.md). The app reaches them through `TextStyle.package`
+# ('taro_ui'), which the generated token styles set.
+flutter:
+  # The OFL licences of the bundled fonts, registered with LicenseRegistry by
+  # registerTaroFontLicenses() (OFL 1.1 condition 2).
+  assets:
+    - fonts/licenses/
+  fonts:
+    - family: Literata
+      fonts:
+        - asset: fonts/Literata-Regular.ttf
+          weight: 400
+        - asset: fonts/Literata-Medium.ttf
+          weight: 500
+        - asset: fonts/Literata-SemiBold.ttf
+          weight: 600
+    - family: IBM Plex Sans
+      fonts:
+        - asset: fonts/TaroSans-Regular.ttf
+          weight: 400
+        - asset: fonts/TaroSans-Medium.ttf
+          weight: 500
+        - asset: fonts/TaroSans-SemiBold.ttf
+          weight: 600
+    - family: IBM Plex Sans Arabic
+      fonts:
+        - asset: fonts/TaroSansArabic-Regular.ttf
+          weight: 400
+        - asset: fonts/TaroSansArabic-Medium.ttf
+          weight: 500
+        - asset: fonts/TaroSansArabic-SemiBold.ttf
+          weight: 600
+    - family: IBM Plex Sans JP
+      fonts:
+        - asset: fonts/TaroSansJP-Regular.ttf
+          weight: 400
+        - asset: fonts/TaroSansJP-SemiBold.ttf
+          weight: 600
+    - family: IBM Plex Sans KR
+      fonts:
+        - asset: fonts/TaroSansKR-Regular.ttf
+          weight: 400
+        - asset: fonts/TaroSansKR-SemiBold.ttf
+          weight: 600
+    # The token names "Noto Serif Arabic"; Google Fonts publishes Noto's
+    # serif Arabic design as Noto Naskh Arabic (see fonts/README.md).
+    - family: Noto Serif Arabic
+      fonts:
+        - asset: fonts/NotoNaskhArabic-Regular.ttf
+          weight: 400
+        - asset: fonts/NotoNaskhArabic-Medium.ttf
+          weight: 500
+        - asset: fonts/NotoNaskhArabic-SemiBold.ttf
+          weight: 600
+    - family: Noto Serif JP
+      fonts:
+        - asset: fonts/NotoSerifJP-Regular.ttf
+          weight: 400
+        - asset: fonts/NotoSerifJP-SemiBold.ttf
+          weight: 600
+    - family: Noto Serif KR
+      fonts:
+        - asset: fonts/NotoSerifKR-Regular.ttf
+          weight: 400
+        - asset: fonts/NotoSerifKR-SemiBold.ttf
+          weight: 600
+    - family: IM Fell English SC
+      fonts:
+        - asset: fonts/IMFellEnglishSC-Regular.ttf
+          weight: 400

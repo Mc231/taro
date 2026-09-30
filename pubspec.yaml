@@ -51,6 +51,14 @@ melos:
       packageFilters:
         dependsOn: build_runner
 
+    gen:tokens:
+      description: Generate TaroTokens (taro_tokens.g.dart) from docs/design/taro.tokens.json (02 §14.1); CI runs it with --check and validate_tokens.
+      run: dart run tools/tokens/generate.dart && dart run tools/tokens/validate_tokens.dart
+
+    gen:state_inventory:
+      description: Generate docs/design/STATE_INVENTORY.md from the screen controllers' sealed state unions (Phase 13.4); `-- --check` fails when it is stale.
+      run: dart run tools/dart_tools/bin/gen_state_inventory.dart
+
     gen:l10n:
       description: Generate TaroLocalizations from the ARB files.
       exec:

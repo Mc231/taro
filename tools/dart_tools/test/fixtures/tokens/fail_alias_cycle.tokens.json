@@ -1,0 +1,8 @@
+{
+  "$extensions": { "taro.modes": ["light", "dark"] },
+  "space": {
+    "a": { "$type": "dimension", "$value": "{space.b}" },
+    "b": { "$type": "dimension", "$value": "{space.c}" },
+    "c": { "$type": "dimension", "$value": "{space.a}" }
+  }
+}

@@ -111,6 +111,15 @@ jobs:
       - name: Placeholder art is current (tools/content/placeholder_art --check)
         run: tools/content/placeholder_art --check
 
+      # Design tokens (Phase 15 Sprint 15.1, 02 §14.1): the 01 §14 contract
+      # (names in both modes, reduced motion, fonts per script, contrast) and
+      # the generated TaroTokens are current.
+      - name: Token contract (tools/tokens/validate_tokens.dart)
+        run: dart run tools/tokens/validate_tokens.dart
+
+      - name: Generated tokens are current (tools/tokens/generate.dart --check)
+        run: dart run tools/tokens/generate.dart --check
+
       - name: Repo checks (tools/check_*.py, tools/store_copy/check_*.py)
         run: |
           fail=0

@@ -1,0 +1,12 @@
+{
+  "$extensions": { "taro.modes": ["light", "dark"] },
+  "color": {
+    "bg": {
+      "canvas": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": { "taro.modes": { "light": "#FFFFFF" } }
+      }
+    }
+  }
+}

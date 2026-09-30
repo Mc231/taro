@@ -4,13 +4,15 @@
 #
 #   tools/verify.sh           everything `ci` runs except integration tests:
 #                             format, analyze, every repo check, the deck
-#                             content checks (tools/content), gitleaks,
+#                             content checks (tools/content), the token
+#                             checks (tools/tokens), gitleaks,
 #                             worker lint/typecheck/prettier, `test:coverage`
 #                             (Dart unit + widget + golden, worker vitest,
 #                             tools pytest, native; tools/ci/test_coverage.sh)
 #                             and `coverage:check`.
 #   tools/verify.sh --fast    the pre-push gate: format, analyze, every repo
-#                             check, the content checks, gitleaks, and
+#                             check, the content and token checks,
+#                             gitleaks, and
 #                             `test:fast` (no goldens, no
 #                             integration) in the packages changed against
 #                             origin/main (all packages when there is no
@@ -219,6 +221,17 @@ content_checks() {
     "$DART" run "$bin/placeholder_art.dart" --check
 }
 
+# Design tokens (Phase 15 Sprint 15.1, 02 §14.1), as in reusable-static.yml:
+# the token file meets the 01 §14 contract and the generated Dart is current.
+token_checks() {
+  if [[ ! -f tools/tokens/validate_tokens.dart ]]; then
+    skip "tokens" "no tools/tokens/validate_tokens.dart"
+    return
+  fi
+  step "tokens: validate_tokens" "$DART" run tools/tokens/validate_tokens.dart
+  step "tokens: generate --check" "$DART" run tools/tokens/generate.dart --check
+}
+
 secrets_scan() {
   if ! in_path_or_file "$GITLEAKS"; then
     skip "gitleaks" "gitleaks not installed (CI runs it)"
@@ -268,6 +281,7 @@ step "format" "$MELOS" run format:check
 step "analyze" "$MELOS" run analyze
 repo_checks
 content_checks
+token_checks
 secrets_scan
 lint_ci_files
 

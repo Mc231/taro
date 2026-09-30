@@ -411,6 +411,7 @@ _DART_TYPE_RE = re.compile(
     r"^(?:(?:abstract|sealed|base|final|interface|mixin)\s+)*(class|mixin|enum)\s+([\w$]+)"
 )
 _DART_REDIRECT_RE = re.compile(r"^(?:const\s+)?factory\s+[\w$.]+\(\)\s*=\s*[\w$.<>, ]+$")
+_DART_STATIC_CONST_RE = re.compile(r"^static\s+const\s")
 _DART_STRING_RE = re.compile(r"'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"")
 
 
@@ -435,7 +436,8 @@ def _dart_statement_has_code(statement: str) -> bool:
     """Whether one top-level Dart declaration can produce coverage lines.
 
     Directives, typedefs, enums with only values, final fields and a const
-    constructor, and classes or mixins whose
+    constructor, classes holding only ``static const`` values, and classes
+    or mixins whose
     members are all abstract signatures or redirecting factories (interfaces,
     freezed unions whose code lives in the excluded ``*.freezed.dart`` part)
     produce none. Anything else, including any constructor, initializer or
@@ -465,6 +467,9 @@ def _dart_statement_has_code(statement: str) -> bool:
             member = stripped
         if re.match(rf"^(?:const\s+)?{re.escape(name)}(?:\.[\w$]+)?\(\)", member):
             return True
+        if _DART_STATIC_CONST_RE.match(member):
+            # A compile-time constant is folded; the VM emits no line for it.
+            continue
         if "=" in member and not _DART_REDIRECT_RE.match(member):
             return True
     return False
