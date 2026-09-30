@@ -49,6 +49,9 @@ paths = [
   # suite generates at run time, and purchase bindings are derived test UUIDs
   # (RC38). They grant nothing; real tokens never reach these files.
   '''^(worker|apps/taro)/test/contract/fixtures/[^/]+\.json$''',
+  # The redactor's sensitive-value corpus: made-up tokens that the tests assert
+  # never survive redaction. They are not real credentials.
+  '''^apps/taro/test/services/logging/redactor_test\.dart$''',
   # Lockfiles hold integrity hashes, not secrets.
   '''(^|/)pubspec\.lock$''',
   '''(^|/)package-lock\.json$''',

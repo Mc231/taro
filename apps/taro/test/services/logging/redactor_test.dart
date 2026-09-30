@@ -6,13 +6,14 @@ import 'package:taro/services/logging/redactor.dart';
 
 /// Values that must never survive redaction.
 const _installId = '7c1e4b2a-93d5-4f60-8a17-2b9c0e5d4f31';
-const _installSecret = 'qW3rT7yU9iO1pA5sD8fG2hJ4kL6zX0cV';
-const _deviceKey = 'Zm9vYmFyYmF6cXV4MTIzNDU2Nzg5MGFiY2RlZmdoaWo';
+const _installSecret = 'qW3rT7yU9iO1pA5sD8fG2hJ4kL6zX0cV'; // gitleaks:allow
+const _deviceKey =
+    'Zm9vYmFyYmF6cXV4MTIzNDU2Nzg5MGFiY2RlZmdoaWo'; // gitleaks:allow
 const _sessionJwt =
-    'eyJhbGciOiJFZERTQSJ9.eyJzdWIiOiI3YzFlNGIyYSIsImV4cCI6MTc5MH0.'
+    'eyJhbGciOiJFZERTQSJ9.eyJzdWIiOiI3YzFlNGIyYSIsImV4cCI6MTc5MH0.' // gitleaks:allow
     'c2lnbmF0dXJlLWJ5dGVzLWhlcmUtMTIzNDU2';
 const _appleJws =
-    'eyJhbGciOiJFUzI1NiIsIng1YyI6WyJNSUlF'
+    'eyJhbGciOiJFUzI1NiIsIng1YyI6WyJNSUlF' // gitleaks:allow
     'Il19.eyJ0cmFuc2FjdGlvbklkIjoiMjAwMDAwMDEifQ.MEUCIQDx9sig';
 const _playPurchaseToken =
     'opaque-token-up-to-150-characters.AO-J1OyNtKq3Xr8vWz2LmP5sQ7tU9wY1a'
