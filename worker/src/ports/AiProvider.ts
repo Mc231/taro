@@ -1,7 +1,19 @@
+import type { AI_EFFORTS, AiProviderId } from '../config/schema';
+import type { ReadingPromptInput } from '../prompts/build';
+import type { ReadingOutput } from '../prompts/templates';
+
 /**
- * The LLM port (03 §9.3, RC38). `AiResult` = ok | refused | truncated |
- * error{timeout | rate_limited | upstream | invalid_output} (GLOSSARY §9.2).
- * The Anthropic adapter and `FakeAiProvider` arrive in Phase 8.
+ * The LLM port (03 §9.3, RC38, RC97). One adapter per vendor
+ * (`AnthropicProvider`, `OpenAiProvider`) plus `FakeAiProvider`; all of them
+ * map into the same `AiResult` union and the normalised `AiUsage`, which the
+ * shared contract suite (`test/contracts/aiProvider.contract.ts`) enforces.
+ * `services/AiRouter` picks the adapter and model per tier.
+ */
+
+/**
+ * Normalised token usage of one upstream call (pricing contract,
+ * `domain/pricing.ts`): `inputTokens` are the uncached input tokens only,
+ * `outputTokens` include thinking / reasoning tokens.
  */
 export interface AiUsage {
   readonly inputTokens: number;
@@ -10,36 +22,114 @@ export interface AiUsage {
   readonly cacheWriteTokens: number;
 }
 
-export interface AiRequest {
+export const ZERO_USAGE: AiUsage = {
+  inputTokens: 0,
+  outputTokens: 0,
+  cacheReadTokens: 0,
+  cacheWriteTokens: 0,
+};
+
+export type AiEffort = (typeof AI_EFFORTS)[number];
+
+/** One billed upstream call: the provider, the model that served it and its usage. */
+export interface AiCall {
+  readonly provider: AiProviderId;
+  /** The serving model (may differ from the requested one after a server-side fallback). */
   readonly model: string;
-  readonly system: string;
-  readonly user: string;
+  readonly usage: AiUsage;
+}
+
+/** One reading generation, with the time budget of the whole handler (RC52). */
+export interface AiGenerateRequest {
+  readonly model: string;
+  readonly prompt: ReadingPromptInput;
+  /** `ai.maxTokensBySpread[spread]`; the truncation retry uses 1.5x. */
   readonly maxTokens: number;
-  readonly outputSchema: unknown;
-  readonly effort?: string;
-  readonly deadlineMs: number;
+  readonly effort: AiEffort;
+  /** `ai.refusalFallbacks` (Anthropic Opus only; other adapters ignore it). */
+  readonly refusalFallbacks: boolean;
+  /** `ai.timeoutMs`: the cap of one upstream call. */
+  readonly timeoutMs: number;
+  /** `ai.maxRetries`: retries on 429 / overloaded / 5xx / network, within the first 15 s. */
+  readonly maxRetries: number;
+  /** Epoch ms the reading handler started. */
+  readonly startedAt: number;
+  /** Epoch ms by which the handler must finish (`startedAt + ai.deadlineMs`). */
+  readonly deadlineAt: number;
 }
 
-export type AiErrorKind = 'timeout' | 'rate_limited' | 'upstream' | 'invalid_output';
+interface AiResultBase {
+  /** Every upstream call that reported usage (retries included), for pricing. */
+  readonly calls: readonly AiCall[];
+}
 
-export interface AiOk {
+/** An answered call; `output` passed `parseReadingOutput` (it may still be a declined classification). */
+export interface AiOk extends AiResultBase {
   readonly kind: 'ok';
-  readonly output: unknown;
-  readonly usage: AiUsage;
+  readonly output: ReadingOutput;
+  /** `provider/model` of the serving model (`readings.model`). */
+  readonly model: string;
 }
 
-export interface AiRefusedOrTruncated {
-  readonly kind: 'refused' | 'truncated';
-  readonly usage: AiUsage;
+/** The vendor refused; `category` is the vendor's own label when it gives one. */
+export interface AiRefused extends AiResultBase {
+  readonly kind: 'refused';
+  readonly category: string | null;
+  readonly model: string;
 }
 
-export interface AiError {
-  readonly kind: 'error';
-  readonly error: AiErrorKind;
+/** Cut by the output-token limit (after the one 1.5x retry). */
+export interface AiTruncated extends AiResultBase {
+  readonly kind: 'truncated';
+  readonly model: string;
 }
 
-export type AiResult = AiOk | AiRefusedOrTruncated | AiError;
+/** A normal end whose text is not valid JSON or fails the zod parse. */
+export interface AiInvalidOutput extends AiResultBase {
+  readonly kind: 'invalid_output';
+  readonly model: string;
+  readonly issues: readonly string[];
+}
+
+/** No usable answer from the vendor (after the retry policy). */
+export interface AiOutage extends AiResultBase {
+  readonly kind: 'timeout' | 'rate_limited' | 'upstream';
+}
+
+export type AiResult = AiOk | AiRefused | AiTruncated | AiInvalidOutput | AiOutage;
+export type AiResultKind = AiResult['kind'];
+
+/** Kinds after which `AiRouter` may try `ai.outageFallback.*` (never after a safety decision). */
+export const AI_OUTAGE_KINDS: readonly AiResultKind[] = ['timeout', 'rate_limited', 'upstream'];
+
+export function isAiOutage(result: AiResult): result is AiOutage {
+  return AI_OUTAGE_KINDS.includes(result.kind);
+}
+
+/** Result of the optional moderation capability (03 §9.4, RC97). */
+export type AiModerationResult =
+  | { readonly kind: 'ok'; readonly flagged: boolean; readonly categories: readonly string[] }
+  | { readonly kind: 'error' };
 
 export interface AiProvider {
-  generate(request: AiRequest): Promise<AiResult>;
+  readonly id: AiProviderId;
+  generate(request: AiGenerateRequest): Promise<AiResult>;
+  /** Present only on adapters with a moderation endpoint (`ai.moderation.provider`). */
+  readonly moderate?: (text: string, timeoutMs: number) => Promise<AiModerationResult>;
+}
+
+/** The adapters `makeProdDeps` built: one per provider whose key is present (RC97). */
+export type AiProviders = Readonly<Partial<Record<AiProviderId, AiProvider>>>;
+
+/** Summed usage of a result's calls. */
+export function totalUsage(calls: readonly AiCall[]): AiUsage {
+  return calls.reduce<AiUsage>(
+    (sum, call) => ({
+      inputTokens: sum.inputTokens + call.usage.inputTokens,
+      outputTokens: sum.outputTokens + call.usage.outputTokens,
+      cacheReadTokens: sum.cacheReadTokens + call.usage.cacheReadTokens,
+      cacheWriteTokens: sum.cacheWriteTokens + call.usage.cacheWriteTokens,
+    }),
+    ZERO_USAGE,
+  );
 }

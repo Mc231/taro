@@ -39,18 +39,18 @@ _STATUS = re.compile(r"^\*\*Status:\*\*\s*(.+?)\s*$", re.MULTILINE)
 _BOX = re.compile(r"^\s*[-*]\s+\[([ xX])\]", re.MULTILINE)
 _FILE = re.compile(r"PHASE_(\d+)_.*\.md$")
 
-# Emoji or leading words → normalized status, checked in order.
+# Emoji first (a "🟡 … code complete" line is in progress), then words; in order.
 _STATUS_RULES: tuple[tuple[str, str], ...] = (
     ("✅", "done"),
-    ("complete", "done"),
-    ("done", "done"),
     ("⛔", "blocked"),
-    ("blocked", "blocked"),
     ("🟡", "in_progress"),
     ("🚧", "in_progress"),
     ("🔄", "in_progress"),
-    ("in progress", "in_progress"),
     ("⬜", "not_started"),
+    ("complete", "done"),
+    ("done", "done"),
+    ("blocked", "blocked"),
+    ("in progress", "in_progress"),
     ("not started", "not_started"),
 )
 

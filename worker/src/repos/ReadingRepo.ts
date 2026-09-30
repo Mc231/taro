@@ -349,7 +349,12 @@ export class ReadingRepo {
 
   /** Records model metadata (tokens, cost, safety) when a reading ends. */
   async recordResult(id: string, result: ReadingResult): Promise<void> {
-    await this.db
+    await this.recordResultStmt(id, result).run();
+  }
+
+  /** `recordResult` as a batch statement (the commit batch, 03 §9.1 step 6). */
+  recordResultStmt(id: string, result: ReadingResult): D1PreparedStatement {
+    return this.db
       .prepare(
         `UPDATE readings SET status = ?2, charge_source = COALESCE(?3, charge_source),
                 safety_category = ?4, safety_layer = ?5, prompt_version = ?6, model = ?7,
@@ -374,7 +379,115 @@ export class ReadingRepo {
         result.latencyMs ?? null,
         result.errorCode ?? null,
         result.completedAt ?? null,
+      );
+  }
+
+  /**
+   * The request metadata of a reading once its cards arrive (03 §9.1): the
+   * pre-draw hold only knew the spread and locale. Never the question (BE13).
+   */
+  async describe(
+    id: string,
+    request: {
+      readonly spreadId: string;
+      readonly cardCount: number;
+      readonly hasQuestion: boolean;
+      readonly locale: string;
+    },
+  ): Promise<void> {
+    await this.db
+      .prepare(
+        `UPDATE readings SET spread_id = ?2, card_count = ?3, has_question = ?4, locale = ?5
+          WHERE id = ?1`,
       )
+      .bind(id, request.spreadId, request.cardCount, request.hasQuestion ? 1 : 0, request.locale)
+      .run();
+  }
+
+  /**
+   * `held → generating` for exactly this attempt (03 §9.1 step 4).
+   * `hold_expires_at` becomes the stale-run cutoff (`ai.deadlineMs + 60 s`),
+   * which `refundStaleHolds` compares with (RC52).
+   */
+  async markGenerating(id: string, attempt: number, staleAt: string): Promise<boolean> {
+    const result = await this.db
+      .prepare(
+        `UPDATE readings SET status = 'generating', hold_expires_at = ?3
+          WHERE id = ?1 AND attempt = ?2 AND hold_state = 'held'
+            AND status IN ('held', 'generating')`,
+      )
+      .bind(id, attempt, staleAt)
+      .run();
+    return result.meta.changes === 1;
+  }
+
+  /** Other readings of the install with a live pre-draw hold (at most one open hold, 03 §9.0). */
+  async openHolds(installId: string, exceptId: string): Promise<ReadingRow[]> {
+    const { results } = await this.db
+      .prepare(
+        `SELECT * FROM readings WHERE install_id = ?1 AND id <> ?2
+            AND status = 'held' AND hold_state = 'held'`,
+      )
+      .bind(installId, exceptId)
+      .all<RawReading>();
+    return results.map(toReading);
+  }
+
+  /** `generating` rows past their stale cutoff (15-minute cron `refundStaleHolds`, RC52). */
+  async staleGenerating(now: string, limit: number): Promise<ReadingRow[]> {
+    const { results } = await this.db
+      .prepare(
+        `SELECT * FROM readings WHERE status = 'generating' AND hold_state = 'held'
+            AND hold_expires_at <= ?1 ORDER BY hold_expires_at LIMIT ?2`,
+      )
+      .bind(now, limit)
+      .all<RawReading>();
+    return results.map(toReading);
+  }
+
+  /** Completed, never acknowledged, completed on or before `cutoff` (hourly cron, RC51). */
+  async undelivered(cutoff: string, limit: number): Promise<ReadingRow[]> {
+    const { results } = await this.db
+      .prepare(
+        `SELECT * FROM readings WHERE status = 'completed' AND acked_at IS NULL
+            AND completed_at <= ?1 ORDER BY completed_at LIMIT ?2`,
+      )
+      .bind(cutoff, limit)
+      .all<RawReading>();
+    return results.map(toReading);
+  }
+
+  /**
+   * The undelivered refund gate (RC51): `consumed → refunded`,
+   * `completed → expired_refunded`, only while the reading is unacknowledged.
+   */
+  refundConsumedGateStmt(id: string, attempt: number, source: HoldSource): D1PreparedStatement {
+    return this.db
+      .prepare(
+        `UPDATE readings SET hold_state = 'refunded', status = 'expired_refunded'
+          WHERE id = ?1 AND hold_state = 'consumed' AND attempt = ?2 AND hold_source = ?3
+            AND status = 'completed' AND acked_at IS NULL`,
+      )
+      .bind(id, attempt, source);
+  }
+
+  /** An uncharged completed reading (`commit_after_refund`) expires without a refund. */
+  async expireUncharged(id: string): Promise<boolean> {
+    const result = await this.db
+      .prepare(
+        `UPDATE readings SET status = 'expired_refunded'
+          WHERE id = ?1 AND status = 'completed' AND hold_state <> 'consumed' AND acked_at IS NULL`,
+      )
+      .bind(id)
+      .run();
+    return result.meta.changes === 1;
+  }
+
+  /** `error_code` of a row a cron settled (`abandoned`), unless one is already set. */
+  async setErrorCode(id: string, code: string): Promise<void> {
+    await this.db
+      .prepare(`UPDATE readings SET error_code = ?2 WHERE id = ?1 AND error_code IS NULL`)
+      .bind(id, code)
       .run();
   }
 

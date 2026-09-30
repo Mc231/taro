@@ -277,6 +277,42 @@ export class InstallRepo {
       .bind(id, blockThreshold);
   }
 
+  /**
+   * Retention (03 §13): `active` installs with no balance sync and no reading
+   * since `cutoff` (24 months), a zero `paid` and `bonus` balance and no
+   * reading hold still `held` are pseudonymised: `status = 'deleted'`, the
+   * device, attestation, locale, timezone and app-version fields nulled and
+   * `token_generation + 1` (every token revoked). The install ID, the
+   * install-secret hash (the re-registration proof, §3.3), the store
+   * bindings and the ledger stay. A proven re-registration reactivates it.
+   */
+  async pseudonymiseInactive(cutoff: string, limit = 500): Promise<number> {
+    const result = await this.db
+      .prepare(
+        `UPDATE installs SET
+           status = 'deleted',
+           token_generation = token_generation + 1,
+           app_version = NULL, locale = NULL, timezone = NULL, tz_changed_at = NULL,
+           device_key_hash = NULL, attest_key_id = NULL, attest_public_key = NULL,
+           attest_counter = NULL, attest_env = NULL, integrity_verdict = NULL,
+           reregister_count_day = NULL
+         WHERE rowid IN (
+           SELECT i.rowid FROM installs i
+            WHERE i.status = 'active' AND i.last_seen_at < ?1
+              AND NOT EXISTS (SELECT 1 FROM readings r
+                               WHERE r.install_id = i.id
+                                 AND (r.created_at >= ?1 OR r.hold_state = 'held'))
+              AND COALESCE((SELECT SUM(l.delta) FROM ledger l
+                             WHERE l.install_id = i.id AND l.bucket = 'paid'), 0) = 0
+              AND COALESCE((SELECT SUM(l.delta) FROM ledger l
+                             WHERE l.install_id = i.id AND l.bucket = 'bonus'), 0) = 0
+            LIMIT ?2)`,
+      )
+      .bind(cutoff, limit)
+      .run();
+    return result.meta.changes;
+  }
+
   /** Erasure keeps the row and nulls `locale` only (03 §3.6, RC37). */
   eraseLocaleStmt(id: string): D1PreparedStatement {
     return this.db.prepare(`UPDATE installs SET locale = NULL WHERE id = ?1`).bind(id);

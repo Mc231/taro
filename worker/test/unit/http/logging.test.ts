@@ -36,6 +36,9 @@ describe('logging middleware (03 §14.1)', () => {
       },
     });
     h.logger.expectNoSensitive(INSTALL_ID, 'secret-path-param');
+    // One `http_response` point per response for the AlertService 5xx rate.
+    expect(h.metrics.responses).toEqual([{ event: 'http_response', code: '200', latencyMs: 42 }]);
+    expect(h.metrics.points).toEqual([]);
   });
 
   it('logs 5xx at error level with the error code', async () => {

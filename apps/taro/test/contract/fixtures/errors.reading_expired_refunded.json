@@ -1,0 +1,40 @@
+{
+  "error": {
+    "code": "READING_EXPIRED_REFUNDED",
+    "message": "The reading expired undelivered and was refunded.",
+    "requestId": "req-expired",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "balance": {
+        "free": {
+          "limit": 1,
+          "used": 1,
+          "remaining": 0,
+          "localDate": "2026-09-26",
+          "resetsAt": "2026-09-26T22:00:00Z",
+          "timezone": "Europe/Berlin",
+          "paused": false
+        },
+        "bonus": 0,
+        "paid": 1,
+        "canRead": true,
+        "canReadReason": null,
+        "nextSource": "paid",
+        "rewarded": {
+          "enabled": true,
+          "amount": 1,
+          "dailyCap": 3,
+          "grantedToday": 0,
+          "available": true,
+          "cooldownEndsAt": null
+        },
+        "paidBlocked": false,
+        "purchasesAllowed": true,
+        "purchasesBlockedReason": null,
+        "ledgerVersion": 10,
+        "serverTime": "2026-09-26T10:00:00Z"
+      }
+    }
+  }
+}

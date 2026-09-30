@@ -1,6 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:taro/data/api/dto/balance_dto.dart';
 import 'package:taro/data/api/dto/json_support.dart';
+import 'package:taro/data/content/asset_crisis_resources_repository.dart'
+    show kUnverifiedCrisisResourceAt;
 import 'package:taro_core/taro_core.dart';
 
 part 'reading_dtos.g.dart';
@@ -308,7 +310,7 @@ final class CrisisResourceDto {
   /// Creates the DTO.
   const CrisisResourceDto({
     required this.name,
-    required this.verifiedAt,
+    this.verifiedAt,
     this.languages = const [],
     this.phone,
     this.sms,
@@ -338,16 +340,18 @@ final class CrisisResourceDto {
   /// Languages served.
   final List<String> languages;
 
-  /// Last human verification.
-  @UtcInstantConverter()
-  final DateTime verifiedAt;
+  /// Last human verification; `null` until the owner verifies the entry
+  /// (Phase 18.4), mapped to [kUnverifiedCrisisResourceAt] like the bundled
+  /// directory.
+  @NullableUtcInstantConverter()
+  final DateTime? verifiedAt;
 
   /// The domain resource; throws a [FormatException] without a contact
   /// channel.
   CrisisResource toDomain() {
     final resource = CrisisResource(
       name: name,
-      verifiedAt: verifiedAt,
+      verifiedAt: verifiedAt ?? kUnverifiedCrisisResourceAt,
       languages: languages,
       phone: phone,
       sms: sms,

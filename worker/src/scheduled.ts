@@ -1,8 +1,18 @@
 import type { Deps } from './deps';
+import { daysBeforeDate, monthsBefore, RETENTION } from './domain/retention';
+import { DailyUsageRepo } from './repos/DailyUsageRepo';
+import { DeviceUsageRepo } from './repos/DeviceUsageRepo';
 import { IdempotencyRepo } from './repos/IdempotencyRepo';
+import { InstallRepo } from './repos/InstallRepo';
+import { ReadingRepo } from './repos/ReadingRepo';
+import { ReportRepo } from './repos/ReportRepo';
 import { RewardRepo } from './repos/RewardRepo';
 import { UsedChallengeRepo } from './repos/UsedChallengeRepo';
+import { AlertService } from './services/AlertService';
+import { BalanceService } from './services/BalanceService';
+import { BudgetService, isolateDauCache } from './services/BudgetService';
 import { PurchaseService } from './services/PurchaseService';
+import { UNDELIVERED_AFTER_MS } from './services/ReadingService';
 import { WebhookService } from './services/WebhookService';
 
 /**
@@ -101,15 +111,179 @@ export const voidedPurchasesBackstop: CronJob = {
 };
 
 /**
+ * Pre-draw holds past `hold_expires_at` that were never submitted (03 §9.0,
+ * §12): refunded (`expired_hold`), metric `hold_abandoned`. The refund is a
+ * compare-and-set, so a hold renewed or used in the meantime is untouched.
+ */
+export const releaseExpiredHolds: CronJob = {
+  name: 'releaseExpiredHolds',
+  run: (deps, now, limits) => {
+    const readings = new ReadingRepo(deps.db);
+    const balance = new BalanceService(deps);
+    return drain(limits, async (limit) => {
+      const rows = await readings.expiredHolds(now.toISOString(), limit);
+      for (const row of rows) {
+        await balance.refund({ readingId: row.id, reason: 'expired', attempt: row.attempt });
+      }
+      return rows.length;
+    });
+  },
+};
+
+/**
+ * `generating` rows past `ai.deadlineMs + 60 s` (isolate eviction, deploy
+ * cut-over; 03 §9.1, RC52): refunded, `failed`, `error_code='abandoned'`,
+ * metric `hold_abandoned`. A late commit re-takes the hold (03 §5.3 step 4).
+ */
+export const refundStaleHolds: CronJob = {
+  name: 'refundStaleHolds',
+  run: (deps, now, limits) => {
+    const readings = new ReadingRepo(deps.db);
+    const balance = new BalanceService(deps);
+    return drain(limits, async (limit) => {
+      const rows = await readings.staleGenerating(now.toISOString(), limit);
+      for (const row of rows) {
+        const result = await balance.refund({
+          readingId: row.id,
+          reason: 'abandoned',
+          attempt: row.attempt,
+        });
+        if (result.refunded) {
+          await readings.setErrorCode(row.id, 'abandoned');
+        }
+      }
+      return rows.length;
+    });
+  },
+};
+
+/**
+ * Completed readings never acknowledged within 7 days (RC51, 03 §9.1):
+ * refunded once (`reading_undelivered`, `expired_refunded`), metric
+ * `reading_undelivered_refund`.
+ */
+export const refundUndeliveredReadings: CronJob = {
+  name: 'refundUndeliveredReadings',
+  run: (deps, now, limits) => {
+    const readings = new ReadingRepo(deps.db);
+    const balance = new BalanceService(deps);
+    const cutoff = new Date(now.getTime() - UNDELIVERED_AFTER_MS).toISOString();
+    return drain(limits, async (limit) => {
+      const rows = await readings.undelivered(cutoff, limit);
+      for (const row of rows) {
+        await balance.refundUndelivered(row.id);
+      }
+      return rows.length;
+    });
+  },
+};
+
+/** `BudgetService.check` (03 §10.2, §12): the budget tier alerts. */
+export const budgetCheck: CronJob = {
+  name: 'budgetCheck',
+  run: async (deps, now) =>
+    new BudgetService(deps.db, isolateDauCache, { alerter: deps.alerter }).check(
+      await deps.config.snapshot(),
+      now,
+    ),
+};
+
+/** `AlertService.check` (03 §14.1): 5xx rate, `reading_failed` rate, webhook signature failures. */
+export const alertCheck: CronJob = {
+  name: 'alertCheck',
+  run: async (deps) => new AlertService(deps).check(await deps.config.snapshot()),
+};
+
+/** Retention (03 §13, RC22): `reading_reports` past `expires_at` (90 days). */
+export const purgeReadingReports: CronJob = {
+  name: 'purgeReadingReports',
+  run: (deps, now, limits) => {
+    const repo = new ReportRepo(deps.db);
+    return drain(limits, (limit) => repo.purgeExpired(now.toISOString(), limit));
+  },
+};
+
+/** Retention (03 §13): `readings` metadata older than 13 months (rows a live report references stay). */
+export const purgeReadings: CronJob = {
+  name: 'purgeReadings',
+  run: (deps, now, limits) => {
+    const repo = new ReadingRepo(deps.db);
+    const cutoff = monthsBefore(now, RETENTION.readingsMonths);
+    return drain(limits, (limit) => repo.purgeCreatedBefore(cutoff, limit));
+  },
+};
+
+/** Retention (03 §13): `ad_rewards` issued more than 13 months ago. */
+export const purgeAdRewards: CronJob = {
+  name: 'purgeAdRewards',
+  run: (deps, now, limits) => {
+    const repo = new RewardRepo(deps.db);
+    const cutoff = monthsBefore(now, RETENTION.adRewardsMonths);
+    return drain(limits, (limit) => repo.purgeIssuedBefore(cutoff, limit));
+  },
+};
+
+/** Retention (03 §13): `daily_usage` rows older than 90 days. */
+export const purgeDailyUsage: CronJob = {
+  name: 'purgeDailyUsage',
+  run: (deps, now, limits) => {
+    const repo = new DailyUsageRepo(deps.db);
+    const cutoff = daysBeforeDate(now, RETENTION.usageDays);
+    return drain(limits, (limit) => repo.purgeBefore(cutoff, limit));
+  },
+};
+
+/** Retention (03 §13, RC53): `device_daily_usage` rows older than 90 days. */
+export const purgeDeviceUsage: CronJob = {
+  name: 'purgeDeviceUsage',
+  run: (deps, now, limits) => {
+    const repo = new DeviceUsageRepo(deps.db);
+    const cutoff = daysBeforeDate(now, RETENTION.usageDays);
+    return drain(limits, (limit) => repo.purgeBefore(cutoff, limit));
+  },
+};
+
+/** Retention (03 §13, RC37): installs inactive for 24 months with balance 0 → pseudonymised. */
+export const pseudonymiseInactiveInstalls: CronJob = {
+  name: 'pseudonymiseInactiveInstalls',
+  run: (deps, now, limits) => {
+    const repo = new InstallRepo(deps.db);
+    const cutoff = monthsBefore(now, RETENTION.inactiveInstallMonths);
+    return drain(limits, (limit) => repo.pseudonymiseInactive(cutoff, limit));
+  },
+};
+
+/** The nightly retention purge (03 §12, §13), reports before the readings they reference. */
+export const RETENTION_JOBS: readonly CronJob[] = [
+  purgeReadingReports,
+  purgeReadings,
+  purgeAdRewards,
+  purgeDailyUsage,
+  purgeDeviceUsage,
+  pseudonymiseInactiveInstalls,
+];
+
+/**
  * The job table. Phase 7 registers `releaseExpiredHolds`, `refundStaleHolds`,
  * intent expiry, Google acknowledgements and the Voided Purchases backstop;
  * Phase 8 `BudgetService.check`, `AlertService.check`,
  * `refundUndeliveredReadings`, the retention purge and the daily summary.
  */
 export const CRON_JOBS: Readonly<Record<CronExpression, readonly CronJob[]>> = {
-  [CRON.quarterHourly]: [expireRewardIntents],
-  [CRON.hourly]: [purgeIdempotencyKeys, purgeUsedChallenges, retryPendingAcks],
-  [CRON.daily]: [voidedPurchasesBackstop],
+  [CRON.quarterHourly]: [
+    releaseExpiredHolds,
+    refundStaleHolds,
+    expireRewardIntents,
+    budgetCheck,
+    alertCheck,
+  ],
+  [CRON.hourly]: [
+    refundUndeliveredReadings,
+    purgeIdempotencyKeys,
+    purgeUsedChallenges,
+    retryPendingAcks,
+  ],
+  [CRON.daily]: [voidedPurchasesBackstop, ...RETENTION_JOBS],
 };
 
 function isCron(cron: string): cron is CronExpression {

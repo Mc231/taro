@@ -1,0 +1,244 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "it",
+  "reviewed": false,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["suicid\\p{L}*|autolesion\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["uccidermi|ammazzarmi|togliermi la vita|togliersi la vita"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["farla finita(?! con)"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["mi faccio del male|farmi del male"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["lettere? d'addio"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:mi butto|buttarmi|saltare) (?:giu )?dal (?:ponte|tetto|palazzo|balcone)"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["pastiglie|pillole|compresse", "non svegliar(?:si|mi)"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["addormentar(?:si|mi) e non svegliar(?:si|mi)"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:mondo|tutti|la mia famiglia) (?:starebbe|starebbero) meglio senza di me"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "sparire per sempre|smetto di esistere|stanc[oa] di vivere|addio per sempre|soldi dell'assicurazione|mi brucio|smetto di mangiare|non ce la faccio piu|tagliat[oa] di nuovo|mi taglio"
+      ]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:uccidere|ammazzare|avveleno|avvelenare|accoltellare|accoltellassi|strangolare) (?:il mio (?:\\p{L}+ )?(?:ex|capo|patrigno|vicino|coinquilino|collega|padre|fratello)|la mia (?:\\p{L}+ )?(?:ex|capa|collega|madre|sorella|vicina)|mio (?:padre|fratello|marito)|mia (?:madre|sorella|moglie)|la gente|il tizio)|spar\\p{L}* alla gente"
+      ]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["pestare"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:dargli|dare) fuoco alla (?:macchina|casa|auto)"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["buco le gomme|bucare le gomme"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["coltello|pistola|arma", "affrontarlo|affrontarla|aggredirlo"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["sparire", "senza che nessuno"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["spingo giu dalle scale|spingerlo giu dalle scale"]
+    },
+    {
+      "id": "ho.shooting",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["sparare nella mia (?:vecchia )?scuola"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:metto|mettere) qualcosa nel (?:suo )?(?:drink|bicchiere)"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["soffra|pagare", "fisicamente"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["lezione", "non sopravvivera"]
+    },
+    {
+      "id": "ho.ram",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["speronare"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["vendicarmi|vendetta|fare del male a|fare male a|aggredirlo|aggredirla|botte"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "sess\\p{L}*|erotic\\p{L}*|esplicit\\p{L}*|nud[oaie]|intimita|amanti|a letto con|sensual\\p{L}*|porno\\p{L}*|sedurre|notte romantica|attratt[ao] (?:sessualmente )?da me",
+        "(?:ragazza|ragazzo|bambina|bambino|cugina|cugino|studentessa|allieva|figliastra|una|un) (?:di|ha) (?:[1-9]|1[0-7])(?![\\p{N}]) anni|(?:lei|lui) ha (?:[1-9]|1[0-7])(?![\\p{N}]) anni|minorenn\\p{L}*|tredicenne|quattordicenne|quindicenne|scolaretta|ragazzini delle medie|adulto e un bambino"
+      ],
+      "unless": ["(?:mia|nostra) figlia|(?:mio|nostro) figlio|(?:i miei|i nostri) figli"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "cancro|tumore|diagnosi|malattia|malat[oa]|operazione|intervento|biopsia|risultati|chemio\\p{L}*|farmac\\p{L}*|antidepressivi|insulina|sintom\\p{L}*"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "incinta|gravidanza|concepire|aborto spontaneo|fertilita|sesso del bambino|avere figli"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "quando (?:morir\\p{L}*)|morira|moriro|quanto (?:tempo )?(?:gli|le|mi) resta|verra a mancare"
+      ]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "processo|tribunale|causa|avvocat\\p{L}*|visto|asilo|espuls\\p{L}*|affidamento|prigione|carcere|polizia|sfratto"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "azioni|cripto\\p{L}*|bitcoin|invest\\p{L}*|diventare ricc[oa]|borsa|pensione|risparmi|comprare o vendere"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": [
+        "lotteria|lotto|scommess\\p{L}*|scommettere|casino|jackpot|poker|roulette|blackjack|numeri vincenti"
+      ]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "immigrati|musulmani|ebrei|parassiti|insulti|molestare|molestie|voci su|lettera minatoria|razza superiore"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": ["senza dubbio", "sicuramente", "certamente", "con certezza", "le carte sanno"],
+    "forbiddenClaims": [
+      "morirai",
+      "diagnos*",
+      "antidepressiv*",
+      "investi in azioni",
+      "compra azioni",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": ["precisamente", "precisare", "domand[ae] precis[ae]"]
+  }
+}

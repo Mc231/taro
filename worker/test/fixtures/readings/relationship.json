@@ -1,0 +1,42 @@
+{
+  "title": "A quiet turning point",
+  "overview": "The cards point to a steady, reflective moment.",
+  "cards": [
+    {
+      "positionId": "you",
+      "cardId": "major_00",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "other",
+      "cardId": "major_01",
+      "reversed": true,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "connection",
+      "cardId": "cups_02",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "challenge",
+      "cardId": "wands_03",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "potential",
+      "cardId": "swords_04",
+      "reversed": true,
+      "interpretation": "This card invites you to notice what is already shifting."
+    }
+  ],
+  "synthesis": "Together they suggest one small, concrete step today.",
+  "reflectionPrompts": [
+    "What would change if you tried step 1?",
+    "What would change if you tried step 2?",
+    "What would change if you tried step 3?"
+  ]
+}

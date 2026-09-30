@@ -6,7 +6,7 @@
 //   node scripts/run.mjs config-push --env staging --dry-run
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { pathToFileURL } from 'node:url';
@@ -29,6 +29,8 @@ await build({
   platform: 'node',
   format: 'esm',
   packages: 'external',
+  // Prompt templates (prompts/**/*.md) are text modules, as in wrangler.toml.
+  loader: { '.md': 'text' },
   logLevel: 'warning',
 });
 
@@ -36,7 +38,12 @@ await build({
 const deps = {
   env: process.env,
   readFile: (file) => readFile(path.resolve(root, file), 'utf8'),
-  writeFile: (file, text) => writeFile(path.resolve(root, file), text, 'utf8'),
+  writeFile: async (file, text) => {
+    const target = path.resolve(root, file);
+    await mkdir(path.dirname(target), { recursive: true });
+    await writeFile(target, text, 'utf8');
+  },
+  listDir: (dir) => readdir(path.resolve(root, dir)),
   out: (line) => {
     process.stdout.write(`${line}\n`);
   },

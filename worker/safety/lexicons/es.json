@@ -1,0 +1,260 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "es",
+  "reviewed": false,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["suicid\\p{L}*|autolesion\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:quiero|voy a|pienso) matarme|me (?:quiero|voy a) matar|quitarme la vida|quitarse la vida|acabar con mi vida"
+      ]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["acabar con todo"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["hacerme dano|me hago dano"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:mundo|todos|mi familia) (?:\\p{L}+ )?(?:estaria|seria|estarian|serian) mejor sin mi|(?:estaria|seria) mejor el mundo sin mi"
+      ]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["pastillas", "no despertar"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["dormir(?:me)? y no despertar"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["cartas? de despedida"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:salto|saltar|tirarme|me tiro) (?:\\p{L}+ ){0,2}(?:del|de un|desde el) (?:puente|edificio|techo|balcon|acantilado)"
+      ]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "desaparecer para siempre|dejo de existir|dejar de existir|cansad[oa] de vivir|despedirme para siempre|dinero del seguro|me quemo|dejo de comer|no puedo mas|me volvi a cortar|cortarme"
+      ]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:matar|mato|envenenar|enveneno|apunalar|apunalo|disparar|disparo|dispararle|estrangular) (?:a )?(?:mi (?:\\p{L}+ )?(?:ex|jefe|jefa|mujer|marido|esposa|esposo|pareja|madre|padre|hermano|hermana|vecino|vecina|companero|companera|compa|casero|padrastro|madrastra|novio|novia)|la gente|el tipo|alguien)"
+      ]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["darle una paliza"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:quemarle|quemar) (?:el coche|la casa|el carro)"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["pincho las ruedas|pincharle las ruedas"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["cuchillo|pistola|arma", "encararlo|encararla|enfrentarlo|enfrentarla|atacarlo"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["desaparecer", "sin que nadie (?:se entere|lo sepa|se de cuenta)"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["empujo por las escaleras|empujar(?:lo|la)? por las escaleras"]
+    },
+    {
+      "id": "ho.shooting",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:disparando|disparar) en mi (?:antiguo )?(?:colegio|escuela|instituto|trabajo)"
+      ]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:echo|echarle|le echo) algo en (?:la|su) bebida"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["sufra|pagar", "fisicamente|a golpes"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["leccion", "no (?:va a )?sobrevivir"]
+    },
+    {
+      "id": "ho.crash",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["chocar contra el coche"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": [
+        "venganza|vengarme|vengarse|hacerle dano|le hago dano|lastimar|atacarlo|atacarla|golpe"
+      ]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "sex\\p{L}*|erotic\\p{L}*|explicit\\p{L}*|desnud\\p{L}*|intimidad|amantes|me acueste con|acostarme con|sensual\\p{L}*|porno\\p{L}*|seduc\\p{L}*|noche romantica|atraida por mi|atraido por mi",
+        "(?:chica|chico|nina|nino|prima|primo|alumna|alumno|novia|novio|adolescente|hijastra) (?:de|tiene) (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ella|el) tiene (?:[1-9]|1[0-7])(?![\\p{N}])|menor(?:es)? de edad|(?:novia|chica|una|la) menor(?! de (?:[2-9]\\d))|colegiala|chicos de secundaria|adulto y un nino"
+      ],
+      "unless": ["(?:mi|nuestra|nuestro) (?:hija|hijo)|(?:mis|nuestros) hijos"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "cancer|tumor|diagnostic\\p{L}*|enfermedad|enferm[oa]|cirugia|operacion|biopsia|resultados|quimio\\p{L}*|medicamento\\p{L}*|antidepresivos|insulina|sintoma\\p{L}*"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "embaraz\\p{L}*|quedarme embarazada|concebir|aborto espontaneo|fertilidad|sexo del bebe|tener hijos"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "cuando (?:voy a|va a) morir|(?:va|voy) a morir|cuanto (?:tiempo )?(?:le queda|me queda)|fallecer"
+      ]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "juicio|tribunal|demanda|abogad[oa]|visado|visa|asilo|deport\\p{L}*|custodia|carcel|policia|desahucio"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "acciones|cripto\\p{L}*|bitcoin|invert\\p{L}*|invier\\p{L}*|hacerme rico|bolsa|pension|ahorros|comprar o vender"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": [
+        "loteria|apuesta\\p{L}*|apostar|casino|jackpot|poker|ruleta|blackjack|numeros ganadores"
+      ]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "inmigrantes|musulmanes|judios|parasitos|insultos|acosar|acoso|rumores|nota amenazante|raza superior"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": [
+      "sin duda",
+      "con certeza",
+      "con toda seguridad",
+      "definitivamente",
+      "las cartas saben"
+    ],
+    "forbiddenClaims": [
+      "vas a morir",
+      "diagnóstic*",
+      "antidepresiv*",
+      "invierte en acciones",
+      "invertir en criptomonedas",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": ["precisamente", "precisar"]
+  }
+}

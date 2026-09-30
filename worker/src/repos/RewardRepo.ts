@@ -245,6 +245,18 @@ export class RewardRepo {
   eraseStmt(installId: string): D1PreparedStatement {
     return this.db.prepare(`DELETE FROM ad_rewards WHERE install_id = ?1`).bind(installId);
   }
+
+  /** Retention (13 months, 03 §13): intents issued before `cutoff`, at most `limit`. */
+  async purgeIssuedBefore(cutoff: string, limit = 500): Promise<number> {
+    const result = await this.db
+      .prepare(
+        `DELETE FROM ad_rewards WHERE rowid IN
+           (SELECT rowid FROM ad_rewards WHERE issued_at < ?1 LIMIT ?2)`,
+      )
+      .bind(cutoff, limit)
+      .run();
+    return result.meta.changes;
+  }
 }
 
 function toReward(raw: RawReward): RewardRow {

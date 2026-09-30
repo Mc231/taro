@@ -1,0 +1,67 @@
+<reading_language code="en">English</reading_language>
+<style_notes>
+Register: warm, plain US English; "you" singular; other people are "they" unless the question genders them.
+Names: the names in <cards>, with "the" in running text ("the Tower", "the Three of Cups"). Terms: Major Arcana, Minor Arcana, Wands, Cups, Swords, Pentacles, upright, reversed; the layout is a "spread".
+Card-focus clause: "This reading stays with the cards themselves."
+Prompts start with What, Which, How, Where or When.
+Avoid: "the cards show / say that", "you will", "is going to", "soon", "over time", "rather than", "instead of", "not … but".
+Rejected words: accurate, precise, guarantee(d), psychic, medium, clairvoyant, heal, healing, cure, therapy, therapist, spell, hex, best, 100%, #1. Write instead: "clear", "specific", "a middle path", "mend", "care for", "most helpful", "a ritual".
+</style_notes>
+<spread id="two_paths" name="Two Paths" cards="5">
+Path A is the first option the question names and path B the second. With no named options, call each path after its path card and describe it only through that card. Give both paths the same length and care: what each may offer and what each may ask.
+</spread>
+<length>
+Overview 2–3 sentences, 40–55 words; each card 3–4 sentences, 50–65 words; synthesis 4–6 sentences, 65–90 words; exactly 3 reflection prompts; about 400–550 words in total, title and prompts included. Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="situation" cardId="major_02" reversed="false">
+Position: Situation. Read as the situation behind the choice: why it may matter now and what the reader may hope to find or protect.
+Card: The High Priestess; upright
+Image: a seated figure between a dark and a light pillar, a veil of pomegranates behind, a half-hidden scroll in the lap and a crescent moon at the feet
+Keywords: inner knowing; stillness; listening; the unspoken; patience
+</card>
+<card n="2" positionId="path_a" cardId="swords_09" reversed="true">
+Position: Path A. Read as the first path (as the reader named it, or labelled by this card): what it might involve and ask for.
+Card: Nine of Swords; reversed
+Image: a figure sits up in bed with their face in their hands, nine swords hanging on the dark wall behind them
+Keywords: worry lifting; reaching out; hidden stress; perspective returning; sharing the load
+</card>
+<card n="3" positionId="path_a_outcome" cardId="cups_10" reversed="false">
+Position: Path A Outcome. Read as where the first path may lead: what it may offer and what it may cost.
+Card: Ten of Cups; upright
+Image: two adults with arms raised and two children dancing look at a rainbow of ten cups over a house and a river
+Keywords: emotional fulfillment; harmony; belonging; home; shared happiness
+</card>
+<card n="4" positionId="path_b" cardId="wands_01" reversed="false">
+Position: Path B. Read as the second path (as the reader named it, or labelled by this card): what it might involve and ask for.
+Card: Ace of Wands; upright
+Image: a hand emerges from a cloud holding a sprouting wand, a castle on a hill in the distance
+Keywords: spark of inspiration; creative impulse; enthusiasm; fresh energy; a new idea
+</card>
+<card n="5" positionId="path_b_outcome" cardId="pentacles_05" reversed="true">
+Position: Path B Outcome. Read as where the second path may lead: what it may offer and what it may cost.
+Card: Five of Pentacles; reversed
+Image: two figures walk through the snow past a lit stained-glass window, one on crutches
+Keywords: returning warmth; accepting help; lingering worry; finding shelter
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 5 (The High Priestess).
+Suits: 1 × Wands (Ace of Wands); 1 × Cups (Ten of Cups); 1 × Swords (Nine of Swords); 1 × Pentacles (Five of Pentacles).
+Dominant suit: none (Wands, Cups, Swords and Pentacles tied at 1 card each).
+Reversed: 2 of 5 (Nine of Swords, Five of Pentacles).
+Court cards: none.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question></user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Two Paths reading in English. Address the reader as "you" (singular). The question is empty: write a general reading of what these cards invite the reader to notice in their life now, without inventing circumstances or mentioning the empty question.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "precise", "accurate", "guarantee", "best", "medium", "healing") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

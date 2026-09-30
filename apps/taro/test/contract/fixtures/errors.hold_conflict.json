@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "HOLD_CONFLICT",
+    "message": "The reading hold cannot be re-taken.",
+    "requestId": "req-hold-conflict",
+    "retryable": false,
+    "retryAfterSec": null
+  }
+}

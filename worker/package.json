@@ -28,7 +28,13 @@
     "gen-keys": "node scripts/run.mjs gen-keys",
     "credits-transfer": "node scripts/run.mjs credits-transfer",
     "ledger-adjust": "node scripts/run.mjs ledger-adjust",
-    "metrics": "node scripts/run.mjs metrics"
+    "metrics": "node scripts/run.mjs metrics",
+    "prompt:render": "node scripts/run.mjs render-prompt",
+    "eval:offline": "node scripts/run.mjs eval-offline",
+    "eval": "node scripts/run.mjs eval",
+    "eval:safety": "node scripts/run.mjs eval-safety",
+    "safety:lexicons": "node scripts/run.mjs safety-lexicons",
+    "safety:lexicons:check": "node scripts/run.mjs safety-lexicons --check"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "0.128.0",

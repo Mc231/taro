@@ -54,6 +54,8 @@ def _repo(tmp_path: Path, docs: dict[str, str]) -> Path:
         ("🚧 In progress", "in_progress", ""),
         ("🔄 Sprint 3.2", "in_progress", "Sprint 3.2"),
         ("⛔ Blocked: waiting on Apple", "blocked", "waiting on Apple"),
+        ("🟡 In progress — code complete; evals pending", "in_progress", "— code complete; evals pending"),
+        ("🚧 Pipeline and EN drafts complete", "in_progress", "Pipeline and EN drafts complete"),
         ("Done", "done", ""),
         ("Something else", "unknown", "Something else"),
     ],

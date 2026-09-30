@@ -33,6 +33,7 @@ export interface Env {
 
   // Secrets (03 §11, GLOSSARY §13); `wrangler secret put --env <env>`.
   readonly ANTHROPIC_API_KEY?: string;
+  readonly OPENAI_API_KEY?: string;
   readonly TOKEN_SIGNING_KEYS?: string;
   readonly CHALLENGE_KEY?: string;
   readonly IDEMPOTENCY_ENC_KEY?: string;
@@ -51,4 +52,6 @@ export interface Env {
   readonly GOOGLE_PUBSUB_AUDIENCE?: string;
   readonly GOOGLE_PUBSUB_SA?: string;
   readonly ALERT_WEBHOOK_URL?: string;
+  readonly ANALYTICS_ACCOUNT_ID?: string;
+  readonly ANALYTICS_API_TOKEN?: string;
 }

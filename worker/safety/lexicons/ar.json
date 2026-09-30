@@ -1,0 +1,203 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "ar",
+  "reviewed": false,
+  "wordBoundaries": false,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["انتحار|انتحر|ينتحر"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["اقتل نفسي|قتل نفسي|انهي حياتي|انهاء حياتي"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["انهي كل شيء"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["اوذي نفسي|اؤذي نفسي|اذي نفسي"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["رسائل الوداع|رساله وداع"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["اقفز من الجسر|القفز من الجسر|ارمي نفسي"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["حبه|حبوب", "ما اصحي|لا استيقظ|ما اصحا"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["انام ولا استيقظ"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["العالم (?:\\S+ )?افضل (?:من )?دوني"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "اختفي نهائيا|اختفي الي الابد|عن الوجود|تعبت من الحياه|اودع الجميع|مال التامين|اجرح نفسي|احرق نفسي|ما عدت اتحمل|عن الاكل"
+      ]
+    },
+    {
+      "id": "ho.poison",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["سممت|اسمم|تسميم"]
+    },
+    {
+      "id": "ho.shoot",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["اطلق النار|اطلاق النار"]
+    },
+    {
+      "id": "ho.stab",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["طعنت|اطعنه|اطعنها"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["حرق سيارته|احرق سيارته|حرق بيته"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["اثقب اطارات"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["سكين", "اواجهه|اواجهها"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["يختفي", "بدون ما حد يعرف|دون ان يعرف احد"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["دفعته من علي الدرج|ادفعه من علي الدرج"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["اضع شيئا في مشروب"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["يتالم|يدفع الثمن", "جسديا|بالضرب"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["درسا", "لن ينجو"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["انتقام|انتقم|اوذي|اؤذي|اذيت|اضرب|مهاجمته|مهاجمتها|صدم سياره"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "اهتمام جنسي|قصه جنسيه|شيئا جنسيا|ممارسه الجنس|جنسيا|عشيقين|علاقه حميمه|صورا فاضحه|انام مع|قراءه حسيه|اباحي|ليله رومانسيه",
+        "(?:عمرها|عمره) (?:[1-9]|1[0-7])(?![\\p{N}])|ذات (?:الاربعه|الخمسه|السته|السبعه|الثلاثه|الاثني) عشر|قاصر|مراهقه|بالغ وطفل|تلميذه|الاعداديه"
+      ],
+      "unless": ["ابنتي|ابني|اطفالي|اولادي"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "سرطان|ورم|تشخيص|مرض|عمليه جراحيه|خزعه|نتائج التحاليل|كيماوي|دواء|ادويه|مضادات الاكتئاب|انسولين|اعراض"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": ["حامل|الحمل|احمل|اجهاض|الخصوبه|جنس الجنين|انجاب"]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": ["متي (?:ساموت|سيموت|ستموت)|سيموت|ساموت|كم بقي من عمر|الوفاه"]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": ["قضيه|المحكمه|محامي|تاشيره|لجوء|ترحيل|حضانه|السجن|الشرطه"]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": ["اسهم|عملات رقميه|كريبتو|بيتكوين|استثمر|استثمار|اصبح غنيا|البورصه|مدخرات"]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": ["يانصيب|اليانصيب|رهان|مراهنه|كازينو|قمار|بوكر|روليت|بلاك جاك"]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "المهاجرين|اليهود|المسلمين|طفيليات|شتائم|اهانات|تحرش|مضايقه|اشاعات|رساله تهديد|عرق متفوق"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": ["بالتأكيد", "بلا شك", "حتما", "من المؤكد"],
+    "forbiddenClaims": ["ستموت", "تشخيص*", "مضاد* الاكتئاب", "اشتر* الأسهم", "استثمر في العملات"],
+    "nonClaimSpans": []
+  }
+}

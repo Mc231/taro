@@ -1,0 +1,45 @@
+{
+  "$comment": "Shape per the Sprint 8.1 API notes (docs/ARCHITECTURE.md §AI pipeline and cost); sanitised (ids zeroed, no keys). Re-record from the staging account once the Sprint 8.0 keys exist.",
+  "status": 200,
+  "body": {
+    "id": "resp_000000000000000000000000",
+    "object": "response",
+    "created_at": 1790000000,
+    "status": "completed",
+    "model": "gpt-6-luna",
+    "output": [
+      {
+        "id": "rs_000000000000000000000000",
+        "type": "reasoning",
+        "summary": []
+      },
+      {
+        "id": "msg_000000000000000000000000",
+        "type": "message",
+        "status": "completed",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "output_text",
+            "text": "{\"classification\":\"none\",\"title\":\"A quiet turning point\",\"overview\":\"The cards point to a steady, reflective moment.\",\"cards\":[{\"positionId\":\"focus\",\"cardId\":\"major_16\",\"reversed\":false,\"interpretation\":\"This card invites you to notice what is already shifting.\"}],\"synthesis\":\"Together they suggest one small, concrete step today.\",\"reflectionPrompts\":[\"What would change if you tried step 1?\",\"What would change if you tried step 2?\"]}",
+            "annotations": []
+          }
+        ]
+      }
+    ],
+    "incomplete_details": null,
+    "store": false,
+    "usage": {
+      "input_tokens": 3683,
+      "input_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 2871
+      },
+      "output_tokens": 640,
+      "output_tokens_details": {
+        "reasoning_tokens": 64
+      },
+      "total_tokens": 4323
+    }
+  }
+}

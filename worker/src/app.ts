@@ -17,6 +17,8 @@ import { registerHealthRoutes } from './routes/health';
 import { registerInstallRoutes } from './routes/installs';
 import { registerInstallMeRoutes } from './routes/installsMe';
 import { registerPurchaseRoutes } from './routes/purchases';
+import { registerReadingReportRoutes } from './routes/readingReports';
+import { registerReadingRoutes } from './routes/readings';
 import { registerAdmobSsvRoute } from './routes/admobSsv';
 import { registerRewardRoutes } from './routes/rewards';
 import { registerWebhookRoutes } from './routes/webhooks';
@@ -47,7 +49,7 @@ export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
   const app = new OpenAPIHono<AppEnv>({ defaultHook: validationHook });
   app.use('*', dateHeader(deps.clock));
   app.use('*', requestId(deps.ids));
-  app.use('*', logging(deps.clock, deps.logger));
+  app.use('*', logging(deps.clock, deps.logger, deps.metrics));
   app.use('*', noCors());
   app.use('*', clientHeaders());
   app.use('/v1/*', appVersionGate(deps.config, { exemptPaths: VERSION_GATE_EXEMPT }));
@@ -65,6 +67,10 @@ export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
   registerPurchaseRoutes(app, deps, tokenAuth);
   // Rewarded ads (Sprint 7.4): reward intents and the AdMob SSV callback.
   registerRewardRoutes(app, deps, tokenAuth);
+  // AI readings (Sprint 8.3): pre-draw hold, reading, status, ack.
+  registerReadingRoutes(app, deps, tokenAuth);
+  // Reading reports (Sprint 8.5, CS7/RC22).
+  registerReadingReportRoutes(app, deps, tokenAuth);
   registerAdmobSsvRoute(app, deps);
   // Store webhooks (Sprint 7.3): App Store Server Notifications, Play RTDN.
   registerWebhookRoutes(app, deps);

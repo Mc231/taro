@@ -1,0 +1,57 @@
+<reading_language code="fr">French (français)</reading_language>
+<style_notes>
+Register: warm, simple French with "vous". No gendered adjectives or inclusive marks for the reader: « comme vous êtes » (never seul/seule, prêt/prête, ·e).
+Names: the names in <cards> with their article ("le Valet de Coupes", "l'As d'Épées"). Terms: Arcanes majeurs, Arcanes mineurs; Bâtons, Coupes, Épées, Deniers; "à l'endroit", "renversé/renversée" agreeing with the card; the layout is « le tirage ». Space before « ? ».
+Card-focus clause: « Cette lecture se concentre sur les cartes elles-mêmes. »
+Prompts start with « Qu'est-ce que », « Quel/Quelle », « Comment », « Où » or « Quand ».
+Avoid: « les cartes montrent que », « à venir », « bientôt », « plutôt que », « au lieu de ».
+Rejected words: every word starting with « précis », « exact », « garanti », « voyan » or « thérapi », médium, guérir, sort (also « il sort »), envoûtement, 100 %. Write instead: « clair », « concret », « émerge », « chemin », « prendre soin de vous ».
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 35–55 French words; each card 3–5 sentences, 60–75 French words; synthesis 3–5 sentences, 60–85 French words; exactly 3 reflection prompts; about 315–420 French words in total, title and prompts included. (Converted: about 1.05 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: Passé. Read as earlier influences, choices or habits that may still shape the situation.
+Card: La Tour; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: Présent. Read as a mood, circumstance or inner stance that may be active now.
+Card: Trois de Coupes; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: Futur. Read as a possible direction ahead.
+Card: Roi de Deniers; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (La Tour).
+Suits: 1 × Cups (Trois de Coupes); 1 × Pentacles (Roi de Deniers). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (Trois de Coupes).
+Court cards: Roi de Deniers.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in French (français). Address the reader with "vous", in gender-neutral wording. Tie every section to the reader's question and its own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "précis" / "précisément", "exact" / "exactement", "garanti", "sort" (also as "fate" and as the verb "il sort"), "guérir") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

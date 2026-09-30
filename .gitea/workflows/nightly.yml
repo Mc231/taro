@@ -4,7 +4,7 @@ name: Nightly
 # in the server's time zone): integration on the iOS simulator and the
 # Android emulator, the full golden run, npm audit, and a `dart pub outdated`
 # report. On Mondays (or with `weekly: true`): check_urls.py online, and the
-# `eval:safety` slot against staging, which Phase 8 wires.
+# `eval:safety` against the staging provider keys (Phase 8 Sprint 8.6).
 
 on:
   schedule:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       weekly:
-        description: 'Also run the Monday-only jobs (URLs, eval:safety slot)'
+        description: 'Also run the Monday-only jobs (URLs, eval:safety)'
         required: false
         type: boolean
         default: false
@@ -106,9 +106,9 @@ jobs:
           retention-days: 14
 
   weekly:
-    name: Weekly (Monday) - URLs + eval:safety slot
+    name: Weekly (Monday) - URLs + eval:safety
     runs-on: macos
-    timeout-minutes: 30
+    timeout-minutes: 90
     env:
       FORCE_WEEKLY: ${{ inputs.weekly && 'true' || 'false' }}
     steps:
@@ -142,16 +142,107 @@ jobs:
         if: ${{ steps.day.outputs.run == 'true' }}
         run: tools/.venv/bin/python tools/check_urls.py
 
-      # Phase 8 wires this: decrypt the bundle into $RUNNER_TEMP with
-      # SECRETS_PASSPHRASE, run `npm run eval:safety -- --env staging` in
-      # worker/, commit nothing (the report is an artifact), shred in always().
-      - name: eval:safety slot (Phase 8)
+      - name: Setup Node (worker/.nvmrc, QA14)
+        if: ${{ steps.day.outputs.run == 'true' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: worker/.nvmrc
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: npm ci (worker)
         if: ${{ steps.day.outputs.run == 'true' }}
         working-directory: worker
+        run: npm ci
+
+      # Phase 8 Sprint 8.6 (05 §4.3, RC60, RC97): the weekly safety eval of
+      # every provider + model the default config routes (`ai.provider.*` /
+      # `ai.model.*` of paid, free, freeFallback, plus the outage fallback when
+      # set), against the real provider APIs with the staging keys from the
+      # secrets bundle. Guarded: a provider without a key is skipped with a
+      # warning; `--max-usd` caps each run. Defaults: the ~50-case smoke sample
+      # and $10 per provider + model (repository variables EVAL_SAFETY_SAMPLE =
+      # smoke|all and EVAL_SAFETY_MAX_USD override them). Reports are an
+      # artifact; nothing is committed.
+      - name: eval:safety (staging providers, weekly)
+        if: ${{ steps.day.outputs.run == 'true' }}
+        env:
+          SECRETS_PASSPHRASE: ${{ secrets.SECRETS_PASSPHRASE }}
+          EVAL_SAMPLE: ${{ vars.EVAL_SAFETY_SAMPLE || 'smoke' }}
+          EVAL_MAX_USD: ${{ vars.EVAL_SAFETY_MAX_USD || '10' }}
+        shell: bash
         run: |
-          script=$(node -p "require('./package.json').scripts?.['eval:safety'] ?? ''")
-          if [ -z "$script" ]; then
-            echo "eval:safety is not defined yet (Phase 8); slot reserved."
-          else
-            echo "::warning::worker has eval:safety but nightly.yml does not wire staging secrets yet (Phase 8)."
+          out="$RUNNER_TEMP/eval-safety"
+          mkdir -p "$out"
+          if [ -z "${SECRETS_PASSPHRASE:-}" ]; then
+            echo "::warning::SECRETS_PASSPHRASE is not set; eval:safety skipped"
+            exit 0
           fi
+          key_for() {
+            # Staging key first (Sprint 8.0), then the shared one; empty when absent.
+            v=$(tools/secrets-manager.sh get worker "staging_$1_api_key" 2>/dev/null || true)
+            [ -n "$v" ] || v=$(tools/secrets-manager.sh get worker "$1_api_key" 2>/dev/null || true)
+            printf '%s' "$v"
+          }
+          anthropic_key=$(key_for anthropic)
+          openai_key=$(key_for openai)
+          for k in "$anthropic_key" "$openai_key"; do
+            if [ -n "$k" ]; then echo "::add-mask::$k"; fi
+            case "$k" in
+              *[[:space:]]*) echo "::error::a provider key has whitespace; refusing to use it"; exit 1 ;;
+            esac
+          done
+          routes=$(node -e '
+            const s = require("./worker/config/remote_config.default.json").server;
+            const pairs = ["paid", "free", "freeFallback"].map((t) => [s["ai.provider." + t], s["ai.model." + t]]);
+            if (s["ai.outageFallback.provider"] && s["ai.outageFallback.model"]) {
+              pairs.push([s["ai.outageFallback.provider"], s["ai.outageFallback.model"]]);
+            }
+            console.log([...new Set(pairs.map((p) => p.join(" ")))].join("\n"));
+          ')
+          status=0
+          while read -r provider model; do
+            [ -n "$provider" ] || continue
+            case "$provider" in
+              anthropic) key="$anthropic_key" ;;
+              openai) key="$openai_key" ;;
+              *) echo "::warning::unknown provider $provider"; continue ;;
+            esac
+            if [ -z "$key" ]; then
+              echo "::warning::no $provider key in the secrets bundle; eval:safety for $provider/$model skipped"
+              continue
+            fi
+            echo "eval:safety $provider/$model (sample $EVAL_SAMPLE, max \$$EVAL_MAX_USD)"
+            rc=0
+            if [ "$provider" = "anthropic" ]; then
+              (cd worker && ANTHROPIC_API_KEY="$key" npm run -s eval:safety -- --env staging \
+                --provider "$provider" --model "$model" --prompt v1 --sample "$EVAL_SAMPLE" \
+                --max-usd "$EVAL_MAX_USD" --out "$out") || rc=$?
+            else
+              (cd worker && OPENAI_API_KEY="$key" npm run -s eval:safety -- --env staging \
+                --provider "$provider" --model "$model" --prompt v1 --sample "$EVAL_SAMPLE" \
+                --max-usd "$EVAL_MAX_USD" --out "$out") || rc=$?
+            fi
+            if [ "$rc" != "0" ]; then
+              echo "::error::eval:safety $provider/$model exited $rc (3 = 05 §4.3 bar failed or incomplete, 4 = budget)"
+              status=1
+            fi
+          done <<< "$routes"
+          {
+            echo "### eval:safety (weekly, $EVAL_SAMPLE)"
+            echo ""
+            for f in "$out"/*.md; do
+              [ -e "$f" ] || continue
+              echo "- $(basename "$f"): $(grep -m1 -o 'Verdict: \*\*[A-Z]*\*\*' "$f" || echo 'no verdict')"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit $status
+
+      - name: Upload eval:safety reports
+        if: ${{ always() && steps.day.outputs.run == 'true' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: eval-safety-reports
+          path: ${{ runner.temp }}/eval-safety
+          if-no-files-found: ignore
+          retention-days: 90

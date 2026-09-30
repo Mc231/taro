@@ -49,6 +49,13 @@ export interface IdempotencyOptions {
   readonly scope?: (c: Context<AppEnv>) => string | undefined | Promise<string | undefined>;
   /** Route label stored in the row; defaults to `"{METHOD} {path}"`. */
   readonly route?: string;
+  /**
+   * `false`: no response is stored for replay; the row only guards against
+   * concurrent runs and is deleted when the handler ends. For handlers that
+   * are idempotent on their own state and whose answer must be fresh on a
+   * retry (the pre-draw hold renews a live hold's TTL, 03 §9.0).
+   */
+  readonly storeResponses?: boolean;
 }
 
 /** `2xx` and the deterministic client errors `400` / `422` (RC49). */
@@ -120,7 +127,7 @@ export function idempotency(
 
     await next();
     const status = c.res.status;
-    if (isTerminalStatus(status)) {
+    if (options.storeResponses !== false && isTerminalStatus(status)) {
       const body = new Uint8Array(await c.res.clone().arrayBuffer());
       const sealed = await seal(deps, keyring, claim, {
         contentType: c.res.headers.get('content-type'),
@@ -139,6 +146,28 @@ export function idempotency(
 /** Deletes the stored replay body of a completed request (reading ack, RC51). */
 export function deleteIdempotentBody(deps: Deps, ref: IdempotencyKeyRef): Promise<boolean> {
   return new IdempotencyRepo(deps.db).deleteBody(ref);
+}
+
+/**
+ * The stored response of a completed request, decrypted (reading status,
+ * RC51): null when there is no `done` row with a body, it expired, or the
+ * body cannot be opened (key rotated out).
+ */
+export async function readIdempotentBody(
+  deps: Deps,
+  ref: IdempotencyKeyRef,
+): Promise<{ readonly status: number; readonly body: string } | null> {
+  const row = await new IdempotencyRepo(deps.db).find(ref);
+  if (
+    row?.state !== 'done' ||
+    row.responseBodyEnc === null ||
+    row.responseStatus === null ||
+    row.expiresAt <= deps.clock.now().toISOString()
+  ) {
+    return null;
+  }
+  const stored = await unseal(deps, deps.keys.idempotency(), ref, row.responseBodyEnc);
+  return stored === undefined ? null : { status: row.responseStatus, body: fromUtf8(stored.body) };
 }
 
 async function hashRequest(

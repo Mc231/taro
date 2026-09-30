@@ -1,14 +1,16 @@
 import { GstaticAdmobKeyProvider } from './adapters/admob/AdmobKeyProvider';
-import { AnalyticsEngineMetrics } from './adapters/cf/AnalyticsEngineMetrics';
+import {
+  AnalyticsEngineMetrics,
+  type MetricsSqlAccess,
+} from './adapters/cf/AnalyticsEngineMetrics';
 import { CryptoIdGenerator } from './adapters/cf/CryptoIdGenerator';
 import { consoleSink, JsonLogger } from './adapters/cf/JsonLogger';
 import { SystemClock } from './adapters/cf/SystemClock';
 import { WebCrypto } from './adapters/cf/WebCrypto';
 import { WebhookAlerter } from './adapters/cf/WebhookAlerter';
-import { unimplementedPort } from './adapters/unimplemented';
 import { lazy, parseHmacKey, parseKeyring, parseUuidSecret, type Keyring } from './crypto/keyring';
 import type { Env, Environment } from './env';
-import type { AiProvider } from './ports/AiProvider';
+import type { AiProviders } from './ports/AiProvider';
 import type { Alerter } from './ports/Alerter';
 import type { AppAttestVerifier } from './ports/AppAttestVerifier';
 import type { Clock } from './ports/Clock';
@@ -28,6 +30,7 @@ import type {
 } from './ports/StoreApis';
 import type { TokenSigner } from './ports/TokenSigner';
 import { ConfigService, isolateConfigCache } from './services/ConfigService';
+import { aiDeps } from './aiDeps';
 import { identityDeps } from './identityDeps';
 import { storeDeps } from './storeDeps';
 import { WORKER_VERSION } from './version';
@@ -48,6 +51,8 @@ export interface SecretKeys {
   readonly appleAccountNs: () => string;
   /** `TRANSFER_TOKEN_KEY` (HMAC of the support `transferToken`, 03 §6.6, RC84). */
   readonly transferToken: () => Uint8Array;
+  /** `REPORT_ENC_KEY` keyring (AES-256-GCM of `reading_reports.payload_enc`, 03 §9.7, RC22). */
+  readonly report: () => Keyring;
 }
 
 /**
@@ -59,7 +64,8 @@ export interface Deps {
   readonly workerVersion: string;
 
   // External services.
-  readonly ai: AiProvider;
+  /** One adapter per provider with a key (RC97); `AiRouter` picks per tier. */
+  readonly ai: AiProviders;
   readonly appAttest: AppAttestVerifier;
   readonly playIntegrity: PlayIntegrityVerifier;
   readonly appStore: AppStoreServerApi;
@@ -133,6 +139,20 @@ export function assertEnvironment(env: Env): Environment {
   return environment;
 }
 
+/**
+ * Analytics Engine SQL API access for `AlertService` (03 §14.1), when both
+ * `ANALYTICS_ACCOUNT_ID` and `ANALYTICS_API_TOKEN` are set; otherwise the
+ * metric alert rules are skipped.
+ */
+export function metricsSqlAccess(env: Env, logger: Logger): MetricsSqlAccess | undefined {
+  const accountId = env.ANALYTICS_ACCOUNT_ID?.trim() ?? '';
+  const token = env.ANALYTICS_API_TOKEN?.trim() ?? '';
+  if (accountId === '' || token === '') {
+    return undefined;
+  }
+  return { accountId, token, fetch: fetch.bind(globalThis), logger };
+}
+
 /** Builds production deps from the Worker env. Throws on misconfiguration. */
 export function makeProdDeps(env: Env): Deps {
   const environment = assertEnvironment(env);
@@ -142,8 +162,7 @@ export function makeProdDeps(env: Env): Deps {
   return {
     environment,
     workerVersion: WORKER_VERSION,
-    // TODO(Phase 8): AnthropicAiProvider, or FakeAiProvider when AI_PROVIDER=fake (dev only).
-    ai: unimplementedPort<AiProvider>('AiProvider', 'Phase 8'),
+    // ai: aiDeps() below (keyed adapters, or FakeAiProvider when AI_PROVIDER=fake; RC97).
     // appAttest, playIntegrity, deviceCheck, tokenSigner: identityDeps() below (Phase 6.3).
     // Store APIs, Pub/Sub OIDC: storeDeps below.
     admobKeys: new GstaticAdmobKeyProvider({
@@ -155,7 +174,7 @@ export function makeProdDeps(env: Env): Deps {
     ids: new CryptoIdGenerator(crypto, clock),
     crypto,
     config: new ConfigService(env.CONFIG_KV, clock, logger, isolateConfigCache),
-    metrics: new AnalyticsEngineMetrics(env.METRICS),
+    metrics: new AnalyticsEngineMetrics(env.METRICS, metricsSqlAccess(env, logger)),
     logger,
     alerter: new WebhookAlerter(fetch.bind(globalThis), env.ALERT_WEBHOOK_URL, logger, {
       cache: env.CACHE_KV,
@@ -173,7 +192,9 @@ export function makeProdDeps(env: Env): Deps {
       deviceKey: lazy(() => parseHmacKey(env.DEVICE_KEY_SECRET, 'DEVICE_KEY_SECRET')),
       appleAccountNs: lazy(() => parseUuidSecret(env.APPLE_ACCOUNT_NS, 'APPLE_ACCOUNT_NS')),
       transferToken: lazy(() => parseHmacKey(env.TRANSFER_TOKEN_KEY, 'TRANSFER_TOKEN_KEY')),
+      report: lazy(() => parseKeyring(env.REPORT_ENC_KEY, 'REPORT_ENC_KEY')),
     },
+    ...aiDeps(env, environment, clock, crypto, logger),
     ...identityDeps(env, environment, clock, crypto),
     // Store adapters (Phase 7.2/7.3): App Store Server API, Play Developer API, Pub/Sub OIDC.
     ...storeDeps(env, clock),

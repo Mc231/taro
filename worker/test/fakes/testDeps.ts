@@ -5,9 +5,9 @@ import { Ed25519TokenSigner } from '../../src/adapters/cf/Ed25519TokenSigner';
 import { lazy, parseHmacKey, parseKeyring, parseUuidSecret } from '../../src/crypto/keyring';
 import type { Deps } from '../../src/deps';
 import type { Env } from '../../src/env';
-import type { AiProvider } from '../../src/ports/AiProvider';
 import type { AdmobKeyProvider, GoogleOidcVerifier } from '../../src/ports/StoreApis';
 import { CapturingAlerter } from './CapturingAlerter';
+import { FakeAiProvider } from './FakeAiProvider';
 import { CapturingLogger } from './CapturingLogger';
 import { FakeAppAttestVerifier } from './FakeAppAttestVerifier';
 import { FakeAppStoreServerApi } from './FakeAppStoreServerApi';
@@ -31,6 +31,8 @@ export const TEST_DEVICE_KEY_SECRET = 'test-device-key-secret-0123456789a';
 export const TEST_APPLE_ACCOUNT_NS = '6f1c2b1e-9a4d-4c3b-8e2f-0a1b2c3d4e5f';
 export const TEST_APPLE_TEAM_ID = 'TEAMID1234';
 export const TEST_TRANSFER_TOKEN_KEY = 'test-transfer-token-key-0123456789';
+/** `REPORT_ENC_KEY` keyring for tests (32 bytes of 0x03, base64url); never a real key. */
+export const TEST_REPORT_ENC_KEY = 'kr1:AwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM';
 export const TEST_DEBUG_ATTESTATION_TOKEN = 'test-debug-attestation-token-0123456789';
 /** Expected Pub/Sub push claims (`GOOGLE_PUBSUB_AUDIENCE`, `GOOGLE_PUBSUB_SA`); test values. */
 export const TEST_PUBSUB_AUDIENCE = 'https://api.test.taro.invalid/v1/webhooks/googleplay';
@@ -72,6 +74,8 @@ export interface TestHarness {
   readonly deviceCheck: FakeDeviceCheckApi;
   readonly appStore: FakeAppStoreServerApi;
   readonly playDeveloper: FakePlayDeveloperApi;
+  /** `deps.ai` (RC97): one scriptable fake per provider, both keyed. */
+  readonly ai: { readonly anthropic: FakeAiProvider; readonly openai: FakeAiProvider };
 }
 
 export interface HarnessOptions {
@@ -90,7 +94,7 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
   const clock = new FixedClock();
   const ids = new SeqIdGenerator();
   const logger = new CapturingLogger();
-  const metrics = new InMemoryMetrics();
+  const metrics = new InMemoryMetrics(clock);
   const alerter = new CapturingAlerter();
   const config = new FakeConfigStore();
   const appAttest = new FakeAppAttestVerifier();
@@ -100,12 +104,16 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
   const deviceCheck = new FakeDeviceCheckApi();
   const appStore = new FakeAppStoreServerApi();
   const playDeveloper = new FakePlayDeveloperApi();
+  const ai = {
+    anthropic: new FakeAiProvider('anthropic', { clock }),
+    openai: new FakeAiProvider('openai', { clock }),
+  };
   const keyring = options.idempotencyKeyring ?? TEST_IDEMPOTENCY_KEYRING;
   const ipKey = options.ipHashKey ?? TEST_IP_HASH_KEY;
   const deps: Deps = {
     environment: 'dev',
     workerVersion: '0.0.0-test',
-    ai: unimplementedPort<AiProvider>('AiProvider', 'Phase 8'),
+    ai,
     appAttest,
     playIntegrity,
     appStore,
@@ -134,6 +142,7 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
       deviceKey: lazy(() => parseHmacKey(TEST_DEVICE_KEY_SECRET, 'DEVICE_KEY_SECRET')),
       appleAccountNs: lazy(() => parseUuidSecret(TEST_APPLE_ACCOUNT_NS, 'APPLE_ACCOUNT_NS')),
       transferToken: lazy(() => parseHmacKey(TEST_TRANSFER_TOKEN_KEY, 'TRANSFER_TOKEN_KEY')),
+      report: lazy(() => parseKeyring(TEST_REPORT_ENC_KEY, 'REPORT_ENC_KEY')),
     },
     appleTeamId: TEST_APPLE_TEAM_ID,
     debugAttestationToken:
@@ -155,6 +164,7 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
     deviceCheck,
     appStore,
     playDeveloper,
+    ai,
   };
 }
 

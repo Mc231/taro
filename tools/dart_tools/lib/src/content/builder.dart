@@ -13,7 +13,10 @@
 ///   `worker/src/generated/crisis_resources.json`: taro_core
 ///   `CrisisDirectory` (03 §9.5);
 /// * `worker/src/generated/deck/cards.json`, `deck/spreads.json` and
-///   `deck_prompt.<locale>.json` (03 §9.2 card context).
+///   `deck_prompt.<locale>.json` (03 §9.2 card context);
+/// * `worker/src/generated/deck/names.json`: the `glossary.yaml` card and
+///   position names per locale and each locale's review state, so the reading
+///   prompt can give the model the canonical name in the reading language.
 library;
 
 import 'dart:io';
@@ -38,6 +41,9 @@ const String kWorkerCardsPath = '$kWorkerGeneratedDir/deck/cards.json';
 /// Worker spreads feed.
 const String kWorkerSpreadsPath = '$kWorkerGeneratedDir/deck/spreads.json';
 
+/// Worker glossary names feed (card and position names per locale).
+const String kWorkerNamesPath = '$kWorkerGeneratedDir/deck/names.json';
+
 /// Worker crisis feed.
 const String kWorkerCrisisPath = '$kWorkerGeneratedDir/crisis_resources.json';
 
@@ -56,6 +62,7 @@ List<String> ownedPaths() => [
   kWorkerCardsPath,
   kWorkerSpreadsPath,
   kWorkerCrisisPath,
+  kWorkerNamesPath,
   for (final l in kLocales) ...[appLocalePath(l), workerPromptPath(l)],
 ];
 
@@ -140,6 +147,8 @@ Map<String, String> compile(ContentSource source, List<String> locales) {
     ],
   });
 
+  out[kWorkerNamesPath] = _names(_m(source.glossary), version);
+
   final checksums = <String, String>{
     'spreads.json': sha256Hex(out[kAppSpreadsPath]!),
     'crisis_resources.json': sha256Hex(crisis),
@@ -223,6 +232,31 @@ String _localeTexts(ContentSource source, String locale) {
           };
         }(),
     },
+  });
+}
+
+/// `glossary.yaml` card and position names, locales in canonical order.
+String _names(Map<String, Object?> glossary, int version) {
+  Map<String, Object?> section(String name, List<String> ids) {
+    final entries = _m(glossary[name]);
+    return {
+      for (final id in ids)
+        id: {
+          for (final l in kLocales)
+            if (_m(entries[id])[l] != null) l: _m(entries[id])[l],
+        },
+    };
+  }
+
+  final review = _m(glossary['review']);
+  return canonicalJson({
+    'version': version,
+    'review': {
+      for (final l in kLocales)
+        if (review[l] != null) l: review[l],
+    },
+    'cards': section('cards', kCardIds),
+    'positions': section('positions', kPositionIds),
   });
 }
 

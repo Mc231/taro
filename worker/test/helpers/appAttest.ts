@@ -117,7 +117,7 @@ export async function makeAttestation(options: AttestationOptions): Promise<Test
     aaguidBytes(options.aaguid),
     idLength,
     credentialId,
-    encode(new Map([[1, 2]])) as Uint8Array,
+    encode(new Map([[1, 2]])),
   );
   const nonce = options.nonce ?? (await sha256(concatBytes(authData, options.clientDataHash)));
   const leaf = await x509.X509CertificateGenerator.create({

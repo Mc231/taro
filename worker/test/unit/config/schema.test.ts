@@ -180,6 +180,110 @@ describe('ServerConfigSchema', () => {
   });
 });
 
+describe('AI provider routing (RC97)', () => {
+  it('ships the Anthropic defaults, no outage fallback, no moderation, both providers disclosed', () => {
+    expect(DEFAULT_SERVER_CONFIG).toMatchObject({
+      'ai.provider.paid': 'anthropic',
+      'ai.provider.free': 'anthropic',
+      'ai.provider.freeFallback': 'anthropic',
+      'ai.outageFallback.provider': null,
+      'ai.outageFallback.model': null,
+      'ai.moderation.provider': 'none',
+      'ai.disclosedProviders': ['anthropic', 'openai'],
+      'ai.model.paid': 'claude-opus-5',
+      'ai.model.free': 'claude-sonnet-5',
+      'ai.model.freeFallback': 'claude-haiku-4-5',
+    });
+  });
+
+  it('blocks the CS16 fixed list plus the provider snapshot union (RC29, 2026-09-30)', () => {
+    const blocked = DEFAULT_SERVER_CONFIG['ai.blockedCountries'];
+    expect(blocked.slice(0, 8)).toEqual(['CN', 'RU', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM']);
+    for (const code of ['IR', 'KP', 'SY', 'CU', 'BY', 'VE', 'HK', 'MO', 'AF', 'MM', 'YE', 'PR']) {
+      expect(blocked).toContain(code);
+    }
+    for (const code of ['US', 'GB', 'DE', 'UA', 'JP', 'KR', 'BR', 'IN', 'TR']) {
+      expect(blocked).not.toContain(code);
+    }
+  });
+
+  it('accepts routing a tier and the outage fallback to OpenAI with moderation', () => {
+    const result = serverWith({
+      'ai.provider.free': 'openai',
+      'ai.model.free': 'gpt-6-luna',
+      'ai.outageFallback.provider': 'openai',
+      'ai.outageFallback.model': 'gpt-6.1-sol',
+      'ai.moderation.provider': 'openai',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it.each([
+    ['ai.provider.paid', 'google'],
+    ['ai.outageFallback.provider', 'mistral'],
+    ['ai.moderation.provider', 'anthropic'],
+    ['ai.disclosedProviders', []],
+    ['ai.disclosedProviders', ['anthropic', 'openai', 'anthropic']],
+    ['ai.outageFallback.model', 'Claude Opus'],
+  ])('rejects %s = %j', (key, value) => {
+    expect(serverWith({ [key]: value }).success).toBe(false);
+  });
+
+  it('rejects a duplicate disclosed provider', () => {
+    expect(
+      firstIssue(serverWith({ 'ai.disclosedProviders': ['anthropic', 'anthropic'] })),
+    ).toContain('duplicate anthropic');
+  });
+
+  it.each([
+    [{ 'ai.provider.paid': 'openai', 'ai.model.paid': 'gpt-6.1-sol' }, 'ai.provider.paid'],
+    [
+      { 'ai.provider.freeFallback': 'openai', 'ai.model.freeFallback': 'gpt-6-luna' },
+      'ai.provider.freeFallback',
+    ],
+    [
+      { 'ai.outageFallback.provider': 'openai', 'ai.outageFallback.model': 'gpt-6-luna' },
+      'ai.outageFallback.provider',
+    ],
+    [{ 'ai.moderation.provider': 'openai' }, 'ai.moderation.provider'],
+  ])('rejects routing to a provider outside ai.disclosedProviders: %j', (overrides, key) => {
+    const result = serverWith({ ...overrides, 'ai.disclosedProviders': ['anthropic'] });
+    expect(firstIssue(result)).toBe(`${key}: provider openai is not in ai.disclosedProviders`);
+  });
+
+  it('rejects a tier model of the wrong provider family', () => {
+    expect(firstIssue(serverWith({ 'ai.provider.free': 'openai' }))).toBe(
+      'ai.model.free: model claude-sonnet-5 is not a openai model',
+    );
+    expect(firstIssue(serverWith({ 'ai.model.paid': 'gpt-6.1-sol' }))).toBe(
+      'ai.model.paid: model gpt-6.1-sol is not a anthropic model',
+    );
+  });
+
+  it('requires the outage fallback provider and model together, of one family', () => {
+    expect(firstIssue(serverWith({ 'ai.outageFallback.provider': 'openai' }))).toContain(
+      'both set or both null',
+    );
+    expect(firstIssue(serverWith({ 'ai.outageFallback.model': 'gpt-6-luna' }))).toContain(
+      'both set or both null',
+    );
+    expect(
+      firstIssue(
+        serverWith({
+          'ai.outageFallback.provider': 'anthropic',
+          'ai.outageFallback.model': 'gpt-6-luna',
+        }),
+      ),
+    ).toBe('ai.outageFallback.model: model gpt-6-luna is not a anthropic model');
+    expect(
+      serverWith({
+        'ai.outageFallback.provider': 'anthropic',
+        'ai.outageFallback.model': 'claude-sonnet-5',
+      }).success,
+    ).toBe(true);
+  });
+});
+
 describe('sandbox caps (RC63)', () => {
   it.each(['purchases.sandboxMaxCreditsPerInstallPerDay', 'purchases.sandboxGlobalCreditsPerDay'])(
     'a prod config without %s is rejected on push and on read',

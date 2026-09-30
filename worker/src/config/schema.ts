@@ -35,10 +35,28 @@ export const BANNER_ALLOW_LIST = ['home', 'journal_list', 'learn_library'] as co
 /** `ai.effort` values accepted by the model API. */
 export const AI_EFFORTS = ['low', 'medium', 'high'] as const;
 
+/** Routable AI providers (RC97): `ai.provider.*`, `ai.outageFallback.provider`, `ai.disclosedProviders`. */
+export const AI_PROVIDER_IDS = ['anthropic', 'openai'] as const;
+export type AiProviderId = (typeof AI_PROVIDER_IDS)[number];
+
+/** `ai.moderation.provider` values (RC97): `none` or a provider with a moderation endpoint. */
+export const AI_MODERATION_PROVIDERS = ['none', 'openai'] as const;
+
+/**
+ * Model ID families per provider (Sprint 8.1 API check, 2026-09-30): Anthropic
+ * IDs start `claude-`, OpenAI IDs `gpt-` (or an `o<n>` reasoning model). A
+ * model routed to the wrong provider is rejected at push time.
+ */
+const MODEL_FAMILY: Readonly<Record<AiProviderId, RegExp>> = {
+  anthropic: /^claude-/,
+  openai: /^(gpt-|o\d)/,
+};
+
 const int = (min: number, max: number) => z.int().min(min).max(max);
 const usd = (max: number) => z.number().min(0).max(max);
 const semver = z.string().regex(/^\d+\.\d+\.\d+(\+\d+)?$/, 'expected x.y.z or x.y.z+build');
-const modelId = z.string().regex(/^claude-[a-z0-9.-]+$/, 'expected a claude-* model id');
+const modelId = z.string().regex(/^[a-z0-9][a-z0-9.-]{0,63}$/, 'expected a model id');
+const aiProvider = z.enum(AI_PROVIDER_IDS);
 const httpsUrl = z.url({ protocol: /^https$/ });
 const nonEmptyStrings = z.array(z.string().min(1)).min(1);
 
@@ -106,6 +124,13 @@ const serverShape = {
   'ai.model.paid': modelId,
   'ai.model.free': modelId,
   'ai.model.freeFallback': modelId,
+  'ai.provider.paid': aiProvider,
+  'ai.provider.free': aiProvider,
+  'ai.provider.freeFallback': aiProvider,
+  'ai.outageFallback.provider': aiProvider.nullable(),
+  'ai.outageFallback.model': modelId.nullable(),
+  'ai.moderation.provider': z.enum(AI_MODERATION_PROVIDERS),
+  'ai.disclosedProviders': z.array(aiProvider).min(1).max(AI_PROVIDER_IDS.length),
   'ai.effort': z.enum(AI_EFFORTS),
   'ai.promptVersion': z.string().regex(/^v\d+$/, 'expected v<n>'),
   'ai.maxTokensBySpread': MaxTokensBySpreadSchema,
@@ -166,8 +191,71 @@ function checkPublic(config: PublicConfig, ctx: z.RefinementCtx): void {
   }
 }
 
-/** Budget tiers must be ordered (03 §10.2) and lists unique. */
+/**
+ * AI routing (RC97): every routed provider (the three tiers, the outage
+ * fallback, moderation) is in `ai.disclosedProviders`, each tier's model
+ * belongs to its provider, and the outage fallback is fully set or off.
+ */
+function checkAiRouting(config: ServerConfig, ctx: z.RefinementCtx): void {
+  const disclosed: readonly string[] = config['ai.disclosedProviders'];
+  const tiers = [
+    ['ai.provider.paid', 'ai.model.paid'],
+    ['ai.provider.free', 'ai.model.free'],
+    ['ai.provider.freeFallback', 'ai.model.freeFallback'],
+  ] as const;
+  const routed: [string, string | null][] = tiers.map(([key]) => [key, config[key]]);
+  routed.push(['ai.outageFallback.provider', config['ai.outageFallback.provider']]);
+  const moderation = config['ai.moderation.provider'];
+  routed.push(['ai.moderation.provider', moderation === 'none' ? null : moderation]);
+  for (const [key, provider] of routed) {
+    if (provider !== null && !disclosed.includes(provider)) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [key],
+        message: `provider ${provider} is not in ai.disclosedProviders`,
+      });
+    }
+  }
+  for (const [providerKey, modelKey] of tiers) {
+    if (!MODEL_FAMILY[config[providerKey]].test(config[modelKey])) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [modelKey],
+        message: `model ${config[modelKey]} is not a ${config[providerKey]} model`,
+      });
+    }
+  }
+  const fallbackProvider = config['ai.outageFallback.provider'];
+  const fallbackModel = config['ai.outageFallback.model'];
+  if ((fallbackProvider === null) !== (fallbackModel === null)) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['ai.outageFallback.model'],
+      message: 'ai.outageFallback.provider and ai.outageFallback.model are both set or both null',
+    });
+  } else if (
+    fallbackProvider !== null &&
+    fallbackModel !== null &&
+    !MODEL_FAMILY[fallbackProvider].test(fallbackModel)
+  ) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['ai.outageFallback.model'],
+      message: `model ${fallbackModel} is not a ${fallbackProvider} model`,
+    });
+  }
+  for (const value of duplicates(disclosed)) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['ai.disclosedProviders'],
+      message: `duplicate ${String(value)}`,
+    });
+  }
+}
+
+/** Budget tiers must be ordered (03 §10.2), lists unique and AI routing disclosed (RC97). */
 function checkServer(config: ServerConfig, ctx: z.RefinementCtx): void {
+  checkAiRouting(config, ctx);
   const soft = config['ai.budget.softFloorUsd'];
   const freeStop = config['ai.budget.freeStopFloorUsd'];
   const hard = config['ai.budget.dailyHardUsd'];

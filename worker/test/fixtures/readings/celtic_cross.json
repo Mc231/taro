@@ -1,0 +1,72 @@
+{
+  "title": "A quiet turning point",
+  "overview": "The cards point to a steady, reflective moment.",
+  "cards": [
+    {
+      "positionId": "present",
+      "cardId": "major_00",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "challenge",
+      "cardId": "major_01",
+      "reversed": true,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "foundation",
+      "cardId": "cups_02",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "recent_past",
+      "cardId": "wands_03",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "potential",
+      "cardId": "swords_04",
+      "reversed": true,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "near_future",
+      "cardId": "pentacles_05",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "self",
+      "cardId": "major_06",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "environment",
+      "cardId": "cups_07",
+      "reversed": true,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "hopes_fears",
+      "cardId": "wands_08",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    },
+    {
+      "positionId": "outcome",
+      "cardId": "swords_09",
+      "reversed": false,
+      "interpretation": "This card invites you to notice what is already shifting."
+    }
+  ],
+  "synthesis": "Together they suggest one small, concrete step today.",
+  "reflectionPrompts": [
+    "What would change if you tried step 1?",
+    "What would change if you tried step 2?",
+    "What would change if you tried step 3?"
+  ]
+}

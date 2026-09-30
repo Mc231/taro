@@ -21,6 +21,8 @@ import { GooglePlayDeveloperApi } from '../../src/adapters/google/PlayDeveloperA
 import { GoogleJwksOidcVerifier } from '../../src/adapters/google/GoogleOidcVerifier';
 import { parseUuidSecret } from '../../src/crypto/keyring';
 import { debugAttestationToken } from '../../src/identityDeps';
+import { AnthropicProvider } from '../../src/adapters/anthropic/AnthropicProvider';
+import { FakeAiProvider } from '../fakes/FakeAiProvider';
 import {
   bindings,
   TEST_APPLE_ACCOUNT_NS,
@@ -100,9 +102,15 @@ describe('makeProdDeps', () => {
     await expect(config.snapshot()).resolves.toEqual(DEFAULT_RUNTIME_CONFIG);
   });
 
-  it('rejects calls to adapters of later phases instead of pretending success', async () => {
+  it('wires the AI adapters through aiDeps: FakeAiProvider under the dev AI_PROVIDER=fake (RC97)', () => {
     const deps = makeProdDeps(bindings);
-    await expect(deps.ai.generate({} as never)).rejects.toThrow('Phase 8');
+    expect(deps.ai.anthropic).toBeInstanceOf(FakeAiProvider);
+    expect(deps.ai.openai).toBeInstanceOf(FakeAiProvider);
+    const keyed = makeProdDeps(
+      withVars({ AI_PROVIDER: undefined, ANTHROPIC_API_KEY: 'sk-test', OPENAI_API_KEY: undefined }),
+    );
+    expect(keyed.ai.anthropic).toBeInstanceOf(AnthropicProvider);
+    expect(keyed.ai.openai).toBeUndefined();
   });
 
   it('wires the Phase 7.2 store adapters; missing secrets are unavailable, never a grant', async () => {
@@ -150,6 +158,12 @@ describe('makeProdDeps', () => {
     expect(() => deps.keys.transferToken()).toThrow('TRANSFER_TOKEN_KEY');
     const keyed = makeProdDeps(withVars({ TRANSFER_TOKEN_KEY: 'transfer-key-0123456789abcdef' }));
     expect(keyed.keys.transferToken().length).toBe(29);
+    // REPORT_ENC_KEY (Sprint 8.5): a keyring, parsed on first use.
+    expect(() => deps.keys.report()).toThrow('REPORT_ENC_KEY');
+    const reportKeyed = makeProdDeps(
+      withVars({ REPORT_ENC_KEY: 'kr1:AwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM' }),
+    );
+    expect(reportKeyed.keys.report().current.kid).toBe('kr1');
   });
 
   it('wires the Phase 7.3 Pub/Sub OIDC verifier and its expected claims', () => {

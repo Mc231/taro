@@ -1,0 +1,45 @@
+{
+  "$comment": "Shape per the Sprint 8.1 API notes (docs/ARCHITECTURE.md §AI pipeline and cost); sanitised (ids zeroed, no keys). Re-record from the staging account once the Sprint 8.0 keys exist.",
+  "status": 200,
+  "body": {
+    "id": "resp_000000000000000000000000",
+    "object": "response",
+    "created_at": 1790000000,
+    "status": "completed",
+    "model": "gpt-6-luna",
+    "output": [
+      {
+        "id": "rs_000000000000000000000000",
+        "type": "reasoning",
+        "summary": []
+      },
+      {
+        "id": "msg_000000000000000000000000",
+        "type": "message",
+        "status": "completed",
+        "role": "assistant",
+        "content": [
+          {
+            "type": "output_text",
+            "text": "Here is your reading.",
+            "annotations": []
+          }
+        ]
+      }
+    ],
+    "incomplete_details": null,
+    "store": false,
+    "usage": {
+      "input_tokens": 3683,
+      "input_tokens_details": {
+        "cached_tokens": 2871,
+        "cache_write_tokens": 0
+      },
+      "output_tokens": 9,
+      "output_tokens_details": {
+        "reasoning_tokens": 9
+      },
+      "total_tokens": 3692
+    }
+  }
+}

@@ -12,7 +12,10 @@ export interface CommandResult {
 export interface CliDeps {
   /** Paths are relative to `worker/`. */
   readFile(path: string): Promise<string>;
+  /** Creates missing parent directories. */
   writeFile(path: string, text: string): Promise<void>;
+  /** File names (not paths) in a directory; optional, only `eval-offline` needs it. */
+  listDir?(path: string): Promise<string[]>;
   out(line: string): void;
   err(line: string): void;
   /** Runs a command without a shell (arguments are passed verbatim). */

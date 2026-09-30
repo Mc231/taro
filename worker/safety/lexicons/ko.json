@@ -1,0 +1,199 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "ko",
+  "reviewed": false,
+  "wordBoundaries": false,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["자살|자해|극단적(?:인)? 선택"]
+    },
+    {
+      "id": "sh.want_to_die",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["죽고 싶"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["다 끝내 ?버릴|생을 끝내"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["나 자신을 (?:좀 )?다치게|몸을 지져"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["유서"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["뛰어내릴|뛰어내리"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["몇 알", "안 깨|깨어나지 않"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["다시는 안 깨|영원히 잠들"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:제가|내가) 없으면 세상이"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "영원히 사라지|완전히 사라질|존재하지 않으면|사는 게 (?:너무 )?지쳤|영원히 작별|보험금|굶다가|못 버티겠"
+      ]
+    },
+    {
+      "id": "ho.poison",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["독을 (?:먹이|타)"]
+    },
+    {
+      "id": "ho.stab",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["칼로 찔러|찔러 죽|칼 챙겨"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["차에 불 지를|불을 지르"]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["두들겨 패|패고 싶"]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["없애는 방법|죽이는 방법|죽이고 싶"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["계단에서 밀"]
+    },
+    {
+      "id": "ho.shooting",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["총을 쏘|사람들을 쏘"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["음료에 (?:뭘|무언가|뭔가)"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["타이어 찢"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["살아남지 못할"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["몸으로", "갚게|고통받"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["복수|다치게 하|공격하|맞받아|들이받"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "성적|야한|관능|노골적인 사진|성관계|연인이 될|(?:이랑|랑|와|과) 자는|로맨틱한 밤|섹스",
+        "(?:열|십)(?:한|두|세|네|다섯|여섯|일곱)? ?살|(?<![\\p{N}])(?:[1-9]|1[0-7]) ?(?:살|세)|미성년|중학생|여중생|초등학생|어른과 아이|꼬마"
+      ],
+      "unless": ["(?:제|우리|내) (?:딸|아들|아이)"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": ["암|종양|진단|질병|병이|수술|조직검사|검사 결과|항암|약을|항우울제|인슐린|증상"]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": ["임신|아기가 생|유산|난임|불임|아기 성별"]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": ["언제 죽|죽을까|죽나요|수명|얼마나 살"]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": ["재판|소송|변호사|비자|난민|추방|양육권|감옥|교도소|경찰"]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": ["주식|코인|비트코인|암호화폐|투자|부자가|연금|저축"]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": ["복권|로또|베팅|배팅|도박|카지노|토토|포커|룰렛"]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": ["이민자|외국인|유대인|무슬림|기생충|욕설|괴롭히|스토킹|소문을|협박|우월한 인종"]
+    }
+  ],
+  "l3": {
+    "certainty": ["틀림없이", "확실히", "무조건"],
+    "forbiddenClaims": ["죽을 것*", "진단*", "항우울제*", "주식을 사*", "코인에 투자*"],
+    "nonClaimSpans": []
+  }
+}

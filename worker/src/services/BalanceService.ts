@@ -292,19 +292,55 @@ export class BalanceService {
     ) {
       return { refunded: false, source: null, attempt: reading?.attempt ?? null };
     }
-    const source = reading.holdSource;
+    const rule = refundRule(request.reason);
+    return this.refundBatch(
+      reading,
+      reading.holdSource,
+      request.reason,
+      this.readings.refundGateStmt(reading.id, reading.attempt, reading.holdSource, rule.status),
+    );
+  }
+
+  /**
+   * Refunds a delivered-but-never-acknowledged reading once (RC51, 03 §9.1):
+   * CAS `consumed → refunded`, `completed → expired_refunded`, then the same
+   * money statements as `refund` with reason `reading_undelivered`. A reading
+   * that was delivered uncharged (`commit_after_refund`) only changes status.
+   * An acknowledged or already refunded reading is a no-op.
+   */
+  async refundUndelivered(readingId: string): Promise<RefundResult> {
+    const reading = await this.readings.findById(readingId);
+    if (reading?.status !== 'completed' || reading.ackedAt !== null) {
+      return { refunded: false, source: null, attempt: reading?.attempt ?? null };
+    }
+    if (reading.holdState !== 'consumed' || reading.holdSource === null) {
+      await this.readings.expireUncharged(reading.id);
+      return { refunded: false, source: null, attempt: reading.attempt };
+    }
+    return this.refundBatch(
+      reading,
+      reading.holdSource,
+      'undelivered',
+      this.readings.refundConsumedGateStmt(reading.id, reading.attempt, reading.holdSource),
+    );
+  }
+
+  /** The refund batch after its compare-and-set `gate` (03 §5.3 step 3). */
+  private async refundBatch(
+    reading: ReadingRow,
+    source: HoldSource,
+    reason: RefundReason,
+    gate: D1PreparedStatement,
+  ): Promise<RefundResult> {
     const install = await this.loadInstall(reading.installId);
     const config = await this.deps.config.snapshot();
     const now = this.deps.clock.now();
-    const rule = refundRule(request.reason);
+    const rule = refundRule(reason);
     const holdDay = {
       installId: install.id,
       localDate: reading.holdLocalDate ?? reading.localDate,
     };
-    const statements = [
-      this.readings.refundGateStmt(reading.id, reading.attempt, source, rule.status),
-      this.installs.bumpStateVersionAfterStmt(install.id),
-    ];
+    const statements = [gate, this.installs.bumpStateVersionAfterStmt(install.id)];
     if (isLedgerBucket(source)) {
       statements.push(
         this.ledger.appendAfterStmt({
@@ -341,7 +377,7 @@ export class BalanceService {
     const results = await this.deps.db.batch(statements);
     const refunded = results[0]?.meta.changes === 1;
     if (refunded) {
-      this.refundMetric(request.reason, source, install);
+      this.refundMetric(reason, source, install);
     }
     return { refunded, source: refunded ? source : null, attempt: reading.attempt };
   }

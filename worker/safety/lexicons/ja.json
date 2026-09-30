@@ -1,0 +1,199 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "ja",
+  "reviewed": false,
+  "wordBoundaries": false,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["自殺|自死|自傷|リスカ|リストカット"]
+    },
+    {
+      "id": "sh.want_to_die",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["死にたい|消えたい|一番楽な死に方|楽に死ね"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["全部終わりにし|すべて終わりにし"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["自分を傷つけ"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["遺書"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["飛び降り"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["何錠|錠剤|薬を", "目が覚めない|起きない"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["二度と(?:起きない|目覚めない|目が覚めない)"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["私が(?:いない|いなくなった)(?:ほう|方)が"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "永遠にいなくなっ|完全に消え|存在しなくなれ|存在しなくなった|生きるのに疲れ|永遠のさよなら|保険金|自分をやけど|食べるのをやめ|もう無理"
+      ]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["殺したい|殺してやる|殺す方法|消す方法|毒を盛"]
+    },
+    {
+      "id": "ho.stab",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["を刺し|を刺す"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["車に火をつけ|家に火をつけ|放火"]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["ボコボコに"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["ナイフを持って"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["突き落とし"]
+    },
+    {
+      "id": "ho.shooting",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["乱射|を撃つ"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["飲み物に何か入れ"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["タイヤを切り裂"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["体で", "思い知らせ|苦しんで"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["生きていられないほど"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["復讐|仕返し|傷つけたい|傷つければ|襲う|殴り|突っ込む"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "性的|エロ|官能|過激な写真|体の関係|と寝る|恋人になれ|ロマンチックな夜|セックス|裸",
+        "(?<![\\p{N}])(?:[1-9]|1[0-7])歳|未成年|中学生|小学生|大人と子ども|小さな女の子"
+      ],
+      "unless": ["(?:うちの|私の)(?:娘|息子|子供|子ども)|娘が|息子が"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": ["がん|癌|腫瘍|診断|病気|手術|生検|検査結果|抗がん剤|薬|抗うつ薬|インスリン|症状"]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": ["妊娠|子どもができ|子供ができ|流産|不妊|赤ちゃんの性別"]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": ["いつ死ぬ|死にますか|余命|寿命|亡くなり"]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": ["裁判|訴訟|弁護士|ビザ|難民申請|強制送還|親権|刑務所|警察"]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": ["株|仮想通貨|ビットコイン|投資|お金持ち|年金|貯金"]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": ["宝くじ|ロト|賭け|ギャンブル|カジノ|競馬|パチンコ|ポーカー|ルーレット"]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": ["移民|外国人|ユダヤ人|イスラム教徒|寄生虫|悪口|嫌がらせ|噂を流|脅迫|優れた人種"]
+    }
+  ],
+  "l3": {
+    "certainty": ["間違いなく", "絶対に", "確実に"],
+    "forbiddenClaims": ["死ぬでしょう", "診断", "抗うつ薬", "株を買", "投資しなさい"],
+    "nonClaimSpans": []
+  }
+}

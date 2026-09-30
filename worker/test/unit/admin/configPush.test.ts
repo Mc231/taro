@@ -40,6 +40,19 @@ describe('validateConfigText', () => {
     ]);
   });
 
+  it('rejects routing to a provider outside ai.disclosedProviders (RC97)', () => {
+    const server = {
+      ...defaultsFile.server,
+      'ai.provider.free': 'openai',
+      'ai.model.free': 'gpt-6-luna',
+      'ai.disclosedProviders': ['anthropic'],
+    };
+    const result = validateConfigText(JSON.stringify({ ...defaultsFile, server }));
+    expect(result.ok ? [] : result.issues).toEqual([
+      'server > ai.provider.free: provider openai is not in ai.disclosedProviders',
+    ]);
+  });
+
   it('rejects stored pack credits (injected by the Worker, RC3)', () => {
     const packs = defaultsFile.public['store.packs'].map((p) => ({ ...p, credits: 99 }));
     const result = validateConfigText(

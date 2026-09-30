@@ -265,15 +265,80 @@
         },
         "ai.model.paid": {
           "type": "string",
-          "pattern": "^claude-[a-z0-9.-]+$"
+          "pattern": "^[a-z0-9][a-z0-9.-]{0,63}$"
         },
         "ai.model.free": {
           "type": "string",
-          "pattern": "^claude-[a-z0-9.-]+$"
+          "pattern": "^[a-z0-9][a-z0-9.-]{0,63}$"
         },
         "ai.model.freeFallback": {
           "type": "string",
-          "pattern": "^claude-[a-z0-9.-]+$"
+          "pattern": "^[a-z0-9][a-z0-9.-]{0,63}$"
+        },
+        "ai.provider.paid": {
+          "type": "string",
+          "enum": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        "ai.provider.free": {
+          "type": "string",
+          "enum": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        "ai.provider.freeFallback": {
+          "type": "string",
+          "enum": [
+            "anthropic",
+            "openai"
+          ]
+        },
+        "ai.outageFallback.provider": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "anthropic",
+                "openai"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai.outageFallback.model": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9.-]{0,63}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ai.moderation.provider": {
+          "type": "string",
+          "enum": [
+            "none",
+            "openai"
+          ]
+        },
+        "ai.disclosedProviders": {
+          "minItems": 1,
+          "maxItems": 2,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "anthropic",
+              "openai"
+            ]
+          }
         },
         "ai.effort": {
           "type": "string",
@@ -506,6 +571,13 @@
         "ai.model.paid",
         "ai.model.free",
         "ai.model.freeFallback",
+        "ai.provider.paid",
+        "ai.provider.free",
+        "ai.provider.freeFallback",
+        "ai.outageFallback.provider",
+        "ai.outageFallback.model",
+        "ai.moderation.provider",
+        "ai.disclosedProviders",
         "ai.effort",
         "ai.promptVersion",
         "ai.maxTokensBySpread",

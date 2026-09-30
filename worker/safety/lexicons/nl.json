@@ -1,0 +1,246 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "nl",
+  "reviewed": false,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["zelfmoord\\p{L}*|zelfdoding|suicid\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["mezelf (?:van kant maken|doden|ombrengen)|mezelf (?:iets )?aan(?:doen|doe)"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["er (?:\\p{L}+ )?een eind(?:e)? aan (?:te )?maken"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["afscheidsbrie\\p{L}*"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["van de (?:\\p{L}+ )?(?:brug|flat|dak|toren)\\p{L}* (?:\\p{L}+ ){0,6}springen"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["pillen|tabletten", "niet meer wakker"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["in slaap (?:te )?vallen en nooit meer wakker"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:wereld|iedereen|familie) (?:\\p{L}+ ){0,2}beter af zonder mij"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "voorgoed (?:te )?verdwijnen|voorgoed niet meer|niet meer besta|het leven (?:zo )?moe|voorgoed afscheid|verzekeringsgeld|stoppen met eten|kan niet meer|snijd mezelf|brand mezelf|wil er niet meer zijn"
+      ]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:mijn (?:\\p{L}+ )?(?:ex|baas|stiefvader|buurman|collega|huisgenoot|vader|moeder|broer|zus|man|vrouw|huisbaas)|de mensen|die vent|hem|haar|iemand) (?:\\p{L}+ )?(?:vermoorden|vergiftig|vergiftigen|doodsteken|neersteek|neersteken|neerschieten|wurgen|doodmaken)"
+      ]
+    },
+    {
+      "id": "ho.shoot",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:mensen|hem|haar) (?:\\p{L}+ ){0,4}neer (?:te )?schieten|schieten op (?:mijn|de|een) (?:\\p{L}+ )?school"
+      ]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["in elkaar (?:te )?slaan"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:auto|huis) in brand (?:te )?steken"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["banden lek (?:te )?steken"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["mes|wapen|pistool", "confronteren|aanvallen"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["verdwijnen", "zonder dat iemand"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["van de trap (?:af )?duw\\p{L}*"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["iets in (?:haar|zijn) drankje"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["lijdt|boeten", "lichamelijk"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["lesje|les", "niet overleeft"]
+    },
+    {
+      "id": "ho.ram",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["auto van (?:\\p{L}+ ){0,2}(?:te )?rammen"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["wraak|pijn doen|aan (?:te )?vallen|aanvallen|hard terug"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "seks\\p{L}*|erotisch\\p{L}*|expliciet\\p{L}*|naakt\\p{L}*|intiem|minnaars|naar bed|sensuel\\p{L}*|porno\\p{L}*|verleiden|romantische nacht|aangetrokken",
+        "(?:meisje|jongen|jongetje|nicht|neef|leerling|vriendin|stiefdochter) van (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ze|hij|zij|stiefdochter) is (?:[1-9]|1[0-7])(?![\\p{N}])|minderjarig\\p{L}*|brugklassers?|schoolmeisje|tienermeisje|volwassene en een kind"
+      ],
+      "unless": ["(?:mijn|onze) (?:dochter|zoon|kinderen)"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "kanker|tumor|diagnose|ziekte|ziek|operatie|biopsie|uitslag\\p{L}*|chemo\\p{L}*|medicijn\\p{L}*|antidepressiva|insuline|symptom\\p{L}*"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "zwanger\\p{L}*|kinderwens|miskraam|ivf|vruchtbaar\\p{L}*|geslacht van de baby|kinderen krijgen"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "wanneer (?:ga ik|gaat \\p{L}+) dood|dood gaat|doodgaan|hoe lang (?:\\p{L}+ ){0,2}(?:nog )?(?:te )?leven|overlijden"
+      ]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "rechtszaak|rechtbank|advocaat|visum|asiel|uitgezet|voogdij|gevangenis|politie|rechter"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "aandelen|crypto\\p{L}*|bitcoin|beleggen|investeren|rijk worden|pensioen|spaargeld|kopen of verkopen"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": [
+        "loterij|lotto|gok\\p{L}*|wedden|weddenschap|casino|jackpot|poker|roulette|blackjack"
+      ]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "immigranten|moslims|joden|parasieten|beledigingen|lastigvallen|intimideren|roddels|dreigbrief|superieur ras"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": [
+      "zeker weten",
+      "zonder twijfel",
+      "ongetwijfeld",
+      "met zekerheid",
+      "de kaarten weten"
+    ],
+    "forbiddenClaims": [
+      "je gaat dood",
+      "diagnos*",
+      "antidepressiv*",
+      "beleg in aandelen",
+      "koop aandelen",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": ["met zekerheid te maken"]
+  }
+}

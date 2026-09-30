@@ -202,9 +202,9 @@ describe('AppleAppAttestVerifier.verifyAssertion (03 §3.4)', () => {
     expect(await v.verifyAssertion({ ...base, assertion: otherApp })).toMatchObject({
       detail: 'rp_id',
     });
-    expect(
-      await v.verifyAssertion({ ...base, assertion: encode({ signature: 1 }) as Uint8Array }),
-    ).toMatchObject({ detail: 'signature' });
+    expect(await v.verifyAssertion({ ...base, assertion: encode({ signature: 1 }) })).toMatchObject(
+      { detail: 'signature' },
+    );
     expect(
       await v.verifyAssertion({ ...base, assertion: Uint8Array.of(0x58, 0x10) }),
     ).toMatchObject({ detail: 'malformed' });

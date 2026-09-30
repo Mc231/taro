@@ -295,6 +295,9 @@ jobs:
       - name: Remote-config JSON Schema is current (03 §8.1)
         run: npm run config:schema:check
 
+      - name: Safety lexicons are current (Phase 8.4)
+        run: npm run safety:lexicons:check
+
       - name: wrangler deploy --dry-run (staging) + bundle size
         run: |
           rm -rf dist

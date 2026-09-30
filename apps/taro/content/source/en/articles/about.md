@@ -9,7 +9,7 @@ Taro is a reflective tarot journal. It uses the images and traditions of tarot a
 
 Tarot began as a deck of playing cards. The earliest known decks were painted in northern Italy in the fifteenth century for a card game, and some of those games are still played in parts of Europe today. A tarot deck has four suits, like ordinary playing cards, plus a set of picture cards called trumps.
 
-In the late eighteenth century, writers in France began to treat the cards as a source of symbolizm and meaning rather than only as a game. Over the following century, many authors added their own ideas, and in the early twentieth century an influential English deck gave every card, including the numbered ones, an illustrated scene. Most modern decks, and the traditional card names used in Taro, follow that structure.
+In the late eighteenth century, writers in France began to treat the cards as a source of symbolism and meaning rather than only as a game. Over the following century, many authors added their own ideas, and in the early twentieth century an influential English deck gave every card, including the numbered ones, an illustrated scene. Most modern decks, and the traditional card names used in Taro, follow that structure.
 
 Today people use tarot in many ways: as art, as a creative tool, as a game, and as a way to reflect. Taro focuses on reflection.
 

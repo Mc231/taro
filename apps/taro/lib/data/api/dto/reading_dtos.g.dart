@@ -107,7 +107,7 @@ CrisisResourceDto _$CrisisResourceDtoFromJson(Map<String, dynamic> json) =>
         name: $checkedConvert('name', (v) => v as String),
         verifiedAt: $checkedConvert(
           'verifiedAt',
-          (v) => const UtcInstantConverter().fromJson(v as String),
+          (v) => const NullableUtcInstantConverter().fromJson(v as String?),
         ),
         languages: $checkedConvert(
           'languages',

@@ -13,7 +13,9 @@ export type AlertKind =
   /** `ssv_rejected` spike (04 Risks; `scripts/metrics.ts`). */
   | 'ssv_rejected_spike'
   /** Grant to a blocked or indebted install; support may refund via the store (03 §6.5). */
-  | 'blocked_purchase';
+  | 'blocked_purchase'
+  /** A tier routed to a provider without a key (03 §9.3, RC97). */
+  | 'ai_provider_unavailable';
 
 export interface Alert {
   readonly kind: AlertKind;

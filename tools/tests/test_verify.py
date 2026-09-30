@@ -105,6 +105,7 @@ def test_full_runs_every_stage_in_order(repo: Path) -> None:
         "npm worker run lint",
         "npm worker run typecheck",
         "npm worker run format:check",
+        "npm worker run -s safety:lexicons:check",
         "melos repo run test:coverage",
         "melos repo run coverage:check",
     ]

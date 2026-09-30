@@ -1,0 +1,352 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "en",
+  "reviewed": true,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["suicid\\p{L}*|self[- ]?harm\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:kill|killing|killed|hang|hanging|drown|drowning|shoot|shooting|poison|poisoning|stab|stabbing|off|offing) my ?self"
+      ]
+    },
+    {
+      "id": "sh.end_my_life",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:end|ending|take|taking) my (?:own )?life|(?:end|ending|finish|finishing) it all"
+      ]
+    },
+    {
+      "id": "sh.want_to_die",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:i|i'm|im|i am|i just) (?:really |just |kinda |so )?(?:want|wanna|wish) (?:to )?die"
+      ]
+    },
+    {
+      "id": "sh.slang",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["kms|unaliv\\p{L}*"]
+    },
+    {
+      "id": "sh.better_dead",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["wish i (?:was|were) dead|better off dead"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:world|everyone|everybody|family) (?:would|will|'d) be (?:better|happier|lighter) (?:off )?(?:without me|if i (?:just )?(?:was gone|were gone|stopped existing|disappeared|died))"
+      ]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "how many (?:sleeping )?(?:pills|tablets) (?:would it take|does it take|would|will|do i need|to)"
+      ]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:sleep|asleep) and (?:never|not) wake up"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "jump (?:off|from) (?:the|a|this|that) (?:\\p{L}+ )?(?:bridge|roof|building|cliff|balcony|tower)"
+      ]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:goodbye|suicide|farewell) (?:letter|note)s?"]
+    },
+    {
+      "id": "sh.hint.self_injury",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "(?:cut|cutting|burn|burning|hurt|hurting|harm|harming|starve|starving) my ?self|cutting again"
+      ]
+    },
+    {
+      "id": "sh.hint.disappear",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "disappear (?:forever|permanently|for good)|(?:stop|stopped) existing|gone for good|goodbye forever|fade away"
+      ]
+    },
+    {
+      "id": "sh.hint.tired",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "tired of (?:living|life|being alive)|no (?:point|reason) (?:in |to )?(?:living|staying|going on|being here)"
+      ]
+    },
+    {
+      "id": "sh.hint.not_here",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "(?:be|being) (?:here|around) (?:much longer|any longer|next year|anymore)|insurance money|overdos\\p{L}*"
+      ]
+    },
+    {
+      "id": "ho.kill",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:kill|killing|murder|murdering|poison|poisoning|stab|stabbing|strangle|strangling) (?:him|her|them|my (?:\\p{L}+ ){0,2}?(?:ex|boss|wife|husband|partner|mother|mom|mum|father|dad|brother|sister|neighbou?r|coworker|co-worker|colleague|roommate|roomate|landlord|teacher|stepfather|stepmother|stepdad|stepmom|friend|boyfriend|girlfriend|cousin)|the (?:guy|man|woman|people|person|bully)|someone|somebody|people|everyone)"
+      ]
+    },
+    {
+      "id": "ho.shoot",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "shoot(?:ing)? (?:him|her|them|my (?:\\p{L}+ ){0,2}?(?:ex|boss|wife|husband|partner|mother|mom|mum|father|dad|brother|sister|neighbou?r|coworker|co-worker|colleague|roommate|roomate|landlord|teacher|stepfather|stepmother|stepdad|stepmom|friend|boyfriend|girlfriend|cousin)|the (?:guy|man|woman|people|person|bully)|someone|somebody|people|everyone)(?! (?:a|an) )|shoot(?:ing)? up (?:my|the|a|our) (?:old )?(?:school|office|workplace|church|mall|class)"
+      ]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "beat(?:ing)? up (?:him|her|them|my (?:\\p{L}+ ){0,2}?(?:ex|boss|wife|husband|partner|mother|mom|mum|father|dad|brother|sister|neighbou?r|coworker|co-worker|colleague|roommate|roomate|landlord|teacher|stepfather|stepmother|stepdad|stepmom|friend|boyfriend|girlfriend|cousin)|the (?:guy|man|woman|people|person|bully)|someone|somebody|people|everyone)|beat (?:him|her|them|my (?:\\p{L}+ ){0,2}?(?:ex|boss|wife|husband|partner|mother|mom|mum|father|dad|brother|sister|neighbou?r|coworker|co-worker|colleague|roommate|roomate|landlord|teacher|stepfather|stepmother|stepdad|stepmom|friend|boyfriend|girlfriend|cousin)|the (?:guy|man|woman|people|person|bully)|someone|somebody|people|everyone) up"
+      ]
+    },
+    {
+      "id": "ho.get_away",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["get away with (?:murder|killing|poisoning|stabbing|hurting|shooting)"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["spike (?:her|his|their|someone'?s|my \\p{L}+'?s?) drink"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:bring|take|carry|get) (?:a|my) (?:knife|gun|weapon|pistol|rifle|machete) (?:to|when|with)"
+      ]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "(?:burn|burning|torch|torching|set fire to) (?:his|her|their|my \\p{L}+'?s?|the \\p{L}+'?s?) (?:car|house|home|apartment|flat)"
+      ]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "make (?:\\p{L}+'?s? ){0,4}(?:disappear|vanish)",
+        "without (?:anyone|anybody|any one) (?:knowing|noticing|finding out)"
+      ]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": [
+        "push (?:him|her|them) (?:down|off) (?:the )?(?:stairs|cliff|balcony|bridge|roof)"
+      ]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:make|making) (?:\\p{L}+ ){0,3}(?:suffer|pay)", "physically"]
+    },
+    {
+      "id": "ho.crash",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["crash(?:ing)? into (?:my|his|her|their) (?:\\p{L}+'?s? )?car"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["slash (?:his|her|their) tires"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["lesson", "(?:won't|will not|wont) survive"]
+    },
+    {
+      "id": "ho.hint.revenge",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["revenge|get back at"]
+    },
+    {
+      "id": "ho.hint.hurt",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": [
+        "(?:hurt|hurting|harm|harming|attack|attacking|hit|hitting|punch|punching) (?:him|her|them|my \\p{L}+)"
+      ]
+    },
+    {
+      "id": "ho.hint.weapon",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["knife|gun|weapon|physically"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "(?:sex|sexual|sexually|sexy|erotic\\p{L}*|explicit|nudes?|naked|intimate|intimacy|(?<!the )lovers?|sleep(?:ing)? with|slept with|sensual\\p{L}*|porn\\p{L}*|seduc\\p{L}*|make out with|hook up with|romantic night|attracted to me)",
+        "(?:(?<=(?:a|an|my|the|her|his|this|that|with|to|our|your) )(?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo|y/o|yr ?-? ?olds?)|(?:she|he)(?:'s| is| was) (?:only |just )?(?:[1-9]|1[0-7])(?![\\p{N}])|minors|(?:a|the|this) minor (?:i|who|that|we)|underage|under-age|middle ?schoolers?|schoolgirl|schoolboy|pre-?teens?|little (?:girl|boy)|(?:adult|grown-?up) and a (?:child|kid))"
+      ],
+      "unless": ["(?:my|our) (?:[^ ]+ ){0,2}(?:daughter|son|kids?|children|child)(?:'s)?"]
+    },
+    {
+      "id": "sm.hint.minor_relationship",
+      "category": "sexual_minors",
+      "severity": "hint",
+      "patterns": [
+        "(?:(?<=(?:a|an|my|the|her|his|this|that|with|to|our|your) )(?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo|y/o|yr ?-? ?olds?)|(?:she|he)(?:'s| is| was) (?:only |just )?(?:[1-9]|1[0-7])(?![\\p{N}])|minors|(?:a|the|this) minor (?:i|who|that|we)|underage|under-age|middle ?schoolers?|schoolgirl|schoolboy|pre-?teens?|little (?:girl|boy)|(?:adult|grown-?up) and a (?:child|kid))",
+        "dating|date|relationship|lovers|ready|alone with|pictures|photos|secret|trust me|in love|first night|age gap|girlfriend|boyfriend"
+      ]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "cancer|tumou?r|lump|diagnos\\p{L}*|disease|diabetes|leukemia|melanoma|illness|sick|surgery|biopsy|test results|chemo\\p{L}*|medication|antidepressants?|insulin|dose|treatment|heart condition|symptoms?"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "pregnan\\p{L}*|conceive|expecting (?:a baby|twins)|baby'?s? (?:sex|gender)|miscarr\\p{L}*|ivf|fertility|have kids|children will i have"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "when will (?:i|he|she|my \\p{L}+) (?:die|pass)|(?:going to|will) die|pass away|how long (?:do|does|will) (?:i|he|she|my \\p{L}+) (?:have|live)|live to see"
+      ]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "court|lawsuit|trial|judge|lawyer|visa|immigration|asylum|deport\\p{L}*|custody|sue|jail|prison|evict\\p{L}*|settlement|charge me|police"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "stocks?|crypto\\p{L}*|bitcoin|altcoin|invest\\p{L}*|shares|etf|get rich|trading|forex|pension|savings|buy or sell"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": [
+        "lottery|lotto|bet|bets|betting|casino|gambl\\p{L}*|jackpot|poker|roulette|blackjack|winning numbers"
+      ]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "(?:immigrants|muslims|jews|black people|gays|asians|trans people|foreigners|refugees)|race is superior|superior race|insults?|harass\\p{L}*|threatening (?:note|message|letter)|spread rumou?rs|parasites|vermin|subhuman"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": [
+      "definitely will",
+      "will definitely",
+      "certainly will",
+      "will certainly",
+      "is certain to",
+      "are certain to",
+      "without a doubt",
+      "for sure",
+      "for certain",
+      "you will die",
+      "is destined to",
+      "the cards know",
+      "the cards never lie"
+    ],
+    "forbiddenClaims": [
+      "you will die",
+      "diagnos*",
+      "invest in",
+      "antidepressant*",
+      "lottery numbers",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": [
+      "what will happen",
+      "(?:not|never|nothing|no|nor|without|rather than|instead of)(?:\\s+[^\\s.,;:!?]+){0,3}?\\s+(?:guaranteed?|will happen)",
+      "invest(?:ing)?(?: (?:time|energy|care|effort|attention))? in (?:yourself|your (?:own )?(?:growth|relationships?|skills|learning|wellbeing|well-being|self-care|creativity|connections|friendships|home|craft|future))"
+    ]
+  }
+}

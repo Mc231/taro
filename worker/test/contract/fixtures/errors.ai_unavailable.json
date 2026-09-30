@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "AI_UNAVAILABLE",
+    "message": "AI provider unavailable.",
+    "requestId": "req-ai-unavailable",
+    "retryable": true,
+    "retryAfterSec": null
+  }
+}

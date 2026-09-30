@@ -24,7 +24,7 @@ export function documentDeps(): Deps {
   return {
     environment: 'prod',
     workerVersion: '0.0.0',
-    ai: port('AiProvider'),
+    ai: {},
     appAttest: port('AppAttestVerifier'),
     playIntegrity: port('PlayIntegrityVerifier'),
     appStore: port('AppStoreServerApi'),

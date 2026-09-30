@@ -146,7 +146,7 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 | @hono/zod-openapi | 1.6.3 | BE1 |
 | zod | 4.6.5 | |
 | jose | 6.2.12 | |
-| @anthropic-ai/sdk | 0.128.0 | imported only by `adapters/anthropic/` (RC97); the OpenAI adapter's client is chosen and pinned in Phase 8 Sprint 8.1 |
+| @anthropic-ai/sdk | 0.128.0 | imported only by `adapters/anthropic/` (RC97); the OpenAI adapter uses plain `fetch` against the Responses API, no `openai` SDK (Sprint 8.1, 2026-09-30) |
 | cbor-x | 1.6.6 | |
 | @peculiar/x509 | 2.1.0 | |
 | wrangler | 4.142.0 | |
@@ -510,6 +510,85 @@ sequenceDiagram
   15-minute cron. `blocked_purchase` grants alert at grant time through the `Alerter`.
 
 
+## AI pipeline and cost (Worker, Phase 8)
+
+Checked 2026-09-30 against platform.claude.com (pricing, models overview, deprecations, structured outputs, prompt caching) and developers.openai.com (pricing, models, structured outputs, reasoning, prompt caching, moderation). Decisions: 03 §9.3 *API notes*, §9.6; 00_DECISIONS RC32, CS16. Prices: `worker/src/domain/pricing.ts`.
+
+### Reading pipeline (Sprint 8.3)
+
+One service, `worker/src/services/ReadingService.ts` (`hold`, `create`, `status`, `ack`), behind `src/routes/readings.ts`. Order per 03 §9.0/§9.1:
+
+1. **Gates** (in order): consent, kill switch `readings.enabled` and region (`ai.blockedCountries`, 403), spread check (`domain/spreadValidation.ts`, `SPREAD_INVALID.details.reason`), budget (`BudgetService.assertHoldAllowed`: 503 `AI_BUDGET_EXHAUSTED` `tier=hard`), `RL_READINGS` per minute, then the day limits for a new hold (daily limit, `safety.maxDeclinedPerDay` → 429 `declinedLimit`).
+2. **Hold** (`POST /v1/readings/holds`, RC44/RC50): `BalanceService.hold` compare-and-set; insufficient → 402, or 503 `tier=freeStop` for a free-only install in the free-stop tier. Then `AiRouter.checkAvailable` for the charged tier: no keyed provider → the hold is refunded and 503 `AI_UNAVAILABLE`, nothing charged. Holds are never replayed from the idempotency store (a replay would return a stale `expiresAt`).
+3. **Generate** (`POST /v1/readings`): row `held → generating`; L1 prefilter (`src/safety/prefilter.ts`, hard block = declined with no model call; hints go to the model); optional provider moderation (`ai.moderation.provider`, default `none`); `BudgetService.assertModelCallAllowed`; `AiRouter.generate` (tier from `aiTierFor`, soft budget tier → `freeFallback`; one outage fallback on timeout / rate-limit / upstream with ≥ 15 s left); L2 (model classification) and L3 (`domain/outputValidator.ts`), with one regeneration while ≥ 15 s of `ai.deadlineMs` remain.
+4. **Finish**: completed → commit the hold; declined → refund, `declined_count + 1`, crisis resources (`domain/safetyPolicy.ts`, `cf.country` → locale fallback → international, ≤ 3); failed → refund and 503 `AI_UNAVAILABLE` (a retry with the same `clientReadingId` is a new attempt, RC49). Row metadata, the metric and `ai_spend_daily` are written in one D1 batch.
+5. **Crons** (`src/scheduled.ts`): `releaseExpiredHolds`, `refundStaleHolds` (every 15 min), `refundUndeliveredReadings` (hourly; an acknowledged reading is never refunded).
+
+Adapters: `src/adapters/anthropic/AnthropicProvider.ts` (SDK) and `src/adapters/openai/OpenAiProvider.ts` (fetch), both through `src/adapters/ai/callPolicy.ts` (`runWithPolicy`: per-call timeout `min(ai.timeoutMs, deadline − elapsed)`, `ai.maxRetries` jittered retries only in the first 15 s, one ×1.5 `max_tokens` retry) and `src/adapters/ai/output.ts` (vendor schema stripping + zod). `src/aiDeps.ts` builds an adapter only for a present key; `AI_PROVIDER=fake` outside prod uses `test/fakes/FakeAiProvider.ts`. Every adapter passes `test/contracts/aiProvider.contract.ts`.
+
+### Safety, budget and evals (Sprints 8.4–8.6)
+
+- **Lexicons**: `worker/safety/lexicons/<locale>.json` + the global phrases of `tools/store_copy/banned_phrases.yaml` → `npm run safety:lexicons` → `src/generated/safety_lexicons.json` (checked by `safety:lexicons:check` in `tools/verify.sh` and CI static). Production L3 and the eval graders share `src/safety/*`.
+- **Budget** (`src/services/BudgetService.ts`, `src/domain/budget.ts`, RC64): every model call of every provider is priced by `callCost` (`src/domain/pricing.ts`) and summed into the row, the `reading_*` metric (`model` = `provider/model`) and `ai_spend_daily`; tiers alert → soft → free stop → hard. Alerts: `src/services/AlertService.ts` (15-minute cron; needs `ANALYTICS_ACCOUNT_ID` / `ANALYTICS_API_TOKEN`, otherwise skipped).
+- **Reports and retention**: `POST /v1/readings/{clientReadingId}/report` (AES-GCM, 90 days), nightly `RETENTION_JOBS`.
+- **Evals**: offline `npm run eval:offline` (rule graders over recorded outputs); live `npm run eval` / `npm run eval:safety` (`evals/lib/live.ts`; real adapters, `--max-usd` required, exit 3 = incomplete, 4 = budget stop); weekly smoke run in `.gitea/workflows/nightly.yml`. Runbook: `docs/runbooks/AI_SAFETY.md`.
+
+### Prompt size (v1, estimate)
+
+Estimate = characters / 3.5 over `worker/test/unit/prompts/__snapshots__/reading.v1.*.txt`, **not yet measured**: replace with Anthropic `POST /v1/messages/count_tokens` and OpenAI reported `usage` once keys exist (Sprint 8.0). Claude 4.7+ tokenizers produce ~30 % more tokens than older ones; OpenAI's is usually leaner on Latin text; ja/ko/ar/uk count more tokens per character than the heuristic assumes.
+
+| Part | Characters | ≈ Tokens |
+|---|---|---|
+| Static prefix (`system`, identical for every reading; cache boundary after it) | 10,085 | ≈ 2,900 |
+| User message, `single` (en) | 2,814 | ≈ 800 (+ ≤ 90 question) |
+| User message, `three_ppf` / `three_sao` (en) | 3,962 / 4,003 | ≈ 1,130 / 1,140 (+ ≤ 90) |
+| User message, `two_paths` / `relationship` (en) | 4,969 / 5,014 | ≈ 1,420 / 1,430 (+ ≤ 90) |
+| User message, `celtic_cross` (en) | 6,603 | ≈ 1,890 (+ ≤ 90) |
+| User message, `three_ppf` across the 12 locales | 3,581 (ja) – 4,217 (pt) | ≈ 1,020 – 1,200 |
+
+Caching consequence: the ≈ 2.9k prefix is above the Opus 5 (512), Sonnet 5 (1,024) and OpenAI GPT-5.6+/GPT-6 (1,024) minimums but **below Haiku 4.5's 4,096**, so the soft-tier fallback pays full input price for it. Per-reading cost estimates per model: 03 §9.6.
+
+### Normalised `AiUsage` (pricing contract)
+
+`inputTokens` = uncached input only; `cacheReadTokens`, `cacheWriteTokens` separate; `outputTokens` include thinking/reasoning. Anthropic: `input_tokens`, `cache_read_input_tokens`, `cache_creation_input_tokens`, `output_tokens` map 1:1. OpenAI: `inputTokens = input_tokens − input_tokens_details.cached_tokens − input_tokens_details.cache_write_tokens` (fields may be absent → 0), `cacheReadTokens = cached_tokens`, `cacheWriteTokens = cache_write_tokens`, `outputTokens = output_tokens`. With Anthropic `fallbacks`, price at the model in the response `model` (e.g. `claude-opus-4-8`). `callCost` logs `pricing_unknown` and charges the table's per-component maximum for unknown `provider/model`.
+
+### Anthropic request / response (adapter shape)
+
+```
+client = new Anthropic({ apiKey, maxRetries: 0, timeout })            // per request
+client.beta.messages.stream({
+  model,                                    // ai.model.<tier>
+  max_tokens,                               // ai.maxTokensBySpread[spread] (× 1.5 on the truncation retry)
+  system: [{ type: "text", text: system, cache_control: { type: "ephemeral" } }],
+  messages: [{ role: "user", content: user }],
+  output_config: { format: { type: "json_schema", schema: stripped }, effort },   // effort omitted for claude-haiku-*
+  thinking: { type: "adaptive" },           // omitted for claude-haiku-*
+  betas: ["server-side-fallback-2026-07-01"], fallbacks: "default",               // claude-opus-* and ai.refusalFallbacks only
+}).finalMessage()
+```
+
+No `temperature`/`top_p`/`top_k` (400 on 4.7+), no assistant prefill (400), no `metadata.user_id`. Schema stripping (400 otherwise): `minLength`, `maxLength`, `maxItems`, `minItems` > 1, `minimum`/`maximum`/`multipleOf`, `$comment`. Response: `stop_reason` `end_turn` → first `text` block → `JSON.parse` + zod; `max_tokens` → `truncated`; `refusal` → `refused` (`stop_details.category` may be null). `thinking` blocks come back with empty text (`display` defaults to `omitted`); skip non-`text` blocks, including `fallback` blocks. Errors: `RateLimitError` 429 → `rate_limited`; 529 `overloaded_error` and 5xx → `upstream`; `APIConnectionTimeoutError` → `timeout`; `APIConnectionError` → `upstream`; 400/401/403/404 → `upstream`, not retried.
+
+### OpenAI request / response (adapter shape)
+
+```
+POST https://api.openai.com/v1/responses
+Authorization: Bearer <OPENAI_API_KEY>, Content-Type: application/json, signal: AbortSignal.timeout(timeout)
+{
+  "model": "<ai.model.tier>",
+  "input": [
+    { "role": "developer", "content": [{ "type": "input_text", "text": system }] },
+    { "role": "user",      "content": [{ "type": "input_text", "text": user }] }
+  ],
+  "text": { "format": { "type": "json_schema", "name": "tarot_reading", "schema": stripped, "strict": true } },
+  "reasoning": { "effort": "<ai.effort>" },
+  "max_output_tokens": <ai.maxTokensBySpread[spread]>,
+  "store": false
+}
+```
+
+No `user` / `safety_identifier` (Q7), no `temperature`, no `prompt_cache_key` (not needed on GPT-5.6+; implicit caching places the breakpoint at the end of the latest message, so the static prefix is the first message). Schema stripping: `minLength`, `maxLength`, `$comment` (keep `minItems`/`maxItems`, `enum`). Response: `status == "completed"` → concatenate `output[type=message].content[type=output_text].text` → parse + zod; any `content[type=refusal]` → `refused`; `status == "incomplete"` with `incomplete_details.reason == "max_output_tokens"` → `truncated`, `"content_filter"` → `refused`; `status == "failed"` / other → `upstream`. Errors: 429 with `error.code == "insufficient_quota"` → `upstream` (no retry), other 429 → `rate_limited`; 5xx → `upstream`; abort → `timeout`; network → `upstream`. Moderation (`ai.moderation.provider = openai`): `POST /v1/moderations {"model": "omni-moderation-latest", "input": text}` → `results[0].flagged`, `results[0].categories`.
+
 ## Domain (`taro_core`, Phase 4)
 
 `packages/taro_core` is pure Dart (no Flutter, no `dart:io`; `check_architecture.dart`). `lib/taro_core.dart` exports only sub-barrels: `result/`, `model/` (plus `monetization/`), `logic/`, `ports/`, `usecases/`, `analytics/`. Models are freezed (RC13); `*.freezed.dart` is committed and excluded from coverage (RC16). JSON mappers are hand-written: they throw `FormatException`, which the data layer maps to a `Failure`. Instants are written as UTC `…Z`.
@@ -815,7 +894,7 @@ Three runs each (cold start: min / mid / max; S08: ranges over five to six runs)
 
 - **Source layout:** `apps/taro/content/source/` (format: its `README.md`; schemas: `tools/content/schema/{card,spreads,crisis}.schema.json`): `deck.yaml` (deck id, version, `artSet`), `glossary.yaml` (names, suits, positions, key terms × 12 locales), `<locale>/cards/<cardId>.yaml` ×78, `<locale>/spreads.yaml`, `<locale>/articles/{about,faq}.md`, `crisis/crisis_resources.yaml`. `en` is authored (LLM drafts, `reviewStatus: machine`, owner edit pass pending; voice rules in `docs/content/STYLE_GUIDE.md`); the other 11 locales are translated in Phase 18 from the reviewed glossary. Non-`en` locales carry a `sourceHash` of the `en` text they were made from, so `validate` can flag them as stale.
 - **Tools** (`tools/content/*`, Dart in `tools/dart_tools/lib/src/content/`): `validate` (errors for `en`, reports for missing or stale locales), `build` (deterministic, idempotent; `--check`), `translate` (Claude, `reviewStatus: machine`), `sync_check` (app assets vs Worker feeds), `placeholder_art` (`--check`).
-- **Generated, committed, never hand-edited:** `apps/taro/assets/deck/{deck_meta,en,spreads,crisis_resources}.json` and `art/placeholder/*.webp`; `worker/src/generated/{deck/cards,deck/spreads,deck_prompt.en,crisis_resources}.json` (excluded from coverage and Prettier).
+- **Generated, committed, never hand-edited:** `apps/taro/assets/deck/{deck_meta,en,spreads,crisis_resources}.json` and `art/placeholder/*.webp`; `worker/src/generated/{deck/cards,deck/spreads,deck/names,deck_prompt.en,crisis_resources}.json` (`deck/names.json`: glossary card and position names per locale for the reading prompt) (excluded from coverage and Prettier).
 - **Manifest:** `deck_meta.json` holds the deck identity, the 78 `DeckCard`s, the compiled locales and a SHA-256 per content file. `ContentManifest` verifies every file at load; a mismatch or missing checksum is a `ContentIntegrityException`, returned by the repositories as `StorageFailure`.
 - **Repositories** (`apps/taro/lib/data/content/`, over one `ContentAssetStore` per `AssetBundle`): `AssetDeckRepository`, `AssetSpreadRepository`, `AssetMeaningRepository` (per-locale file hashed, decoded and parsed in `Isolate.run`, cached; a locale without a compiled file falls back to `en`), `AssetCrisisResourcesRepository` (country → locale default → international, at most 3). `AssetContentRepository` implements `ContentRepository`; DI: `contentRepositoryProvider`, `crisisResourcesRepositoryProvider`.
 - **Unverified crisis entries:** the source keeps `verifiedAt: null` until the owner verifies them (Phase 18.4). The app parses `null` as the epoch (`kUnverifiedCrisisResourceAt`), so it always counts as stale; `tools/content/validate --release` fails on it.

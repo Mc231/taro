@@ -16,3 +16,6 @@ openapi/openapi.json
 # Contract fixtures are file snapshots written by test/contract (npm run contract:update);
 # their bytes are compared with the Dart copies by tools/check_contract_fixtures.py.
 test/contract/fixtures/
+
+# Versioned prompt templates (03 §9.2): byte-stable, hashed in src/prompts/versions.lock.json.
+prompts/

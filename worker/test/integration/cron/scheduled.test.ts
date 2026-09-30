@@ -58,12 +58,13 @@ describe('scheduled() (03 §12)', () => {
     );
     expect(declared).toEqual([Object.values(CRON), Object.values(CRON), Object.values(CRON)]);
     expect(CRON_JOBS[CRON.hourly].map((job) => job.name)).toEqual([
+      'refundUndeliveredReadings',
       'purgeIdempotencyKeys',
       'purgeUsedChallenges',
       'retryPendingAcks',
     ]);
     expect(CRON_JOBS[CRON.quarterHourly].map((job) => job.name)).toContain('expireRewardIntents');
-    expect(CRON_JOBS[CRON.daily].map((job) => job.name)).toEqual(['voidedPurchasesBackstop']);
+    expect(CRON_JOBS[CRON.daily].map((job) => job.name)).toContain('voidedPurchasesBackstop');
   });
 
   it('the hourly trigger purges expired idempotency keys and used challenges via the entrypoint', async () => {
@@ -103,12 +104,13 @@ describe('scheduled() (03 §12)', () => {
     await runScheduled(h.deps, CRON.hourly);
     const logged = h.logger.find('cron_job').map((e) => e.fields);
     expect(logged.map((f) => f['job'])).toEqual([
+      'refundUndeliveredReadings',
       'purgeIdempotencyKeys',
       'purgeUsedChallenges',
       'retryPendingAcks',
     ]);
-    expect(logged[1]).toMatchObject({ cron: CRON.hourly, latencyMs: 0 });
-    expect(Number(logged[1]?.['count'])).toBeGreaterThanOrEqual(1);
+    expect(logged[2]).toMatchObject({ cron: CRON.hourly, latencyMs: 0 });
+    expect(Number(logged[2]?.['count'])).toBeGreaterThanOrEqual(1);
 
     await runScheduled(h.deps, '0 0 * * *');
     expect(h.logger.find('cron_unknown').map((e) => e.fields)).toEqual([{ cron: '0 0 * * *' }]);

@@ -922,10 +922,10 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC29, RC45, RC62, RC64, RC73, RC82, RC9
 | `ai.model.paid` | `"claude-opus-5"` |
 | `ai.model.free` | `"claude-sonnet-5"` (RC64; BE Q1 deferred by the owner until Phase 21 cost data, 2026-09-27; stays remote-configurable) |
 | `ai.model.freeFallback` | `"claude-haiku-4-5"` (used in the soft tier, §10.2) |
-| `ai.provider.paid` / `ai.provider.free` / `ai.provider.freeFallback` | `"anthropic"` / `"anthropic"` / `"anthropic"`; ∈ `anthropic`, `openai`; the provider serving `ai.model.*` of the same tier (RC97; enters the defaults file in Phase 8) |
-| `ai.outageFallback.provider` / `ai.outageFallback.model` | `null` / `null` (off). When set: tried once per reading if the primary call ends in `error{timeout \| rate_limited \| upstream}` after its retry and ≥ 15 s of `ai.deadlineMs` remain; never after `refused`, `truncated` or `invalid_output` (§9.3, RC97; Phase 8) |
-| `ai.moderation.provider` | `"none"`; ∈ `none`, `openai`; optional vendor moderation check (§9.4, RC97; Phase 8) |
-| `ai.disclosedProviders` | `["anthropic", "openai"]`; the processors the shipped consent copy and store forms name (05 CS6). `config-push` rejects any `ai.provider.*`, `ai.outageFallback.provider` or `ai.moderation.provider` outside this list (RC97; Phase 8) |
+| `ai.provider.paid` / `ai.provider.free` / `ai.provider.freeFallback` | `"anthropic"` / `"anthropic"` / `"anthropic"`; ∈ `anthropic`, `openai`; the provider serving `ai.model.*` of the same tier (RC97; in the defaults file since Phase 8 Sprint 8.1, 2026-09-30) |
+| `ai.outageFallback.provider` / `ai.outageFallback.model` | `null` / `null` (off). When set: tried once per reading if the primary call ends in `error{timeout \| rate_limited \| upstream}` after its retry and ≥ 15 s of `ai.deadlineMs` remain; never after `refused`, `truncated` or `invalid_output` (§9.3, RC97; in the defaults file since 2026-09-30) |
+| `ai.moderation.provider` | `"none"`; ∈ `none`, `openai`; optional vendor moderation check (§9.4, RC97; in the defaults file since 2026-09-30) |
+| `ai.disclosedProviders` | `["anthropic", "openai"]`; the processors the shipped consent copy and store forms name (05 CS6). `config-push` rejects any `ai.provider.*`, `ai.outageFallback.provider` or `ai.moderation.provider` outside this list (RC97; in the defaults file and enforced by the config schema since 2026-09-30) |
 | `ai.effort` | `"low"` (a hint; each adapter maps it to its vendor's effort setting or ignores it, RC97) |
 | `ai.promptVersion` | `"v1"` |
 | `ai.maxTokensBySpread` | `{ "single": 2500, "three_ppf": 4000, "three_sao": 4000, "two_paths": 5500, "relationship": 5500, "celtic_cross": 8000, "*": 4000 }` (keys are the 01 §10.3 spread IDs, RC2) |
@@ -969,7 +969,7 @@ Request (`Idempotency-Key = clientReadingId`, RC42):
 Gates, in order (the server mirror of the client `ReadingGate` order in RC44: registration/trust → AI consent → online → `readings.enabled` / region → spread enabled → balance): auth and attestation (`401`/`403`, §3.4) → AI consent header (`412 AI_CONSENT_REQUIRED`) → `readings.enabled` (`503 READINGS_DISABLED`) → region (`403 AI_UNAVAILABLE_REGION`) → spread in `spreads.enabled` (`422 SPREAD_INVALID`) → budget tiers (§10.2) → rate and daily limits (§2.4) → balance (the hold itself) → provider available for the tier the hold charges (its provider or the outage fallback has a key, §9.3; else the hold is released and the call answers `503 AI_UNAVAILABLE`, nothing charged, RC97). Then:
 
 - Create or load the `readings` row by `(install_id, client_reading_id)` and take a hold (§5.3). The row becomes `status='held'`, `hold_expires_at = now + readings.holdTtlSec` (900 s).
-- If the row is already `held` and unexpired → return it unchanged (idempotent). If a *different* reading of this install is `held` and was never submitted, its hold is released first (at most one open hold per install; an abandoned draw must not lock a free reading).
+- If the row is already `held` and unexpired → return it unchanged (idempotent). The `[idem]` layer of this route keeps only its in-progress guard and stores no replay body (`storeResponses: false`, Phase 8.3), so a retry with the same key reaches the handler, which renews the live hold and answers a fresh `expiresAt`. A `generating` row answers `409 REQUEST_IN_PROGRESS`; a `completed` or `declined` row answers `409 HOLD_CONFLICT` (the client reads it with `GET`). If a *different* reading of this install is `held` and was never submitted, its hold is released first (at most one open hold per install; an abandoned draw must not lock a free reading).
 - No credit → `402 INSUFFICIENT_CREDITS`, row `no_credit`. The client shows S10; nothing has been drawn.
 
 Response `201`: `{ "clientReadingId": "…", "chargeSource": "free", "expiresAt": "…", "balance": BalanceDto }`.
@@ -1019,7 +1019,7 @@ Pipeline (`services/ReadingService.create`), with a hard deadline of `ai.deadlin
    | `held` (expired), `expired_hold`, `no_credit` | `attempt + 1`, take a new hold inline; on no credit → `409 HOLD_CONFLICT` (the client keeps the draw face-down and shows S10). |
    | `failed`, `expired_refunded` | `attempt + 1`, new hold inline (the previous attempt was refunded), then generate. This is "Try again" with the same cards. |
    | `generating` | `409 REQUEST_IN_PROGRESS` (`Retry-After: 3`); if older than 120 s it is a crashed run and the stale-hold cron resolves it. |
-   | `completed` | Return the stored reading from the replay body. If the body has expired, refund once (reason `reading_undelivered`, CAS on `hold_state`), set `expired_refunded` and return `410 READING_EXPIRED_REFUNDED`. **Never** `409` for a completed row. |
+   | `completed` | Return the stored reading from the replay body. If the body has expired, refund once (reason `reading_undelivered`, CAS on `hold_state`), set `expired_refunded` and return `410 READING_EXPIRED_REFUNDED`. An acknowledged reading (body deleted by the ack) answers `200` without `reading` and is never refunded. **Never** `409` for a completed row. |
    | `declined` | Replay the stored declined response (declines are deterministic and free). |
 
 3. **L1 prefilter** on the question (§9.4). A hit → refund the hold, `declined`, no model call.
@@ -1085,7 +1085,7 @@ Prompts and the output schema are **provider-neutral** (RC97): one template set 
   - the refusal policy and categories (mirrors §9.4);
   - the output length budget per spread size.
 - `style.<locale>.md`: short per-locale register notes (formality, e.g. `de` "du", `ja` polite form, `ar` MSA).
-- Card context: for each drawn card, the canonical English name, upright/reversed keywords and the position meaning from `src/generated/deck/cards.json` / `spreads.json` and `src/generated/deck_prompt.{locale}.json`, all emitted by `tools/content build` (RC26). English keywords keep the prompt small; the model writes in the target locale.
+- Card context: for each drawn card, the canonical English name, upright/reversed keywords and the position meaning from `src/generated/deck/cards.json` / `spreads.json` and `src/generated/deck_prompt.{locale}.json`, plus the card and position names in the reading language from `src/generated/deck/names.json` (the `glossary.yaml` names), all emitted by `tools/content build` (RC26). English keywords keep the prompt small; the model writes in the target locale using the glossary names.
 - **Caching:** request order is `system` (static rules + persona + full compact deck keyword table ≈ 3–4k tokens) → cache boundary → user message (spread, positions, the drawn cards, locale, and `<user_question>`). The adapter marks the boundary its vendor's way: Anthropic `cache_control: {type: "ephemeral"}` breakpoint; OpenAI automatic prefix caching, which only needs the static prefix first and byte-identical (RC97). The cached prefix is identical for all users of a prompt version and model. Measure the cache-read tokens (normalised `AiUsage.cacheReadTokens`) per provider in staging, and pad the static prefix above the model's minimum cacheable length if needed.
 - `output.schema.json` (JSON Schema, strict, `additionalProperties: false`), with **classification first**:
 
@@ -1117,7 +1117,7 @@ _Reconciled by 00_DECISIONS.md RC31, RC32, RC52, RC64, RC97._
 
 **Common to every provider:**
 
-- The `AiProvider` port is `generateReading(input: ReadingPromptInput): Promise<AiResult>`. `AiResult` is a discriminated union: `ok{json, usage, model}`, `refused{category}`, `truncated`, `error{kind: timeout|rate_limited|upstream|invalid_output}`; `usage` is the normalised `AiUsage` (input, output, cache-read and cache-write tokens) and `model` is reported as `provider/model`. Tests use `FakeAiProvider` with scripted results, and one shared contract suite runs against every adapter with recorded fixtures.
+- The `AiProvider` port is `generate(request: AiGenerateRequest): Promise<AiResult>` (the request carries the `ReadingPromptInput`, model, token limit, effort, `ai.timeoutMs`, `ai.maxRetries` and the handler's start and deadline). `AiResult` is a discriminated union: `ok{output, model}`, `refused{category, model}`, `truncated{model}`, `invalid_output{issues, model}`, `timeout`, `rate_limited`, `upstream`; every variant carries `calls` (one normalised `AiUsage` per billed upstream call, retries and the outage fallback included, at the serving model) and `model` is reported as `provider/model`. The retry and deadline policy below is shared by every adapter (`adapters/ai/callPolicy.ts`). Tests use `FakeAiProvider` with scripted results, and one shared contract suite runs against every adapter with recorded fixtures.
 - **Adapters (v1):** `AnthropicProvider` (`adapters/anthropic/`) and `OpenAiProvider` (`adapters/openai/`). Services and domain code never import a vendor SDK. `makeProdDeps(env)` builds an adapter only when its key is present (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, §11); `AI_PROVIDER=fake` (dev/staging only, BE20) replaces them with `FakeAiProvider`.
 - **Routing** (`services/AiRouter`): the hold's charge source and the budget tier pick the tier (`paid` for bonus/paid, `free`, or `freeFallback` in the soft tier), and the tier's `ai.provider.*` + `ai.model.*` pick the adapter and model. A tier whose provider has no adapter, and no keyed `ai.outageFallback.provider`, is disabled: its holds return `503 AI_UNAVAILABLE` (nothing charged, §9.0) and the critical alert `ai_provider_unavailable` fires (deduplicated hourly).
 - **Outage fallback:** when `ai.outageFallback.provider` / `.model` are set and the primary call ends in `error{timeout|rate_limited|upstream}` after its one retry, the Worker calls the fallback once, if at least 15 s of the deadline remain. It never falls back after `refused`, `truncated` or `invalid_output`, so a safety decision is never shopped to a second provider. Metric `ai_outage_fallback{from, to}`.
@@ -1132,14 +1132,27 @@ _Reconciled by 00_DECISIONS.md RC31, RC32, RC52, RC64, RC97._
   `client.beta.messages.stream({ model, max_tokens: ai.maxTokensBySpread[spread], thinking: { type: "adaptive" }, output_config: { effort: ai.effort, format: { type: "json_schema", schema } }, system: [...], messages: [...], betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" }).finalMessage()`.
   The beta namespace and `fallbacks` are included only when `ai.refusalFallbacks` is on.
 - `stop_reason` mapping: `refusal` (after fallbacks) → `refused`, `category` from `stop_details.category`; `max_tokens` → `truncated`; `end_turn` → parse.
-- Model-class differences: for Haiku-class models the adapter omits `thinking` and `output_config.effort` and does not send `fallbacks`. Sprint 8.1 confirms per-model parameter support (RC32).
+- Model-class differences (verified 2026-09-30, see *API notes* below): Opus/Sonnet 5.x take `thinking: {type: "adaptive"}` and `output_config.effort`; `claude-haiku-4-5` takes neither (400 on `effort`), so the adapter omits both and sends no `fallbacks`. `fallbacks: "default"` is sent for `claude-opus-*` only.
 
 **OpenAI (`adapters/openai/OpenAiProvider.ts`):**
 
-- The official `openai` SDK (or plain `fetch` if the SDK does not run on workerd; Sprint 8.1 decides), created per request with `apiKey: env.OPENAI_API_KEY`, `maxRetries: 0` and `timeout` as above.
+- Plain `fetch` to the **Responses API** (`POST https://api.openai.com/v1/responses`, Sprint 8.1 decision 2026-09-30): the `openai` SDK does support Cloudflare Workers, but one small JSON call does not justify a second vendor SDK in the bundle; the per-call timeout is an `AbortSignal`, and there are no SDK retries.
 - Request: the same `system` and `user` content, the output schema as a strict JSON-schema response format, `max_output_tokens: ai.maxTokensBySpread[spread]`, and a low reasoning effort for reasoning models (`ai.effort` mapped; omitted where the model has none). `ai.refusalFallbacks` is ignored. No `user` / `safety_identifier` is sent in v1 (Q7).
 - Mapping: a `refusal` output → `refused`; an incomplete response because of the output-token limit → `truncated`; a completed response → parse.
-- Exact API surface (Responses vs Chat Completions), model IDs, prices and caching minimums are confirmed in Sprint 8.1 (RC32, RC97).
+- Confirmed in Sprint 8.1 (2026-09-30): the Responses API (Chat Completions lacks function calling on the GPT-6 flagships and is not the recommended surface), `store: false`, `text.format` strict JSON schema, `status: "incomplete"` + `incomplete_details.reason` for truncation, a `refusal` content item for refusals; see *API notes*.
+
+**API notes (Sprint 8.1, checked 2026-09-30 against platform.claude.com and developers.openai.com; RC32, RC97).** The exact wire shapes live in `docs/ARCHITECTURE.md` §AI pipeline and cost; these are the decisions:
+
+| Topic | Anthropic (Messages API) | OpenAI (Responses API) |
+|---|---|---|
+| Models (tiers) | Defaults unchanged: `claude-opus-5` ($5/$25), `claude-sonnet-5` ($2/$10, launch price now permanent), `claude-haiku-4-5` ($1/$5). Newer and cheaper on the same surface: `claude-opus-5-5` ($4/$20, effort default `medium`, thinking cannot be disabled) and `claude-sonnet-5-5` ($2/$10); candidates for Phase 21 (BE Q1) after the 05 §4.3 eval. `claude-haiku-4-5` retirement "not sooner than 2026-10-15" (≥ 60 days notice): watch it, candidate replacement the Sonnet 5.x tier. | Candidates: `gpt-6-luna` (cheap, $0.10/$0.50) and `gpt-6.1-sol` (strong, $2/$10); not routed by default. |
+| Structured output | `output_config.format = {type: "json_schema", schema}`; supported on all three defaults. Rejects (400) `minLength`/`maxLength`, `minItems` > 1, `maxItems`, numeric bounds; the adapter strips them (and `$comment`); L3 enforces them. | `text.format = {type: "json_schema", name, schema, strict: true}`; root object, every property `required`, `additionalProperties: false`; `minItems`/`maxItems`/`pattern` allowed; `minLength`/`maxLength` are not in the documented list, so the adapter strips them (and `$comment`). |
+| Thinking / effort | `thinking: {type: "adaptive"}` + `output_config.effort` (`low` default for us); `max_tokens` caps thinking + text. | `reasoning: {effort}`; GPT-6 models default `medium`; `gpt-6.1-sol` rejects `none`/`minimal`. `max_output_tokens` caps reasoning + text. |
+| Refusal | `stop_reason: "refusal"` (+ `stop_details.category`); with `fallbacks: "default"` (beta `server-side-fallback-2026-07-01`, Opus) the server retries on its fallback model first, and the response `model` names the serving model. | `output[].content[].type == "refusal"`; `incomplete_details.reason == "content_filter"` is also mapped to `refused`. |
+| Truncation | `stop_reason: "max_tokens"`. | `status: "incomplete"`, `incomplete_details.reason: "max_output_tokens"`. |
+| Caching | Explicit `cache_control: {type: "ephemeral"}` (5 min) on the system block. Minimum prefix: Opus 5 / Opus 5.5 / Sonnet 5.5 512, Sonnet 5 1,024, **Haiku 4.5 4,096** (our ~2.9k-token prefix does not cache on Haiku). Reads 0.1× (Opus 5.5 0.05×), writes 1.25×. `input_tokens` excludes cache reads/writes. | Automatic (implicit) on GPT-5.6+/GPT-6: minimum 1,024 tokens, 30 min TTL, writes 1.25×, reads 0.1× (`gpt-6.1-sol` 0.05×). `usage.input_tokens` **includes** `input_tokens_details.cached_tokens` and `cache_write_tokens`; the adapter subtracts them. |
+| Moderation | none | `POST /v1/moderations`, `omni-moderation-latest`, free; `results[0].flagged` + `categories` (`self-harm*`, `sexual/minors`, `hate*`, `harassment*`, `violence*`, `illicit*`). |
+| Transport | `@anthropic-ai/sdk` 0.128.0 (already pinned; runs on workerd; typed `fallbacks`), `client.beta.messages.stream(...).finalMessage()`. | plain `fetch`, non-streaming. |
 
 ### 9.4 Safety layer
 
@@ -1186,17 +1199,18 @@ _Reconciled by 00_DECISIONS.md RC25, RC81, RC95._ There is one source, `apps/tar
 
 ### 9.6 Cost estimation
 
-_Reconciled by 00_DECISIONS.md RC32, RC64, RC97._ The price table is **per provider and model**. Anthropic prices (checked 2026-09-26, re-confirmed in Sprint 8.1, RC32): `claude-opus-5` $5 / $25, `claude-sonnet-5` $2 / $10, `claude-haiku-4-5` $1 / $5 per MTok input/output, with cache reads at about 10 % of input. OpenAI prices for every OpenAI model the config may route to (a tier or the outage fallback) are added in Sprint 8.1, with the same token estimates re-measured per provider (tokenizers differ). The token counts are **estimates to confirm with `count_tokens` in Sprint 8.1**:
+_Reconciled by 00_DECISIONS.md RC32, RC64, RC97._ The price table is **per provider and model** (`domain/pricing.ts`, verified 2026-09-30, Sprint 8.1). USD per MTok input / output, cache read, 5-min cache write: `claude-opus-5` 5 / 25, 0.50, 6.25; `claude-opus-5-5` 4 / 20, 0.20, 5; `claude-sonnet-5` and `claude-sonnet-5-5` 2 / 10, 0.20, 2.50; `claude-haiku-4-5` 1 / 5, 0.10, 1.25; `claude-opus-4-8` 5 / 25 (serves Opus refusal fallbacks); `gpt-6.1-sol` 2 / 10, 0.10, 2.50; `gpt-6-luna` 0.10 / 0.50, 0.01, 0.125. Token counts below are **estimates** (chars / 3.5 over the v1 prompt snapshots, a 300-char question, output incl. low-effort thinking) until `count_tokens` / reported usage replaces them; the measurement is in `docs/ARCHITECTURE.md` §AI cost. Warm cache assumed; Haiku 4.5 never caches the prefix (below its 4,096-token minimum).
 
-| Spread | Cached prefix (read) | Dynamic input | Output incl. low-effort thinking | Opus 5 (paid) | Sonnet 5 (free default) | Haiku 4.5 (free fallback) |
-|---|---|---|---|---|---|---|
-| Single card | 3.5k | 0.4k | ~0.8k | ≈ $0.024 | **≈ $0.010** | ≈ $0.005 |
-| Three-card (`three_ppf`, `three_sao`) | 3.5k | 0.7k | ~1.4k | ≈ $0.041 | **≈ $0.017** | ≈ $0.009 |
-| Celtic Cross (10) | 3.5k | 1.6k | ~3.0k | ≈ $0.085 | **≈ $0.035** | ≈ $0.018 |
+| Spread | Cached prefix | Dynamic input | Output | Opus 5 (paid) | Sonnet 5 (free default) | Haiku 4.5 (free fallback) | `gpt-6.1-sol` | `gpt-6-luna` |
+|---|---|---|---|---|---|---|---|---|
+| Single card | ≈ 2.9k | ≈ 0.9k | ~0.8k | ≈ $0.026 | **≈ $0.010** | ≈ $0.008 | ≈ $0.010 | ≈ $0.0005 |
+| Three-card (`three_ppf`, `three_sao`) | ≈ 2.9k | ≈ 1.2k | ~1.4k | ≈ $0.043 | **≈ $0.017** | ≈ $0.011 | ≈ $0.017 | ≈ $0.0009 |
+| Two paths / Relationship | ≈ 2.9k | ≈ 1.5k | ~2.0k | ≈ $0.059 | **≈ $0.024** | ≈ $0.014 | ≈ $0.023 | ≈ $0.0012 |
+| Celtic Cross (10) | ≈ 2.9k | ≈ 2.0k | ~3.0k | ≈ $0.086 | **≈ $0.035** | ≈ $0.020 | ≈ $0.034 | ≈ $0.0017 |
 
 - The per-reading cost is computed from the normalised `AiUsage` (input, cache-read, cache-write and output tokens; each adapter maps its vendor's usage fields). The price table lives in `domain/pricing.ts`, keyed by `provider/model`, and a missing entry logs `pricing_unknown` and uses the most expensive known price of any provider.
 - It is stored in `readings.cost_micro_usd` (with `readings.model = provider/model`) and aggregated in `ai_spend_daily` (all providers together, so the §10.2 tiers see the total) and in Analytics Engine per provider.
-- Unit economics (owner decision, Q1): at 1 free three-card reading per DAU per day, AI cost is about $0.017 per DAU-day on Sonnet 5 (about $170/day at 10k DAU), falling to about $0.009 on the Haiku fallback. On Opus 5 it would be about $0.04 per DAU-day, which banner revenue is unlikely to cover. The config levers (`ai.model.free`, `ai.model.freeFallback`, `ai.budget.freeUsdPerDau`) tune this without a release. `readings.freeDaily` cannot go below 1 (MO14).
+- Unit economics (owner decision, Q1): at 1 free three-card reading per DAU per day, AI cost is about $0.017 per DAU-day on Sonnet 5 (about $170/day at 10k DAU), falling to about $0.011 on the Haiku fallback (no prefix caching there; estimate 2026-09-30) and under $0.001 on `gpt-6-luna` if a later eval clears it (RC97). On Opus 5 it would be about $0.04 per DAU-day, which banner revenue is unlikely to cover. The config levers (`ai.model.free`, `ai.model.freeFallback`, `ai.budget.freeUsdPerDau`) tune this without a release. `readings.freeDaily` cannot go below 1 (MO14).
 
 ### 9.7 Report a reading — `POST /v1/readings/{clientReadingId}/report` **[idem]** (CS7, RC22, RC72)
 
@@ -1283,6 +1297,7 @@ Secrets are set with `wrangler secret put --env <env>`; none of them are in the 
 | `GOOGLE_SERVICE_ACCOUNT_JSON` | Play Developer API + Play Integrity decode |
 | `GOOGLE_PUBSUB_AUDIENCE`, `GOOGLE_PUBSUB_SA` | RTDN push auth |
 | `ALERT_WEBHOOK_URL` | Alert sink (Telegram/Slack incoming webhook) |
+| `ANALYTICS_ACCOUNT_ID`, `ANALYTICS_API_TOKEN` | Analytics Engine SQL API read access for `AlertService` (§14.1); optional, without them the metric alert rules are skipped (Sprint 8.5) |
 
 Either AI key may be absent (RC97): only the providers with a key get an adapter, and a tier routed to a provider without one is disabled with the `ai_provider_unavailable` alert (§9.3). Set a key only for a provider that is in `ai.disclosedProviders`.
 
@@ -1350,7 +1365,7 @@ These feed the App Store privacy label and the Play Data Safety form in `05_COMP
   - `attest_failed`, `rate_limited`, `budget_block`, `hold_abandoned`, `reading_undelivered_refund`, `blocked_purchase`, `sandbox_grant`, `devicecheck_error`, `webhook_sig_failed`.
 
   These are queried with the SQL API from `worker/scripts/metrics.ts`.
-- Alerts (`ALERT_WEBHOOK_URL`, via the `Alerter` port): budget tiers (§10.2), a tier routed to a provider without a key (`ai_provider_unavailable`, §9.3, RC97), sandbox volume (§6.2), low-trust bucket volume (§2.4), and from `AlertService` in the 15-minute cron, which queries Analytics Engine through the `Metrics` port: 5xx rate > `alerts.error5xxRatePct` (2 %) over 15 min, `reading_failed` > `alerts.readingFailedRatePct` (10 %) over 15 min, webhook signature failures > `alerts.webhookSigFailuresPer15m`. Each alert kind is deduplicated to at most one message per hour (last-sent timestamp in `CACHE_KV`).
+- Alerts (`ALERT_WEBHOOK_URL`, via the `Alerter` port): budget tiers (§10.2), a tier routed to a provider without a key (`ai_provider_unavailable`, §9.3, RC97), sandbox volume (§6.2), low-trust bucket volume (§2.4), and from `AlertService` in the 15-minute cron, which queries Analytics Engine through the `Metrics` port: 5xx rate > `alerts.error5xxRatePct` (2 %) over 15 min, `reading_failed` > `alerts.readingFailedRatePct` (10 %) over 15 min, webhook signature failures > `alerts.webhookSigFailuresPer15m`. Each alert kind is deduplicated to at most one message per hour (last-sent timestamp in `CACHE_KV`). The 5xx rate comes from the `http_response` event (one per response, `code` = status) that the request-logging middleware writes; a rate alert needs at least 3 numerator events in the window.
 
 ### 14.2 CI/CD (details of runners and gates in `06_QUALITY_TESTING_CI.md`)
 

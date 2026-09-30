@@ -1,0 +1,62 @@
+{
+  "$comment": "Provider-neutral (RC97): no if/then/oneOf, which vendor strict modes reject. The Worker's zod parse (src/prompts/templates.ts parseReadingOutput) also requires, when classification is none, a non-empty title, overview and synthesis, one non-empty interpretation per drawn card with its ids echoed, and the spread's number of non-empty reflection prompts.",
+  "type": "object",
+  "required": ["classification", "title", "overview", "cards", "synthesis", "reflectionPrompts"],
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "none",
+        "health",
+        "pregnancy",
+        "death",
+        "legal",
+        "financial",
+        "gambling",
+        "self_harm",
+        "harm_to_others",
+        "sexual_minors",
+        "hate_or_harassment"
+      ],
+      "description": "Decided first. \"none\" = write the reading; any other value = refusal, every other string empty."
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Two to seven words. Non-empty unless declined."
+    },
+    "overview": {
+      "type": "string",
+      "maxLength": 700,
+      "description": "Two or three sentences. Non-empty unless declined."
+    },
+    "cards": {
+      "type": "array",
+      "description": "One entry per drawn card, in input order. Empty only when declined.",
+      "items": {
+        "type": "object",
+        "required": ["positionId", "cardId", "reversed", "interpretation"],
+        "properties": {
+          "positionId": { "type": "string" },
+          "cardId": { "type": "string" },
+          "reversed": { "type": "boolean" },
+          "interpretation": { "type": "string", "maxLength": 900 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "synthesis": {
+      "type": "string",
+      "maxLength": 1400,
+      "description": "How the cards connect, ending on one concrete step. Non-empty unless declined."
+    },
+    "reflectionPrompts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "description": "Exactly the number given in <length>, open questions. [\"\"] when declined.",
+      "items": { "type": "string", "maxLength": 200 }
+    }
+  },
+  "additionalProperties": false
+}

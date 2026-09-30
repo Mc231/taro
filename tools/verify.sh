@@ -272,7 +272,7 @@ fast_tests() {
 }
 
 worker_checks() {
-  (cd worker && "$NPM" run lint && "$NPM" run typecheck && "$NPM" run format:check)
+  (cd worker && "$NPM" run lint && "$NPM" run typecheck && "$NPM" run format:check && "$NPM" run -s safety:lexicons:check)
 }
 
 echo "verify.sh ($([[ $FAST == 1 ]] && echo fast || echo full)) in $ROOT"

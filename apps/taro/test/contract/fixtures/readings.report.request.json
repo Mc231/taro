@@ -1,0 +1,22 @@
+{
+  "reason": "harmful_advice",
+  "note": "The reading told me to stop my medication.",
+  "question": "Should I change my treatment?",
+  "reading": {
+    "title": "A time to listen",
+    "overview": "The cards point to patience and to asking for good advice.",
+    "cards": [
+      {
+        "positionId": "focus",
+        "cardId": "major_02",
+        "reversed": false,
+        "interpretation": "Quiet knowing asks you to listen before acting."
+      }
+    ],
+    "synthesis": "Take time to gather advice you trust.",
+    "reflectionPrompts": [
+      "Who could you talk this through with?"
+    ]
+  },
+  "locale": "de"
+}

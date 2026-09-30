@@ -769,6 +769,462 @@
           "amount"
         ]
       },
+      "Hold": {
+        "type": "object",
+        "properties": {
+          "clientReadingId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0c6e7a52-3d1f-4b8e-9c2a-5e6f7a8b9c0d"
+          },
+          "chargeSource": {
+            "type": "string",
+            "enum": [
+              "free",
+              "bonus",
+              "paid"
+            ]
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-09-26T09:25:02Z"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          }
+        },
+        "required": [
+          "clientReadingId",
+          "chargeSource",
+          "expiresAt",
+          "balance"
+        ]
+      },
+      "HoldRequest": {
+        "type": "object",
+        "properties": {
+          "clientReadingId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0c6e7a52-3d1f-4b8e-9c2a-5e6f7a8b9c0d"
+          },
+          "spread": {
+            "$ref": "#/components/schemas/SpreadRef"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ar",
+              "de",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ko",
+              "nl",
+              "pt",
+              "tr",
+              "uk"
+            ]
+          }
+        },
+        "required": [
+          "clientReadingId",
+          "spread",
+          "locale"
+        ]
+      },
+      "SpreadRef": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "example": "three_ppf"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 1
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ]
+      },
+      "ReadingResponse": {
+        "type": "object",
+        "properties": {
+          "readingId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "declined"
+            ]
+          },
+          "chargeSource": {
+            "type": "string",
+            "enum": [
+              "free",
+              "bonus",
+              "paid",
+              "none"
+            ]
+          },
+          "promptVersion": {
+            "type": "string"
+          },
+          "reading": {
+            "$ref": "#/components/schemas/ReadingWire"
+          },
+          "safety": {
+            "$ref": "#/components/schemas/Safety"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          }
+        },
+        "required": [
+          "readingId",
+          "status",
+          "chargeSource",
+          "balance"
+        ]
+      },
+      "ReadingWire": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "overview": {
+            "type": "string"
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "positionId": {
+                  "type": "string"
+                },
+                "cardId": {
+                  "type": "string"
+                },
+                "reversed": {
+                  "type": "boolean"
+                },
+                "interpretation": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "positionId",
+                "cardId",
+                "reversed",
+                "interpretation"
+              ]
+            }
+          },
+          "synthesis": {
+            "type": "string"
+          },
+          "reflectionPrompts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "title",
+          "overview",
+          "cards",
+          "synthesis",
+          "reflectionPrompts"
+        ]
+      },
+      "Safety": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "health",
+              "pregnancy",
+              "death",
+              "legal",
+              "financial",
+              "gambling",
+              "self_harm",
+              "harm_to_others",
+              "sexual_minors",
+              "hate_or_harassment",
+              "other"
+            ]
+          },
+          "messageKey": {
+            "type": "string",
+            "example": "safetyDeclinedSelfHarm"
+          },
+          "crisisResources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CrisisResource"
+            }
+          },
+          "canRephrase": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "category",
+          "messageKey",
+          "crisisResources",
+          "canRephrase"
+        ]
+      },
+      "CrisisResource": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "sms": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "hours": {
+            "type": "string"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "verifiedAt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "languages",
+          "verifiedAt"
+        ]
+      },
+      "ReadingRequest": {
+        "type": "object",
+        "properties": {
+          "clientReadingId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "0c6e7a52-3d1f-4b8e-9c2a-5e6f7a8b9c0d"
+          },
+          "spread": {
+            "$ref": "#/components/schemas/SpreadRef"
+          },
+          "cards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "positionId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 32,
+                  "example": "past"
+                },
+                "cardId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 32,
+                  "example": "major_16"
+                },
+                "reversed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "positionId",
+                "cardId",
+                "reversed"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 10
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ar",
+              "de",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ko",
+              "nl",
+              "pt",
+              "tr",
+              "uk"
+            ]
+          },
+          "drawnAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-09-26T09:10:02Z"
+          }
+        },
+        "required": [
+          "clientReadingId",
+          "spread",
+          "cards",
+          "locale",
+          "drawnAt"
+        ]
+      },
+      "ReadingState": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "held",
+              "generating",
+              "completed",
+              "declined",
+              "failed",
+              "no_credit",
+              "expired_hold",
+              "expired_refunded"
+            ]
+          },
+          "attempt": {
+            "type": "integer"
+          },
+          "chargeSource": {
+            "type": "string",
+            "enum": [
+              "free",
+              "bonus",
+              "paid",
+              "none"
+            ]
+          },
+          "promptVersion": {
+            "type": "string"
+          },
+          "reading": {
+            "$ref": "#/components/schemas/ReadingWire"
+          },
+          "safety": {
+            "$ref": "#/components/schemas/Safety"
+          },
+          "balance": {
+            "$ref": "#/components/schemas/BalanceDto"
+          }
+        },
+        "required": [
+          "status",
+          "attempt",
+          "balance"
+        ]
+      },
+      "ReadingReport": {
+        "type": "object",
+        "properties": {
+          "reportId": {
+            "type": "string",
+            "example": "0192f0c1-7a4e-7b3d-9c2a-5e6f7a8b9c0d"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "received"
+            ]
+          }
+        },
+        "required": [
+          "reportId",
+          "status"
+        ]
+      },
+      "ReadingReportRequest": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "enum": [
+              "offensive",
+              "harmful_advice",
+              "sexual",
+              "hateful",
+              "other"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "reading": {
+            "type": "object",
+            "additionalProperties": {},
+            "example": {
+              "title": "…",
+              "overview": "…",
+              "cards": [],
+              "synthesis": "…"
+            }
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ar",
+              "de",
+              "es",
+              "fr",
+              "it",
+              "ja",
+              "ko",
+              "nl",
+              "pt",
+              "tr",
+              "uk"
+            ]
+          }
+        },
+        "required": [
+          "reason",
+          "reading",
+          "locale"
+        ]
+      },
       "AppStoreNotification": {
         "type": "object",
         "properties": {
@@ -1695,6 +2151,590 @@
           },
           "404": {
             "description": "No such intent for this install",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readings/holds": {
+      "post": {
+        "tags": [
+          "readings"
+        ],
+        "summary": "Pre-draw hold: reserve one reading before the shuffle (03 §9.0, RC50)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem",
+          "attest"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4)."
+            },
+            "required": false,
+            "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4).",
+            "name": "x-taro-attestation",
+            "in": "header"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "AI consent version the user accepted (RC28); below `ai.consentVersion` → 412.",
+              "example": "1"
+            },
+            "required": false,
+            "description": "AI consent version the user accepted (RC28); below `ai.consentVersion` → 412.",
+            "name": "x-taro-ai-consent",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HoldRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Held (or a live hold renewed)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Hold"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_FAILED or IDEMPOTENCY_KEY_REQUIRED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "INSUFFICIENT_CREDITS (details.reason, details.freeResetsAt)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AI_UNAVAILABLE_REGION or ATTESTATION_FAILED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "REQUEST_IN_PROGRESS or HOLD_CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "AI_CONSENT_REQUIRED (details.requiredVersion)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "SPREAD_INVALID (details.reason) or IDEMPOTENCY_KEY_REUSED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "READINGS_DISABLED, AI_BUDGET_EXHAUSTED (details.tier) or AI_UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readings": {
+      "post": {
+        "tags": [
+          "readings"
+        ],
+        "summary": "Generate the AI reading of a drawn spread (03 §9.1)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem",
+          "attest"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4)."
+            },
+            "required": false,
+            "description": "[attest]: `aa1.<assertion>`, `pi1.<token>` or `none` (03 §3.4).",
+            "name": "x-taro-attestation",
+            "in": "header"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "description": "AI consent version the user accepted (RC28); below `ai.consentVersion` → 412.",
+              "example": "1"
+            },
+            "required": false,
+            "description": "AI consent version the user accepted (RC28); below `ai.consentVersion` → 412.",
+            "name": "x-taro-ai-consent",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Completed, or declined (never charged)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadingResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "VALIDATION_FAILED or IDEMPOTENCY_KEY_REQUIRED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "INSUFFICIENT_CREDITS (a new row without a hold)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AI_UNAVAILABLE_REGION or ATTESTATION_FAILED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "REQUEST_IN_PROGRESS or HOLD_CONFLICT",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "READING_EXPIRED_REFUNDED (details.balance)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "AI_CONSENT_REQUIRED (details.requiredVersion)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "SPREAD_INVALID (details.reason) or IDEMPOTENCY_KEY_REUSED",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "READINGS_DISABLED, AI_BUDGET_EXHAUSTED (details.tier) or AI_UNAVAILABLE",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readings/{clientReadingId}": {
+      "get": {
+        "tags": [
+          "readings"
+        ],
+        "summary": "Reading status and, until acknowledged, its text (03 §9.1, RC51)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "0c6e7a52-3d1f-4b8e-9c2a-5e6f7a8b9c0d"
+            },
+            "required": true,
+            "name": "clientReadingId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadingState"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No reading with this clientReadingId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "READING_EXPIRED_REFUNDED: never delivered, refunded once",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readings/{clientReadingId}/ack": {
+      "post": {
+        "tags": [
+          "readings"
+        ],
+        "summary": "Acknowledge delivery; the stored reading text is deleted (03 §9.1, RC51)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "0c6e7a52-3d1f-4b8e-9c2a-5e6f7a8b9c0d"
+            },
+            "required": true,
+            "name": "clientReadingId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Acknowledged (also when already acknowledged)"
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No reading with this clientReadingId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limited",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/readings/{clientReadingId}/report": {
+      "post": {
+        "tags": [
+          "readings"
+        ],
+        "summary": "Report an AI reading (S33); stored encrypted for 90 days (03 §9.7)",
+        "security": [
+          {
+            "installToken": []
+          }
+        ],
+        "x-taro-auth": "token",
+        "x-taro-flags": [
+          "idem"
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "example": "6d2f1c9e-2b7a-4f6e-9a51-3c8d0e4b7a21"
+            },
+            "required": true,
+            "name": "clientReadingId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3)."
+            },
+            "required": false,
+            "description": "[idem]: required; a UUID per user action, reused only on retry (03 §2.3).",
+            "name": "idempotency-key",
+            "in": "header"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReadingReportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Report received (also for a reading already reported)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadingReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid body or missing Idempotency-Key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid install token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No completed or declined reading with this clientReadingId",
             "content": {
               "application/json": {
                 "schema": {

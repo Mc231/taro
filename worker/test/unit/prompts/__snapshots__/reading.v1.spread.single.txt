@@ -1,0 +1,35 @@
+<reading_language code="en">English</reading_language>
+<style_notes>
+Register: warm, plain US English; "you" singular; other people are "they" unless the question genders them.
+Names: the names in <cards>, with "the" in running text ("the Tower", "the Three of Cups"). Terms: Major Arcana, Minor Arcana, Wands, Cups, Swords, Pentacles, upright, reversed; the layout is a "spread".
+Card-focus clause: "This reading stays with the cards themselves."
+Prompts start with What, Which, How, Where or When.
+Avoid: "the cards show / say that", "you will", "is going to", "soon", "over time", "rather than", "instead of", "not … but".
+Rejected words: accurate, precise, guarantee(d), psychic, medium, clairvoyant, heal, healing, cure, therapy, therapist, spell, hex, best, 100%, #1. Write instead: "clear", "specific", "a middle path", "mend", "care for", "most helpful", "a ritual".
+</style_notes>
+<spread id="single" name="Single Card" cards="1">
+One card, read in depth for the question. With a yes-or-no or "should I" question, show what the card may bring to each side and leave the answer with the reader.
+</spread>
+<length>
+Overview 2–3 sentences, 25–40 words; the card 5–7 sentences, 75–95 words; synthesis 2–3 sentences, 25–45 words; exactly 2 reflection prompts; about 150–220 words in total, title and prompts included. Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="focus" cardId="major_02" reversed="false">
+Position: Focus. Read as a quality, feeling or perspective the card may bring to the question.
+Card: The High Priestess; upright
+Image: a seated figure between a dark and a light pillar, a veil of pomegranates behind, a half-hidden scroll in the lap and a crescent moon at the feet
+Keywords: inner knowing; stillness; listening; the unspoken; patience
+</card>
+</cards>
+<prefilter_hint>none</prefilter_hint>
+<user_question></user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Single Card reading in English. Address the reader as "you" (singular). The question is empty: write a general reading of what these cards invite the reader to notice in their life now, without inventing circumstances or mentioning the empty question.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "precise", "accurate", "guarantee", "best", "medium", "healing") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

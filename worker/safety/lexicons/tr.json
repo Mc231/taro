@@ -1,0 +1,236 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "tr",
+  "reviewed": false,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["intihar\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["kendimi oldur\\p{L}*|canima kiy\\p{L}*|canina kiy\\p{L}*"]
+    },
+    {
+      "id": "sh.end_all",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["her seye son ver\\p{L}*|hayatima son ver\\p{L}*"]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["kendime zarar ver\\p{L}*"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["veda mektup\\p{L}*"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:kopru|cati|bina)\\p{L}* atla\\p{L}*"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["hap", "uyanmama\\p{L}*"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["bir daha (?:hic )?uyanmama\\p{L}*"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:dunya|herkes|ailem) (?:\\p{L}+ )?bensiz daha iyi"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "ortadan kaybol\\p{L}*|var olmayi birak\\p{L}*|yasamaktan (?:cok )?yoruldum|sonsuza (?:dek|kadar) (?:veda|gider\\p{L}*)|sigorta parasi\\p{L}*|kendimi (?:yakiyorum|kestim|kesiyorum)|yemeyi birak\\p{L}*|dayanamiyorum"
+      ]
+    },
+    {
+      "id": "ho.poison",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["zehirle\\p{L}*"]
+    },
+    {
+      "id": "ho.stab",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["bicakla\\p{L}*|bicak al\\p{L}*"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["arabasini yak\\p{L}*|evini yak\\p{L}*"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["lastiklerini kes\\p{L}*"]
+    },
+    {
+      "id": "ho.beat_up",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["dov\\p{L}* istiyorum"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["merdivenden it\\p{L}*"]
+    },
+    {
+      "id": "ho.shooting",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["ates ac\\p{L}*"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["iceceg\\p{L}* bir sey kat\\p{L}*"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["ortadan kaldir\\p{L}*", "kimse fark etmeden"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["hayatta kalamayacag\\p{L}*", "ders"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["aci cek\\p{L}*|bedel ode\\p{L}*", "fiziksel"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": [
+        "intikam\\p{L}*|zarar ver\\p{L}*|saldir\\p{L}*|vurma\\p{L}*|arabasina carp\\p{L}*"
+      ]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "seks\\p{L}*|cinsel\\p{L}*|erotik\\p{L}*|mustehcen\\p{L}*|ciplak\\p{L}*|sevgili olacak\\p{L}*|yatmam|yatmak|sehvet\\p{L}*|romantik bir gece|porno\\p{L}*",
+        "(?<![\\p{N}])(?:[1-9]|1[0-7]) yasinda\\p{L}*|resit olmayan|resit degil|ortaokullu\\p{L}*|liseli kiz|yetiskinle bir cocuk"
+      ],
+      "unless": ["(?:kizim|oglum|cocuklarim|kizimiz|oglumuz)\\p{L}*"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "kanser|tumor|teshis|hastalik\\p{L}*|hasta|ameliyat\\p{L}*|biyopsi|tahlil\\p{L}*|kemoterapi|ilac\\p{L}*|antidepresan\\p{L}*|insulin|belirti\\p{L}*"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "hamile\\p{L}*|gebe\\p{L}*|dusuk|tup bebek|dogurganlik|bebegin cinsiyeti|cocugum olacak"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": ["ne zaman olecek\\p{L}*|olecek\\p{L}*|olur mu|ne kadar omr\\p{L}*|vefat"]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "dava\\p{L}*|mahkeme\\p{L}*|avukat\\p{L}*|vize|iltica|sinir disi|velayet|hapis|cezaevi|polis|tahliye"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "hisse\\p{L}*|kripto\\p{L}*|bitcoin|yatirim\\p{L}*|zengin ol\\p{L}*|borsa|emeklilik|birikim\\p{L}*|alayim mi satayim mi"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": [
+        "piyango|loto|bahis\\p{L}*|kumar\\p{L}*|casino|kumarhane|jackpot|poker|rulet|blackjack|iddaa"
+      ]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "gocmenler|musluman\\p{L}*|yahudi\\p{L}*|asalak\\p{L}*|hakaret\\p{L}*|taciz\\p{L}*|dedikodu\\p{L}*|tehdit\\p{L}*|ustun irk"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": ["mutlaka", "şüphesiz", "kuşkusuz"],
+    "forbiddenClaims": [
+      "öleceksin",
+      "teşhis*",
+      "antidepresan*",
+      "hisse senedi al*",
+      "kripto al*",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": ["(?:mutlaka|kesin)(?:\\s+[^\\s.,;:!?]+){0,5}?\\s+değil"]
+  }
+}

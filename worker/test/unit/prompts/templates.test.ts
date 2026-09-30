@@ -1,0 +1,352 @@
+import { describe, expect, it } from 'vitest';
+import cardsFeed from '../../../src/generated/deck/cards.json';
+import spreadsFeed from '../../../src/generated/deck/spreads.json';
+import { WebCrypto } from '../../../src/adapters/cf/WebCrypto';
+import { CLASSIFICATIONS, LOCALES } from '../../../src/domain/types';
+import { buildReadingPrompt, systemPrompt } from '../../../src/prompts/build';
+import {
+  isPromptVersion,
+  parseReadingOutput,
+  promptDataSchema,
+  PROMPT_VERSIONS,
+  READING_TEMPLATES,
+  templateFiles,
+} from '../../../src/prompts/templates';
+import { promptVersionHash } from '../../../src/prompts/versions';
+import lock from '../../../src/prompts/versions.lock.json';
+
+// Sprint 8.2 / 06 §7: the versioned templates are complete, provider-neutral
+// (RC97), and frozen by the hash in versions.lock.json.
+describe('reading prompt templates', () => {
+  const set = READING_TEMPLATES.v1;
+
+  it('knows its versions', () => {
+    expect(PROMPT_VERSIONS).toEqual(['v1']);
+    expect(isPromptVersion('v1')).toBe(true);
+    expect(isPromptVersion('v2')).toBe(false);
+    expect(isPromptVersion(1)).toBe(false);
+  });
+
+  it('pins the hash of every version in versions.lock.json', async () => {
+    const crypto = new WebCrypto();
+    expect(Object.keys(lock.reading).sort()).toEqual([...PROMPT_VERSIONS].sort());
+    for (const version of PROMPT_VERSIONS) {
+      const hash = await promptVersionHash(version, crypto);
+      expect(
+        hash,
+        `prompt ${version} changed: released prompt versions are frozen; add prompts/reading/<next>/ ` +
+          `(and its CHANGELOG entry) instead. While ${version} is still unreleased, pin ${hash}.`,
+      ).toBe(lock.reading[version]);
+    }
+  });
+
+  it('hashes all template files in a stable order', () => {
+    const names = templateFiles(set).map(([name]) => name);
+    expect(names).toEqual([...names].sort());
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'system.md',
+        'user.md',
+        'output.schema.json',
+        'prompt_data.json',
+        ...LOCALES.map((l) => `style.${l}.md`),
+      ]),
+    );
+    expect(names).toHaveLength(4 + LOCALES.length);
+  });
+
+  it('has a non-empty style note and a language name for every locale', () => {
+    for (const locale of LOCALES) {
+      expect(set.styles[locale].trim().length, locale).toBeGreaterThan(200);
+      // Consolidation: short per-locale notes, not a second rule book.
+      expect(new TextEncoder().encode(set.styles[locale]).length, locale).toBeLessThanOrEqual(1024);
+      expect(set.styles[locale], locale).toMatch(/^Card-focus clause: /m);
+      expect(set.styles[locale], locale).toMatch(/^Rejected words/m);
+      expect(set.data.locales[locale].length, locale).toBeGreaterThan(0);
+      const notes = set.data.localeNotes[locale];
+      expect(notes.factor, locale).toBeGreaterThan(0.5);
+      expect(notes.factor, locale).toBeLessThanOrEqual(2);
+      expect(notes.address.length, locale).toBeGreaterThan(10);
+    }
+    expect(set.data.localeNotes.en).toMatchObject({ factor: 1, unit: 'words' });
+  });
+
+  it('has notes, labels and budgets for every generated spread and position', () => {
+    expect(Object.keys(set.data.spreads).sort()).toEqual(
+      spreadsFeed.spreads.map((s) => s.id).sort(),
+    );
+    for (const spread of spreadsFeed.spreads) {
+      const notes = set.data.spreads[spread.id];
+      expect(notes, spread.id).toBeDefined();
+      expect(Object.keys(notes?.positions ?? {})).toEqual(spread.positions.map((p) => p.id));
+      for (const [min, max] of Object.values(notes?.words ?? {})) {
+        expect(min).toBeLessThan(max);
+      }
+    }
+  });
+
+  it('keeps word budgets inside 01 §7.4 and the schema character limits', () => {
+    // 01 §7.4 totals include the title (2–7 words) and the reflection prompts
+    // (about 8–15 words each); the per-field budgets plus those must add up to them.
+    const totals: Record<string, [number, number]> = {
+      single: [150, 220],
+      three_ppf: [300, 400],
+      three_sao: [300, 400],
+      relationship: [400, 550],
+      two_paths: [400, 550],
+      celtic_cross: [650, 850],
+    };
+    for (const spread of spreadsFeed.spreads) {
+      const notes = set.data.spreads[spread.id];
+      if (notes === undefined) {
+        throw new Error(spread.id);
+      }
+      expect(notes.words.total, spread.id).toEqual(totals[spread.id]);
+      const n = spread.positions.length;
+      const p = notes.reflectionPrompts;
+      const min =
+        notes.words.overview[0] + n * notes.words.card[0] + notes.words.synthesis[0] + 2 + p * 8;
+      const max =
+        notes.words.overview[1] + n * notes.words.card[1] + notes.words.synthesis[1] + 7 + p * 15;
+      expect(min, spread.id).toBeGreaterThanOrEqual(notes.words.total[0] * 0.9);
+      expect(max, spread.id).toBeLessThanOrEqual(notes.words.total[1]);
+      // ~6 characters per English word (German runs ~30 % longer) must fit the schema limits.
+      expect(notes.words.card[1] * 6 * 1.3, spread.id).toBeLessThanOrEqual(900);
+      expect(notes.words.overview[1] * 6 * 1.3, spread.id).toBeLessThanOrEqual(700);
+      expect(notes.words.synthesis[1] * 6 * 1.3, spread.id).toBeLessThanOrEqual(1400);
+      expect(notes.reflectionPrompts).toBeGreaterThanOrEqual(2);
+      // The prompt's own position notes cover every position and never negate ("not a promise").
+      expect(Object.keys(notes.positionNotes).sort(), spread.id).toEqual(
+        spread.positions.map((position) => position.id).sort(),
+      );
+      for (const note of Object.values(notes.positionNotes)) {
+        expect(note, spread.id).not.toMatch(/\bnot\b|\bnever\b/i);
+        // Worded as instructions, with no quotable sentence the model would echo.
+        expect(note, spread.id).toMatch(/^Read as /);
+        expect(note, spread.id).not.toMatch(/if nothing changes/i);
+      }
+      // No contrast aphorism ("go deep rather than wide") to lift into a reading.
+      expect(notes.note, spread.id).not.toMatch(/\brather than\b/i);
+      for (const range of Object.values(notes.sentences)) {
+        const [lo, hi] = range.split('–').map(Number);
+        expect(lo, spread.id).toBeLessThanOrEqual(hi ?? 0);
+      }
+    }
+  });
+
+  it('gives every deck card an image line', () => {
+    expect(Object.keys(set.data.images).sort()).toEqual(cardsFeed.cards.map((c) => c.id).sort());
+  });
+
+  it('keeps contrast wording out of the image lines', () => {
+    // An image line such as "more like a contest than a fight" was copied as a contrast framing.
+    for (const [id, image] of Object.entries(set.data.images)) {
+      expect(image, id).not.toMatch(/\bthan\b|\brather\b|\binstead\b|\bnot\b/i);
+    }
+  });
+
+  it('names all 14 ranks', () => {
+    expect(Object.keys(set.data.ranks).sort()).toEqual(
+      Array.from({ length: 14 }, (_, i) => String(i + 1).padStart(2, '0')),
+    );
+  });
+
+  it('rejects malformed prompt data', () => {
+    expect(promptDataSchema.safeParse({}).success).toBe(false);
+    expect(
+      promptDataSchema.safeParse({ ...set.data, locales: { en: 'English' } }).success,
+    ).toBe(false);
+  });
+
+  describe('output.schema.json (03 §9.2)', () => {
+    const schema = set.outputSchema as {
+      required: string[];
+      properties: Record<string, Record<string, unknown>>;
+      additionalProperties: boolean;
+    };
+
+    it('puts classification first and lists the canonical categories', () => {
+      expect(schema.required[0]).toBe('classification');
+      expect(Object.keys(schema.properties)[0]).toBe('classification');
+      expect(schema.properties['classification']?.['enum']).toEqual([...CLASSIFICATIONS]);
+    });
+
+    it('uses no conditional keywords that vendor strict modes reject', () => {
+      expect(JSON.stringify(schema)).not.toMatch(/"(if|then|else|oneOf|anyOf|allOf|not)":/);
+    });
+
+    it('is strict and keeps the 03 §9.2 limits', () => {
+      expect(schema.additionalProperties).toBe(false);
+      expect(schema.required).toEqual([
+        'classification',
+        'title',
+        'overview',
+        'cards',
+        'synthesis',
+        'reflectionPrompts',
+      ]);
+      expect(schema.properties['title']?.['maxLength']).toBe(80);
+      expect(schema.properties['overview']?.['maxLength']).toBe(700);
+      expect(schema.properties['synthesis']?.['maxLength']).toBe(1400);
+      const cards = schema.properties['cards'] as {
+        items: { properties: Record<string, Record<string, unknown>>; additionalProperties: boolean };
+      };
+      expect(cards.items.additionalProperties).toBe(false);
+      expect(cards.items.properties['interpretation']?.['maxLength']).toBe(900);
+      expect(schema.properties['reflectionPrompts']).toMatchObject({
+        minItems: 1,
+        maxItems: 3,
+        items: { type: 'string', maxLength: 200 },
+      });
+    });
+  });
+
+  describe('provider neutrality (RC97)', () => {
+    const vendorSyntax =
+      /cache_control|ephemeral|anthropic|openai|claude|chatgpt|\bgpt\b|<\|im_|\[INST\]|\bHuman:|\bAssistant:|<<SYS>>|output_config|response_format|json_schema/i;
+
+    it('has no vendor-specific syntax in any template file', () => {
+      for (const [name, text] of templateFiles(set)) {
+        expect(vendorSyntax.test(text), name).toBe(false);
+      }
+    });
+
+    it('has a static prefix with no placeholders, the refusal shape and every category', () => {
+      const system = systemPrompt('v1');
+      expect(system).not.toMatch(/\{\{[a-z_]+\}\}/);
+      expect(system).toContain(
+        '{"classification":"health","title":"","overview":"","cards":[],"synthesis":"","reflectionPrompts":[""]}',
+      );
+      for (const category of CLASSIFICATIONS) {
+        expect(system).toContain(`| \`${category}\` |`);
+      }
+    });
+
+    it('keeps the deck out of the static prefix: keywords and images only for drawn cards', () => {
+      const system = systemPrompt('v1');
+      for (const card of cardsFeed.cards) {
+        expect(system, card.id).not.toContain(card.keywordsUpright.join('; '));
+        expect(system, card.id).not.toContain(set.data.images[card.id]);
+      }
+    });
+
+    it('stays inside the consolidated size budget (static ≤ 12 KB, Celtic Cross ≤ 18 KB)', () => {
+      const bytes = (text: string): number => new TextEncoder().encode(text).length;
+      expect(bytes(systemPrompt('v1'))).toBeLessThanOrEqual(12 * 1024);
+      const celtic = spreadsFeed.spreads.find((s) => s.id === 'celtic_cross');
+      for (const locale of LOCALES) {
+        const built = buildReadingPrompt({
+          spreadId: 'celtic_cross',
+          locale,
+          // The longest question the route accepts (300 graphemes, 03 §9.1).
+          question: 'ж'.repeat(300),
+          cards: (celtic?.positions ?? []).map((p, i) => ({
+            positionId: p.id,
+            cardId: cardsFeed.cards[i * 7]?.id ?? 'major_00',
+            reversed: i % 2 === 0,
+          })),
+        });
+        if (!built.ok) {
+          throw new Error(built.error);
+        }
+        expect(bytes(built.input.system) + bytes(built.input.user), locale).toBeLessThanOrEqual(
+          18 * 1024,
+        );
+      }
+    });
+
+    it('keeps the static prefix identical across locales, spreads and questions', () => {
+      const systems = new Set<string>();
+      for (const locale of LOCALES) {
+        for (const spread of spreadsFeed.spreads) {
+          const built = buildReadingPrompt({
+            spreadId: spread.id,
+            locale,
+            question: `${locale} ${spread.id}?`,
+            cards: spread.positions.map((p, i) => ({
+              positionId: p.id,
+              cardId: cardsFeed.cards[i * 7]?.id ?? 'major_00',
+              reversed: i % 2 === 1,
+            })),
+          });
+          if (!built.ok) {
+            throw new Error(built.error);
+          }
+          systems.add(built.input.system);
+        }
+      }
+      expect(systems.size).toBe(1);
+    });
+  });
+
+  describe('parseReadingOutput (Worker-side zod, 03 §9.2)', () => {
+    const drawn = [
+      { positionId: 'past', cardId: 'major_16', reversed: false },
+      { positionId: 'present', cardId: 'cups_03', reversed: true },
+    ];
+    const answered = {
+      classification: 'none',
+      title: 'A tower in the rain',
+      overview: 'Two sentences. About the question.',
+      cards: drawn.map((c) => ({ ...c, interpretation: 'The card may reflect something.' })),
+      synthesis: 'The cards connect. One step.',
+      reflectionPrompts: ['What might you notice?', 'Which part matters?'],
+    };
+    const expected = { cards: drawn, reflectionPrompts: 2 };
+
+    it('accepts an answered reading and the refusal shape', () => {
+      expect(parseReadingOutput(answered, expected)).toMatchObject({ ok: true });
+      const refusal = {
+        classification: 'self_harm',
+        title: '',
+        overview: '',
+        cards: [],
+        synthesis: '',
+        reflectionPrompts: [''],
+      };
+      expect(parseReadingOutput(refusal, expected)).toEqual({ ok: true, output: refusal });
+    });
+
+    it('rejects an empty answered reading that output.schema.json lets through', () => {
+      const empty = {
+        ...answered,
+        title: ' ',
+        overview: '',
+        cards: [],
+        synthesis: '',
+        reflectionPrompts: [''],
+      };
+      const result = parseReadingOutput(empty);
+      expect(result.ok).toBe(false);
+      const issues = result.ok ? [] : result.issues;
+      for (const path of ['$.title', '$.overview', '$.cards', '$.synthesis', '$.reflectionPrompts.0']) {
+        expect(issues.some((issue) => issue.startsWith(`${path}:`)), path).toBe(true);
+      }
+    });
+
+    it('enforces the character limits in code points and rejects unknown keys', () => {
+      const long = parseReadingOutput({ ...answered, title: '😀'.repeat(80) });
+      expect(long.ok).toBe(true);
+      expect(parseReadingOutput({ ...answered, title: 'x'.repeat(81) }).ok).toBe(false);
+      expect(parseReadingOutput({ ...answered, extra: 1 }).ok).toBe(false);
+      expect(parseReadingOutput({ ...answered, classification: 'astrology' }).ok).toBe(false);
+    });
+
+    it('checks the card echo and prompt count against the drawn cards', () => {
+      const swapped = { ...answered, cards: [...answered.cards].reverse() };
+      expect(parseReadingOutput(swapped, expected)).toEqual({
+        ok: false,
+        issues: [
+          '$.cards.0: does not echo past/major_16',
+          '$.cards.1: does not echo present/cups_03',
+        ],
+      });
+      const short = { ...answered, cards: answered.cards.slice(0, 1), reflectionPrompts: ['What?'] };
+      expect(parseReadingOutput(short, expected)).toEqual({
+        ok: false,
+        issues: ['$.cards: 1 entries, 2 drawn', '$.reflectionPrompts: 1, expected 2'],
+      });
+      expect(parseReadingOutput(answered)).toMatchObject({ ok: true });
+    });
+  });
+});

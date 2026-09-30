@@ -21,7 +21,13 @@ export type MetricEvent =
   | 'sandbox_grant'
   | 'binding_mismatch'
   | 'devicecheck_error'
-  | 'webhook_sig_failed';
+  | 'webhook_sig_failed'
+  /** One per HTTP response, `code` = status (the 5xx rate of `AlertService`, 03 §14.1). */
+  | 'http_response'
+  /** Outage fallback taken (`code` = from, `model` = to `provider/model`; 03 §9.3, RC97). */
+  | 'ai_outage_fallback'
+  /** A tier's provider has no key (`code` = tier, `model` = routed `provider/model`; RC97). */
+  | 'ai_provider_unavailable';
 
 export interface MetricPoint {
   readonly event: MetricEvent;
@@ -39,6 +45,26 @@ export interface MetricPoint {
   readonly credits?: number;
 }
 
+/** Sample-weighted count of one `(event, code)` pair in a query window. */
+export interface MetricCount {
+  readonly event: MetricEvent;
+  /** `MetricPoint.code`, `''` when none was written. */
+  readonly code: string;
+  readonly count: number;
+}
+
+export interface MetricCountQuery {
+  readonly events: readonly MetricEvent[];
+  /** The window ends now and starts `windowMinutes` earlier. */
+  readonly windowMinutes: number;
+}
+
 export interface Metrics {
   write(point: MetricPoint): void;
+  /**
+   * Read side (`AlertService`, 03 §14.1): counts per `(event, code)` over the
+   * window. `null` when the query side is not configured (dev, or the
+   * Analytics Engine SQL API credentials are missing). Never throws.
+   */
+  counts(query: MetricCountQuery): Promise<readonly MetricCount[] | null>;
 }

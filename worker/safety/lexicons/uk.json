@@ -1,0 +1,236 @@
+{
+  "$comment": "L1 prefilter patterns and the L3 forbidden-claims lexicon (03 §9.4, RC27, RC39). Patterns are regexes over foldText() (lower case, Latin diacritics folded); a rule fires when every entry of `patterns` matches and no `unless` entry does. Only `high` rules of self_harm, harm_to_others and sexual_minors short-circuit; `hint` rules become <prefilter_hint>. Compiled with tools/store_copy/banned_phrases.yaml into src/generated/safety_lexicons.json by `npm run safety:lexicons`.",
+  "locale": "uk",
+  "reviewed": false,
+  "wordBoundaries": true,
+  "l1": [
+    {
+      "id": "sh.suicide",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["суїцид\\p{L}*|самогуб\\p{L}*|самоушкодж\\p{L}*"]
+    },
+    {
+      "id": "sh.kill_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "вбити себе|вб'ю себе|накласти на себе руки|накладу на себе руки|покінчити (?:з собою|з усім|з життям)"
+      ]
+    },
+    {
+      "id": "sh.harm_myself",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["собі щось (?:зроблю|заподію)"]
+    },
+    {
+      "id": "sh.goodbye_letters",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["прощальн\\p{L}* лист\\p{L}*"]
+    },
+    {
+      "id": "sh.jump",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["стрибн\\p{L}* з (?:мосту|даху|балкона)"]
+    },
+    {
+      "id": "sh.pills",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["таблеток|пігулок", "не прокинут(?:ись|ися)"]
+    },
+    {
+      "id": "sh.never_wake",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["заснути і більше не прокинут(?:ись|ися)"]
+    },
+    {
+      "id": "sh.without_me",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": ["(?:світові|світу|всім|родині) (?:\\p{L}+ ){0,2}краще без мене"]
+    },
+    {
+      "id": "sh.hint",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "зникнути назавжди|мене не стане|мене не буде|втомил\\p{L}* жити|попрощатися назавжди|від страховки|перестати їсти|більше не можу|ріжу себе|палю себе"
+      ]
+    },
+    {
+      "id": "ho.poison",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["отрую|отруїти|отруїв"]
+    },
+    {
+      "id": "ho.shoot",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["застрелити|стріляю (?:у|в) (?:своїй )?(?:старій )?школі"]
+    },
+    {
+      "id": "ho.stab",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["(?:вдарю|вдарити) (?:\\p{L}+ )?ножем|зарізати"]
+    },
+    {
+      "id": "ho.arson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["підпалити (?:його |її )?(?:машину|будинок|квартиру)"]
+    },
+    {
+      "id": "ho.tires",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["проколоти (?:їй |йому )?шини"]
+    },
+    {
+      "id": "ho.weapon",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["ніж", "розбиратися"]
+    },
+    {
+      "id": "ho.disappear",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["зник", "ніхто не дізнався"]
+    },
+    {
+      "id": "ho.push",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["штовхну (?:\\p{L}+ )?зі сходів"]
+    },
+    {
+      "id": "ho.spike",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["підсипати"]
+    },
+    {
+      "id": "ho.physically",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["страждав|заплатити", "фізично"]
+    },
+    {
+      "id": "ho.lesson",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["урок", "не переживе"]
+    },
+    {
+      "id": "ho.maim",
+      "category": "harm_to_others",
+      "severity": "high",
+      "patterns": ["скалічу|скалічити"]
+    },
+    {
+      "id": "ho.hint",
+      "category": "harm_to_others",
+      "severity": "hint",
+      "patterns": ["помст\\p{L}*|зробити боляче|побити|напасти"]
+    },
+    {
+      "id": "sm.sexual_minor",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "секс\\p{L}*|еротичн\\p{L}*|відверті фото|оголен\\p{L}*|близькост\\p{L}*|коханц\\p{L}*|пересплю|переспати|чуттєв\\p{L}*|порно\\p{L}*|романтичну ніч",
+        "(?<![\\p{N}])(?:[1-9]|1[0-7])-?річн\\p{L}*|неповнолітн\\p{L}*|семикласник\\p{L}*|школярк\\p{L}*|дорослим і дитиною|(?:їй|йому) (?:[1-9]|1[0-7])(?![\\p{N}])"
+      ],
+      "unless": ["(?:моя|наша) донька|(?:мій|наш) син|(?:мої|наші) діти"]
+    },
+    {
+      "id": "he.hint",
+      "category": "health",
+      "severity": "hint",
+      "patterns": [
+        "рак|пухлин\\p{L}*|діагноз\\p{L}*|хвороб\\p{L}*|операці\\p{L}*|біопсі\\p{L}*|аналіз\\p{L}*|хіміотерапі\\p{L}*|лік\\p{L}*|антидепресант\\p{L}*|інсулін\\p{L}*|симптом\\p{L}*"
+      ]
+    },
+    {
+      "id": "pr.hint",
+      "category": "pregnancy",
+      "severity": "hint",
+      "patterns": [
+        "вагітн\\p{L}*|завагітні\\p{L}*|зачат\\p{L}*|викидень|еко|стать дитини|мати дітей"
+      ]
+    },
+    {
+      "id": "de.hint",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "коли (?:я |він |вона )?помр\\p{L}*|помре|помру|скільки (?:\\p{L}+ )?залишилось жити"
+      ]
+    },
+    {
+      "id": "le.hint",
+      "category": "legal",
+      "severity": "hint",
+      "patterns": [
+        "суд\\p{L}*|позов\\p{L}*|адвокат\\p{L}*|віз\\p{L}*|притулок|депорт\\p{L}*|опік\\p{L}*|в'язниц\\p{L}*|поліці\\p{L}*"
+      ]
+    },
+    {
+      "id": "fi.hint",
+      "category": "financial",
+      "severity": "hint",
+      "patterns": [
+        "акці\\p{L}*|крипт\\p{L}*|біткоїн\\p{L}*|інвест\\p{L}*|розбагат\\p{L}*|біржа|пенсі\\p{L}*|заощадження"
+      ]
+    },
+    {
+      "id": "ga.hint",
+      "category": "gambling",
+      "severity": "hint",
+      "patterns": ["лотере\\p{L}*|ставк\\p{L}*|казино|джекпот|покер|рулетк\\p{L}*|блекджек"]
+    },
+    {
+      "id": "hh.hint",
+      "category": "hate_or_harassment",
+      "severity": "hint",
+      "patterns": [
+        "мігрант\\p{L}*|мусульман\\p{L}*|євре\\p{L}*|паразит\\p{L}*|образ\\p{L}*|цькува\\p{L}*|переслідува\\p{L}*|чутки|погрожу\\p{L}*|вища раса"
+      ]
+    }
+  ],
+  "l3": {
+    "certainty": ["безумовно", "неодмінно", "без сумніву", "безсумнівно", "неминуче"],
+    "forbiddenClaims": [
+      "ти помреш",
+      "діагноз*",
+      "антидепресант*",
+      "купуй акції",
+      "інвестуй у криптовалют*",
+      "ibuprofen*",
+      "paracetamol*",
+      "acetaminophen*",
+      "aspirin*",
+      "insulin*",
+      "sertralin*",
+      "fluoxetin*",
+      "diazepam*",
+      "alprazolam*",
+      "lorazepam*",
+      "oxycodon*",
+      "morphin*",
+      "metformin*",
+      "prozac",
+      "xanax",
+      "valium",
+      "ozempic"
+    ],
+    "nonClaimSpans": []
+  }
+}

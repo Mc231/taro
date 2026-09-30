@@ -4,10 +4,9 @@
 // Worker's OpenAPI schemas, and every request fixture is re-encoded from
 // domain inputs byte-for-byte and validated strictly against its schema.
 //
-// Phase 8 routes (holds, readings, ack, report) have no fixtures yet; their
-// client calls are covered with scripted HTTP in test/data/api/. The fixtures
-// follow in Phase 8, and an unknown fixture name fails this test until a
-// decoder is added below.
+// The Phase 8 reading routes (holds, readings, status, report) have
+// fixtures too; the ack is a 204 without a body. An unknown fixture name
+// fails this test until a decoder is added below.
 import 'dart:convert';
 import 'dart:io';
 
@@ -17,6 +16,7 @@ import 'package:taro/data/api/api_error_mapper.dart';
 import 'package:taro/data/api/dto/balance_dto.dart';
 import 'package:taro/data/api/dto/error_envelope_dto.dart';
 import 'package:taro/data/api/dto/install_dtos.dart';
+import 'package:taro/data/api/dto/reading_dtos.dart';
 import 'package:taro/data/api/dto/store_dtos.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -30,7 +30,11 @@ Map<String, dynamic> _read(File file) =>
 
 /// HTTP status of each error fixture (GLOSSARY §5).
 const Map<String, int> _errorStatus = {
+  'AI_UNAVAILABLE': 503,
   'ATTESTATION_FAILED': 403,
+  'HOLD_CONFLICT': 409,
+  'INSUFFICIENT_CREDITS': 402,
+  'READING_EXPIRED_REFUNDED': 410,
   'ATTESTATION_REQUIRED': 401,
   'IDEMPOTENCY_KEY_REQUIRED': 400,
   'IDEMPOTENCY_KEY_REUSED': 422,
@@ -129,6 +133,56 @@ final Map<String, (String, Map<String, dynamic> Function())> _requests = {
     'TimezoneRequest',
     () => const TimezoneRequestDto(timezone: 'America/New_York').toJson(),
   ),
+  'readings.hold.request': (
+    'HoldRequest',
+    () => const HoldRequestDto(
+      clientReadingId: '0e0e0e0e-0000-4000-8000-0000000000c1',
+      spread: SpreadRefDto(id: 'three_ppf', version: 1),
+      locale: 'de',
+    ).toJson(),
+  ),
+  'readings.create.request': (
+    'ReadingRequest',
+    () => CreateReadingRequestDto(
+      clientReadingId: '0e0e0e0e-0000-4000-8000-0000000000d1',
+      spread: const SpreadRefDto(id: 'three_ppf', version: 1),
+      cards: const [
+        DrawnCardDto(positionId: 'past', cardId: 'major_16', reversed: false),
+        DrawnCardDto(positionId: 'present', cardId: 'cups_03', reversed: true),
+        DrawnCardDto(
+          positionId: 'future',
+          cardId: 'pentacles_14',
+          reversed: false,
+        ),
+      ],
+      question: 'How can I approach the change at work?',
+      locale: 'en',
+      drawnAt: DateTime.utc(2026, 9, 26, 9, 59),
+    ).toJson(),
+  ),
+  'readings.report.request': (
+    'ReadingReportRequest',
+    () => const ReportRequestDto(
+      reason: 'harmful_advice',
+      locale: 'de',
+      note: 'The reading told me to stop my medication.',
+      question: 'Should I change my treatment?',
+      reading: ReadingWireDto(
+        title: 'A time to listen',
+        overview: 'The cards point to patience and to asking for good advice.',
+        cards: [
+          ReadingCardWireDto(
+            positionId: 'focus',
+            cardId: 'major_02',
+            reversed: false,
+            interpretation: 'Quiet knowing asks you to listen before acting.',
+          ),
+        ],
+        synthesis: 'Take time to gather advice you trust.',
+        reflectionPrompts: ['Who could you talk this through with?'],
+      ),
+    ).toJson(),
+  ),
 };
 
 /// Decodes a response fixture and returns its OpenAPI schema name.
@@ -195,6 +249,32 @@ String _decodeResponse(String name, Map<String, dynamic> json) {
         'rewards.intent.status_granted.response':
       RewardIntentStatusDto.fromJson(json).toDomain(syncedAt: _now);
       return 'RewardIntentStatus';
+    case 'readings.hold.response':
+      final hold = HoldDto.fromJson(json).toDomain(syncedAt: _now);
+      expect(hold.expiresAt.isUtc, isTrue);
+      return 'Hold';
+    case 'readings.completed.response':
+      final completed = ReadingResponseDto.fromJson(json);
+      expect(completed.status, 'completed');
+      final content = completed.reading!.toDomain();
+      expect(content.positions, isNotEmpty);
+      completed.balance.toDomain(syncedAt: _now);
+      return 'ReadingResponse';
+    case 'readings.declined.response':
+      final declined = ReadingResponseDto.fromJson(json);
+      expect(declined.status, 'declined');
+      final safety = declined.safety!.toDomain();
+      expect(safety.category, RefusalCategory.selfHarm);
+      expect(safety.crisisResources, isNotEmpty);
+      return 'ReadingResponse';
+    case 'readings.status.response':
+      final state = ReadingStateDto.fromJson(json);
+      expect(state.reading?.toDomain(), isNotNull);
+      state.balance.toDomain(syncedAt: _now);
+      return 'ReadingState';
+    case 'readings.report.response':
+      expect(ReportResponseDto.fromJson(json).status, 'received');
+      return 'ReadingReport';
   }
   if (name.startsWith('errors.')) {
     final envelope = ErrorEnvelopeDto.fromJson(json).error;

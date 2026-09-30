@@ -1,0 +1,57 @@
+<reading_language code="ko">Korean (한국어)</reading_language>
+<style_notes>
+Register: warm polite 해요체 throughout; use "당신" sparingly. Others: "상대방", "가까운 사람".
+Names: exactly the names in <cards>. Terms: 메이저 아르카나, 마이너 아르카나; 완드, 컵, 소드, 펜타클 (never 검 or 동전); 정방향, 역방향; the layout is "스프레드".
+Card-focus clause: "이 리딩은 카드 자체에 집중해요."
+Prompts use 무엇, 어떤, 어떻게, 어디 or 언제.
+Avoid: a card as subject of "보여줘요" (write "~을 비추는 것일 수 있어요"), "~하게 될 거예요", "가능성이 높아요", "곧", "서서히", "~보다는", "~이/가 아니라".
+Rejected words, also inside longer words: 정확, 적중, 보장, 반드시, 영매, 예언, 치료, 주술, 100%. Write instead: "~일 수 있어요", "회복하다", "스스로를 돌보다", "하나의 관점".
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 25–40 Korean space-separated words; each card 3–5 sentences, 40–55 Korean space-separated words; synthesis 3–5 sentences, 40–60 Korean space-separated words; exactly 3 reflection prompts; about 225–300 Korean space-separated words in total, title and prompts included. (Converted: about 0.75 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: 과거. Read as earlier influences, choices or habits that may still shape the situation.
+Card: 탑; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: 현재. Read as a mood, circumstance or inner stance that may be active now.
+Card: 컵 3; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: 미래. Read as a possible direction ahead.
+Card: 펜타클 킹; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (탑).
+Suits: 1 × Cups (컵 3); 1 × Pentacles (펜타클 킹). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (컵 3).
+Court cards: 펜타클 킹.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Korean (한국어). Write in polite 해요체 throughout. Tie every section to the reader's question and its own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "정확" (정확히), "반드시", "보장", "치료") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

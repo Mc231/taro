@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": "INSUFFICIENT_CREDITS",
+    "message": "No free, bonus or paid readings available.",
+    "requestId": "req-no-credit",
+    "retryable": false,
+    "retryAfterSec": null,
+    "details": {
+      "freeResetsAt": "2026-09-26T22:00:00Z",
+      "reason": "noCredits"
+    }
+  }
+}

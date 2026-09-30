@@ -29,13 +29,14 @@ void main() {
       workerPromptPath('en'),
       workerPromptPath('de'),
       kWorkerCrisisPath,
+      kWorkerNamesPath,
     ]) {
       expect(first.out, contains('wrote $path'));
       expect(repo.read(path), endsWith('}\n'));
     }
-    expect(first.out, contains('10 written, 0 deleted, 0 unchanged'));
+    expect(first.out, contains('11 written, 0 deleted, 0 unchanged'));
     final second = run(runContentBuild, repo);
-    expect(second.out, contains('0 written, 0 deleted, 10 unchanged'));
+    expect(second.out, contains('0 written, 0 deleted, 11 unchanged'));
     expect(run(runContentBuild, repo, ['--check']).out, contains('up to date'));
   });
 
@@ -144,6 +145,19 @@ void main() {
     final fool = (cards['cards']! as List).first as Map;
     expect(fool['name'], 'Card major_00');
     expect(fool['keywordsUpright'], hasLength(3));
+    final names = _json(repo, kWorkerNamesPath);
+    expect(names['version'], 1);
+    expect(names['review'], {'en': 'reviewed', 'de': 'reviewed'});
+    expect((names['cards']! as Map)['major_00'], {
+      'de': 'Karte major_00',
+      'en': 'Card major_00',
+    });
+    expect((names['cards']! as Map).keys, hasLength(78));
+    expect((names['positions']! as Map).keys, hasLength(kPositionIds.length));
+    expect((names['positions']! as Map)['past'], {
+      'de': 'past de',
+      'en': 'past',
+    });
     final prompt = _json(repo, workerPromptPath('de'));
     expect(prompt['locale'], 'de');
     expect(

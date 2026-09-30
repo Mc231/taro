@@ -1,0 +1,27 @@
+{
+  "clientReadingId": "0e0e0e0e-0000-4000-8000-0000000000d1",
+  "spread": {
+    "id": "three_ppf",
+    "version": 1
+  },
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "major_16",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "cups_03",
+      "reversed": true
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_14",
+      "reversed": false
+    }
+  ],
+  "question": "How can I approach the change at work?",
+  "locale": "en",
+  "drawnAt": "2026-09-26T09:59:00Z"
+}

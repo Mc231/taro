@@ -20,6 +20,12 @@ compatibility_date = "2026-08-15"
 compatibility_flags = ["nodejs_compat"]
 workers_dev = false
 
+# Prompt templates (prompts/**/*.md, 03 §9.2) are bundled as text modules.
+[[rules]]
+type = "Text"
+globs = ["**/*.md"]
+fallthrough = false
+
 # ---------------------------------------------------------------------------
 # dev — local `wrangler dev` / vitest (miniflare)
 # ---------------------------------------------------------------------------
@@ -77,7 +83,7 @@ routes = [{ pattern = "api-staging.taro.vshyrochuk.com", custom_domain = true }]
 [env.staging.vars]
 ENVIRONMENT = "staging"
 ALLOW_DEBUG_ATTESTATION = "true"
-AI_PROVIDER = "anthropic"
+# No AI_PROVIDER: real providers are routed by ai.provider.* (RC97).
 
 [[env.staging.d1_databases]]
 binding = "DB"

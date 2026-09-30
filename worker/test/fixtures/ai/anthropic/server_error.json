@@ -1,0 +1,12 @@
+{
+  "$comment": "Shape per the Sprint 8.1 API notes (docs/ARCHITECTURE.md §AI pipeline and cost); sanitised (ids zeroed, no keys). Re-record from the staging account once the Sprint 8.0 keys exist.",
+  "status": 500,
+  "body": {
+    "type": "error",
+    "error": {
+      "type": "api_error",
+      "message": "Internal server error"
+    },
+    "request_id": "req_000000000000000000000000"
+  }
+}

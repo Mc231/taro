@@ -1,0 +1,57 @@
+<reading_language code="ja">Japanese (日本語)</reading_language>
+<style_notes>
+Register: polite です・ます throughout; use 「あなた」 sparingly. Others: 「相手」「身近な人」.
+Names: exactly the names in <cards>. Terms: 大アルカナ、小アルカナ; ワンド、カップ、ソード、ペンタクル (never 剣 or コイン); 「月の正位置」「逆位置の塔」 without parentheses; the layout is 「スプレッド」.
+Card-focus clause: 「このリーディングはカードそのものに焦点を当てています。」
+Prompts use 何、どんな、どのように、どこ or いつ and end with 「？」.
+Avoid: 「カードは〜を示しています」 (write 「〜を映しているのかもしれません」), 「〜になるでしょう」 about outcomes, 「もうすぐ」「やがて」「〜というより」「〜ではなく」.
+Rejected words: 当たる、的中、保証、必ず、霊視、予言、治す、治療、おまじない、100%. Write instead: 「整える」「いたわる」「ひとつの見方」.
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 70–100 Japanese characters; each card 3–5 sentences, 110–140 Japanese characters; synthesis 3–5 sentences, 110–160 Japanese characters; exactly 3 reflection prompts; about 600–800 Japanese characters in total, title and prompts included. (Converted: about 2 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: 過去. Read as earlier influences, choices or habits that may still shape the situation.
+Card: 塔; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: 現在. Read as a mood, circumstance or inner stance that may be active now.
+Card: カップの3; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: 未来. Read as a possible direction ahead.
+Card: ペンタクルのキング; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (塔).
+Suits: 1 × Cups (カップの3); 1 × Pentacles (ペンタクルのキング). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (カップの3).
+Court cards: ペンタクルのキング.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Japanese (日本語). Write in polite です・ます form throughout. Tie every section to the reader's question and its own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for 「必ず」「保証」「当たる」「治す」「治療」) and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

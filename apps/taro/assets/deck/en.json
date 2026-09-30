@@ -1,9 +1,9 @@
 {
   "articles": {
     "about": {
-      "markdown": "# About tarot and Taro\n\nTaro is a reflective tarot journal. It uses the images and traditions of tarot as prompts for thinking about your life, your choices and your feelings. It does not predict the future, and nothing in the app tells you what is going to happen.\n\n## A short history of tarot\n\nTarot began as a deck of playing cards. The earliest known decks were painted in northern Italy in the fifteenth century for a card game, and some of those games are still played in parts of Europe today. A tarot deck has four suits, like ordinary playing cards, plus a set of picture cards called trumps.\n\nIn the late eighteenth century, writers in France began to treat the cards as a source of symbolizm and meaning rather than only as a game. Over the following century, many authors added their own ideas, and in the early twentieth century an influential English deck gave every card, including the numbered ones, an illustrated scene. Most modern decks, and the traditional card names used in Taro, follow that structure.\n\nToday people use tarot in many ways: as art, as a creative tool, as a game, and as a way to reflect. Taro focuses on reflection.\n\n## How the deck is organized\n\nA tarot deck has 78 cards:\n\n- **The Major Arcana**: 22 cards, from The Fool (0) to The World (21). They often stand for big themes and turning points, such as beginnings, balance, change and completion.\n- **The Minor Arcana**: 56 cards in four suits of 14. Each suit has cards from Ace to Ten and four court cards: Page, Knight, Queen and King.\n  - **Wands** (fire): energy, drive, creativity and ambition.\n  - **Cups** (water): feelings, relationships and intuition.\n  - **Swords** (air): thoughts, words, conflict and clarity.\n  - **Pentacles** (earth): work, the body, resources and everyday life.\n\nA card can appear **upright** or **reversed** (upside down). A reversed card often points to the same theme turned inward, blocked, delayed, or in need of a different approach. If you prefer to work only with upright cards, you can turn reversed cards off in Settings.\n\nTaro's deck uses original art made for the app, and every card text was written for Taro.\n\n## Using tarot for reflection\n\nA tarot card doesn't know anything about you. What it can do is offer an image and a set of ideas that you hold up against your own situation. Often the most useful part of a reading is what you notice in yourself when you read it: what feels familiar, what you resist, what you had not thought about.\n\nSome ways to get more from a reading:\n\n- **Ask open questions.** \"What can I learn from this situation?\" gives you more to work with than \"Will this work out?\". Questions that start with \"what\" or \"how\" usually work well.\n- **Stay with the question you care about.** Drawing again and again for the same question tends to blur things rather than clarify them.\n- **Read the cards together.** In a spread, each position gives a card a role, such as \"Past\" or \"Challenge\". Notice how the cards relate to one another.\n- **Treat \"future\" and \"outcome\" as a direction, not fate.** These positions describe where things may be heading if nothing changes. Your choices can change them.\n- **Write it down.** Your journal keeps every reading and daily card with your notes. Over time, the Patterns view shows which cards and suits come up most in your draws. These are patterns in what you drew, not predictions.\n\n## The daily card and Learn\n\nYour daily card is free, needs no internet connection and uses no AI. It shows the card's name, keywords, a short meaning and a reflection question written for Taro.\n\nLearn contains the full text for all 78 cards, upright and reversed, with notes on relationships, work and personal growth, plus a guide to each spread and its positions. Learn works completely offline.\n\n## How AI readings work\n\nWhen you ask for an AI reading, Taro sends four things to its server: your question (if you wrote one), the spread, the cards you drew with their orientation, and your app language. The server asks an AI model from one of Taro's AI providers (Anthropic's Claude or OpenAI's GPT models) to write an interpretation of the whole spread. The AI is given Taro's own card names, keywords and short meanings and a description of each position, and it is instructed to write in a reflective voice, to refer to the cards you drew, and to avoid predictions and advice.\n\nA few things to know about privacy:\n\n- Taro never sends your name, email address or advertising ID with a reading.\n- Your question is not stored on Taro's server.\n- The finished reading is kept on the server, encrypted, only until your phone has received it (at most 7 days), and is then deleted.\n- If you choose to report a reading, your question and that reading are kept for 90 days so they can be reviewed.\n- Taro's AI providers do not use this data to train their models.\n- Your full history, questions and notes stay on your device.\n\nAI readings need your permission. You can allow or turn off AI data sharing at any time in **Settings → Privacy**. Without it, you can still use the daily card, Learn and your journal, and you can choose a **Classic reading**: the same draw, with the authored meaning of each card in its position, created on your phone without AI.\n\n## What AI readings can't do\n\nAI readings are generated text. They can be thoughtful and useful, but they have real limits:\n\n- **They can be wrong or unexpected.** The AI can misread a situation, repeat itself, or say something that doesn't fit. Take what is useful and leave the rest.\n- **They don't know you.** The AI only sees your question and the cards. It has no memory of your past readings and no knowledge of your life.\n- **They can't see the future.** No reading can tell you what will occur, and Taro's readings never try to.\n- **They don't answer some questions.** Taro doesn't give readings on health, pregnancy, death, legal matters, money decisions or gambling. When a question falls into one of these areas, the app explains why and suggests a way to rephrase it, and no reading is used. For those topics, please talk to a qualified professional.\n- **They are not a substitute for support.** If you are going through something painful, talking with someone you trust can help. If you are thinking about harming yourself or someone else, please reach out now: **Settings → Help → Crisis resources** lists helplines for your region.\n\nIf a reading seems harmful or inappropriate, use **Report this reading** in the reading's menu. Reports help improve Taro.\n\n## Disclaimer\n\nTaro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice. Readings are not medical, legal, financial or psychological advice. Every decision you make remains yours.",
+      "markdown": "# About tarot and Taro\n\nTaro is a reflective tarot journal. It uses the images and traditions of tarot as prompts for thinking about your life, your choices and your feelings. It does not predict the future, and nothing in the app tells you what is going to happen.\n\n## A short history of tarot\n\nTarot began as a deck of playing cards. The earliest known decks were painted in northern Italy in the fifteenth century for a card game, and some of those games are still played in parts of Europe today. A tarot deck has four suits, like ordinary playing cards, plus a set of picture cards called trumps.\n\nIn the late eighteenth century, writers in France began to treat the cards as a source of symbolism and meaning rather than only as a game. Over the following century, many authors added their own ideas, and in the early twentieth century an influential English deck gave every card, including the numbered ones, an illustrated scene. Most modern decks, and the traditional card names used in Taro, follow that structure.\n\nToday people use tarot in many ways: as art, as a creative tool, as a game, and as a way to reflect. Taro focuses on reflection.\n\n## How the deck is organized\n\nA tarot deck has 78 cards:\n\n- **The Major Arcana**: 22 cards, from The Fool (0) to The World (21). They often stand for big themes and turning points, such as beginnings, balance, change and completion.\n- **The Minor Arcana**: 56 cards in four suits of 14. Each suit has cards from Ace to Ten and four court cards: Page, Knight, Queen and King.\n  - **Wands** (fire): energy, drive, creativity and ambition.\n  - **Cups** (water): feelings, relationships and intuition.\n  - **Swords** (air): thoughts, words, conflict and clarity.\n  - **Pentacles** (earth): work, the body, resources and everyday life.\n\nA card can appear **upright** or **reversed** (upside down). A reversed card often points to the same theme turned inward, blocked, delayed, or in need of a different approach. If you prefer to work only with upright cards, you can turn reversed cards off in Settings.\n\nTaro's deck uses original art made for the app, and every card text was written for Taro.\n\n## Using tarot for reflection\n\nA tarot card doesn't know anything about you. What it can do is offer an image and a set of ideas that you hold up against your own situation. Often the most useful part of a reading is what you notice in yourself when you read it: what feels familiar, what you resist, what you had not thought about.\n\nSome ways to get more from a reading:\n\n- **Ask open questions.** \"What can I learn from this situation?\" gives you more to work with than \"Will this work out?\". Questions that start with \"what\" or \"how\" usually work well.\n- **Stay with the question you care about.** Drawing again and again for the same question tends to blur things rather than clarify them.\n- **Read the cards together.** In a spread, each position gives a card a role, such as \"Past\" or \"Challenge\". Notice how the cards relate to one another.\n- **Treat \"future\" and \"outcome\" as a direction, not fate.** These positions describe where things may be heading if nothing changes. Your choices can change them.\n- **Write it down.** Your journal keeps every reading and daily card with your notes. Over time, the Patterns view shows which cards and suits come up most in your draws. These are patterns in what you drew, not predictions.\n\n## The daily card and Learn\n\nYour daily card is free, needs no internet connection and uses no AI. It shows the card's name, keywords, a short meaning and a reflection question written for Taro.\n\nLearn contains the full text for all 78 cards, upright and reversed, with notes on relationships, work and personal growth, plus a guide to each spread and its positions. Learn works completely offline.\n\n## How AI readings work\n\nWhen you ask for an AI reading, Taro sends four things to its server: your question (if you wrote one), the spread, the cards you drew with their orientation, and your app language. The server asks an AI model from one of Taro's AI providers (Anthropic's Claude or OpenAI's GPT models) to write an interpretation of the whole spread. The AI is given Taro's own card names, keywords and short meanings and a description of each position, and it is instructed to write in a reflective voice, to refer to the cards you drew, and to avoid predictions and advice.\n\nA few things to know about privacy:\n\n- Taro never sends your name, email address or advertising ID with a reading.\n- Your question is not stored on Taro's server.\n- The finished reading is kept on the server, encrypted, only until your phone has received it (at most 7 days), and is then deleted.\n- If you choose to report a reading, your question and that reading are kept for 90 days so they can be reviewed.\n- Taro's AI providers do not use this data to train their models.\n- Your full history, questions and notes stay on your device.\n\nAI readings need your permission. You can allow or turn off AI data sharing at any time in **Settings → Privacy**. Without it, you can still use the daily card, Learn and your journal, and you can choose a **Classic reading**: the same draw, with the authored meaning of each card in its position, created on your phone without AI.\n\n## What AI readings can't do\n\nAI readings are generated text. They can be thoughtful and useful, but they have real limits:\n\n- **They can be wrong or unexpected.** The AI can misread a situation, repeat itself, or say something that doesn't fit. Take what is useful and leave the rest.\n- **They don't know you.** The AI only sees your question and the cards. It has no memory of your past readings and no knowledge of your life.\n- **They can't see the future.** No reading can tell you what will occur, and Taro's readings never try to.\n- **They don't answer some questions.** Taro doesn't give readings on health, pregnancy, death, legal matters, money decisions or gambling. When a question falls into one of these areas, the app explains why and suggests a way to rephrase it, and no reading is used. For those topics, please talk to a qualified professional.\n- **They are not a substitute for support.** If you are going through something painful, talking with someone you trust can help. If you are thinking about harming yourself or someone else, please reach out now: **Settings → Help → Crisis resources** lists helplines for your region.\n\nIf a reading seems harmful or inappropriate, use **Report this reading** in the reading's menu. Reports help improve Taro.\n\n## Disclaimer\n\nTaro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice. Readings are not medical, legal, financial or psychological advice. Every decision you make remains yours.",
       "reviewStatus": "machine",
-      "sourceHash": "da443395124c36585aa6c69d8ca4af93dbec2b94ab7a17a022690fcfda5f242f"
+      "sourceHash": "10c77d9405ad6d45a8c25e5ce497b8d6a2fdb77c48f33b6a004c7c792914fdcd"
     },
     "faq": {
       "markdown": "# Frequently asked questions\n\n## Readings and credits\n\n### How do free readings work?\n\nYou get free AI readings every day. The balance at the top of Home shows how many free readings you have left today and how many purchased or earned readings you have. Free readings are used first. They reset at midnight in your time zone, and the app shows how long it is until the next one. The daily card is always free and never uses a reading.\n\n### Does every spread cost the same?\n\nYes. Every AI reading uses one reading from your balance, from a single card up to the Celtic Cross. A reading is only used when your interpretation has arrived on your phone. If Taro can't create or deliver it, or declines your question, nothing is used.\n\n### Why did Taro decline my question?\n\nTaro is a tool for reflection, so it doesn't give readings on health, pregnancy, death, legal matters, money decisions or gambling, and it doesn't answer requests for a yes-or-no verdict about the future. When that happens, no reading is used and the app suggests a way to rephrase. Open questions such as \"What can I learn from this situation?\" usually work well. You can also reflect on the cards without a question.\n\n## Purchases, deleting the app and new devices\n\n### Can I restore my purchased readings?\n\nReadings are consumable purchases. Store rules don't let them be restored the way a one-time purchase can, so they are tied to this installation of Taro. **Restore purchases** (in **Settings → Purchases** and in the Store) brings back **Remove Banner Ads**, but it can't bring back readings.\n\nPlease keep this in mind before deleting the app: deleting Taro can make your remaining readings unavailable on that installation, and it always removes your journal from the device unless you have exported a backup.\n\n### What happens if I reinstall Taro on iPhone?\n\nOn the same iPhone, Taro normally recognizes the installation after a reinstall, so your balance, including today's free reading, comes back. Your journal does not come back unless you import a backup. If you set up a new iPhone by transferring your data from the old one, both phones may share the same balance and the same daily free reading. On a new iPhone set up without a transfer, Taro starts as a new installation; see \"How do I move my readings to a new device?\" below.\n\n### What happens if I reinstall Taro on Android?\n\nOn Android, uninstalling Taro or clearing its storage starts a new installation, so your purchased and earned readings are no longer visible there, and your journal is removed unless you import a backup. Free daily readings are counted per device, so a reinstall doesn't add an extra free reading that day. If you had purchased readings, follow the steps below to move them.\n\n### How do I move my readings to a new device?\n\n1. Install Taro on the new device and sign in to the same App Store or Google Play account you used for the purchases.\n2. Open **Settings → Help → Move readings from another device**. Taro checks your past purchases with the store.\n3. If readings from those purchases belong to your old installation, Taro shows a transfer code.\n4. Email the transfer code together with your **Support ID** (see below) using **Settings → Help → Contact support**.\n5. Support moves your unused purchased readings to the new installation and replies when it's done.\n\nAn order number on its own isn't enough to move readings. Earned readings and free readings can't be moved.\n\n### How do I restore Remove Banner Ads?\n\nOpen **Settings → Purchases → Restore purchases** while signed in to the same store account. Banner ads disappear as soon as the purchase is found.\n\n## Your journal and your data\n\n### Where is my journal stored?\n\nOnly on your device. Taro has no accounts and no cloud sync, so your readings, daily cards, questions and notes are not kept on Taro's server. Exporting a backup is the way to keep a copy.\n\n### How do I export and import my journal?\n\n- **Export:** open **Settings → Your data → Export backup**. Taro creates a file named like `taro-backup-2026-09-28.json` and opens the share sheet, so you can save it to Files, a cloud drive or email. No internet connection is needed.\n- **Import:** open **Settings → Your data → Import backup** and choose the file. Taro checks the file and shows a preview, such as how many readings and daily cards it contains. Then choose:\n  - **Merge** adds the backup to what is already on this device. When the same entry exists in both, the newer version is kept.\n  - **Replace** removes the journal on this device and uses the backup instead. Taro asks you to confirm first.\n\nA backup contains your readings, daily cards, notes, favorites and settings. It does not contain your reading balance, purchases, privacy choices or Support ID, so importing a backup never changes your balance. Unfinished readings are not included. If a backup was made by a newer version of Taro, update the app before importing it.\n\n### What does \"Delete all data\" do?\n\n**Settings → Your data → Delete all data** asks you to confirm twice. It then:\n\n- erases your journal, notes, settings and scheduled reminders from this device;\n- asks Taro's server to erase the reading history, rewarded-ad records and reports linked to this installation.\n\nYour remaining readings and Remove Banner Ads are kept, because they are purchases. Today's free-reading count is also kept, so deleting data doesn't reset it. If you are offline, your device data is erased right away and the server request is sent when you are back online. To keep a copy of your journal, export a backup first.\n\n## AI and privacy\n\n### What does allowing AI readings share?\n\nWhen you ask for an AI reading, Taro sends your question (if any), the spread, the cards you drew and your app language to its server, which asks an AI model from one of Taro's AI providers (Anthropic's Claude or OpenAI's GPT models) to write the interpretation. Taro never sends your name, email address or advertising ID. Your question is not stored on Taro's server. The reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. Taro's AI providers do not use this data to train their models. The privacy policy in **Settings → About** has the full details.\n\n### Can I change my mind about AI consent?\n\nYes, at any time, in **Settings → Privacy → AI data sharing**. If you turn it off, nothing more is sent. The daily card, Learn and your journal keep working, and you can choose a **Classic reading**: the same draw with each card's authored meaning in its position, created on your phone without AI and without using a reading. If Taro updates what it shares, it asks for your consent again before the next AI reading.\n\n### Are AI readings always right?\n\nNo. AI readings are generated text and can be wrong or unexpected. They are meant as prompts for your own reflection, not as answers or predictions. Take what is useful and leave the rest.\n\n### How do I report a reading?\n\nIf an AI reading seems harmful, offensive or inappropriate, open the reading, tap the menu and choose **Report this reading**. Pick a reason, add a short note if you like (up to 500 characters) and tap Send. Your question and that reading are sent to Taro and kept for 90 days so they can be reviewed. You can send up to 10 reports a day, and each reading can be reported once. Classic readings can't be reported because they contain no AI text.\n\n## Help and support\n\n### What is my Support ID?\n\nYour Support ID is a short 8-character code that identifies this installation of Taro without revealing anything about you. You can find it in **Settings → About**. It is added automatically when you use **Settings → Help → Contact support**, together with the app version, your device's system version and your app language. Support asks for it when you need help with purchases or moving readings. It is not included in backups.\n\n### How do I contact support?\n\nUse **Settings → Help → Contact support**. It opens an email with your Support ID and app details already filled in, so we can help you faster. Please don't include sensitive personal details in your message.\n\n### Where can I find help if I'm struggling?\n\nIf you are thinking about harming yourself or someone else, please reach out now. **Settings → Help → Crisis resources** lists helplines for your region and an international directory. It works without an internet connection. If you are in immediate danger, contact your local emergency number.\n\n### Is Taro professional advice?\n\nNo. Taro is for entertainment and self-reflection. It does not predict the future and is not a substitute for professional advice. Readings are not medical, legal, financial or psychological advice.",
@@ -286,7 +286,7 @@
         "relationshipsReversed": "Reversed, this card may point to two people pulling in different directions, or to one person steering while the other feels carried along. You might consider whether you are pushing a relationship toward a goal before both of you are ready. Slowing down to agree on the destination could ease the strain.",
         "relationshipsUpright": "In relationships, the Chariot can reflect a shared sense of direction: moving through a busy or challenging period together, each supporting the other's goals. It may invite you to talk about where you are both heading and how to keep pace with each other. Commitment here looks like steady effort and mutual encouragement.",
         "workReversed": "Reversed, the Chariot may reflect a project losing momentum or a sense of rushing without a clear plan. It can also point to conflicting priorities from different people. You might step back, clarify what success actually looks like, and decide which tasks move you toward it and which only keep you busy.",
-        "workUpright": "At work or in a project, the Chariot highlights drive and focused effort. It may reflect a phase of pushing a project over the line, competing in a healthy way or keeping a team moving together. You might set a clear aim, gather your resources and give yourself a realiztic timeline of your own choosing."
+        "workUpright": "At work or in a project, the Chariot highlights drive and focused effort. It may reflect a phase of pushing a project over the line, competing in a healthy way or keeping a team moving together. You might set a clear aim, gather your resources and give yourself a realistic timeline of your own choosing."
       },
       "cardId": "major_07",
       "imageryNote": "Taro's Chariot is imagined as a figure driving a small, sturdy cart along a coastal road, drawn by two animals of contrasting temperament, one calm and one restless. The driver holds the reins lightly, steering with attention rather than force. A shell-like canopy over the seat may nod to Cancer and the protection that lets someone move forward safely, while the open road and distant harbor lights suggest a destination chosen, not imposed.",
@@ -315,11 +315,11 @@
       "reviewStatus": "machine",
       "shortReversed": "Energy may be pulling in several directions at once. Where could you gently take back the reins?",
       "shortUpright": "Momentum is possible when you hold your different drives together and point them in one direction.",
-      "sourceHash": "c1c83807ea2ff8c12d2a9c01a184c94f1f2091f90be9794541f88f178863d73d"
+      "sourceHash": "67b499e34c85cc54dc6724d03cbf605394061b30ce925255d5dd8fcf239f0973"
     },
     {
       "aspects": {
-        "growthReversed": "Reversed, Strength may be a reminder that confidence can dip and return. It can reflect a stretch of self-doubt or harsh inner criticizm. You might keep a short list of moments when you coped well, and read it on difficult days, as evidence of the steadiness you already have.",
+        "growthReversed": "Reversed, Strength may be a reminder that confidence can dip and return. It can reflect a stretch of self-doubt or harsh inner criticism. You might keep a short list of moments when you coped well, and read it on difficult days, as evidence of the steadiness you already have.",
         "growthUpright": "Strength suggests befriending your own inner lion rather than caging it: the strong feelings, desires and instincts that make you who you are. Rather than fighting them, you might get curious about what they need. Self-compassion is not weakness here; it is a practice that makes courage more sustainable.",
         "relationshipsReversed": "Reversed, this card may point to short tempers, or to someone swallowing their feelings to avoid conflict. You might consider whether you are being too hard on yourself or on someone close. Speaking up kindly, before frustration builds, can protect the connection and your own sense of steadiness.",
         "relationshipsUpright": "In relationships, Strength can reflect patience and warmth that help people feel safe with you. It may invite you to meet someone's difficult moods with calm rather than matching their intensity, while still holding your own boundaries. Gentle firmness can build trust over time.",
@@ -353,7 +353,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Your inner steadiness may feel thin right now. Gentleness toward yourself could be a strong place to start.",
       "shortUpright": "Courage does not always roar. Sometimes it looks like patience, kindness and staying with something hard.",
-      "sourceHash": "e82cfa8543981cdab70a0952aaf9a047858ea5e902f63a0a5559e68c7f44e86d"
+      "sourceHash": "fc9d424e061487e204fcf25da2f88840bffdbc666936d9f363ce3548399a27c1"
     },
     {
       "aspects": {
@@ -456,7 +456,7 @@
         "cause and effect"
       ],
       "locale": "en",
-      "meaningReversed": "Reversed, Justice may reflect a sense that something is unfair, or that the scales in a situation have tipped. You might feel you are carrying more than your share, or notice a temptation to avoid looking at your own part in a difficulty.\nThis card can also point to judging yourself too harshly, weighing every choice against an impossible standard. Accountability is useful; constant self-criticizm is not the same thing.\nYou may want to write down the situation as neutrally as you can, as if explaining it to a fair-minded friend. What is yours to own, and what is not? Seeking fairness might mean speaking up, making a repair, or simply letting go of a judgment that has become heavy to carry.",
+      "meaningReversed": "Reversed, Justice may reflect a sense that something is unfair, or that the scales in a situation have tipped. You might feel you are carrying more than your share, or notice a temptation to avoid looking at your own part in a difficulty.\nThis card can also point to judging yourself too harshly, weighing every choice against an impossible standard. Accountability is useful; constant self-criticism is not the same thing.\nYou may want to write down the situation as neutrally as you can, as if explaining it to a fair-minded friend. What is yours to own, and what is not? Seeking fairness might mean speaking up, making a repair, or simply letting go of a judgment that has become heavy to carry.",
       "meaningUpright": "Justice holds a set of scales in one hand and a sword in the other. The scales stand for weighing things carefully; the sword for the clarity to act once you have. This card is about fairness, honesty and taking responsibility for your choices, understanding that actions have consequences and that you can choose them with care.\nIn everyday life this card may reflect a decision that needs a clear head, such as dividing tasks fairly, giving honest feedback or admitting a mistake and making amends. It can point to moments when you are asked to look at a situation from every side before responding, and to be as fair to yourself as you try to be to others.\nThis card invites you to consider what a balanced response would look like. You might ask which facts matter, what each person involved needs, and what you can take responsibility for. Justice does not predict how any formal matter will turn out. It highlights integrity: acting in line with what you believe is right, and accepting what follows with a steady mind.",
       "name": "Justice",
       "reflectionQuestions": [
@@ -467,7 +467,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Something may feel out of balance. This card invites you to look at it clearly, including your own part.",
       "shortUpright": "A moment to weigh things honestly and act in a way you would feel good explaining later.",
-      "sourceHash": "56460e0301a0b1399b875e9ed6a4f3767824751de946491a69fbc56e47c587fe"
+      "sourceHash": "f2f2b18cce2d6a6923375b3631bd971f2463606c92e0f9b723bdab253bab3aa4"
     },
     {
       "aspects": {
@@ -551,7 +551,7 @@
         "growthUpright": "For personal growth, this card invites you to practice moderation without rigidity. You might notice your own balance points: how much rest, activity, time alone and time with others help you feel steady. Small, consistent adjustments can bring more ease than big resolutions.",
         "relationshipsReversed": "Reversed, this card may point to a relationship where one person's needs dominate, or where conflicts escalate quickly. You might consider how to lower the intensity: slowing down conversations, taking breaks when things heat up, and looking for the overlap between what each of you wants.",
         "relationshipsUpright": "In relationships, Temperance can reflect harmony built through compromise and understanding. It may invite you to meet someone halfway, to blend your different styles and needs, and to be patient as you learn each other's rhythms. Calm, steady care can make a bond feel easy to be in.",
-        "workReversed": "Reversed, Temperance may reflect overwork, rushed decisions or friction between people with different approaches. You might ask where the pace has become unrealiztic and what could be simplified. Finding a middle path between competing priorities can reduce stress for everyone involved. Even one meeting-free afternoon can show what a steadier pace feels like.",
+        "workReversed": "Reversed, Temperance may reflect overwork, rushed decisions or friction between people with different approaches. You might ask where the pace has become unrealistic and what could be simplified. Finding a middle path between competing priorities can reduce stress for everyone involved. Even one meeting-free afternoon can show what a steadier pace feels like.",
         "workUpright": "At work or in a project, Temperance highlights steady progress and good collaboration. It may reflect combining different skills or ideas into something that works well, or pacing yourself so that energy lasts. You might look for the version of the plan that is ambitious and still sustainable."
       },
       "cardId": "major_14",
@@ -581,7 +581,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Something may be tipping too far one way. This card invites you to notice and gently rebalance.",
       "shortUpright": "A slower, steadier blend of what you need could bring more ease than any extreme.",
-      "sourceHash": "e8c6ce742a98957372025de7cbc1ce5b884c08756d32a562e86728861357dcf7"
+      "sourceHash": "7ae5c4ef62a8f2b95d5fb3d0234f0c18f036c2d72621d0710a5aa65927acac0c"
     },
     {
       "aspects": {
@@ -779,13 +779,13 @@
         "growthUpright": "A thoughtful review of your journey so far can be a turning point in itself. You might look back over a significant period, noticing how you have grown and what you have let go. That perspective can help you answer a new call with confidence and clarity.",
         "relationshipsReversed": "Reversed, this card may point to lingering blame or judgment in a relationship, on one side or both. You might consider whether holding on to old hurts is still protecting you, or whether it is keeping you stuck. An open, calm conversation could help both people see things more fairly.",
         "relationshipsUpright": "In relationships, Judgement can reflect a turning point: a clearing of old grievances, a renewed commitment or a mutual reckoning that brings you closer. It may invite you to talk honestly about the past and decide together what you want going forward. Forgiveness, where it feels right, can make room for a fresh start.",
-        "workReversed": "Reversed, Judgement may reflect fear of criticizm holding you back, or ignoring a sense that it is time for a change. It can also point to being too critical of your past performance. You might list what you have learned and how it could guide your next step.",
+        "workReversed": "Reversed, Judgement may reflect fear of criticism holding you back, or ignoring a sense that it is time for a change. It can also point to being too critical of your past performance. You might list what you have learned and how it could guide your next step.",
         "workUpright": "At work or in a project, Judgement highlights a sense of vocation. It may reflect realizing what kind of work feels meaningful, or reviewing past projects to decide what comes next. You might listen for what excites you and ask how your skills could serve that direction."
       },
       "cardId": "major_20",
       "imageryNote": "Taro's Judgement is imagined as a wide dawn landscape after a long winter, where a clear bell rings from a hilltop and people step out of their homes into the first light, stretching and looking up. Melting snow reveals green shoots beneath. An open window with curtains blowing outward suggests an inner call being answered. Distant mountains hint at the perspective honest reflection brings, and pale morning colors speak of renewal.",
       "keywordsReversed": [
-        "self-criticizm",
+        "self-criticism",
         "ignoring the call",
         "doubt",
         "learning from the past"
@@ -809,7 +809,7 @@
       "reviewStatus": "machine",
       "shortReversed": "An inner critic may be louder than usual. What would a fair, kind look at your past show you?",
       "shortUpright": "A moment to look back honestly, forgive what you can and answer what is calling you forward.",
-      "sourceHash": "3c64d0c197d64f6d28c54d5f6b2ba0bb04186b94ad4a4506e7d0ab2bdf8ec780"
+      "sourceHash": "f57814a6575e8b4cf03c0ac2716116afe8138599dbcac8b7b5fc78030e437978"
     },
     {
       "aspects": {
@@ -953,7 +953,7 @@
         "trust in your efforts"
       ],
       "locale": "en",
-      "meaningReversed": "Reversed, the Three of Wands can reflect waiting that has turned into restlessness. You may have done the work and still see little coming back, or the results may look different from what you pictured. It is easy to read slowness as failure, even when things are simply taking their time.\nSometimes this card also points to a narrow view: focusing on a single outcome and missing the smaller signs of movement around you, or planning so far ahead that the present feels empty.\nThis may be a good moment to look at your expectations. Were your timelines realiztic? Is there information you are missing, or a partner you have not yet asked for help? You might adjust the plan without abandoning it, and take note of whatever progress has quietly already happened.",
+      "meaningReversed": "Reversed, the Three of Wands can reflect waiting that has turned into restlessness. You may have done the work and still see little coming back, or the results may look different from what you pictured. It is easy to read slowness as failure, even when things are simply taking their time.\nSometimes this card also points to a narrow view: focusing on a single outcome and missing the smaller signs of movement around you, or planning so far ahead that the present feels empty.\nThis may be a good moment to look at your expectations. Were your timelines realistic? Is there information you are missing, or a partner you have not yet asked for help? You might adjust the plan without abandoning it, and take note of whatever progress has quietly already happened.",
       "meaningUpright": "Where the Two of Wands was about planning, the Three of Wands shows plans already in motion. Ships have left harbor, so to speak: messages are sent, applications submitted, first steps taken. Now there is a period of watching the horizon while things unfold beyond your direct control.\nThis card can reflect the satisfying feeling of early progress, such as a project gaining its first supporters, a new habit settling in, or a collaboration reaching further than you expected. It may also highlight the value of preparation: you have done enough groundwork that you can stand back and look further ahead.\nThe invitation is to hold two things at once: confidence in what you have started and openness to how it develops. You might notice where your efforts are beginning to connect with other people, and consider what the next stage could ask of you. Expansion often needs new skills, new partners, or a slightly bigger picture of what you are building.",
       "name": "Three of Wands",
       "reflectionQuestions": [
@@ -964,7 +964,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Progress may feel slower than you hoped; this could be a time to adjust expectations rather than give up.",
       "shortUpright": "Something you set in motion is starting to travel; you can watch for what comes back and prepare for the next stage.",
-      "sourceHash": "7247474dd5735741093096f7570c1d9f26cd6609d205ddd4679f9277c7a59778"
+      "sourceHash": "aa63922d9fb5bc4ac15c58710aedb0a14eb2cf6207fe2250fb59daf01f857ecb"
     },
     {
       "aspects": {
@@ -1087,10 +1087,10 @@
       "aspects": {
         "growthReversed": "Reversed, you might be carrying a sense of constant vigilance. It can be worth exploring where that comes from and whether it still serves you. Choosing your battles is not giving up; it can be a way of protecting your energy so that your courage is available when it truly counts.",
         "growthUpright": "Holding your position, even briefly, is evidence of resilience worth recognizing. You have more capacity to stand by your values than you might think. You might remember a time you held firm and notice what helped then, such as a clear reason, a supportive person or a steady routine.",
-        "relationshipsReversed": "Reversed, you may feel that you are always on the defensive with someone, or that every conversation turns into a debate. You might notice whether you are protecting yourself from real criticizm or from an old fear. A softer approach, or a pause before responding, may open space for a more honest exchange.",
+        "relationshipsReversed": "Reversed, you may feel that you are always on the defensive with someone, or that every conversation turns into a debate. You might notice whether you are protecting yourself from real criticism or from an old fear. A softer approach, or a pause before responding, may open space for a more honest exchange.",
         "relationshipsUpright": "In close bonds, this card may reflect speaking up for your needs, even when it creates some friction. It can also point to defending someone you care about. You might consider how to hold a boundary with warmth, stating what matters to you clearly while still leaving room for the other person's point of view.",
         "workReversed": "Reversed, you may be spread thin, responding to every challenge or request as if all were equally urgent. You might pick the one or two issues that truly need your stand and let the rest go for now. Asking colleagues or collaborators for backing can also make a difficult position easier to hold.",
-        "workUpright": "At work or in a creative project, the Seven of Wands can point to holding to a standard or an idea under pressure: competition, criticizm or shifting demands. You might gather your reasons and evidence so that you can speak with calm confidence. Persistence here comes from clarity about what you are protecting and why it matters."
+        "workUpright": "At work or in a creative project, the Seven of Wands can point to holding to a standard or an idea under pressure: competition, criticism or shifting demands. You might gather your reasons and evidence so that you can speak with calm confidence. Persistence here comes from clarity about what you are protecting and why it matters."
       },
       "cardId": "wands_07",
       "imageryNote": "A single figure stands on a rise of rocky ground, feet planted unevenly, one staff raised in both hands while six others push up from below the edge. The uneven footing suggests that conviction is not always comfortable, and the higher ground shows a real vantage point earned by effort. The staffs below can stand for challenges, questions and competing voices, and the steady grip for courage grounded in values.",
@@ -1120,7 +1120,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Defending everything at once can wear you out; you might choose which ground is truly worth holding.",
       "shortUpright": "You may be holding a position that matters to you; this card honors the courage it takes to stand firm.",
-      "sourceHash": "23e66f6ac8c07edf6c63959757318706555dcdc403fc5b3518f4ef18e2f0f96c"
+      "sourceHash": "bc6ade092362932a303979a679dcd4ff1200e5517dbbd5aed5a4ba8681f43678"
     },
     {
       "aspects": {
@@ -1168,7 +1168,7 @@
         "relationshipsReversed": "Reversed, you may be keeping others at a distance to avoid being let down again, or feeling too tired to give as much as usual. You might consider telling someone close that you are running low. Allowing yourself to be supported can deepen a bond rather than weaken it.",
         "relationshipsUpright": "In close bonds, this card may reflect a relationship that has weathered hard times and is still standing. It can also point to caution learned from past hurts. You might appreciate the steadiness you have built together, while noticing whether old wariness is still needed with someone who has shown they can be trusted.",
         "workReversed": "Reversed, you may be close to your limit, working defensively or feeling that you must handle everything alone. You might look at what could be delegated, postponed or simplified. Speaking honestly about your capacity can be a responsible choice that protects both you and the work.",
-        "workUpright": "At work or in study, the Nine of Wands can point to the final push on a long effort. Experience has made you more realiztic about obstacles, and that knowledge is useful. You might plan the remaining steps carefully, protect your focus, and remind yourself of the reasons you began, so the last stretch feels purposeful rather than only draining."
+        "workUpright": "At work or in study, the Nine of Wands can point to the final push on a long effort. Experience has made you more realistic about obstacles, and that knowledge is useful. You might plan the remaining steps carefully, protect your focus, and remind yourself of the reasons you began, so the last stretch feels purposeful rather than only draining."
       },
       "cardId": "wands_09",
       "imageryNote": "A figure stands at dusk inside a ring of staffs driven into the ground, leaning on one of them and looking out with alert eyes. A small campfire burns low beside them. The ring of staffs suggests the defenses built through experience, the low fire the energy still kept alive after a long effort, and the fading light a day nearing its end. The watchful stance holds both weariness and the persistence that keeps going.",
@@ -1198,7 +1198,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Staying on guard for so long can be tiring; you might notice where it is safe to rest and let others in.",
       "shortUpright": "You have come through a lot and are still standing; this card honors your resilience on the final stretch.",
-      "sourceHash": "4b2e6c38d893eeb0e62abaf323bcf673a9ebbf27e1ec9f10b37de57ac1a2394b"
+      "sourceHash": "47b59fb1d14ec9f89999f61e61b048a675a3a19b1ca04761c25c179c4b60f350"
     },
     {
       "aspects": {
@@ -1362,7 +1362,7 @@
         "growthUpright": "For personal growth, this card invites you to take ownership of your direction. What do you want to build over the longer term, and what values guide it? You might write a short statement of purpose and use it as a reference point for the choices ahead.",
         "relationshipsReversed": "Reversed, one person may be taking too much control of decisions, or impatience may be creating tension. You might notice whether you are listening fully to someone close or already planning your answer. Inviting the other person's ideas can turn a one-sided plan into a shared one.",
         "relationshipsUpright": "In relationships, this card may reflect a confident, protective and encouraging presence. You might bring vision to shared plans and help those close to you believe in their own goals. The invitation is to lead with generosity, offering direction when it is welcome and support when someone else wants to steer.",
-        "workReversed": "Reversed, you may be pushing too hard, expecting others to match your pace, or feeling unsure of the direction yourself. You might step back to review the vision with the people involved. Asking for input and adjusting goals can make a plan both more realiztic and more widely supported.",
+        "workReversed": "Reversed, you may be pushing too hard, expecting others to match your pace, or feeling unsure of the direction yourself. You might step back to review the vision with the people involved. Asking for input and adjusting goals can make a plan both more realistic and more widely supported.",
         "workUpright": "At work or in a project, the King of Wands can point to leadership, strategic vision and the courage to take initiative. You might define a clear goal, communicate it with enthusiasm, and delegate in a way that trusts others' strengths. Integrity and consistency help people feel safe following an ambitious direction."
       },
       "cardId": "wands_14",
@@ -1370,7 +1370,7 @@
       "keywordsReversed": [
         "impatience",
         "overbearing drive",
-        "unrealiztic goals",
+        "unrealistic goals",
         "lost direction",
         "leading by listening"
       ],
@@ -1393,7 +1393,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Strong drive may be tipping into impatience or control; you might check whether your vision still leaves room for others.",
       "shortUpright": "A clear, visionary energy invites you to lead with purpose and turn big ideas into a direction others can follow.",
-      "sourceHash": "9dfb8da51026d6d246a1f6bdf969465a7fb58f896a63ee217e6e80fbff5963ef"
+      "sourceHash": "97973c8a9303b3795f15ea3067c0b163498fc8aa686a059e56a05c4a847a57ad"
     },
     {
       "aspects": {
@@ -1631,7 +1631,7 @@
         "growthUpright": "For personal growth, the Seven of Cups invites you to understand your daydreams. What longing does each one express? You might journal about a recurring fantasy and look for the need beneath it, such as freedom, recognition or rest. Meeting that need in a small, real way can be more satisfying than the dream itself.",
         "relationshipsReversed": "Reversed, the Seven of Cups may point to seeing a relationship more clearly, perhaps after a romantic haze has lifted. This clarity can be a chance to build on what is real. You might ask what you truly value in the bond now, rather than what you pictured at the start, and share that openly.",
         "relationshipsUpright": "In relationships, this card may reflect idealizing someone, or imagining many possible futures with or without a particular person. It can invite you to notice the difference between who someone is and who you hope they are. You might enjoy the imagination while grounding it in real conversations about what each of you wants.",
-        "workReversed": "Reversed, the card may reflect narrowing down to a clear direction, or finally committing to one project. You might notice a sense of focus returning. If you feel disillusioned, consider which parts of the original vision are still worth carrying forward into something more realiztic and more your own.",
+        "workReversed": "Reversed, the card may reflect narrowing down to a clear direction, or finally committing to one project. You might notice a sense of focus returning. If you feel disillusioned, consider which parts of the original vision are still worth carrying forward into something more realistic and more your own.",
         "workUpright": "At work, this card can reflect a surplus of ideas or options, such as several projects, paths or offers competing for attention. It may invite you to weigh each one against your priorities, time and energy. Writing them down side by side can help. Imagination is useful for brainstorming; decisions often need firmer ground."
       },
       "cardId": "cups_07",
@@ -1662,7 +1662,7 @@
       "reviewStatus": "machine",
       "shortReversed": "The fog of options may be lifting; consider which choice still feels real once the glow of imagining fades.",
       "shortUpright": "Many possibilities may be shimmering at once; this card invites you to enjoy imagining, then look closely at each one.",
-      "sourceHash": "ea71fbb50c4786f9a726af105ecb501b96042783d019dc6952bad06462ae6460"
+      "sourceHash": "16361838e4bec63b8cfcc5cbdb0a4134e154ddc10370bcb7843222c7eabd80ab"
     },
     {
       "aspects": {
@@ -1744,7 +1744,7 @@
       "aspects": {
         "growthReversed": "Reversed, this card may ask you to examine beliefs about what a happy life should look like. You might find that some expectations come from others rather than from you. Letting go of an idealized image can make room for a more authentic and more livable sense of fulfillment.",
         "growthUpright": "For personal growth, the Ten of Cups invites you to cultivate a sense of home within yourself. You might notice what helps you feel settled and whole, such as certain places, practices or people. Building those into your routine can offer a steady foundation from which to connect with others.",
-        "relationshipsReversed": "Reversed, the Ten of Cups may point to tension or distance in a close group, or to comparing your relationships with an idealized picture. You might ask what each person truly needs to feel at home together. Open, gentle conversations can help rebuild closeness at a realiztic pace.",
+        "relationshipsReversed": "Reversed, the Ten of Cups may point to tension or distance in a close group, or to comparing your relationships with an idealized picture. You might ask what each person truly needs to feel at home together. Open, gentle conversations can help rebuild closeness at a realistic pace.",
         "relationshipsUpright": "In relationships, this card may reflect mutual care, commitment and a shared sense of home, whether with a partner, family, friends or a chosen circle. It can invite you to appreciate the everyday rituals that sustain these bonds. You might express gratitude to the people who make you feel you belong, in words or in small acts.",
         "workReversed": "Reversed, the card may reflect a workplace that talks about being a family but does not always act like one, or a blurred line between personal life and work. You might consider which boundaries would protect your time at home. Seeking belonging in several places can ease the pressure on any single one.",
         "workUpright": "At work, this card can reflect a supportive team, a sense of shared purpose or a workplace where people genuinely care for each other. It may invite you to contribute to that culture. You might notice how feeling valued affects your work, and how you could help others feel the same."
@@ -1776,7 +1776,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Harmony may feel strained or out of reach; consider what belonging would mean for you, beyond any ideal picture.",
       "shortUpright": "A moment to notice where you already feel at home, and who helps you feel you belong.",
-      "sourceHash": "b79cbf3b1ecdefc0cdeb38c318125658ede0e67b25bc50c38c173d0572fce838"
+      "sourceHash": "cedd92bceba940bed4347a083604278048554b3498d845e6349577ef0b0fdce6"
     },
     {
       "aspects": {
@@ -1784,7 +1784,7 @@
         "growthUpright": "For personal growth, the Page of Cups invites you to cultivate curiosity about your feelings and hunches. You might keep a notebook for dreams, images or odd impressions, simply to notice patterns over time. Approaching your inner life playfully can make self-understanding feel lighter and more inviting.",
         "relationshipsReversed": "Reversed, this card may point to shyness, emotional insecurity or mixed signals in a bond. You might ask whether you or someone close is holding back feelings out of fear of rejection. Gentle honesty, offered at a comfortable pace, can make it easier for both people to feel safe.",
         "relationshipsUpright": "In relationships, the Page of Cups may reflect sweet gestures, playful flirting, a heartfelt note or the start of a tender friendship. It can invite you to express affection openly and without overthinking it. You might also notice how someone close shows care in small, surprising ways, and let them know you saw it.",
-        "workReversed": "Reversed, the card may reflect a creative block, or hesitation to share ideas for fear of criticizm. You might try working on something just for yourself first, with no expectation of results. Building confidence slowly can help you bring your ideas forward when they feel ready to be seen.",
+        "workReversed": "Reversed, the card may reflect a creative block, or hesitation to share ideas for fear of criticism. You might try working on something just for yourself first, with no expectation of results. Building confidence slowly can help you bring your ideas forward when they feel ready to be seen.",
         "workUpright": "At work, this card can reflect a new creative idea, a fresh approach or curiosity about a different area. It may invite you to share an unconventional suggestion or to experiment playfully with a task. Early ideas do not need to be polished; they need room to be explored before anyone judges them."
       },
       "cardId": "cups_11",
@@ -1815,7 +1815,7 @@
       "reviewStatus": "machine",
       "shortReversed": "A tender feeling may be hiding or wobbling; consider how you could make it safe to express what you feel.",
       "shortUpright": "A playful feeling or a small creative idea may surprise you; this card invites you to meet it with curiosity.",
-      "sourceHash": "a361de78c4939a412fdba9420814d1193ab74e6e665c62faf96dd768525bf423"
+      "sourceHash": "9a6bf202765e5d5964c14a47d3c2e7af6fec15d5ff2018c9014273cbcf1e851b"
     },
     {
       "aspects": {
@@ -1830,13 +1830,13 @@
       "imageryNote": "The art shows a rider on a calm horse, moving slowly along a riverbank or through a quiet valley, a cup held forward as an offering. Wave or shell motifs on their armor and cloak can suggest imagination and emotional depth. Flowing water nearby echoes the movement of feeling. Soft blues and silvers, with a touch of warm color, convey romance, sincerity and a dreamy sense of purpose.",
       "keywordsReversed": [
         "moodiness",
-        "unrealiztic ideals",
+        "unrealistic ideals",
         "unkept promises",
         "grounding a dream"
       ],
       "keywordsUpright": [
         "romance",
-        "idealizm",
+        "idealism",
         "following the heart",
         "invitation",
         "charm"
@@ -1853,11 +1853,11 @@
       "reviewStatus": "machine",
       "shortReversed": "Feelings may be running ahead of reality; consider which promises and dreams you can actually carry through.",
       "shortUpright": "A heartfelt idea or invitation may be moving toward you; this card invites you to follow what you care about with grace.",
-      "sourceHash": "c66b742f62a5993d6e4dc8ac3cc85363cd56e5f57f2c381c25c136ce70affcaf"
+      "sourceHash": "17dd2d72a5e9accd458cba17f8e7436c92c5c9e10a6d500f99803a0c02267d40"
     },
     {
       "aspects": {
-        "growthReversed": "Reversed, this card may ask you to extend compassion toward yourself. You might notice self-criticizm that you would never direct at a friend. Gentle routines, rest and boundaries can help you feel steady. If feelings become overwhelming, reaching out to someone you trust can offer support.",
+        "growthReversed": "Reversed, this card may ask you to extend compassion toward yourself. You might notice self-criticism that you would never direct at a friend. Gentle routines, rest and boundaries can help you feel steady. If feelings become overwhelming, reaching out to someone you trust can offer support.",
         "growthUpright": "For personal growth, the Queen of Cups invites you to deepen your relationship with your intuition and feelings. You might sit quietly with a question and notice what comes up before you think it through. Practices like journaling or time by water can help you listen inwardly.",
         "relationshipsReversed": "Reversed, this card may point to taking on too much of someone else's emotional weight, or losing sight of your own needs in a bond. You might ask where a gentle boundary could protect both you and the relationship. Caring for yourself can be part of caring for someone else.",
         "relationshipsUpright": "In relationships, the Queen of Cups may reflect deep listening, emotional support and understanding. It can invite you to create a bond where feelings are welcome. You might notice how you offer comfort to others and how you like to receive it, and share that with someone close so care can flow both ways.",
@@ -1891,7 +1891,7 @@
       "reviewStatus": "machine",
       "shortReversed": "You may be absorbing more than you can hold; consider what care and boundaries would help you feel steady.",
       "shortUpright": "This card invites you to listen deeply, to others and to yourself, with a calm and compassionate presence.",
-      "sourceHash": "3584c733f46531d540c7a5fac29e967e9f052829ceaeb71a5592ac8a663d5bc4"
+      "sourceHash": "31904236613901e0553a133e9483ada1903c4e393264bf137eb1bfd88e93333e"
     },
     {
       "aspects": {
@@ -2327,7 +2327,7 @@
         "growthUpright": "For personal growth, the Page of Swords invites you to cultivate a beginner's mind. You might pick up a subject you know little about and let yourself be curious without needing to be impressive. Asking why, reading widely, and noticing your own assumptions can keep your thinking fresh and flexible.",
         "relationshipsReversed": "Reversed, this card may reflect careless words, secrets passed along, or a habit of debating rather than connecting. You might notice whether curiosity has turned into prying or defensiveness. Pausing to consider how your words may land can protect trust. A simple apology for a hasty remark can go a long way.",
         "relationshipsUpright": "In relationships, the Page of Swords can point to lively conversation, curiosity about someone's inner world, or a wish to understand a situation fully. You might ask the questions you have wondered about, with genuine interest rather than suspicion. Being a good listener is as much a part of this card as being quick with words.",
-        "workReversed": "Reversed, this card may suggest scattered attention: jumping between tasks, sharing half-formed ideas too early, or reacting quickly to criticizm. You might choose one priority to deepen before adding more. Checking facts before presenting them and inviting feedback calmly can make your ideas stronger and more trusted.",
+        "workReversed": "Reversed, this card may suggest scattered attention: jumping between tasks, sharing half-formed ideas too early, or reacting quickly to criticism. You might choose one priority to deepen before adding more. Checking facts before presenting them and inviting feedback calmly can make your ideas stronger and more trusted.",
         "workUpright": "At work, the Page of Swords can reflect a learning phase: a new skill, fresh research, or a role that asks you to think on your feet. You might volunteer for tasks that stretch your understanding and ask colleagues to explain what they know. Taking notes and testing assumptions can turn early enthusiasm into solid knowledge."
       },
       "cardId": "swords_11",
@@ -2358,7 +2358,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Eager thoughts may be scattering in many directions; you could notice where listening would serve better than speaking.",
       "shortUpright": "Curiosity is awake; you might follow a question with fresh eyes and see where it takes your thinking.",
-      "sourceHash": "07b9fb2de9a2665a470ccb1b0920c093c6a216aac2f1cd7aa11db75560ff82ff"
+      "sourceHash": "9b73adb87cedf6fa4fa9dd71a3f5ca0575205e281689dba07b0315cf7c5ce818"
     },
     {
       "aspects": {
@@ -2412,7 +2412,7 @@
       "imageryNote": "In the original art, a figure sits on a carved stone seat set high above the clouds, blade held straight up in one hand while the other hand is open and extended. A single bird circles in the clear air above. The upright blade suggests discernment, the open hand points to fairness and willingness to listen, and the lone bird hints at an independent, far-seeing mind.",
       "keywordsReversed": [
         "coldness",
-        "harsh criticizm",
+        "harsh criticism",
         "guardedness",
         "bitterness",
         "softening the edge"
@@ -2436,7 +2436,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Clarity may have hardened into distance; you might notice where warmth could return without losing honesty.",
       "shortUpright": "Clear sight and a kind, direct voice can go together; you might trust what experience has taught you.",
-      "sourceHash": "d8e71f610b5a8f91fc860d7fe9acc3a04747586c5b7fb756869a63ad98f82a5c"
+      "sourceHash": "6599e814cf5d025a7d2808e48412a7324a09aa8a2947178dcb05fe6050beece5"
     },
     {
       "aspects": {
@@ -2479,7 +2479,7 @@
     },
     {
       "aspects": {
-        "growthReversed": "Reversed, the card can point to a habit started with enthusiasm that has quietly lapsed, or to a feeling that small steps do not count. You might revisit what made the habit hard to keep and shape a version that fits your real days. Growth rooted in realiztic routines often lasts longer than growth pushed by pressure.",
+        "growthReversed": "Reversed, the card can point to a habit started with enthusiasm that has quietly lapsed, or to a feeling that small steps do not count. You might revisit what made the habit hard to keep and shape a version that fits your real days. Growth rooted in realistic routines often lasts longer than growth pushed by pressure.",
         "growthUpright": "For personal growth this card may reflect a wish to feel more rooted in everyday life. A new habit, even a small one, can become a foundation: a walk after lunch, ten minutes of reading, a tidy space to begin the morning. You might choose one grounding practice and let it be ordinary enough to keep.",
         "relationshipsReversed": "Reversed, the card may reflect care that stays in good intentions and does not quite reach daily life. Plans to spend time together might keep slipping, or practical matters could feel unspoken. You might name one concrete thing that would help, such as a shared evening or a clear agreement about chores, and suggest it gently.",
         "relationshipsUpright": "In close bonds this card may point to the value of simple, tangible care: cooking together, fixing something for someone, turning up when you said you would. A connection might feel ready for a steadier rhythm. You could notice which small, reliable gestures help both of you feel secure, and offer one of them without waiting for a special occasion.",
@@ -2512,13 +2512,13 @@
       "reviewStatus": "machine",
       "shortReversed": "A promising start may need firmer ground. You might check what support it needs before you build on it.",
       "shortUpright": "A small, solid beginning asks for your attention. Something practical may be ready to be planted and looked after.",
-      "sourceHash": "fcdf6a0cb6dd0a77e9d121cd39074035e1bbb4fe699126980081f55e4f8f2c0c"
+      "sourceHash": "87339f65d594c593fd91b4db666b56bec9acb0b54dc70be58de30d44709b73ab"
     },
     {
       "aspects": {
         "growthReversed": "Reversed, the card may reflect a habit of saying yes before checking your capacity, or a fear of letting anything slip. You might practice a small pause before taking something on. Noticing how your body and mood respond to a crowded week can guide you toward commitments that fit the energy you actually have.",
         "growthUpright": "For personal growth this card invites you to explore balance as a practice rather than a destination. Some days lean toward rest, others toward effort. You might pay attention to the signals that tell you it is time to shift, and trust your ability to recalibrate without treating each wobble as a failure.",
-        "relationshipsReversed": "Reversed, the card can point to a bond that gets the leftover attention after everything else. Canceled plans or distracted conversations may be adding up. Rather than trying harder at everything, you could talk openly about what each of you can realiztically offer right now, and protect one small window that is just for the two of you.",
+        "relationshipsReversed": "Reversed, the card can point to a bond that gets the leftover attention after everything else. Canceled plans or distracted conversations may be adding up. Rather than trying harder at everything, you could talk openly about what each of you can realistically offer right now, and protect one small window that is just for the two of you.",
         "relationshipsUpright": "In relationships this card may reflect the give and take of busy lives: fitting time together around other duties, adjusting plans, finding humor when things shift. You might notice how you and someone close coordinate. A quick check-in about the week, or a flexible ritual that survives changing schedules, can keep connection moving even when calendars are full.",
         "workReversed": "Here the card may suggest that too many tasks are competing for the same hours, or that a rigid plan is struggling to meet real conditions. You might look for what can be sequenced instead of done at once. Asking for clearer priorities, or naming what cannot fit this week, may bring more steadiness than working longer.",
         "workUpright": "At work the Two of Pentacles can describe multitasking done with some grace: moving between roles, responding to changing priorities, adapting a plan midstream. You might notice which tools or habits help you switch smoothly. It can be worth appreciating this flexibility as a real skill, while keeping an eye on whether the pace is sustainable."
@@ -2549,7 +2549,7 @@
       "reviewStatus": "machine",
       "shortReversed": "The balancing act may have tipped into strain. Consider which demand could be set down, shared or moved for now.",
       "shortUpright": "You may be keeping several things in motion at once. Notice the rhythm that lets you adjust without losing your footing.",
-      "sourceHash": "740fc3ae5034709dbd671d1ec75f735cecbcd0f6007531335ae24487638629c0"
+      "sourceHash": "f021fc6c152d503cd0452f5b0f6d7aae9a6cc6918c8cc42b1057af4f07e1e9de"
     },
     {
       "aspects": {
@@ -2704,7 +2704,7 @@
       "aspects": {
         "growthReversed": "Reversed, the card may reflect discouragement or comparison with others' progress. You might explore whether you are measuring growth by a timeline that is not yours. Choosing one practice to continue with care, and letting others go for now, can make growth feel lighter.",
         "growthUpright": "For personal growth this card invites patience with your own development. Change often happens below the surface before it shows. You might look back over the past months and notice what has grown, even slightly, and let that evidence encourage you to keep tending what matters.",
-        "relationshipsReversed": "Reversed, the card may suggest impatience with how a connection is developing, or a sense of giving a lot without seeing it returned. You might reflect on whether your expectations match the pace this bond can realiztically grow at, and talk openly about what each of you hopes for.",
+        "relationshipsReversed": "Reversed, the card may suggest impatience with how a connection is developing, or a sense of giving a lot without seeing it returned. You might reflect on whether your expectations match the pace this bond can realistically grow at, and talk openly about what each of you hopes for.",
         "relationshipsUpright": "In relationships this card may reflect the value of patience and steady attention. Trust and closeness often grow slowly, through many small moments. You might pause to notice how a bond has deepened over time, and ask what it needs next: more time together, a new shared interest, or simply continued reliable care.",
         "workReversed": "Here the card may reflect restlessness with slow results, or effort that has lost its direction. You might revisit your goals and check whether your daily tasks still serve them. Adjusting the plan, narrowing your focus, or seeking feedback can help effort feel purposeful again.",
         "workUpright": "At work the Seven of Pentacles invites a pause to review progress on long-term efforts. You might assess what is working, what has stalled and where to focus next. It can also be a moment to appreciate the skills and groundwork you have built, even if the finished result is still some way off."
@@ -2735,7 +2735,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Progress may feel slower than you hoped. You might ask whether the effort needs patience, a new direction or simply a rest.",
       "shortUpright": "Something you have tended is growing slowly. It may be a good moment to pause, look at your progress and choose what to nurture next.",
-      "sourceHash": "d46b8f33cbd5ab28e7ac6bfc5e1cdd9c601fa116a523d570fa9d1c2be9534418"
+      "sourceHash": "b13ed6f9fe00fe3790123853d5410bf361a59e124e975602977b6cd51037f71e"
     },
     {
       "aspects": {
@@ -2884,9 +2884,9 @@
         "What is the smallest real step you could take toward a new skill this week?"
       ],
       "reviewStatus": "machine",
-      "shortReversed": "Interest may be there without follow-through. Consider what small, realiztic step would turn curiosity into practice.",
+      "shortReversed": "Interest may be there without follow-through. Consider what small, realistic step would turn curiosity into practice.",
       "shortUpright": "A curious, studious energy is present. You might notice something practical you would like to learn, and take a first real step toward it.",
-      "sourceHash": "3d3936c4b351553bb7c46995d4f30b92aaa613212dd4164b6721865982720917"
+      "sourceHash": "2ab46836e59387c0706100199b11047b1249cc19984fee5985f599c6536e5776"
     },
     {
       "aspects": {
@@ -2914,7 +2914,7 @@
       ],
       "locale": "en",
       "meaningReversed": "Reversed, the Knight of Pentacles may reflect steadiness that has become stuckness. Routines might continue long after they have stopped serving you, or caution could keep you from trying anything new. Days can start to feel identical, and work may carry on without much sense of direction or joy.\nThis framing points to a quality that has become too much. Reliability is still valuable; it may simply need some air.\nYou might ask which routine you keep mostly out of habit. Could one small change, such as a new route, a different order of tasks or a fresh goal, bring some movement back? If caution is holding you back, consider what a small, low-risk experiment would look like. Steadiness can include change when it is chosen with care.",
-      "meaningUpright": "The Knight of Pentacles rides a heavy, patient horse that stands still rather than charging. Among the court cards this knight is the least hurried and the most dependable. It speaks of steady progress, careful planning and the quiet strength of doing what you said you would do.\nYou might recognize this in keeping up a routine for months, finishing a task others lost interest in, saving a little time each day for a long project, or being the person friends rely on when something practical needs doing. The pace may not be exciting, but it is sustainable, and that matters.\nThis card invites you to appreciate consistency as a strength. What are you committed to, and how does showing up regularly move it forward? You might check that your plan is realiztic, protect the routines that support it, and notice the trust you build, in yourself and in others, each time you follow through. Some goals are reached not by bursts but by persistence.",
+      "meaningUpright": "The Knight of Pentacles rides a heavy, patient horse that stands still rather than charging. Among the court cards this knight is the least hurried and the most dependable. It speaks of steady progress, careful planning and the quiet strength of doing what you said you would do.\nYou might recognize this in keeping up a routine for months, finishing a task others lost interest in, saving a little time each day for a long project, or being the person friends rely on when something practical needs doing. The pace may not be exciting, but it is sustainable, and that matters.\nThis card invites you to appreciate consistency as a strength. What are you committed to, and how does showing up regularly move it forward? You might check that your plan is realistic, protect the routines that support it, and notice the trust you build, in yourself and in others, each time you follow through. Some goals are reached not by bursts but by persistence.",
       "name": "Knight of Pentacles",
       "reflectionQuestions": [
         "What are you committed to, and what helps you keep showing up for it?",
@@ -2924,7 +2924,7 @@
       "reviewStatus": "machine",
       "shortReversed": "Consistency may have turned into a rut. You might consider where a small change of pace could bring energy back.",
       "shortUpright": "Steady, reliable effort is moving things forward. Notice the value of showing up consistently, even when progress feels slow.",
-      "sourceHash": "27ecdcbd32ad4bf1744973f1bf81fe7fc20395495425892f5e9b5330071a218a"
+      "sourceHash": "d6ffc92e94094458e499765c1b4e0d6c000d946114c5aafe633e3932049d26ae"
     },
     {
       "aspects": {
