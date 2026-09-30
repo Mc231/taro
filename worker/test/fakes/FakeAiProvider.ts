@@ -12,7 +12,11 @@ import type {
   AiResult,
   AiUsage,
 } from '../../src/ports/AiProvider';
-import type { ExpectedReading, ReadingOutput } from '../../src/prompts/templates';
+import {
+  toModelOutput,
+  type ExpectedReading,
+  type ReadingOutput,
+} from '../../src/prompts/templates';
 
 /**
  * Scriptable `AiProvider` (03 §15.3): route tests, the contract suite and
@@ -49,6 +53,11 @@ export function fakeReading(expected: ExpectedReading): ReadingOutput {
       (_, i) => `What would change if you tried step ${String(i + 1)}?`,
     ),
   };
+}
+
+/** `fakeReading` as the model's JSON text (the keyed wire form, 03 §9.2). */
+export function fakeModelText(expected: ExpectedReading): string {
+  return JSON.stringify(toModelOutput(fakeReading(expected)));
 }
 
 const IMMEDIATE_RUNTIME: Omit<AiRuntime, 'clock'> = {

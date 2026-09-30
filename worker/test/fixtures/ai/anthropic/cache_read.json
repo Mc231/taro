@@ -42,7 +42,7 @@
         "index": 0,
         "delta": {
           "type": "text_delta",
-          "text": "{\"classification\":\"none\",\"title\":\"A quiet turning point\",\"overview\":\"The cards point to a steady, reflective moment.\",\"cards\":[{\"positionId\":\"focus\",\"cardId\":\"major_16\",\"reversed\":false,\"interpretation\":\"This card invi"
+          "text": "{\"classification\":\"none\",\"title\":\"A quiet turning point\",\"overview\":\"The cards point to a steady, reflective moment.\",\"cards\":{\"focus\":{\"cardId\":\"major_16\",\"reversed\":false,\"interpretation\":\"This card invites you to notice"
         }
       }
     },
@@ -53,7 +53,7 @@
         "index": 0,
         "delta": {
           "type": "text_delta",
-          "text": "tes you to notice what is already shifting.\"}],\"synthesis\":\"Together they suggest one small, concrete step today.\",\"reflectionPrompts\":[\"What would change if you tried step 1?\",\"What would change if you tried step 2?\"]}"
+          "text": " what is already shifting.\"}},\"synthesis\":\"Together they suggest one small, concrete step today.\",\"reflectionPrompts\":{\"prompt1\":\"What would change if you tried step 1?\",\"prompt2\":\"What would change if you tried step 2?\"}}"
         }
       }
     },

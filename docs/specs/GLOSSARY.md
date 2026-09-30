@@ -424,7 +424,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 |---|---|---|---|
 | `ai.model.paid` | string | `"claude-opus-5"` | Worker |
 | `ai.model.free` | string | `"claude-sonnet-5"` (BE Q1 deferred to Phase 21 cost data, owner 2026-09-27) | Worker |
-| `ai.model.freeFallback` | string | `"claude-haiku-4-5"` (soft tier) | Worker |
+| `ai.model.freeFallback` | string | `"claude-sonnet-5"` (soft tier) | Worker |
 | `ai.provider.paid` | string (`anthropic` \| `openai`) | `"anthropic"` (RC97) | Worker |
 | `ai.provider.free` | string (`anthropic` \| `openai`) | `"anthropic"` (RC97) | Worker |
 | `ai.provider.freeFallback` | string (`anthropic` \| `openai`) | `"anthropic"` (soft tier, RC97) | Worker |

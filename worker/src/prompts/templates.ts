@@ -100,7 +100,10 @@ export interface ReadingTemplateSet {
   readonly system: string;
   /** `user.md`: the per-reading message around the tagged data. */
   readonly user: string;
-  /** `output.schema.json`: the provider-neutral output contract (classification first). */
+  /**
+   * `output.schema.json`: the provider-neutral output contract (classification
+   * first), a template that `outputSchemaFor` expands per spread.
+   */
   readonly outputSchema: OutputSchema;
   readonly data: PromptData;
   /** `style.<locale>.md`: register, names, forms to avoid and rejected words (≤ 1 KB each). */
@@ -186,9 +189,10 @@ const answeredOutputSchema = z.strictObject({
 });
 
 /**
- * The Worker-side parse of a model's reading JSON (03 §9.2, §9.3 "JSON.parse,
- * then zod"). It enforces what `output.schema.json` states but vendor strict
- * modes may drop (`maxLength`), and what no portable schema can state: with
+ * The Worker-side check of a reading in its `ReadingOutput` form (03 §9.2,
+ * §9.3; the model's keyed JSON goes through `parseModelOutput` first). It
+ * enforces what `output.schema.json` states but vendor strict modes may drop
+ * (`maxLength`), and what no portable schema can state: with
  * `classification: "none"` every section is non-empty, and, given the drawn
  * cards, the output echoes them in order and has the spread's prompt count.
  */
@@ -197,6 +201,12 @@ export const readingOutputSchema = z.discriminatedUnion('classification', [
   declinedOutputSchema,
 ]);
 
+/**
+ * The Worker's form of a reading (what `AiResult.ok`, L3, the store and the
+ * DTO carry): `cards` in position order with their `positionId`, and
+ * `reflectionPrompts` as a list. The model's wire form keys both by name
+ * (`ModelReadingOutput`); `parseModelOutput` converts.
+ */
 export type ReadingOutput = z.infer<typeof readingOutputSchema>;
 
 export interface ExpectedReading {
@@ -252,4 +262,150 @@ export function parseReadingOutput(
     );
   }
   return issues.length === 0 ? { ok: true, output } : { ok: false, issues };
+}
+
+// --- the model's wire form (03 §9.2) -------------------------------------
+
+/** The `cards` property name of the template that stands for every position ID. */
+export const POSITION_KEY_PLACEHOLDER = '<positionId>';
+/** The `reflectionPrompts` property name of the template that stands for prompt1..promptN. */
+export const PROMPT_KEY_PLACEHOLDER = 'prompt<n>';
+
+/** The wire key of the `n`-th reflection prompt (1-based). */
+export function reflectionPromptKey(n: number): string {
+  return `prompt${String(n)}`;
+}
+
+type SchemaObject = Readonly<Record<string, unknown>>;
+
+function isSchemaObject(value: unknown): value is SchemaObject {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+/** Replaces the one templated property of `node` by `keys`, all required, in order. */
+function expandTemplate(
+  node: unknown,
+  placeholder: string,
+  keys: readonly string[],
+): SchemaObject {
+  const properties = isSchemaObject(node) ? node['properties'] : undefined;
+  const entry = isSchemaObject(properties) ? properties[placeholder] : undefined;
+  if (!isSchemaObject(node) || entry === undefined) {
+    throw new Error(`output schema template has no "${placeholder}" property`);
+  }
+  return {
+    ...node,
+    properties: Object.fromEntries(keys.map((key) => [key, entry])),
+    required: [...keys],
+    additionalProperties: false,
+  };
+}
+
+/**
+ * The output schema of one request (03 §9.2): the template with one required
+ * `cards` property per position of the spread (in draw order) and
+ * `prompt1..promptN` for its reflection prompts, every object closed. Vendor
+ * strict modes enforce required properties but not `minItems`/`maxItems`
+ * (Anthropic rejects them), so keyed objects are the portable way to fix both
+ * counts. It depends only on the spread, never on the drawn cards, so each
+ * vendor compiles one grammar per spread.
+ */
+export function outputSchemaFor(
+  template: OutputSchema,
+  positionIds: readonly string[],
+  reflectionPrompts: number,
+): OutputSchema {
+  const properties = template['properties'];
+  if (!isSchemaObject(properties)) {
+    throw new Error('output schema template has no properties');
+  }
+  return {
+    ...template,
+    properties: {
+      ...properties,
+      cards: expandTemplate(properties['cards'], POSITION_KEY_PLACEHOLDER, positionIds),
+      reflectionPrompts: expandTemplate(
+        properties['reflectionPrompts'],
+        PROMPT_KEY_PLACEHOLDER,
+        Array.from({ length: reflectionPrompts }, (_, i) => reflectionPromptKey(i + 1)),
+      ),
+    },
+  };
+}
+
+const modelCardSchema = z.strictObject({
+  cardId: z.string(),
+  reversed: z.boolean(),
+  interpretation: z.string(),
+});
+
+/** The model's JSON as `outputSchemaFor` describes it; lengths are checked after conversion. */
+const modelOutputSchema = z.strictObject({
+  classification: z.enum(CLASSIFICATIONS),
+  title: z.string(),
+  overview: z.string(),
+  cards: z.record(z.string(), modelCardSchema),
+  synthesis: z.string(),
+  reflectionPrompts: z.record(z.string(), z.string()),
+});
+
+export type ModelReadingOutput = z.infer<typeof modelOutputSchema>;
+
+/** Entries in `order` first, then any other key in object order (the sort is stable). */
+function inOrder<T>(record: Readonly<Record<string, T>>, order: readonly string[]): [string, T][] {
+  const rank = (key: string): number => {
+    const index = order.indexOf(key);
+    return index === -1 ? order.length : index;
+  };
+  return Object.entries(record).sort(([a], [b]) => rank(a) - rank(b));
+}
+
+/**
+ * Parses the model's reading JSON (03 §9.2, §9.3 "JSON.parse, then zod"): the
+ * keyed wire form, converted to `ReadingOutput` (cards in the drawn order, then
+ * any unexpected key; prompts by number), then `parseReadingOutput`, which
+ * checks lengths, filled sections, the card echo and the prompt count.
+ */
+export function parseModelOutput(value: unknown, expected?: ExpectedReading): ParsedReadingOutput {
+  const parsed = modelOutputSchema.safeParse(value);
+  if (!parsed.success) {
+    return {
+      ok: false,
+      issues: parsed.error.issues.map(
+        (issue) => `${['$', ...issue.path.map(String)].join('.')}: ${issue.message}`,
+      ),
+    };
+  }
+  const wire = parsed.data;
+  const positions = expected?.cards.map((card) => card.positionId) ?? [];
+  const promptKeys = Array.from({ length: expected?.reflectionPrompts ?? 0 }, (_, i) =>
+    reflectionPromptKey(i + 1),
+  );
+  return parseReadingOutput(
+    {
+      classification: wire.classification,
+      title: wire.title,
+      overview: wire.overview,
+      cards: inOrder(wire.cards, positions).map(([positionId, card]) => ({ positionId, ...card })),
+      synthesis: wire.synthesis,
+      reflectionPrompts: inOrder(wire.reflectionPrompts, promptKeys).map(([, prompt]) => prompt),
+    },
+    expected,
+  );
+}
+
+/** The wire form of a `ReadingOutput` (eval recordings, fixtures): the inverse of `parseModelOutput`. */
+export function toModelOutput(output: ReadingOutput): ModelReadingOutput {
+  return {
+    classification: output.classification,
+    title: output.title,
+    overview: output.overview,
+    cards: Object.fromEntries(
+      output.cards.map(({ positionId, ...card }) => [positionId, card]),
+    ),
+    synthesis: output.synthesis,
+    reflectionPrompts: Object.fromEntries(
+      output.reflectionPrompts.map((prompt, i) => [reflectionPromptKey(i + 1), prompt]),
+    ),
+  };
 }

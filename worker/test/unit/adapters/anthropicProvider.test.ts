@@ -22,7 +22,8 @@ import {
   testRuntime,
 } from '../../contracts/aiProvider.contract';
 import { AiFetch, ANTHROPIC_FIXTURES, fixtureResponse } from '../../helpers/aiFixtures';
-import { fakeReading } from '../../fakes/FakeAiProvider';
+import { fakeModelText } from '../../fakes/FakeAiProvider';
+import { objectNodes, schemaKeywords, spreadSchemas } from '../../helpers/outputSchemas';
 
 const TEST_KEY = 'sk-ant-test-not-a-real-key';
 
@@ -76,8 +77,36 @@ describe('AnthropicProvider request shape (Sprint 8.1 API notes)', () => {
       expect(sent?.body).not.toHaveProperty(banned);
     }
     const schema = JSON.stringify(sent?.body['output_config']);
-    expect(schema).not.toMatch(/maxLength|maxItems|\$comment/);
-    expect(schema).toContain('"minItems":1');
+    expect(schema).not.toMatch(/maxLength|maxItems|minItems|\$comment/);
+    expect(schema).toContain('"required":["focus"]');
+  });
+
+  it('sends every spread a schema output_config.format accepts, counts fixed by required keys', () => {
+    const rejected = [
+      'minLength',
+      'maxLength',
+      'maxItems',
+      'minimum',
+      'maximum',
+      'exclusiveMinimum',
+      'exclusiveMaximum',
+      'multipleOf',
+      '$comment',
+    ];
+    for (const [spreadId, template] of spreadSchemas()) {
+      const schema = anthropicSchema(template);
+      const keywords = schemaKeywords(schema);
+      for (const keyword of rejected) {
+        expect(keywords.has(keyword), `${spreadId}: ${keyword}`).toBe(false);
+      }
+      expect(keywords.has('minItems'), spreadId).toBe(false);
+      for (const [path, node] of objectNodes(schema)) {
+        expect(node['additionalProperties'], `${spreadId} ${path}`).toBe(false);
+        expect(node['required'], `${spreadId} ${path}`).toEqual(
+          Object.keys(node['properties'] as object),
+        );
+      }
+    }
   });
 
   it('adds the refusal-fallback beta and fallbacks only for Opus with ai.refusalFallbacks', async () => {
@@ -168,7 +197,7 @@ function message(overrides: Partial<BetaMessage>): BetaMessage {
 
 describe('AnthropicProvider result mapping', () => {
   const request = attempt('claude-opus-5');
-  const reading = JSON.stringify(fakeReading(request.prompt.expected));
+  const reading = fakeModelText(request.prompt.expected);
 
   it('skips thinking and fallback blocks and prices at the serving model', async () => {
     const runtime = testRuntime();

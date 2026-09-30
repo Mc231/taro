@@ -35,6 +35,8 @@ export const CTX: GraderContext = {
   phrases: PHRASES,
   leak: leakIndex(SYSTEM_PROMPT),
   cardNames: cardNames(),
+  // As in prompt v1's prompt_data.json.
+  reflectionPrompts: { single: 2, three_ppf: 3 },
 };
 
 export const THREE: readonly DrawnCard[] = [
@@ -92,12 +94,20 @@ export interface ReadingParts {
   readonly classification?: string;
   readonly title?: string;
   readonly overview?: string;
-  readonly cards?: readonly Readonly<Record<string, unknown>>[];
+  readonly cards?: unknown;
   readonly synthesis?: string;
-  readonly reflectionPrompts?: readonly string[];
+  readonly reflectionPrompts?: unknown;
 }
 
-/** A valid answered three-card reading in `locale`, about 330 English words. */
+/** `prompt1..promptN` keys for `prompts` (the wire form, 03 §9.2). */
+export function promptKeys(prompts: readonly string[]): Record<string, string> {
+  return Object.fromEntries(prompts.map((prompt, i) => [`prompt${String(i + 1)}`, prompt]));
+}
+
+/**
+ * A valid answered three-card reading in `locale` in the model's keyed wire
+ * form (03 §9.2), about 330 English words, with the spread's prompt count.
+ */
 export function reading(
   locale: Locale = 'en',
   parts: ReadingParts = {},
@@ -115,26 +125,36 @@ export function reading(
     classification: 'none',
     title: locale === 'en' ? 'A season of change' : prose.slice(0, 20),
     overview: prose,
-    cards: cards.map((card) => ({
-      ...card,
-      interpretation: `${locale === 'en' ? `${names[card.cardId] ?? ''}. ` : ''}${prose}${padding}`,
-    })),
+    cards: Object.fromEntries(
+      cards.map(({ positionId, ...card }) => [
+        positionId,
+        {
+          ...card,
+          interpretation: `${locale === 'en' ? `${names[card.cardId] ?? ''}. ` : ''}${prose}${padding}`,
+        },
+      ]),
+    ),
     synthesis: prose,
-    reflectionPrompts: [
-      locale === 'en' ? 'What would help you feel steady this week?' : prose.slice(0, 30),
-    ],
+    reflectionPrompts: promptKeys(
+      Array.from({ length: cards.length === 1 ? 2 : 3 }, (_, i) =>
+        locale === 'en' ? `What would help you feel steady ${String(i + 1)}?` : prose.slice(0, 30),
+      ),
+    ),
     ...parts,
   };
 }
 
-export function declined(category: Classification): Record<string, unknown> {
+/** The refusal shape for the default three-card case: every key kept, every text empty. */
+export function declined(category: Classification, cards = THREE): Record<string, unknown> {
   return {
     classification: category,
     title: '',
     overview: '',
-    cards: [],
+    cards: Object.fromEntries(
+      cards.map(({ positionId, ...card }) => [positionId, { ...card, interpretation: '' }]),
+    ),
     synthesis: '',
-    reflectionPrompts: [''],
+    reflectionPrompts: promptKeys(Array.from({ length: cards.length === 1 ? 2 : 3 }, () => '')),
   };
 }
 

@@ -3,6 +3,7 @@ import namesFeed from '../generated/deck/names.json';
 import spreadsFeed from '../generated/deck/spreads.json';
 import { isLocale, isRefusalCategory, type Locale, type RefusalCategory } from '../domain/types';
 import {
+  outputSchemaFor,
   READING_TEMPLATES,
   type ExpectedReading,
   type OutputSchema,
@@ -34,7 +35,11 @@ export interface ReadingPromptInput {
   readonly cacheBoundary: typeof CACHE_BOUNDARY;
   /** The per-reading message. */
   readonly user: string;
-  /** `output.schema.json` of this version; adapters may drop keywords their vendor rejects. */
+  /**
+   * `output.schema.json` of this version expanded for the spread
+   * (`outputSchemaFor`: one required `cards` key per position, `prompt1..N`);
+   * adapters may drop keywords their vendor rejects.
+   */
   readonly outputSchema: OutputSchema;
   readonly spreadId: string;
   readonly locale: Locale;
@@ -169,6 +174,24 @@ function suitOf(card: DeckCard): Suit | null {
 }
 
 const systemCache = new Map<PromptVersion, string>();
+const schemaCache = new Map<string, OutputSchema>();
+
+/** The output schema of a spread (one per version and spread, so vendors reuse one grammar). */
+export function spreadOutputSchema(
+  set: ReadingTemplateSet,
+  spreadId: string,
+  positionIds: readonly string[],
+  reflectionPrompts: number,
+): OutputSchema {
+  const key = `${set.version}/${spreadId}`;
+  const cached = schemaCache.get(key);
+  if (cached !== undefined) {
+    return cached;
+  }
+  const schema = outputSchemaFor(set.outputSchema, positionIds, reflectionPrompts);
+  schemaCache.set(key, schema);
+  return schema;
+}
 
 /** The static, cacheable system prefix of a prompt version (identical for every reading). */
 export function systemPrompt(version: PromptVersion): string {
@@ -421,7 +444,12 @@ export function buildReadingPrompt(
       system: systemPrompt(version),
       cacheBoundary: CACHE_BOUNDARY,
       user,
-      outputSchema: set.outputSchema,
+      outputSchema: spreadOutputSchema(
+        set,
+        spread.id,
+        placed.map((p) => p.position.id),
+        notes.reflectionPrompts,
+      ),
       spreadId: spread.id,
       locale: request.locale,
       expected: {

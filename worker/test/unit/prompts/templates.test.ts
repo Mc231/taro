@@ -6,11 +6,15 @@ import { CLASSIFICATIONS, LOCALES } from '../../../src/domain/types';
 import { buildReadingPrompt, systemPrompt } from '../../../src/prompts/build';
 import {
   isPromptVersion,
+  outputSchemaFor,
+  parseModelOutput,
   parseReadingOutput,
   promptDataSchema,
   PROMPT_VERSIONS,
   READING_TEMPLATES,
   templateFiles,
+  toModelOutput,
+  type OutputSchema,
 } from '../../../src/prompts/templates';
 import { promptVersionHash } from '../../../src/prompts/versions';
 import lock from '../../../src/prompts/versions.lock.json';
@@ -189,15 +193,48 @@ describe('reading prompt templates', () => {
       expect(schema.properties['overview']?.['maxLength']).toBe(700);
       expect(schema.properties['synthesis']?.['maxLength']).toBe(1400);
       const cards = schema.properties['cards'] as {
-        items: { properties: Record<string, Record<string, unknown>>; additionalProperties: boolean };
+        properties: Record<string, { properties: Record<string, Record<string, unknown>> }>;
+        additionalProperties: boolean;
       };
-      expect(cards.items.additionalProperties).toBe(false);
-      expect(cards.items.properties['interpretation']?.['maxLength']).toBe(900);
-      expect(schema.properties['reflectionPrompts']).toMatchObject({
-        minItems: 1,
-        maxItems: 3,
-        items: { type: 'string', maxLength: 200 },
+      expect(cards.additionalProperties).toBe(false);
+      expect(cards.properties['<positionId>']).toMatchObject({
+        required: ['cardId', 'reversed', 'interpretation'],
+        additionalProperties: false,
+        properties: { interpretation: { maxLength: 900 } },
       });
+      expect(schema.properties['reflectionPrompts']).toMatchObject({
+        type: 'object',
+        required: ['prompt<n>'],
+        additionalProperties: false,
+        properties: { 'prompt<n>': { type: 'string', maxLength: 200 } },
+      });
+    });
+
+    it('expands per spread: one required key per position and prompt, no count keywords', () => {
+      const built = outputSchemaFor(set.outputSchema, ['past', 'present', 'future'], 3) as {
+        properties: Record<string, { properties: Record<string, unknown>; required: string[] }>;
+      };
+      expect(built.properties['cards']?.required).toEqual(['past', 'present', 'future']);
+      expect(Object.keys(built.properties['cards']?.properties ?? {})).toEqual([
+        'past',
+        'present',
+        'future',
+      ]);
+      expect(built.properties['reflectionPrompts']?.required).toEqual([
+        'prompt1',
+        'prompt2',
+        'prompt3',
+      ]);
+      expect(JSON.stringify({ ...built, $comment: '' })).not.toMatch(/<positionId>|prompt<n>|minItems|maxItems/);
+      // The template itself is left untouched.
+      expect(schema.properties['cards']?.['required']).toEqual(['<positionId>']);
+    });
+
+    it('refuses a template without the placeholders', () => {
+      const noProps: OutputSchema = { type: 'object' };
+      expect(() => outputSchemaFor(noProps, ['focus'], 1)).toThrow(/no properties/);
+      const plain: OutputSchema = { properties: { cards: { type: 'array' } } };
+      expect(() => outputSchemaFor(plain, ['focus'], 1)).toThrow(/<positionId>/);
     });
   });
 
@@ -215,7 +252,7 @@ describe('reading prompt templates', () => {
       const system = systemPrompt('v1');
       expect(system).not.toMatch(/\{\{[a-z_]+\}\}/);
       expect(system).toContain(
-        '{"classification":"health","title":"","overview":"","cards":[],"synthesis":"","reflectionPrompts":[""]}',
+        '{"classification":"health","title":"","overview":"","cards":{"focus":{"cardId":"swords_02","reversed":false,"interpretation":""}},"synthesis":"","reflectionPrompts":{"prompt1":"","prompt2":""}}',
       );
       for (const category of CLASSIFICATIONS) {
         expect(system).toContain(`| \`${category}\` |`);
@@ -347,6 +384,83 @@ describe('reading prompt templates', () => {
         issues: ['$.cards: 1 entries, 2 drawn', '$.reflectionPrompts: 1, expected 2'],
       });
       expect(parseReadingOutput(answered)).toMatchObject({ ok: true });
+    });
+  });
+
+  describe('parseModelOutput (the keyed wire form, 03 §9.2)', () => {
+    const drawn = [
+      { positionId: 'past', cardId: 'major_16', reversed: false },
+      { positionId: 'present', cardId: 'cups_03', reversed: true },
+    ];
+    const expected = { cards: drawn, reflectionPrompts: 2 };
+    const wire = {
+      classification: 'none',
+      title: 'A tower in the rain',
+      overview: 'Two sentences. About the question.',
+      cards: {
+        present: { cardId: 'cups_03', reversed: true, interpretation: 'The cups may reflect.' },
+        past: { cardId: 'major_16', reversed: false, interpretation: 'The tower may reflect.' },
+      },
+      synthesis: 'The cards connect. One step.',
+      reflectionPrompts: { prompt2: 'Which part matters?', prompt1: 'What might you notice?' },
+    };
+
+    it('converts to the Worker form in the drawn order and back', () => {
+      const parsed = parseModelOutput(wire, expected);
+      expect(parsed.ok).toBe(true);
+      if (!parsed.ok) {
+        return;
+      }
+      expect(parsed.output.cards.map((c) => c.positionId)).toEqual(['past', 'present']);
+      expect(parsed.output.cards[0]).toEqual({
+        positionId: 'past',
+        cardId: 'major_16',
+        reversed: false,
+        interpretation: 'The tower may reflect.',
+      });
+      expect(parsed.output.reflectionPrompts).toEqual(['What might you notice?', 'Which part matters?']);
+      expect(parseModelOutput(toModelOutput(parsed.output), expected)).toEqual(parsed);
+    });
+
+    it('keeps object order without expected cards, and accepts the refusal shape', () => {
+      const parsed = parseModelOutput(wire);
+      expect(parsed.ok && parsed.output.cards.map((c) => c.positionId)).toEqual(['present', 'past']);
+      const refusal = {
+        classification: 'health',
+        title: '',
+        overview: '',
+        cards: {
+          past: { cardId: 'major_16', reversed: false, interpretation: '' },
+          present: { cardId: 'cups_03', reversed: true, interpretation: '' },
+        },
+        synthesis: '',
+        reflectionPrompts: { prompt1: '', prompt2: '' },
+      };
+      expect(parseModelOutput(refusal, expected)).toMatchObject({
+        ok: true,
+        output: { classification: 'health', reflectionPrompts: ['', ''] },
+      });
+    });
+
+    it('rejects the list form, missing or extra positions and a wrong prompt count', () => {
+      const list = parseModelOutput({ ...wire, cards: [] }, expected);
+      expect(list.ok).toBe(false);
+      const onlyPast = { past: wire.cards.past };
+      const extra = {
+        ...onlyPast,
+        future: { cardId: 'cups_03', reversed: true, interpretation: 'Extra.' },
+      };
+      expect(parseModelOutput({ ...wire, cards: onlyPast }, expected)).toEqual({
+        ok: false,
+        issues: ['$.cards: 1 entries, 2 drawn'],
+      });
+      expect(parseModelOutput({ ...wire, cards: extra }, expected)).toEqual({
+        ok: false,
+        issues: ['$.cards.1: does not echo present/cups_03'],
+      });
+      expect(
+        parseModelOutput({ ...wire, reflectionPrompts: { prompt1: 'What?' } }, expected),
+      ).toEqual({ ok: false, issues: ['$.reflectionPrompts: 1, expected 2'] });
     });
   });
 });

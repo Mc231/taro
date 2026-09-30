@@ -912,7 +912,11 @@ describe('gates (03 §9.0 order; RC28, RC29, RC47, RC74, RC97)', () => {
     const bonus = await json<ReadingResponse>(await postReading(h, id, crid()));
     expect(bonus.chargeSource).toBe('bonus');
 
-    h.config.set({ 'ai.budget.freeStopFloorUsd': 100 });
+    // The default fallback is the free model itself (2026-09-30); a distinct one proves the switch.
+    h.config.set({
+      'ai.budget.freeStopFloorUsd': 100,
+      'ai.model.freeFallback': 'claude-haiku-4-5',
+    });
     const soft = await postReading(h, await install(), crid());
     expect(soft.status).toBe(200);
     expect(h.ai.anthropic.requests.at(-1)?.model).toBe('claude-haiku-4-5');

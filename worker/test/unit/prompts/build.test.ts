@@ -14,7 +14,7 @@ import {
   type ReadingPromptInput,
   type ReadingPromptRequest,
 } from '../../../src/prompts/build';
-import { READING_TEMPLATES } from '../../../src/prompts/templates';
+import { outputSchemaFor, READING_TEMPLATES } from '../../../src/prompts/templates';
 
 const THREE: ReadingPromptRequest = {
   spreadId: 'three_ppf',
@@ -50,7 +50,11 @@ describe('buildReadingPrompt', () => {
     expect(input.cacheBoundary).toBe(CACHE_BOUNDARY);
     expect(input.cacheBoundary).toBe('after_system');
     expect(input.system).toBe(systemPrompt('v1'));
-    expect(input.outputSchema).toBe(READING_TEMPLATES.v1.outputSchema);
+    expect(input.outputSchema).toEqual(
+      outputSchemaFor(READING_TEMPLATES.v1.outputSchema, ['past', 'present', 'future'], 3),
+    );
+    // One schema object per spread (vendors compile one grammar per schema).
+    expect(build(THREE).outputSchema).toBe(input.outputSchema);
     expect(input.spreadId).toBe('three_ppf');
     expect(input.locale).toBe('de');
     expect(input.user).not.toMatch(/\{\{[a-z_]+\}\}/);

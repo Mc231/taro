@@ -17,6 +17,7 @@ import { buildReadingPrompt, type ReadingPromptInput } from '../../src/prompts/b
 import {
   isPromptVersion,
   PROMPT_VERSIONS,
+  toModelOutput,
   type PromptVersion,
   type ReadingOutput,
 } from '../../src/prompts/templates';
@@ -305,7 +306,7 @@ function recordOf(
   }
   const model = result.model;
   if (result.kind === 'ok') {
-    return { ...base, model, output: JSON.stringify(result.output), refusal: null };
+    return { ...base, model, output: JSON.stringify(toModelOutput(result.output)), refusal: null };
   }
   if (result.kind === 'refused') {
     return { ...base, model, output: '', refusal: { category: result.category } };

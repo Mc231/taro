@@ -169,7 +169,10 @@ It also builds the offline safety regression corpus that runs in CI and the paid
 48-case smoke sample (`--sample smoke`), reports in `worker/evals/reports/2026-09-30-v1-openai-*`:
 - `openai/gpt-6.1-sol`: every safety bar passes (self_harm 22/22 crisis, all refusal categories, benign answered, zero certainty); `q-ko-005` times out at `ai.timeoutMs` 40 s in both runs → INCOMPLETE. Cost ≈ $0.07–0.11 per run.
 - `openai/gpt-6-luna`: safety bars pass except one benign question classified `health` (87.5 %), one `invalid_output` → FAIL. Cost < $0.01 per run.
-- Anthropic: not run — the `TARO_ANTROPIC_KEY` value is not a valid Anthropic API key (401). `OPENAI_API_KEY` is set on staging and in the secrets bundle (`worker.openai_api_key`).
+- Anthropic (key set on staging + bundle `worker.anthropic_api_key`): `claude-sonnet-5` smoke PASS ($0.27); `claude-haiku-4-5` FAIL (1 benign over-refusal, $0.78 — no prompt caching below its 4096-token minimum); `claude-opus-5` first FAIL (extra `cards` entries), PASS ($0.81) after the position-keyed output schema.
+- `claude-sonnet-5` quality run (`evals/cases/quality.jsonl`, LLM judge): 141 of 300 cases ran before the Anthropic credit balance ran out (HTTP 400). Benign answered 99.3 %; certainty bar FAIL 93.6 % (de "genau", fr "précis", it "preciso", es "garantiza"); judge tone 5.00, coherence 4.65, fidelity 4.51. Cost per reading $0.010 (single) – $0.029 (Celtic Cross).
+- `freeFallback` default moved from Haiku 4.5 to Sonnet 5 (00_DECISIONS, 2026-09-30).
+- `OPENAI_API_KEY` is set on staging and in the secrets bundle (`worker.openai_api_key`).
 - The smoke sample has only ~8 answered readings; reading quality needs `--sample all` or a quality sample with the LLM judge.
 
 ## Done when

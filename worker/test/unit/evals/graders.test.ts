@@ -14,6 +14,7 @@ import {
   leakIndex,
   LENGTH_BUDGETS,
   parseActual,
+  type GraderContext,
 } from '../../../evals/lib/graders';
 import {
   GRADER_NAMES,
@@ -21,7 +22,17 @@ import {
   type EvalCase,
   type RecordedOutput,
 } from '../../../evals/lib/types';
-import { CTX, declined, evalCase, PROSE, reading, recorded, SINGLE, words } from './helpers';
+import {
+  CTX,
+  declined,
+  evalCase,
+  promptKeys,
+  PROSE,
+  reading,
+  recorded,
+  SINGLE,
+  words,
+} from './helpers';
 
 type Grader = typeof gradeSchema;
 
@@ -114,25 +125,46 @@ describe('schema grader', () => {
     );
   });
 
-  it("fails an answered reading without the spread's reflection-prompt count", () => {
-    const ctx = { ...CTX, reflectionPrompts: { three_ppf: 3, single: 2 } };
-    const one = recorded(reading());
+  it("fails an answered reading without the spread's positions and reflection prompts", () => {
+    const ctx = CTX;
+    const one = recorded(reading('en', { reflectionPrompts: promptKeys(['One?']) }));
     const result = gradeSchema(evalCase(), one, parseActual(one), ctx);
     expect(result).toMatchObject({
       status: 'fail',
-      messages: ['$.reflectionPrompts: 1, expected 3 for three_ppf'],
+      messages: [
+        '$.reflectionPrompts: missing required "prompt2"',
+        '$.reflectionPrompts: missing required "prompt3"',
+      ],
     });
-    const three = recorded(reading('en', { reflectionPrompts: ['One?', 'Two?', 'Three?'] }));
+    const extra = reading() as { cards: Record<string, unknown> };
+    const four = recorded({ ...extra, cards: { ...extra.cards, spare: extra.cards['past'] } });
+    expect(gradeSchema(evalCase(), four, parseActual(four), ctx).messages).toEqual([
+      '$.cards: unexpected property "spare"',
+    ]);
+    const three = recorded(reading());
     expect(gradeSchema(evalCase(), three, parseActual(three), ctx).status).toBe('pass');
-    // Unknown spread, no spread, or no counts in the context: not checked.
+    // The Worker's parse: the drawn card ids are echoed per position.
+    const swapped = { ...extra, cards: { ...extra.cards, past: extra.cards['present'] } };
+    expect(grade(gradeSchema, evalCase(), recorded(swapped)).messages).toEqual([
+      '$.cards.0: does not echo past/major_16',
+    ]);
+    // Unknown spread, no spread, or no counts in the context: only the structure is checked.
     expect(gradeSchema(evalCase({ spreadId: 'custom' }), one, parseActual(one), ctx).status).toBe(
       'pass',
     );
     expect(gradeSchema(evalCase({ spreadId: null }), one, parseActual(one), ctx).status).toBe(
       'pass',
     );
-    expect(grade(gradeSchema, evalCase(), one).status).toBe('pass');
-    // A decline has no prompt count to check.
+    const noCounts: GraderContext = {
+      schema: CTX.schema,
+      phrases: CTX.phrases,
+      leak: CTX.leak,
+      cardNames: CTX.cardNames,
+    };
+    expect(gradeSchema(evalCase(), one, parseActual(one), noCounts).status).toBe('pass');
+    // A template without placeholders is used as it is.
+    const plain = { ...noCounts, schema: { type: 'object' } };
+    expect(gradeSchema(evalCase(), one, parseActual(one), plain).status).toBe('pass');
     const decline = recorded(declined('legal'));
     expect(gradeSchema(evalCase(), decline, parseActual(decline), ctx).status).toBe('pass');
   });
@@ -317,44 +349,51 @@ describe('card echo grader', () => {
   });
 
   it('fails count, position, card, orientation and empty text mismatches', () => {
-    const r = reading() as { cards: Record<string, unknown>[] };
-    const [first, second, third] = r.cards;
+    const r = reading() as { cards: Record<string, Record<string, unknown>> };
+    const { past, present, future } = r.cards;
     const bad = {
       ...r,
-      cards: [
-        { ...first, cardId: 'major_15' },
-        { ...second, reversed: false },
-        { ...third, interpretation: '  ' },
-        { ...third },
-      ],
+      cards: {
+        past: { ...past, cardId: 'major_15' },
+        present: { ...present, reversed: false },
+        future: { ...future, interpretation: '  ' },
+        spare: { ...future },
+      },
     };
     const result = grade(gradeCardEcho, evalCase(), recorded(bad));
     expect(result.status).toBe('fail');
     expect(result.messages).toEqual([
-      '4 cards in the output, 3 drawn',
-      'cards[0]: past/major_15, drawn past/major_16',
-      'cards[1]: reversed=false, drawn reversed=true',
-      'cards[2]: empty interpretation for future',
+      'cards: spare not drawn',
+      'cards.past: major_15, drawn major_16',
+      'cards.present: reversed=false, drawn reversed=true',
+      'cards.future: empty interpretation for future',
     ]);
     const missing = { ...r, cards: 'none' };
     expect(grade(gradeCardEcho, evalCase(), recorded(missing)).messages).toEqual([
-      '0 cards in the output, 3 drawn',
+      'cards.past: missing, drawn major_16',
+      'cards.present: missing, drawn cups_03',
+      'cards.future: missing, drawn pentacles_14',
     ]);
-    const nonString = { ...r, cards: [{ ...first, interpretation: 5 }, second, third] };
+    const nonString = { ...r, cards: { ...r.cards, past: { ...past, interpretation: 5 } } };
     expect(grade(gradeCardEcho, evalCase(), recorded(nonString)).messages[0]).toContain(
       'empty interpretation',
     );
   });
 
   it('warns when an English interpretation never names its card', () => {
-    const r = reading() as { cards: Record<string, unknown>[] };
+    const r = reading() as { cards: Record<string, Record<string, unknown>> };
     const unnamed = {
       ...r,
-      cards: r.cards.map((card) => ({ ...card, interpretation: 'Something general.' })),
+      cards: Object.fromEntries(
+        Object.entries(r.cards).map(([key, card]) => [
+          key,
+          { ...card, interpretation: 'Something general.' },
+        ]),
+      ),
     };
     const result = grade(gradeCardEcho, evalCase(), recorded(unnamed));
     expect(result.status).toBe('warn');
-    expect(result.messages[0]).toBe('cards[0]: interpretation does not name The Tower');
+    expect(result.messages[0]).toBe('cards.past: interpretation does not name The Tower');
     // Other locales: names are localised, so only the structure is checked.
     expect(grade(gradeCardEcho, evalCase({ locale: 'de' }), recorded(reading('de'))).status).toBe(
       'pass',
@@ -389,7 +428,7 @@ describe('length grader', () => {
   it('takes the size from the output when the case has no cards, and skips unknown sizes', () => {
     const noCards = evalCase({ cards: null });
     expect(grade(gradeLength, noCards, recorded(reading())).status).toBe('pass');
-    const two = { ...reading(), cards: [{}, {}] };
+    const two = { ...reading(), cards: { a: {}, b: {} } };
     expect(grade(gradeLength, noCards, recorded(two)).messages).toEqual([
       'no length target for 2 cards',
     ]);

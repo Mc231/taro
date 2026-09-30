@@ -1,6 +1,7 @@
 /**
  * The output schema as written in 03 §9.2, used when the prompt version under
- * test has no `output.schema.json` yet. A real run grades against the file.
+ * test has no `output.schema.json` yet (a template, expanded per spread like
+ * the file). A real run grades against the file.
  */
 export const SPEC_OUTPUT_SCHEMA = {
   type: 'object',
@@ -24,25 +25,28 @@ export const SPEC_OUTPUT_SCHEMA = {
     title: { type: 'string', maxLength: 80 },
     overview: { type: 'string', maxLength: 700 },
     cards: {
-      type: 'array',
-      items: {
-        type: 'object',
-        required: ['positionId', 'cardId', 'reversed', 'interpretation'],
-        properties: {
-          positionId: { type: 'string' },
-          cardId: { type: 'string' },
-          reversed: { type: 'boolean' },
-          interpretation: { type: 'string', maxLength: 900 },
+      type: 'object',
+      properties: {
+        '<positionId>': {
+          type: 'object',
+          required: ['cardId', 'reversed', 'interpretation'],
+          properties: {
+            cardId: { type: 'string' },
+            reversed: { type: 'boolean' },
+            interpretation: { type: 'string', maxLength: 900 },
+          },
+          additionalProperties: false,
         },
-        additionalProperties: false,
       },
+      required: ['<positionId>'],
+      additionalProperties: false,
     },
     synthesis: { type: 'string', maxLength: 1400 },
     reflectionPrompts: {
-      type: 'array',
-      items: { type: 'string', maxLength: 200 },
-      minItems: 1,
-      maxItems: 3,
+      type: 'object',
+      properties: { 'prompt<n>': { type: 'string', maxLength: 200 } },
+      required: ['prompt<n>'],
+      additionalProperties: false,
     },
   },
   additionalProperties: false,

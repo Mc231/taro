@@ -19,3 +19,6 @@ test/contract/fixtures/
 
 # Versioned prompt templates (03 §9.2): byte-stable, hashed in src/prompts/versions.lock.json.
 prompts/
+
+# Written by the eval CLIs (npm run eval / eval:safety / eval:offline); re-gradable records, not hand-edited.
+evals/reports/

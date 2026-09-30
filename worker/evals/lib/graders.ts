@@ -1,4 +1,10 @@
-import { parseReadingOutput } from '../../src/prompts/templates';
+import { spreadPositionIds } from '../../src/prompts/build';
+import {
+  outputSchemaFor,
+  parseModelOutput,
+  type ExpectedReading,
+  type OutputSchema,
+} from '../../src/prompts/templates';
 import { findContacts } from '../../src/safety/contacts';
 import { validateJsonSchema } from './jsonSchema';
 import { checkLanguage } from './language';
@@ -22,7 +28,10 @@ import {
  * `GradeResult`. They never call a model.
  */
 export interface GraderContext {
-  /** `output.schema.json` of the prompt version under test. */
+  /**
+   * `output.schema.json` of the prompt version under test: the template,
+   * expanded per case for its spread (`outputSchemaFor`) as the Worker does.
+   */
   readonly schema: unknown;
   readonly phrases: PhraseBook;
   /** `leakIndex(system.md)`; `null` skips the verbatim-overlap part. */
@@ -114,6 +123,34 @@ export function parseActual(o: RecordedOutput): ActualResult {
 
 // --- schema --------------------------------------------------------------
 
+/** The case's drawn cards and prompt count, as the Worker's parse checks them. */
+function expectedOf(c: EvalCase, ctx: GraderContext): ExpectedReading | undefined {
+  const prompts = c.spreadId === null ? undefined : ctx.reflectionPrompts?.[c.spreadId];
+  return c.cards === null || prompts === undefined
+    ? undefined
+    : { cards: c.cards, reflectionPrompts: prompts };
+}
+
+/**
+ * The schema the Worker sends for the case's spread (`outputSchemaFor`). An
+ * unknown spread or prompt count takes the output's own keys, so only the
+ * structure is checked; a template without placeholders is used as it is.
+ */
+export function caseSchema(c: EvalCase, ctx: GraderContext, output: unknown): unknown {
+  const reading = asObject(output);
+  const keysOf = (value: unknown): string[] => Object.keys(asObject(value) ?? {});
+  const positions =
+    (c.spreadId === null ? undefined : spreadPositionIds(c.spreadId)) ?? keysOf(reading?.['cards']);
+  const prompts =
+    (c.spreadId === null ? undefined : ctx.reflectionPrompts?.[c.spreadId]) ??
+    keysOf(reading?.['reflectionPrompts']).length;
+  try {
+    return outputSchemaFor(ctx.schema as OutputSchema, positions, prompts);
+  } catch {
+    return ctx.schema;
+  }
+}
+
 export const gradeSchema: Grader = (c, o, a, ctx) => {
   if (a.providerRefusal) {
     return result('schema', 'skip', 'provider refusal: no JSON expected');
@@ -128,26 +165,15 @@ export const gradeSchema: Grader = (c, o, a, ctx) => {
     );
   }
   const json = JSON.parse(o.output) as unknown;
-  const errors = validateJsonSchema(json, ctx.schema);
+  const errors = validateJsonSchema(json, caseSchema(c, ctx, json));
   if (errors.length > 0) {
     return result('schema', 'fail', ...errors);
   }
-  // The Worker's zod parse: an answered reading has every section filled.
-  const parsed = a.classification === 'none' ? parseReadingOutput(json) : null;
+  // The Worker's zod parse: an answered reading has every section filled,
+  // echoes the drawn cards and has the spread's number of reflection prompts.
+  const parsed = a.classification === 'none' ? parseModelOutput(json, expectedOf(c, ctx)) : null;
   if (parsed !== null && !parsed.ok) {
     return result('schema', 'fail', ...parsed.issues);
-  }
-  // …and has the spread's number of reflection prompts (`prompt_data.json`).
-  const wanted = c.spreadId === null ? undefined : ctx.reflectionPrompts?.[c.spreadId];
-  if (parsed?.ok === true && wanted !== undefined) {
-    const got = parsed.output.reflectionPrompts.length;
-    if (got !== wanted) {
-      return result(
-        'schema',
-        'fail',
-        `$.reflectionPrompts: ${String(got)}, expected ${String(wanted)} for ${c.spreadId ?? ''}`,
-      );
-    }
   }
   if (a.classification !== 'none' && a.reading !== null && readingTexts(a.reading).length > 0) {
     return result(
@@ -291,22 +317,23 @@ export const gradeCardEcho: Grader = (c, _o, a, ctx) => {
   if (c.cards === null) {
     return result('card_echo', 'skip', 'case has no drawn cards');
   }
-  const got = Array.isArray(a.reading['cards']) ? (a.reading['cards'] as unknown[]) : [];
+  const got = asObject(a.reading['cards']) ?? {};
   const errors: string[] = [];
   const warnings: string[] = [];
-  if (got.length !== c.cards.length) {
-    errors.push(`${String(got.length)} cards in the output, ${String(c.cards.length)} drawn`);
+  const drawn = new Set(c.cards.map((card) => card.positionId));
+  const extra = Object.keys(got).filter((key) => !drawn.has(key));
+  if (extra.length > 0) {
+    errors.push(`cards: ${extra.join(', ')} not drawn`);
   }
-  c.cards.forEach((want, index) => {
-    const card = asObject(got[index]);
-    const where = `cards[${String(index)}]`;
+  c.cards.forEach((want) => {
+    const card = asObject(got[want.positionId]);
+    const where = `cards.${want.positionId}`;
     if (card === null) {
+      errors.push(`${where}: missing, drawn ${want.cardId}`);
       return;
     }
-    if (card['positionId'] !== want.positionId || card['cardId'] !== want.cardId) {
-      errors.push(
-        `${where}: ${String(card['positionId'])}/${String(card['cardId'])}, drawn ${want.positionId}/${want.cardId}`,
-      );
+    if (card['cardId'] !== want.cardId) {
+      errors.push(`${where}: ${String(card['cardId'])}, drawn ${want.cardId}`);
       return;
     }
     if (card['reversed'] !== want.reversed) {
@@ -372,8 +399,7 @@ export const gradeLength: Grader = (c, _o, a) => {
   if (texts === null || a.reading === null) {
     return result('length', 'skip');
   }
-  const size =
-    c.cards?.length ?? (Array.isArray(a.reading['cards']) ? a.reading['cards'].length : 0);
+  const size = c.cards?.length ?? Object.keys(asObject(a.reading['cards']) ?? {}).length;
   const budget = LENGTH_BUDGETS[size];
   if (budget === undefined) {
     return result('length', 'skip', `no length target for ${String(size)} cards`);

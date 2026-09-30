@@ -1,5 +1,5 @@
 import {
-  parseReadingOutput,
+  parseModelOutput,
   type ExpectedReading,
   type ReadingOutput,
 } from '../../prompts/templates';
@@ -7,7 +7,8 @@ import {
 /**
  * Output handling shared by the AI adapters (03 §9.2, §9.3).
  *
- * `output.schema.json` is the provider-neutral contract; each vendor's strict
+ * `output.schema.json`, expanded per spread (`outputSchemaFor`), is the
+ * provider-neutral contract; each vendor's strict
  * mode rejects some keywords, so the adapter drops them (`stripSchemaKeywords`)
  * and the Worker's zod parse and L3 enforce them instead (RC97).
  */
@@ -45,7 +46,7 @@ export type ParsedModelText =
   | { readonly ok: true; readonly output: ReadingOutput }
   | { readonly ok: false; readonly issues: readonly string[] };
 
-/** `JSON.parse`, then zod (`parseReadingOutput`) against the drawn cards. */
+/** `JSON.parse`, then zod (`parseModelOutput`: keyed wire form → `ReadingOutput`) against the drawn cards. */
 export function parseModelText(text: string, expected: ExpectedReading): ParsedModelText {
   let value: unknown;
   try {
@@ -53,5 +54,5 @@ export function parseModelText(text: string, expected: ExpectedReading): ParsedM
   } catch {
     return { ok: false, issues: ['$: not valid JSON'] };
   }
-  return parseReadingOutput(value, expected);
+  return parseModelOutput(value, expected);
 }

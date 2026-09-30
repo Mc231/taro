@@ -546,7 +546,7 @@ Estimate = characters / 3.5 over `worker/test/unit/prompts/__snapshots__/reading
 | User message, `celtic_cross` (en) | 6,603 | ≈ 1,890 (+ ≤ 90) |
 | User message, `three_ppf` across the 12 locales | 3,581 (ja) – 4,217 (pt) | ≈ 1,020 – 1,200 |
 
-Caching consequence: the ≈ 2.9k prefix is above the Opus 5 (512), Sonnet 5 (1,024) and OpenAI GPT-5.6+/GPT-6 (1,024) minimums but **below Haiku 4.5's 4,096**, so the soft-tier fallback pays full input price for it. Per-reading cost estimates per model: 03 §9.6.
+Caching consequence: the ≈ 2.9k prefix is above the Opus 5 (512), Sonnet 5 (1,024) and OpenAI GPT-5.6+/GPT-6 (1,024) minimums but **below Haiku 4.5's 4,096**, so Haiku 4.5 would pay full input price for it; the soft-tier fallback therefore defaults to Sonnet 5 (2026-09-30, 00_DECISIONS "Free fallback model"). Per-reading cost estimates per model: 03 §9.6.
 
 ### Normalised `AiUsage` (pricing contract)
 
@@ -567,7 +567,7 @@ client.beta.messages.stream({
 }).finalMessage()
 ```
 
-No `temperature`/`top_p`/`top_k` (400 on 4.7+), no assistant prefill (400), no `metadata.user_id`. Schema stripping (400 otherwise): `minLength`, `maxLength`, `maxItems`, `minItems` > 1, `minimum`/`maximum`/`multipleOf`, `$comment`. Response: `stop_reason` `end_turn` → first `text` block → `JSON.parse` + zod; `max_tokens` → `truncated`; `refusal` → `refused` (`stop_details.category` may be null). `thinking` blocks come back with empty text (`display` defaults to `omitted`); skip non-`text` blocks, including `fallback` blocks. Errors: `RateLimitError` 429 → `rate_limited`; 529 `overloaded_error` and 5xx → `upstream`; `APIConnectionTimeoutError` → `timeout`; `APIConnectionError` → `upstream`; 400/401/403/404 → `upstream`, not retried.
+No `temperature`/`top_p`/`top_k` (400 on 4.7+), no assistant prefill (400), no `metadata.user_id`. Schema stripping (400 otherwise): `minLength`, `maxLength`, `maxItems`, `minItems` > 1, `minimum`/`maximum`/`multipleOf`, `$comment`. Counts are therefore fixed by keyed, required properties instead: the per-request schema (`outputSchemaFor`) has one `cards` key per position and `prompt1…N` (2026-09-30, after Opus 5 returned 4 cards for 3 and once none). Response: `stop_reason` `end_turn` → first `text` block → `JSON.parse` + zod; `max_tokens` → `truncated`; `refusal` → `refused` (`stop_details.category` may be null). `thinking` blocks come back with empty text (`display` defaults to `omitted`); skip non-`text` blocks, including `fallback` blocks. Errors: `RateLimitError` 429 → `rate_limited`; 529 `overloaded_error` and 5xx → `upstream`; `APIConnectionTimeoutError` → `timeout`; `APIConnectionError` → `upstream`; 400/401/403/404 → `upstream`, not retried.
 
 ### OpenAI request / response (adapter shape)
 

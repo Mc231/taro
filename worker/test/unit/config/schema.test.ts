@@ -192,7 +192,7 @@ describe('AI provider routing (RC97)', () => {
       'ai.disclosedProviders': ['anthropic', 'openai'],
       'ai.model.paid': 'claude-opus-5',
       'ai.model.free': 'claude-sonnet-5',
-      'ai.model.freeFallback': 'claude-haiku-4-5',
+      'ai.model.freeFallback': 'claude-sonnet-5',
     });
   });
 

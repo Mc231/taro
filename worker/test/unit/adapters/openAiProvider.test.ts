@@ -15,7 +15,8 @@ import {
   testRuntime,
 } from '../../contracts/aiProvider.contract';
 import { AiFetch, fixtureResponse, hang, OPENAI_FIXTURES } from '../../helpers/aiFixtures';
-import { fakeReading } from '../../fakes/FakeAiProvider';
+import { fakeModelText } from '../../fakes/FakeAiProvider';
+import { objectNodes, schemaKeywords, spreadSchemas } from '../../helpers/outputSchemas';
 
 const TEST_KEY = 'sk-openai-test-not-a-real-key';
 
@@ -45,7 +46,7 @@ function attempt(model: string): AiAttemptRequest {
 }
 
 const request = attempt('gpt-6-luna');
-const readingText = JSON.stringify(fakeReading(request.prompt.expected));
+const readingText = fakeModelText(request.prompt.expected);
 
 function body(overrides: Record<string, unknown>): Record<string, unknown> {
   return {
@@ -109,6 +110,24 @@ describe('OpenAiProvider request shape (Sprint 8.1 API notes)', () => {
       type: 'object',
       properties: { a: { type: 'array', minItems: 1, maxItems: 3, items: { type: 'string' } } },
     });
+  });
+
+  it('sends every spread a strict schema: all properties required, every object closed', () => {
+    for (const [spreadId, template] of spreadSchemas()) {
+      const schema = openAiSchema(template);
+      const keywords = schemaKeywords(schema);
+      for (const keyword of ['minLength', 'maxLength', '$comment', 'minItems', 'maxItems']) {
+        expect(keywords.has(keyword), `${spreadId}: ${keyword}`).toBe(false);
+      }
+      const objects = objectNodes(schema);
+      expect(objects.length, spreadId).toBeGreaterThan(3);
+      for (const [path, node] of objects) {
+        expect(node['additionalProperties'], `${spreadId} ${path}`).toBe(false);
+        expect(node['required'], `${spreadId} ${path}`).toEqual(
+          Object.keys(node['properties'] as object),
+        );
+      }
+    }
   });
 });
 

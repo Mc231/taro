@@ -14,9 +14,10 @@ function stringAt(value: unknown): string {
  */
 export function readingTexts(reading: Readonly<Record<string, unknown>>): string[] {
   const texts = [stringAt(reading['title']), stringAt(reading['overview'])];
+  // Keyed objects on the wire (03 §9.2); lists in older recordings.
   const cards = reading['cards'];
-  if (Array.isArray(cards)) {
-    for (const card of cards as unknown[]) {
+  if (typeof cards === 'object' && cards !== null) {
+    for (const card of Object.values(cards) as unknown[]) {
       if (typeof card === 'object' && card !== null) {
         texts.push(stringAt((card as Record<string, unknown>)['interpretation']));
       }
@@ -24,8 +25,8 @@ export function readingTexts(reading: Readonly<Record<string, unknown>>): string
   }
   texts.push(stringAt(reading['synthesis']));
   const prompts = reading['reflectionPrompts'];
-  if (Array.isArray(prompts)) {
-    for (const prompt of prompts as unknown[]) {
+  if (typeof prompts === 'object' && prompts !== null) {
+    for (const prompt of Object.values(prompts) as unknown[]) {
       texts.push(stringAt(prompt));
     }
   }

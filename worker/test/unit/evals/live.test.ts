@@ -21,7 +21,7 @@ import type { AiAttemptOutcome } from '../../../src/adapters/ai/callPolicy';
 import type { CliDeps } from '../../../src/admin/cli';
 import type { AiProvider } from '../../../src/ports/AiProvider';
 import { buildReadingPrompt } from '../../../src/prompts/build';
-import type { ReadingOutput } from '../../../src/prompts/templates';
+import { toModelOutput, type ReadingOutput } from '../../../src/prompts/templates';
 import { FAKE_USAGE, FakeAiProvider, fakeReading } from '../../fakes/FakeAiProvider';
 import { AiFetch, ANTHROPIC_FIXTURES, fixtureResponse } from '../../helpers/aiFixtures';
 import { bannedYaml } from './helpers';
@@ -112,9 +112,9 @@ function declined(category: RefusalCategory): ReadingOutput {
     classification: category,
     title: '',
     overview: '',
-    cards: [],
+    cards: THREE.map((card) => ({ ...card, interpretation: '' })),
     synthesis: '',
-    reflectionPrompts: [''],
+    reflectionPrompts: ['', '', ''],
   };
 }
 
@@ -497,7 +497,12 @@ describe('live eval over the real adapters (stubbed fetch)', () => {
             output: [
               {
                 type: 'message',
-                content: [{ type: 'output_text', text: JSON.stringify(output) }],
+                content: [
+                  {
+                    type: 'output_text',
+                    text: output === null ? '' : JSON.stringify(toModelOutput(output)),
+                  },
+                ],
               },
             ],
             usage: { input_tokens: 3000, output_tokens: 700 },

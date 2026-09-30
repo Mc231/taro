@@ -54,7 +54,7 @@
     "version": 1,
     "ai.model.paid": "claude-opus-5",
     "ai.model.free": "claude-sonnet-5",
-    "ai.model.freeFallback": "claude-haiku-4-5",
+    "ai.model.freeFallback": "claude-sonnet-5",
     "ai.provider.paid": "anthropic",
     "ai.provider.free": "anthropic",
     "ai.provider.freeFallback": "anthropic",

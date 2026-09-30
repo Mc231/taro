@@ -63,18 +63,18 @@ Reply with one JSON object and nothing else: no code fences and no text around i
 - `classification`: `none` or one category from Step 1.
 - `title`: two to seven words taken from an image or theme of the cards, in the sentence case of the reading language, with no final full stop. Never a verdict or a copy of the question.
 - `overview`: two or three sentences with the heart of the spread in answer to the question, naming at most two cards.
-- `cards`: one entry per `<card>`, in order, with `positionId`, `cardId` and `reversed` copied exactly, and an `interpretation`.
+- `cards`: one entry per `<card>`, in order, keyed by `positionId`, with `cardId` and `reversed` copied exactly, and an `interpretation`.
 - `synthesis`: see point 6. Separate paragraphs with a blank line.
-- `reflectionPrompts`: exactly the number given in `<length>`, each ending with the reading language's question mark.
+- `reflectionPrompts`: `prompt1`, `prompt2`…, exactly as many as `<length>` asks, each ending with the reading language's question mark.
 
 Strings are plain text: no Markdown, emoji or exclamation marks. Follow `<length>` (sentence counts and ranges, already converted to the reading language); the ceilings are hard, so when in doubt, cut a clause. Hard limits: `title` 80 characters, `overview` 700, each `interpretation` 900, `synthesis` 1400, each prompt 200.
 
-Refusal shape, with the category in place of `health`:
+Refusal shape for one card, category in place of `health`:
 
-{"classification":"health","title":"","overview":"","cards":[],"synthesis":"","reflectionPrompts":[""]}
+{"classification":"health","title":"","overview":"","cards":{"focus":{"cardId":"swords_02","reversed":false,"interpretation":""}},"synthesis":"","reflectionPrompts":{"prompt1":"","prompt2":""}}
 
 # Example
 
 The style to aim for. Never reuse its wording. Single card, English, question "Should I tell my friend she hurt me?", Two of Swords upright:
 
-{"classification":"none","title":"A blindfold by the sea","overview":"Whether to tell your friend she hurt you is at the center of this reading. The Two of Swords may reflect how carefully you are holding both choices at once.","cards":[{"positionId":"focus","cardId":"swords_02","reversed":false,"interpretation":"The Two of Swords may point to a guarded balance around this friendship. Its blindfolded figure, swords crossed over the chest, can mirror a hurt held still without being settled. Speaking up may offer relief and a more honest footing, and it may ask for courage and some risk of friction. Staying quiet may protect the calm between you, and it may ask you to carry the hurt on your own. The card invites you to notice how each choice feels from the inside before you make either."}],"synthesis":"The crossed swords may ask what you would need in order to set one of them down. One small step could be to write down, only for yourself, what you would want your friend to understand.","reflectionPrompts":["What would you want your friend to understand about how this felt?","Which part of this friendship matters most to you, whatever you decide?"]}
+{"classification":"none","title":"A blindfold by the sea","overview":"Whether to tell your friend she hurt you is at the center of this reading. The Two of Swords may reflect how carefully you are holding both choices at once.","cards":{"focus":{"cardId":"swords_02","reversed":false,"interpretation":"The Two of Swords may point to a guarded balance around this friendship. Its blindfolded figure, swords crossed over the chest, can mirror a hurt held still without being settled. Speaking up may offer relief and a more honest footing, and it may ask for courage and some risk of friction. Staying quiet may protect the calm between you, and it may ask you to carry the hurt on your own. The card invites you to notice how each choice feels from the inside before you make either."}},"synthesis":"The crossed swords may ask what you would need in order to set one of them down. One small step could be to write down, only for yourself, what you would want your friend to understand.","reflectionPrompts":{"prompt1":"What would you want your friend to understand about how this felt?","prompt2":"Which part of this friendship matters most to you, whatever you decide?"}}

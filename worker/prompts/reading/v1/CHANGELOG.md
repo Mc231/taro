@@ -133,3 +133,13 @@ The template files and the `versions.lock.json` hash are unchanged. What changed
 - **L1 hints.** A prefilter hint from `src/safety/prefilter.ts` is passed in the existing hint slot; a hard L1 block never reaches the prompt.
 - **Graders.** The offline and live graders now share the production matchers (`src/safety/*`) and the lexicon files. The `banned_phrases` grader skips the same non-claim spans as L3, and the eval case loader now reads `spreadId`, the safety `text` field and `expect.classification`, so offline results may differ from the simulated report if re-run.
 - **First real runs pending.** No provider has been called yet; the first live `eval` / `eval:safety` reports per provider + model follow once the staging keys exist (Phase 8 Sprint 8.6).
+
+### Keyed output after the first live smoke runs (2026-09-30, still unreleased, edited in place)
+
+The live smoke runs (`evals/reports/2026-09-30-v1-anthropic-claude-opus-5-smoke.*`) showed `claude-opus-5` returning more `cards` entries than drawn cards (4 for 3) and once an empty `cards` array. Anthropic's structured output rejects `maxItems` and `minItems` > 1, so the adapter stripped them and nothing in the grammar fixed the count.
+
+- **`output.schema.json` is now a template.** `cards` is an object keyed by position ID (`<positionId>` placeholder: `{cardId, reversed, interpretation}`, no `positionId` field), and `reflectionPrompts` an object `prompt1…promptN` (`prompt<n>` placeholder). `outputSchemaFor` (`src/prompts/templates.ts`) expands both per spread, every key required and every object closed, so Anthropic and OpenAI strict modes both fix the number of cards and prompts. The schema depends only on the spread, so each vendor compiles one grammar per spread.
+- **Reflection prompts keyed too.** Their count is fixed per spread (2 or 3, `prompt_data.json`), so fixed keys cost nothing and make a wrong count impossible under a grammar; an array with a zod check would only catch it after the call, at the price of a regeneration.
+- **`system.md`**: the output contract describes the keyed `cards` and `prompt1…` keys; the refusal shape keeps every key with empty text (one card shown); the example uses the keyed form.
+- **Worker side.** `parseModelOutput` parses the keyed answer and converts it to the unchanged reading form (`cards[]` in position order with `positionId`, `reflectionPrompts[]`) before `parseReadingOutput`, L3, storage and the API; `toModelOutput` is its inverse for eval recordings. The graders validate against the per-case schema and parse with the drawn cards.
+- `versions.lock.json` re-pinned.
