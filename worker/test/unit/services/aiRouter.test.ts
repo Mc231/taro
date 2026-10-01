@@ -31,8 +31,23 @@ function setup(keyed: readonly AiProviderId[] = ['anthropic', 'openai']) {
   return { clock, fakes, alerter, metrics, logger, router, now: clock.now().getTime() };
 }
 
+/**
+ * The routing mechanics are exercised with an Anthropic primary and an OpenAI
+ * fallback, so cross-provider fallback stays covered while the shipped
+ * defaults are OpenAI-only (RC97 amendment 2026-10-01).
+ */
+const ANTHROPIC_PRIMARY: Partial<RuntimeConfig> = {
+  'ai.provider.paid': 'anthropic',
+  'ai.provider.free': 'anthropic',
+  'ai.provider.freeFallback': 'anthropic',
+  'ai.model.paid': 'claude-opus-5',
+  'ai.model.free': 'claude-sonnet-5',
+  'ai.model.freeFallback': 'claude-sonnet-5',
+  'ai.disclosedProviders': ['anthropic', 'openai'],
+};
+
 function config(overrides: Partial<RuntimeConfig> = {}): RuntimeConfig {
-  return { ...DEFAULT_RUNTIME_CONFIG, ...overrides };
+  return { ...DEFAULT_RUNTIME_CONFIG, ...ANTHROPIC_PRIMARY, ...overrides };
 }
 
 const TIER_CONFIG: Record<
@@ -73,6 +88,16 @@ describe('maxTokensFor', () => {
 
 describe('AiRouter (RC97)', () => {
   const prompt = contractPrompt();
+
+  it('the shipped defaults route every tier to OpenAI gpt-6.1-sol', async () => {
+    const { router, fakes, now } = setup(['openai']);
+    for (const tier of AI_TIERS) {
+      await expect(router.checkAvailable(tier, DEFAULT_RUNTIME_CONFIG)).resolves.toBe(true);
+      const result = await router.generate(tier, DEFAULT_RUNTIME_CONFIG, prompt, now);
+      expect(result).toMatchObject({ kind: 'ok', model: 'openai/gpt-6.1-sol' });
+    }
+    expect(fakes.openai.generateRequests[0]).toMatchObject({ timeoutMs: 50000, effort: 'low' });
+  });
 
   for (const tier of AI_TIERS) {
     for (const provider of ['anthropic', 'openai'] as const) {

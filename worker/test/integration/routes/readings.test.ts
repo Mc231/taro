@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, it } from 'vitest';
 import type { AiAttemptOutcome, AiAttemptRequest } from '../../../src/adapters/ai/callPolicy';
 import type { BalanceDto } from '../../../src/domain/allowance';
+import type { RuntimeConfig } from '../../../src/config/schema';
 import { callCost } from '../../../src/domain/pricing';
 import type { ErrorEnvelope } from '../../../src/http/errors';
 import { IdempotencyRepo } from '../../../src/repos/IdempotencyRepo';
@@ -64,6 +65,13 @@ afterAll(() => {
   expect(outputs.length).toBeGreaterThan(0);
 });
 
+/** Free tier on Anthropic, so an OpenAI outage fallback crosses providers (RC97). */
+const ANTHROPIC_FREE_PRIMARY: Partial<RuntimeConfig> = {
+  'ai.provider.free': 'anthropic',
+  'ai.model.free': 'claude-sonnet-5',
+  'ai.disclosedProviders': ['anthropic', 'openai'],
+};
+
 describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.1)', () => {
   it('free: hold → reading → ack deletes the replay body', async () => {
     const h = setup();
@@ -100,7 +108,7 @@ describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.
       chargeSource: 'free',
       hasQuestion: true,
       promptVersion: 'v1',
-      model: 'anthropic/claude-sonnet-5',
+      model: 'openai/gpt-6.1-sol',
       inputTokens: 800,
       outputTokens: 600,
       cacheReadTokens: 2900,
@@ -145,7 +153,7 @@ describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.
     expect(paid.chargeSource).toBe('paid');
     expect(await driver.balances(id)).toEqual({ paid: 0, bonus: 0 });
     // Paid and bonus readings are served by the paid tier (RC97).
-    expect(h.ai.anthropic.requests.at(-1)?.model).toBe('claude-opus-5');
+    expect(h.ai.openai.requests.at(-1)?.model).toBe('gpt-6.1-sol');
   });
 
   it('a three-card reading echoes the cards in position order', async () => {
@@ -242,7 +250,7 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
     });
     expect(body.safety?.crisisResources.length).toBeGreaterThan(0);
     expect(body.safety?.crisisResources.length).toBeLessThanOrEqual(3);
-    expect(h.ai.anthropic.requests).toHaveLength(0);
+    expect(h.ai.openai.requests).toHaveLength(0);
     expect(await freeUsed(id)).toBe(0);
     expect(await declinedCount(id)).toBe(1);
     expect(body.balance.free.remaining).toBe(1);
@@ -280,7 +288,7 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
     async (category, messageKey, canRephrase, crisis) => {
       const h = setup();
       const id = await install();
-      h.ai.anthropic.script(classified(category));
+      h.ai.openai.script(classified(category));
       const readingId = crid();
       const body = await json<ReadingResponse>(await postReading(h, id, readingId));
       expect(body.safety).toMatchObject({ category, messageKey, canRephrase });
@@ -302,7 +310,7 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
   it('a model refusal without a category → other / refusalGeneric', async () => {
     const h = setup();
     const id = await install();
-    h.ai.anthropic.script((r) => ({
+    h.ai.openai.script((r) => ({
       kind: 'refused',
       category: null,
       model: r.model,
@@ -337,7 +345,7 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
   it('a model refusal with a known category keeps it', async () => {
     const h = setup();
     const id = await install();
-    h.ai.anthropic.script((r) => ({
+    h.ai.openai.script((r) => ({
       kind: 'refused',
       category: 'self_harm',
       model: r.model,
@@ -355,7 +363,7 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
     const readingId = crid();
     const body = await json<ReadingResponse>(await postReading(h, id, readingId));
     expect(body.safety?.category).toBe('self_harm');
-    expect(h.ai.anthropic.requests).toHaveLength(0);
+    expect(h.ai.openai.requests).toHaveLength(0);
     expect((await readings.findByClientId(id, readingId))?.safetyLayer).toBe('L2');
 
     h.ai.openai.moderation({ kind: 'error' });
@@ -385,19 +393,19 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
   it('an L3 violation is regenerated once with a note, then completes', async () => {
     const h = setup();
     const id = await install();
-    h.ai.anthropic.script(answer({ synthesis: 'Success is guaranteed, call +1 555 123 4567.' }));
+    h.ai.openai.script(answer({ synthesis: 'Success is guaranteed, call +1 555 123 4567.' }));
     const res = await postReading(h, id, crid());
     expect(res.status).toBe(200);
-    expect(h.ai.anthropic.requests).toHaveLength(2);
-    expect(h.ai.anthropic.requests[1]?.prompt.user).toContain('<regeneration_note>');
-    expect(h.ai.anthropic.requests[0]?.prompt.user).not.toContain('<regeneration_note>');
+    expect(h.ai.openai.requests).toHaveLength(2);
+    expect(h.ai.openai.requests[1]?.prompt.user).toContain('<regeneration_note>');
+    expect(h.ai.openai.requests[0]?.prompt.user).not.toContain('<regeneration_note>');
   });
 
   it('two L3 violations → failed + refund → 503 AI_UNAVAILABLE', async () => {
     const h = setup();
     const id = await install();
     const bad = answer({ synthesis: 'Visit https://example.com for more.' });
-    h.ai.anthropic.script(bad, bad);
+    h.ai.openai.script(bad, bad);
     const readingId = crid();
     const res = await postReading(h, id, readingId);
     expect(res.status).toBe(503);
@@ -417,7 +425,7 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
   it('invalid JSON output is regenerated like an L3 violation', async () => {
     const h = setup();
     const id = await install();
-    h.ai.anthropic.script((r) => ({
+    h.ai.openai.script((r) => ({
       kind: 'invalid_output',
       issues: ['not JSON'],
       model: r.model,
@@ -430,7 +438,7 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
     const h = setup();
     const id = await paidInstall(h, 1);
     const driver = new ReadingDriver(h);
-    h.ai.anthropic.script({ kind: 'timeout' });
+    h.ai.openai.script({ kind: 'timeout' });
     const readingId = crid();
     const failed = await postReading(h, id, readingId);
     expect(failed.status).toBe(503);
@@ -456,12 +464,12 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
       model: r.model,
       usage: FAKE_USAGE,
     });
-    h.ai.anthropic.script(cut);
+    h.ai.openai.script(cut);
     expect((await postReading(h, id, crid())).status).toBe(200);
-    expect(h.ai.anthropic.requests[1]?.maxTokens).toBe(Math.round(2500 * 1.5));
+    expect(h.ai.openai.requests[1]?.maxTokens).toBe(Math.round(2500 * 1.5));
 
     const other = await install();
-    h.ai.anthropic.script(cut, cut);
+    h.ai.openai.script(cut, cut);
     const readingId = crid();
     expect((await postReading(h, other, readingId)).status).toBe(503);
     expect((await readings.findByClientId(other, readingId))?.errorCode).toBe('truncated');
@@ -470,13 +478,13 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
   it('the deadline: no regeneration with under 15 s left → failed + refund', async () => {
     const h = setup();
     const id = await install();
-    h.ai.anthropic.script((r) => {
+    h.ai.openai.script((r) => {
       h.clock.advance({ seconds: 45 });
       return answer({ synthesis: 'You will definitely win, guaranteed.' })(r);
     });
     const readingId = crid();
     expect((await postReading(h, id, readingId)).status).toBe(503);
-    expect(h.ai.anthropic.requests).toHaveLength(1);
+    expect(h.ai.openai.requests).toHaveLength(1);
     expect((await readings.findByClientId(id, readingId))?.errorCode).toBe('deadline');
     expect(await freeUsed(id)).toBe(0);
   });
@@ -484,6 +492,7 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
   it('upstream errors fall back to ai.outageFallback once (RC97)', async () => {
     const h = setup();
     h.config.set({
+      ...ANTHROPIC_FREE_PRIMARY,
       'ai.outageFallback.provider': 'openai',
       'ai.outageFallback.model': 'gpt-6.1-sol',
     });
@@ -499,6 +508,7 @@ describe('L3 validation and failures (03 §9.1 steps 5–6, §9.3; RC49, RC52)',
     // A day of its own: this test reads that day's model spend.
     h.clock.set('2027-04-02T10:00:00.000Z');
     h.config.set({
+      ...ANTHROPIC_FREE_PRIMARY,
       'ai.outageFallback.provider': 'openai',
       'ai.outageFallback.model': 'gpt-6.1-sol',
     });
@@ -632,12 +642,12 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     const h = setup();
     const id = await paidInstall(h, 1);
     const driver = new ReadingDriver(h);
-    const generate = h.ai.anthropic.generate.bind(h.ai.anthropic);
-    h.ai.anthropic.generate = () => Promise.reject(new Error('isolate evicted'));
+    const generate = h.ai.openai.generate.bind(h.ai.openai);
+    h.ai.openai.generate = () => Promise.reject(new Error('isolate evicted'));
     const readingId = crid();
     expect((await postReading(h, id, readingId)).status).toBe(500);
     expect((await readings.findByClientId(id, readingId))?.status).toBe('generating');
-    h.ai.anthropic.generate = generate;
+    h.ai.openai.generate = generate;
 
     // An idempotency takeover after 120 s still finds the row generating.
     const busy = await postReading(h, id, readingId);
@@ -668,8 +678,8 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     const h = setup();
     const id = await paidInstall(h, 1);
     const driver = new ReadingDriver(h);
-    const generate = h.ai.anthropic.generate.bind(h.ai.anthropic);
-    h.ai.anthropic.generate = async (request) => {
+    const generate = h.ai.openai.generate.bind(h.ai.openai);
+    h.ai.openai.generate = async (request) => {
       const start = h.clock.now();
       h.clock.advance({ seconds: 200 });
       await runScheduled(h.deps, CRON.quarterHourly);
@@ -760,7 +770,7 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     const id = await install();
     expect((await getReading(h, id, crid())).status).toBe(404);
     expect((await ackReading(h, id, crid())).status).toBe(404);
-    h.ai.anthropic.script({ kind: 'timeout' });
+    h.ai.openai.script({ kind: 'timeout' });
     const readingId = crid();
     expect((await postReading(h, id, readingId)).status).toBe(503);
     expect((await ackReading(h, id, readingId)).status).toBe(204);
@@ -915,11 +925,11 @@ describe('gates (03 §9.0 order; RC28, RC29, RC47, RC74, RC97)', () => {
     // The default fallback is the free model itself (2026-09-30); a distinct one proves the switch.
     h.config.set({
       'ai.budget.freeStopFloorUsd': 100,
-      'ai.model.freeFallback': 'claude-haiku-4-5',
+      'ai.model.freeFallback': 'gpt-6-luna',
     });
     const soft = await postReading(h, await install(), crid());
     expect(soft.status).toBe(200);
-    expect(h.ai.anthropic.requests.at(-1)?.model).toBe('claude-haiku-4-5');
+    expect(h.ai.openai.requests.at(-1)?.model).toBe('gpt-6-luna');
   });
 });
 
@@ -988,6 +998,6 @@ describe('replay bodies and edge paths (RC51, RC52)', () => {
       errorCode: 'budget',
       promptVersion: 'v1',
     });
-    expect(h.ai.anthropic.requests).toHaveLength(0);
+    expect(h.ai.openai.requests).toHaveLength(0);
   });
 });

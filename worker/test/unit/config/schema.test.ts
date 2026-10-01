@@ -147,7 +147,7 @@ describe('PublicConfigSchema ranges (03 §8.2, 04 §13)', () => {
 
 describe('ServerConfigSchema', () => {
   it.each([
-    ['ai.model.paid', 'gpt-5'],
+    ['ai.model.paid', 'claude-opus-5'],
     ['ai.effort', 'extreme'],
     ['ai.promptVersion', '1'],
     ['ai.maxTokensBySpread', { single: 2500 }],
@@ -181,19 +181,37 @@ describe('ServerConfigSchema', () => {
 });
 
 describe('AI provider routing (RC97)', () => {
-  it('ships the Anthropic defaults, no outage fallback, OpenAI moderation, both providers disclosed', () => {
+  it('ships the OpenAI-only defaults (RC97 amendment 2026-10-01): gpt-6.1-sol on every tier', () => {
     expect(DEFAULT_SERVER_CONFIG).toMatchObject({
-      'ai.provider.paid': 'anthropic',
-      'ai.provider.free': 'anthropic',
-      'ai.provider.freeFallback': 'anthropic',
+      'ai.provider.paid': 'openai',
+      'ai.provider.free': 'openai',
+      'ai.provider.freeFallback': 'openai',
       'ai.outageFallback.provider': null,
       'ai.outageFallback.model': null,
       'ai.moderation.provider': 'openai',
-      'ai.disclosedProviders': ['anthropic', 'openai'],
-      'ai.model.paid': 'claude-opus-5',
-      'ai.model.free': 'claude-sonnet-5',
-      'ai.model.freeFallback': 'claude-sonnet-5',
+      'ai.disclosedProviders': ['openai'],
+      'ai.model.paid': 'gpt-6.1-sol',
+      'ai.model.free': 'gpt-6.1-sol',
+      'ai.model.freeFallback': 'gpt-6.1-sol',
+      'ai.effort': 'low',
+      'ai.timeoutMs': 50000,
     });
+    expect(DEFAULT_SERVER_CONFIG['ai.timeoutMs']).toBeLessThan(
+      DEFAULT_SERVER_CONFIG['ai.deadlineMs'],
+    );
+  });
+
+  it('routes to Anthropic only once it is disclosed (re-enable by config)', () => {
+    const anthropicOnly = {
+      'ai.provider.paid': 'anthropic',
+      'ai.model.paid': 'claude-opus-5',
+    };
+    expect(firstIssue(serverWith(anthropicOnly))).toBe(
+      'ai.provider.paid: provider anthropic is not in ai.disclosedProviders',
+    );
+    expect(
+      serverWith({ ...anthropicOnly, 'ai.disclosedProviders': ['anthropic', 'openai'] }).success,
+    ).toBe(true);
   });
 
   it('blocks the CS16 fixed list plus the provider snapshot union (RC29, 2026-09-30)', () => {
@@ -233,12 +251,23 @@ describe('AI provider routing (RC97)', () => {
     expect(
       firstIssue(
         serverWith({
-          'ai.disclosedProviders': ['anthropic', 'anthropic'],
-          'ai.moderation.provider': 'none',
+          'ai.disclosedProviders': ['openai', 'openai'],
         }),
       ),
-    ).toContain('duplicate anthropic');
+    ).toContain('duplicate openai');
   });
+
+  /** An Anthropic-only routing, so each case adds exactly one OpenAI use. */
+  const ANTHROPIC_ROUTING = {
+    'ai.provider.paid': 'anthropic',
+    'ai.provider.free': 'anthropic',
+    'ai.provider.freeFallback': 'anthropic',
+    'ai.model.paid': 'claude-opus-5',
+    'ai.model.free': 'claude-sonnet-5',
+    'ai.model.freeFallback': 'claude-sonnet-5',
+    'ai.moderation.provider': 'none',
+    'ai.disclosedProviders': ['anthropic'],
+  };
 
   it.each([
     [{ 'ai.provider.paid': 'openai', 'ai.model.paid': 'gpt-6.1-sol' }, 'ai.provider.paid'],
@@ -252,15 +281,15 @@ describe('AI provider routing (RC97)', () => {
     ],
     [{ 'ai.moderation.provider': 'openai' }, 'ai.moderation.provider'],
   ])('rejects routing to a provider outside ai.disclosedProviders: %j', (overrides, key) => {
-    const result = serverWith({ ...overrides, 'ai.disclosedProviders': ['anthropic'] });
+    const result = serverWith({ ...ANTHROPIC_ROUTING, ...overrides });
     expect(firstIssue(result)).toBe(`${key}: provider openai is not in ai.disclosedProviders`);
   });
 
   it('rejects a tier model of the wrong provider family', () => {
-    expect(firstIssue(serverWith({ 'ai.provider.free': 'openai' }))).toBe(
+    expect(firstIssue(serverWith({ 'ai.model.free': 'claude-sonnet-5' }))).toBe(
       'ai.model.free: model claude-sonnet-5 is not a openai model',
     );
-    expect(firstIssue(serverWith({ 'ai.model.paid': 'gpt-6.1-sol' }))).toBe(
+    expect(firstIssue(serverWith({ ...ANTHROPIC_ROUTING, 'ai.model.paid': 'gpt-6.1-sol' }))).toBe(
       'ai.model.paid: model gpt-6.1-sol is not a anthropic model',
     );
   });
@@ -275,6 +304,7 @@ describe('AI provider routing (RC97)', () => {
     expect(
       firstIssue(
         serverWith({
+          'ai.disclosedProviders': ['anthropic', 'openai'],
           'ai.outageFallback.provider': 'anthropic',
           'ai.outageFallback.model': 'gpt-6-luna',
         }),
@@ -282,6 +312,7 @@ describe('AI provider routing (RC97)', () => {
     ).toBe('ai.outageFallback.model: model gpt-6-luna is not a anthropic model');
     expect(
       serverWith({
+        'ai.disclosedProviders': ['anthropic', 'openai'],
         'ai.outageFallback.provider': 'anthropic',
         'ai.outageFallback.model': 'claude-sonnet-5',
       }).success,

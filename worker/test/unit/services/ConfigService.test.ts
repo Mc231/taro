@@ -67,7 +67,7 @@ describe('ConfigService (03 §8.1)', () => {
     await store('server', {
       ...DEFAULT_SERVER_CONFIG,
       version: 9,
-      'ai.model.free': 'claude-haiku-4-5',
+      'ai.model.free': 'gpt-6-luna',
     });
     const { config, logger } = service();
     const snapshot = await config.snapshot();
@@ -77,7 +77,7 @@ describe('ConfigService (03 §8.1)', () => {
       'readings.freeDaily': 2,
       'app.minVersion.ios': '1.4.0',
       'readings.enabled': true,
-      'ai.model.free': 'claude-haiku-4-5',
+      'ai.model.free': 'gpt-6-luna',
     });
     expect(logger.entries).toEqual([]);
   });

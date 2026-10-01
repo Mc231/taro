@@ -105,14 +105,15 @@ Both commands call the real provider API through the Worker's own adapters (`Ant
 ```bash
 cd worker
 # Key of the target environment (staging), from the secrets bundle; never echo it.
-export ANTHROPIC_API_KEY=$(SECRETS_PASSPHRASE=$TARO_SECRETS ../tools/secrets-manager.sh get worker anthropic_api_key)
+# Default routing is OpenAI only (00_DECISIONS, 2026-10-01); use worker.anthropic_api_key / --provider anthropic only to re-qualify Anthropic.
+export OPENAI_API_KEY=$(SECRETS_PASSPHRASE=$TARO_SECRETS ../tools/secrets-manager.sh get worker openai_api_key)
 # Quick check (~50 cases, all locales/spreads/categories):
-npm run eval:safety -- --env staging --provider anthropic --model claude-sonnet-5 --sample smoke --max-usd 5
+npm run eval:safety -- --env staging --provider openai --model gpt-6.1-sol --sample smoke --max-usd 5
 # Full safety suite (the 05 §4.3 bar), one run per routable provider + model:
-npm run eval:safety -- --env staging --provider anthropic --model claude-opus-5 --max-usd 60
+npm run eval:safety -- --env staging --provider openai --model gpt-6.1-sol --max-usd 60
 # Quality cases (tone, schema, length, card echo), optional advisory LLM judge:
 npm run eval -- --env staging --provider openai --model gpt-6-luna --max-usd 5 --judge-model gpt-6.1-sol
-unset ANTHROPIC_API_KEY
+unset OPENAI_API_KEY
 ```
 
 - **Budget.** `--max-usd` is required. Before the first call the run prints a projected (typical) spend and refuses to start if it is over the budget; use `--limit N` or `--sample smoke`, or get a larger budget approved. During the run, no call starts when the money spent plus that call's worst case (the prompt twice uncached, plus `max_tokens` and the 1.5x truncation retry, doubled for Opus refusal fallbacks) would pass the budget. Each case prints its cost and the running total. Exit code 4 means the budget stopped the run. The report is still written and is marked incomplete.

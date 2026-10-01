@@ -139,7 +139,7 @@ describe('contract fixtures: readings', () => {
     );
 
     const failedId = '0e0e0e0e-0000-4000-8000-0000000000d3';
-    h.ai.anthropic.script({ kind: 'timeout' });
+    h.ai.openai.script({ kind: 'timeout' });
     await exportError(
       await postReading(
         h,
