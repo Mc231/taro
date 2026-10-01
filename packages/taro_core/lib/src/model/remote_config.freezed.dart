@@ -316,7 +316,7 @@ mixin _$RemoteConfig {
  int get storePendingHoldMinutes;/// `store.removeAdsEnabled`.
  bool get storeRemoveAdsEnabled;/// `store.showBestValueBadge`.
  bool get storeShowBestValueBadge;/// `store.showPerReadingPrice`.
- bool get storeShowPerReadingPrice;/// `ai.consentVersion`.
+ bool get storeShowPerReadingPrice;/// `ai.consentVersion` (2 since the OpenAI-only consent copy, RC97).
  int get aiConsentVersion;/// `ai.questionMaxChars` (grapheme clusters, RC45).
  int get aiQuestionMaxChars;/// `app.minVersion.ios`.
  String get appMinVersionIos;/// `app.minVersion.android`.
@@ -557,7 +557,7 @@ return $default(_that.version,_that.fetchedAt,_that.readingsEnabled,_that.readin
 
 
 class _RemoteConfig extends RemoteConfig {
-  const _RemoteConfig({this.version = 0, this.fetchedAt, this.readingsEnabled = true, this.readingsFreeDaily = 1, this.readingsMaxPerInstallPerDay = 30, this.readingsTzCooldownHours = 24, final  List<SpreadId> spreadsEnabled = kSpreadIds, this.rewardedEnabled = true, this.rewardedAmount = 1, this.rewardedDailyCap = 3, this.rewardedCooldownSec = 300, this.rewardedIntentTtlSec = 900, this.rewardedLoadTimeoutSec = 10, this.rewardedGrantPollTimeoutSec = 20, this.adsEnabled = true, this.adsBannerEnabled = true, final  List<String> adsBannerScreens = _bannerAllowList, this.adsBannerMinCompletedReadings = 1, this.adsAttPrepromptEnabled = true, this.storeEnabled = true, final  List<StorePack> storePacks = _defaultPacks, this.storeVerifyRetryWindowHours = 72, this.storePendingHoldMinutes = 30, this.storeRemoveAdsEnabled = true, this.storeShowBestValueBadge = true, this.storeShowPerReadingPrice = true, this.aiConsentVersion = 1, this.aiQuestionMaxChars = 300, this.appMinVersionIos = '1.0.0', this.appMinVersionAndroid = '1.0.0', this.appRecommendedVersionIos = '1.0.0', this.appRecommendedVersionAndroid = '1.0.0', this.balanceStaleAfterSec = 300, this.balanceResumeSyncThrottleSec = 30, this.reviewPromptAfterPositiveReadings = 3, this.legalTermsUrl = 'https://taro.vshyrochuk.com/terms', this.legalPrivacyUrl = 'https://taro.vshyrochuk.com/privacy', this.supportEmail = 'volodymyr.shyrochuk@gmail.com'}): _spreadsEnabled = spreadsEnabled,_adsBannerScreens = adsBannerScreens,_storePacks = storePacks,super._();
+  const _RemoteConfig({this.version = 0, this.fetchedAt, this.readingsEnabled = true, this.readingsFreeDaily = 1, this.readingsMaxPerInstallPerDay = 30, this.readingsTzCooldownHours = 24, final  List<SpreadId> spreadsEnabled = kSpreadIds, this.rewardedEnabled = true, this.rewardedAmount = 1, this.rewardedDailyCap = 3, this.rewardedCooldownSec = 300, this.rewardedIntentTtlSec = 900, this.rewardedLoadTimeoutSec = 10, this.rewardedGrantPollTimeoutSec = 20, this.adsEnabled = true, this.adsBannerEnabled = true, final  List<String> adsBannerScreens = _bannerAllowList, this.adsBannerMinCompletedReadings = 1, this.adsAttPrepromptEnabled = true, this.storeEnabled = true, final  List<StorePack> storePacks = _defaultPacks, this.storeVerifyRetryWindowHours = 72, this.storePendingHoldMinutes = 30, this.storeRemoveAdsEnabled = true, this.storeShowBestValueBadge = true, this.storeShowPerReadingPrice = true, this.aiConsentVersion = 2, this.aiQuestionMaxChars = 300, this.appMinVersionIos = '1.0.0', this.appMinVersionAndroid = '1.0.0', this.appRecommendedVersionIos = '1.0.0', this.appRecommendedVersionAndroid = '1.0.0', this.balanceStaleAfterSec = 300, this.balanceResumeSyncThrottleSec = 30, this.reviewPromptAfterPositiveReadings = 3, this.legalTermsUrl = 'https://taro.vshyrochuk.com/terms', this.legalPrivacyUrl = 'https://taro.vshyrochuk.com/privacy', this.supportEmail = 'volodymyr.shyrochuk@gmail.com'}): _spreadsEnabled = spreadsEnabled,_adsBannerScreens = adsBannerScreens,_storePacks = storePacks,super._();
   
 
 /// Config document `version` (0 = compiled defaults).
@@ -633,7 +633,7 @@ class _RemoteConfig extends RemoteConfig {
 @override@JsonKey() final  bool storeShowBestValueBadge;
 /// `store.showPerReadingPrice`.
 @override@JsonKey() final  bool storeShowPerReadingPrice;
-/// `ai.consentVersion`.
+/// `ai.consentVersion` (2 since the OpenAI-only consent copy, RC97).
 @override@JsonKey() final  int aiConsentVersion;
 /// `ai.questionMaxChars` (grapheme clusters, RC45).
 @override@JsonKey() final  int aiQuestionMaxChars;

@@ -93,6 +93,7 @@ List<ProviderListenable<Object?>> get _allProviders => [
   connectivityMonitorProvider,
   reviewPrompterProvider,
   backupExclusionProvider,
+  urlLauncherProvider,
   consentOrchestratorProvider,
   pendingPurchaseTrackerProvider,
   removeAdsEntitlementProvider,

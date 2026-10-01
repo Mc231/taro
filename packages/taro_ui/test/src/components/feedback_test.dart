@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../helpers/golden/golden_sizes.dart';
 import '../../helpers/pump_taro_ui_widget.dart';
 import 'guidelines.dart';
 
@@ -92,6 +93,16 @@ void main() {
         tester.getBottomLeft(find.byType(TaroCoachmark)).dy,
         lessThan(tester.getTopLeft(find.text('Start a reading')).dy),
       );
+      // The target inside the hole is not covered by the scrim.
+      final hit = tester.hitTestOnBinding(
+        tester.getCenter(find.text('Start a reading')),
+      );
+      expect(
+        hit.path.any(
+          (e) => e.target == tester.renderObject(find.text('Start a reading')),
+        ),
+        isTrue,
+      );
       // A scrim tap dismisses.
       await tester.tapAt(const Offset(8, 8));
       await tester.pumpAndSettle();
@@ -109,6 +120,33 @@ void main() {
       await tester.tap(find.text('Got it'));
       await tester.pumpAndSettle();
       expect(dismissed, 2);
+    });
+
+    testWidgets('on a tablet the bubble keeps layout.maxContentWidth', (
+      tester,
+    ) async {
+      final target = GlobalKey();
+      await pumpTaroUiWidget(
+        tester,
+        TaroCoachmarkLayer(
+          targetKey: target,
+          coachmark: TaroCoachmark(
+            title: 't',
+            body: 'b',
+            dismissLabel: 'ok',
+            onDismiss: () {},
+          ),
+          child: Align(
+            child: SizedBox(key: target, width: 200, height: 80),
+          ),
+        ),
+        size: kTabletIpad13,
+      );
+      await tester.pumpAndSettle();
+      expect(
+        tester.getSize(find.byType(TaroCoachmark)).width,
+        TaroLayoutTokens.light.maxContentWidth,
+      );
     });
 
     testWidgets('an unmounted target shows no coachmark', (tester) async {

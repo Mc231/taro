@@ -27,7 +27,39 @@ abstract final class CardArt {
   /// The art set shipped with v1.
   static const String defaultArtSet = 'placeholder';
 
-  /// The face of [id] in [artSet].
-  static ImageProvider face(CardId id, {String artSet = defaultArtSet}) =>
-      AssetImage('assets/deck/art/$artSet/${id.value}.webp');
+  /// The face of [id] in [artSet]. With [cacheWidth] (physical pixels) the
+  /// art is decoded at that width instead of its full size (02 §17).
+  static ImageProvider face(
+    CardId id, {
+    String artSet = defaultArtSet,
+    int? cacheWidth,
+  }) => ResizeImage.resizeIfNeeded(
+    cacheWidth,
+    null,
+    AssetImage('assets/deck/art/$artSet/${id.value}.webp'),
+  );
+
+  /// The decode width in physical pixels of a card [logicalWidth] wide in
+  /// [context] (the `cacheWidth` of [face]).
+  static int cacheWidthOf(BuildContext context, double logicalWidth) =>
+      (logicalWidth * MediaQuery.devicePixelRatioOf(context)).ceil();
+
+  /// Decodes the faces of [ids] ahead of their reveal (02 §17: the spread
+  /// art is precached before the cards turn over). Missing art is ignored.
+  static Future<void> precacheFaces(
+    BuildContext context,
+    Iterable<CardId> ids, {
+    required double logicalWidth,
+    String artSet = defaultArtSet,
+  }) {
+    final width = cacheWidthOf(context, logicalWidth);
+    return Future.wait([
+      for (final id in ids)
+        precacheImage(
+          face(id, artSet: artSet, cacheWidth: width),
+          context,
+          onError: (_, _) {},
+        ),
+    ]);
+  }
 }

@@ -50,6 +50,7 @@ import 'package:taro/services/iap/no_op_iap_service.dart';
 import 'package:taro/services/iap/store_iap_service.dart';
 import 'package:taro/services/iap/store_ownership.dart';
 import 'package:taro/services/ids/secure_id_generator.dart';
+import 'package:taro/services/links/platform_url_launcher.dart';
 import 'package:taro/services/logging/logging_logger.dart';
 import 'package:taro/services/logging/redactor.dart';
 import 'package:taro/services/notifications/local_reminder_scheduler.dart';
@@ -467,6 +468,7 @@ Future<List<Override>> buildAppOverrides(GraphInputs inputs) async {
         logger: logger,
       ),
     ),
+    urlLauncherProvider.overrideWithValue(PlatformUrlLauncher(logger: logger)),
     backupExclusionProvider.overrideWithValue(
       isIos ? const PlatformBackupExclusion() : const NoOpBackupExclusion(),
     ),

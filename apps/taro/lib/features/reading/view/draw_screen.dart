@@ -1,15 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taro/app_state/balance_controller.dart';
+import 'package:taro/app_state/crisis_handoff.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/reading/controller/draw_controller.dart';
 import 'package:taro/features/reading/controller/draw_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
+import 'package:taro/features/reading/view/draw_panes.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
@@ -73,9 +76,6 @@ class DrawScreen extends ConsumerWidget {
   /// Creates the screen.
   const DrawScreen({super.key});
 
-  /// The number of card backs in the picking fan.
-  static const int fanSize = 12;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(drawControllerProvider, (previous, next) {
@@ -90,18 +90,25 @@ class DrawScreen extends ConsumerWidget {
       });
     }
     final controller = ref.read(drawControllerProvider.notifier);
-    final view = _viewOf(state);
+    final view = drawViewOf(state);
     final picked = view != null && view.placed > 0;
     final terminal = switch (state) {
       DrawCompleted() || DrawCrisis() || DrawReturnedToQuestion() => true,
       _ => false,
     };
+    final confirm = picked && !terminal;
+    // Once every card is placed the pending reading is stored (Classic
+    // readings are stored only when complete).
+    final saved = view != null && view.allPlaced && !view.classic;
     return DrawBackScope(
-      confirm: picked && !terminal,
+      confirm: confirm,
+      saved: saved,
       child: DrawLayout(
         state: state,
         artSet: ref.watch(deckArtSetProvider).value ?? CardArt.defaultArtSet,
-        onClose: () => context.go(RoutePaths.home),
+        onClose: () => confirm
+            ? unawaited(DrawBackScope.confirmLeave(context, saved: saved))
+            : context.go(RoutePaths.home),
         onShuffled: controller.finishShuffle,
         onPick: () => unawaited(controller.pick()),
         onDrawForMe: () => unawaited(controller.drawForMe()),
@@ -117,13 +124,22 @@ class DrawScreen extends ConsumerWidget {
   static void _onEntered(BuildContext context, WidgetRef ref, DrawState next) {
     switch (next) {
       case DrawCompleted(:final reading):
-        context.go(
-          RoutePaths.reading(
-            reading.id.value,
-            classic: reading.status is ReadingStatusClassic,
-          ),
-        );
-      case DrawCrisis():
+        final classic = reading.status is ReadingStatusClassic;
+        if (!classic) {
+          // `haptic.ready` and "Reading ready" (01 §8.3 S08 semantics).
+          unawaited(TaroHaptics.ready(context));
+          unawaited(
+            SemanticsService.sendAnnouncement(
+              View.of(context),
+              TaroLocalizations.of(context).drawReadingReady,
+              Directionality.of(context),
+            ),
+          );
+        }
+        context.go(RoutePaths.reading(reading.id.value, classic: classic));
+      case DrawCrisis(:final safety):
+        // S27 shows the Worker's country-aware entries (01 §8.3 S27).
+        ref.read(crisisHandoffProvider.notifier).offer(safety.crisisResources);
         context.go(
           RoutePaths.helpCrisisFrom(CrisisResourcesOrigin.reading.wire),
         );
@@ -152,7 +168,8 @@ class DrawScreen extends ConsumerWidget {
   }
 }
 
-DrawView? _viewOf(DrawState state) => switch (state) {
+/// The [DrawView] of [state], if it has one.
+DrawView? drawViewOf(DrawState state) => switch (state) {
   DrawUnavailable() || DrawPreparing() => null,
   DrawFailed(:final view) => view,
   DrawShuffling(:final view) ||
@@ -169,7 +186,9 @@ DrawView? _viewOf(DrawState state) => switch (state) {
   DrawCompleted(:final view) => view,
 };
 
-/// The S08 layout for [state].
+/// The S08 layout for [state] (`Draw*.dc.html`). With
+/// [DrawView.reducedMotion] (the in-app setting) the ritual runs with the
+/// reduced-motion tokens, like the system setting.
 class DrawLayout extends StatelessWidget {
   /// Creates the view.
   const DrawLayout({
@@ -193,13 +212,13 @@ class DrawLayout extends StatelessWidget {
   /// The bundled art set.
   final String artSet;
 
-  /// Close (Home).
+  /// Close (asks first once a card is picked).
   final VoidCallback onClose;
 
-  /// "Shuffle" done: picking starts.
+  /// "I'm ready — draw" after the shuffle: picking starts.
   final VoidCallback onShuffled;
 
-  /// A card back was picked.
+  /// A card was picked and flies to the next position.
   final VoidCallback onPick;
 
   /// "Draw for me".
@@ -223,277 +242,68 @@ class DrawLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
-    final view = _viewOf(state);
-    return TaroScaffold(
+    final view = drawViewOf(state);
+    final status = switch (state) {
+      DrawPicking() when view != null && !view.allPlaced =>
+        l10n.drawPickedProgress(view.placed, view.cardCount),
+      DrawRevealing() when view != null => l10n.drawRevealedProgress(
+        view.revealed,
+        view.cardCount,
+      ),
+      _ when view != null => SpreadText.name(l10n, view.spread.id),
+      _ => null,
+    };
+    final loading = TaroLoadingView(
+      semanticsLabel: l10n.commonLoading,
+      layout: TaroLoadingLayout.cards,
+    );
+    final body = switch (state) {
+      DrawFailed(:final failure) => FailureView.of(
+        failure,
+        secondaryAction: TaroButton.tertiary(
+          label: l10n.commonBackToToday,
+          onPressed: onClose,
+        ),
+      ),
+      _ when view == null => loading,
+      DrawCrisis() || DrawReturnedToQuestion() || DrawCompleted() => loading,
+      DrawShuffling() => ShufflePane(
+        view: view,
+        artSet: artSet,
+        onShuffled: onShuffled,
+      ),
+      DrawPicking() => PickPane(
+        view: view,
+        onPick: onPick,
+        onDrawForMe: onDrawForMe,
+      ),
+      _ => ResultPane(
+        state: state,
+        view: view,
+        artSet: artSet,
+        onReveal: onReveal,
+        onRevealAll: onRevealAll,
+        onRetry: onRetry,
+        onFinishLater: onFinishLater,
+        onOpenOptions: onOpenOptions,
+      ),
+    };
+    final ritual =
+        body is ShufflePane || body is PickPane || body is ResultPane;
+    final scaffold = TaroScaffold(
+      padded: !ritual,
       appBar: TaroAppBar(
         leading: TaroAppBarLeading.close,
         leadingLabel: l10n.commonClose,
         onLeading: onClose,
-        status: state is DrawPicking && view != null
-            ? l10n.drawPickedProgress(view.placed, view.cardCount)
-            : null,
+        status: status,
       ),
-      body: switch (state) {
-        DrawFailed(:final failure) => FailureView.of(
-          failure,
-          secondaryAction: TaroButton.tertiary(
-            label: l10n.commonBackToToday,
-            onPressed: onClose,
-          ),
-        ),
-        _ when view == null => TaroLoadingView(
-          semanticsLabel: l10n.commonLoading,
-          layout: TaroLoadingLayout.cards,
-        ),
-        DrawCrisis() ||
-        DrawReturnedToQuestion() ||
-        DrawCompleted() => TaroLoadingView(
-          semanticsLabel: l10n.commonLoading,
-          layout: TaroLoadingLayout.cards,
-        ),
-        _ => _ritual(context, view),
-      },
+      body: body,
     );
-  }
-
-  Widget _ritual(BuildContext context, DrawView view) {
-    final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    final (String title, String? body) = switch (state) {
-      DrawShuffling() => (l10n.drawShuffleTitle, l10n.drawShuffleHint),
-      DrawPicking() => (
-        l10n.drawPickTitle(view.cardCount - view.placed),
-        l10n.drawPickSubtitle,
-      ),
-      DrawRevealing() => (l10n.drawRevealTitle, l10n.drawRevealHint),
-      DrawGenerationFailed() => (
-        l10n.drawGenerationFailedTitle,
-        l10n.drawGenerationFailedBody,
-      ),
-      DrawHoldLost() => (l10n.drawHoldLost, null),
-      DrawDeliveryExpired() => (l10n.drawDeliveryExpired, null),
-      _ => (l10n.drawAwaitingTitle, l10n.drawAwaitingBody),
-    };
-    final status = switch (state) {
-      DrawSlowReading() => l10n.drawSlowReading,
-      DrawTimeoutPolling() => l10n.drawTimeoutPolling,
-      _ => null,
-    };
-    return ListView(
-      padding: EdgeInsetsDirectional.only(bottom: tokens.space.s7),
-      children: [
-        Semantics(
-          header: true,
-          liveRegion: true,
-          child: Text(title, style: tokens.typography.headline),
-        ),
-        if (body != null) ...[
-          SizedBox(height: tokens.space.s3),
-          Text(
-            body,
-            style: tokens.typography.body.copyWith(
-              color: tokens.color.text.secondary,
-            ),
-          ),
-        ],
-        if (status != null) ...[
-          SizedBox(height: tokens.space.s3),
-          Semantics(
-            liveRegion: true,
-            child: Text(status, style: tokens.typography.label),
-          ),
-        ],
-        SizedBox(height: tokens.space.s7),
-        _spread(context, view),
-        if (state is DrawPicking || state is DrawShuffling) ...[
-          SizedBox(height: tokens.space.s7),
-          _fan(context, view),
-        ],
-        SizedBox(height: tokens.space.s7),
-        ..._actions(context),
-      ],
+    if (view == null || !view.reducedMotion) return scaffold;
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(disableAnimations: true),
+      child: scaffold,
     );
-  }
-
-  /// The spread positions: face-down until revealed; every card stays
-  /// face-down on `holdLost` (RC48).
-  Widget _spread(BuildContext context, DrawView view) {
-    final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    final showFaces = switch (state) {
-      DrawShuffling() || DrawPicking() || DrawHoldLost() => false,
-      _ => true,
-    };
-    final keywords = switch (state) {
-      DrawAwaitingReading() ||
-      DrawSlowReading() ||
-      DrawTimeoutPolling() => true,
-      _ => false,
-    };
-    final revealing = state is DrawRevealing;
-    return Wrap(
-      spacing: tokens.space.s4,
-      runSpacing: tokens.space.s4,
-      alignment: WrapAlignment.center,
-      children: [
-        for (var i = 0; i < view.cardCount; i++)
-          _Slot(
-            card: view.draw.cards[i],
-            index: i,
-            total: view.cardCount,
-            placed: i < view.placed,
-            faceUp: showFaces && i < view.revealed,
-            showKeywords: keywords,
-            artSet: artSet,
-            onReveal: revealing && i == view.revealed ? onReveal : null,
-            positionName: SpreadText.positionName(
-              l10n,
-              view.spread.id,
-              view.draw.cards[i].positionId,
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _fan(BuildContext context, DrawView view) {
-    final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    final picking = state is DrawPicking && !view.allPlaced;
-    return Wrap(
-      spacing: tokens.space.s2,
-      runSpacing: tokens.space.s2,
-      alignment: WrapAlignment.center,
-      children: [
-        for (var i = 0; i < DrawScreen.fanSize; i++)
-          TaroCardBack(
-            size: TaroCardSize.thumb,
-            semanticsLabel: l10n.drawCardBackSemantics(
-              view.placed + 1,
-              view.cardCount,
-            ),
-            enabled: picking,
-            onTap: picking ? onPick : null,
-          ),
-      ],
-    );
-  }
-
-  List<Widget> _actions(BuildContext context) {
-    final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    Widget primary(String label, VoidCallback onPressed) =>
-        TaroButton.primary(label: label, expand: true, onPressed: onPressed);
-    Widget secondary(String label, VoidCallback onPressed) => Padding(
-      padding: EdgeInsetsDirectional.only(top: tokens.space.s3),
-      child: TaroButton.secondary(
-        label: label,
-        expand: true,
-        onPressed: onPressed,
-      ),
-    );
-    return switch (state) {
-      DrawShuffling() => [
-        primary(l10n.drawShuffleButton, onShuffled),
-        secondary(l10n.drawForMe, onDrawForMe),
-      ],
-      DrawPicking() => [secondary(l10n.drawForMe, onDrawForMe)],
-      DrawRevealing() => [primary(l10n.drawRevealAll, onRevealAll)],
-      DrawGenerationFailed() => [
-        primary(l10n.commonRetry, onRetry),
-        secondary(l10n.drawFinishLater, onFinishLater),
-      ],
-      DrawDeliveryExpired() => [primary(l10n.commonRetry, onRetry)],
-      DrawHoldLost() => [primary(l10n.outOfReadingsGetMore, onOpenOptions)],
-      _ => const [],
-    };
-  }
-}
-
-/// One spread position: an empty slot, a face-down card, or the face.
-class _Slot extends ConsumerWidget {
-  const _Slot({
-    required this.card,
-    required this.index,
-    required this.total,
-    required this.placed,
-    required this.faceUp,
-    required this.showKeywords,
-    required this.artSet,
-    required this.onReveal,
-    required this.positionName,
-  });
-
-  final DrawnCard card;
-  final int index;
-  final int total;
-  final bool placed;
-  final bool faceUp;
-  final bool showKeywords;
-  final String artSet;
-  final VoidCallback? onReveal;
-  final String positionName;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    final Widget child;
-    if (!placed) {
-      child = Semantics(
-        label: l10n.drawEmptySlotSemantics(index + 1, positionName),
-        child: SizedBox(
-          width: TaroCardSize.sm.widthIn(context),
-          child: Text(
-            positionName,
-            textAlign: TextAlign.center,
-            style: tokens.typography.caption,
-          ),
-        ),
-      );
-    } else if (!faceUp) {
-      child = TaroCardBack(
-        picked: true,
-        semanticsLabel: l10n.drawCardBackSemantics(index + 1, total),
-        enabled: onReveal != null,
-        onTap: onReveal,
-      );
-    } else {
-      final text = ref.watch(cardTextProvider(card.cardId)).value;
-      final name = text?.name ?? '';
-      final orientation = card.reversed
-          ? l10n.commonReversed
-          : l10n.commonUpright;
-      child = Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: tokens.space.s2,
-        children: [
-          TaroCardFace(
-            image: CardArt.face(card.cardId, artSet: artSet),
-            semanticsLabel: l10n.drawCardSemantics(
-              name,
-              orientation,
-              positionName,
-            ),
-            size: TaroCardSize.sm,
-            reversed: card.reversed,
-            reversedLabel: l10n.commonReversed,
-            name: name,
-          ),
-          if (showKeywords && text != null)
-            SizedBox(
-              width: TaroCardSize.sm.widthIn(context),
-              child: Text(
-                text.keywords(reversed: card.reversed).take(3).join(' · '),
-                textAlign: TextAlign.center,
-                style: tokens.typography.caption.copyWith(
-                  color: tokens.color.text.secondary,
-                ),
-              ),
-            ),
-        ],
-      );
-    }
-    return child;
   }
 }

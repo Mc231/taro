@@ -144,7 +144,7 @@ void main() {
               ),
               ai: AiConsent(
                 decision: AiConsentDecision.granted,
-                version: 1,
+                version: 2,
                 at: fakes.clock.now(),
               ),
             ),
@@ -176,7 +176,7 @@ void main() {
           fakes.analytics.events
               .firstWhere((e) => e.eventName == 'ai_consent_decided')
               .parameters,
-          {'granted': false, 'origin': 'settings', 'consent_version': 1},
+          {'granted': false, 'origin': 'settings', 'consent_version': 2},
         );
         expect(
           fakes.analytics.events

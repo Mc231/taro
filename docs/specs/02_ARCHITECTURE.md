@@ -402,6 +402,7 @@ Every port is an `abstract interface class`. Implementations: **Prod** (app `dat
 | `Logger` | `fine/info/warning/severe(String message, {Object? error, StackTrace? stack})`, `child(String name)` | `PackageLoggingLogger` (over `package:logging`, sinks per §13) | `SilentLogger` (tests; `CapturingLogger` in `taro_core/test/fakes/`) |
 | `FileTransfer` | `Future<Result<void>> share(Uint8List bytes, String fileName, String mime)`, `Future<Result<Uint8List?>> pickJson()` | `PlatformFileTransfer` (`share_plus` + `file_picker`) | — |
 | `ConnectivityMonitor` | `Stream<bool> online`, `Future<bool> isOnline()` | `ConnectivityPlusMonitor` (hint only; real truth is the request outcome) | `AlwaysOnlineMonitor` |
+| `UrlLauncher` | `Future<Result<void>> open(Uri uri)` (`tel:`, `sms:`, `https:` only; `UrlLauncher.allowedSchemes`) | `PlatformUrlLauncher` (`url_launcher`, external application) | `NoOpUrlLauncher` |
 | `ReviewPrompter` | `Future<void> maybePrompt(ReviewTrigger)` | `InAppReviewPrompter` (policy from 01/04, `review.promptAfterPositiveReadings`; Classic readings never count) | `NoOpReviewPrompter` |
 | `AppInfo` | `version`, `buildNumber`, `platform`, `osVersion`, `deviceModelClass` | `PackageInfoAppInfo` | `FakeAppInfo` |
 | `SecureStore` | `read/write/delete(String key)` | `FlutterSecureStore` | `InMemorySecureStore` (tests) |

@@ -1,0 +1,20 @@
+# Native splash (S01, Phase 16 Sprint 16.1): `dart run flutter_native_splash:create`
+# from apps/taro. `color.bg.canvas` (light #EEF0F4, dark #0F1120) and the card
+# mark only, so the hand-off to LaunchScreen does not jump. The PNGs are 4x
+# rasters of docs/design/assets/splash/splash-mark.svg (96 x 164 dp); the
+# Android 12 icon is the mark centred on a 1152 px (288 dp) canvas, inside the
+# 192 dp mask circle.
+flutter_native_splash:
+  color: "#EEF0F4"
+  color_dark: "#0F1120"
+  image: assets/native/splash_mark.png
+  image_dark: assets/native/splash_mark.png
+  android_12:
+    image: assets/native/splash_mark_android12.png
+    image_dark: assets/native/splash_mark_android12.png
+    color: "#EEF0F4"
+    color_dark: "#0F1120"
+  ios: true
+  android: true
+  web: false
+  fullscreen: false

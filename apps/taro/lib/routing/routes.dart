@@ -5,6 +5,7 @@ import 'package:taro/routing/route_paths.dart';
 import 'package:taro/routing/screen_builders.dart';
 import 'package:taro/routing/tab_shell.dart';
 import 'package:taro_core/taro_core.dart';
+import 'package:taro_ui/taro_ui.dart';
 
 export 'package:taro/routing/back_behaviour.dart';
 export 'package:taro/routing/route_paths.dart';
@@ -149,14 +150,13 @@ abstract final class TaroModals {
     builder: (dialog) => buildScreen(dialog, ScreenId.s12),
   );
 
-  /// S33 Report reading for the reading [readingId].
+  /// S33 Report reading for the reading [readingId] (a `TaroSheet`: the
+  /// `color.bg.surfaceRaised` sheet over `color.bg.scrim`).
   static Future<T?> reportReading<T>(
     BuildContext context, {
     required String readingId,
-  }) => showModalBottomSheet<T>(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
+  }) => TaroSheet.show<T>(
+    context,
     builder: (sheet) => buildScreen(
       sheet,
       ScreenId.s33,

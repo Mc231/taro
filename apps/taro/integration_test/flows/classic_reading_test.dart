@@ -34,7 +34,7 @@ void main() {
     );
     expect(fakes.analytics.eventNames, contains('classic_reading_started'));
 
-    await app.tapButton(l.readingDone);
+    await app.tapFinder(find.byTooltip(l.readingDone));
     await app.waitForScreen(ScreenId.s05);
     await app.tapText(l.tabJournal);
     await app.waitFor(find.text(kTestQuestion));

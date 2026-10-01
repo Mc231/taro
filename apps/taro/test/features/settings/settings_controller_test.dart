@@ -174,7 +174,7 @@ void main() {
         onboardingStep: OnboardingStep.done,
         ai: AiConsent(
           decision: AiConsentDecision.granted,
-          version: 1,
+          version: 2,
           at: fakes.clock.now(),
         ),
       ),

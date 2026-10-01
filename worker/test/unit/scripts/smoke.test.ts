@@ -114,7 +114,7 @@ describe('scripts/smoke.ts main([...]) (03 §14.2)', () => {
       const hold = JSON.parse(seen.holds?.body as string) as Record<string, unknown>;
       const reading = JSON.parse(seen.reading?.body as string) as Record<string, unknown>;
       expect(holdHeaders['Idempotency-Key']).toBe(hold['clientReadingId']);
-      expect(holdHeaders['X-Taro-AI-Consent']).toBe('1');
+      expect(holdHeaders['X-Taro-AI-Consent']).toBe('2');
       expect(holdHeaders['X-Taro-Debug-Attestation']).toBe(TEST_DEBUG_ATTESTATION_TOKEN);
       expect(hold).toMatchObject({ spread: { id: 'single', version: 1 }, locale: 'en' });
       expect(reading).toMatchObject({

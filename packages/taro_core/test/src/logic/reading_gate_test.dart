@@ -12,7 +12,7 @@ final _registered = InstallIdentity(
 
 const _granted = ConsentState(
   ads: AdsConsent(status: AdsConsentStatus.obtained, canRequestAds: true),
-  ai: AiConsent(decision: AiConsentDecision.granted, version: 1),
+  ai: AiConsent(decision: AiConsentDecision.granted, version: 2),
 );
 
 /// One gate input; every field defaults to "passes".
@@ -206,7 +206,7 @@ void main() {
 
   group('ReadingGate details', () {
     test('AI consent older than ai.consentVersion is re-asked (RC21)', () {
-      final config = RemoteConfig.defaults.copyWith(aiConsentVersion: 2);
+      final config = RemoteConfig.defaults.copyWith(aiConsentVersion: 3);
       expect(
         _In(config: config).evaluate(),
         const GateDecision.needsAiConsent(),

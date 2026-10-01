@@ -257,8 +257,8 @@ abstract class RemoteConfig with _$RemoteConfig {
     /// `store.showPerReadingPrice`.
     @Default(true) bool storeShowPerReadingPrice,
 
-    /// `ai.consentVersion`.
-    @Default(1) int aiConsentVersion,
+    /// `ai.consentVersion` (2 since the OpenAI-only consent copy, RC97).
+    @Default(2) int aiConsentVersion,
 
     /// `ai.questionMaxChars` (grapheme clusters, RC45).
     @Default(300) int aiQuestionMaxChars,

@@ -33,6 +33,16 @@ class _ReportReadingSheetState extends ConsumerState<ReportReadingSheet> {
   @override
   Widget build(BuildContext context) {
     final provider = reportReadingControllerProvider(widget.id);
+    ref.listen(provider, (previous, next) {
+      if (next is! ReportReadingSubmitted ||
+          previous is ReportReadingSubmitted) {
+        return;
+      }
+      // `submitted`: the sheet closes and a toast thanks the user (S33).
+      final message = TaroLocalizations.of(context).reportSubmitted;
+      TaroToast.show(context, message: message);
+      unawaited(Navigator.of(context).maybePop());
+    });
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);
     return ReportReadingLayout(
@@ -81,8 +91,8 @@ class ReportReadingLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    final close = TaroButton.secondary(
-      label: l10n.commonClose,
+    final cancel = TaroButton.secondary(
+      label: l10n.commonCancel,
       expand: true,
       onPressed: onClose,
     );
@@ -97,7 +107,13 @@ class ReportReadingLayout extends StatelessWidget {
     if (draft == null) {
       return TaroSheet(
         title: l10n.reportReadingTitle,
-        actions: [close],
+        actions: [
+          TaroButton.secondary(
+            label: l10n.commonClose,
+            expand: true,
+            onPressed: onClose,
+          ),
+        ],
         child: TaroInlineNotice(
           kind: TaroNoticeKind.success,
           liveRegion: true,
@@ -123,9 +139,18 @@ class ReportReadingLayout extends StatelessWidget {
       ReportReadingFailed() => (TaroNoticeKind.error, l10n.reportFailed),
       _ => null,
     };
+    final caption = tokens.typography.caption.copyWith(
+      color: tokens.color.text.secondary,
+    );
     return TaroSheet(
       title: l10n.reportReadingTitle,
       actions: [
+        if (notice != null)
+          TaroInlineNotice(
+            kind: notice.$1,
+            title: notice.$2,
+            liveRegion: true,
+          ),
         TaroButton.primary(
           label: state is ReportReadingFailed
               ? l10n.commonRetry
@@ -135,29 +160,37 @@ class ReportReadingLayout extends StatelessWidget {
           loadingSemanticsHint: l10n.commonLoading,
           onPressed: canSend ? onSend : null,
         ),
-        close,
+        if (!draft.canSend)
+          Text(
+            l10n.reportChooseReason,
+            textAlign: TextAlign.center,
+            style: caption,
+          ),
+        cancel,
       ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: tokens.space.s4,
         children: [
-          Text(l10n.reportBody, style: tokens.typography.body),
-          Semantics(
-            header: true,
-            child: Text(
-              l10n.reportReasonLegend,
-              style: tokens.typography.label,
+          Text(
+            l10n.reportBody,
+            style: tokens.typography.label.copyWith(
+              color: tokens.color.text.secondary,
             ),
           ),
-          Wrap(
-            spacing: tokens.space.s3,
-            runSpacing: tokens.space.s3,
+          Semantics(
+            header: true,
+            child: Text(l10n.reportReasonLegend, style: caption),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               for (final reason in ReportReason.values)
-                TaroChip.filter(
-                  label: _reasonLabel(l10n, reason),
-                  selected: draft.reason == reason,
-                  onSelected: submitting ? null : (_) => onReason(reason),
+                TaroRadioTile<ReportReason>(
+                  value: reason,
+                  groupValue: draft.reason,
+                  title: _reasonLabel(l10n, reason),
+                  onChanged: submitting ? null : onReason,
                 ),
             ],
           ),
@@ -172,23 +205,28 @@ class ReportReadingLayout extends StatelessWidget {
             enabled: !submitting,
             onChanged: onNote,
           ),
-          if (!draft.canSend)
-            Text(
-              l10n.reportChooseReason,
-              style: tokens.typography.caption.copyWith(
-                color: tokens.color.text.secondary,
+          // The `reportReadingDisclosure` panel (05 §3, CS7).
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: tokens.color.bg.surface,
+              borderRadius: BorderRadius.circular(tokens.radius.md),
+            ),
+            child: Padding(
+              padding: EdgeInsetsDirectional.all(tokens.space.s4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: tokens.space.s3,
+                children: [
+                  Icon(
+                    Icons.info_outline,
+                    size: tokens.size.icon.md,
+                    color: tokens.color.text.secondary,
+                  ),
+                  Expanded(
+                    child: Text(l10n.reportReadingDisclosure, style: caption),
+                  ),
+                ],
               ),
-            ),
-          if (notice != null)
-            TaroInlineNotice(
-              kind: notice.$1,
-              title: notice.$2,
-              liveRegion: true,
-            ),
-          Text(
-            l10n.reportReadingDisclosure,
-            style: tokens.typography.caption.copyWith(
-              color: tokens.color.text.tertiary,
             ),
           ),
         ],

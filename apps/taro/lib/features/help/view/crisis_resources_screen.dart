@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taro/common/failure_message.dart';
+import 'package:taro/di/providers.dart';
 import 'package:taro/features/help/controller/crisis_resources_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
@@ -49,7 +50,18 @@ class CrisisResourcesScreen extends ConsumerWidget {
     return CrisisResourcesLayout(
       state: state,
       onClose: () =>
-          context.canPop() ? context.pop() : context.go(RoutePaths.home),
+          origin == CrisisResourcesOrigin.reading || !context.canPop()
+          ? context.go(RoutePaths.home)
+          : context.pop(),
+      onOpen: (uri) async {
+        final opened = await ref.read(urlLauncherProvider).open(uri);
+        if (opened.isErr && context.mounted) {
+          TaroToast.show(
+            context,
+            message: TaroLocalizations.of(context).crisisOpenFailed,
+          );
+        }
+      },
       onRetry: () => ref.invalidate(provider),
       onChooseCountry: (country) =>
           ref.read(provider.notifier).chooseCountry(country),
@@ -57,7 +69,10 @@ class CrisisResourcesScreen extends ConsumerWidget {
   }
 }
 
-/// The S27 layout for [state].
+/// The S27 layout for [state] (`docs/design/screens/S27/spec.md`): calm
+/// copy, the country's lines (at most 3, the international entry last),
+/// each with a Call / Text / Open action, "Show resources for another
+/// country" and "Last checked". No ads, no upsell, no balance (01 §7.5).
 class CrisisResourcesLayout extends StatelessWidget {
   /// Creates the view.
   const CrisisResourcesLayout({
@@ -65,13 +80,14 @@ class CrisisResourcesLayout extends StatelessWidget {
     required this.onClose,
     required this.onRetry,
     required this.onChooseCountry,
+    required this.onOpen,
     super.key,
   });
 
   /// The controller state.
   final CrisisResourcesState state;
 
-  /// Leaves S27.
+  /// Leaves S27 (Home after a declined reading).
   final VoidCallback onClose;
 
   /// Re-reads the bundled directory.
@@ -80,13 +96,15 @@ class CrisisResourcesLayout extends StatelessWidget {
   /// "Show resources for another country".
   final ValueChanged<String> onChooseCountry;
 
+  /// Opens a `tel:`, `sms:` or `https:` link outside the app.
+  final ValueChanged<Uri> onOpen;
+
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     return TaroScaffold(
       appBar: TaroAppBar(
-        leading: TaroAppBarLeading.close,
-        leadingLabel: l10n.commonClose,
+        leadingLabel: l10n.commonBack,
         onLeading: onClose,
       ),
       body: switch (state) {
@@ -106,36 +124,67 @@ class CrisisResourcesLayout extends StatelessWidget {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
     final country = content.country;
+    final secondary = tokens.color.text.secondary;
+    final checked = content.resources
+        .map((r) => r.verifiedAt)
+        .fold<DateTime?>(
+          null,
+          (oldest, at) => oldest == null || at.isBefore(oldest) ? at : oldest,
+        );
     return ListView(
+      padding: EdgeInsetsDirectional.only(
+        top: tokens.space.s6,
+        bottom: tokens.space.s7,
+      ),
       children: [
         Semantics(
           header: true,
-          child: Text(l10n.crisisTitle, style: tokens.typography.headline),
+          child: Text(
+            l10n.crisisTitle,
+            style: tokens.typography.headline.copyWith(
+              color: tokens.color.text.primary,
+            ),
+          ),
         ),
-        SizedBox(height: tokens.space.s4),
-        Text(l10n.crisisBody, style: tokens.typography.body),
+        SizedBox(height: tokens.space.s3),
+        Text(
+          l10n.crisisBody,
+          style: tokens.typography.body.copyWith(color: secondary),
+        ),
         if (country != null && content.hasLocalLines) ...[
-          SizedBox(height: tokens.space.s7),
-          Text(
-            l10n.crisisSupportIn(country),
-            style: tokens.typography.titleSmall,
+          SizedBox(height: tokens.space.s6),
+          Semantics(
+            header: true,
+            child: Text(
+              l10n.crisisSupportIn(country),
+              style: tokens.typography.label.copyWith(color: secondary),
+            ),
           ),
         ],
+        SizedBox(height: tokens.space.s2),
         for (final resource in content.resources)
           Padding(
-            padding: EdgeInsetsDirectional.only(top: tokens.space.s4),
-            child: _ResourceCard(resource: resource),
+            padding: EdgeInsetsDirectional.only(top: tokens.space.s3),
+            child: _CrisisResourceRow(resource: resource, onOpen: onOpen),
           ),
-        SizedBox(height: tokens.space.s7),
-        Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: TaroButton.tertiary(
-            label: l10n.crisisOtherCountry,
-            onPressed: content.countries.isEmpty
-                ? null
-                : () => unawaited(_pickCountry(context, content.countries)),
-          ),
+        SizedBox(height: tokens.space.s5),
+        TaroButton.secondary(
+          label: l10n.crisisOtherCountry,
+          expand: true,
+          onPressed: content.countries.isEmpty
+              ? null
+              : () => unawaited(_pickCountry(context, content.countries)),
         ),
+        if (checked != null) ...[
+          SizedBox(height: tokens.space.s8),
+          Text(
+            l10n.crisisLastChecked(
+              MaterialLocalizations.of(context).formatMonthYear(checked),
+            ),
+            textAlign: TextAlign.center,
+            style: tokens.typography.caption.copyWith(color: secondary),
+          ),
+        ],
       ],
     );
   }
@@ -166,39 +215,115 @@ class CrisisResourcesLayout extends StatelessWidget {
   }
 }
 
-class _ResourceCard extends StatelessWidget {
-  const _ResourceCard({required this.resource});
+/// One crisis line (S27 `CrisisResourceRow`): the name, the contact line
+/// with its hours, an optional description, and one action at the end
+/// (Call for a phone, else Text for an SMS number, else Open for a link).
+/// Numbers are bidi-isolated LTR; the call icon is not mirrored.
+class _CrisisResourceRow extends StatelessWidget {
+  const _CrisisResourceRow({required this.resource, required this.onOpen});
 
   final CrisisResource resource;
+  final ValueChanged<Uri> onOpen;
+
+  /// Left-to-right isolate (U+2066 … U+2069): numbers keep their order in
+  /// RTL text.
+  static String _ltr(String text) => '\u2066$text\u2069';
 
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    final contacts = [?resource.phone, ?resource.sms, ?resource.url];
+    final c = tokens.color;
+    final phone = resource.phone;
+    final sms = resource.sms;
+    final url = resource.url;
+    final host = url == null ? null : Uri.tryParse(url)?.host;
+    final international = host != null && host.endsWith('findahelpline.com');
+    final name = international ? l10n.crisisInternationalName : resource.name;
+    final contact = switch ((phone, sms)) {
+      (final String p, _) => _ltr(p),
+      (null, final String s) => _ltr(s),
+      _ => host ?? '',
+    };
     final hours = resource.hours;
-    return TaroSurfaceCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: tokens.space.s2,
-        children: [
-          Text(resource.name, style: tokens.typography.titleSmall),
-          for (final contact in contacts)
-            SelectableText(
-              hours == null ? contact : l10n.crisisHours(contact, hours),
-              style: tokens.typography.body,
+    final (label, icon, semantics, uri) = switch ((phone, sms, url)) {
+      (final String p, _, _) => (
+        l10n.crisisCall,
+        Icons.call_outlined,
+        l10n.crisisCallSemantics(name, p),
+        Uri(scheme: 'tel', path: p.replaceAll(RegExp('[^0-9+]'), '')),
+      ),
+      (null, final String s, _) => (
+        l10n.crisisText,
+        Icons.sms_outlined,
+        l10n.crisisTextSemantics(name, s),
+        Uri(scheme: 'sms', path: s.replaceAll(RegExp('[^0-9+]'), '')),
+      ),
+      (null, null, final String u) => (
+        l10n.crisisOpen,
+        Icons.open_in_new,
+        l10n.crisisOpenSemantics(host ?? u),
+        Uri.parse(u),
+      ),
+      _ => (null, null, null, null),
+    };
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: c.bg.surfaceRaised,
+        borderRadius: BorderRadius.circular(tokens.radius.lg),
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(
+          tokens.space.s5,
+          tokens.space.s4,
+          tokens.space.s4,
+          tokens.space.s4,
+        ),
+        child: Row(
+          spacing: tokens.space.s4,
+          children: [
+            Expanded(
+              child: MergeSemantics(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: tokens.space.s1,
+                  children: [
+                    Text(
+                      name,
+                      style: tokens.typography.body.copyWith(
+                        color: c.text.primary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      hours == null
+                          ? contact
+                          : l10n.crisisHours(contact, hours),
+                      style: tokens.typography.label.copyWith(
+                        color: c.text.secondary,
+                      ),
+                    ),
+                    if (international)
+                      Text(
+                        l10n.crisisInternationalBody,
+                        style: tokens.typography.caption.copyWith(
+                          color: c.text.tertiary,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
-          Text(
-            l10n.crisisLastChecked(
-              MaterialLocalizations.of(
-                context,
-              ).formatMediumDate(resource.verifiedAt),
-            ),
-            style: tokens.typography.caption.copyWith(
-              color: tokens.color.text.tertiary,
-            ),
-          ),
-        ],
+            if (label != null)
+              TaroButton.primary(
+                label: label,
+                icon: icon,
+                expand: false,
+                semanticsLabel: semantics,
+                onPressed: () => onOpen(uri!),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taro/common/onboarding_page.dart';
 import 'package:taro/features/consent/controller/att_preprompt_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro_ui/taro_ui.dart';
@@ -48,43 +49,86 @@ class AttPrePromptLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    Widget section(String title, String body) => Padding(
-      padding: EdgeInsetsDirectional.only(top: tokens.space.s5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: tokens.space.s1,
-        children: [
-          Text(title, style: tokens.typography.titleSmall),
-          Text(
-            body,
-            style: tokens.typography.label.copyWith(
-              color: tokens.color.text.secondary,
+    final c = tokens.color;
+    Widget section(String title, String body) => MergeSemantics(
+      child: Padding(
+        padding: EdgeInsetsDirectional.symmetric(vertical: tokens.space.s5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: tokens.space.s2,
+          children: [
+            Text(
+              title,
+              style: tokens.typography.titleSmall.copyWith(
+                color: c.text.primary,
+              ),
             ),
-          ),
-        ],
+            Text(
+              body,
+              style: tokens.typography.body.copyWith(color: c.text.secondary),
+            ),
+          ],
+        ),
       ),
     );
-    return TaroScaffold(
-      body: ListView(
-        padding: EdgeInsetsDirectional.only(top: tokens.space.s9),
-        children: [
-          Semantics(
-            header: true,
-            child: Text(
-              l10n.attPrepromptTitle,
-              style: tokens.typography.headline,
+    final divider = Divider(
+      height: TaroStrokes.hairline,
+      thickness: TaroStrokes.hairline,
+      color: c.border.subtle,
+    );
+    return OnboardingPage(
+      gap: tokens.space.s7,
+      content: [
+        const OnboardingIconTile(icon: Icons.ad_units_outlined),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: tokens.space.s4,
+          children: [
+            Semantics(
+              header: true,
+              child: Text(
+                l10n.attPrepromptTitle,
+                style: tokens.typography.headline,
+              ),
+            ),
+            Text(
+              l10n.attPrepromptBody,
+              style: tokens.typography.body.copyWith(color: c.text.secondary),
+            ),
+          ],
+        ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: c.bg.surface,
+            borderRadius: BorderRadius.circular(tokens.radius.lg),
+          ),
+          child: Padding(
+            padding: EdgeInsetsDirectional.symmetric(
+              horizontal: tokens.space.s5,
+              vertical: tokens.space.s1,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                section(
+                  l10n.attPrepromptAllowTitle,
+                  l10n.attPrepromptAllowBody,
+                ),
+                divider,
+                section(l10n.attPrepromptDenyTitle, l10n.attPrepromptDenyBody),
+                divider,
+                section(
+                  l10n.attPrepromptEitherTitle,
+                  l10n.attPrepromptEitherBody,
+                ),
+              ],
             ),
           ),
-          SizedBox(height: tokens.space.s4),
-          Text(l10n.attPrepromptBody, style: tokens.typography.body),
-          section(l10n.attPrepromptAllowTitle, l10n.attPrepromptAllowBody),
-          section(l10n.attPrepromptDenyTitle, l10n.attPrepromptDenyBody),
-          section(l10n.attPrepromptEitherTitle, l10n.attPrepromptEitherBody),
-        ],
-      ),
-      bottom: Column(
-        mainAxisSize: MainAxisSize.min,
-        spacing: tokens.space.s3,
+        ),
+      ],
+      footer: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: tokens.space.s4,
         children: [
           TaroButton.primary(
             label: l10n.attPrepromptContinue,
@@ -93,9 +137,8 @@ class AttPrePromptLayout extends StatelessWidget {
           ),
           Text(
             l10n.attPrepromptFootnote,
-            style: tokens.typography.caption.copyWith(
-              color: tokens.color.text.tertiary,
-            ),
+            textAlign: TextAlign.center,
+            style: tokens.typography.caption.copyWith(color: c.text.tertiary),
           ),
         ],
       ),

@@ -59,6 +59,20 @@ void main() {
 
   Finder faces() => find.byType(TaroCardFace, skipOffstage: false);
 
+  /// Shuffle once, then "I'm ready — draw".
+  Future<void> startPicking(WidgetTester tester) async {
+    await tapFound(tester, find.text(l10n.drawShuffleButton));
+    await tapFound(tester, find.text(l10n.drawShuffleReady));
+  }
+
+  /// "Draw for me" (after the shuffle, when still shuffling).
+  Future<void> drawForMe(WidgetTester tester) async {
+    if (find.text(l10n.drawShuffleReady).evaluate().isNotEmpty) {
+      await startPicking(tester);
+    }
+    await tapFound(tester, find.text(l10n.drawForMe));
+  }
+
   testWidgets('unavailable / preparing: loading, no faces', (tester) async {
     await pumpLayout(tester, const DrawState.unavailable());
     expect(find.byType(TaroLoadingView), findsOneWidget);
@@ -67,15 +81,20 @@ void main() {
     expect(faces(), findsNothing);
   });
 
-  testWidgets('shuffling: Shuffle and Draw for me; every card face-down', (
-    tester,
-  ) async {
+  testWidgets('shuffling: ready only after one shuffle; every card '
+      'face-down', (tester) async {
     final calls = await pumpLayout(tester, DrawState.shuffling(_view()));
     expect(find.text(l10n.drawShuffleTitle), findsOneWidget);
+    expect(find.text(l10n.drawShuffleNote), findsOneWidget);
     expect(faces(), findsNothing);
+    TaroButton ready() => tester.widget<TaroButton>(
+      find.widgetWithText(TaroButton, l10n.drawShuffleReady),
+    );
+    expect(ready().onPressed, isNull);
     await tapFound(tester, find.text(l10n.drawShuffleButton));
-    await tapFound(tester, find.text(l10n.drawForMe));
-    expect(calls, ['shuffled', 'drawForMe']);
+    expect(ready().onPressed, isNotNull);
+    await tapFound(tester, find.text(l10n.drawShuffleReady));
+    expect(calls, ['shuffled']);
   });
 
   testWidgets('picking: the fan picks; progress in the bar; no faces', (
@@ -324,9 +343,9 @@ void main() {
       final fakes = TaroFakes();
       await open(tester, fakes, classic());
       expect(faces(), findsNothing);
-      await tapFound(tester, find.text(l10n.drawShuffleButton));
+      await startPicking(tester);
       expect(find.text(l10n.drawPickTitle(3)), findsOneWidget);
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       expect(find.text(l10n.drawRevealTitle), findsOneWidget);
       await tester.tap(
         find.byWidgetPredicate((w) => w is TaroCardBack && w.onTap != null),
@@ -352,7 +371,7 @@ void main() {
           hold: aReadingHold(),
         ),
       );
-      await tapFound(tester, find.text(l10n.drawShuffleButton));
+      await startPicking(tester);
       await tester.tap(find.byType(TaroCardBack).last);
       await tester.pumpAndSettle();
       await tapFound(tester, find.text(l10n.drawRevealAll));
@@ -381,7 +400,7 @@ void main() {
           hold: aReadingHold(),
         ),
       );
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.helpCrisisFrom('reading'));
     });
@@ -410,7 +429,7 @@ void main() {
         const Failure.insufficientCredits(reason: InsufficientReason.noCredits),
       );
       final empty = aCreditBalance().withFreeRemaining(0).build();
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       fakes.balance.seed(empty.copyWith(ledgerVersion: 99));
       await tester.pumpAndSettle();
       Navigator.of(tester.element(find.byType(BottomSheet))).pop();
@@ -426,7 +445,7 @@ void main() {
       final fakes = aiReadyFakes();
       fakes.readings.failNextWorkerCall(const Failure.server(status: 500));
       await open(tester, fakes, ai());
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       await tapFound(tester, find.text(l10n.drawRevealAll));
       expect(find.text(l10n.drawGenerationFailedTitle), findsOneWidget);
       expect(faces(), findsOneWidget);
@@ -440,7 +459,7 @@ void main() {
       final fakes = aiReadyFakes();
       fakes.readings.failNextWorkerCall(const Failure.server(status: 500));
       await open(tester, fakes, ai());
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       await tapFound(tester, find.text(l10n.drawRevealAll));
       await tapFound(tester, find.text(l10n.commonRetry));
       final reading = fakes.journal.readings.values.single;
@@ -455,14 +474,14 @@ void main() {
         const Failure.readingsPaused(reason: PausedReason.disabled),
       );
       await open(tester, fakes, ai());
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       await tapFound(tester, find.text(l10n.drawRevealAll));
       expectRoute('/');
     });
 
     testWidgets('picked cards: back asks before leaving', (tester) async {
       await open(tester, TaroFakes(), classic());
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       await tester.binding.handlePopRoute();
       await tester.pumpAndSettle();
       expect(find.text(l10n.drawLeaveTitle), findsOneWidget);
@@ -491,7 +510,7 @@ void main() {
       fakes.readings.failNextWorkerCall(
         const Failure.insufficientCredits(reason: InsufficientReason.noCredits),
       );
-      await tapFound(tester, find.text(l10n.drawForMe));
+      await drawForMe(tester);
       expect(container.read(drawControllerProvider), isA<DrawHoldLost>());
       expect(find.byType(BottomSheet), findsOneWidget);
       expect(faces(), findsNothing);

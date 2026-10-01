@@ -218,6 +218,9 @@ final class TaroFakes {
   /// Backup exclusion.
   FakeBackupExclusion backupExclusion = FakeBackupExclusion();
 
+  /// External links.
+  FakeUrlLauncher links = FakeUrlLauncher();
+
   /// The bundled articles of S19 / S28: an empty article per ID (tests of
   /// those screens replace it).
   ArticleLoader articles = (id, locale) async =>
@@ -286,6 +289,7 @@ final class TaroFakes {
     connectivityMonitorProvider.overrideWithValue(connectivity),
     reviewPrompterProvider.overrideWithValue(review),
     backupExclusionProvider.overrideWithValue(backupExclusion),
+    urlLauncherProvider.overrideWithValue(links),
     articleLoaderProvider.overrideWithValue(articles),
     consentOrchestratorProvider.overrideWithValue(
       orchestratorPort ?? orchestrator,

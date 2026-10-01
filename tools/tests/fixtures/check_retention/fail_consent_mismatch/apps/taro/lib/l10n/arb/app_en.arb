@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks Anthropic's Claude AI to write the interpretation. We never send your name, email or advertising ID. We keep your question for 30 days. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 30 days. Anthropic does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI's GPT models to write the interpretation. We never send your name, email or advertising ID. We keep your question for 30 days. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 30 days. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
   "@aiConsentBody": {
     "description": "AI consent"
   }

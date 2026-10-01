@@ -120,7 +120,7 @@ void main() {
         log.last,
         const AiConsentState.undecided(
           origin: AiConsentOrigin.onboarding,
-          version: 1,
+          version: 2,
         ),
       );
       await container
@@ -128,12 +128,12 @@ void main() {
             aiConsentControllerProvider(AiConsentOrigin.onboarding).notifier,
           )
           .decide(granted: true);
-      expect(fakes.consentStore.current.ai.isValidFor(1), isTrue);
+      expect(fakes.consentStore.current.ai.isValidFor(2), isTrue);
       expect(fakes.consentStore.current.onboardingStep, OnboardingStep.done);
       final decided = eventsOf<AiConsentDecidedEvent>(fakes).single;
       expect(decided.granted, isTrue);
       expect(decided.origin, AiConsentOrigin.onboarding);
-      expect(decided.consentVersion, 1);
+      expect(decided.consentVersion, 2);
       expect(viewed(), [
         AnalyticsOnboardingStep.aiConsent,
         AnalyticsOnboardingStep.ump,

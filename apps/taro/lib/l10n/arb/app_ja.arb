@@ -74,7 +74,7 @@
   "@aiConsentTitle": {
     "x-translate": true
   },
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks an AI service (Anthropic’s Claude or OpenAI’s GPT models) to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. These AI providers do not use this data to train their models. Readings are AI-generated and may be wrong or unexpected.",
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI’s GPT models to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
   "@aiConsentBody": {
     "x-translate": true
   },
@@ -462,6 +462,10 @@
   },
   "aiConsentReentryBack": "Back",
   "@aiConsentReentryBack": {
+    "x-translate": true
+  },
+  "aiConsentReentryFootnote": "Choose Back to draw a classic reading with the card meanings instead. You can allow AI readings any time in Settings.",
+  "@aiConsentReentryFootnote": {
     "x-translate": true
   },
   "attPrepromptTitle": "About ad tracking",
@@ -981,6 +985,18 @@
   },
   "questionTryClassic": "Try a classic reading",
   "@questionTryClassic": {
+    "x-translate": true
+  },
+  "questionRefusedHeadline": "Let’s look at this another way",
+  "@questionRefusedHeadline": {
+    "x-translate": true
+  },
+  "questionNoReadingUsed": "No reading was used",
+  "@questionNoReadingUsed": {
+    "x-translate": true
+  },
+  "questionRephraseTry": "Try asking about how you feel, or what you can do",
+  "@questionRephraseTry": {
     "x-translate": true
   },
   "questionClassicCaption": "Uses the card meanings for each position. Free, no AI, works offline.",
@@ -2059,7 +2075,7 @@
   "@privacyAiHeading": {
     "x-translate": true
   },
-  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (Anthropic or OpenAI) to write readings.",
+  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (OpenAI) to write readings.",
   "@privacyAiAllowedSubtitle": {
     "x-translate": true
   },
@@ -2439,6 +2455,22 @@
   "@crisisLastChecked": {
     "x-translate": true
   },
+  "crisisCallSemantics": "Call {name} on {number}",
+  "@crisisCallSemantics": {
+    "x-translate": true
+  },
+  "crisisTextSemantics": "Text {name} on {number}",
+  "@crisisTextSemantics": {
+    "x-translate": true
+  },
+  "crisisOpenSemantics": "Open {site}",
+  "@crisisOpenSemantics": {
+    "x-translate": true
+  },
+  "crisisOpenFailed": "Couldn’t open this on your device. You can dial or visit it yourself.",
+  "@crisisOpenFailed": {
+    "x-translate": true
+  },
   "helpTitle": "Help & FAQ",
   "@helpTitle": {
     "x-translate": true
@@ -2555,6 +2587,34 @@
   "@drawLeaveBodySaved": {
     "x-translate": true
   },
+  "drawShuffleNote": "The order is already random. Shuffling is your moment to pause.",
+  "@drawShuffleNote": {
+    "x-translate": true
+  },
+  "drawShuffleReady": "I’m ready — draw",
+  "@drawShuffleReady": {
+    "x-translate": true
+  },
+  "drawRevealedProgress": "{revealed} of {total} revealed",
+  "@drawRevealedProgress": {
+    "x-translate": true
+  },
+  "drawTapToReveal": "Tap to reveal",
+  "@drawTapToReveal": {
+    "x-translate": true
+  },
+  "drawDeckSemantics": "{count, plural, other{Deck, {count} cards}}",
+  "@drawDeckSemantics": {
+    "x-translate": true
+  },
+  "drawSlotBackSemantics": "Card back, position {position} of {total}, {name}",
+  "@drawSlotBackSemantics": {
+    "x-translate": true
+  },
+  "drawSlotRevealSemantics": "Card back, position {position} of {total}, {name}. Double-tap to reveal",
+  "@drawSlotRevealSemantics": {
+    "x-translate": true
+  },
   "storeOfflineNotice": "You’re offline. Connect to buy readings.",
   "@storeOfflineNotice": {
     "x-translate": true
@@ -2581,6 +2641,50 @@
   },
   "shareQuestionLabel": "My question",
   "@shareQuestionLabel": {
+    "x-translate": true
+  },
+  "homeCoachmarkTitle": "Your first AI reading today is free",
+  "@homeCoachmarkTitle": {
+    "x-translate": true
+  },
+  "homeCoachmarkFreeBody": "Start here when a question is on your mind. You get one free reading every day.",
+  "@homeCoachmarkFreeBody": {
+    "x-translate": true
+  },
+  "homeCoachmarkDismiss": "Got it",
+  "@homeCoachmarkDismiss": {
+    "x-translate": true
+  },
+  "dailyCardBackSemantics": "Card back, double-tap to reveal",
+  "@dailyCardBackSemantics": {
+    "x-translate": true
+  },
+  "dailyRevealedAnnouncement": "Card revealed: {card}",
+  "@dailyRevealedAnnouncement": {
+    "x-translate": true
+  },
+  "dailyHeaderSemantics": "Your daily card, {date}",
+  "@dailyHeaderSemantics": {
+    "x-translate": true
+  },
+  "dailyKeywordsSemantics": "Keywords: {keywords}",
+  "@dailyKeywordsSemantics": {
+    "x-translate": true
+  },
+  "dailyNotDrawnPrompt": "Tap the card to reveal today’s card",
+  "@dailyNotDrawnPrompt": {
+    "x-translate": true
+  },
+  "dailyNotDrawnBody": "Take a breath first, if you like. It stays the same all day.",
+  "@dailyNotDrawnBody": {
+    "x-translate": true
+  },
+  "dailyNotDrawnBadge": "Free · works offline · no AI",
+  "@dailyNotDrawnBadge": {
+    "x-translate": true
+  },
+  "dailyBackToToday": "Back to Today",
+  "@dailyBackToToday": {
     "x-translate": true
   }
 }

@@ -51,6 +51,7 @@ void main() {
     await app.tapButton(ar.questionBegin);
     await app.waitForScreen(ScreenId.s08);
     await app.tapButton(ar.drawShuffleButton);
+    await app.tapButton(ar.drawShuffleReady);
     await app.tapButton(ar.drawForMe);
     await app.tapButton(ar.drawRevealAll);
     await app.waitForScreen(ScreenId.s09);

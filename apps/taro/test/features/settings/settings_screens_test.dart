@@ -523,7 +523,7 @@ void main() {
       fakes.consentStore.seed(
         const ConsentState(
           onboardingStep: OnboardingStep.done,
-          ai: AiConsent(decision: AiConsentDecision.granted, version: 1),
+          ai: AiConsent(decision: AiConsentDecision.granted, version: 2),
         ),
       );
       final router = await pumpRouted(

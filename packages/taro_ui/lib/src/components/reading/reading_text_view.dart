@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/common/taro_pressable.dart';
 import 'package:taro_ui/src/components/reading/reading_section_header.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
 import 'package:taro_ui/src/components/state/taro_shimmer.dart';
@@ -11,7 +12,12 @@ import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 @immutable
 class ReadingTextSection {
   /// Creates the section.
-  const ReadingTextSection({required this.body, this.heading, this.subheading});
+  const ReadingTextSection({
+    required this.body,
+    this.heading,
+    this.subheading,
+    this.collapsible = false,
+  });
 
   /// Localised heading, drawn with `ReadingSectionHeader`.
   final String? heading;
@@ -21,6 +27,12 @@ class ReadingTextSection {
 
   /// The section text; blank lines separate paragraphs.
   final String body;
+
+  /// Whether the heading toggles the body (S09 positions, 01 §7.4). It
+  /// starts expanded; the heading is a button exposing
+  /// `Semantics(expanded:)` and the body resizes over
+  /// `motion.duration.base` (at once under reduced motion).
+  final bool collapsible;
 }
 
 /// Long-form, selectable reading text (02 §14.3): the quoted question, the
@@ -197,19 +209,7 @@ class _ReadingTextViewState extends State<ReadingTextView>
       for (final section in widget.sections)
         _staggered(
           block++,
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: tokens.space.s3,
-            children: [
-              if (section.heading != null)
-                ReadingSectionHeader(
-                  title: section.heading!,
-                  subtitle: section.subheading,
-                ),
-              for (final paragraph in section.body.split(RegExp(r'\n\s*\n')))
-                Text(paragraph.trim(), style: reading),
-            ],
-          ),
+          _SectionBlock(section: section, style: reading),
         ),
       ?widget.footer,
     ];
@@ -223,6 +223,97 @@ class _ReadingTextViewState extends State<ReadingTextView>
             mainAxisSize: MainAxisSize.min,
             spacing: tokens.space.s5,
             children: children,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SectionBlock extends StatefulWidget {
+  const _SectionBlock({required this.section, required this.style});
+
+  final ReadingTextSection section;
+  final TextStyle style;
+
+  @override
+  State<_SectionBlock> createState() => _SectionBlockState();
+}
+
+class _SectionBlockState extends State<_SectionBlock> {
+  bool _open = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final section = widget.section;
+    final heading = section.heading;
+    final paragraphs = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
+      children: [
+        for (final paragraph in section.body.split(RegExp(r'\n\s*\n')))
+          Text(paragraph.trim(), style: widget.style),
+      ],
+    );
+    Widget? header;
+    if (heading != null) {
+      final title = ReadingSectionHeader(
+        title: heading,
+        subtitle: section.subheading,
+      );
+      header = section.collapsible ? _toggle(context, title) : title;
+    }
+    final collapsible = section.collapsible && heading != null;
+    final body = !collapsible || _open
+        ? paragraphs
+        : const SizedBox(width: double.infinity);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
+      children: [
+        ?header,
+        if (!collapsible || context.reduceMotion)
+          body
+        else
+          AnimatedSize(
+            duration: context.motion.duration.base,
+            curve: context.motion.easing.standard,
+            alignment: AlignmentDirectional.topStart,
+            child: body,
+          ),
+      ],
+    );
+  }
+
+  Widget _toggle(BuildContext context, Widget row) {
+    final tokens = context.tokens;
+    final motion = context.motion;
+    return Semantics(
+      button: true,
+      expanded: _open,
+      child: TaroPressable(
+        onTap: () => setState(() => _open = !_open),
+        borderRadius: tokens.radius.sm,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: tokens.size.touchTarget.min),
+          child: Row(
+            children: [
+              Expanded(child: row),
+              SizedBox(width: tokens.space.s3),
+              ExcludeSemantics(
+                child: AnimatedRotation(
+                  turns: _open ? 0.5 : 0,
+                  duration: motion.duration.base,
+                  curve: motion.easing.standard,
+                  child: Icon(
+                    Icons.expand_more_rounded,
+                    size: tokens.size.icon.md,
+                    color: tokens.color.text.secondary,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

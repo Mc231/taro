@@ -27,6 +27,9 @@ abstract class ReadingResultView with _$ReadingResultView {
   const factory ReadingResultView({
     required Reading reading,
     required Map<CardId, CardText> cardTexts,
+
+    /// The spread geometry of the S09 mini spread (null: a plain row).
+    SpreadDefinition? spread,
   }) = _ReadingResultView;
 
   const ReadingResultView._();
@@ -78,6 +81,7 @@ final class ReadingResultController extends Notifier<ReadingResultState> {
   final ReadingResultArgs args;
 
   final Map<CardId, CardText> _texts = {};
+  SpreadDefinition? _spread;
   Reading? _reading;
   bool _viewed = false;
   bool _sharing = false;
@@ -111,6 +115,13 @@ final class ReadingResultController extends Notifier<ReadingResultState> {
           return;
       }
     }
+    if (_spread?.id != reading.spreadId) {
+      final spreads = await content.spreads();
+      if (!ref.mounted) return;
+      _spread = spreads.valueOrNull
+          ?.where((s) => s.id == reading.spreadId)
+          .firstOrNull;
+    }
     _reading = reading;
     state = _stateFor(reading);
     if (!_viewed) {
@@ -130,6 +141,7 @@ final class ReadingResultController extends Notifier<ReadingResultState> {
     final view = ReadingResultView(
       reading: reading,
       cardTexts: Map.unmodifiable(_texts),
+      spread: _spread,
     );
     if (_sharing) return ReadingResultState.sharing(view);
     return reading.rating == null

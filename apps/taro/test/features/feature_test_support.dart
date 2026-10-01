@@ -9,7 +9,7 @@ export '../helpers/pump_app.dart';
 /// Consent with AI data sharing granted at version 1 and onboarding done.
 const ConsentState kAiGranted = ConsentState(
   onboardingStep: OnboardingStep.done,
-  ai: AiConsent(decision: AiConsentDecision.granted, version: 1),
+  ai: AiConsent(decision: AiConsentDecision.granted, version: 2),
 );
 
 /// Fakes where an AI reading is allowed (registered, consent, a free

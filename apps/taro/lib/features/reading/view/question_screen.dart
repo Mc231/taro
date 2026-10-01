@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taro/common/balance_chip.dart';
+import 'package:taro/common/card_art.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/common/offline_banner.dart';
 import 'package:taro/common/spread_text.dart';
@@ -55,6 +56,26 @@ class QuestionScreen extends ConsumerStatefulWidget {
 
 class _QuestionScreenState extends ConsumerState<QuestionScreen> {
   final TextEditingController _text = TextEditingController();
+  bool _precached = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 02 §17: the art S08 shows first is decoded while the user types (a
+    // preset card from the daily card's "Reflect deeper").
+    if (_precached) return;
+    _precached = true;
+    final preset = widget.args.presetCards;
+    if (preset.isEmpty) return;
+    unawaited(
+      CardArt.precacheFaces(
+        context,
+        [for (final c in preset) c.cardId],
+        logicalWidth: TaroCardSize.md.widthIn(context),
+        artSet: ref.read(deckArtSetProvider).value ?? CardArt.defaultArtSet,
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -92,6 +113,8 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
       onBack: () =>
           context.canPop() ? context.pop() : context.go(RoutePaths.home),
       onDailyCard: () => context.go(RoutePaths.daily),
+      onJournal: () => context.go(RoutePaths.journal),
+      onHome: () => context.go(RoutePaths.home),
       onLearn: () => context.go(RoutePaths.learn),
       onChooseSpread: () => context.go(RoutePaths.readingSpreads),
     );
@@ -146,7 +169,8 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
   }
 }
 
-/// The S07 / S31 layout for [state].
+/// The S07 / S31 layout for [state] (`Question.dc.html`,
+/// `QuestionRefused.dc.html`, `ReadingsPaused.dc.html`).
 class QuestionLayout extends ConsumerWidget {
   /// Creates the view.
   const QuestionLayout({
@@ -165,6 +189,8 @@ class QuestionLayout extends ConsumerWidget {
     required this.onDailyCard,
     required this.onLearn,
     required this.onChooseSpread,
+    this.onJournal,
+    this.onHome,
     super.key,
   });
 
@@ -177,7 +203,7 @@ class QuestionLayout extends ConsumerWidget {
   /// The question changed.
   final ValueChanged<String> onChanged;
 
-  /// A suggestion chip was tapped.
+  /// A suggestion chip (or an example rewording) was tapped.
   final ValueChanged<String> onSuggestion;
 
   /// **Begin**.
@@ -213,171 +239,266 @@ class QuestionLayout extends ConsumerWidget {
   /// Back to the spread picker.
   final VoidCallback onChooseSpread;
 
+  /// S31 link: the Journal (hidden when null).
+  final VoidCallback? onJournal;
+
+  /// S31 "Back to Today" (falls back to [onBack]).
+  final VoidCallback? onHome;
+
+  /// Whether the field takes input in this state.
+  bool get _editable => switch (state) {
+    QuestionEditing() ||
+    QuestionRephrase() ||
+    QuestionRefused() ||
+    QuestionRateLimited() ||
+    QuestionOffline() ||
+    QuestionFailed() ||
+    QuestionConsentRequired() ||
+    QuestionDeviceUnverified() => true,
+    _ => false,
+  };
+
+  bool get _checking => state is QuestionChecking || state is QuestionReady;
+
+  /// Whether "Reflect on the cards without a question" is offered: a
+  /// declined draw exists and the category allows it.
+  bool get _canReflect => switch (state) {
+    QuestionRephrase() => true,
+    QuestionRefused(:final draw, :final category) =>
+      draw != null && !category.isModerationBlocked,
+    _ => false,
+  };
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    final draft = state.draft;
-    final spread = draft.spread;
-    final checking = state is QuestionChecking || state is QuestionReady;
-    final editable = switch (state) {
-      QuestionEditing() ||
-      QuestionRephrase() ||
-      QuestionRefused() ||
-      QuestionRateLimited() ||
-      QuestionOffline() ||
-      QuestionFailed() ||
-      QuestionConsentRequired() ||
-      QuestionDeviceUnverified() => true,
-      _ => false,
-    };
-    final beginEnabled =
-        draft.canBegin &&
-        switch (state) {
-          QuestionEditing() ||
-          QuestionRephrase() ||
-          QuestionRefused() ||
-          QuestionRateLimited() => true,
-          _ => false,
-        };
     final chip = ref.watch(balanceChipProvider);
+    final status = _statusCard(context);
     final notice = _notice(context);
+    final balance = BalanceChip(today: true, onTap: onOpenOptions);
+    // At large text the chip leaves the bar for the body (01 §12).
+    final chipInBody =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
     return TaroScaffold(
       appBar: TaroAppBar(
         onLeading: onBack,
         leadingLabel: l10n.commonBack,
-        title: spread == null ? null : SpreadText.name(l10n, spread.id),
+        actions: [if (!chipInBody) balance],
       ),
       topBanner: const OfflineBanner(),
-      body: ListView(
-        padding: EdgeInsetsDirectional.only(bottom: tokens.space.s7),
-        children: [
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: BalanceChip(today: true, onTap: onOpenOptions),
-          ),
-          SizedBox(height: tokens.space.s5),
-          Semantics(
-            header: true,
-            child: Text(l10n.questionTitle, style: tokens.typography.headline),
-          ),
-          SizedBox(height: tokens.space.s5),
-          TaroTextField(
-            controller: text,
-            style: TaroTextFieldStyle.multiLine,
-            label: l10n.questionLabel,
-            hintText: l10n.questionHint,
-            maxGraphemes: draft.maxChars,
-            counterFormatter: l10n.commonNoteCounter,
-            errorText: draft.check.problem == QuestionProblem.noText
-                ? l10n.questionOnlySymbols
-                : null,
-            helperText: draft.check.personalDetailsWarning
-                ? l10n.questionPersonalDetails
-                : null,
-            enabled: editable,
-            onChanged: onChanged,
-          ),
-          if (spread != null && editable) ...[
-            SizedBox(height: tokens.space.s5),
-            Text(l10n.questionIdeas, style: tokens.typography.label),
-            SizedBox(height: tokens.space.s3),
-            Wrap(
-              spacing: tokens.space.s3,
-              runSpacing: tokens.space.s3,
-              children: [
-                for (final key in spread.questionSuggestionKeys)
-                  if (SpreadText.lookup(l10n, key) case final suggestion?)
-                    Semantics(
-                      label: l10n.questionSuggestionSemantics(suggestion),
-                      excludeSemantics: true,
-                      button: true,
-                      child: TaroChip.suggestion(
-                        label: suggestion,
-                        onPressed: () => onSuggestion(suggestion),
-                      ),
-                    ),
-              ],
-            ),
+      body: SingleChildScrollView(
+        padding: EdgeInsetsDirectional.only(
+          top: tokens.space.s4,
+          bottom: tokens.space.s7,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (chipInBody) ...[
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: balance,
+              ),
+              SizedBox(height: tokens.space.s5),
+            ],
+            ..._header(context),
+            SizedBox(height: tokens.space.s6),
+            _field(context),
+            if (status != null) ...[SizedBox(height: tokens.space.s6), status],
+            if (notice != null) ...[SizedBox(height: tokens.space.s6), notice],
+            ..._ideas(context),
           ],
-          if (notice != null) ...[
-            SizedBox(height: tokens.space.s7),
-            notice,
-          ],
+        ),
+      ),
+      bottom: _bottom(context, chip),
+    );
+  }
+
+  List<Widget> _header(BuildContext context) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    final spread = state.draft.spread;
+    if (state case QuestionRefused(:final category)) {
+      final advice =
+          !category.isModerationBlocked && category != RefusalCategory.other;
+      return [
+        Semantics(
+          header: true,
+          child: Text(
+            l10n.questionRefusedHeadline,
+            style: tokens.typography.headline,
+          ),
+        ),
+        SizedBox(height: tokens.space.s6),
+        _StatusCard(
+          icon: Icons.info_outline_rounded,
+          title: l10n.questionRefusedTitle,
+          body: [
+            FailureMessage.refusal(l10n, category),
+            if (advice) l10n.questionRefusedProfessional,
+          ].join('\n'),
+          footer: _NoReadingUsed(label: l10n.questionNoReadingUsed),
+        ),
+      ];
+    }
+    return [
+      if (spread != null)
+        Text(
+          SpreadText.name(l10n, spread.id),
+          style: tokens.typography.caption.copyWith(
+            color: tokens.color.text.tertiary,
+          ),
+        ),
+      SizedBox(height: tokens.space.s2),
+      Semantics(
+        header: true,
+        child: Text(l10n.questionTitle, style: tokens.typography.headline),
+      ),
+    ];
+  }
+
+  Widget _field(BuildContext context) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    final draft = state.draft;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
+      children: [
+        TaroTextField(
+          controller: text,
+          style: TaroTextFieldStyle.multiLine,
+          label: l10n.questionLabel,
+          maxGraphemes: draft.maxChars,
+          counterFormatter: l10n.commonNoteCounter,
+          errorText: draft.check.problem == QuestionProblem.noText
+              ? l10n.questionOnlySymbols
+              : null,
+          helperText: draft.check.personalDetailsWarning
+              ? l10n.questionPersonalDetails
+              : null,
+          enabled: _editable || _checking,
+          readOnly: _checking,
+          onChanged: onChanged,
+        ),
+        // The inline guidance (01 §7.2, copy owned by 05).
+        Text(
+          l10n.questionHint,
+          style: tokens.typography.caption.copyWith(
+            color: tokens.color.text.secondary,
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Suggestion chips, or the example rewordings after a decline.
+  List<Widget> _ideas(BuildContext context) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    final spread = state.draft.spread;
+    final (String caption, List<String> ideas) = switch (state) {
+      QuestionRefused(:final category) when category.isModerationBlocked => (
+        '',
+        const <String>[],
+      ),
+      QuestionRephrase() || QuestionRefused() => (
+        l10n.questionRephraseTry,
+        [l10n.questionRephraseExample1, l10n.questionRephraseExample2],
+      ),
+      _ when spread != null && (_editable || _checking) => (
+        l10n.questionIdeas,
+        [
+          for (final key in spread.questionSuggestionKeys)
+            ?SpreadText.lookup(l10n, key),
         ],
       ),
-      bottom: Column(
-        mainAxisSize: MainAxisSize.min,
+      _ => ('', const <String>[]),
+    };
+    if (ideas.isEmpty) return const [];
+    return [
+      SizedBox(height: tokens.space.s6),
+      Text(
+        caption,
+        style: tokens.typography.label.copyWith(
+          color: tokens.color.text.tertiary,
+        ),
+      ),
+      SizedBox(height: tokens.space.s3),
+      Wrap(
         spacing: tokens.space.s3,
+        runSpacing: tokens.space.s3,
         children: [
-          TaroButton.primary(
-            label: l10n.questionBegin,
-            expand: true,
-            loading: checking,
-            loadingSemanticsHint: l10n.commonLoading,
-            onPressed: beginEnabled ? onBegin : null,
-          ),
-          if (_chargeLine(l10n, chip) case final line?)
-            Text(
-              line,
-              style: tokens.typography.caption.copyWith(
-                color: tokens.color.text.tertiary,
+          for (final idea in ideas)
+            Semantics(
+              label: l10n.questionSuggestionSemantics(idea),
+              excludeSemantics: true,
+              button: true,
+              enabled: !_checking,
+              child: TaroChip.suggestion(
+                label: idea,
+                onPressed: _checking ? null : () => onSuggestion(idea),
               ),
             ),
         ],
       ),
-    );
+    ];
   }
 
-  static String? _chargeLine(TaroLocalizations l10n, BalanceChipView chip) {
-    if (chip.balance == null || chip.sync == BalanceChipSync.unavailable) {
-      return null;
-    }
-    if (chip.free > 0) return l10n.questionChargeFree;
-    if (chip.credits > 0) return l10n.questionChargeCredits(chip.credits);
-    return null;
+  /// The S31-style status cards: paused, region, daily limit.
+  Widget? _statusCard(BuildContext context) {
+    final l10n = TaroLocalizations.of(context);
+    Widget link(String label, VoidCallback onPressed) =>
+        TaroChip.suggestion(label: label, onPressed: onPressed);
+    final links = [
+      link(l10n.commonDailyCard, onDailyCard),
+      link(l10n.commonLearn, onLearn),
+      if (onJournal case final journal?) link(l10n.commonJournal, journal),
+    ];
+    return switch (state) {
+      QuestionReadingsPaused(:final freePaused) => _StatusCard(
+        icon: Icons.bedtime_outlined,
+        title: freePaused ? l10n.pausedFreeTitle : l10n.pausedTitle,
+        body: l10n.pausedBody,
+        links: links,
+      ),
+      QuestionAiUnavailableRegion() => _StatusCard(
+        icon: Icons.public_off_outlined,
+        title: l10n.pausedRegionTitle,
+        body: l10n.pausedRegionBody,
+      ),
+      QuestionDailyLimitReached() => _StatusCard(
+        icon: Icons.bedtime_outlined,
+        title: l10n.questionDailyLimitTitle,
+        body: l10n.questionDailyLimitBody,
+        links: links,
+      ),
+      _ => null,
+    };
   }
 
   Widget? _notice(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     Widget action(String label, VoidCallback onPressed) =>
         TaroButton.tertiary(label: label, onPressed: onPressed);
-    final classic = action(l10n.questionTryClassic, onClassic);
     return switch (state) {
-      QuestionEditing() || QuestionChecking() || QuestionReady() => null,
-      QuestionOffline() => TaroInlineNotice(
-        kind: TaroNoticeKind.warning,
-        title: l10n.questionOfflineNotice,
-        liveRegion: true,
-      ),
       QuestionConsentRequired() => TaroInlineNotice(
         kind: TaroNoticeKind.info,
         title: l10n.questionConsentDeclinedNotice,
         body: l10n.questionClassicCaption,
-        actions: [action(l10n.aiConsentAccept, onOpenConsent), classic],
+        liveRegion: true,
+        actions: [
+          action(l10n.aiConsentAccept, onOpenConsent),
+          action(l10n.questionTryClassic, onClassic),
+        ],
       ),
       QuestionDeviceUnverified() => TaroInlineNotice(
         kind: TaroNoticeKind.warning,
         title: l10n.questionDeviceUnverified,
         body: l10n.errorDeviceUnverifiedBody,
+        liveRegion: true,
         actions: [action(l10n.commonRetry, onRetry)],
-      ),
-      QuestionReadingsPaused(:final freePaused) => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        prominent: true,
-        title: freePaused ? l10n.pausedFreeTitle : l10n.pausedTitle,
-        body: l10n.pausedBody,
-        actions: [
-          action(l10n.commonDailyCard, onDailyCard),
-          action(l10n.commonLearn, onLearn),
-          classic,
-        ],
-      ),
-      QuestionAiUnavailableRegion() => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        title: l10n.pausedRegionTitle,
-        body: l10n.pausedRegionBody,
-        actions: [classic],
       ),
       QuestionOutOfReadings() => TaroInlineNotice(
         kind: TaroNoticeKind.info,
@@ -391,53 +512,222 @@ class QuestionLayout extends ConsumerWidget {
         body: l10n.outOfReadingsBody,
         actions: [action(l10n.outOfReadingsGetMore, onOpenOptions)],
       ),
-      QuestionDailyLimitReached() => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        title: l10n.questionDailyLimitTitle,
-        body: l10n.questionDailyLimitBody,
-        actions: [
-          action(l10n.commonDailyCard, onDailyCard),
-          action(l10n.commonLearn, onLearn),
-        ],
-      ),
       QuestionRephrase(:final safety) => TaroInlineNotice(
         kind: TaroNoticeKind.info,
         title: l10n.questionRephraseTitle,
-        body: [
-          FailureMessage.forKey(l10n, safety.messageKey),
-          l10n.questionRephraseExamples,
-          l10n.questionRephraseExample1,
-          l10n.questionRephraseExample2,
-        ].join('\n'),
-        actions: [
-          action(l10n.questionReflectWithoutQuestion, onReflectWithoutQuestion),
-        ],
-      ),
-      QuestionRefused(:final category) => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        title: l10n.questionRefusedTitle,
-        body:
-            '${FailureMessage.refusal(l10n, category)}\n'
-            '${l10n.questionRefusedProfessional}',
-        onDismiss: onDismiss,
-        dismissLabel: l10n.commonDismiss,
+        body: FailureMessage.forKey(l10n, safety.messageKey),
+        liveRegion: true,
       ),
       QuestionRateLimited() => TaroInlineNotice(
         kind: TaroNoticeKind.warning,
         title: l10n.questionRateLimited,
+        liveRegion: true,
         onDismiss: onDismiss,
         dismissLabel: l10n.commonDismiss,
       ),
       QuestionSpreadDisabled() => TaroInlineNotice(
         kind: TaroNoticeKind.warning,
         title: l10n.questionSpreadDisabled,
+        liveRegion: true,
         actions: [action(l10n.spreadsTitle, onChooseSpread)],
       ),
       QuestionFailed(:final failure) => TaroInlineNotice(
         kind: TaroNoticeKind.error,
         title: FailureMessage.of(context, failure),
+        liveRegion: true,
         actions: [action(l10n.commonRetry, onRetry)],
       ),
+      _ => null,
     };
+  }
+
+  Widget _bottom(BuildContext context, BalanceChipView chip) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    Text caption(String text) => Text(
+      text,
+      textAlign: TextAlign.center,
+      style: tokens.typography.caption.copyWith(
+        color: tokens.color.text.tertiary,
+      ),
+    );
+    final home = TaroButton.secondary(
+      label: l10n.commonBackToToday,
+      expand: true,
+      onPressed: onHome ?? onBack,
+    );
+    final children = switch (state) {
+      QuestionReadingsPaused() || QuestionAiUnavailableRegion() => [
+        TaroButton.primary(
+          label: l10n.questionTryClassic,
+          expand: true,
+          onPressed: onClassic,
+        ),
+        caption(l10n.questionClassicCaption),
+        home,
+      ],
+      QuestionDailyLimitReached() => [home],
+      _ => [
+        if (state is QuestionOffline)
+          TaroInlineNotice(
+            kind: TaroNoticeKind.warning,
+            title: l10n.questionOfflineNotice,
+            liveRegion: true,
+          ),
+        TaroButton.primary(
+          label: l10n.questionBegin,
+          expand: true,
+          loading: _checking,
+          loadingSemanticsHint: l10n.commonLoading,
+          onPressed: _beginEnabled ? onBegin : null,
+        ),
+        if (_canReflect)
+          TaroButton.tertiary(
+            label: l10n.questionReflectWithoutQuestion,
+            onPressed: onReflectWithoutQuestion,
+          )
+        else if (_chargeLine(l10n, chip) case final line?)
+          caption(line),
+      ],
+    };
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
+      children: children,
+    );
+  }
+
+  bool get _beginEnabled =>
+      state.draft.canBegin &&
+      switch (state) {
+        QuestionEditing() ||
+        QuestionRephrase() ||
+        QuestionRefused() ||
+        QuestionRateLimited() => true,
+        _ => false,
+      };
+
+  static String? _chargeLine(TaroLocalizations l10n, BalanceChipView chip) {
+    if (chip.balance == null || chip.sync == BalanceChipSync.unavailable) {
+      return null;
+    }
+    if (chip.free > 0) return l10n.questionChargeFree;
+    if (chip.credits > 0) return l10n.questionChargeCredits(chip.credits);
+    return null;
+  }
+}
+
+/// The S31-style card (`ReadingsPaused.dc.html`, `QuestionRefused.dc.html`):
+/// icon tile, serif title, body, optional link chips and footer. Announced
+/// politely when it appears.
+class _StatusCard extends StatelessWidget {
+  const _StatusCard({
+    required this.icon,
+    required this.title,
+    required this.body,
+    this.links = const [],
+    this.footer,
+  });
+
+  final IconData icon;
+  final String title;
+  final String body;
+  final List<Widget> links;
+  final Widget? footer;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final c = tokens.color;
+    final tile = tokens.size.touchTarget.min;
+    return Semantics(
+      container: true,
+      liveRegion: true,
+      child: TaroSurfaceCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ExcludeSemantics(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: c.accent.subtle,
+                      borderRadius: BorderRadius.circular(tokens.radius.md),
+                    ),
+                    child: SizedBox.square(
+                      dimension: tile,
+                      child: Icon(
+                        icon,
+                        size: tokens.size.icon.md,
+                        color: c.status.info,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: tokens.space.s5),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: tokens.space.s2,
+                    children: [
+                      Semantics(
+                        header: true,
+                        child: Text(title, style: tokens.typography.cardName),
+                      ),
+                      Text(
+                        body,
+                        style: tokens.typography.body.copyWith(
+                          color: c.text.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            if (links.isNotEmpty) ...[
+              SizedBox(height: tokens.space.s5),
+              Wrap(
+                spacing: tokens.space.s3,
+                runSpacing: tokens.space.s3,
+                children: links,
+              ),
+            ],
+            if (footer case final footer?) ...[
+              SizedBox(height: tokens.space.s5),
+              footer,
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// "✓ No reading was used" under the refusal card.
+class _NoReadingUsed extends StatelessWidget {
+  const _NoReadingUsed({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final color = tokens.color.status.info;
+    return Row(
+      spacing: tokens.space.s3,
+      children: [
+        Icon(Icons.check_rounded, size: tokens.size.icon.md, color: color),
+        Expanded(
+          child: Text(
+            label,
+            style: tokens.typography.label.copyWith(color: color),
+          ),
+        ),
+      ],
+    );
   }
 }

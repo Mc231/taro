@@ -40,7 +40,7 @@ void main() {
     ]) {
       expect(en[key], isA<String>(), reason: key);
     }
-    expect(en['aiConsentBody'], contains('Anthropic’s Claude'));
+    expect(en['aiConsentBody'], isNot(contains('Anthropic')));
     expect(en['aiConsentBody'], contains('OpenAI’s GPT'));
   });
 

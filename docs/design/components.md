@@ -13,7 +13,7 @@ Every component that appears in the approved design system (https://claude.ai/ar
 
 Token names use the 01 §14 dot form (`color.bg.surface`); the Claude Design CSS writes them with dashes (`--color-bg-surface`). Every component: Semantics, ≥ 48 × 48 dp targets, focus ring (2 px `color.border.focus`, 2 px offset), RTL via directional insets, goldens light/dark × `en`/`ar` (02 §14.3).
 
-**Goldens (Sprint 15.3).** Each component below links its golden folder under `packages/taro_ui/test/golden/goldens/` and the test that renders it. File names are `<size>_<theme>_<locale>[_x2].png`: `phone_small_{light,dark}_{en,ar}` for every component, `phone_small_light_en_x2` (200 % text) for the text-heavy ones, `tablet_ipad13_{light_en,dark_ar}` for layout-level and navigation components (RC24). Generated on the reference platform (macOS arm64 + pinned Flutter) with `melos run golden:update`; `melos run test:golden` compares them. Several related components share one golden sheet (for example `TaroIconButton`, `TaroChip` and `StepIndicator` in `taro_icon_button_chip`).
+**Goldens (Sprint 15.3).** Each component below links its golden folder under `packages/taro_ui/test/golden/goldens/` and the test that renders it. File names are `<size>_<theme>_<locale>[_x2].png`: `phone_small_{light,dark}_{en,ar}` for every component, `phone_small_light_en_x2` (200 % text) for the text-heavy ones, `tablet_ipad13_{light_en,dark_ar}` for layout-level and navigation components (RC24). Generated on the reference platform (macOS arm64 + pinned Flutter) with `melos run golden:update`; `melos run test:golden` compares them. Several related components share one golden sheet (for example `TaroIconButton`, `TaroChip` and `StepIndicator` in `taro_icon_button_chip`). App screens (`apps/taro/test/golden/`, Phase 16) use the same `goldenMatrix` through `pumpAppGolden`; ★ states pass `keyScreen: true` (tablet widths) and `accessibility: true`, which also runs the 06 §3.2 guidelines (tap targets, labelled targets, text contrast) in `en` light and dark. A decorative gesture that duplicates a labelled button (the S08 shuffle deck) sets `excludeFromSemantics: true`.
 
 Design-system names → class names: **Button** → `TaroButton`; **TarotCard** → `TaroCardFace` + `TaroCardBack` + `TaroCardFlip`; **BalanceChip** → `BalanceChip` (app) over `BalancePill`; **BannerSlot** → `BannerSlot` (app) over `BannerContainer`; **PackRow** → `ProductOfferTile`; **InlineNotice** → `TaroInlineNotice`. (`components/Cover` is the brand-book cover illustration, not a component.)
 
@@ -90,6 +90,7 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 - **States:** step n of m.
 - **Screens:** S02, S03, S04 (onboarding).
 - **Golden:** [`taro_icon_button_chip/`](../../packages/taro_ui/test/golden/goldens/taro_icon_button_chip/) ([`inputs_golden_test.dart`](../../packages/taro_ui/test/golden/inputs_golden_test.dart)).
+- **Usage (Phase 16.1):** centred in the footer of the app's `OnboardingPage` template (`apps/taro/lib/common/onboarding_page.dart`: `space.12`/`space.7`/`space.9` padding, scrolling content, pinned footer, also used by the ATT pre-prompt with `OnboardingIconTile`); the step is the onboarding step, never a page index. Screen goldens: `apps/taro/test/golden/goldens/{s02_welcome_content,s03_disclaimer_content,s04_ai_consent_undecided,att_preprompt}/`.
 
 ### `TaroBrandMark` — **NEW → Phase 15**
 - **Purpose:** the Taro mark (eight-point star in an ochre card frame) + wordmark in `type.display`. Matches the app icon and splash.
@@ -221,7 +222,8 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 - **Purpose:** horizontally scrollable arc of the remaining backs ("Deck, 76 cards"), with the "Draw for me" button alternative.
 - **Tokens:** `size.card.sm`, `color.card.back`, `color.card.frame`, `color.card.glow`, `elevation.2`/`elevation.3`, `motion.ritual.shuffle`, `motion.easing.emphasized`, `haptic.pick`.
 - **States:** shuffling (hold-to-shuffle loop ≥ `motion.ritual.shuffle`), idle, card focused/picked, exhausted; reduced motion (static fan, crossfade).
-- **Screens:** S08 `shuffling`, `picking`.
+- **Screens:** S08 `picking` (the `shuffling` state shows a stacked deck instead).
+- **Usage (S08, Phase 16):** pass `focusedIndex` (default: the centre card) so "Pick this card" is always available, and pick directly in `onFocus` (a tap picks, 01 §8.3); wrap the fan in a `RepaintBoundary` (02 §17); pass null callbacks once every slot is filled.
 - **Golden:** [`card_fan/`](../../packages/taro_ui/test/golden/goldens/card_fan/) ([`deck_golden_test.dart`](../../packages/taro_ui/test/golden/deck_golden_test.dart)).
 
 ### `SpreadCanvas` — 02 §14.3
@@ -259,7 +261,8 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 ### `ReadingTextView` — 02 §14.3
 - **Purpose:** long-form, selectable reading text capped at `layout.readingMaxWidth`; includes the quoted question and the reading title.
 - **Tokens:** `type.bodyReading`, `type.headline` (title), `type.body` italic quote, `color.text.primary`, `color.text.secondary`, `layout.readingMaxWidth`, `motion.ritual.readingReveal`.
-- **States:** revealing (section stagger; none under reduced motion), content, loading from storage (skeleton), 200% text scale (never truncates).
+- **States:** revealing (section stagger; none under reduced motion), content, loading from storage (skeleton), 200% text scale (never truncates); a `ReadingTextSection(collapsible: true)` heading is a button (`Semantics(expanded:)`, ≥ 48 dp) that hides its body over `motion.duration.base` (at once under reduced motion), expanded by default.
+- **Usage (Phase 16.4):** S09 passes the summary without a heading, one collapsible section per position and the synthesis; the reflection prompts and "Write about this" go in `footer`. S32 uses `AiGeneratedLabel.classic` as the source label, no title, and `subheading` = position description · short meaning. The mini spread above it is the app's `ReadingMiniSpread` (`SpreadCanvas` at `size.card.md`). The S09 rating row reuses `ReadingRatingControl` (the spec's `RatingBar`) + `TaroChip.filter` reasons; the S27 resource row is app-private (`_CrisisResourceRow` in `crisis_resources_screen.dart`).
 - **Screens:** S09, S15 (excerpt), S32, S13 (authored meaning), S17 (upright / reversed meaning), S19, S29.
 - **Golden:** [`reading_text_view/`](../../packages/taro_ui/test/golden/goldens/reading_text_view/) ([`reading_components_golden_test.dart`](../../packages/taro_ui/test/golden/reading_components_golden_test.dart)).
 
@@ -399,7 +402,7 @@ Not in 02 §14.3 and not yet in the Phase 15 task list; added to `docs/phases/PH
 Checked against 02 §14.3 and not new: `SegmentedChoice` (the design's segmented control), `TaroInlineNotice` (InlineNotice), `Badge` (keyword pills, best value, status), `BalanceChip` / `BannerSlot` / `DisclaimerFooter` (app-level in 02 §14.3). Already in Phase 15 but not in 02: `TaroTabBar`, `TaroChip`, `CardFan`, `ReadingSectionHeader`, `AiGeneratedLabel` (now with a Classic variant), `ProductOfferTile` (PackRow), `BannerContainer`, `PatternsChart`.
 
 Designed after the first pass (2026-09-27), NEW → Phase 15:
-- `TaroCoachmark` — single dismissible coachmark with scrim that never covers the banner container; S05 first run (`TodayFirstRun.dc.html`). Golden: [`taro_coachmark/`](../../packages/taro_ui/test/golden/goldens/taro_coachmark/) ([`containers_golden_test.dart`](../../packages/taro_ui/test/golden/containers_golden_test.dart)).
+- `TaroCoachmark` — single dismissible coachmark with scrim that never covers the banner container; S05 first run (`TodayFirstRun.dc.html`). Usage (Phase 16): S05 wraps its whole `TaroScaffold` in `TaroCoachmarkLayer` (the tab bar is outside, and S05 drops the banner in first run), keys the CTA card as the target and re-measures on scroll; taps inside the hole reach the target, and on tablets the bubble keeps `layout.maxContentWidth`. Golden: [`taro_coachmark/`](../../packages/taro_ui/test/golden/goldens/taro_coachmark/) ([`containers_golden_test.dart`](../../packages/taro_ui/test/golden/containers_golden_test.dart)).
 - `TaroToast` — snackbar with optional Undo action; S09 rated (`ReadingRated.dc.html`), S11 `success`, S15 `deleted`. Golden: [`taro_toast/`](../../packages/taro_ui/test/golden/goldens/taro_toast/) ([`containers_golden_test.dart`](../../packages/taro_ui/test/golden/containers_golden_test.dart)).
 - `ReadingRatingControl` — Helpful / Not helpful toggle buttons with aria-labels; S09 (`ReadingRated.dc.html`). Golden: [`reading_rating_classic_label/`](../../packages/taro_ui/test/golden/goldens/reading_rating_classic_label/) ([`reading_components_golden_test.dart`](../../packages/taro_ui/test/golden/reading_components_golden_test.dart)).
 - ATT pre-prompt is a screen layout (`AttPrompt.dc.html`) built from `TaroScaffold` + `IconBulletList` + `TaroButton`; no new component.

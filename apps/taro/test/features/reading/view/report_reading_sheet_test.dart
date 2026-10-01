@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/reading/controller/report_reading_controller.dart';
@@ -42,7 +43,7 @@ void main() {
         find.byWidgetPredicate((w) => w is TaroButton && w.label == label),
       );
 
-  testWidgets('editing: chips (none selected), note, disclosure; Send '
+  testWidgets('editing: radios (none selected), note, disclosure; Send '
       'needs a reason', (tester) async {
     final calls = await pumpLayout(
       tester,
@@ -50,8 +51,12 @@ void main() {
     );
     expect(find.text(l10n.reportReadingDisclosure), findsOneWidget);
     expect(find.text(l10n.reportChooseReason), findsOneWidget);
-    for (final chip in tester.widgetList<TaroChip>(find.byType(TaroChip))) {
-      expect(chip.selected, isFalse);
+    final radios = tester.widgetList<TaroRadioTile<ReportReason>>(
+      find.byType(TaroRadioTile<ReportReason>),
+    );
+    expect(radios, hasLength(ReportReason.values.length));
+    for (final radio in radios) {
+      expect(radio.groupValue, isNull);
     }
     expect(send(tester, l10n.reportSend).onPressed, isNull);
     await tapFound(tester, find.text(l10n.reportReasonHarmfulAdvice));
@@ -66,12 +71,13 @@ void main() {
         ReportDraft(reason: ReportReason.other),
       ),
     );
+    expect(find.text(l10n.reportChooseReason), findsNothing);
     await tapFound(tester, find.text(l10n.reportSend));
-    await tapFound(tester, find.text(l10n.commonClose));
+    await tapFound(tester, find.text(l10n.commonCancel));
     expect(calls, ['send', 'close']);
   });
 
-  testWidgets('submitting: busy', (tester) async {
+  testWidgets('submitting: busy, radios read-only', (tester) async {
     await pumpLayout(
       tester,
       const ReportReadingState.submitting(
@@ -79,6 +85,11 @@ void main() {
       ),
     );
     expect(send(tester, l10n.reportSend).loading, isTrue);
+    for (final radio in tester.widgetList<TaroRadioTile<ReportReason>>(
+      find.byType(TaroRadioTile<ReportReason>),
+    )) {
+      expect(radio.onChanged, isNull);
+    }
   });
 
   testWidgets('submitted / alreadyReported: confirmation + close', (
@@ -125,20 +136,34 @@ void main() {
     expect(send(tester, l10n.reportSend).onPressed, isNull);
   });
 
-  testWidgets('sheet: choose, write, send → submitted', (tester) async {
+  testWidgets('sheet: choose, write, send → closes with a thank-you toast', (
+    tester,
+  ) async {
     final fakes = aiReadyFakes();
     final reading = aReading().withId('r-1').build();
     fakes.journal.putReading(reading);
     await pumpTaro(
       tester,
-      const ReportReadingSheet(id: ReadingId('r-1')),
+      Builder(
+        builder: (context) => TaroButton.primary(
+          label: 'open',
+          onPressed: () => TaroSheet.show<void>(
+            context,
+            builder: (_) => UncontrolledProviderScope(
+              container: ProviderScope.containerOf(context),
+              child: const ReportReadingSheet(id: ReadingId('r-1')),
+            ),
+          ),
+        ),
+      ),
       fakes: fakes,
     );
+    await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
     await tapFound(tester, find.text(l10n.reportReasonOffensive));
     await tester.enterText(find.byType(TextField), 'Rude');
     await tapFound(tester, find.text(l10n.reportSend));
+    expect(find.byType(ReportReadingSheet), findsNothing);
     expect(find.text(l10n.reportSubmitted), findsOneWidget);
-    await tapFound(tester, find.text(l10n.commonClose));
   });
 }

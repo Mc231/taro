@@ -792,9 +792,9 @@ describe('gates (03 §9.0 order; RC28, RC29, RC47, RC74, RC97)', () => {
     expect(missing.status).toBe(412);
     expect(await errorBody(missing)).toMatchObject({
       code: 'AI_CONSENT_REQUIRED',
-      details: { requiredVersion: 1 },
+      details: { requiredVersion: 2 },
     });
-    h.config.set({ 'ai.consentVersion': 2 });
+    h.config.set({ 'ai.consentVersion': 3 });
     const old = await postReading(h, id, readingId);
     expect((await errorBody(old)).code).toBe('AI_CONSENT_REQUIRED');
   });

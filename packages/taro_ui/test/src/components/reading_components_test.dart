@@ -241,6 +241,49 @@ void main() {
       );
     });
 
+    testWidgets('a collapsible section toggles its body', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      const view = ReadingTextView(
+        sections: [
+          ReadingTextSection(
+            heading: 'Present · The Star, reversed',
+            body: 'Hope that feels far away right now.',
+            collapsible: true,
+          ),
+        ],
+      );
+      Future<void> pump({required bool reduced}) async {
+        if (reduced) return pumpTaroUiWidget(tester, view);
+        await tester.pumpWidget(const SizedBox());
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: TaroTheme.light(),
+            home: const Scaffold(body: view),
+          ),
+        );
+      }
+
+      for (final reduced in [true, false]) {
+        await pump(reduced: reduced);
+        expect(find.text('Hope that feels far away right now.'), findsOne);
+        final heading = find.text('Present · The Star, reversed');
+        expect(
+          tester.getSemantics(heading),
+          isSemantics(isButton: true, isExpanded: true, hasExpandedState: true),
+        );
+        await tester.tap(heading);
+        await tester.pumpAndSettle();
+        expect(find.text('Hope that feels far away right now.'), findsNothing);
+        await tester.tap(heading);
+        await tester.pumpAndSettle();
+        expect(find.text('Hope that feels far away right now.'), findsOne);
+      }
+      await expectMeetsGuidelines(tester);
+      handle.dispose();
+    });
+
     testWidgets('loading shows skeletons with a label', (tester) async {
       final handle = tester.ensureSemantics();
       await pumpTaroUiWidget(

@@ -265,6 +265,11 @@ final reviewPrompterProvider = Provider<ReviewPrompter>(
   (ref) => _missing('reviewPrompterProvider'),
 );
 
+/// The [UrlLauncher] port (tel:, sms: and https: links outside the app).
+final urlLauncherProvider = Provider<UrlLauncher>(
+  (ref) => _missing('urlLauncherProvider'),
+);
+
 /// The [BackupExclusion] port (RC75).
 final backupExclusionProvider = Provider<BackupExclusion>(
   (ref) => _missing('backupExclusionProvider'),

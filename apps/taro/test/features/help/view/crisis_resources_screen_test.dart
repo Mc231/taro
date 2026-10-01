@@ -13,16 +13,25 @@ void main() {
 
   setUpAll(() async => l10n = await enL10n());
 
-  Future<void> pumpLayout(WidgetTester tester, CrisisResourcesState state) =>
-      pumpTaroWidget(
-        tester,
-        CrisisResourcesLayout(
-          state: state,
-          onClose: noop,
-          onRetry: noop,
-          onChooseCountry: noop1,
-        ),
-      );
+  Future<List<Uri>> pumpLayout(
+    WidgetTester tester,
+    CrisisResourcesState state, {
+    double textScale = 1,
+  }) async {
+    final opened = <Uri>[];
+    await pumpTaroWidget(
+      tester,
+      CrisisResourcesLayout(
+        state: state,
+        onClose: noop,
+        onRetry: noop,
+        onChooseCountry: noop1,
+        onOpen: opened.add,
+      ),
+      textScale: textScale,
+    );
+    return opened;
+  }
 
   testWidgets('loading', (tester) async {
     await pumpLayout(tester, const CrisisResourcesState.loading());
@@ -53,6 +62,57 @@ void main() {
     expect(find.text(l10n.crisisSupportIn('DE')), findsOneWidget);
     expect(find.text('Telefonseelsorge'), findsOneWidget);
     expect(find.textContaining('0800 111 0 111'), findsOneWidget);
+    expect(find.textContaining('Last checked'), findsOneWidget);
+  });
+
+  testWidgets('content: Call, Text and Open actions with labels', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    final opened = await pumpLayout(
+      tester,
+      CrisisResourcesState.content(
+        country: 'GB',
+        resources: [
+          aCrisisResource(name: 'Samaritans', phone: '116 123'),
+          aCrisisResource(name: 'Shout', phone: null).copyWith(sms: '85258'),
+          ...aCrisisDirectory().international,
+        ],
+        hasLocalLines: true,
+        countries: const ['GB'],
+      ),
+    );
+    expect(find.text(l10n.crisisInternationalName), findsOneWidget);
+    expect(find.text(l10n.crisisInternationalBody), findsOneWidget);
+    await tester.tap(
+      find.bySemanticsLabel(l10n.crisisCallSemantics('Samaritans', '116 123')),
+    );
+    await tester.tap(
+      find.bySemanticsLabel(l10n.crisisTextSemantics('Shout', '85258')),
+    );
+    await tester.tap(
+      find.bySemanticsLabel(l10n.crisisOpenSemantics('findahelpline.com')),
+    );
+    expect(opened, [
+      Uri.parse('tel:116123'),
+      Uri.parse('sms:85258'),
+      Uri.parse('https://findahelpline.com'),
+    ]);
+    handle.dispose();
+  });
+
+  testWidgets('content at text scale 2.0: no overflow', (tester) async {
+    await pumpLayout(
+      tester,
+      CrisisResourcesState.content(
+        country: 'DE',
+        resources: aCrisisDirectory().select(country: 'DE'),
+        hasLocalLines: true,
+        countries: const ['DE'],
+      ),
+      textScale: 2,
+    );
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('content without local lines: no country heading', (
@@ -73,8 +133,11 @@ void main() {
       ),
     );
     expect(find.text(l10n.crisisSupportIn('FR')), findsNothing);
-    expect(find.text('Find A Helpline'), findsOneWidget);
-    expect(find.text(l10n.crisisHours('123', '24/7')), findsOneWidget);
+    expect(find.text(l10n.crisisInternationalName), findsOneWidget);
+    expect(
+      find.text(l10n.crisisHours('\u2066123\u2069', '24/7')),
+      findsOneWidget,
+    );
     final other = tester.widget<TaroButton>(
       find.widgetWithText(TaroButton, l10n.crisisOtherCountry),
     );
@@ -114,7 +177,44 @@ void main() {
     expect(find.text(l10n.crisisCountryPicker), findsOneWidget);
     await tapText(tester, 'US');
     expect(find.text('988 Lifeline'), findsOneWidget);
-    await tester.tap(find.bySemanticsLabel(l10n.commonClose).first);
+    await tester.tap(find.text(l10n.crisisCall).first);
+    await tester.pumpAndSettle();
+    expect(fakes.links.opened, [Uri.parse('tel:988')]);
+    await tester.tap(find.bySemanticsLabel(l10n.commonBack).first);
+    await tester.pumpAndSettle();
+    expectRoute(RoutePaths.home);
+  });
+
+  testWidgets('screen: a link that cannot open shows a toast', (
+    tester,
+  ) async {
+    final fakes = TaroFakes()
+      ..crisis = FakeCrisisResourcesRepository(aCrisisDirectory());
+    fakes.links.failNext(const Failure.storage());
+    await pumpFlow(
+      tester,
+      path: RoutePaths.helpCrisis,
+      builder: (state) =>
+          CrisisResourcesScreen.fromQuery(state.uri.queryParameters),
+      fakes: fakes,
+      overrides: [crisisRegionProvider.overrideWithValue('DE')],
+    );
+    await tester.tap(find.text(l10n.crisisCall).first);
+    await tester.pumpAndSettle();
+    expect(find.text(l10n.crisisOpenFailed), findsOneWidget);
+  });
+
+  testWidgets('screen from a reading: Back goes Home', (tester) async {
+    await pumpFlow(
+      tester,
+      path: RoutePaths.helpCrisis,
+      location: CrisisResourcesScreen.location(CrisisResourcesOrigin.reading),
+      builder: (state) =>
+          CrisisResourcesScreen.fromQuery(state.uri.queryParameters),
+      fakes: TaroFakes(),
+      pushed: true,
+    );
+    await tester.tap(find.bySemanticsLabel(l10n.commonBack).first);
     await tester.pumpAndSettle();
     expectRoute(RoutePaths.home);
   });

@@ -44,6 +44,7 @@ void main() {
       on: 'hold',
     );
     await app.tapButton(l.drawShuffleButton);
+    await app.tapButton(l.drawShuffleReady);
     await app.tapButton(l.drawForMe);
     await app.waitForScreen(ScreenId.s10);
 

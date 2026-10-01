@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/app_state/crisis_handoff.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/help/controller/crisis_resources_controller.dart';
 import 'package:taro/features/help/controller/faq_controller.dart';
@@ -79,6 +80,50 @@ void main() {
         expect(content.resources, isNotEmpty);
       },
     );
+
+    test('from a reading: the Worker lines first, then international; '
+        'another country switches to the bundle', () async {
+      final container = open('DE', CrisisResourcesOrigin.reading);
+      final worker = aCrisisResource(name: 'Samaritans', phone: '116 123');
+      container.read(crisisHandoffProvider.notifier).offer([
+        worker,
+        aCrisisResource(name: 'Shout', phone: null).copyWith(sms: '85258'),
+        aCrisisResource(name: 'Third', phone: '1'),
+      ]);
+      final provider = crisisResourcesControllerProvider(
+        CrisisResourcesOrigin.reading,
+      );
+      await pumpEventQueue();
+      final content = container.read(provider) as CrisisResourcesContent;
+      expect(content.country, isNull);
+      expect(content.hasLocalLines, isTrue);
+      expect(content.resources.map((r) => r.name), [
+        'Samaritans',
+        'Shout',
+        'Find A Helpline',
+      ]);
+      container.read(provider.notifier).chooseCountry('us');
+      final other = container.read(provider) as CrisisResourcesContent;
+      expect(other.resources.first.name, '988 Lifeline');
+    });
+
+    test('from Help: the Worker lines are ignored', () async {
+      final container = open('DE', CrisisResourcesOrigin.help);
+      container.read(crisisHandoffProvider.notifier).offer([
+        aCrisisResource(name: 'Samaritans', phone: '116 123'),
+      ]);
+      await pumpEventQueue();
+      final content =
+          container.read(
+                crisisResourcesControllerProvider(CrisisResourcesOrigin.help),
+              )
+              as CrisisResourcesContent;
+      expect(content.country, 'DE');
+      expect(
+        content.resources.map((r) => r.name),
+        isNot(contains('Samaritans')),
+      );
+    });
 
     test('a broken bundle is a storage error', () async {
       fakes.crisis.failNext(const Failure.storage(), on: 'directory');

@@ -128,7 +128,7 @@ Route `/reading/question?spread=` · Banner none · Unions: `QuestionState` (`ap
 | `dailyLimitReached` |  | `QuestionState` | "You've reached today's reading limit"; no paywall (RC74). |
 | `lowTrustLimited` |  | `QuestionState` | S10 with "Free readings aren't available on this device right now"; purchase and rewarded stay available (RC74). |
 | `rephrase` |  | `QuestionState` | Declined with `canRephrase: true`: hint + example rewordings. |
-| `refused` | ★ | `QuestionState` | Declined without a rewording hint (03 §9.4 categories, RC27). |
+| `refused` | ★ | `QuestionState` | Declined without a rewording hint (03 §9.4 categories, RC27). [draw] is the declined draw, when there is one ("Reflect on the cards without a question"; never offered for moderation-blocked categories). |
 | `rateLimited` |  | `QuestionState` | `429 RATE_LIMITED` with `details.reason = burst`. |
 | `spreadDisabled` |  | `QuestionState` | The spread is not in `spreads.enabled` (a stale link or config flip). |
 | `failed` |  | `QuestionState` | Any other failure (storage, server): `TaroErrorView(kind)` + Retry. |

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/common/onboarding_page.dart';
 import 'package:taro/features/onboarding/controller/ai_consent_controller.dart';
 import 'package:taro/features/onboarding/view/welcome_screen.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -142,57 +143,60 @@ class AiConsentLayout extends StatelessWidget {
       expand: true,
       onPressed: busy ? null : (reentry ? onBack : onNotNow),
     );
-    return TaroScaffold(
+    return OnboardingPage(
+      gap: tokens.space.s7,
       appBar: onboarding
           ? null
           : TaroAppBar(onLeading: onBack, leadingLabel: l10n.commonBack),
-      body: ListView(
-        padding: EdgeInsetsDirectional.only(
-          top: onboarding ? tokens.space.s9 : tokens.space.s5,
+      content: [
+        const OnboardingIconTile(icon: Icons.auto_awesome_outlined),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: tokens.space.s4,
+          children: [
+            Semantics(
+              header: true,
+              child: Text(
+                reentry ? l10n.aiConsentReentryTitle : l10n.aiConsentTitle,
+                style: tokens.typography.headline,
+              ),
+            ),
+            Text(
+              l10n.aiConsentBody,
+              style: tokens.typography.label.copyWith(
+                color: tokens.color.text.secondary,
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: TaroButton.tertiary(
+                label: l10n.commonPrivacyPolicy,
+                onPressed: onPrivacy,
+              ),
+            ),
+          ],
         ),
-        children: [
-          Semantics(
-            header: true,
-            child: Text(
-              reentry ? l10n.aiConsentReentryTitle : l10n.aiConsentTitle,
-              style: tokens.typography.headline,
-            ),
-          ),
-          SizedBox(height: tokens.space.s4),
-          Text(
-            l10n.aiConsentBody,
-            style: tokens.typography.label.copyWith(
-              color: tokens.color.text.secondary,
-            ),
-          ),
-          SizedBox(height: tokens.space.s4),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: TaroButton.tertiary(
-              label: l10n.commonPrivacyPolicy,
-              onPressed: onPrivacy,
-            ),
-          ),
-        ],
-      ),
-      bottom: Column(
-        mainAxisSize: MainAxisSize.min,
+      ],
+      footer: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: tokens.space.s3,
         children: [
           allow,
           decline,
           Text(
-            l10n.aiConsentFootnote,
-            textAlign: TextAlign.start,
+            reentry ? l10n.aiConsentReentryFootnote : l10n.aiConsentFootnote,
+            textAlign: TextAlign.center,
             style: tokens.typography.caption.copyWith(
               color: tokens.color.text.tertiary,
             ),
           ),
           if (onboarding)
-            StepIndicator(
-              current: 3,
-              total: kOnboardingSteps,
-              semanticsLabel: l10n.commonStepOf(3, kOnboardingSteps),
+            Center(
+              child: StepIndicator(
+                current: 3,
+                total: kOnboardingSteps,
+                semanticsLabel: l10n.commonStepOf(3, kOnboardingSteps),
+              ),
             ),
         ],
       ),

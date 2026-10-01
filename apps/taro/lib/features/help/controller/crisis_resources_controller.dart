@@ -4,6 +4,7 @@ import 'dart:ui' show PlatformDispatcher;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show NotifierProviderFamily;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:taro/app_state/crisis_handoff.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -52,6 +53,7 @@ final class CrisisResourcesController extends Notifier<CrisisResourcesState> {
   final CrisisResourcesOrigin origin;
 
   CrisisDirectory? _directory;
+  bool _countryChosen = false;
 
   @override
   CrisisResourcesState build() {
@@ -60,7 +62,10 @@ final class CrisisResourcesController extends Notifier<CrisisResourcesState> {
   }
 
   /// "Show resources for another country".
-  void chooseCountry(String country) => _show(country.toUpperCase());
+  void chooseCountry(String country) {
+    _countryChosen = true;
+    _show(country.toUpperCase());
+  }
 
   Future<void> _load() async {
     final directory = await ref
@@ -83,6 +88,17 @@ final class CrisisResourcesController extends Notifier<CrisisResourcesState> {
   void _show(String? country) {
     final directory = _directory;
     if (directory == null || !ref.mounted) return;
+    final countries = directory.countries.keys.toList()..sort();
+    final worker = _workerLines(directory);
+    if (worker != null) {
+      state = CrisisResourcesState.content(
+        country: null,
+        resources: worker,
+        hasLocalLines: worker.length > directory.international.length,
+        countries: countries,
+      );
+      return;
+    }
     final locale = ref.read(appLocaleProvider)();
     final local =
         directory.countries[country] ??
@@ -91,8 +107,26 @@ final class CrisisResourcesController extends Notifier<CrisisResourcesState> {
       country: country,
       resources: directory.select(country: country, locale: locale),
       hasLocalLines: local != null && local.isNotEmpty,
-      countries: directory.countries.keys.toList()..sort(),
+      countries: countries,
     );
+  }
+
+  /// The Worker's lines of the declined reading (S27 from a reading, before
+  /// another country is chosen): at most 3, always ending with the bundled
+  /// international entry. `null` when there are none.
+  List<CrisisResource>? _workerLines(CrisisDirectory directory) {
+    if (origin != CrisisResourcesOrigin.reading || _countryChosen) return null;
+    final offered = ref.read(crisisHandoffProvider);
+    if (offered.isEmpty) return null;
+    final local = offered
+        .where((r) => !directory.international.contains(r))
+        .toList();
+    final room = (CrisisDirectory.maxResults - directory.international.length)
+        .clamp(0, CrisisDirectory.maxResults);
+    return [
+      ...local.take(room),
+      ...directory.international,
+    ].take(CrisisDirectory.maxResults).toList(growable: false);
   }
 }
 

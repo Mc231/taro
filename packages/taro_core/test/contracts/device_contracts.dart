@@ -240,3 +240,28 @@ void runAppInfoContract(AppInfo Function() create) {
     });
   });
 }
+
+/// The `UrlLauncher` contract (02 §5): the allowed schemes open, any other
+/// scheme is an `Err`, and nothing throws.
+void runUrlLauncherContract(UrlLauncher Function() create) {
+  group('UrlLauncher contract', () {
+    test('opens tel:, sms: and https: links', () async {
+      final launcher = create();
+      expectOk(await launcher.open(Uri.parse('tel:116123')));
+      expectOk(await launcher.open(Uri.parse('sms:85258')));
+      expectOk(await launcher.open(Uri.parse('https://findahelpline.com')));
+    });
+
+    test('rejects other schemes without throwing', () async {
+      final launcher = create();
+      expect(
+        (await launcher.open(Uri.parse('javascript:alert(1)'))).isErr,
+        isTrue,
+      );
+      expect(
+        (await launcher.open(Uri.parse('http://example.com'))).isErr,
+        isTrue,
+      );
+    });
+  });
+}

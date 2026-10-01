@@ -49,6 +49,7 @@ dependencies:
   taro_core: any
   taro_ui: any
   timezone: ^0.11.1
+  url_launcher: ^6.3.2
   uuid: ^4.6.0
 
 dev_dependencies:
@@ -57,6 +58,7 @@ dev_dependencies:
   firebase_analytics_platform_interface: ^6.0.7
   firebase_core_platform_interface: ^8.1.1
   firebase_crashlytics_platform_interface: ^3.9.0
+  flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.8
   flutter_test:
     sdk: flutter

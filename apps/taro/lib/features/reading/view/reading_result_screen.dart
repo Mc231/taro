@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/common/card_art.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/reading/controller/reading_result_controller.dart';
 import 'package:taro/features/reading/share/share_reading_use_case.dart';
+import 'package:taro/features/reading/view/reading_mini_spread.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
@@ -45,8 +47,12 @@ class ReadingResultScreen extends ConsumerWidget {
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);
     final l10n = TaroLocalizations.of(context);
+    void openNote() =>
+        unawaited(context.push(RoutePaths.journalEntry(args.id.value)));
     return ReadingResultLayout(
       state: state,
+      reveal: args.origin == ReadingViewOrigin.fresh,
+      artSet: ref.watch(deckArtSetProvider).value ?? CardArt.defaultArtSet,
       onDone: () => context.go(RoutePaths.home),
       onOpenDisclaimer: () => context.push(RoutePaths.legal('disclaimer')),
       onRate: (rating, reason) =>
@@ -55,9 +61,10 @@ class ReadingResultScreen extends ConsumerWidget {
       onReport: () => unawaited(
         TaroModals.reportReading<void>(context, readingId: args.id.value),
       ),
-      onWriteAbout: () {
+      onAddNote: openNote,
+      onWriteAbout: (prompt) {
         unawaited(controller.useReflectionPrompt());
-        unawaited(context.push(RoutePaths.journalEntry(args.id.value)));
+        openNote();
       },
       onShare: (view, {required includeQuestion}) => unawaited(
         controller.share(
@@ -74,7 +81,12 @@ class ReadingResultScreen extends ConsumerWidget {
   }
 }
 
-/// The S09 layout for [state].
+/// The S09 layout for [state] (`docs/design/screens/S09/spec.md`): Done,
+/// "Add note" and More (Report) in the top bar; the mini spread; the
+/// question, the "AI-generated" badge, the title, the summary, one
+/// expandable section per position, the synthesis and the reflection
+/// prompts; the Favourite / Share / rating row; and the `DisclaimerFooter`
+/// in every state. No banner (RC18).
 class ReadingResultLayout extends StatelessWidget {
   /// Creates the view.
   const ReadingResultLayout({
@@ -84,13 +96,23 @@ class ReadingResultLayout extends StatelessWidget {
     required this.onRate,
     required this.onToggleFavourite,
     required this.onReport,
+    required this.onAddNote,
     required this.onWriteAbout,
     required this.onShare,
+    this.reveal = false,
+    this.artSet = CardArt.defaultArtSet,
     super.key,
   });
 
   /// The controller state.
   final ReadingResultState state;
+
+  /// Whether the sections enter with the `motion.ritual.readingReveal`
+  /// stagger (a fresh reading from S08).
+  final bool reveal;
+
+  /// The bundled art set of the card faces.
+  final String artSet;
 
   /// "Done" / close (Home, 01 §9.1).
   final VoidCallback onDone;
@@ -107,8 +129,11 @@ class ReadingResultLayout extends StatelessWidget {
   /// "Report this reading" (S33).
   final VoidCallback onReport;
 
-  /// "Write about this".
-  final VoidCallback onWriteAbout;
+  /// "Add note" (the note editor).
+  final VoidCallback onAddNote;
+
+  /// "Write about this" on a reflection prompt.
+  final ValueChanged<String> onWriteAbout;
 
   /// Share [ReadingResultView] as text.
   final void Function(ReadingResultView view, {required bool includeQuestion})
@@ -132,40 +157,29 @@ class ReadingResultLayout extends StatelessWidget {
         footer,
       ],
     );
+    final hasMenu = view != null && (view.canReport || view.reported);
     return TaroScaffold(
       appBar: TaroAppBar(
         leading: TaroAppBarLeading.close,
         leadingLabel: l10n.readingDone,
         onLeading: onDone,
         actions: [
-          if (view != null) ...[
-            TaroIconButton(
-              icon: Icons.favorite_border,
-              selectedIcon: Icons.favorite,
-              toggled: view.reading.favourite,
-              semanticsLabel: view.reading.favourite
-                  ? l10n.commonUnfavourite
-                  : l10n.commonFavourite,
-              onPressed: onToggleFavourite,
+          if (view != null)
+            TaroButton.tertiary(
+              label: l10n.commonAddNote,
+              onPressed: onAddNote,
             ),
+          if (hasMenu)
             TaroIconButton(
-              icon: Icons.ios_share,
-              semanticsLabel: l10n.commonShare,
-              onPressed: state is ReadingResultSharing
-                  ? null
-                  : () => unawaited(_openShare(context, view)),
+              icon: Icons.more_horiz,
+              semanticsLabel: l10n.commonMore,
+              onPressed: () => unawaited(_openMenu(context, view)),
             ),
-            if (view.canReport)
-              TaroIconButton(
-                icon: Icons.flag_outlined,
-                semanticsLabel: l10n.reportReadingTitle,
-                onPressed: onReport,
-              ),
-          ],
         ],
       ),
       body: switch (state) {
         ReadingResultLoadingFromStorage() => ListView(
+          padding: EdgeInsetsDirectional.only(top: tokens.space.s5),
           children: [
             ReadingTextView.loading(loadingLabel: l10n.commonLoading),
             footer,
@@ -183,94 +197,159 @@ class ReadingResultLayout extends StatelessWidget {
         ReadingResultFailed(:final failure) => framed(
           FailureView.of(failure),
         ),
-        _ => ListView(
-          padding: EdgeInsetsDirectional.only(bottom: tokens.space.s7),
-          children: [
-            _text(context, view!, footer),
-            if (view.reported) ...[
-              SizedBox(height: tokens.space.s5),
-              TaroBadge(label: l10n.readingReported),
-            ],
-            SizedBox(height: tokens.space.s7),
-            _rating(context, view),
-            SizedBox(height: tokens.space.s7),
-            TaroButton.primary(
-              label: l10n.readingDone,
-              expand: true,
-              onPressed: onDone,
-            ),
-          ],
-        ),
+        _ => _content(context, view!, footer),
       },
     );
   }
 
-  Widget _text(BuildContext context, ReadingResultView view, Widget footer) {
+  Widget _content(BuildContext context, ReadingResultView view, Widget footer) {
     final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    final reading = view.reading;
+    final names = {
+      for (final card in reading.cards)
+        card.cardId: view.cardTexts[card.cardId]?.name ?? card.cardId.value,
+    };
+    return ListView(
+      padding: EdgeInsetsDirectional.only(
+        top: tokens.space.s4,
+        bottom: tokens.space.s7,
+      ),
+      children: [
+        Text(
+          l10n.commonItemSeparator(
+            SpreadText.name(l10n, reading.spreadId),
+            _date(context, reading.localDate),
+          ),
+          style: tokens.typography.caption.copyWith(
+            color: tokens.color.text.secondary,
+          ),
+        ),
+        SizedBox(height: tokens.space.s4),
+        ReadingMiniSpread(
+          spreadId: reading.spreadId,
+          cards: reading.cards,
+          names: names,
+          positions: view.spread?.positions,
+          artSet: artSet,
+        ),
+        SizedBox(height: tokens.space.s6),
+        _text(context, view, names),
+        SizedBox(height: tokens.space.s6),
+        _actions(context, view),
+        footer,
+      ],
+    );
+  }
+
+  /// `localDate` (`YYYY-MM-DD`, the install-local day) as a medium date.
+  static String _date(BuildContext context, String localDate) {
+    final day = DateTime.tryParse(localDate);
+    return day == null
+        ? localDate
+        : MaterialLocalizations.of(context).formatMediumDate(day);
+  }
+
+  Widget _text(
+    BuildContext context,
+    ReadingResultView view,
+    Map<CardId, String> names,
+  ) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
     final reading = view.reading;
     final content = reading.content;
     final question = reading.question;
     final prompts = content?.reflectionPrompts ?? const <String>[];
     return ReadingTextView(
+      reveal: reveal,
       question: question == null ? null : l10n.readingQuestionQuoted(question),
       sourceLabel: AiGeneratedLabel(label: l10n.aiLabel),
       title: content?.title,
       sections: [
-        if (content != null)
-          ReadingTextSection(
-            heading: l10n.readingSummary,
-            body: content.summary,
-          ),
+        if (content != null) ReadingTextSection(body: content.summary),
         for (final card in reading.cards)
           ReadingTextSection(
             heading: l10n.readingPositionHeading(
               SpreadText.positionName(l10n, reading.spreadId, card.positionId),
-              _cardName(l10n, view, card),
+              card.reversed
+                  ? l10n.readingCardReversed(names[card.cardId]!)
+                  : names[card.cardId]!,
             ),
             body: content?.textFor(card.positionId) ?? '',
+            collapsible: true,
           ),
         if (content != null)
           ReadingTextSection(
             heading: l10n.readingSynthesis,
             body: content.synthesis,
           ),
-        if (prompts.isNotEmpty)
-          ReadingTextSection(
-            heading: l10n.readingReflectionPrompts,
-            body: prompts.join('\n\n'),
-          ),
       ],
-      footer: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (prompts.isNotEmpty)
-            TaroButton.tertiary(
-              label: l10n.readingWriteAboutThis,
-              onPressed: onWriteAbout,
+      footer: prompts.isEmpty
+          ? null
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: tokens.space.s3,
+              children: [
+                ReadingSectionHeader(title: l10n.readingReflectionPrompts),
+                for (final prompt in prompts)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        prompt,
+                        style: tokens.typography.bodyReading.copyWith(
+                          color: tokens.color.text.primary,
+                        ),
+                      ),
+                      TaroButton.tertiary(
+                        label: l10n.readingWriteAboutThis,
+                        icon: Icons.edit_note,
+                        onPressed: () => onWriteAbout(prompt),
+                      ),
+                    ],
+                  ),
+              ],
             ),
-          footer,
-        ],
-      ),
     );
   }
 
-  static String _cardName(
-    TaroLocalizations l10n,
-    ReadingResultView view,
-    DrawnCard card,
-  ) {
-    final name = view.cardTexts[card.cardId]?.name ?? card.cardId.value;
-    return card.reversed ? l10n.readingCardReversed(name) : name;
-  }
-
-  Widget _rating(BuildContext context, ReadingResultView view) {
+  Widget _actions(BuildContext context, ReadingResultView view) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
     final rating = view.reading.rating;
+    void rate(Rating value, RatingReason? reason) {
+      onRate(value, reason);
+      TaroToast.show(context, message: l10n.readingRatingThanks);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: tokens.space.s3,
+      spacing: tokens.space.s4,
       children: [
+        Wrap(
+          spacing: tokens.space.s3,
+          runSpacing: tokens.space.s3,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            TaroIconButton(
+              icon: Icons.favorite_border,
+              selectedIcon: Icons.favorite,
+              toggled: view.reading.favourite,
+              semanticsLabel: view.reading.favourite
+                  ? l10n.commonUnfavourite
+                  : l10n.commonFavourite,
+              onPressed: onToggleFavourite,
+            ),
+            TaroIconButton(
+              icon: Icons.ios_share,
+              semanticsLabel: l10n.commonShare,
+              onPressed: state is ReadingResultSharing
+                  ? null
+                  : () => unawaited(_openShare(context, view)),
+            ),
+          ],
+        ),
         ReadingRatingControl(
           prompt: l10n.readingRatingPrompt,
           helpfulLabel: l10n.readingRateUp,
@@ -282,7 +361,7 @@ class ReadingResultLayout extends StatelessWidget {
           },
           onChanged: (value) {
             if (value == null) return;
-            onRate(
+            rate(
               value == ReadingRatingValue.up ? Rating.up : Rating.down,
               null,
             );
@@ -302,22 +381,29 @@ class ReadingResultLayout extends StatelessWidget {
                     RatingReason.other => l10n.readingReasonOther,
                   },
                   selected: view.reading.ratingReason == reason,
-                  onSelected: (_) => onRate(Rating.down, reason),
+                  onSelected: (_) => rate(Rating.down, reason),
                 ),
             ],
           ),
-        if (state is ReadingResultRatingGiven)
-          Semantics(
-            liveRegion: true,
-            child: Text(
-              l10n.readingRatingThanks,
-              style: tokens.typography.caption.copyWith(
-                color: tokens.color.text.secondary,
-              ),
-            ),
-          ),
       ],
     );
+  }
+
+  /// More: "Report this reading" (S33), or "Reported" (disabled) once sent.
+  Future<void> _openMenu(BuildContext context, ReadingResultView view) async {
+    final l10n = TaroLocalizations.of(context);
+    final report = await TaroSheet.show<bool>(
+      context,
+      builder: (sheet) => TaroSheet(
+        title: l10n.commonMore,
+        child: TaroListTile(
+          leading: const Icon(Icons.flag_outlined),
+          title: view.reported ? l10n.readingReported : l10n.reportReadingTitle,
+          onTap: view.reported ? null : () => Navigator.of(sheet).pop(true),
+        ),
+      ),
+    );
+    if (report ?? false) onReport();
   }
 
   Future<void> _openShare(BuildContext context, ReadingResultView view) async {

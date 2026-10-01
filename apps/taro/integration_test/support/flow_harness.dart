@@ -9,6 +9,7 @@ import 'package:patrol_finders/patrol_finders.dart';
 import 'package:taro/bootstrap/bootstrap.dart';
 import 'package:taro/bootstrap/build_defines.dart';
 import 'package:taro/di/analytics_consent_tap.dart';
+import 'package:taro/features/home/controller/home_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/services/analytics/analytics_user_properties.dart';
 import 'package:taro/services/analytics/consent_aware_analytics.dart';
@@ -52,22 +53,27 @@ void taroFlow(String description, Future<void> Function(PatrolTester $) body) {
       BuildDefines.testEnv,
       reason: 'run the flows with --dart-define=TARO_ENV=test (06 §4)',
     );
+    // The flows read English strings: pin the system locale so a simulator
+    // set to another language (the app follows it) does not change them.
+    $.tester.platformDispatcher.localesTestValue = const [Locale('en')];
+    addTearDown($.tester.platformDispatcher.clearLocalesTestValue);
     await body($);
   });
 }
 
-/// An onboarded consent state with AI consent granted for version 1.
+/// An onboarded consent state with AI consent decided at version 2 (the
+/// current `ai.consentVersion`).
 ConsentState onboardedConsent({bool aiGranted = true}) => ConsentState(
   onboardingStep: OnboardingStep.done,
   ai: aiGranted
       ? AiConsent(
           decision: AiConsentDecision.granted,
-          version: 1,
+          version: 2,
           at: kTestNow.subtract(const Duration(days: 1)),
         )
       : AiConsent(
           decision: AiConsentDecision.declined,
-          version: 1,
+          version: 2,
           at: kTestNow.subtract(const Duration(days: 1)),
         ),
 );
@@ -78,14 +84,20 @@ ConsentState onboardedConsent({bool aiGranted = true}) => ConsentState(
 /// away unless a flow sets `tracking` to `notDetermined`
 /// (`consent_denied_test` walks through it).
 TaroFakes flowFakes({ConsentState? consent, FakeClock? clock}) {
+  final state = consent ?? onboardedConsent();
   final fakes = TaroFakes(
     clock: clock,
-    consent: consent ?? onboardedConsent(),
+    consent: state,
   )..tracking = FakeTrackingAuthorization(current: TrackingStatus.authorized);
   fakes.sessionTokens.token = SessionToken(
     token: 'flow-session-token',
     expiresAt: kTestNow.add(const Duration(days: 7)),
   );
+  // An onboarded user has seen the S05 first-run coachmark already; flows
+  // that walk through onboarding still get it.
+  if (state.onboardingStep == OnboardingStep.done) {
+    fakes.secureStore.values[HomeNoticeKeys.firstRunDone] = '1';
+  }
   return fakes;
 }
 
@@ -340,11 +352,12 @@ final class FlowApp {
     await tapButton(l10n().questionBegin);
   }
 
-  /// S08: shuffle, "Draw for me", "Reveal all".
+  /// S08: shuffle, "I'm ready — draw", "Draw for me", "Reveal all".
   Future<void> drawAndRevealAll() async {
     final l = l10n();
     await waitForScreen(ScreenId.s08);
     await tapButton(l.drawShuffleButton);
+    await tapButton(l.drawShuffleReady);
     await tapButton(l.drawForMe);
     await tapButton(l.drawRevealAll);
   }

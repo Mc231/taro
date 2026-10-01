@@ -37,6 +37,7 @@ void main() {
       tester,
       DailyCardLayout(
         state: state,
+        today: DateTime(2026, 9, 27, 9),
         onClose: () => calls.add('close'),
         onReveal: () => calls.add('reveal'),
         onRetry: () => calls.add('retry'),
@@ -57,25 +58,87 @@ void main() {
     expect(find.byType(TaroLoadingView), findsOneWidget);
   });
 
-  testWidgets('notDrawn: the card back, no face; Reveal', (tester) async {
+  testWidgets('notDrawn: the card back, no face; tap to reveal; back', (
+    tester,
+  ) async {
     final calls = await pumpLayout(tester, const DailyCardState.notDrawn());
-    expect(find.text(l10n.dailyNotDrawnTitle), findsOneWidget);
+    expect(find.text(l10n.dailyNotDrawnPrompt), findsOneWidget);
+    expect(find.text(l10n.dailyNotDrawnBody), findsOneWidget);
+    expect(find.text(l10n.dailyNotDrawnBadge), findsOneWidget);
+    expect(find.text(l10n.dailyOverline), findsOneWidget);
     expect(find.byType(TaroCardBack), findsOneWidget);
     expect(find.byType(TaroCardFace), findsNothing);
     expect(find.byType(BannerSlot), findsNothing);
-    await tapFound(tester, find.widgetWithText(TaroButton, l10n.dailyReveal));
-    expect(calls, ['reveal']);
+    expect(find.bySemanticsLabel(l10n.dailyCardBackSemantics), findsOneWidget);
+    await tapFound(tester, find.byType(TaroCardBack));
+    await tapFound(tester, find.text(l10n.dailyBackToToday));
+    await tester.tap(find.byTooltip(l10n.commonBack));
+    expect(calls, ['reveal', 'close', 'close']);
   });
 
-  testWidgets('revealing: busy, still no face', (tester) async {
-    await pumpLayout(tester, const DailyCardState.revealing());
+  testWidgets('revealing: the back is disabled, still no face', (
+    tester,
+  ) async {
+    final calls = await pumpLayout(tester, const DailyCardState.revealing());
     expect(find.byType(TaroCardFace), findsNothing);
-    final reveal = tester.widget<TaroButton>(
-      find.byWidgetPredicate(
-        (w) => w is TaroButton && w.label == l10n.dailyReveal,
+    expect(
+      tester.widget<TaroCardBack>(find.byType(TaroCardBack)).enabled,
+      isFalse,
+    );
+    await tester.tap(find.byType(TaroCardBack), warnIfMissed: false);
+    expect(calls, isEmpty);
+  });
+
+  testWidgets('notDrawn → drawn: the flip, then the texts and an '
+      'announcement', (tester) async {
+    final view = _view();
+    Future<void> pump(DailyCardState state) => pumpTaroWidget(
+      tester,
+      DailyCardLayout(
+        state: state,
+        today: DateTime(2026, 9, 27, 9),
+        onClose: () {},
+        onReveal: () {},
+        onRetry: () {},
+        onReflectDeeper: () {},
+        onEditNote: () {},
+        onCancelNote: () {},
+        onSaveNote: (_) {},
+        onToggleFavourite: () {},
+        onAnswerReminder: ({required accepted}) {},
       ),
     );
-    expect(reveal.loading, isTrue);
+    await pump(const DailyCardState.notDrawn());
+    await pump(const DailyCardState.revealing());
+    await pump(DailyCardState.drawn(view));
+    await tester.pump();
+    expect(find.text(view.shortMeaning), findsNothing);
+    await tester.pumpAndSettle();
+    expect(find.text(view.shortMeaning), findsOneWidget);
+    expect(find.byType(TaroCardFace), findsOneWidget);
+    expect(
+      tester.takeAnnouncements().map((a) => a.message),
+      contains(l10n.dailyRevealedAnnouncement(view.text.name)),
+    );
+  });
+
+  testWidgets('drawn: header and keyword semantics, Latin numerals', (
+    tester,
+  ) async {
+    final view = _view();
+    await pumpLayout(tester, DailyCardState.drawn(view));
+    expect(
+      find.bySemanticsLabel(
+        l10n.dailyKeywordsSemantics(view.keywords.join(', ')),
+      ),
+      findsOneWidget,
+    );
+    expect(
+      find.bySemanticsLabel(RegExp(l10n.dailyHeaderSemantics(''))),
+      findsOneWidget,
+    );
+    expect(find.textContaining('XVII'), findsOneWidget);
+    expect(find.text(view.reflectionQuestion!), findsOneWidget);
   });
 
   testWidgets('drawn: face, name, keywords, meaning, actions', (
@@ -87,14 +150,22 @@ void main() {
     expect(find.text(view.text.name), findsOneWidget);
     expect(find.text(view.shortMeaning), findsOneWidget);
     expect(find.text('Calm'), findsOneWidget);
+    expect(find.text(l10n.commonSavedOnDevice), findsOneWidget);
+    expect(find.text(l10n.dailyAddNote), findsNothing);
     for (final k in view.keywords) {
       expect(find.text(k), findsOneWidget);
     }
     await tapFound(tester, find.text(l10n.dailyReflectDeeper));
-    await tapFound(tester, find.text(l10n.dailyAddNote));
+    await tapFound(tester, find.text('Calm'));
     await tester.tap(find.byTooltip(l10n.commonFavourite));
-    await tester.tap(find.byTooltip(l10n.commonClose));
+    await tester.tap(find.byTooltip(l10n.commonBack));
     expect(calls, ['deeper', 'edit', 'favourite', 'close']);
+  });
+
+  testWidgets('drawn without a note: Add a note', (tester) async {
+    final calls = await pumpLayout(tester, DailyCardState.drawn(_view()));
+    await tapFound(tester, find.text(l10n.dailyAddNote));
+    expect(calls, ['edit']);
   });
 
   testWidgets('drawn reversed: the reversed meta', (tester) async {
@@ -151,10 +222,7 @@ void main() {
     testWidgets('reveal → reminder offer → No → Reflect deeper opens S07 '
         'with the card preset', (tester) async {
       final fakes = await pumpDaily(tester);
-      await tapFound(
-        tester,
-        find.widgetWithText(TaroButton, l10n.dailyReveal),
-      );
+      await tapFound(tester, find.byType(TaroCardBack));
       expect(find.byType(TaroCardFace), findsOneWidget);
       await tapFound(tester, find.text(l10n.dailyReminderOfferNo));
       expect(find.text(l10n.dailyReminderOfferTitle), findsNothing);
@@ -172,10 +240,7 @@ void main() {
 
     testWidgets('note, favourite and close are wired', (tester) async {
       final fakes = await pumpDaily(tester);
-      await tapFound(
-        tester,
-        find.widgetWithText(TaroButton, l10n.dailyReveal),
-      );
+      await tapFound(tester, find.byType(TaroCardBack));
       await tapFound(tester, find.text(l10n.dailyReminderOfferYes));
       await tapFound(tester, find.text(l10n.dailyAddNote));
       await tester.enterText(find.byType(TextField), 'Steady');
@@ -184,9 +249,9 @@ void main() {
       await tester.tap(find.byTooltip(l10n.commonFavourite));
       await tester.pumpAndSettle();
       expect(fakes.journal.dailyCards.values.single.favourite, isTrue);
-      await tapFound(tester, find.text(l10n.dailyAddNote));
+      await tapFound(tester, find.text('Steady'));
       await tapFound(tester, find.text(l10n.commonCancel));
-      await tester.tap(find.byTooltip(l10n.commonClose));
+      await tester.tap(find.byTooltip(l10n.commonBack));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });
@@ -200,13 +265,10 @@ void main() {
         builder: (_) => const DailyCardScreen(),
         fakes: fakes,
       );
-      await tapFound(
-        tester,
-        find.widgetWithText(TaroButton, l10n.dailyReveal),
-      );
+      await tapFound(tester, find.byType(TaroCardBack));
       expect(find.text(l10n.errorStorageTitle), findsOneWidget);
       await tapFound(tester, find.text(l10n.commonRetry));
-      expect(find.text(l10n.dailyNotDrawnTitle), findsOneWidget);
+      expect(find.text(l10n.dailyNotDrawnPrompt), findsOneWidget);
     });
   });
 }

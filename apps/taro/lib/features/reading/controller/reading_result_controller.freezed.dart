@@ -274,7 +274,8 @@ as ReadingViewOrigin,
 /// @nodoc
 mixin _$ReadingResultView {
 
- Reading get reading; Map<CardId, CardText> get cardTexts;
+ Reading get reading; Map<CardId, CardText> get cardTexts;/// The spread geometry of the S09 mini spread (null: a plain row).
+ SpreadDefinition? get spread;
 /// Create a copy of ReadingResultView
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -285,16 +286,16 @@ $ReadingResultViewCopyWith<ReadingResultView> get copyWith => _$ReadingResultVie
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.cardTexts, cardTexts));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.cardTexts, cardTexts)&&(identical(other.spread, spread) || other.spread == spread));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(cardTexts));
+int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(cardTexts),spread);
 
 @override
 String toString() {
-  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts)';
+  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts, spread: $spread)';
 }
 
 
@@ -305,11 +306,11 @@ abstract mixin class $ReadingResultViewCopyWith<$Res>  {
   factory $ReadingResultViewCopyWith(ReadingResultView value, $Res Function(ReadingResultView) _then) = _$ReadingResultViewCopyWithImpl;
 @useResult
 $Res call({
- Reading reading, Map<CardId, CardText> cardTexts
+ Reading reading, Map<CardId, CardText> cardTexts, SpreadDefinition? spread
 });
 
 
-$ReadingCopyWith<$Res> get reading;
+$ReadingCopyWith<$Res> get reading;$SpreadDefinitionCopyWith<$Res>? get spread;
 
 }
 /// @nodoc
@@ -322,11 +323,12 @@ class _$ReadingResultViewCopyWithImpl<$Res>
 
 /// Create a copy of ReadingResultView
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? reading = null,Object? cardTexts = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? reading = null,Object? cardTexts = null,Object? spread = freezed,}) {
   return _then(_self.copyWith(
 reading: null == reading ? _self.reading : reading // ignore: cast_nullable_to_non_nullable
 as Reading,cardTexts: null == cardTexts ? _self.cardTexts : cardTexts // ignore: cast_nullable_to_non_nullable
-as Map<CardId, CardText>,
+as Map<CardId, CardText>,spread: freezed == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
+as SpreadDefinition?,
   ));
 }
 /// Create a copy of ReadingResultView
@@ -337,6 +339,18 @@ $ReadingCopyWith<$Res> get reading {
   
   return $ReadingCopyWith<$Res>(_self.reading, (value) {
     return _then(_self.copyWith(reading: value));
+  });
+}/// Create a copy of ReadingResultView
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SpreadDefinitionCopyWith<$Res>? get spread {
+    if (_self.spread == null) {
+    return null;
+  }
+
+  return $SpreadDefinitionCopyWith<$Res>(_self.spread!, (value) {
+    return _then(_self.copyWith(spread: value));
   });
 }
 }
@@ -420,10 +434,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Reading reading,  Map<CardId, CardText> cardTexts)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Reading reading,  Map<CardId, CardText> cardTexts,  SpreadDefinition? spread)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReadingResultView() when $default != null:
-return $default(_that.reading,_that.cardTexts);case _:
+return $default(_that.reading,_that.cardTexts,_that.spread);case _:
   return orElse();
 
 }
@@ -441,10 +455,10 @@ return $default(_that.reading,_that.cardTexts);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Reading reading,  Map<CardId, CardText> cardTexts)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Reading reading,  Map<CardId, CardText> cardTexts,  SpreadDefinition? spread)  $default,) {final _that = this;
 switch (_that) {
 case _ReadingResultView():
-return $default(_that.reading,_that.cardTexts);case _:
+return $default(_that.reading,_that.cardTexts,_that.spread);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -461,10 +475,10 @@ return $default(_that.reading,_that.cardTexts);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Reading reading,  Map<CardId, CardText> cardTexts)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Reading reading,  Map<CardId, CardText> cardTexts,  SpreadDefinition? spread)?  $default,) {final _that = this;
 switch (_that) {
 case _ReadingResultView() when $default != null:
-return $default(_that.reading,_that.cardTexts);case _:
+return $default(_that.reading,_that.cardTexts,_that.spread);case _:
   return null;
 
 }
@@ -476,7 +490,7 @@ return $default(_that.reading,_that.cardTexts);case _:
 
 
 class _ReadingResultView extends ReadingResultView {
-  const _ReadingResultView({required this.reading, required final  Map<CardId, CardText> cardTexts}): _cardTexts = cardTexts,super._();
+  const _ReadingResultView({required this.reading, required final  Map<CardId, CardText> cardTexts, this.spread}): _cardTexts = cardTexts,super._();
   
 
 @override final  Reading reading;
@@ -487,6 +501,8 @@ class _ReadingResultView extends ReadingResultView {
   return EqualUnmodifiableMapView(_cardTexts);
 }
 
+/// The spread geometry of the S09 mini spread (null: a plain row).
+@override final  SpreadDefinition? spread;
 
 /// Create a copy of ReadingResultView
 /// with the given fields replaced by the non-null parameter values.
@@ -498,16 +514,16 @@ _$ReadingResultViewCopyWith<_ReadingResultView> get copyWith => __$ReadingResult
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other._cardTexts, _cardTexts));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other._cardTexts, _cardTexts)&&(identical(other.spread, spread) || other.spread == spread));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_cardTexts));
+int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_cardTexts),spread);
 
 @override
 String toString() {
-  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts)';
+  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts, spread: $spread)';
 }
 
 
@@ -518,11 +534,11 @@ abstract mixin class _$ReadingResultViewCopyWith<$Res> implements $ReadingResult
   factory _$ReadingResultViewCopyWith(_ReadingResultView value, $Res Function(_ReadingResultView) _then) = __$ReadingResultViewCopyWithImpl;
 @override @useResult
 $Res call({
- Reading reading, Map<CardId, CardText> cardTexts
+ Reading reading, Map<CardId, CardText> cardTexts, SpreadDefinition? spread
 });
 
 
-@override $ReadingCopyWith<$Res> get reading;
+@override $ReadingCopyWith<$Res> get reading;@override $SpreadDefinitionCopyWith<$Res>? get spread;
 
 }
 /// @nodoc
@@ -535,11 +551,12 @@ class __$ReadingResultViewCopyWithImpl<$Res>
 
 /// Create a copy of ReadingResultView
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? reading = null,Object? cardTexts = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? reading = null,Object? cardTexts = null,Object? spread = freezed,}) {
   return _then(_ReadingResultView(
 reading: null == reading ? _self.reading : reading // ignore: cast_nullable_to_non_nullable
 as Reading,cardTexts: null == cardTexts ? _self._cardTexts : cardTexts // ignore: cast_nullable_to_non_nullable
-as Map<CardId, CardText>,
+as Map<CardId, CardText>,spread: freezed == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
+as SpreadDefinition?,
   ));
 }
 
@@ -551,6 +568,18 @@ $ReadingCopyWith<$Res> get reading {
   
   return $ReadingCopyWith<$Res>(_self.reading, (value) {
     return _then(_self.copyWith(reading: value));
+  });
+}/// Create a copy of ReadingResultView
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$SpreadDefinitionCopyWith<$Res>? get spread {
+    if (_self.spread == null) {
+    return null;
+  }
+
+  return $SpreadDefinitionCopyWith<$Res>(_self.spread!, (value) {
+    return _then(_self.copyWith(spread: value));
   });
 }
 }

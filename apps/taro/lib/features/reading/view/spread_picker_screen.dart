@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/reading/controller/spread_picker_controller.dart';
+import 'package:taro/features/reading/view/spread_slots.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
@@ -80,19 +81,26 @@ class SpreadPickerLayout extends StatelessWidget {
           onRetry: onRetry,
         ),
         SpreadPickerContent(:final spreads) => ListView(
+          padding: EdgeInsetsDirectional.only(bottom: tokens.space.s7),
           children: [
-            TaroLargeTitle(l10n.spreadsTitle),
+            Semantics(
+              header: true,
+              child: Text(l10n.spreadsTitle, style: tokens.typography.headline),
+            ),
+            SizedBox(height: tokens.space.s2),
             Text(
               l10n.spreadsSubtitle,
-              style: tokens.typography.body.copyWith(
+              style: tokens.typography.label.copyWith(
                 color: tokens.color.text.secondary,
               ),
             ),
-            SizedBox(height: tokens.space.s5),
-            for (final spread in spreads) _row(context, spread),
-            SizedBox(height: tokens.space.s5),
-            Align(
-              alignment: AlignmentDirectional.centerStart,
+            SizedBox(height: tokens.space.s6),
+            for (final spread in spreads) ...[
+              _row(context, spread),
+              SizedBox(height: tokens.space.s4),
+            ],
+            SizedBox(height: tokens.space.s3),
+            Center(
               child: TaroButton.tertiary(
                 label: l10n.spreadsHowTheyWork,
                 onPressed: onHowTheyWork,
@@ -106,14 +114,31 @@ class SpreadPickerLayout extends StatelessWidget {
 
   Widget _row(BuildContext context, SpreadDefinition spread) {
     final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
     final name = SpreadText.name(l10n, spread.id);
     final cards = l10n.spreadCardCount(spread.cardCount);
     final meta = SpreadText.meta(l10n, spread.id);
-    return TaroListTile(
-      title: name,
-      subtitle: meta == null ? cards : l10n.commonItemSeparator(cards, meta),
-      showChevron: true,
-      onTap: () => onPick(spread),
+    // One button per row ("Past · Present · Future. 3 cards. How a
+    // situation is moving"); the diagram is decorative here.
+    return Semantics(
+      key: ValueKey('spread-${spread.id.value}'),
+      label: l10n.spreadRowSemantics(name, cards, meta ?? ''),
+      button: true,
+      excludeSemantics: true,
+      child: TaroListTile(
+        leading: ExcludeSemantics(
+          child: SizedBox(
+            width: tokens.size.card.sm,
+            child: SpreadDiagram(
+              layout: spreadSlotLayouts(spread),
+              semanticsLabel: name,
+            ),
+          ),
+        ),
+        title: name,
+        subtitle: meta == null ? cards : l10n.commonItemSeparator(cards, meta),
+        onTap: () => onPick(spread),
+      ),
     );
   }
 }

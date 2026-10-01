@@ -49,3 +49,4 @@ export 'sync_status.dart';
 export 'system_clock.dart';
 export 'timezone_provider.dart';
 export 'tracking_authorization.dart';
+export 'url_launcher.dart';

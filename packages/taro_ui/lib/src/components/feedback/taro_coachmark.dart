@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:taro_ui/src/components/actions/taro_button.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
@@ -187,8 +189,9 @@ class _ArrowPainter extends CustomPainter {
 ///
 /// Wrap only the screen *body* (inside `TaroScaffold`), so the scrim never
 /// covers the banner container or the tab bar (RC59). A tap on the scrim
-/// dismisses too. The bubble fades in over `motion.duration.base` (reduced
-/// motion: the reduced token). With `visible == false` it is just [child].
+/// dismisses too; the target inside the hole stays tappable. The bubble
+/// fades in over `motion.duration.base` (reduced motion: the reduced
+/// token). With `visible == false` it is just [child].
 class TaroCoachmarkLayer extends StatefulWidget {
   /// Creates the layer.
   const TaroCoachmarkLayer({
@@ -253,13 +256,18 @@ class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
                 final hole = target.inflate(tokens.space.s2);
                 final below = target.center.dy < layer.height / 2;
                 final rtl = Directionality.of(context) == TextDirection.rtl;
-                final gutter = tokens.layout.gutter;
+                // The bubble keeps the content column on wide screens.
+                final width = math.min(
+                  layer.width - 2 * tokens.layout.gutter,
+                  tokens.layout.maxContentWidth,
+                );
+                final inset = (layer.width - width) / 2;
                 final startX = rtl
-                    ? layer.width - gutter - target.center.dx
-                    : target.center.dx - gutter;
+                    ? layer.width - inset - target.center.dx
+                    : target.center.dx - inset;
                 final bubble = widget.coachmark.pointing(
                   below ? TaroCoachmarkArrow.up : TaroCoachmarkArrow.down,
-                  startX.clamp(tokens.space.s7, layer.width - 2 * gutter),
+                  startX.clamp(tokens.space.s7, width),
                 );
                 return TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0, end: 1),
@@ -271,8 +279,10 @@ class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
                     children: [
                       Positioned.fill(
                         child: ExcludeSemantics(
+                          // The scrim takes taps everywhere but the hole:
+                          // the highlighted target stays usable.
                           child: GestureDetector(
-                            behavior: HitTestBehavior.opaque,
+                            behavior: HitTestBehavior.deferToChild,
                             onTap: widget.coachmark.onDismiss,
                             child: CustomPaint(
                               painter: _ScrimPainter(
@@ -287,8 +297,8 @@ class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
                         ),
                       ),
                       PositionedDirectional(
-                        start: gutter,
-                        end: gutter,
+                        start: inset,
+                        end: inset,
                         top: below ? hole.bottom + gap : null,
                         bottom: below ? null : layer.height - hole.top + gap,
                         child: bubble,
@@ -318,6 +328,9 @@ class _ScrimPainter extends CustomPainter {
       ..addRRect(hole);
     canvas.drawPath(path, Paint()..color = color);
   }
+
+  @override
+  bool? hitTest(Offset position) => !hole.contains(position);
 
   @override
   bool shouldRepaint(_ScrimPainter old) =>

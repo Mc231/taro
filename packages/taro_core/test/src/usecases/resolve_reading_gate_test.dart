@@ -17,7 +17,7 @@ void main() {
   final aiGranted = ConsentState(
     ai: AiConsent(
       decision: AiConsentDecision.granted,
-      version: 1,
+      version: 2,
       at: kTestNow,
     ),
   );

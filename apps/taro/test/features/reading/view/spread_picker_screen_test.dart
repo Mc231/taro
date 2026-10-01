@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/reading/controller/spread_picker_controller.dart';
@@ -63,6 +64,44 @@ void main() {
     );
     await tapFound(tester, find.text(l10n.commonRetry));
     expect(calls, ['retry']);
+  });
+
+  testWidgets('each row is one button with its diagram (S06 semantics)', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    await pumpLayout(tester, SpreadPickerState.content([aSpread().build()]));
+    final name = l10n.spread_three_ppf_name;
+    final label = l10n.spreadRowSemantics(
+      name,
+      l10n.spreadCardCount(3),
+      l10n.spread_three_ppf_meta,
+    );
+    expect(find.bySemanticsLabel(label), findsOneWidget);
+    expect(find.byType(SpreadDiagram), findsOneWidget);
+    // The diagram is decorative inside the row.
+    expect(find.bySemanticsLabel(name), findsNothing);
+    handle.dispose();
+  });
+
+  testWidgets('RTL and 200 % text render without overflow', (tester) async {
+    await pumpTaroWidget(
+      tester,
+      SpreadPickerLayout(
+        state: SpreadPickerState.content([
+          for (final id in kSpreadIds) aSpread(id.value).build(),
+        ]),
+        onBack: () {},
+        onPick: (_) {},
+        onHowTheyWork: () {},
+        onRetry: () {},
+      ),
+      locale: const Locale('ar'),
+      textScale: 2,
+    );
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(find.byType(SpreadDiagram), findsWidgets);
   });
 
   group('screen', () {

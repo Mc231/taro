@@ -82,7 +82,7 @@ void main() {
       expect(d.storeRemoveAdsEnabled, isTrue);
       expect(d.storeShowBestValueBadge, isTrue);
       expect(d.storeShowPerReadingPrice, isTrue);
-      expect(d.aiConsentVersion, 1);
+      expect(d.aiConsentVersion, 2);
       expect(d.aiQuestionMaxChars, 300);
       expect(d.appMinVersionIos, '1.0.0');
       expect(d.appMinVersionAndroid, '1.0.0');

@@ -139,6 +139,10 @@ String goldenPath(String name, GoldenVariant variant) =>
 ///
 /// [builder] receives the variant so a golden can pick locale-specific
 /// sample data. Animations are settled with `pumpAndSettle`.
+///
+/// [accessibility] also registers the 06 §3.2 guideline checks (tap
+/// targets, labelled targets, text contrast) for the state in `en` light
+/// and dark at the first of [phoneSizes], through the same [pump].
 void goldenMatrix(
   String name,
   Widget Function(GoldenVariant variant) builder, {
@@ -148,6 +152,7 @@ void goldenMatrix(
   List<Size> phoneSizes = kPhoneSizes,
   List<Size> tabletSizes = kTabletSizes,
   GoldenPump pump = pumpTaroUiGolden,
+  bool accessibility = false,
 }) {
   final variants = goldenVariants(
     keyScreen: keyScreen,
@@ -166,6 +171,28 @@ void goldenMatrix(
           matchesGoldenFile(goldenPath(name, variant)),
         );
       }, tags: const ['golden']);
+    }
+    if (accessibility) {
+      for (final mode in const [ThemeMode.light, ThemeMode.dark]) {
+        final variant = GoldenVariant(
+          size: phoneSizes.first,
+          themeMode: mode,
+          locale: const Locale('en'),
+        );
+        testWidgets('a11y_${variant.name}', (tester) async {
+          final handle = tester.ensureSemantics();
+          await pump(tester, builder(variant), variant);
+          await tester.pumpAndSettle();
+          await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+          await expectLater(tester, meetsGuideline(iOSTapTargetGuideline));
+          await expectLater(
+            tester,
+            meetsGuideline(labeledTapTargetGuideline),
+          );
+          await expectLater(tester, meetsGuideline(textContrastGuideline));
+          handle.dispose();
+        });
+      }
     }
   });
 }

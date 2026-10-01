@@ -65,7 +65,7 @@ function headersFor(installId: string, key: string, extra: CallOptions['headers'
     'X-Test-Install': installId,
     'Idempotency-Key': key,
     [DEBUG_ATTESTATION_HEADER]: TEST_DEBUG_ATTESTATION_TOKEN,
-    'X-Taro-AI-Consent': '1',
+    'X-Taro-AI-Consent': '2',
   };
   for (const [name, value] of Object.entries(extra)) {
     if (value === undefined) {

@@ -502,6 +502,33 @@ final class FakeReviewPrompter with FakeBehaviour implements ReviewPrompter {
   }
 }
 
+/// External links: [opened] keeps every URI opened, in order; a scheme
+/// outside [UrlLauncher.allowedSchemes] fails like the real adapter.
+final class FakeUrlLauncher with FakeBehaviour implements UrlLauncher {
+  @override
+  String get fakeName => 'UrlLauncher';
+
+  /// Every URI opened successfully, oldest first.
+  final List<Uri> opened = [];
+
+  @override
+  Future<Result<void>> open(Uri uri) async {
+    record('open');
+    final failure = takeFailure('open');
+    if (failure != null) return Result.err(failure);
+    if (!UrlLauncher.allowedSchemes.contains(uri.scheme)) {
+      return Result.err(
+        Failure.unexpected(
+          error: ArgumentError.value(uri.scheme, 'scheme'),
+          stack: StackTrace.empty,
+        ),
+      );
+    }
+    opened.add(uri);
+    return const Result.ok(null);
+  }
+}
+
 /// OS-backup exclusion: [excluded] keeps every path passed, in order.
 final class FakeBackupExclusion with FakeBehaviour implements BackupExclusion {
   @override

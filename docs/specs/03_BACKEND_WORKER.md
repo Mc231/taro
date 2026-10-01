@@ -904,7 +904,7 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC29, RC45, RC62, RC64, RC73, RC82, RC9
 | `store.removeAdsEnabled` | `true` | hides the Remove Banner Ads offer; owners keep the entitlement (04 §13) | client |
 | `store.showBestValueBadge` | `true` | "Best value" badge on the lowest per-reading price (04 §11) | client |
 | `store.showPerReadingPrice` | `true` | per-reading price line on packs (04 §11) | client |
-| `ai.consentVersion` | `1` | integer; `X-Taro-AI-Consent` below it → `412 AI_CONSENT_REQUIRED` (RC21, RC28) | Worker + client |
+| `ai.consentVersion` | `2` | integer; `X-Taro-AI-Consent` below it → `412 AI_CONSENT_REQUIRED` (RC21, RC28). 2 since 2026-10-01: the consent copy names only OpenAI (RC97 OpenAI-only at launch), so every user re-consents | Worker + client |
 | `ai.questionMaxChars` | `300` | 300 **grapheme clusters** after NFC + trim (RC45); the client counter mirrors it | Worker + client |
 | `app.minVersion.ios` / `.android` | `"1.0.0"` | `426 UPGRADE_REQUIRED` below | Worker + client |
 | `app.recommendedVersion.ios` / `.android` | `"1.0.0"` | dismissible S05 `updateAvailable` notice, once per version (RC73) | client |

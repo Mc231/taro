@@ -157,7 +157,7 @@ void main() {
         (s) => s.copyWith(
           ai: const AiConsent(
             decision: AiConsentDecision.granted,
-            version: 1,
+            version: 2,
           ),
         ),
       );
@@ -441,7 +441,7 @@ void main() {
     });
 
     test('declined without rephrase → refused(category)', () async {
-      final (container, log, _) = await open();
+      final (container, log, controller) = await open();
       container
           .read(readingHandoffProvider.notifier)
           .post(
@@ -455,11 +455,40 @@ void main() {
             ),
           );
       await pumpEventQueue();
-      expect(
-        (log.last as QuestionRefused).category,
-        RefusalCategory.sexualMinors,
-      );
+      final refused = log.last as QuestionRefused;
+      expect(refused.category, RefusalCategory.sexualMinors);
+      expect(refused.draw, draw);
+      // Moderation-blocked: the neutral message only, no reflect path.
+      await controller.reflectWithoutQuestion();
+      expect(log.last, isA<QuestionRefused>());
     });
+
+    test(
+      'refused(advice category): reflect reuses the declined cards',
+      () async {
+        final (container, log, controller) = await open();
+        controller.updateText('Is this mole serious?');
+        container
+            .read(readingHandoffProvider.notifier)
+            .post(
+              ReadingHandoff.declined(
+                safety: const SafetyInfo(
+                  category: RefusalCategory.health,
+                  messageKey: 'safetyDeclinedHealth',
+                  canRephrase: false,
+                ),
+                draw: draw,
+              ),
+            );
+        await pumpEventQueue();
+        expect(log.last, isA<QuestionRefused>());
+        await controller.reflectWithoutQuestion();
+        expect(log.last, isA<QuestionReady>());
+        final session = container.read(readingSessionProvider)!;
+        expect(session.question, isNull);
+        expect(session.presetCards.map((c) => c.cardId), draw.cardIds);
+      },
+    );
 
     test('paused, consent and region handoffs', () async {
       final (container, log, controller) = await open();

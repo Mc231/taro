@@ -165,11 +165,14 @@ void main() {
     );
     expect(find.text(l10n.pausedTitle), findsOneWidget);
     expect(find.text(l10n.outOfReadingsGetMore), findsNothing);
-    expect(begin(tester).onPressed, isNull);
+    // S31: the Classic reading replaces Begin; Back to Today below it.
+    expect(find.text(l10n.questionBegin), findsNothing);
+    expect(find.text(l10n.questionClassicCaption), findsOneWidget);
     await tapFound(tester, find.text(l10n.commonDailyCard));
     await tapFound(tester, find.text(l10n.commonLearn));
     await tapFound(tester, find.text(l10n.questionTryClassic));
-    expect(calls, ['daily', 'learn', 'classic']);
+    await tapFound(tester, find.text(l10n.commonBackToToday));
+    expect(calls, ['daily', 'learn', 'classic', 'back']);
   });
 
   testWidgets('readingsPaused freePaused: the free copy variant', (
@@ -221,7 +224,8 @@ void main() {
     await pumpLayout(tester, QuestionState.dailyLimitReached(_draft()));
     expect(find.text(l10n.questionDailyLimitTitle), findsOneWidget);
     expect(find.text(l10n.outOfReadingsGetMore), findsNothing);
-    expect(begin(tester).onPressed, isNull);
+    expect(find.text(l10n.questionBegin), findsNothing);
+    expect(find.text(l10n.commonBackToToday), findsOneWidget);
   });
 
   testWidgets('rephrase: hint, examples, reflect without a question', (
@@ -241,7 +245,7 @@ void main() {
     expect(calls, ['reflect']);
   });
 
-  testWidgets('refused(category): the category message, dismissible', (
+  testWidgets('refused(category): the refusal card, rewordings, reflect', (
     tester,
   ) async {
     final calls = await pumpLayout(
@@ -250,12 +254,54 @@ void main() {
         _draft('Q'),
         category: RefusalCategory.legal,
         safety: _safety.copyWith(category: RefusalCategory.legal),
+        draw: aDraw(),
       ),
     );
+    expect(find.text(l10n.questionRefusedHeadline), findsOneWidget);
     expect(find.text(l10n.questionRefusedTitle), findsOneWidget);
     expect(find.textContaining(l10n.safetyDeclinedLegal), findsOneWidget);
-    await tester.tap(find.byTooltip(l10n.commonDismiss));
-    expect(calls, ['dismiss']);
+    expect(
+      find.textContaining(l10n.questionRefusedProfessional),
+      findsOneWidget,
+    );
+    expect(find.text(l10n.questionNoReadingUsed), findsOneWidget);
+    expect(find.text(l10n.questionRephraseTry), findsOneWidget);
+    expect(begin(tester).onPressed, isNotNull);
+    await tapFound(tester, find.text(l10n.questionRephraseExample2));
+    await tapFound(tester, find.text(l10n.questionReflectWithoutQuestion));
+    expect(calls, ['suggestion', 'reflect']);
+  });
+
+  testWidgets('refused(sexual_minors): the neutral message only', (
+    tester,
+  ) async {
+    await pumpLayout(
+      tester,
+      QuestionState.refused(
+        _draft('Q'),
+        category: RefusalCategory.sexualMinors,
+        safety: _safety.copyWith(category: RefusalCategory.sexualMinors),
+        draw: aDraw(),
+      ),
+    );
+    expect(find.text(l10n.safetyDeclinedSexualMinors), findsOneWidget);
+    expect(find.textContaining(l10n.questionRefusedProfessional), findsNothing);
+    expect(find.text(l10n.questionRephraseTry), findsNothing);
+    expect(find.text(l10n.questionReflectWithoutQuestion), findsNothing);
+  });
+
+  testWidgets('refused without a draw: no reflect link', (tester) async {
+    await pumpLayout(
+      tester,
+      QuestionState.refused(
+        _draft('Q'),
+        category: RefusalCategory.other,
+        safety: _safety.copyWith(category: RefusalCategory.other),
+      ),
+    );
+    expect(find.text(l10n.refusalGeneric), findsOneWidget);
+    expect(find.text(l10n.questionReflectWithoutQuestion), findsNothing);
+    expect(find.text(l10n.questionChargeFree), findsOneWidget);
   });
 
   testWidgets('rateLimited: notice', (tester) async {
@@ -433,7 +479,7 @@ void main() {
       expectRoute(RoutePaths.readingDraw);
     });
 
-    testWidgets('refused: dismiss returns to editing', (tester) async {
+    testWidgets('refused: a rewording returns to editing', (tester) async {
       await pumpQuestion(tester, aiReadyFakes());
       final container = await containerOf(tester);
       container
@@ -446,9 +492,12 @@ void main() {
           );
       await tester.pumpAndSettle();
       expect(find.text(l10n.questionRefusedTitle), findsOneWidget);
-      await tester.tap(find.byTooltip(l10n.commonDismiss));
-      await tester.pumpAndSettle();
+      await tapFound(tester, find.text(l10n.questionRephraseExample1));
       expect(find.text(l10n.questionRefusedTitle), findsNothing);
+      expect(
+        find.widgetWithText(TextField, l10n.questionRephraseExample1),
+        findsOneWidget,
+      );
     });
 
     testWidgets('consent handoff: the notice reopens S04', (tester) async {

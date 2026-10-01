@@ -54,7 +54,7 @@
   "store.removeAdsEnabled": true,
   "store.showBestValueBadge": true,
   "store.showPerReadingPrice": true,
-  "ai.consentVersion": 1,
+  "ai.consentVersion": 2,
   "ai.questionMaxChars": 300,
   "app.minVersion.ios": "1.0.0",
   "app.minVersion.android": "1.0.0",

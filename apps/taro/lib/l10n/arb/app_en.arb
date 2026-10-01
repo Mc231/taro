@@ -248,7 +248,7 @@
   "@aiConsentTitle": {
     "description": "05 §3 compliance string (fixed copy). S04 AI consent sheet title."
   },
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks an AI service (Anthropic’s Claude or OpenAI’s GPT models) to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. These AI providers do not use this data to train their models. Readings are AI-generated and may be wrong or unexpected.",
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI’s GPT models to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
   "@aiConsentBody": {
     "description": "05 §3 compliance string (fixed copy, CS6, RC97). S04 AI consent sheet body and S23; provider names must equal ai.disclosedProviders."
   },
@@ -718,6 +718,10 @@
   "aiConsentReentryBack": "Back",
   "@aiConsentReentryBack": {
     "description": "S04 re-entry variant: back button (equal weight with Allow)."
+  },
+  "aiConsentReentryFootnote": "Choose Back to draw a classic reading with the card meanings instead. You can allow AI readings any time in Settings.",
+  "@aiConsentReentryFootnote": {
+    "description": "S04 re-entry (reading gate) footnote: Back returns to S07, which offers the Classic reading (RC20, F8)."
   },
   "attPrepromptTitle": "About ad tracking",
   "@attPrepromptTitle": {
@@ -1349,6 +1353,18 @@
   "questionTryClassic": "Try a classic reading",
   "@questionTryClassic": {
     "description": "S07/S31 button that starts a Classic reading (F8)."
+  },
+  "questionRefusedHeadline": "Let’s look at this another way",
+  "@questionRefusedHeadline": {
+    "description": "S07 refused(category) screen title (QuestionRefused.dc.html)."
+  },
+  "questionNoReadingUsed": "No reading was used",
+  "@questionNoReadingUsed": {
+    "description": "S07 refused(category) card: nothing was charged."
+  },
+  "questionRephraseTry": "Try asking about how you feel, or what you can do",
+  "@questionRephraseTry": {
+    "description": "S07 refused/rephrase: caption above the example rewordings."
   },
   "questionClassicCaption": "Uses the card meanings for each position. Free, no AI, works offline.",
   "@questionClassicCaption": {
@@ -2756,7 +2772,7 @@
   "@privacyAiHeading": {
     "description": "S23 section heading."
   },
-  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (Anthropic or OpenAI) to write readings.",
+  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (OpenAI) to write readings.",
   "@privacyAiAllowedSubtitle": {
     "description": "S23 AI status subtitle (providers of ai.disclosedProviders, RC97)."
   },
@@ -3218,6 +3234,43 @@
       }
     }
   },
+  "crisisCallSemantics": "Call {name} on {number}",
+  "@crisisCallSemantics": {
+    "description": "S27 action screen-reader label, e.g. 'Call Samaritans on 116 123'.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisTextSemantics": "Text {name} on {number}",
+  "@crisisTextSemantics": {
+    "description": "S27 SMS action screen-reader label.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisOpenSemantics": "Open {site}",
+  "@crisisOpenSemantics": {
+    "description": "S27 link action screen-reader label, e.g. 'Open findahelpline.com'.",
+    "placeholders": {
+      "site": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisOpenFailed": "Couldn’t open this on your device. You can dial or visit it yourself.",
+  "@crisisOpenFailed": {
+    "description": "S27 toast when no app can open a call, text or link."
+  },
   "helpTitle": "Help & FAQ",
   "@helpTitle": {
     "description": "S28 title."
@@ -3376,6 +3429,69 @@
   "@drawLeaveBodySaved": {
     "description": "S08 back confirmation body once the reading is saved as pending (after the last pick, 01 §9.1)."
   },
+  "drawShuffleNote": "The order is already random. Shuffling is your moment to pause.",
+  "@drawShuffleNote": {
+    "description": "S08 shuffling: caption above the buttons (01 §7.3)."
+  },
+  "drawShuffleReady": "I’m ready — draw",
+  "@drawShuffleReady": {
+    "description": "S08 shuffling: primary button, enabled after one shuffle."
+  },
+  "drawRevealedProgress": "{revealed} of {total} revealed",
+  "@drawRevealedProgress": {
+    "description": "S08 revealing progress in the top bar.",
+    "placeholders": {
+      "revealed": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "drawTapToReveal": "Tap to reveal",
+  "@drawTapToReveal": {
+    "description": "S08 revealing: label on the next face-down card."
+  },
+  "drawDeckSemantics": "{count, plural, one{Deck, 1 card} other{Deck, {count} cards}}",
+  "@drawDeckSemantics": {
+    "description": "S08 picking: screen-reader label of the fan.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "drawSlotBackSemantics": "Card back, position {position} of {total}, {name}",
+  "@drawSlotBackSemantics": {
+    "description": "S08: screen-reader label of a placed face-down card.",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "drawSlotRevealSemantics": "Card back, position {position} of {total}, {name}. Double-tap to reveal",
+  "@drawSlotRevealSemantics": {
+    "description": "S08 revealing: screen-reader label of the next card to flip.",
+    "placeholders": {
+      "position": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "storeOfflineNotice": "You’re offline. Connect to buy readings.",
   "@storeOfflineNotice": {
     "description": "S11 notice while the device is offline (the store needs the network)."
@@ -3403,5 +3519,64 @@
   "shareQuestionLabel": "My question",
   "@shareQuestionLabel": {
     "description": "Label before the question in shared reading text, when the user opts in (PR19)."
+  },
+  "homeCoachmarkTitle": "Your first AI reading today is free",
+  "@homeCoachmarkTitle": {
+    "description": "S05 firstRun coachmark title while a free reading is available (TodayFirstRun)."
+  },
+  "homeCoachmarkFreeBody": "Start here when a question is on your mind. You get one free reading every day.",
+  "@homeCoachmarkFreeBody": {
+    "description": "S05 firstRun coachmark body while a free reading is available."
+  },
+  "homeCoachmarkDismiss": "Got it",
+  "@homeCoachmarkDismiss": {
+    "description": "S05 firstRun coachmark dismiss button."
+  },
+  "dailyCardBackSemantics": "Card back, double-tap to reveal",
+  "@dailyCardBackSemantics": {
+    "description": "S13 notDrawn: screen-reader label of the face-down daily card."
+  },
+  "dailyRevealedAnnouncement": "Card revealed: {card}",
+  "@dailyRevealedAnnouncement": {
+    "description": "S13: announced after the daily card flip.",
+    "placeholders": {
+      "card": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyHeaderSemantics": "Your daily card, {date}",
+  "@dailyHeaderSemantics": {
+    "description": "S13 top bar: screen-reader label of the overline and the date.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyKeywordsSemantics": "Keywords: {keywords}",
+  "@dailyKeywordsSemantics": {
+    "description": "S13: screen-reader label of the keyword chips (comma-separated list).",
+    "placeholders": {
+      "keywords": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyNotDrawnPrompt": "Tap the card to reveal today’s card",
+  "@dailyNotDrawnPrompt": {
+    "description": "S13 notDrawn heading under the face-down card (DailyCardNotDrawn)."
+  },
+  "dailyNotDrawnBody": "Take a breath first, if you like. It stays the same all day.",
+  "@dailyNotDrawnBody": {
+    "description": "S13 notDrawn body under the heading."
+  },
+  "dailyNotDrawnBadge": "Free · works offline · no AI",
+  "@dailyNotDrawnBadge": {
+    "description": "S13 notDrawn pill under the body."
+  },
+  "dailyBackToToday": "Back to Today",
+  "@dailyBackToToday": {
+    "description": "S13 notDrawn secondary button → S05."
   }
 }

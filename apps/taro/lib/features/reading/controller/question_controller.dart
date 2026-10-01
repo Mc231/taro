@@ -453,14 +453,20 @@ final class QuestionController extends Notifier<QuestionState> {
   /// removed and the declined cards are reused, then Begin runs again (a new
   /// hold; no credit was used by the decline).
   Future<void> reflectWithoutQuestion() async {
-    final current = state;
-    if (current is! QuestionRephrase) return;
-    _draft = current.draft.copyWith(
+    final (draft, draw) = switch (state) {
+      QuestionRephrase(:final draft, :final draw) => (draft, draw),
+      QuestionRefused(:final draft, :final draw?, :final category)
+          when !category.isModerationBlocked =>
+        (draft, draw),
+      _ => (null, null),
+    };
+    if (draft == null || draw == null) return;
+    _draft = draft.copyWith(
       text: '',
       usedSuggestion: false,
-      check: QuestionPrecheck.check('', maxChars: current.draft.maxChars),
+      check: QuestionPrecheck.check('', maxChars: draft.maxChars),
       presetCards: [
-        for (final c in current.draw.cards)
+        for (final c in draw.cards)
           PresetCard(cardId: c.cardId, reversed: c.reversed),
       ],
     );
@@ -482,11 +488,13 @@ final class QuestionController extends Notifier<QuestionState> {
       ReadingHandoffDeclined(:final safety, :final draw)
           when safety.canRephrase =>
         QuestionState.rephrase(draft, safety: safety, draw: draw),
-      ReadingHandoffDeclined(:final safety) => QuestionState.refused(
-        draft,
-        category: safety.category,
-        safety: safety,
-      ),
+      ReadingHandoffDeclined(:final safety, :final draw) =>
+        QuestionState.refused(
+          draft,
+          category: safety.category,
+          safety: safety,
+          draw: draw,
+        ),
       ReadingHandoffPaused(:final freePaused) => QuestionState.readingsPaused(
         draft,
         freePaused: freePaused,

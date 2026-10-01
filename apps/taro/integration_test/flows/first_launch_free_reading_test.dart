@@ -51,7 +51,8 @@ void main() {
     await app.drawAndRevealAll();
 
     await app.waitForScreen(ScreenId.s09);
-    await app.$(DisclaimerFooter).waitUntilExists();
+    // The footer closes the (lazy) reading list.
+    await app.$(DisclaimerFooter).scrollTo();
     expect(find.byType(DisclaimerFooter), findsWidgets);
     await app.waitUntil(
       () => fakes.readings.acked.isNotEmpty,
@@ -63,7 +64,7 @@ void main() {
     expect(fakes.readings.acked, [saved.id]);
 
     // Saved to the Journal.
-    await app.tapText(l.readingDone);
+    await app.tapFinder(find.byTooltip(l.readingDone));
     await app.waitForScreen(ScreenId.s05);
     await app.tapText(l.tabJournal);
     await app.waitForScreen(ScreenId.s14);

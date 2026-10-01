@@ -129,6 +129,11 @@ sdk_packages:
   - package: in_app_review
     ports: [ReviewPrompter]
     allowed: [apps/taro/lib/services/review/**]
+  # UrlLauncher -> PlatformUrlLauncher (tel:, sms:, https: links; S27, S28,
+  # S30).
+  - package: url_launcher
+    ports: [UrlLauncher]
+    allowed: [apps/taro/lib/services/links/**]
   # Logger -> PackageLoggingLogger.
   - package: logging
     ports: [Logger]

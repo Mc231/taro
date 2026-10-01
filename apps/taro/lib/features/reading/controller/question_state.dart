@@ -106,11 +106,14 @@ sealed class QuestionState with _$QuestionState {
     required Draw draw,
   }) = QuestionRephrase;
 
-  /// Declined without a rewording hint (03 §9.4 categories, RC27).
+  /// Declined without a rewording hint (03 §9.4 categories, RC27). [draw]
+  /// is the declined draw, when there is one ("Reflect on the cards without
+  /// a question"; never offered for moderation-blocked categories).
   const factory QuestionState.refused(
     QuestionDraft draft, {
     required RefusalCategory category,
     required SafetyInfo safety,
+    Draw? draw,
   }) = QuestionRefused;
 
   /// `429 RATE_LIMITED` with `details.reason = burst`.

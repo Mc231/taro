@@ -55,6 +55,7 @@ void main() {
       'connectivityMonitorProvider': connectivityMonitorProvider,
       'reviewPrompterProvider': reviewPrompterProvider,
       'backupExclusionProvider': backupExclusionProvider,
+      'urlLauncherProvider': urlLauncherProvider,
       'consentOrchestratorProvider': consentOrchestratorProvider,
     };
     for (final MapEntry(key: name, value: provider) in ports.entries) {
