@@ -149,7 +149,7 @@ A default can be overridden only by the owner.
 
 | Item | Decision | Status | Affects |
 |---|---|---|---|
-| **BE Q1**, model for free readings | **Deferred.** Decide after Phase 21 closed-testing cost data. Since 2026-10-01 every tier defaults to `gpt-6.1-sol` (see "OpenAI-only at launch"); before that the RC64 default was: free readings on `claude-sonnet-5`, soft-tier fallback `claude-sonnet-5` (`claude-haiku-4-5` until 2026-09-30), paid readings on `claude-opus-5`; `ai.budget.freeUsdPerDau` $0.03, soft floor $50, free-stop floor $100, hard stop $300/day. The model is remote-configurable (server-only config), so the decision needs no release. Model IDs and prices are verified against the Claude API reference in Phase 8 Sprint 8.1 (RC32). Since RC97 (2026-09-29) each tier also names its provider (`ai.provider.*`, default `anthropic`); the Phase 21 decision may pick an OpenAI model for a tier, subject to the 05 §4.3 pass bar. | Deferred to Phase 21 | 03 BE10, §8.2, §10.2, Q1; 04 §4.1; 05 §4.3; 06 §12; RC64 |
+| **BE Q1**, model for free readings | **Decided 2026-10-01 by the owner: `openai/gpt-6.1-sol` for every tier (paid, free, freeFallback)**, with OpenAI moderation (`ai.moderation.provider = openai`). Measured cost per reading (2026-10-01 evals, `worker/evals/reports/2026-10-01-v1-openai-gpt-6.1-sol-*` and `2026-09-30-v1-openai-gpt-6.1-sol-quality.md`): ≈ $0.004 single card, ≈ $0.006–0.010 three cards, ≈ $0.013 two paths / relationship. Budget defaults (`ai.budget.freeUsdPerDau` $0.03, soft floor $50, free-stop floor $100, hard stop $300/day) stay. The model stays remote-configurable; Phase 21 beta cost data may revisit it (e.g. a cheaper writer behind a sol safety classifier) only with a passing 05 §4.3 eval. | Decided by owner | 03 BE10, §8.2, §10.2, Q1; 04 §4.1; 05 §4.3; 06 §12; RC64; RC97 |
 | **CS4 / RC93**, Play target audience | Play 16–17 and 18+; Apple rating 13+; AI processing based on contract (GDPR Art. 6(1)(b)), consent sheet kept as permission UX; policy says "not directed at children under 16". | Confirmed | 05 CS4, §5, §6; RC23, RC93 |
 | **BE Q5**, API host | `api.taro.vshyrochuk.com` (prod), `api-staging.taro.vshyrochuk.com` (staging), local `wrangler dev` only (dev, no hosted dev Worker). Landing, privacy, terms and support on `taro.vshyrochuk.com` (CS10). | Confirmed | 02 §15; 03 §2.1, Q5; 05 CS10, M11 |
 | **MO §4.1**, prices | Packs 3 / 10 / 30 readings at $1.99 / $4.99 / $9.99; Remove Banner Ads $3.99. Enrol in the App Store Small Business Program and the Play 15 % tier (manual, Phase 10; 05 M12). | Confirmed | 04 §4, §4.1, Q6; 05 §8.1, M12; RC3 |
@@ -186,7 +186,7 @@ A default can be overridden only by the owner.
 
 | # | Decision | Answer |
 |---|---|---|
-| 1 | AI model and budget for free readings | **Deferred** until beta (Phase 21) cost data; RC64 default stays and the model is remote-configurable (same as BE Q1 above). |
+| 1 | AI model and budget for free readings | **Decided 2026-10-01:** `gpt-6.1-sol` for every tier (BE Q1 above); remote-configurable. |
 | 2 | Pack sizes and prices | Confirmed: 3 / 10 / 30 readings at $1.99 / $4.99 / $9.99; Remove Banner Ads $3.99; Small Business Program and Play 15 % tier. |
 | 3 | Free AI readings per day | Confirmed: 1, configurable via `readings.freeDaily` (range 1–5; never 0, because the store copy promises it). |
 | 4 | Rewarded ads | Confirmed: on; +1 reading per ad; 3 per day; 5-minute cooldown from the last grant; offered only when the free reading is used up (RC33–RC35, RC57). |
@@ -203,7 +203,7 @@ A default can be overridden only by the owner.
 
 ### Still open
 
-- **BE Q1 free-reading model**: deferred to Phase 21 by decision, not open.
+- **BE Q1 free-reading model**: decided 2026-10-01 (`gpt-6.1-sol`).
 - **Final AI provider list (RC97)**: since 2026-10-01 the default is OpenAI only (see "OpenAI-only at launch"); the copy naming Anthropic must be reduced to OpenAI in 05 review. The owner confirms which providers are routable in prod (and so named in `ai.disclosedProviders`, the consent copy and the store privacy forms) before submission (Phase 22). The consent/privacy wording naming "Anthropic (Claude) or OpenAI (ChatGPT)" is pending 05 review.
 - **Defaults taken by the Phase 4 code (RC96)**, pending owner confirmation; each is the current behaviour until a spec says otherwise:
   - **Backup Merge and settings** (01 §7.11 defines Merge only for readings and daily cards): **Merge keeps the local settings**; only Replace takes the file's settings (`BackupMerge`).
