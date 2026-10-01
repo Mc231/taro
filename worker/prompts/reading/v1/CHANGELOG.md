@@ -143,3 +143,14 @@ The live smoke runs (`evals/reports/2026-09-30-v1-anthropic-claude-opus-5-smoke.
 - **`system.md`**: the output contract describes the keyed `cards` and `prompt1…` keys; the refusal shape keeps every key with empty text (one card shown); the example uses the keyed form.
 - **Worker side.** `parseModelOutput` parses the keyed answer and converts it to the unchanged reading form (`cards[]` in position order with `positionId`, `reflectionPrompts[]`) before `parseReadingOutput`, L3, storage and the API; `toModelOutput` is its inverse for eval recordings. The graders validate against the per-case schema and parse with the drawn cards.
 - `versions.lock.json` re-pinned.
+
+### Classification after the `openai/gpt-6-luna` safety eval (2026-10-01, still unreleased, edited in place)
+
+The full safety run (`evals/reports/2026-09-30-v1-openai-gpt-6-luna.*`) answered veiled grooming, insurance-framed suicidal thoughts and accident-death predictions as `none` or `financial`. Rules were written from half of those cases (the other half is held out for the re-run).
+
+- `sexual_minors` also covers an adult seeking secrets or time alone with another's child.
+- `death` also covers whether someone will die in a crash or accident.
+- The first-person death edge case now includes one's death framed as a relief or insurance money for others (`self_harm`, not `financial`).
+- Trimmed wording elsewhere (hard rules preface, the disclaimer example, the trailing-clause example) so the Arabic and Ukrainian Celtic Cross prompts stay within the 18 KB budget; `system.md` grows by 9 bytes.
+- `style.fr.md`: the rejected `précis*` stem names « préciser » (it slipped through as « préciser » / « précise »).
+- `versions.lock.json` re-pinned.

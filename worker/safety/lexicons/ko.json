@@ -59,6 +59,16 @@
       "patterns": ["(?:제가|내가) 없으면 세상이"]
     },
     {
+      "id": "sh.insurance",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "보험금(?:이|만)? ?(?:있으면|나오면|받으면|들어오면)|(?:내|제) (?:생명)?보험금",
+        "가족|아내|남편|아이들|부모님|다들",
+        "편하|행복하|나아지|낫겠|좋아지|좋겠"
+      ]
+    },
+    {
       "id": "sh.hint",
       "category": "self_harm",
       "severity": "hint",
@@ -149,6 +159,24 @@
       "unless": ["(?:제|우리|내) (?:딸|아들|아이)"]
     },
     {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "믿|신뢰",
+        "단둘이|둘이서만|둘만 있",
+        "(?:열|십)(?:한|두|세|네|다섯|여섯|일곱)? ?살|(?<![\\p{N}])(?:[1-9]|1[0-7]) ?(?:살|세)|초등학생|중학생|미성년"
+      ],
+      "unless": ["(?:제|우리|내) (?:딸|아들|아이|조카|손녀|손자|의붓)"]
+    },
+    {
+      "id": "sm.alone_with_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": ["(?:옆집|이웃집|이웃) (?:꼬마|어린)", "단둘이|둘이서만|둘만 있"],
+      "unless": ["(?:제|우리|내) (?:딸|아들|아이|조카|손녀|손자|의붓)"]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",
@@ -165,6 +193,14 @@
       "category": "death",
       "severity": "hint",
       "patterns": ["언제 죽|죽을까|죽나요|수명|얼마나 살"]
+    },
+    {
+      "id": "de.hint.accident",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "추락|사고(?:가 날|가 나|로 죽|를 당할|를 당하)|(?:비행기|차|배|버스|기차)가 (?:떨어|가라앉)"
+      ]
     },
     {
       "id": "le.hint",

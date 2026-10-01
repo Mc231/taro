@@ -430,7 +430,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `ai.provider.freeFallback` | string (`anthropic` \| `openai`) | `"anthropic"` (soft tier, RC97) | Worker |
 | `ai.outageFallback.provider` | string \| null | `null` (off); cross-provider fallback on `timeout` / `rate_limited` / `upstream` only (RC97) | Worker |
 | `ai.outageFallback.model` | string \| null | `null`; set together with `ai.outageFallback.provider` (RC97) | Worker |
-| `ai.moderation.provider` | string (`none` \| `openai`) | `"none"` (RC97) | Worker |
+| `ai.moderation.provider` | string (`none` \| `openai`) | `"openai"` (RC97) | Worker |
 | `ai.disclosedProviders` | list\<string\> | `["anthropic", "openai"]`; routing (tiers, outage fallback, moderation) outside it is rejected by `config-push` (RC97) | Worker (`config-push`) |
 | `ai.effort` | string | `"low"` (hint; each `AiProvider` adapter maps or ignores it, RC97) | Worker |
 | `ai.promptVersion` | string | `"v1"` | Worker |

@@ -153,6 +153,15 @@
       "unless": ["(?:mijn|onze) (?:dochter|zoon|kinderen)"]
     },
     {
+      "id": "sm.hint.alone_neighbour",
+      "category": "sexual_minors",
+      "severity": "hint",
+      "patterns": ["alleen (?:te )?(?:zijn|blijven) met", "meisje|jongen|kind"],
+      "unless": [
+        "(?:mijn|onze) (?:dochter|zoon|kinderen|kind|stief\\p{L}*|nicht\\p{L}*|neef\\p{L}*|klein\\p{L}*)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",

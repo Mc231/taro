@@ -50,6 +50,7 @@ describe('validateConfigText', () => {
     const result = validateConfigText(JSON.stringify({ ...defaultsFile, server }));
     expect(result.ok ? [] : result.issues).toEqual([
       'server > ai.provider.free: provider openai is not in ai.disclosedProviders',
+      'server > ai.moderation.provider: provider openai is not in ai.disclosedProviders',
     ]);
   });
 

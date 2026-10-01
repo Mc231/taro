@@ -163,6 +163,17 @@
       "unless": ["(?:ma|notre) fille|(?:mon|notre) fils|(?:mes|nos) enfants"]
     },
     {
+      "id": "sm.alone_with_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "seule? avec (?:la|le) (?:petite?|fillette|gamine?) (?:des|du|de la) voisin\\p{L}*"
+      ],
+      "unless": [
+        "(?:ma|mon|mes|notre|nos) (?:fille|fils|enfants?|belle-fille|beau-fils|niece|neveu|petite-fille|petit-fils|petits-enfants|filleule?)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",

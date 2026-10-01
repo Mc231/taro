@@ -2,13 +2,22 @@ import type { AiRuntime } from '../../src/adapters/ai/callPolicy';
 import { AnthropicProvider } from '../../src/adapters/anthropic/AnthropicProvider';
 import { OpenAiProvider } from '../../src/adapters/openai/OpenAiProvider';
 import type { CliDeps } from '../../src/admin/cli';
-import { AI_PROVIDER_IDS, type AiProviderId } from '../../src/config/schema';
+import {
+  AI_MODERATION_PROVIDERS,
+  AI_PROVIDER_IDS,
+  type AiProviderId,
+} from '../../src/config/schema';
+
+type AiModerationProvider = (typeof AI_MODERATION_PROVIDERS)[number];
 import { DEFAULT_RUNTIME_CONFIG } from '../../src/config/defaults';
+import { readingText } from '../../src/domain/outputValidator';
+import { moderationInputCategory, moderationOutputFlagged } from '../../src/domain/safetyPolicy';
 import type { RuntimeConfig } from '../../src/config/schema';
 import {
   isAiOutage,
   totalUsage,
   ZERO_USAGE,
+  type AiModerationResult,
   type AiProvider,
   type AiResult,
   type AiUsage,
@@ -60,7 +69,11 @@ import type { EvalCase, RecordedOutput } from './types';
  * The key comes from `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` in the
  * environment and is never printed. `--max-usd` is required: the run refuses
  * to start when the projected spend is over it, and stops starting calls when
- * spent + the worst case of the next call would pass it. Exit codes: 0 pass,
+ * spent + the worst case of the next call would pass it. `--moderation openai`
+ * (needs `OPENAI_API_KEY`) adds the provider moderation pass in production
+ * order (03 §9.4, RC97): the question after L1 and before the model, an
+ * answered output before grading; moderation is free, so only calls are
+ * counted, and an error never blocks a case. Exit codes: 0 pass,
  * 1 input or key error, 2 usage, 3 the 05 §4.3 bar failed or the run is
  * incomplete (0 with `--allow-incomplete`), 4 over budget.
  */
@@ -84,7 +97,7 @@ export const JUDGE_INPUT_TOKENS = 3000;
 
 export function usage(suite: Suite): string {
   const name = suite === 'safety' ? 'eval:safety' : 'eval';
-  return `usage: ${name} --provider ${AI_PROVIDER_IDS.join('|')} --model <id> --max-usd <usd> [--prompt v1] [--cases <jsonl>…] [--sample smoke|all] [--limit <n>] [--concurrency <n>] [--env dev|staging] [--tier <label>] [--out <dir>] [--banned <yaml>] [--judge] [--judge-model <id>] [--skip-l1] [--allow-incomplete]`;
+  return `usage: ${name} --provider ${AI_PROVIDER_IDS.join('|')} --model <id> --max-usd <usd> [--prompt v1] [--cases <jsonl>…] [--sample smoke|all] [--limit <n>] [--concurrency <n>] [--env dev|staging] [--tier <label>] [--out <dir>] [--banned <yaml>] [--judge] [--judge-model <id>] [--skip-l1] [--moderation ${AI_MODERATION_PROVIDERS.join('|')}] [--allow-incomplete]`;
 }
 
 export interface LiveOptions {
@@ -103,6 +116,8 @@ export interface LiveOptions {
   /** `null` = judge off. */
   readonly judgeModel: string | null;
   readonly skipL1: boolean;
+  /** `none` = no provider moderation (the default of this runner). */
+  readonly moderation: AiModerationProvider;
   readonly allowIncomplete: boolean;
 }
 
@@ -120,6 +135,7 @@ const VALUE_OPTIONS = new Set([
   '--out',
   '--banned',
   '--judge-model',
+  '--moderation',
 ]);
 const FLAG_OPTIONS = new Set(['--judge', '--skip-l1', '--allow-incomplete']);
 const MODEL_ID = /^[A-Za-z0-9][A-Za-z0-9._:-]*$/u;
@@ -195,6 +211,10 @@ export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOption
   if (judgeModel !== undefined && !MODEL_ID.test(judgeModel)) {
     return '--judge-model must be a model id';
   }
+  const moderation = values.get('--moderation') ?? 'none';
+  if (!(AI_MODERATION_PROVIDERS as readonly string[]).includes(moderation)) {
+    return `--moderation must be one of ${AI_MODERATION_PROVIDERS.join(', ')}`;
+  }
   const explicit = lists.get('--cases') ?? [];
   const cases =
     explicit.length > 0
@@ -217,6 +237,7 @@ export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOption
     banned: values.get('--banned') ?? DEFAULT_BANNED,
     judgeModel: flags.has('--judge') || judgeModel !== undefined ? (judgeModel ?? model) : null,
     skipL1: flags.has('--skip-l1'),
+    moderation: moderation as AiModerationProvider,
     allowIncomplete: flags.has('--allow-incomplete'),
   };
 }
@@ -258,6 +279,7 @@ export function realProvider(
 /** How one case ended. */
 export type CaseLayer =
   | 'l1_block'
+  | 'moderation_block'
   | 'answered'
   | 'declined'
   | 'provider_refused'
@@ -266,6 +288,7 @@ export type CaseLayer =
   | 'timeout'
   | 'rate_limited'
   | 'upstream'
+  | 'moderation_flagged'
   | 'not_run';
 
 interface Planned {
@@ -326,6 +349,7 @@ function addUsage(a: AiUsage, b: AiUsage): AiUsage {
 
 const LAYERS: readonly CaseLayer[] = [
   'l1_block',
+  'moderation_block',
   'answered',
   'declined',
   'provider_refused',
@@ -334,8 +358,23 @@ const LAYERS: readonly CaseLayer[] = [
   'timeout',
   'rate_limited',
   'upstream',
+  'moderation_flagged',
   'not_run',
 ];
+
+/** Moderation calls of a run (free: counted, not priced). */
+export interface ModerationStats {
+  calls: number;
+  errors: number;
+  inputBlocks: number;
+  outputFlags: number;
+}
+
+function moderationLine(options: LiveOptions, stats: ModerationStats): string {
+  return options.moderation === 'none'
+    ? 'Provider moderation off.'
+    : `Provider moderation \`${options.moderation}\` (free): ${String(stats.calls)} call(s), ${String(stats.errors)} error(s) (never blocking), ${String(stats.inputBlocks)} question(s) declined, ${String(stats.outputFlags)} answer(s) flagged (no regeneration: the reading fails).`;
+}
 
 function liveMarkdown(
   options: LiveOptions,
@@ -345,6 +384,7 @@ function liveMarkdown(
   projected: number,
   aborted: boolean,
   judgeUsd: number,
+  moderation: ModerationStats,
 ): string[] {
   const counts = LAYERS.map((layer) => [layer, runs.filter((r) => r.layer === layer).length]);
   const tokens = runs.reduce((sum, r) => addUsage(sum, r.usage), ZERO_USAGE);
@@ -352,6 +392,8 @@ function liveMarkdown(
     '## Live run',
     '',
     `Provider \`${options.provider}\`, model \`${options.model}\`, prompt \`${options.prompt}\`, suite \`${suite}\`, sample \`${options.sample}\`${options.env === null ? '' : `, env \`${options.env}\``}. L1 prefilter ${options.skipL1 ? 'skipped (model only)' : 'on (production order)'}; no L3 regeneration.`,
+    '',
+    moderationLine(options, moderation),
     '',
     `Spend: ${usd(spent)} of the ${usd(options.maxUsd)} budget (projected ${usd(projected)}; LLM judge ${usd(judgeUsd)}). Tokens: ${String(tokens.inputTokens)} input, ${String(tokens.cacheReadTokens)} cache read, ${String(tokens.cacheWriteTokens)} cache write, ${String(tokens.outputTokens)} output.${aborted ? ' **Stopped early: the next call could have passed the budget.**' : ''}`,
     '',
@@ -422,6 +464,14 @@ export async function main(
   if (apiKey === '') {
     deps.err(
       `${keyName} is not set; a live eval needs the ${options.provider} key of the target env`,
+    );
+    return 1;
+  }
+  const moderationKey =
+    options.moderation === 'none' ? '' : (deps.env?.[KEY_ENV[options.moderation]] ?? '');
+  if (options.moderation !== 'none' && moderationKey === '') {
+    deps.err(
+      `${KEY_ENV[options.moderation]} is not set; --moderation ${options.moderation} needs it`,
     );
     return 1;
   }
@@ -504,7 +554,7 @@ export async function main(
     }, 0);
     const calls = plan.filter((p) => p.prompt !== null).length;
     deps.out(
-      `plan: ${String(plan.length)} case(s) on ${options.provider}/${options.model} (prompt ${options.prompt}): ${String(calls)} model call(s), ${String(plan.length - calls)} L1 block(s); projected ~${usd(projected)}, budget ${usd(options.maxUsd)}`,
+      `plan: ${String(plan.length)} case(s) on ${options.provider}/${options.model} (prompt ${options.prompt}): ${String(calls)} model call(s), ${String(plan.length - calls)} L1 block(s), moderation ${options.moderation}; projected ~${usd(projected)}, budget ${usd(options.maxUsd)}`,
     );
     if (projected > options.maxUsd) {
       deps.err(
@@ -513,9 +563,37 @@ export async function main(
       return 4;
     }
 
-    const provider = (
-      live.makeProvider ?? ((p, key) => realProvider(p, key, live.runtime, live.fetch))
-    )(options.provider, apiKey);
+    const makeProvider =
+      live.makeProvider ?? ((p, key) => realProvider(p, key, live.runtime, live.fetch));
+    const provider = makeProvider(options.provider, apiKey);
+    const moderate =
+      options.moderation === 'none'
+        ? null
+        : (options.moderation === options.provider
+            ? provider
+            : makeProvider(options.moderation, moderationKey)
+          ).moderate;
+    if (moderate === undefined) {
+      deps.err(`the ${options.moderation} adapter has no moderation endpoint`);
+      return 1;
+    }
+    const moderation: ModerationStats = { calls: 0, errors: 0, inputBlocks: 0, outputFlags: 0 };
+    const moderated = async (text: string): Promise<AiModerationResult | null> => {
+      if (moderate === null || text === '') {
+        return null;
+      }
+      moderation.calls++;
+      let result: AiModerationResult;
+      try {
+        result = await moderate(text, config['ai.timeoutMs']);
+      } catch {
+        result = { kind: 'error' };
+      }
+      if (result.kind === 'error') {
+        moderation.errors++;
+      }
+      return result;
+    };
     const judge =
       options.judgeModel === null
         ? null
@@ -566,6 +644,21 @@ export async function main(
         });
         return;
       }
+      const inputCheck = await moderated(p.c.question ?? '');
+      const blocked = inputCheck === null ? null : moderationInputCategory(inputCheck);
+      if (blocked !== null) {
+        moderation.inputBlocks++;
+        outputs.push({ ...base, id: p.c.id, output: '', refusal: { category: blocked } });
+        report({
+          id: p.c.id,
+          spreadId: p.spreadId,
+          layer: 'moderation_block',
+          usd: 0,
+          usage: ZERO_USAGE,
+          detail: null,
+        });
+        return;
+      }
       const inputTokens = estimateTokens(p.prompt.system) + estimateTokens(p.prompt.user);
       const reserved = worstCaseUsd(inputTokens, p.maxTokens, price, fallback);
       if (!(await guard.acquire(reserved))) {
@@ -591,11 +684,21 @@ export async function main(
       }
       const cost = callsUsd(result.calls, live.runtime.logger);
       guard.settle(reserved, cost);
-      const record = recordOf(result, { ...base, id: p.c.id });
+      const reading =
+        result.kind === 'ok' && result.output.classification === 'none' ? result.output : null;
+      const outputCheck = reading === null ? null : await moderated(readingText(reading));
+      const flagged = outputCheck !== null && moderationOutputFlagged(outputCheck);
+      if (flagged) {
+        moderation.outputFlags++;
+      }
+      // A flagged answer is an L3 failure: without regeneration no reading is shown.
+      const record = flagged
+        ? { ...base, id: p.c.id, model: options.model, output: '', refusal: null }
+        : recordOf(result, { ...base, id: p.c.id });
       if (record !== null) {
         outputs.push(record);
       }
-      const layer = layerOf(result);
+      const layer = flagged ? 'moderation_flagged' : layerOf(result);
       report({
         id: p.c.id,
         spreadId: p.spreadId,
@@ -609,8 +712,8 @@ export async function main(
               ? result.kind
               : null,
       });
-      if (result.kind === 'ok' && result.output.classification === 'none') {
-        await runJudge(p, result.output);
+      if (reading !== null && !flagged) {
+        await runJudge(p, reading);
       }
     };
 
@@ -651,13 +754,22 @@ export async function main(
     const markdown = [
       renderMarkdown(summary, run).trimEnd(),
       '',
-      ...liveMarkdown(options, suite, runs, guard.spent, projected, state.aborted, judgeUsd),
+      ...liveMarkdown(
+        options,
+        suite,
+        runs,
+        guard.spent,
+        projected,
+        state.aborted,
+        judgeUsd,
+        moderation,
+      ),
       ...(options.judgeModel === null ? [] : judgeMarkdown(judged, options.judgeModel)),
     ];
     await deps.writeFile(`${path}.md`, `${markdown.join('\n').trimEnd()}\n`);
     await deps.writeFile(
       `${path}.summary.json`,
-      `${JSON.stringify({ ...summary, spentUsd: guard.spent, projectedUsd: projected, aborted: state.aborted }, null, 2)}\n`,
+      `${JSON.stringify({ ...summary, spentUsd: guard.spent, projectedUsd: projected, aborted: state.aborted, moderation: { provider: options.moderation, ...moderation } }, null, 2)}\n`,
     );
     await deps.writeFile(`${path}.results.jsonl`, renderResultsJsonl(run));
     await deps.writeFile(

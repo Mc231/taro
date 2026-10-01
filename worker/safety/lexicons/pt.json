@@ -147,6 +147,19 @@
       "unless": ["(?:minha|nossa) filha|(?:meu|nosso) filho|(?:meus|nossos) filhos"]
     },
     {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "confi\\p{L}*",
+        "sozinh[ao]s? comigo",
+        "(?:menina|menino|garota|garoto|crianca) (?:de|tem) (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ela|ele) tem (?:[1-9]|1[0-7])(?![\\p{N}])|menor de idade"
+      ],
+      "unless": [
+        "(?:minha|meu|meus|minhas|nossa|nosso|nossos) (?:filh\\p{L}*|entead\\p{L}*|sobrinh\\p{L}*|net[ao]s?|afilhad\\p{L}*)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",

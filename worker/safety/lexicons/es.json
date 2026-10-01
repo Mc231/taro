@@ -167,6 +167,30 @@
       "unless": ["(?:mi|nuestra|nuestro) (?:hija|hijo)|(?:mis|nuestros) hijos"]
     },
     {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "confi\\p{L}*",
+        "a solas conmigo|(?:quedarse|quedarme|estar) a solas con",
+        "(?:nina|nino|chica|chico) (?:de|tiene) (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ella|el) tiene (?:[1-9]|1[0-7])(?![\\p{N}])|menor(?:es)? de edad"
+      ],
+      "unless": [
+        "(?:mi|mis|nuestra|nuestro|nuestros|nuestras) (?:hij\\p{L}*|hijastr\\p{L}*|sobrin\\p{L}*|niet\\p{L}*|ahijad\\p{L}*)"
+      ]
+    },
+    {
+      "id": "sm.alone_with_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "a solas con (?:la|el|esa|ese|una|un) (?:nina|nino|nena|nene|pequena|pequeno|chiquilla|chiquillo) de (?:los|la|el|mis) vecin\\p{L}*"
+      ],
+      "unless": [
+        "(?:mi|mis|nuestra|nuestro|nuestros|nuestras) (?:hij\\p{L}*|hijastr\\p{L}*|sobrin\\p{L}*|niet\\p{L}*|ahijad\\p{L}*)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",

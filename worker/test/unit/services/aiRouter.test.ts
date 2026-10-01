@@ -230,10 +230,12 @@ describe('AiRouter (RC97)', () => {
   });
 
   describe('moderate (03 §9.4)', () => {
-    it('skipped when ai.moderation.provider is none (the default): no call', async () => {
+    it('skipped when ai.moderation.provider is none: no call', async () => {
       const { router, fakes } = setup();
       fakes.openai.moderation({ kind: 'ok', flagged: false, categories: [] });
-      await expect(router.moderate('text', config(), 2000)).resolves.toEqual({ kind: 'skipped' });
+      await expect(
+        router.moderate('text', config({ 'ai.moderation.provider': 'none' }), 2000),
+      ).resolves.toEqual({ kind: 'skipped' });
       expect(fakes.openai.moderated).toEqual([]);
     });
 

@@ -60,7 +60,7 @@
     "ai.provider.freeFallback": "anthropic",
     "ai.outageFallback.provider": null,
     "ai.outageFallback.model": null,
-    "ai.moderation.provider": "none",
+    "ai.moderation.provider": "openai",
     "ai.disclosedProviders": ["anthropic", "openai"],
     "ai.effort": "low",
     "ai.promptVersion": "v1",

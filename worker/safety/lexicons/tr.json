@@ -59,6 +59,17 @@
       "patterns": ["(?:dunya|herkes|ailem) (?:\\p{L}+ )?bensiz daha iyi"]
     },
     {
+      "id": "sh.insurance",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:ailem|cocuklarim|esim|annem|babam|herkes)\\p{L}*",
+        "sigorta para\\p{L}*",
+        "daha (?:iyi|rahat|mutlu) olur"
+      ],
+      "unless": ["\\p{L}+(?:in|un|nin|nun) sigorta"]
+    },
+    {
       "id": "sh.hint",
       "category": "self_harm",
       "severity": "hint",
@@ -149,6 +160,27 @@
         "(?<![\\p{N}])(?:[1-9]|1[0-7]) yasinda\\p{L}*|resit olmayan|resit degil|ortaokullu\\p{L}*|liseli kiz|yetiskinle bir cocuk"
       ],
       "unless": ["(?:kizim|oglum|cocuklarim|kizimiz|oglumuz)\\p{L}*"]
+    },
+    {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "guven\\p{L}*",
+        "yalniz kal\\p{L}*|bas basa kal\\p{L}*",
+        "(?<![\\p{N}])(?:[1-9]|1[0-7]) yasindaki|resit olmayan"
+      ],
+      "unless": ["(?:kizim|oglum|cocuklarim|cocugum|kizimiz|oglumuz|yegenim|torunum|uvey)\\p{L}*"]
+    },
+    {
+      "id": "sm.alone_with_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "komsu\\p{L}* (?:kucuk|minik) (?:kiz|oglan|cocug|cocuk)\\p{L}*",
+        "yalniz kal\\p{L}*|bas basa kal\\p{L}*"
+      ],
+      "unless": ["(?:kizim|oglum|cocuklarim|cocugum|kizimiz|oglumuz|yegenim|torunum|uvey)\\p{L}*"]
     },
     {
       "id": "he.hint",

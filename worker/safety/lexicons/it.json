@@ -157,6 +157,19 @@
       "unless": ["(?:mia|nostra) figlia|(?:mio|nostro) figlio|(?:i miei|i nostri) figli"]
     },
     {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "fid\\p{L}*",
+        "sol[ao] con me",
+        "(?:ragazza|ragazzo|bambina|bambino|una|un) (?:di|ha) (?:[1-9]|1[0-7])(?![\\p{N}]) anni|(?:lei|lui) ha (?:[1-9]|1[0-7])(?![\\p{N}]) anni|minorenn\\p{L}*"
+      ],
+      "unless": [
+        "(?:mia|mio|miei|mie|nostra|nostro|nostri) (?:figli\\p{L}*|figliastr\\p{L}*|nipot\\p{L}*|figlioccia|figlioccio)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",

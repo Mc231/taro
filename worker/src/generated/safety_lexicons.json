@@ -104,6 +104,16 @@
           "unless": []
         },
         {
+          "id": "sh.insurance",
+          "category": "self_harm",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:family|kids|children|wife|husband|partner|parents|everyone)(?: \\p{L}+){0,3} (?:would|will|'d|'ll) be (?:better off|happier|easier))(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:insurance (?:money|payout|pay-?out)|(?:from|with|get|on) my (?:life )?insurance)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": []
+        },
+        {
           "id": "sh.hint.self_injury",
           "category": "self_harm",
           "severity": "hint",
@@ -136,6 +146,15 @@
           "severity": "hint",
           "patterns": [
             "(?<![\\p{L}\\p{N}])(?:(?:be|being) (?:here|around) (?:much longer|any longer|next year|anymore)|insurance money|overdos\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": []
+        },
+        {
+          "id": "sh.hint.burden",
+          "category": "self_harm",
+          "severity": "hint",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:just|only) a burden (?:to|on|for)|(?:relieved|relief|lighter) (?:for them )?(?:if|when) i(?:'m| am| was| were)? (?:gone|dead|not here|not around))(?![\\p{L}\\p{N}])"
           ],
           "unless": []
         },
@@ -309,6 +328,54 @@
           "unless": []
         },
         {
+          "id": "sm.secret_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:the|a|that|this) (?:kid|child|little (?:girl|boy|one)) (?:from|at|in) (?:the |that )?(?:summer )?(?:camp|tutoring|playground|daycare|kindergarten|nursery)|(?:the|a|that|this) little (?:girl|boy))(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?:keep|keeps|keeping|kept) (?:our|this|the|it) (?:little )?secret|our (?:little )?secret)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:trust me)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:alone with me|be alone with|stay alone with)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?<=(?:a|an|the|this|that|to|get) )(?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo|y/o|yr ?-? ?olds?)|(?:she|he)(?:'s| is| was) (?:only |just )?(?:[1-9]|1[0-7])(?![\\p{N}])|minors|underage|under-age|middle ?schoolers?|pre-?teens?)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.alone_with_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:alone with (?:the|a|that|this) (?:neighbou?r'?s'? |next-door )(?:little |young )?(?:girl|boy|kid|child)|alone with (?:the|a|that|this) little (?:girl|boy) (?:next door|from next door|across the street))(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.hint.child_secret",
+          "category": "sexual_minors",
+          "severity": "hint",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:kid|child|boy|girl|student|pupil|camper)s?)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:our (?:little )?secret|keep (?:it|this) (?:a )?secret|alone with me|be alone with|(?:get|grow|be) (?:close|closer|intimate) (?:to|with) me)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
           "id": "he.hint",
           "category": "health",
           "severity": "hint",
@@ -332,6 +399,15 @@
           "severity": "hint",
           "patterns": [
             "(?<![\\p{L}\\p{N}])(?:when will (?:i|he|she|my \\p{L}+) (?:die|pass)|(?:going to|will) die|pass away|how long (?:do|does|will) (?:i|he|she|my \\p{L}+) (?:have|live)|live to see)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": []
+        },
+        {
+          "id": "de.hint.accident",
+          "category": "death",
+          "severity": "hint",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:plane|flight|car|bus|train|ship|boat|helicopter) (?:will |going to |gonna )?(?:crash|go down|sink)|(?:will|going to|gonna) (?:crash|have an accident|die in)|(?:die|killed|dying) in (?:a|an|the) (?:crash|accident|disaster)|(?:crash|accident) (?:kill|take) (?:me|him|her|them))(?![\\p{L}\\p{N}])"
           ],
           "unless": []
         },
@@ -891,11 +967,31 @@
           "unless": []
         },
         {
+          "id": "sh.insurance",
+          "category": "self_harm",
+          "severity": "high",
+          "patterns": [
+            "عائلتي|اسرتي|اهلي|اولادي|ابنائي|زوجتي|زوجي|الجميع",
+            "افضل|احسن|ارتاح|اسعد|اريح",
+            "(?:مال|اموال|تعويض) التامين"
+          ],
+          "unless": []
+        },
+        {
           "id": "sh.hint",
           "category": "self_harm",
           "severity": "hint",
           "patterns": [
             "اختفي نهائيا|اختفي الي الابد|عن الوجود|تعبت من الحياه|اودع الجميع|مال التامين|اجرح نفسي|احرق نفسي|ما عدت اتحمل|عن الاكل"
+          ],
+          "unless": []
+        },
+        {
+          "id": "sh.hint.burden",
+          "category": "self_harm",
+          "severity": "hint",
+          "patterns": [
+            "عبء علي|(?:مال|تعويض) التامين|بدوني"
           ],
           "unless": []
         },
@@ -1021,6 +1117,18 @@
           ],
           "unless": [
             "ابنتي|ابني|اطفالي|اولادي"
+          ]
+        },
+        {
+          "id": "sm.secret_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "الطفل|الطفله|البنت الصغيره|الولد الصغير",
+            "سرنا|يحفظ السر|تحفظ السر|يكتم السر|تكتم السر"
+          ],
+          "unless": [
+            "ابنتي|ابني|اطفالي|اولادي|حفيد|ابن اخ|ابن اخت|بنت اخ|بنت اخت"
           ]
         },
         {
@@ -1448,6 +1556,18 @@
           ],
           "unless": [
             "(?<![\\p{L}\\p{N}])(?:(?:meine|unsere) (?:tochter|sohn|kinder)|(?:meinem|unserem|meinen|unseren) (?:sohn|kindern))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.secret_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:das|ein|dem|den|dieses) kind|(?:das|die|der|dem|den) kleine(?:n)? (?:madchen|junge|jungen))(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:unser (?:kleines )?geheimnis|(?:es|das|alles) fur sich behalt\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:meine|unsere) (?:tochter|sohn|kinder)|(?:meinem|unserem|meinen|unseren) (?:sohn|kindern|kind)|(?:mein|unser) kind|inner\\p{L}* kind|(?:meine|meinem|meinen|meiner|unsere|unserem) (?:stief|enkel|nicht|neffe|patenkind)\\p{L}*)(?![\\p{L}\\p{N}])"
           ]
         },
         {
@@ -2027,6 +2147,30 @@
           ]
         },
         {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:confi\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:a solas conmigo|(?:quedarse|quedarme|estar) a solas con)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?:nina|nino|chica|chico) (?:de|tiene) (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ella|el) tiene (?:[1-9]|1[0-7])(?![\\p{N}])|menor(?:es)? de edad)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:mi|mis|nuestra|nuestro|nuestros|nuestras) (?:hij\\p{L}*|hijastr\\p{L}*|sobrin\\p{L}*|niet\\p{L}*|ahijad\\p{L}*))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.alone_with_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:a solas con (?:la|el|esa|ese|una|un) (?:nina|nino|nena|nene|pequena|pequeno|chiquilla|chiquillo) de (?:los|la|el|mis) vecin\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:mi|mis|nuestra|nuestro|nuestros|nuestras) (?:hij\\p{L}*|hijastr\\p{L}*|sobrin\\p{L}*|niet\\p{L}*|ahijad\\p{L}*))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
           "id": "he.hint",
           "category": "health",
           "severity": "hint",
@@ -2571,6 +2715,17 @@
           ],
           "unless": [
             "(?<![\\p{L}\\p{N}])(?:(?:ma|notre) fille|(?:mon|notre) fils|(?:mes|nos) enfants)(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.alone_with_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:seule? avec (?:la|le) (?:petite?|fillette|gamine?) (?:des|du|de la) voisin\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:ma|mon|mes|notre|nos) (?:fille|fils|enfants?|belle-fille|beau-fils|niece|neveu|petite-fille|petit-fils|petits-enfants|filleule?))(?![\\p{L}\\p{N}])"
           ]
         },
         {
@@ -3140,6 +3295,19 @@
           ]
         },
         {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:fid\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:sol[ao] con me)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?:ragazza|ragazzo|bambina|bambino|una|un) (?:di|ha) (?:[1-9]|1[0-7])(?![\\p{N}]) anni|(?:lei|lui) ha (?:[1-9]|1[0-7])(?![\\p{N}]) anni|minorenn\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:mia|mio|miei|mie|nostra|nostro|nostri) (?:figli\\p{L}*|figliastr\\p{L}*|nipot\\p{L}*|figlioccia|figlioccio))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
           "id": "he.hint",
           "category": "health",
           "severity": "hint",
@@ -3546,6 +3714,17 @@
           "unless": []
         },
         {
+          "id": "sh.insurance",
+          "category": "self_harm",
+          "severity": "high",
+          "patterns": [
+            "(?<!の)保険金(?:があれば|が入れば|が出れば)|私の(?:生命保険|保険金)",
+            "家族|妻|夫|子ども|子供|両親|みんな",
+            "楽に|楽です|幸せに|助か|良くな|よくな|困らな"
+          ],
+          "unless": []
+        },
+        {
           "id": "sh.hint",
           "category": "self_harm",
           "severity": "hint",
@@ -3674,6 +3853,28 @@
           "unless": [
             "(?:うちの|私の)(?:娘|息子|子供|子ども)|娘が|息子が"
           ]
+        },
+        {
+          "id": "sm.secret_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?:キャンプ|塾|公園|保育園|幼稚園)の(?:子|男の子|女の子)|小さな(?:子|男の子|女の子)",
+            "(?:私たち|僕たち|二人)の秘密|秘密を守"
+          ],
+          "unless": [
+            "(?:うちの|私の)(?:娘|息子|子供|子ども|子|孫|姪|甥)|娘が|息子が"
+          ]
+        },
+        {
+          "id": "sm.hint.tutoring",
+          "category": "sexual_minors",
+          "severity": "hint",
+          "patterns": [
+            "家庭教師をしている(?:男の子|女の子|子)|(?:塾|家庭教師)の生徒|教えている(?:男の子|女の子|子)",
+            "親密|恋愛|付き合|二人きり|秘密|好きになって"
+          ],
+          "unless": []
         },
         {
           "id": "he.hint",
@@ -3970,6 +4171,17 @@
           "unless": []
         },
         {
+          "id": "sh.insurance",
+          "category": "self_harm",
+          "severity": "high",
+          "patterns": [
+            "보험금(?:이|만)? ?(?:있으면|나오면|받으면|들어오면)|(?:내|제) (?:생명)?보험금",
+            "가족|아내|남편|아이들|부모님|다들",
+            "편하|행복하|나아지|낫겠|좋아지|좋겠"
+          ],
+          "unless": []
+        },
+        {
           "id": "sh.hint",
           "category": "self_harm",
           "severity": "hint",
@@ -4100,6 +4312,31 @@
           ]
         },
         {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "믿|신뢰",
+            "단둘이|둘이서만|둘만 있",
+            "(?:열|십)(?:한|두|세|네|다섯|여섯|일곱)? ?살|(?<![\\p{N}])(?:[1-9]|1[0-7]) ?(?:살|세)|초등학생|중학생|미성년"
+          ],
+          "unless": [
+            "(?:제|우리|내) (?:딸|아들|아이|조카|손녀|손자|의붓)"
+          ]
+        },
+        {
+          "id": "sm.alone_with_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?:옆집|이웃집|이웃) (?:꼬마|어린)",
+            "단둘이|둘이서만|둘만 있"
+          ],
+          "unless": [
+            "(?:제|우리|내) (?:딸|아들|아이|조카|손녀|손자|의붓)"
+          ]
+        },
+        {
           "id": "he.hint",
           "category": "health",
           "severity": "hint",
@@ -4123,6 +4360,15 @@
           "severity": "hint",
           "patterns": [
             "언제 죽|죽을까|죽나요|수명|얼마나 살"
+          ],
+          "unless": []
+        },
+        {
+          "id": "de.hint.accident",
+          "category": "death",
+          "severity": "hint",
+          "patterns": [
+            "추락|사고(?:가 날|가 나|로 죽|를 당할|를 당하)|(?:비행기|차|배|버스|기차)가 (?:떨어|가라앉)"
           ],
           "unless": []
         },
@@ -4524,6 +4770,18 @@
           ],
           "unless": [
             "(?<![\\p{L}\\p{N}])(?:(?:mijn|onze) (?:dochter|zoon|kinderen))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.hint.alone_neighbour",
+          "category": "sexual_minors",
+          "severity": "hint",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:alleen (?:te )?(?:zijn|blijven) met)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:meisje|jongen|kind)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:mijn|onze) (?:dochter|zoon|kinderen|kind|stief\\p{L}*|nicht\\p{L}*|neef\\p{L}*|klein\\p{L}*))(?![\\p{L}\\p{N}])"
           ]
         },
         {
@@ -5061,6 +5319,19 @@
           ]
         },
         {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:confi\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:sozinh[ao]s? comigo)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?:menina|menino|garota|garoto|crianca) (?:de|tem) (?:[1-9]|1[0-7])(?![\\p{N}])|(?:ela|ele) tem (?:[1-9]|1[0-7])(?![\\p{N}])|menor de idade)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:minha|meu|meus|minhas|nossa|nosso|nossos) (?:filh\\p{L}*|entead\\p{L}*|sobrinh\\p{L}*|net[ao]s?|afilhad\\p{L}*))(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
           "id": "he.hint",
           "category": "health",
           "severity": "hint",
@@ -5471,6 +5742,19 @@
           "unless": []
         },
         {
+          "id": "sh.insurance",
+          "category": "self_harm",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:(?:ailem|cocuklarim|esim|annem|babam|herkes)\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:sigorta para\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:daha (?:iyi|rahat|mutlu) olur)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:\\p{L}+(?:in|un|nin|nun) sigorta)(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
           "id": "sh.hint",
           "category": "self_harm",
           "severity": "hint",
@@ -5600,6 +5884,31 @@
           ],
           "unless": [
             "(?<![\\p{L}\\p{N}])(?:(?:kizim|oglum|cocuklarim|kizimiz|oglumuz)\\p{L}*)(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:guven\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:yalniz kal\\p{L}*|bas basa kal\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?<![\\p{N}])(?:[1-9]|1[0-7]) yasindaki|resit olmayan)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:kizim|oglum|cocuklarim|cocugum|kizimiz|oglumuz|yegenim|torunum|uvey)\\p{L}*)(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.alone_with_child",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:komsu\\p{L}* (?:kucuk|minik) (?:kiz|oglan|cocug|cocuk)\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:yalniz kal\\p{L}*|bas basa kal\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:kizim|oglum|cocuklarim|cocugum|kizimiz|oglumuz|yegenim|torunum|uvey)\\p{L}*)(?![\\p{L}\\p{N}])"
           ]
         },
         {
@@ -6126,6 +6435,29 @@
           "unless": [
             "(?<![\\p{L}\\p{N}])(?:(?:моя|наша) донька|(?:мій|наш) син|(?:мої|наші) діти)(?![\\p{L}\\p{N}])"
           ]
+        },
+        {
+          "id": "sm.trust_alone",
+          "category": "sexual_minors",
+          "severity": "high",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:довір\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:наодинці|сам на сам)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?<![\\p{N}])(?:[1-9]|1[0-7])-?річн\\p{L}*|неповнолітн\\p{L}*)(?![\\p{L}\\p{N}])"
+          ],
+          "unless": [
+            "(?<![\\p{L}\\p{N}])(?:(?:моя|наша|моєю|нашою|мою|нашу) (?:донь|доч|племінниц|онук)\\p{L}*|(?:мій|наш|моїм|нашим|мого|нашого) (?:син|племінник|онук)\\p{L}*|(?:мої|наші) діти|падчер\\p{L}*|пасин\\p{L}*)(?![\\p{L}\\p{N}])"
+          ]
+        },
+        {
+          "id": "sm.hint.stepchild_age",
+          "category": "sexual_minors",
+          "severity": "hint",
+          "patterns": [
+            "(?<![\\p{L}\\p{N}])(?:падчер\\p{L}*|пасин\\p{L}*)(?![\\p{L}\\p{N}])",
+            "(?<![\\p{L}\\p{N}])(?:(?<![\\p{N}])(?:[1-9]|1[0-7])(?![\\p{N}]))(?![\\p{L}\\p{N}])"
+          ],
+          "unless": []
         },
         {
           "id": "he.hint",

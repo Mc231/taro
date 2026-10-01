@@ -181,14 +181,14 @@ describe('ServerConfigSchema', () => {
 });
 
 describe('AI provider routing (RC97)', () => {
-  it('ships the Anthropic defaults, no outage fallback, no moderation, both providers disclosed', () => {
+  it('ships the Anthropic defaults, no outage fallback, OpenAI moderation, both providers disclosed', () => {
     expect(DEFAULT_SERVER_CONFIG).toMatchObject({
       'ai.provider.paid': 'anthropic',
       'ai.provider.free': 'anthropic',
       'ai.provider.freeFallback': 'anthropic',
       'ai.outageFallback.provider': null,
       'ai.outageFallback.model': null,
-      'ai.moderation.provider': 'none',
+      'ai.moderation.provider': 'openai',
       'ai.disclosedProviders': ['anthropic', 'openai'],
       'ai.model.paid': 'claude-opus-5',
       'ai.model.free': 'claude-sonnet-5',
@@ -231,7 +231,12 @@ describe('AI provider routing (RC97)', () => {
 
   it('rejects a duplicate disclosed provider', () => {
     expect(
-      firstIssue(serverWith({ 'ai.disclosedProviders': ['anthropic', 'anthropic'] })),
+      firstIssue(
+        serverWith({
+          'ai.disclosedProviders': ['anthropic', 'anthropic'],
+          'ai.moderation.provider': 'none',
+        }),
+      ),
     ).toContain('duplicate anthropic');
   });
 

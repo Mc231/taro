@@ -83,6 +83,15 @@
       "patterns": ["(?:goodbye|suicide|farewell) (?:letter|note)s?"]
     },
     {
+      "id": "sh.insurance",
+      "category": "self_harm",
+      "severity": "high",
+      "patterns": [
+        "(?:family|kids|children|wife|husband|partner|parents|everyone)(?: \\p{L}+){0,3} (?:would|will|'d|'ll) be (?:better off|happier|easier)",
+        "insurance (?:money|payout|pay-?out)|(?:from|with|get|on) my (?:life )?insurance"
+      ]
+    },
+    {
       "id": "sh.hint.self_injury",
       "category": "self_harm",
       "severity": "hint",
@@ -112,6 +121,14 @@
       "severity": "hint",
       "patterns": [
         "(?:be|being) (?:here|around) (?:much longer|any longer|next year|anymore)|insurance money|overdos\\p{L}*"
+      ]
+    },
+    {
+      "id": "sh.hint.burden",
+      "category": "self_harm",
+      "severity": "hint",
+      "patterns": [
+        "(?:just|only) a burden (?:to|on|for)|(?:relieved|relief|lighter) (?:for them )?(?:if|when) i(?:'m| am| was| were)? (?:gone|dead|not here|not around)"
       ]
     },
     {
@@ -247,6 +264,54 @@
       ]
     },
     {
+      "id": "sm.secret_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "(?:the|a|that|this) (?:kid|child|little (?:girl|boy|one)) (?:from|at|in) (?:the |that )?(?:summer )?(?:camp|tutoring|playground|daycare|kindergarten|nursery)|(?:the|a|that|this) little (?:girl|boy)",
+        "(?:keep|keeps|keeping|kept) (?:our|this|the|it) (?:little )?secret|our (?:little )?secret"
+      ],
+      "unless": [
+        "(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo)"
+      ]
+    },
+    {
+      "id": "sm.trust_alone",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "trust me",
+        "alone with me|be alone with|stay alone with",
+        "(?<=(?:a|an|the|this|that|to|get) )(?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo|y/o|yr ?-? ?olds?)|(?:she|he)(?:'s| is| was) (?:only |just )?(?:[1-9]|1[0-7])(?![\\p{N}])|minors|underage|under-age|middle ?schoolers?|pre-?teens?"
+      ],
+      "unless": [
+        "(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo)"
+      ]
+    },
+    {
+      "id": "sm.alone_with_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "alone with (?:the|a|that|this) (?:neighbou?r'?s'? |next-door )(?:little |young )?(?:girl|boy|kid|child)|alone with (?:the|a|that|this) little (?:girl|boy) (?:next door|from next door|across the street)"
+      ],
+      "unless": [
+        "(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo)"
+      ]
+    },
+    {
+      "id": "sm.hint.child_secret",
+      "category": "sexual_minors",
+      "severity": "hint",
+      "patterns": [
+        "(?:kid|child|boy|girl|student|pupil|camper)s?",
+        "our (?:little )?secret|keep (?:it|this) (?:a )?secret|alone with me|be alone with|(?:get|grow|be) (?:close|closer|intimate) (?:to|with) me"
+      ],
+      "unless": [
+        "(?:my|our) (?:[^ ]+ ){0,2}(?:daughters?|sons?|kids?|children|child|step\\p{L}*|nieces?|nephews?|grand\\p{L}*|god\\p{L}*)(?:'s)?|(?:my|our) (?:[1-9]|1[0-7]) ?-? ?(?:years? ?-? ?olds?|yo)"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",
@@ -268,6 +333,14 @@
       "severity": "hint",
       "patterns": [
         "when will (?:i|he|she|my \\p{L}+) (?:die|pass)|(?:going to|will) die|pass away|how long (?:do|does|will) (?:i|he|she|my \\p{L}+) (?:have|live)|live to see"
+      ]
+    },
+    {
+      "id": "de.hint.accident",
+      "category": "death",
+      "severity": "hint",
+      "patterns": [
+        "(?:plane|flight|car|bus|train|ship|boat|helicopter) (?:will |going to |gonna )?(?:crash|go down|sink)|(?:will|going to|gonna) (?:crash|have an accident|die in)|(?:die|killed|dying) in (?:a|an|the) (?:crash|accident|disaster)|(?:crash|accident) (?:kill|take) (?:me|him|her|them)"
       ]
     },
     {

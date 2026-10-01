@@ -1,6 +1,6 @@
 {
   "$comment": "SHA-256 of each prompt version's templates (src/prompts/versions.ts, 06 §7). A version is frozen once committed: change the prompt in a new prompts/reading/<version>/ directory, never by updating a hash here.",
   "reading": {
-    "v1": "cf66cff10ec6df90fce9208cfd059c1ba87b2442ae251b14f4646e4f590ae4c0"
+    "v1": "17e4edeacfb63f13d4a04a5385f98913409351755f4473c6f90ec5047b0ad857"
   }
 }

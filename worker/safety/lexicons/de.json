@@ -184,6 +184,18 @@
       ]
     },
     {
+      "id": "sm.secret_child",
+      "category": "sexual_minors",
+      "severity": "high",
+      "patterns": [
+        "(?:das|ein|dem|den|dieses) kind|(?:das|die|der|dem|den) kleine(?:n)? (?:madchen|junge|jungen)",
+        "unser (?:kleines )?geheimnis|(?:es|das|alles) fur sich behalt\\p{L}*"
+      ],
+      "unless": [
+        "(?:meine|unsere) (?:tochter|sohn|kinder)|(?:meinem|unserem|meinen|unseren) (?:sohn|kindern|kind)|(?:mein|unser) kind|inner\\p{L}* kind|(?:meine|meinem|meinen|meiner|unsere|unserem) (?:stief|enkel|nicht|neffe|patenkind)\\p{L}*"
+      ]
+    },
+    {
       "id": "he.hint",
       "category": "health",
       "severity": "hint",
