@@ -37,7 +37,7 @@ All commands run from `worker/` with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCO
    npx wrangler versions deploy <good-version-id>@100% --env prod --yes --message "rollback: <reason>"
    ```
 
-3. Verify: `tools/worker_smoke.sh prod` (health and config). For staging, `DEBUG_ATTESTATION_TOKEN=… tools/worker_smoke.sh staging` also registers an install and reads its balance.
+3. Verify: `tools/worker_smoke.sh prod` (health and config). For staging, `DEBUG_ATTESTATION_TOKEN=… tools/worker_smoke.sh staging` also registers an install, reads its balance and runs one real single-card reading (see `SECRET_ROTATION.md` § Staging smoke).
 4. Record the rollback in `worker/CHANGELOG.md` (`Fixed` or `Security`) once the fix ships, and in the incident log (`INCIDENT.md`).
 
 A rollback never reverts D1 migrations. That is why every migration must stay compatible with the previous Worker version (next section).

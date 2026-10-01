@@ -1,7 +1,9 @@
+import { SystemClock } from '../src/adapters/cf/SystemClock';
 import { WebCrypto } from '../src/adapters/cf/WebCrypto';
 import { parseArgs, type CliDeps } from '../src/admin/cli';
 import { API_HOSTS, runSmoke, type SmokeFetch } from '../src/admin/smoke';
 import type { Environment } from '../src/env';
+import type { Clock } from '../src/ports/Clock';
 import type { Crypto } from '../src/ports/Crypto';
 
 /**
@@ -9,12 +11,17 @@ import type { Crypto } from '../src/ports/Crypto';
  * (called by `tools/worker_smoke.sh` and `.gitea/workflows/worker-deploy.yml`)
  *
  * Runs `src/admin/smoke.ts` against the deployed Worker: health and config
- * everywhere; on dev/staging also a debug-attested registration and a balance
- * read when `DEBUG_ATTESTATION_TOKEN` is set in the environment (never passed
- * on the command line; ignored for prod, RC86). One line per step on stdout.
- * Exit codes: 0 ok, 1 a step failed, 2 usage.
+ * everywhere; on dev/staging also a debug-attested registration, a balance
+ * read and one real single-card AI reading (hold → reading → ack) when
+ * `DEBUG_ATTESTATION_TOKEN` is set in the environment (never passed on the
+ * command line; ignored for prod, RC86). One line per step on stdout.
+ * Exit codes: 0 ok, 1 a step failed (incl. a declined reading), 2 usage.
  */
-export const USAGE = 'usage: smoke --env <dev|staging|prod> [--base-url <url>]';
+export const USAGE = [
+  'usage: [DEBUG_ATTESTATION_TOKEN=…] smoke --env <dev|staging|prod> [--base-url <url>]',
+  '  DEBUG_ATTESTATION_TOKEN (env only, dev/staging): also register an install, read its',
+  '  balance and run one real single-card reading (hold, reading, ack; spends one AI call)',
+].join('\n');
 
 const ENVIRONMENTS: readonly Environment[] = ['dev', 'staging', 'prod'];
 
@@ -23,6 +30,7 @@ export async function main(
   deps: CliDeps,
   fetchFn: SmokeFetch = (url, init) => fetch(url, init),
   crypto: Crypto = new WebCrypto(),
+  clock: Clock = new SystemClock(),
 ): Promise<number> {
   const args = parseArgs(argv, { flags: [], options: ['--env', '--base-url'] });
   if (!args.ok) {
@@ -45,6 +53,7 @@ export async function main(
     baseUrl,
     fetch: fetchFn,
     crypto,
+    clock,
     ...(token !== undefined && token !== '' ? { debugAttestationToken: token } : {}),
   });
   deps.out(`smoke ${environment} ${baseUrl}`);

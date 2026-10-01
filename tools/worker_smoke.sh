@@ -6,7 +6,8 @@
 #
 # Runs `worker/scripts/smoke.ts` (logic in `worker/src/admin/smoke.ts`):
 # GET /v1/health and GET /v1/config everywhere; on dev/staging also a
-# registration with the debug attestation token and a balance read. The
+# registration with the debug attestation token, a balance read and one real
+# single-card reading (hold -> reading -> ack; one AI call). The
 # token is read from the DEBUG_ATTESTATION_TOKEN environment variable (never
 # an argument, so it stays out of process lists and logs). The Worker honours
 # it only because its deploy env sets ALLOW_DEBUG_ATTESTATION (BE20, RC86);

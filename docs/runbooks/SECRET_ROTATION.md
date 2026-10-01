@@ -11,6 +11,14 @@ Scope per `06_QUALITY_TESTING_CI.md` §13; secret names per `03_BACKEND_WORKER.m
 5. **Revoke** the old value only after its grace period (per secret below) and after prod is verified.
 6. Note the rotation in the drill log (date and secret name only).
 
+### Staging smoke
+
+`tools/worker_smoke.sh <env>` (or `cd worker && npm run smoke -- --env <env> [--base-url <url>]`) checks `GET /v1/health` and `GET /v1/config` everywhere. On dev and staging, when the environment variable `DEBUG_ATTESTATION_TOKEN` holds the target's debug attestation token (bundle key `worker.staging_debug_attestation_token`; never pass it as an argument), it also runs: challenge → `POST /v1/installs` (a fresh smoke install) → `GET /v1/balance` → `POST /v1/readings/holds` (spread `single`) → `POST /v1/readings` (`major_00` upright, "What should I focus on this week?", `en`; `Idempotency-Key == clientReadingId`, `X-Taro-AI-Consent` = the config's `ai.consentVersion`) → `POST /v1/readings/{id}/ack` (`204`). The reading line reports status, latency, classification, charge source, `promptVersion`, the balance after and the first 80 characters of the overview; the serving model is not on the wire (see `reading_completed` in `wrangler tail`). One real AI call per run, charged to the smoke install's free reading. A declined reading, `402` or `503` (`AI_UNAVAILABLE`, `AI_BUDGET_EXHAUSTED`, `READINGS_DISABLED`) exits 1. Prod never runs the install or reading steps (RC86). Tokens, the install secret and the debug token are never printed.
+
+```bash
+DEBUG_ATTESTATION_TOKEN="$(SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh get worker staging_debug_attestation_token)" tools/worker_smoke.sh staging
+```
+
 Generating Worker secrets (prints one JSON object on stdout only; pipe it, do not save it in the repo):
 
 ```bash

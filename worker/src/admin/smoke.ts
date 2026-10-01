@@ -1,5 +1,7 @@
 import { toBase64Url } from '../crypto/encoding';
+import { SystemClock } from '../adapters/cf/SystemClock';
 import type { Environment } from '../env';
+import type { Clock } from '../ports/Clock';
 import type { Crypto } from '../ports/Crypto';
 import { uuidV4 } from './genKeys';
 
@@ -15,9 +17,15 @@ import { uuidV4 } from './genKeys';
  *    The Worker honours the header only because its deploy env sets
  *    `ALLOW_DEBUG_ATTESTATION` (BE20, RC86); a header alone never does, and
  *    prod refuses to run this step.
+ * 4. then one real single-card reading (03 §9.0, §9.1; RC42, RC49–RC51):
+ *    `POST /v1/readings/holds` → `POST /v1/readings` (both with
+ *    `Idempotency-Key == clientReadingId`, the debug attestation header and
+ *    `X-Taro-AI-Consent` = the config's `ai.consentVersion`) → expect `200
+ *    completed` → `POST /v1/readings/{id}/ack` → `204`. A declined reading,
+ *    `402` or `503` (e.g. `AI_UNAVAILABLE`) fails the run. The model is not on
+ *    the wire; the report gives `promptVersion` and the client-side latency.
  *
- * Phase 7/8 extend step 3 with a hold and one single-card reading. The
- * install secret and tokens never reach the report.
+ * The install secret, tokens and the debug token never reach the report.
  */
 export type SmokeFetch = (url: string, init?: RequestInit) => Promise<Response>;
 
@@ -41,7 +49,19 @@ export interface SmokeOptions {
   readonly crypto: Crypto;
   /** `DEBUG_ATTESTATION_TOKEN` of the target env; enables the registration step (not in prod). */
   readonly debugAttestationToken?: string;
+  /** Measures the reading latency and stamps `drawnAt`; defaults to the system clock. */
+  readonly clock?: Clock;
 }
+
+/** The smoke reading (one card, a benign English question; 03 §9.1). */
+export const SMOKE_READING = {
+  spread: { id: 'single', version: 1 },
+  cards: [{ positionId: 'focus', cardId: 'major_00', reversed: false }],
+  question: 'What should I focus on this week?',
+  locale: 'en',
+} as const;
+
+const SNIPPET_CHARS = 80;
 
 export interface SmokeStep {
   readonly name: string;
@@ -67,11 +87,33 @@ async function jsonOf(res: Response): Promise<Record<string, unknown>> {
   }
 }
 
+function record(value: unknown): Record<string, unknown> {
+  return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
+}
+
+/** ` CODE` plus `(reason|tier …)` from `error.details` when present. */
 function errorCode(body: Record<string, unknown>): string {
-  const error = body['error'];
-  const code =
-    typeof error === 'object' && error !== null ? (error as Record<string, unknown>)['code'] : '';
-  return typeof code === 'string' && code !== '' ? ` ${code}` : '';
+  const error = record(body['error']);
+  const code = error['code'];
+  if (typeof code !== 'string' || code === '') {
+    return '';
+  }
+  const details = record(error['details']);
+  const extra = ['reason', 'tier']
+    .filter((key) => typeof details[key] === 'string')
+    .map((key) => `${key} ${String(details[key])}`);
+  return extra.length === 0 ? ` ${code}` : ` ${code} (${extra.join(', ')})`;
+}
+
+function balanceSummary(value: unknown): string {
+  const balance = record(value);
+  const free = record(balance['free']);
+  return `free ${String(free['remaining'])}/${String(free['limit'])}, bonus ${String(balance['bonus'])}, paid ${String(balance['paid'])}`;
+}
+
+function snippet(text: unknown): string {
+  const flat = String(text).replace(/\s+/g, ' ').trim();
+  return JSON.stringify(flat.length > SNIPPET_CHARS ? `${flat.slice(0, SNIPPET_CHARS)}…` : flat);
 }
 
 async function expectStatus(
@@ -119,9 +161,11 @@ export async function runSmoke(options: SmokeOptions): Promise<SmokeReport> {
     return { ok: false, steps };
   }
 
+  let configBody: Record<string, unknown> = {};
   const configured = await step('config', async () => {
     const res = await call('/v1/config');
     const body = await expectStatus(res, 200, 'config');
+    configBody = body;
     const etag = res.headers.get('ETag');
     if (typeof body['version'] !== 'number' || etag === null) {
       throw new StepFailure('config: missing version or ETag');
@@ -131,6 +175,7 @@ export async function runSmoke(options: SmokeOptions): Promise<SmokeReport> {
   if (!configured) {
     return { ok: false, steps };
   }
+  const consentVersion = configBody['ai.consentVersion'];
 
   const token = options.debugAttestationToken;
   if (token === undefined || token === '' || options.environment === 'prod') {
@@ -177,13 +222,98 @@ export async function runSmoke(options: SmokeOptions): Promise<SmokeReport> {
     return { ok: false, steps };
   }
 
+  const authorization = { Authorization: `Bearer ${installToken}` };
   const balanced = await step('balance', async () => {
     const body = await expectStatus(
-      await call('/v1/balance', { headers: { Authorization: `Bearer ${installToken}` } }),
+      await call('/v1/balance', { headers: authorization }),
       200,
       'balance',
     );
     return `canRead ${String(body['canRead'])}, ledgerVersion ${String(body['ledgerVersion'])}`;
   });
-  return { ok: balanced, steps };
+  if (!balanced) {
+    return { ok: false, steps };
+  }
+
+  const clock = options.clock ?? new SystemClock();
+  const clientReadingId = uuidV4(options.crypto);
+  const readingHeaders = {
+    ...authorization,
+    'content-type': 'application/json',
+    'Idempotency-Key': clientReadingId,
+    'X-Taro-Debug-Attestation': token,
+    'X-Taro-AI-Consent': String(consentVersion),
+  };
+
+  const held = await step('hold', async () => {
+    if (typeof consentVersion !== 'number') {
+      throw new StepFailure('hold: config has no numeric ai.consentVersion');
+    }
+    const body = await expectStatus(
+      await call('/v1/readings/holds', {
+        method: 'POST',
+        headers: readingHeaders,
+        body: JSON.stringify({
+          clientReadingId,
+          spread: SMOKE_READING.spread,
+          locale: SMOKE_READING.locale,
+        }),
+      }),
+      201,
+      'hold',
+    );
+    return `chargeSource ${String(body['chargeSource'])}, expiresAt ${String(body['expiresAt'])}`;
+  });
+  if (!held) {
+    return { ok: false, steps };
+  }
+
+  const read = await step('reading', async () => {
+    const started = clock.now();
+    const res = await call('/v1/readings', {
+      method: 'POST',
+      headers: readingHeaders,
+      body: JSON.stringify({
+        clientReadingId,
+        spread: SMOKE_READING.spread,
+        cards: SMOKE_READING.cards,
+        question: SMOKE_READING.question,
+        locale: SMOKE_READING.locale,
+        drawnAt: started.toISOString(),
+      }),
+    });
+    const latencyMs = clock.now().getTime() - started.getTime();
+    const body = await expectStatus(res, 200, 'reading');
+    const head = `status ${String(body['status'])}, ${String(latencyMs)} ms`;
+    if (body['status'] === 'declined') {
+      const safety = record(body['safety']);
+      throw new StepFailure(
+        `reading: ${head}, classification ${String(safety['category'])} (declined, not charged), balance ${balanceSummary(body['balance'])}`,
+      );
+    }
+    if (body['status'] !== 'completed') {
+      throw new StepFailure(`reading: unexpected ${head}`);
+    }
+    return [
+      head,
+      'classification none',
+      `chargeSource ${String(body['chargeSource'])}`,
+      `promptVersion ${String(body['promptVersion'])}`,
+      `balance ${balanceSummary(body['balance'])}`,
+      `text ${snippet(record(body['reading'])['overview'])}`,
+    ].join(', ');
+  });
+  if (!read) {
+    return { ok: false, steps };
+  }
+
+  const acked = await step('ack', async () => {
+    const res = await call(`/v1/readings/${clientReadingId}/ack`, {
+      method: 'POST',
+      headers: authorization,
+    });
+    await expectStatus(res, 204, 'ack');
+    return 'HTTP 204';
+  });
+  return { ok: acked, steps };
 }
