@@ -24,8 +24,9 @@ final FutureProviderFamily<CardText?, CardId> cardTextProvider = FutureProvider
 
 /// Asset images of the bundled card art (`apps/taro/assets/deck/art/`).
 abstract final class CardArt {
-  /// The art set shipped with v1.
-  static const String defaultArtSet = 'placeholder';
+  /// The art set shipped with v1 (= `deck_meta.json` `artSet`; used while
+  /// the deck loads, so no placeholder art flashes in).
+  static const String defaultArtSet = 'codex_v1';
 
   /// The face of [id] in [artSet]. With [cacheWidth] (physical pixels) the
   /// art is decoded at that width instead of its full size (02 §17).

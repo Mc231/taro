@@ -331,6 +331,24 @@ void main() {
       expect(encoder.qualities.take(5), [90, 85, 80, 75, 75]);
     });
 
+    test('goes below quality 60 for dense art', () {
+      final encoder = _FakeEncoder(hugeAbove: 45);
+      final plan = planArtImport(track(_source()), _options(), encoder);
+      expect(plan.errors, isEmpty);
+      expect(encoder.qualities.take(10), [
+        90,
+        85,
+        80,
+        75,
+        70,
+        65,
+        60,
+        55,
+        50,
+        45,
+      ]);
+    });
+
     test('fails when even the lowest quality is over budget', () {
       final plan = planArtImport(
         track(_source()),
@@ -339,7 +357,7 @@ void main() {
       );
       expect(plan.files, isEmpty);
       expect(plan.errors, hasLength(79));
-      expect(plan.errors.first, contains('at quality 60'));
+      expect(plan.errors.first, contains('at quality 40'));
     });
 
     test('an unavailable encoder stops before reading the source', () {

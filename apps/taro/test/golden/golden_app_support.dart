@@ -46,7 +46,7 @@ GoldenPump pumpAppGolden(
     tester,
     child,
     fakes: fakes(),
-    // The bundled placeholder art (the fake deck names another set).
+    // The bundled D15 art (the fake deck names another set).
     overrides: [
       ...overrides,
       deckArtSetProvider.overrideWith((ref) async => CardArt.defaultArtSet),

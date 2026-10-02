@@ -55,7 +55,11 @@ const int kDefaultArtWidth3x = 660;
 const double kDefaultAspectTolerance = 0.02;
 
 /// WebP qualities tried in order until the @3x file fits the budget.
-const List<int> kArtQualities = [90, 85, 80, 75, 70, 65, 60];
+///
+/// The ladder ends at 40: dense painted cards (many small details, gold
+/// line work) need 45–50 to fit 150 KB at 660 × 1138; at 40 the artefacts
+/// are still invisible at card size.
+const List<int> kArtQualities = [90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40];
 
 /// The device pixel ratios the `cacheWidth` hints are given for.
 const List<int> kHintDprs = [2, 3];

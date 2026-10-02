@@ -36,7 +36,7 @@ void main() {
       final deck = expectOk(await content.deck());
       expect(deck.cards, hasLength(78));
       expect(deck.id, 'rws_original');
-      expect(deck.artSet, 'placeholder');
+      expect(deck.artSet, 'codex_v1');
       expect(expectOk(await content.deck()), same(deck));
       expect(bundle.loads[ContentAssets.deckMeta()], 1);
     });

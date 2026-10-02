@@ -1,0 +1,434 @@
+{
+  "artSet": "codex_v1",
+  "aspectRatio": 0.58,
+  "budgetBytes": 150000,
+  "cacheWidth": {
+    "lg": {
+      "2": 440,
+      "3": 660
+    },
+    "md": {
+      "2": 208,
+      "3": 312
+    },
+    "sm": {
+      "2": 144,
+      "3": 216
+    },
+    "thumb": {
+      "2": 80,
+      "3": 120
+    }
+  },
+  "densities": {
+    "2x": {
+      "height": 759,
+      "path": "<artKey>.webp",
+      "width": 440
+    },
+    "3x": {
+      "height": 1138,
+      "path": "3.0x/<artKey>.webp",
+      "width": 660
+    }
+  },
+  "encoder": "cwebp 1.5.0\nlibsharpyuv: 0.4.1",
+  "files": {
+    "card_back": {
+      "bytes2x": 72596,
+      "bytes3x": 148902,
+      "quality": 75
+    },
+    "cups_01": {
+      "bytes2x": 67380,
+      "bytes3x": 142978,
+      "quality": 75
+    },
+    "cups_02": {
+      "bytes2x": 67214,
+      "bytes3x": 144174,
+      "quality": 75
+    },
+    "cups_03": {
+      "bytes2x": 67268,
+      "bytes3x": 143232,
+      "quality": 60
+    },
+    "cups_04": {
+      "bytes2x": 64956,
+      "bytes3x": 144858,
+      "quality": 70
+    },
+    "cups_05": {
+      "bytes2x": 55944,
+      "bytes3x": 121400,
+      "quality": 75
+    },
+    "cups_06": {
+      "bytes2x": 70582,
+      "bytes3x": 144222,
+      "quality": 65
+    },
+    "cups_07": {
+      "bytes2x": 66530,
+      "bytes3x": 143560,
+      "quality": 80
+    },
+    "cups_08": {
+      "bytes2x": 65688,
+      "bytes3x": 141862,
+      "quality": 75
+    },
+    "cups_09": {
+      "bytes2x": 70934,
+      "bytes3x": 147946,
+      "quality": 65
+    },
+    "cups_10": {
+      "bytes2x": 74730,
+      "bytes3x": 149272,
+      "quality": 75
+    },
+    "cups_11": {
+      "bytes2x": 64962,
+      "bytes3x": 139860,
+      "quality": 70
+    },
+    "cups_12": {
+      "bytes2x": 67150,
+      "bytes3x": 146294,
+      "quality": 75
+    },
+    "cups_13": {
+      "bytes2x": 64858,
+      "bytes3x": 143256,
+      "quality": 70
+    },
+    "cups_14": {
+      "bytes2x": 71150,
+      "bytes3x": 149026,
+      "quality": 70
+    },
+    "major_00": {
+      "bytes2x": 56756,
+      "bytes3x": 118848,
+      "quality": 80
+    },
+    "major_01": {
+      "bytes2x": 68534,
+      "bytes3x": 147414,
+      "quality": 65
+    },
+    "major_02": {
+      "bytes2x": 58502,
+      "bytes3x": 128598,
+      "quality": 75
+    },
+    "major_03": {
+      "bytes2x": 66692,
+      "bytes3x": 144598,
+      "quality": 45
+    },
+    "major_04": {
+      "bytes2x": 67100,
+      "bytes3x": 147962,
+      "quality": 65
+    },
+    "major_05": {
+      "bytes2x": 66328,
+      "bytes3x": 142704,
+      "quality": 60
+    },
+    "major_06": {
+      "bytes2x": 67278,
+      "bytes3x": 145588,
+      "quality": 60
+    },
+    "major_07": {
+      "bytes2x": 66174,
+      "bytes3x": 145294,
+      "quality": 75
+    },
+    "major_08": {
+      "bytes2x": 67770,
+      "bytes3x": 148610,
+      "quality": 50
+    },
+    "major_09": {
+      "bytes2x": 58012,
+      "bytes3x": 128756,
+      "quality": 75
+    },
+    "major_10": {
+      "bytes2x": 66498,
+      "bytes3x": 141978,
+      "quality": 55
+    },
+    "major_11": {
+      "bytes2x": 55298,
+      "bytes3x": 120008,
+      "quality": 75
+    },
+    "major_12": {
+      "bytes2x": 67222,
+      "bytes3x": 147530,
+      "quality": 65
+    },
+    "major_13": {
+      "bytes2x": 68832,
+      "bytes3x": 149446,
+      "quality": 65
+    },
+    "major_14": {
+      "bytes2x": 68454,
+      "bytes3x": 148258,
+      "quality": 75
+    },
+    "major_15": {
+      "bytes2x": 68016,
+      "bytes3x": 144220,
+      "quality": 75
+    },
+    "major_16": {
+      "bytes2x": 67884,
+      "bytes3x": 147844,
+      "quality": 75
+    },
+    "major_17": {
+      "bytes2x": 65878,
+      "bytes3x": 143594,
+      "quality": 55
+    },
+    "major_18": {
+      "bytes2x": 65444,
+      "bytes3x": 143912,
+      "quality": 70
+    },
+    "major_19": {
+      "bytes2x": 67808,
+      "bytes3x": 148166,
+      "quality": 45
+    },
+    "major_20": {
+      "bytes2x": 66816,
+      "bytes3x": 143376,
+      "quality": 55
+    },
+    "major_21": {
+      "bytes2x": 65324,
+      "bytes3x": 140524,
+      "quality": 65
+    },
+    "pentacles_01": {
+      "bytes2x": 65968,
+      "bytes3x": 146210,
+      "quality": 60
+    },
+    "pentacles_02": {
+      "bytes2x": 68236,
+      "bytes3x": 146264,
+      "quality": 70
+    },
+    "pentacles_03": {
+      "bytes2x": 63992,
+      "bytes3x": 140636,
+      "quality": 70
+    },
+    "pentacles_04": {
+      "bytes2x": 67644,
+      "bytes3x": 144586,
+      "quality": 75
+    },
+    "pentacles_05": {
+      "bytes2x": 66950,
+      "bytes3x": 139186,
+      "quality": 70
+    },
+    "pentacles_06": {
+      "bytes2x": 60366,
+      "bytes3x": 121190,
+      "quality": 75
+    },
+    "pentacles_07": {
+      "bytes2x": 66954,
+      "bytes3x": 145382,
+      "quality": 60
+    },
+    "pentacles_08": {
+      "bytes2x": 66288,
+      "bytes3x": 144856,
+      "quality": 75
+    },
+    "pentacles_09": {
+      "bytes2x": 66622,
+      "bytes3x": 140248,
+      "quality": 55
+    },
+    "pentacles_10": {
+      "bytes2x": 71702,
+      "bytes3x": 144622,
+      "quality": 65
+    },
+    "pentacles_11": {
+      "bytes2x": 63966,
+      "bytes3x": 142772,
+      "quality": 75
+    },
+    "pentacles_12": {
+      "bytes2x": 66756,
+      "bytes3x": 147038,
+      "quality": 65
+    },
+    "pentacles_13": {
+      "bytes2x": 66954,
+      "bytes3x": 145212,
+      "quality": 60
+    },
+    "pentacles_14": {
+      "bytes2x": 66474,
+      "bytes3x": 145978,
+      "quality": 50
+    },
+    "swords_01": {
+      "bytes2x": 64966,
+      "bytes3x": 138572,
+      "quality": 80
+    },
+    "swords_02": {
+      "bytes2x": 64360,
+      "bytes3x": 138068,
+      "quality": 75
+    },
+    "swords_03": {
+      "bytes2x": 66072,
+      "bytes3x": 146040,
+      "quality": 70
+    },
+    "swords_04": {
+      "bytes2x": 57166,
+      "bytes3x": 127488,
+      "quality": 75
+    },
+    "swords_05": {
+      "bytes2x": 65790,
+      "bytes3x": 141856,
+      "quality": 70
+    },
+    "swords_06": {
+      "bytes2x": 62868,
+      "bytes3x": 134102,
+      "quality": 75
+    },
+    "swords_07": {
+      "bytes2x": 67116,
+      "bytes3x": 149256,
+      "quality": 65
+    },
+    "swords_08": {
+      "bytes2x": 67112,
+      "bytes3x": 149344,
+      "quality": 65
+    },
+    "swords_09": {
+      "bytes2x": 56414,
+      "bytes3x": 123076,
+      "quality": 75
+    },
+    "swords_10": {
+      "bytes2x": 61982,
+      "bytes3x": 136314,
+      "quality": 80
+    },
+    "swords_11": {
+      "bytes2x": 67018,
+      "bytes3x": 144110,
+      "quality": 60
+    },
+    "swords_12": {
+      "bytes2x": 64490,
+      "bytes3x": 141192,
+      "quality": 60
+    },
+    "swords_13": {
+      "bytes2x": 55644,
+      "bytes3x": 122472,
+      "quality": 75
+    },
+    "swords_14": {
+      "bytes2x": 68036,
+      "bytes3x": 147250,
+      "quality": 70
+    },
+    "wands_01": {
+      "bytes2x": 61284,
+      "bytes3x": 136558,
+      "quality": 80
+    },
+    "wands_02": {
+      "bytes2x": 62318,
+      "bytes3x": 137298,
+      "quality": 75
+    },
+    "wands_03": {
+      "bytes2x": 67164,
+      "bytes3x": 144104,
+      "quality": 80
+    },
+    "wands_04": {
+      "bytes2x": 65756,
+      "bytes3x": 142290,
+      "quality": 65
+    },
+    "wands_05": {
+      "bytes2x": 65458,
+      "bytes3x": 142896,
+      "quality": 75
+    },
+    "wands_06": {
+      "bytes2x": 64706,
+      "bytes3x": 140686,
+      "quality": 65
+    },
+    "wands_07": {
+      "bytes2x": 61222,
+      "bytes3x": 133574,
+      "quality": 75
+    },
+    "wands_08": {
+      "bytes2x": 59592,
+      "bytes3x": 121652,
+      "quality": 85
+    },
+    "wands_09": {
+      "bytes2x": 67518,
+      "bytes3x": 145734,
+      "quality": 75
+    },
+    "wands_10": {
+      "bytes2x": 65594,
+      "bytes3x": 142590,
+      "quality": 65
+    },
+    "wands_11": {
+      "bytes2x": 65328,
+      "bytes3x": 143682,
+      "quality": 80
+    },
+    "wands_12": {
+      "bytes2x": 65942,
+      "bytes3x": 143294,
+      "quality": 70
+    },
+    "wands_13": {
+      "bytes2x": 69462,
+      "bytes3x": 146174,
+      "quality": 50
+    },
+    "wands_14": {
+      "bytes2x": 65110,
+      "bytes3x": 143992,
+      "quality": 75
+    }
+  },
+  "totalBytes": 16338836
+}
