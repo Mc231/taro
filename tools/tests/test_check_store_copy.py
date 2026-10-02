@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import runpy
 import sys
 from pathlib import Path
@@ -13,7 +14,12 @@ from store_copy import check_store_copy as csc
 from taro_tools.checkkit import LOCALES, InputError, load_yaml
 
 CHECK = "check_store_copy"
-REAL = ("tools/store_copy/banned_phrases.yaml", "tools/store_copy/required_sentences.yaml")
+REAL = (
+    "tools/store_copy/banned_phrases.yaml",
+    "tools/store_copy/required_sentences.yaml",
+    "tools/store_copy/certainty_exemptions.yaml",
+    *(f"worker/safety/lexicons/{loc}.json" for loc in LOCALES),
+)
 
 EXPECTED: dict[str, set[str]] = {
     "fail_banned_phrase_en": {"banned_phrase"},
@@ -48,6 +54,10 @@ EXPECTED: dict[str, set[str]] = {
     "fail_banned_whats_new": {"banned_phrase"},
     "fail_banned_content": {"banned_phrase"},
     "fail_banned_prompt_template": {"banned_phrase"},
+    "fail_certainty_arb": {"certainty_phrase"},
+    "fail_certainty_ja": {"certainty_phrase"},
+    "fail_certainty_content": {"certainty_phrase"},
+    "fail_subscription": {"no_subscriptions"},
 }
 MALFORMED = {
     "fail_malformed_banned",
@@ -55,6 +65,7 @@ MALFORMED = {
     "fail_malformed_aso",
     "fail_malformed_content",
     "fail_banned_missing",
+    "fail_malformed_certainty",
 }
 
 
@@ -88,12 +99,13 @@ def test_malformed_inputs_fail(case: str, tmp_path: Path, capsys: pytest.Capture
 
 
 def test_missing_surfaces_are_skipped(tmp_path: Path) -> None:
-    for rel in REAL:
+    for rel in REAL[:2]:
         (tmp_path / rel).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / rel).write_text((REPO / rel).read_text())
     findings, notices = csc.check(tmp_path)
     assert findings == []
-    assert len(notices) == 5
+    assert len(notices) == 6
+    assert any("certainty wording (1.1.6) not checked" in n for n in notices)
 
 
 def _matcher() -> csc.Matcher:
@@ -222,3 +234,78 @@ def test_script_entry_point(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> 
     with pytest.raises(SystemExit) as exit_info:
         runpy.run_path(str(REPO / "tools" / "store_copy" / "check_store_copy.py"), run_name="__main__")
     assert exit_info.value.code == 0
+
+
+# --------------------------------------------------------------------------
+# Apple 1.1.6: certainty wording in ARB and deck text (APPLE_MATRIX row 1.1.6)
+
+
+def _certainty(exemptions: object | None = None) -> dict[str, csc.CertaintyRules]:
+    banned = csc.parse_banned(load_yaml(REPO / csc.BANNED_PATH))
+    lexicons = {loc: json.loads((REPO / csc.LEXICON_DIR / f"{loc}.json").read_text()) for loc in LOCALES}
+    if exemptions is None:
+        exemptions = load_yaml(REPO / csc.CERTAINTY_EXEMPTIONS_PATH)
+    return csc.parse_certainty(lexicons, exemptions, banned)
+
+
+def test_1_1_6_no_arb_or_deck_text_states_certainty() -> None:
+    findings, notices = csc.check(REPO)
+    assert [f for f in findings if f.rule == "certainty_phrase"] == []
+    assert not any("certainty wording" in n for n in notices)
+    rules = _certainty()
+    assert all(rules[loc].phrases.phrases for loc in LOCALES)
+
+
+@pytest.mark.parametrize(
+    ("locale", "text", "hit"),
+    [
+        ("en", "This will definitely work out.", "will definitely"),
+        ("fr", "Cela arrivera a coup sur.", "à coup sûr"),
+        ("ja", "願いは絶対に叶います", "絶対に"),
+    ],
+)
+def test_certainty_hits(locale: str, text: str, hit: str) -> None:
+    assert _certainty()[locale].hits(text) == [hit]
+
+
+@pytest.mark.parametrize(
+    ("locale", "text"),
+    [
+        ("en", "Write down what you know for certain and what you assume."),
+        ("en", "Nothing here is guaranteed; notice what will happen if you rest."),
+        ("ar", "أسوأ الاحتمالات"),
+        ("ja", "が"),
+    ],
+)
+def test_certainty_non_claims_are_exempt(locale: str, text: str) -> None:
+    assert _certainty()[locale].hits(text) == []
+
+
+def test_certainty_without_exemptions_flags_the_reviewed_span() -> None:
+    rules = _certainty({})
+    assert rules["en"].hits("what you know for certain") == ["for certain"]
+
+
+def test_fold_keeps_non_latin_marks() -> None:
+    assert csc.fold("Cafe\u0301  À") == "cafe a"
+    assert csc.fold("か\u3099") == "が"
+
+
+@pytest.mark.parametrize(
+    ("exemptions", "lexicon", "message"),
+    [
+        ([], {"l3": {"certainty": []}}, "non_claims mapping"),
+        ({"non_claims": {"xx": ["a"]}}, {"l3": {"certainty": []}}, "unknown locales"),
+        ({}, {"l3": {"certainty": ["a"], "nonClaimSpans": ["("]}}, "bad nonClaimSpans"),
+        ({}, {"l3": []}, "l3.certainty"),
+        ({}, [], "l3.certainty"),
+    ],
+)
+def test_parse_certainty_rejects_bad_shapes(exemptions: object, lexicon: object, message: str) -> None:
+    banned = csc.parse_banned(load_yaml(REPO / csc.BANNED_PATH))
+    with pytest.raises(InputError, match=message):
+        csc.parse_certainty({"en": lexicon}, exemptions, banned)
+
+
+def test_certainty_findings_skip_locales_without_a_lexicon() -> None:
+    assert csc.certainty_findings({}, "x", "k", "for sure", "en") == []

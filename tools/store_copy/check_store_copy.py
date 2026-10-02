@@ -20,7 +20,13 @@
 * ``remove_banner_ads_name`` — the ``remove_ads`` display name is
   "Remove Banner Ads" and ≤ 30 characters in all 12 locales (RC80);
 * ``review_notes_labels_exist`` — every "quoted" label in the review notes'
-  HOW TO REVIEW block is a value in ``app_en.arb`` (RC79).
+  HOW TO REVIEW block is a value in ``app_en.arb`` (RC79);
+* ``certainty_phrase`` — Apple 1.1.6: an ARB message or deck text uses the
+  Worker's L3 certainty wording (``worker/safety/lexicons/<locale>.json``
+  ``l3.certainty``, after its ``nonClaimSpans`` and the reviewed non-claim
+  spans of ``certainty_exemptions.yaml`` are removed);
+* ``no_subscriptions`` — Apple 3.1.2 / CS5: an ``aso.yaml`` IAP product is
+  auto-renewable or a subscription.
 
 Surfaces that do not exist yet are skipped with a notice; the two YAML rule
 files must exist and be well-formed.
@@ -42,6 +48,7 @@ from taro_tools.checkkit import (
     Finding,
     InputError,
     base_parser,
+    load_json,
     load_yaml,
     rel,
     resolve_root,
@@ -63,6 +70,8 @@ from taro_tools.store import (
 NAME = "check_store_copy"
 BANNED_PATH = "tools/store_copy/banned_phrases.yaml"
 REQUIRED_PATH = "tools/store_copy/required_sentences.yaml"
+LEXICON_DIR = "worker/safety/lexicons"
+CERTAINTY_EXEMPTIONS_PATH = "tools/store_copy/certainty_exemptions.yaml"
 WHATS_NEW_DIR = "apps/taro/store/whats_new"
 CONTENT_SOURCE = "apps/taro/content/source"
 PROMPT_TEMPLATES = "worker/prompts"
@@ -110,6 +119,7 @@ class LocaleRules:
 
     lists: Mapping[str, PhraseList]
     allowed_contexts: tuple[str, ...]
+    substring: bool = False
 
 
 def _str_list(value: Any, where: str) -> list[str]:
@@ -159,7 +169,7 @@ def parse_banned(data: Any) -> dict[str, LocaleRules]:
                 tuple((p, phrase_regex(p, match == "substring")) for p in phrases)
             )
         contexts = _str_list(block.get("allowed_contexts"), f"locales.{locale}.allowed_contexts")
-        rules[locale] = LocaleRules(lists, tuple(normalize(c) for c in contexts))
+        rules[locale] = LocaleRules(lists, tuple(normalize(c) for c in contexts), match == "substring")
     return rules
 
 
@@ -228,6 +238,104 @@ def text_findings(
     return [
         Finding(path, 0, _RULE_OF_LIST[name], f"{where} ({locale}): contains {phrase!r}")
         for name, phrase in matcher.hits(text, locale, lists)
+    ]
+
+
+# --------------------------------------------------------------------------
+# certainty wording (Apple 1.1.6)
+
+
+def fold(text: str) -> str:
+    """``normalize`` plus Latin diacritics dropped (the Worker's ``foldText``)."""
+    out: list[str] = []
+    latin = False
+    for ch in unicodedata.normalize("NFD", normalize(text)):
+        if unicodedata.combining(ch):
+            if not latin:
+                out.append(ch)
+            continue
+        latin = unicodedata.name(ch, "").startswith("LATIN")
+        out.append(ch)
+    return " ".join(unicodedata.normalize("NFC", "".join(out)).split())
+
+
+@dataclass(frozen=True)
+class CertaintyRules:
+    """Certainty phrases of one locale and the spans that are not claims."""
+
+    phrases: PhraseList
+    non_claims: tuple[re.Pattern[str], ...]
+    exempt: tuple[str, ...]
+
+    def hits(self, text: str) -> list[str]:
+        """Certainty phrases used as claims in ``text``."""
+        clean = fold(text)
+        for span in self.exempt:
+            clean = clean.replace(span, " ")
+        for pattern in self.non_claims:
+            clean = pattern.sub(" ", clean)
+        return self.phrases.hits(clean)
+
+
+def _lexicon_strings(data: Any, key: str, label: str) -> list[str]:
+    l3 = data.get("l3") if isinstance(data, dict) else None
+    value = l3.get(key, []) if isinstance(l3, dict) else None
+    if not isinstance(value, list) or not all(isinstance(v, str) and v.strip() for v in value):
+        raise InputError(label, f"l3.{key} must be a list of non-empty strings")
+    return value
+
+
+def parse_certainty(
+    lexicons: Mapping[str, Any], exemptions: Any, rules: Mapping[str, LocaleRules]
+) -> dict[str, CertaintyRules]:
+    """Compile the L3 certainty lists with the reviewed exemptions."""
+    if not isinstance(exemptions, dict) or not isinstance(exemptions.get("non_claims", {}), dict):
+        raise InputError(CERTAINTY_EXEMPTIONS_PATH, "needs a non_claims mapping of locale to spans")
+    spans = exemptions.get("non_claims", {})
+    unknown = sorted(set(map(str, spans)) - set(LOCALES))
+    if unknown:
+        raise InputError(CERTAINTY_EXEMPTIONS_PATH, f"unknown locales: {', '.join(unknown)}")
+    compiled: dict[str, CertaintyRules] = {}
+    for locale, data in lexicons.items():
+        label = f"{LEXICON_DIR}/{locale}.json"
+        substring = rules[locale].substring
+        phrases = PhraseList(
+            tuple((p, phrase_regex(fold(p), substring)) for p in _lexicon_strings(data, "certainty", label))
+        )
+        try:
+            non_claims = tuple(re.compile(s) for s in _lexicon_strings(data, "nonClaimSpans", label))
+        except re.error as error:
+            raise InputError(label, f"bad nonClaimSpans regex: {error}") from error
+        exempt = tuple(fold(s) for s in _str_list(spans.get(locale), f"non_claims.{locale}"))
+        compiled[locale] = CertaintyRules(phrases, non_claims, exempt)
+    return compiled
+
+
+def load_certainty(root: Path, rules: Mapping[str, LocaleRules]) -> dict[str, CertaintyRules] | None:
+    """The certainty rules, or ``None`` before the Worker lexicons exist."""
+    directory = root / LEXICON_DIR
+    if not directory.is_dir():
+        return None
+    lexicons = {
+        locale: load_json(directory / f"{locale}.json", f"{LEXICON_DIR}/{locale}.json")
+        for locale in LOCALES
+        if (directory / f"{locale}.json").is_file()
+    }
+    path = root / CERTAINTY_EXEMPTIONS_PATH
+    exemptions = load_yaml(path, CERTAINTY_EXEMPTIONS_PATH) if path.is_file() else {}
+    return parse_certainty(lexicons, exemptions, rules)
+
+
+def certainty_findings(
+    certainty: Mapping[str, CertaintyRules], path: str, where: str, text: str, locale: str
+) -> list[Finding]:
+    """``certainty_phrase`` findings for one in-app or deck text."""
+    rules = certainty.get(locale)
+    if rules is None:
+        return []
+    return [
+        Finding(path, 0, "certainty_phrase", f"{where} ({locale}): states certainty with {phrase!r} (1.1.6)")
+        for phrase in rules.hits(text)
     ]
 
 
@@ -397,7 +505,18 @@ def aso_findings(
     findings += locale_findings(aso)
     findings += iap_findings(aso)
     findings += review_label_findings(aso, en)
+    findings += subscription_findings(aso)
     return findings
+
+
+def subscription_findings(aso: Mapping[str, Any]) -> list[Finding]:
+    """Apple 3.1.2 / CS5: v1 sells no subscriptions (no auto-renewable products)."""
+    return [
+        Finding(ASO_PATH, 0, "no_subscriptions", f"{section}.iap_products {item['product_id']} is {kind!r} (CS5: no subscriptions in v1)")
+        for section in ("app_store", "google_play")
+        for item in aso_iap_products(aso, section)
+        if any(word in (kind := str(item.get("type", ""))).upper() for word in ("AUTO_RENEW", "SUBSCRIPTION"))
+    ]
 
 
 # --------------------------------------------------------------------------
@@ -423,8 +542,14 @@ def _yaml_strings(value: Any) -> list[str]:
     return []
 
 
-def file_findings(matcher: Matcher, root: Path, files: Iterable[Path], lists: list[str]) -> list[Finding]:
-    """Banned phrases in text/YAML files; the locale comes from the path."""
+def file_findings(
+    matcher: Matcher,
+    root: Path,
+    files: Iterable[Path],
+    lists: list[str],
+    certainty: Mapping[str, CertaintyRules] | None = None,
+) -> list[Finding]:
+    """Banned phrases (and certainty wording, if given) in text/YAML files; the locale comes from the path."""
     findings: list[Finding] = []
     for path in files:
         label = rel(root, path)
@@ -435,6 +560,8 @@ def file_findings(matcher: Matcher, root: Path, files: Iterable[Path], lists: li
             texts = [path.read_text(encoding="utf-8")]
         for text in texts:
             findings += text_findings(matcher, label, "text", text, locale, lists)
+            if certainty is not None:
+                findings += certainty_findings(certainty, label, "text", text, locale)
     return findings
 
 
@@ -442,12 +569,18 @@ def _text_files(directory: Path) -> list[Path]:
     return sorted(p for p in directory.rglob("*") if p.is_file() and p.suffix in TEXT_SUFFIXES)
 
 
-def arb_findings(matcher: Matcher, arbs: Mapping[str, Mapping[str, Any]]) -> list[Finding]:
-    """Banned phrases in ARB message values (in-app text: global lists)."""
+def arb_findings(
+    matcher: Matcher,
+    arbs: Mapping[str, Mapping[str, Any]],
+    certainty: Mapping[str, CertaintyRules] | None = None,
+) -> list[Finding]:
+    """Banned phrases and certainty wording in ARB message values (in-app text: global lists)."""
     findings: list[Finding] = []
     for locale, arb in arbs.items():
         for key, value in arb_messages(arb).items():
             findings += text_findings(matcher, arb_path(locale), key, value, locale, ["global"])
+            if certainty is not None:
+                findings += certainty_findings(certainty, arb_path(locale), key, value, locale)
     return findings
 
 
@@ -457,9 +590,13 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
         if not (root / label).is_file():
             raise InputError(label, "missing (the check cannot run without it)")
     required = parse_required(load_yaml(root / REQUIRED_PATH, REQUIRED_PATH))
-    matcher = Matcher(parse_banned(load_yaml(root / BANNED_PATH, BANNED_PATH)), required)
+    banned = parse_banned(load_yaml(root / BANNED_PATH, BANNED_PATH))
+    matcher = Matcher(banned, required)
     findings: list[Finding] = []
     notices: list[str] = []
+    certainty = load_certainty(root, banned)
+    if certainty is None:
+        notices.append(f"{LEXICON_DIR} not present yet; certainty wording (1.1.6) not checked")
 
     arbs: dict[str, dict[str, Any]] = {}
     if (root / ARB_DIR).is_dir():
@@ -467,7 +604,7 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
             path = root / arb_path(locale)
             if path.is_file():
                 arbs[locale] = load_arb(path, arb_path(locale))
-        findings += arb_findings(matcher, arbs)
+        findings += arb_findings(matcher, arbs, certainty)
     else:
         notices.append(f"{ARB_DIR} not present yet; ARB copy not checked")
 
@@ -478,11 +615,11 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
         findings += aso_findings(aso, matcher, required, arbs.get("en"))
 
     surfaces = (
-        (WHATS_NEW_DIR, "*", ["global", "apple_only", "play_only"]),
-        (CONTENT_SOURCE, "*", ["global"]),
-        (PROMPT_TEMPLATES, "templates", ["global"]),
+        (WHATS_NEW_DIR, "*", ["global", "apple_only", "play_only"], None),
+        (CONTENT_SOURCE, "*", ["global"], certainty),
+        (PROMPT_TEMPLATES, "templates", ["global"], None),
     )
-    for base, marker, lists in surfaces:
+    for base, marker, lists, cert in surfaces:
         directory = root / base
         files = _text_files(directory) if directory.is_dir() else []
         if marker == "templates":
@@ -491,7 +628,7 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
             where = f"{base}/**/templates/**" if marker == "templates" else f"{base}/**"
             notices.append(f"{where} not present yet; skipped")
             continue
-        findings += file_findings(matcher, root, files, lists)
+        findings += file_findings(matcher, root, files, lists, cert)
     return findings, notices
 
 

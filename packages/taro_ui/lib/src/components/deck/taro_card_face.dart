@@ -188,12 +188,17 @@ class _ReversedBadge extends StatelessWidget {
           horizontal: tokens.space.s3,
           vertical: tokens.space.s1,
         ),
-        child: Text(
-          label,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: tokens.typography.caption.copyWith(
-            color: tokens.color.text.onAccent,
+        // On the fixed-size art the label shrinks to fit rather than being
+        // cut at large text (01 §12); at normal sizes it is unchanged.
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            label,
+            maxLines: 1,
+            softWrap: false,
+            style: tokens.typography.caption.copyWith(
+              color: tokens.color.text.onAccent,
+            ),
           ),
         ),
       ),

@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9QX258UF65.com.vshyrochuk.taro", "9QX258UF65.com.vshyrochuk.taro.stg"],
+        "components": [
+          { "/": "/app/*", "comment": "Deep links (02 §8.2); everything else stays on the website" }
+        ]
+      }
+    ]
+  }
+}

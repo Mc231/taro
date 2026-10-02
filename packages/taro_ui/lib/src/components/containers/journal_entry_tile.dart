@@ -128,6 +128,29 @@ class JournalEntryTile extends StatelessWidget {
           ),
         ),
     ];
+    final stacked = taroShouldReflow(context);
+    final texts = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          // Two lines at normal sizes; never cut at large text (01 §12).
+          maxLines: stacked ? null : 2,
+          overflow: stacked ? null : TextOverflow.ellipsis,
+          style: tokens.typography.titleSmall.copyWith(
+            color: c.text.primary,
+          ),
+        ),
+        SizedBox(height: tokens.space.s1),
+        Text(
+          prefixed,
+          style: tokens.typography.caption.copyWith(
+            color: metaColor,
+          ),
+        ),
+      ],
+    );
     final main = MergeSemantics(
       child: Semantics(
         button: onTap != null,
@@ -140,45 +163,46 @@ class JournalEntryTile extends StatelessWidget {
             ),
             child: Padding(
               padding: EdgeInsetsDirectional.all(tokens.space.s4),
-              child: Row(
-                children: [
-                  if (leading != null) ...[
-                    ExcludeSemantics(child: leading),
-                    SizedBox(width: tokens.space.s4),
-                  ],
-                  Expanded(
-                    child: Column(
+              child: stacked
+                  // At large text the leading and the indicators sit above
+                  // the texts, which get the full width (01 §12).
+                  ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          title,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: tokens.typography.titleSmall.copyWith(
-                            color: c.text.primary,
+                        if (leading != null || indicators.isNotEmpty) ...[
+                          Wrap(
+                            spacing: tokens.space.s3,
+                            runSpacing: tokens.space.s2,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              if (leading != null)
+                                ExcludeSemantics(child: leading),
+                              ...indicators,
+                            ],
                           ),
-                        ),
-                        SizedBox(height: tokens.space.s1),
-                        Text(
-                          prefixed,
-                          style: tokens.typography.caption.copyWith(
-                            color: metaColor,
+                          SizedBox(height: tokens.space.s3),
+                        ],
+                        texts,
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        if (leading != null) ...[
+                          ExcludeSemantics(child: leading),
+                          SizedBox(width: tokens.space.s4),
+                        ],
+                        Expanded(child: texts),
+                        if (indicators.isNotEmpty) ...[
+                          SizedBox(width: tokens.space.s3),
+                          Wrap(
+                            spacing: tokens.space.s2,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: indicators,
                           ),
-                        ),
+                        ],
                       ],
                     ),
-                  ),
-                  if (indicators.isNotEmpty) ...[
-                    SizedBox(width: tokens.space.s3),
-                    Wrap(
-                      spacing: tokens.space.s2,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: indicators,
-                    ),
-                  ],
-                ],
-              ),
             ),
           ),
         ),
@@ -227,7 +251,7 @@ class JournalEntryTile extends StatelessWidget {
       color: c.bg.surface,
       borderRadius: BorderRadius.circular(tokens.radius.lg),
       // At large text the Finish action moves under the row (01 §12).
-      child: taroShouldReflow(context)
+      child: stacked
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

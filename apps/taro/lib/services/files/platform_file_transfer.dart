@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:io' show FileSystemException;
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:file_picker/file_picker.dart';
@@ -80,10 +81,27 @@ final class PlatformFileTransfer implements FileTransfer {
     try {
       final files = await _pick();
       if (files.isEmpty) return const Result.ok(null);
-      return Result.ok(await files.first.readAsBytes());
+      final file = files.first;
+      final size = await file.length();
+      if (size == null || size <= BackupSchemaV1.maxFileBytes) {
+        return Result.ok(await file.readAsBytes());
+      }
+      return Result.ok(await _readPastLimit(file));
     } on Object catch (error, stack) {
       return Result.err(_failure('pick', error, stack));
     }
+  }
+
+  /// A file over the backup limit is read only until it passes
+  /// [BackupSchemaV1.maxFileBytes], so a huge pick never sits in memory
+  /// whole; the validator then reports `tooLarge`.
+  static Future<Uint8List> _readPastLimit(PlatformFile file) async {
+    final builder = BytesBuilder(copy: false);
+    await for (final chunk in file.readAsByteStream()) {
+      builder.add(chunk);
+      if (builder.length > BackupSchemaV1.maxFileBytes) break;
+    }
+    return builder.takeBytes();
   }
 
   Failure _failure(String action, Object error, StackTrace stack) {

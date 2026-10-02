@@ -10,6 +10,7 @@ import { dateHeader } from './http/middleware/dateHeader';
 import { logging } from './http/middleware/logging';
 import { noCors } from './http/middleware/noCors';
 import { requestId } from './http/middleware/requestId';
+import { requestSizeLimit } from './http/middleware/requestSizeLimit';
 import { registerAttestRoutes } from './routes/attest';
 import { registerBalanceRoutes } from './routes/balance';
 import { registerConfigRoutes } from './routes/config';
@@ -42,7 +43,8 @@ export const VERSION_GATE_EXEMPT = ['/v1/health', '/v1/config'] as const;
  * it with `app.request()`; production uses `buildApp(makeProdDeps(env))`.
  *
  * Global middleware order: `Date` and request ID (outermost, so every
- * response carries them) → request log → no-CORS → client headers → app-version gate. Route
+ * response carries them) → request log → no-CORS → body size limit → client headers →
+ * app-version gate. Route
  * groups add auth, attestation, idempotency and rate limits per 03 §2.1.
  */
 export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
@@ -51,6 +53,7 @@ export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
   app.use('*', requestId(deps.ids));
   app.use('*', logging(deps.clock, deps.logger, deps.metrics));
   app.use('*', noCors());
+  app.use('*', requestSizeLimit());
   app.use('*', clientHeaders());
   app.use('/v1/*', appVersionGate(deps.config, { exemptPaths: VERSION_GATE_EXEMPT }));
   app.onError(errorHandler(deps.logger));

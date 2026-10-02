@@ -1,0 +1,21 @@
+# Reviewed non-claim uses of certainty wording in in-app text and deck content.
+#
+# Apple 1.1.6 (05 §1): ARB strings and deck text never state that something
+# will certainly happen. `check_store_copy.py` (rule `certainty_phrase`) matches
+# the Worker's L3 certainty list (worker/safety/lexicons/<locale>.json,
+# `l3.certainty`, minus its `nonClaimSpans`) over all `app_*.arb` messages and
+# `apps/taro/content/source/**`. The spans below are removed before matching:
+# each is a reflective use that is not a claim (it asks the user to separate
+# what they know from what they assume). Add a span only after reading the
+# sentence it comes from; match is case-insensitive, diacritics folded.
+
+version: 1
+
+non_claims:
+  # The Moon, reversed: "write down what you know for certain and what you are assuming"
+  en: ["what you know for certain"]
+  es: ["lo que sabes con certeza"]
+  fr: ["ce que vous savez avec certitude"]
+  it: ["ciò che sai con certezza"]
+  pt: ["o que você sabe com certeza"]
+  ko: ["확실히 아는 것"]

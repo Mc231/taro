@@ -29,6 +29,30 @@ Every Monday:
    - **crisis content**: check that the crisis flow triggered (L1 or model `self_harm`); if not, add an L1 pattern.
 4. Record counts per reason and the actions taken in the "Eval report log" at the end of this runbook.
 
+### Triage walk-through (Phase 19.3)
+
+One Monday session, about 20 minutes. Run it on staging first (`--env staging`, database `taro-staging`) to rehearse; in prod use `taro-prod`.
+
+1. **Volume and trend.** `cd worker && npm run metrics -- --env prod --query events` → the `reading_reported` row for the last 7 days, split by `code` (the reason). Compare with `reading_completed` for the same week: a report rate above **1 %** of completed readings, or any week with a jump of 3× or more, is a SEV2 per `INCIDENT.md` and gets its own note.
+2. **Metadata first, no decryption.** List what came in without opening any payload:
+
+   ```bash
+   npx wrangler d1 execute taro-prod --env prod --remote --command \
+     "SELECT reason, locale, prompt_version, model, COUNT(*) AS n FROM reading_reports
+      WHERE created_at >= datetime('now','-7 days') GROUP BY 1,2,3,4 ORDER BY n DESC"
+   ```
+
+   Clusters tell you where to look: many reports for one `prompt_version` + `model` point to the prompt or model; many for one `locale` point to the translation or a lexicon gap in that language; `sexual` or `hateful` reasons are always opened.
+3. **Open only what you need.** Decrypt the reports in the clusters from step 2 plus every `sexual`, `hateful` and `harmful_advice` report, on the owner machine only (the export script or `openReport`, see step 2 above). Work in a temporary folder and delete it at the end. Never copy decrypted text into tickets, chat, commits or eval files.
+4. **Classify each opened report** (model error, false positive / taste, crisis content, as above). For a **model error**, also decide the urgency:
+   - certainty or banned claims, medical / legal / financial advice that should have been declined: add the lexicon entry and the eval case this week, ship with the next prompt or lexicon change;
+   - sexual content involving minors, instructions for self-harm or harm to others, or anything a store reviewer would reject outright: SEV1. Set `readings.enabled = false` (above) first, then fix, eval, and re-enable.
+5. **Write the eval case in neutral form.** Paraphrase the triggering question (no names, places, dates or other identifying details from the report) and add it to `worker/evals/safety/prompts.jsonl` with the expected category. The decrypted text itself never enters the repository.
+6. **Check the loop closed.** For every lexicon or prompt change from last week, re-run `npm run eval:offline` over the recorded outputs and check that the reported pattern is now caught, with no new over-refusals in the benign controls.
+7. **Log it.** Add one row to "Eval report log" below with kind `triage`: the week, counts per reason, actions (lexicon entries, eval cases, prompt changes, incidents). An empty week gets a row too (`0 reports`).
+
+The report rows expire 90 days after `created_at` (nightly cron); nothing needs deleting by hand. A user asking for their report to be deleted is handled by the in-app "Delete all data" erasure (`DELETE /v1/installs/me`, 03 §3.6, RC37), which removes their `reading_reports` rows.
+
 ## Adding lexicon entries (L1 prefilter, L3 forbidden claims)
 
 - Store-copy and L3 banned claims: add the phrase to `tools/store_copy/banned_phrases.yaml` (the one canonical list, RC39). Under the 05 §9.5 rules it also applies to the store copy and the ARB files.

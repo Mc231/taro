@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro_ui/src/components/deck/taro_card_ornament.dart';
@@ -102,6 +103,37 @@ void main() {
         findsNothing,
       );
       expect(find.text('Reversed'), findsOneWidget);
+    });
+
+    testWidgets('large text: the reversed badge shrinks, never cut', (
+      tester,
+    ) async {
+      await pumpTaroUiWidget(
+        tester,
+        const Center(
+          child: TaroCardFace(
+            image: PlaceholderArt(),
+            semanticsLabel: 'Three of Cups, reversed',
+            reversed: true,
+            reversedLabel: 'Umgekehrt',
+            size: TaroCardSize.sm,
+          ),
+        ),
+        textScale: 3,
+      );
+      final badge = tester.renderObject<RenderParagraph>(
+        find.text('Umgekehrt'),
+      );
+      expect(badge.didExceedMaxLines, isFalse);
+      expect(
+        tester.getSize(find.text('Umgekehrt')).width,
+        greaterThan(tester.getSize(find.byType(TaroCardFace)).width),
+      );
+      expect(
+        tester.getRect(find.byType(FittedBox)).width,
+        lessThanOrEqualTo(tester.getSize(find.byType(TaroCardFace)).width),
+      );
+      expect(tester.takeException(), isNull);
     });
 
     testWidgets('reversed without a badge label shows no badge', (

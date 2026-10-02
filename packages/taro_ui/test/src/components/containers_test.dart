@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro_ui/taro_ui.dart';
 
@@ -427,5 +428,33 @@ void main() {
       tester.getTopLeft(find.text('Finish reading')).dy,
       greaterThan(tester.getBottomLeft(find.text('Pending · Thu 25 Sep')).dy),
     );
+  });
+
+  testWidgets('large text: the leading and indicators sit above the full '
+      'title, which is never cut', (tester) async {
+    const title = 'A season of rebuilding after a very long winter of doubt';
+    await pumpTaroUiWidget(
+      tester,
+      _pad(
+        JournalEntryTile(
+          title: title,
+          onTap: () {},
+          meta: 'Thu 25 Sep',
+          status: JournalEntryTileStatus.ai,
+          favourite: true,
+          favouriteLabel: 'Favourite',
+          leading: const SizedBox.square(key: Key('leading'), dimension: 48),
+        ),
+      ),
+      textScale: 3,
+    );
+    final leading = tester.getRect(find.byKey(const Key('leading')));
+    expect(
+      tester.getTopLeft(find.text(title)).dy,
+      greaterThanOrEqualTo(leading.bottom),
+    );
+    final paragraph = tester.renderObject<RenderParagraph>(find.text(title));
+    expect(paragraph.didExceedMaxLines, isFalse);
+    expect(tester.takeException(), isNull);
   });
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ (API 31+) backup and device-transfer rules. taro_journal.db may be
+     backed up; device-bound state and secure storage never are. Keep in sync with
+     full_backup_content.xml. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- flutter_secure_storage (02 §6.2): install id, install secret, session token,
+             purchase binding. Keystore keys never leave the device, so a restored copy
+             could not be decrypted anyway. -->
+        <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureKeyStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration:FlutterSecureStorage.xml" />
+        <!-- taro_device.db (02 §6.1, RC75): outbox, caches, entitlements, consent.
+             DeviceDatabase.open passes drift_flutter an explicit databasePath in the
+             path_provider documents dir (app_flutter/ on Android), with WAL journaling;
+             -journal is listed for a rollback-journal fallback. taro_journal.db is
+             backed up. -->
+        <exclude domain="file" path="app_flutter/taro_device.db" />
+        <exclude domain="file" path="app_flutter/taro_device.db-wal" />
+        <exclude domain="file" path="app_flutter/taro_device.db-shm" />
+        <exclude domain="file" path="app_flutter/taro_device.db-journal" />
+    </cloud-backup>
+    <device-transfer>
+        <!-- flutter_secure_storage (02 §6.2): install id, install secret, session token,
+             purchase binding. Keystore keys never leave the device, so a restored copy
+             could not be decrypted anyway. -->
+        <exclude domain="sharedpref" path="FlutterSecureStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureKeyStorage.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration.xml" />
+        <exclude domain="sharedpref" path="FlutterSecureStorageConfiguration:FlutterSecureStorage.xml" />
+        <!-- taro_device.db (02 §6.1, RC75): outbox, caches, entitlements, consent.
+             DeviceDatabase.open passes drift_flutter an explicit databasePath in the
+             path_provider documents dir (app_flutter/ on Android), with WAL journaling;
+             -journal is listed for a rollback-journal fallback. taro_journal.db is
+             backed up. -->
+        <exclude domain="file" path="app_flutter/taro_device.db" />
+        <exclude domain="file" path="app_flutter/taro_device.db-wal" />
+        <exclude domain="file" path="app_flutter/taro_device.db-shm" />
+        <exclude domain="file" path="app_flutter/taro_device.db-journal" />
+    </device-transfer>
+</data-extraction-rules>

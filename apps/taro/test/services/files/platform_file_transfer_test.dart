@@ -51,6 +51,34 @@ final class _File extends PlatformFile {
   Stream<Uint8List> readAsByteStream() => Stream.value(bytes);
 }
 
+/// Claims `chunk.length * chunks` bytes and streams them chunk by chunk.
+final class _HugeFile extends _File {
+  _HugeFile(super.bytes, {required this.chunks});
+
+  final int chunks;
+  bool wholeRead = false;
+
+  @override
+  Future<int?> length() async => bytes.length * chunks;
+
+  @override
+  Future<Uint8List> readAsBytes() async {
+    wholeRead = true;
+    return bytes;
+  }
+
+  @override
+  Stream<Uint8List> readAsByteStream() =>
+      Stream.fromIterable(List.filled(chunks, bytes));
+}
+
+final class _UnknownLengthFile extends _File {
+  _UnknownLengthFile(super.bytes);
+
+  @override
+  Future<int?> length() async => null;
+}
+
 final class _Harness implements FileTransferHarness {
   final _Share shares = _Share();
   final List<Uint8List?> _picks = [];
@@ -137,6 +165,24 @@ void main() {
     test('returns the first picked file', () async {
       final result = await transfer(
         pick: () async => [_File(bytes), _File(Uint8List(1))],
+      ).pickJson();
+      expect(expectOk(result), bytes);
+    });
+
+    test('a file over the limit is read only past the limit', () async {
+      const max = BackupSchemaV1.maxFileBytes;
+      final chunk = Uint8List(max ~/ 4);
+      final file = _HugeFile(chunk, chunks: 100);
+      final result = await transfer(pick: () async => [file]).pickJson();
+      final read = expectOk(result)!;
+      expect(read.length, greaterThan(max));
+      expect(read.length, lessThanOrEqualTo(max + chunk.length));
+      expect(file.wholeRead, isFalse);
+    });
+
+    test('a file of unknown length is read whole', () async {
+      final result = await transfer(
+        pick: () async => [_UnknownLengthFile(bytes)],
       ).pickJson();
       expect(expectOk(result), bytes);
     });

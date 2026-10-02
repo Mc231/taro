@@ -99,3 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Two unnecessary type assertions in the App Attest test helpers failed `npm run lint`.
 - The challenge-tampering registration test flipped the last base64url characters, which only change padding bits in about 1 of 256 runs; it now changes a character inside the MAC.
+
+### Security
+
+- Requests with a body over 256 KiB get an empty `413` before any validator, attestation check or handler reads them (`src/http/middleware/requestSizeLimit.ts`; a declared `Content-Length` is checked up front, a chunked body is counted on a clone so `request.cf` is kept). Dev-only `undici` and `sharp` advisories are fixed with npm `overrides` (`undici` 7.29.1, `sharp` 0.35.4); `npm audit` is clean (Phase 19.5 security review).
