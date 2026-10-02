@@ -235,6 +235,11 @@ def _placeholder_types(arb: Mapping[str, Any], key: str) -> dict[str, str]:
     }
 
 
+# flutter gen-l10n passes `=0`, `=1` and `=2` as the `zero`, `one` and `two`
+# arguments of Intl.plural, so a message with both silently loses one branch.
+GEN_L10N_ALIASES = (("=0", "zero"), ("=1", "one"), ("=2", "two"))
+
+
 def _compare_icu(
     locale: str, key: str, en_args: list[IcuArg], args: list[IcuArg], path: str
 ) -> list[Finding]:
@@ -280,6 +285,9 @@ def _compare_icu(
             problems.append(f"missing {sorted(exact - keys)} of en")
         if keys - allowed:
             problems.append(f"categories {sorted(keys - allowed)} not used by {locale}")
+        collisions = [f"{e}/{c}" for e, c in GEN_L10N_ALIASES if {e, c} <= keys]
+        if collisions:
+            problems.append(f"{', '.join(collisions)} collide (gen-l10n maps =N to that category)")
         if problems:
             findings.append(Finding(path, 0, "icu_mismatch", f"{key}: plural {'; '.join(problems)}"))
     return findings

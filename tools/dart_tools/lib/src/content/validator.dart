@@ -55,6 +55,10 @@ const (int, int) kPositionMeaningWords = (5, 40);
 /// Word bounds of an article body.
 const (int, int) kArticleWords = (100, 3000);
 
+/// Share of minor cards whose long texts a native reviewer samples per
+/// locale before launch (01 §11 step 6).
+const double kLaunchGateMinorSample = 0.2;
+
 /// Maximum crisis-entry age in days for a release (03 §9.5, BE Q3).
 const int kCrisisMaxAgeDays = 200;
 
@@ -110,6 +114,7 @@ final class ValidateOptions {
     required this.today,
     this.release = false,
     this.strictLocales = false,
+    this.launchGate = false,
     this.arbKeys,
   });
 
@@ -121,6 +126,12 @@ final class ValidateOptions {
 
   /// Missing and stale translations are errors instead of reports.
   final bool strictLocales;
+
+  /// The 01 §11 step 6 launch gate: every glossary block, all major cards
+  /// and the names/keywords/short texts of every card `reviewed`, and at
+  /// least [kLaunchGateMinorSample] of the minor long texts sampled, in all
+  /// 12 locales. Implies [strictLocales].
+  final bool launchGate;
 
   /// The `app_en.arb` keys, when that file exists (suggestion keys are
   /// reported when missing from it).
@@ -161,7 +172,7 @@ final class _Validator {
 
   void report(String path, String message, String locale) {
     issues.add(
-      options.strictLocales
+      options.strictLocales || options.launchGate
           ? Issue.error(path, message, locale: locale)
           : Issue.report(path, message, locale: locale),
     );
@@ -179,11 +190,76 @@ final class _Validator {
     _spreads();
     _articles();
     _crisis();
+    if (options.launchGate) _launchGate();
     final complete = [
       for (final locale in kLocales)
         if (!invalidLocales.contains(locale) && _isComplete(locale)) locale,
     ];
     return ValidationResult(issues, complete);
+  }
+
+  // --- launch gate (01 §11 step 6) ------------------------------------------
+
+  void _launchGate() {
+    const glossaryPath = '$kSourceDir/glossary.yaml';
+    final review = source.glossary is Map
+        ? (source.glossary! as Map)['review']
+        : null;
+    final minors = kCardIds.where((id) => arcanaOf(id) == 'minor').toList();
+    final sample = (minors.length * kLaunchGateMinorSample).ceil();
+    for (final locale in kLocales) {
+      final status = review is Map ? review[locale] : null;
+      if (status != 'reviewed') {
+        error(
+          glossaryPath,
+          'launch gate: review.$locale is ${status ?? 'missing'}, not reviewed',
+          locale: locale,
+        );
+      }
+      final cards = source.cards[locale] ?? const <String, Object?>{};
+      bool reviewed(String id, String key) {
+        final card = cards[id];
+        return card is Map && card[key] == 'reviewed';
+      }
+
+      final path = '$kSourceDir/$locale/cards';
+      final majors = [
+        for (final id in kCardIds)
+          if (arcanaOf(id) == 'major' && !reviewed(id, 'reviewStatus')) id,
+      ];
+      if (majors.isNotEmpty) {
+        error(
+          path,
+          'launch gate: ${majors.length} of 22 major cards not reviewed '
+          '(${_sample(majors)})',
+          locale: locale,
+        );
+      }
+      final shorts = [
+        for (final id in minors)
+          if (!reviewed(id, 'reviewStatus') &&
+              !reviewed(id, 'shortReviewStatus'))
+            id,
+      ];
+      if (shorts.isNotEmpty) {
+        error(
+          path,
+          'launch gate: names, keywords and short texts of ${shorts.length} '
+          'of ${minors.length} minor cards not reviewed (set reviewStatus or '
+          'shortReviewStatus: ${_sample(shorts)})',
+          locale: locale,
+        );
+      }
+      final sampled = minors.where((id) => reviewed(id, 'reviewStatus')).length;
+      if (sampled < sample) {
+        error(
+          path,
+          'launch gate: $sampled of ${minors.length} minor long texts '
+          'reviewed, at least $sample needed',
+          locale: locale,
+        );
+      }
+    }
   }
 
   bool _isComplete(String locale) =>
@@ -487,6 +563,7 @@ final class _Validator {
         if (!isEn) 'sourceHash',
       },
       optional: {
+        'shortReviewStatus',
         if (isEn) ...{'element', 'astrology'},
       },
     );
@@ -498,6 +575,14 @@ final class _Validator {
       );
     }
     reviewStatus(card['reviewStatus'], path, locale);
+    if (card.containsKey('shortReviewStatus') &&
+        !kReviewStatuses.contains(card['shortReviewStatus'])) {
+      error(
+        path,
+        'shortReviewStatus must be one of ${kReviewStatuses.join(' | ')}',
+        locale: locale,
+      );
+    }
     sourceHashField(card, path, locale, enCardHashes[id], 'the en card');
     if (isEn) _elementAstrology(card, path, id);
     final name = text(card['name'], path, 'name', locale, singleLine: true);

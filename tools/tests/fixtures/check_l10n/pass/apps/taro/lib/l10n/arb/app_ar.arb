@@ -2,7 +2,7 @@
   "@@locale": "ar",
   "appTitle": "Taro",
   "greeting": "مرحبا {name}",
-  "readingsLeft": "{count, plural, =0{لا قراءات} zero{لا شيء} one{قراءة واحدة} two{قراءتان} few{{count} قراءات} many{{count} قراءة} other{{count} قراءة}}",
+  "readingsLeft": "{count, plural, =0{لا قراءات} one{قراءة واحدة} two{قراءتان} few{{count} قراءات} many{{count} قراءة} other{{count} قراءة}}",
   "themeLabel": "{mode, select, light{فاتح} dark{داكن} other{النظام}}",
   "failureNetwork": "أنت غير متصل.",
   "safetyDeclinedHealth": "لا يجيب التاروت عن الصحة.",

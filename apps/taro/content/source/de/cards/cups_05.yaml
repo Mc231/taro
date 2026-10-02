@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "cups_05"
+reviewStatus: "machine"
+sourceHash: >-
+  76394e8b20aacff1ca97cde6180020544af640affa38b27dd2ba23fb35b8053b
+name: "Fünf der Kelche"
+keywordsUpright:
+  - "Enttäuschung"
+  - "Trauer"
+  - "Bedauern"
+  - "Blick auf den Verlust"
+  - "Abschied nehmen"
+keywordsReversed:
+  - "Annahme"
+  - "weitergehen"
+  - "Vergebung"
+  - "finden, was bleibt"
+shortUpright: >-
+  Ein Verlust füllt vielleicht dein Blickfeld; diese Karte lädt dich ein, ehrlich zu trauern und mit der Zeit zu bemerken, was noch steht.
+shortReversed: >-
+  Das Gewicht einer Enttäuschung lässt vielleicht nach; überlege, was dir geblieben ist und wohin du dich als Nächstes wenden möchtest.
+meaningUpright: |-
+  Die Fünf der Kelche zeigt eine Gestalt, die auf umgestoßene Kelche blickt, während andere hinter ihr noch aufrecht stehen. Sie ist eine Karte der Enttäuschung und Trauer: das Gefühl, dass etwas nicht so gekommen ist wie erhofft, und der Sog, bei dem zu bleiben, was verloren ging.
+  Dieser Sog ist menschlich. Wenn ein Plan scheitert, sich eine Freundschaft verändert oder eine Erwartung nicht erfüllt wird, braucht es Zeit, das aufzunehmen. Diese Karte bittet dich nicht, dich zu beeilen. Trauer gehört dazu, wenn dir etwas wichtig ist, und einen Verlust zu benennen, kann eine Art sein, ihn zu würdigen.
+  Im Alltag kann diese Karte spiegeln, dass du ein Gespräch immer wieder durchgehst, überlegst, was du anders hättest machen können, oder schwer etwas genießen kannst, weil etwas fehlt. Sie lädt dich sanft ein, dich, wenn du bereit bist, ein wenig umzuwenden und zu bemerken, was nicht umgefallen ist: Beziehungen, Stärken oder Möglichkeiten, die noch da sind. Beides kann zugleich wahr sein, der Verlust und das, was bleibt.
+meaningReversed: |-
+  Umgekehrt kann die Fünf der Kelche spiegeln, dass nach einer Enttäuschung langsam wieder Halt zurückkehrt. Vielleicht bemerkst du, dass der Verlust weniger scharf schmerzt oder dass du darüber sprechen kannst, ohne dass er den ganzen Tag füllt. Annahme heißt nicht, so zu tun, als sei es unwichtig gewesen; sie bedeutet, Raum zu finden, es neben anderem zu tragen.
+  Die Karte kann auch darauf hinweisen, dass Vergebung, einem anderen Menschen oder dir selbst gegenüber, ein wenig möglicher wird. Oder sie deutet an, dass Trauer beiseitegeschoben statt gefühlt wurde und um einen stilleren Moment der Aufmerksamkeit bittet.
+  Du könntest dich fragen, was du aus dieser Erfahrung gelernt hast und was du mitnehmen möchtest. Dich dem zuzuwenden, was bleibt, ist kein Verrat an dem, was verloren ging. Wenn schwere Gefühle bei dir bleiben, kann es die Last leichter machen, sie mit einem Menschen zu teilen, dem du vertraust.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann diese Karte Traurigkeit über eine Verbindung spiegeln, die sich verändert hat, über eine Hoffnung, die sich nicht erfüllt hat, oder über Worte, die verletzt haben. Sie kann dich einladen, dieses Gefühl anzuerkennen, statt es beiseitezuwischen. Vielleicht bemerkst du auch die Menschen, die dir durch Schwierigkeiten hindurch nah geblieben sind, und lässt sie wissen, wie viel dir das bedeutet.
+  relationshipsReversed: >-
+    Umgekehrt kann die Karte eine Bewegung hin zur Versöhnung spiegeln oder hin zum Frieden damit, wie sich eine Beziehung verändert hat. Vielleicht bist du bereit, einen alten Groll loszulassen oder ihn zumindest lockerer zu halten. Überlege, wie Vergebung für dich aussähe, und denk daran, dass sie nicht verlangt, etwas hinzunehmen, das sich nicht richtig anfühlt.
+  workUpright: >-
+    Bei der Arbeit kann die Fünf der Kelche Enttäuschung über ein ins Stocken geratenes Projekt spiegeln, über Feedback, das getroffen hat, oder über eine Gelegenheit, die an jemand anderen ging. Sie kann dich einladen, dir einen Moment zu nehmen, um das zu verarbeiten, bevor du den nächsten Schritt planst. Danach könntest du die Fähigkeiten, Beziehungen und Ideen auflisten, auf die du weiter aufbauen kannst.
+  workReversed: >-
+    Umgekehrt kann die Karte spiegeln, dass du dich von einem Rückschlag erholst und neue Möglichkeiten zu sehen beginnst. Vielleicht bemerkst du, dass eine Tür, deren Schließen du betrauert hast, Raum für etwas anderes gelassen hat. Du könntest einen kurzen Rückblick auf das Geschehene schreiben, mit dem Fokus auf Lehren statt auf Schuld, damit du mit mehr Klarheit weitergehen kannst.
+  growthUpright: >-
+    Trauer und Bedauern verdienen einen Platz in deiner Geschichte, und diese Karte fragt, wie du ihnen diesen Platz geben kannst, ohne dass sie den Rest schreiben. Du könntest üben zu bemerken, wann deine Aufmerksamkeit immer wieder zu dem zurückkehrt, was schiefgelaufen ist. Den Blick sanft zu weiten, auch nur ein paar Minuten am Tag, kann es leichter machen, das ganze Bild zu sehen.
+  growthReversed: >-
+    Umgekehrt kann die Fünf der Kelche Widerstandskraft spiegeln, die nach einer schweren Zeit wächst. Vielleicht bemerkst du eine neue Perspektive oder ein tieferes Mitgefühl, das dir die Erfahrung geschenkt hat. Die Veränderung mit einem kleinen Ritual zu würdigen, etwa einem Brief, den du nicht abschickst, kann dir helfen, ein Kapitel zu schließen und das nächste zu öffnen.
+reflectionQuestions:
+  - >-
+    Welcher Verlust oder welche Enttäuschung möchte gerade anerkannt werden?
+  - >-
+    Wer oder was ist dir durch eine schwere Zeit hindurch geblieben?
+  - >-
+    Was steht in deinem Leben noch, dem du dich zuwenden könntest, und sei es nur kurz?
+imageryNote: >-
+  Das Bild zeigt eine Gestalt im Umhang, den Kopf über drei umgestürzte Kelche gesenkt, deren Inhalt in den Boden sickert. Hinter ihr stehen zwei Kelche noch aufrecht und sind leicht zu übersehen. Ein Weg oder eine Brücke in der Ferne kann einen Weg nach vorn andeuten, wenn die Zeit reif ist. Kühle, gedämpfte Töne drücken Trauer aus, während eine feine Lichtlinie auf den stehenden Kelchen andeutet, dass nicht alles verloren ist.

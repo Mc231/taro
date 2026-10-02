@@ -1,0 +1,52 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_09"
+reviewStatus: "machine"
+sourceHash: >-
+  47b59fb1d14ec9f89999f61e61b048a675a3a19b1ca04761c25c179c4b60f350
+name: "Neun der Stäbe"
+keywordsUpright:
+  - "Widerstandskraft"
+  - "Beharrlichkeit"
+  - "die letzte Strecke"
+  - "hart erworbene Weisheit"
+  - "wachsame Stärke"
+keywordsReversed:
+  - "Erschöpfung"
+  - "Verschlossenheit"
+  - "an Grenzen stoßen"
+  - "um Hilfe bitten"
+  - "Schutz lockern"
+shortUpright: >-
+  Du hast viel durchgestanden und stehst noch; diese Karte würdigt deine Widerstandskraft auf der letzten Strecke.
+shortReversed: >-
+  So lange auf der Hut zu sein, kann ermüden; du könntest bemerken, wo es sicher ist, zu ruhen und andere hereinzulassen.
+meaningUpright: |-
+  Die Neun der Stäbe zeigt jemanden, der Herausforderungen durchlebt hat und noch auf den Beinen ist. Die Gestalt stützt sich auf einen Stab, ein wenig müde und wachsam, in einem Kreis anderer Stäbe, die wie ein selbst gebauter Zaun im Boden stecken. Das ist Widerstandskraft, die einige Blessuren der Erfahrung trägt: nicht unberührt, aber auch nicht besiegt.
+  Sie kann dich ansprechen, wenn ein langes Projekt fast abgeschlossen ist, wenn du eine fordernde Zeit der Pflege anderer oder des Lernens durchstehst oder wenn du Rückschläge erlebt und dich entschieden hast, weiterzumachen. Du weißt jetzt mehr als am Anfang, auch darüber, wo deine Grenzen liegen.
+  Diese Karte lädt dich ein anzuerkennen, wie weit du gekommen bist, und zu nutzen, was du gelernt hast. Beharrlichkeit ist wertvoll, und das richtige Tempo ebenso. Du könntest dich fragen, was dir durch diese letzte Strecke helfen würde: eine klare Ziellinie, ein paar Stunden Ruhe, eine praktische Grenze oder die Erinnerung, dass du dem Ende näher bist, als es sich anfühlt.
+meaningReversed: |-
+  Umgekehrt kann die Neun der Stäbe eine Müdigkeit spiegeln, die sich über die Zeit angesammelt hat. Vielleicht hast du das Gefühl, dich oder deine Projekte so lange beschützt zu haben, dass Entspannen unmöglich erscheint. Vorsicht, die du aus früheren Schwierigkeiten gelernt hast, kann zu Misstrauen gegenüber jeder neuen Situation werden.
+  Die Karte kann auch darauf hinweisen, dass eine Grenze erreicht ist. Durchzuhalten ist nicht immer die stärkste Wahl; manchmal bedeutet Stärke zuzugeben, dass du eine Pause oder eine helfende Hand brauchst.
+  Du könntest erkunden, wo deine Schutzmauern noch nützlich sind und wo sie inzwischen Unterstützung ebenso fernhalten wie Schwierigkeiten. Gibt es jemanden, auf den du dich stützen könntest, eine Aufgabe, die du abgeben könntest, oder eine Pause, die du dir erlauben könntest? Den Schutz an einem sicheren Ort ein wenig zu lockern, kann eine Art sein, für die Widerstandskraft zu sorgen, die du aufgebaut hast.
+aspects:
+  relationshipsUpright: >-
+    In engen Verbindungen kann diese Karte eine Beziehung spiegeln, die schwere Zeiten überstanden hat und immer noch steht. Sie kann auch auf Vorsicht hinweisen, die aus alten Verletzungen gelernt wurde. Du könntest die Beständigkeit wertschätzen, die ihr gemeinsam aufgebaut habt, und zugleich bemerken, ob alte Wachsamkeit bei jemandem noch nötig ist, der gezeigt hat, dass man ihm vertrauen kann.
+  relationshipsReversed: >-
+    Umgekehrt hältst du andere vielleicht auf Abstand, um nicht wieder enttäuscht zu werden, oder fühlst dich zu müde, um so viel zu geben wie sonst. Du könntest einem nahen Menschen sagen, dass deine Kraft nachlässt. Dir zu erlauben, unterstützt zu werden, kann eine Verbindung vertiefen, statt sie zu schwächen.
+  workUpright: >-
+    Bei der Arbeit oder im Studium kann die Neun der Stäbe auf den letzten Kraftakt bei einer langen Mühe hinweisen. Erfahrung hat dich realistischer gegenüber Hindernissen gemacht, und dieses Wissen ist nützlich. Du könntest die verbleibenden Schritte sorgfältig planen, deinen Fokus schützen und dich an die Gründe erinnern, aus denen du begonnen hast, damit sich die letzte Strecke sinnvoll anfühlt und nicht nur zehrend.
+  workReversed: >-
+    Umgekehrt bist du vielleicht nah an deiner Grenze, arbeitest in Abwehrhaltung oder hast das Gefühl, alles allein bewältigen zu müssen. Du könntest schauen, was sich abgeben, verschieben oder vereinfachen lässt. Ehrlich über deine Kapazität zu sprechen, kann eine verantwortungsvolle Entscheidung sein, die dich und die Arbeit schützt.
+  growthUpright: >-
+    Vielleicht bist du widerstandsfähiger, als du dir zugestehst. Jede Schwierigkeit, der du begegnet bist, hat dich etwas darüber gelehrt, was du bewältigen kannst. Du könntest ein paar Lehren aus jüngsten Herausforderungen aufschreiben und überlegen, wie sie dich mit etwas mehr Zuversicht und etwas weniger Anspannung leiten könnten.
+  growthReversed: >-
+    Umgekehrt fordert ständige Wachsamkeit vielleicht ihren Tribut. Du könntest erkunden, wie Ruhe für dich aussieht und ob du dir genug davon erlaubst. Deinen Schutz auf kleine, sichere Weise zu lockern, etwa mit einem ruhigen Abend oder einem ehrlichen Gespräch, kann helfen, dass sich deine Stärke weniger wie eine Rüstung anfühlt.
+reflectionQuestions:
+  - >-
+    Welche Herausforderung hast du durchgestanden, die deine Stärke zeigt?
+  - >-
+    Wo bist du noch auf der Hut, und ist dieser Schutz noch nötig?
+  - >-
+    Welche Unterstützung oder Ruhe würde dir durch die letzte Strecke helfen?
+imageryNote: >-
+  Eine Gestalt steht in der Abenddämmerung in einem Kreis von Stäben, die in den Boden getrieben sind, stützt sich auf einen davon und blickt mit wachen Augen hinaus. Neben ihr brennt ein kleines Lagerfeuer niedrig. Der Kreis der Stäbe deutet die Schutzmauern an, die durch Erfahrung gebaut wurden, das niedrige Feuer die Energie, die nach langer Mühe noch am Leben gehalten wird, und das schwindende Licht einen Tag, der sich dem Ende neigt. Die wachsame Haltung trägt zugleich Müdigkeit und die Beharrlichkeit, die weitergeht.

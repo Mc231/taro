@@ -1,0 +1,48 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_12"
+reviewStatus: "machine"
+sourceHash: >-
+  5cedccacab8e92ef7b3178d2ba8997dc3efd7f0f40ab03bed3bd2d565b2448e8
+name: "Asılan Adam"
+keywordsUpright:
+  - "duraklama"
+  - "teslim olmak"
+  - "yeni bir bakış açısı"
+  - "bırakmak"
+  - "amaçlı beklemek"
+keywordsReversed:
+  - "oyalanmak"
+  - "duraklamaya direnmek"
+  - "kararsızlık"
+  - "yeniden harekete hazır"
+shortUpright: >-
+  İster seçilmiş ister seçilmemiş olsun, bir duraklama aceleyle ilerlerken asla göremeyeceğin bir manzara sunabilir.
+shortReversed: >-
+  Beklemek oyalanmaya dönüşmüş olabilir. Durmak mı yoksa harekete geçmek mi, buna karar vermene ne yardımcı olur?
+meaningUpright: |-
+  Asılan Adam canlı bir ağaçtan baş aşağı sarkar ama yüzü sakindir, hatta bazen ışıl ışıldır. Bu bir ceza kartı sayılmaz. Bilinçli bir askıda kalışın kartıdır: her şeyi farklı görebilmek için olağan yapıp etme akışından çıkmak. Dünyayı tersine çevirdiğinde apaçık görünen şey birden tuhaf görünebilir, imkânsız sanılan şey ise ulaşılabilir hâle gelebilir.
+  Gündelik hayatta bu kart, beklemeye alınmış bir projeyi, koşullar yüzünden ertelenmiş bir planı ya da daha fazla zorlamanın işe yaramadığını fark ettiğin bir anı yansıtabilir. Bir şeyin nasıl gelişmesi gerektiğine dair sabit bir fikri bırakmanın değerine işaret edebilir. Bazen en faydalı hamle, hareket etmeyi bırakıp yalnızca bakmaktır.
+  Bu kart, bir duraklamanın sana ne sunuyor olabileceğini düşünmeye davet eder. Durumuna tam ters açıdan baksaydın neyi fark edeceğini sorabilirsin. Asılan Adam, kontrol etme ihtiyacını bırakmak anlamında teslim olmanın içgörüye yer açabileceğini ve dikkatle eşleştiğinde beklemenin de etkin bir eylem olabileceğini düşündürür.
+meaningReversed: |-
+  Ters geldiğinde Asılan Adam, amacını aşacak kadar uzamış bir duraklamayı yansıtabilir. Neyi beklediğini tam bilmeden bir şeyin değişmesini bekleyerek arafta kalmış hissedebilirsin. Kararsızlık, seçim yapmaktan daha güvenli hissettirmeye başlayabilir.
+  Bu kart ihtiyaç duyduğun bir duraklamaya direnmeye, dinginliğin rahatsızlığından kaçmak için her anı doldurmaya ya da kendi ihtiyaçlarını artık kimseye yaramayan bir şekilde feda etmeye de işaret edebilir.
+  Beklemenin neyi koruduğunu sormak isteyebilirsin. Harekete geçme zamanıysa, seni takıldığın yerden kurtaracak en küçük adım ne? Durman gerekiyorsa, suçluluk duymadan dinlenmek için kendine hangi izni verebilirsin? Her iki durumda da seçim senin; o seçimi yapmak sana yeniden bir yön duygusu kazandırabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Asılan Adam, geri çekilip bir duruma diğer kişinin bakış açısından bakma anını yansıtabilir. Bir tartışmayı kazanma ya da her şeyi hemen şimdi düzeltme ihtiyacını bırakmaya davet edebilir. Sabır ve farklı görmeye isteklilik beklenmedik bir anlayışın kapısını açabilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, iki kişinin de ne istediğini söylemediği, arafta kalmış bir ilişkiye işaret edebilir. İşlerin değişeceği umuduyla adil hissettirenden fazlasını vermeyi de yansıtabilir. İkinizin de ilerleyebilmesi için neye ihtiyaç duyduğunu nazikçe söyleme zamanının gelip gelmediğini düşünebilirsin.
+  workUpright: >-
+    İşte ya da bir projede Asılan Adam, yeniden düşünmek için bir duraklamayı öne çıkarır. Gecikmeler can sıkıcı olabilir ama varsayımları sorgulamak, alternatifleri araştırmak ya da bir fikrin olgunlaşmasına izin vermek için zaman tanıyabilir. Yavaş bir dönemi işine bambaşka bir açıdan bakmak için kullanabilirsin.
+  workReversed: >-
+    Ters geldiğinde Asılan Adam, fazla uzun süredir takılıp kalmış bir projeyi ya da durmadan ertelenen bir kararı yansıtabilir. Gerçekte hangi bilgiyi ya da desteği beklediğini sorabilirsin. Kendine yumuşak bir son tarih koymak ya da bir seçeneği bırakmayı seçmek, hareketin geri dönmesine yardım edebilir.
+  growthUpright: >-
+    Bırakmak bir beceridir ve Asılan Adam onu denemek için bir fırsat sunar. Bıraktığın şey bir inanç, bir beklenti ya da acele etme alışkanlığı olabilir. Tanıdık bir şeyi ters sırayla ya da yeni bir açıdan yapmayı deneyip bu küçük sapmanın dünyayı genellikle nasıl gördüğün hakkında neyi ortaya çıkardığını fark edebilirsin.
+  growthReversed: >-
+    Ters geldiğinde Asılan Adam, dinginlikten mi kaçtığını yoksa onun içinde mi takılıp kaldığını sorabilir. Bir huzursuzluğu ya da beklemeye alınmış olma hissini yansıtabilir. Kendine sorabilirsin: bu sabrın mı zamanı, yoksa nazik bir itişin mi? Dürüst cevabın bir sonraki adımına yol gösterebilir.
+reflectionQuestions:
+  - "Durumuna öbür taraftan baksaydın neyi görebilirdin?"
+  - "Nerede önce bir başkasının harekete geçmesini bekliyorsun?"
+  - "Yeni bir şeye yer açmak için bu hafta neyi bırakabilirsin?"
+imageryNote: >-
+  Taro’nun Asılan Adam’ı, sağlam ve canlı bir daldan tek bileğiyle baş aşağı asılı, kolları gevşek, yüzü sakin, hatta meraklı olarak hayal edilir. Bu açıdan figür dünyayı aşağıdaki bir havuzda ters dönmüş olarak yansıyan hâliyle görür. Ağaç yeşildir ve tomurcuklanmaktadır; duraklamanın bir son olmadığını, büyümenin bir parçası olduğunu gösterir. Suyu andıran maviler ve bol, dalgalanan giysiler teslimiyeti, düş kurmayı ve yüzeyin altını görmeyi yankılar.

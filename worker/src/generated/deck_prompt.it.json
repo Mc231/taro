@@ -1,0 +1,1436 @@
+{
+  "cards": {
+    "cups_01": {
+      "keywordsReversed": [
+        "sentimenti trattenuti",
+        "riserve esaurite",
+        "ricaricarsi dentro",
+        "cuore in difesa"
+      ],
+      "keywordsUpright": [
+        "cuore aperto",
+        "sentimento nuovo",
+        "ricettività",
+        "rinascita emotiva",
+        "compassione"
+      ],
+      "name": "Asso di Coppe",
+      "shortReversed": "La tua coppa forse ha bisogno di riempirsi prima di poter versare; considera che cosa potrebbe ristorarti oggi, in silenzio.",
+      "shortUpright": "Un sentimento nuovo forse sta affiorando; questa carta ti invita ad accoglierlo e a notare dove vuole scorrere."
+    },
+    "cups_02": {
+      "keywordsReversed": [
+        "squilibrio",
+        "incomprensioni",
+        "ricostruire la fiducia",
+        "alleanza con te"
+      ],
+      "keywordsUpright": [
+        "legame reciproco",
+        "reciprocità",
+        "collaborazione",
+        "rispetto condiviso",
+        "attrazione"
+      ],
+      "name": "Due di Coppe",
+      "shortReversed": "Qualcosa tra te e un’altra persona forse sembra squilibrato; considera che cosa state davvero chiedendo l’uno all’altra.",
+      "shortUpright": "Un momento per notare dove la cura scorre in entrambe le direzioni, e che cosa rende un legame alla pari e vivo."
+    },
+    "cups_03": {
+      "keywordsReversed": [
+        "eccessi",
+        "esclusione",
+        "stanchezza sociale",
+        "allontanarsi",
+        "scegliere la tua cerchia"
+      ],
+      "keywordsUpright": [
+        "amicizia",
+        "celebrazione",
+        "comunità",
+        "gioia condivisa",
+        "appartenenza"
+      ],
+      "name": "Tre di Coppe",
+      "shortReversed": "I legami forse ora sembrano sottili o faticosi; considera quali incontri ti nutrono e quali riempiono solo il tempo.",
+      "shortUpright": "Un momento per notare chi condivide le tue gioie, e come potresti condividere le sue."
+    },
+    "cups_04": {
+      "keywordsReversed": [
+        "interesse rinnovato",
+        "notare le offerte",
+        "rimettersi in gioco",
+        "irrequietezza",
+        "abitudine al no"
+      ],
+      "keywordsUpright": [
+        "contemplazione",
+        "apatia",
+        "ritiro",
+        "rivalutazione",
+        "volgersi all’interno"
+      ],
+      "name": "Quattro di Coppe",
+      "shortReversed": "L’interesse forse torna dopo un periodo di quiete; considera quale invito ti sembra valga la pena accettare ora.",
+      "shortUpright": "Forse per un po’ il tuo sguardo è rivolto verso l’interno; questa carta ti invita a notare ciò che ti viene offerto mentre rifletti."
+    },
+    "cups_05": {
+      "keywordsReversed": [
+        "accettazione",
+        "andare avanti",
+        "perdono",
+        "trovare ciò che resta"
+      ],
+      "keywordsUpright": [
+        "delusione",
+        "dolore",
+        "rimpianto",
+        "fissarsi sulla perdita",
+        "lutto"
+      ],
+      "name": "Cinque di Coppe",
+      "shortReversed": "Il peso di una delusione forse si sta alleggerendo; considera che cosa è rimasto con te e verso dove vuoi volgerti.",
+      "shortUpright": "Una perdita forse riempie il tuo sguardo; questa carta ti invita a vivere il dolore con sincerità e, col passare del tempo, a notare ciò che resta in piedi."
+    },
+    "cups_06": {
+      "keywordsReversed": [
+        "fermarsi al passato",
+        "ricordi idealizzati",
+        "andare avanti",
+        "rivedere vecchie storie"
+      ],
+      "keywordsUpright": [
+        "nostalgia",
+        "ricordi d’infanzia",
+        "innocenza",
+        "gentilezza semplice",
+        "ritrovarsi"
+      ],
+      "name": "Sei di Coppe",
+      "shortReversed": "Il passato forse tira più del solito; considera quali ricordi ti nutrono e quali ti tengono lontano dal presente.",
+      "shortUpright": "Un ricordo o una gentilezza semplice potrebbero portare calore oggi; questa carta ti invita a notare ciò che il passato ti dà ancora."
+    },
+    "cups_07": {
+      "keywordsReversed": [
+        "chiarezza",
+        "scelte concrete",
+        "concentrazione",
+        "disillusione",
+        "paura di scegliere"
+      ],
+      "keywordsUpright": [
+        "molte opzioni",
+        "immaginazione",
+        "sogni a occhi aperti",
+        "illusioni",
+        "scelte"
+      ],
+      "name": "Sette di Coppe",
+      "shortReversed": "La nebbia delle opzioni forse si dirada; considera quale scelta ti sembra ancora reale quando il bagliore dell’immaginazione svanisce.",
+      "shortUpright": "Molte possibilità forse brillano tutte insieme; questa carta ti invita a goderti l’immaginazione, poi a guardarle da vicino una per una."
+    },
+    "cups_08": {
+      "keywordsReversed": [
+        "paura di partire",
+        "indecisione",
+        "restare per riprovare",
+        "vagare senza meta"
+      ],
+      "keywordsUpright": [
+        "andarsene",
+        "cercare un senso",
+        "lasciar andare",
+        "ricerca interiore",
+        "voltare pagina"
+      ],
+      "name": "Otto di Coppe",
+      "shortReversed": "Forse sei a metà strada tra restare e andare; considera che cosa avresti bisogno di sapere prima di scegliere l’una o l’altra strada.",
+      "shortUpright": "Qualcosa forse non ti riempie più, anche se sembra completo; questa carta ti invita a notare verso dove ti spinge il cuore."
+    },
+    "cups_09": {
+      "keywordsReversed": [
+        "insoddisfazione",
+        "eccesso",
+        "successo vuoto",
+        "appagamento interiore"
+      ],
+      "keywordsUpright": [
+        "appagamento",
+        "soddisfazione",
+        "gratitudine",
+        "piacere",
+        "godersi ciò che c’è"
+      ],
+      "name": "Nove di Coppe",
+      "shortReversed": "Qualcosa forse sembra appagante senza esserlo davvero; considera che cosa ti darebbe soddisfazione dall’interno.",
+      "shortUpright": "Un momento per assaporare ciò che è già buono, e per notare quanto hai contribuito a realizzarlo."
+    },
+    "cups_10": {
+      "keywordsReversed": [
+        "distacco",
+        "armonia tesa",
+        "immagine idealizzata",
+        "ricostruire vicinanza"
+      ],
+      "keywordsUpright": [
+        "appagamento emotivo",
+        "armonia",
+        "appartenenza",
+        "casa",
+        "felicità condivisa"
+      ],
+      "name": "Dieci di Coppe",
+      "shortReversed": "L’armonia forse sembra tesa o fuori portata; considera che cosa significherebbe per te appartenere, al di là di qualsiasi immagine ideale.",
+      "shortUpright": "Un momento per notare dove ti senti già a casa, e chi ti aiuta a sentire di appartenere."
+    },
+    "cups_11": {
+      "keywordsReversed": [
+        "immaturità emotiva",
+        "blocco creativo",
+        "insicurezza",
+        "fantasticare a vuoto",
+        "inizi delicati"
+      ],
+      "keywordsUpright": [
+        "curiosità",
+        "scintilla creativa",
+        "sensibilità",
+        "giocosità",
+        "spinta intuitiva"
+      ],
+      "name": "Fante di Coppe",
+      "shortReversed": "Un sentimento delicato forse si nasconde o vacilla; considera come potresti rendere sicuro esprimere ciò che provi.",
+      "shortUpright": "Un sentimento giocoso o una piccola idea creativa potrebbero sorprenderti; questa carta ti invita ad accoglierli con curiosità."
+    },
+    "cups_12": {
+      "keywordsReversed": [
+        "lunaticità",
+        "ideali irrealistici",
+        "promesse mancate",
+        "radicare un sogno"
+      ],
+      "keywordsUpright": [
+        "romanticismo",
+        "idealismo",
+        "seguire il cuore",
+        "invito",
+        "fascino"
+      ],
+      "name": "Cavaliere di Coppe",
+      "shortReversed": "I sentimenti forse corrono più veloci della realtà; considera quali promesse e quali sogni puoi davvero portare avanti.",
+      "shortUpright": "Un’idea sentita o un invito forse si avvicinano; questa carta ti invita a seguire con garbo ciò che ti sta a cuore."
+    },
+    "cups_13": {
+      "keywordsReversed": [
+        "dare troppo",
+        "piena emotiva",
+        "bisogno di confini",
+        "cura di sé"
+      ],
+      "keywordsUpright": [
+        "compassione",
+        "sintonia emotiva",
+        "intuizione",
+        "presenza calma",
+        "cura"
+      ],
+      "name": "Regina di Coppe",
+      "shortReversed": "Forse stai assorbendo più di quanto puoi contenere; considera quale cura e quali confini ti aiuterebbero a ritrovare stabilità.",
+      "shortUpright": "Questa carta ti invita ad ascoltare in profondità, gli altri e te, con una presenza calma e compassionevole."
+    },
+    "cups_14": {
+      "keywordsReversed": [
+        "sentimenti repressi",
+        "controllo emotivo",
+        "sbalzi d’umore",
+        "ritrovare stabilità"
+      ],
+      "keywordsUpright": [
+        "equilibrio emotivo",
+        "guida calma",
+        "diplomazia",
+        "cura matura",
+        "saggezza"
+      ],
+      "name": "Re di Coppe",
+      "shortReversed": "I sentimenti forse sono trattenuti troppo o traboccano in modo irregolare; considera che cosa ti aiuterebbe ad accoglierli con stabilità.",
+      "shortUpright": "Questa carta ti invita a restare stabile tra correnti forti, guidando con il sentimento e con il pensiero lucido insieme."
+    },
+    "major_00": {
+      "keywordsReversed": [
+        "esitazione",
+        "rischio sconsiderato",
+        "attesa del momento",
+        "attenzione dispersa"
+      ],
+      "keywordsUpright": [
+        "nuovo inizio",
+        "curiosità",
+        "apertura",
+        "salto nell’ignoto",
+        "mente da principiante"
+      ],
+      "name": "Il Matto",
+      "shortReversed": "Una pausa sul bordo: è prudenza, o la paura di fare una figura ingenua?",
+      "shortUpright": "Un passo verso qualcosa di nuovo, mosso dalla curiosità più che dalla certezza."
+    },
+    "major_01": {
+      "keywordsReversed": [
+        "capacità inespresse",
+        "sforzi dispersi",
+        "insicurezza",
+        "scorciatoie furbe",
+        "riallineare l’intento"
+      ],
+      "keywordsUpright": [
+        "volontà focalizzata",
+        "intraprendenza",
+        "abilità in azione",
+        "intenzione chiara",
+        "dare forma alle idee"
+      ],
+      "name": "Il Mago",
+      "shortReversed": "I tuoi strumenti sono sul tavolo, ma la tua attenzione forse è altrove. Che cosa ti aiuterebbe a raccoglierla?",
+      "shortUpright": "Forse hai già più di quanto ti serve; questa carta ti chiede che cosa vuoi crearci."
+    },
+    "major_02": {
+      "keywordsReversed": [
+        "istinti ignorati",
+        "mente rumorosa",
+        "segreti tenuti a lungo",
+        "ritorno a sé"
+      ],
+      "keywordsUpright": [
+        "sapere interiore",
+        "quiete",
+        "ascolto",
+        "il non detto",
+        "pazienza"
+      ],
+      "name": "La Papessa",
+      "shortReversed": "Il rumore esterno forse copre una voce più quieta dentro di te; un po’ di silenzio potrebbe aiutare.",
+      "shortUpright": "Un invito silenzioso ad ascoltare ciò che già percepisci ma non hai ancora messo in parole."
+    },
+    "major_03": {
+      "keywordsReversed": [
+        "trascurarsi",
+        "cura soffocante",
+        "blocco creativo",
+        "riascoltare il corpo"
+      ],
+      "keywordsUpright": [
+        "cura",
+        "abbondanza",
+        "creatività",
+        "piacere dei sensi",
+        "crescita"
+      ],
+      "name": "L’Imperatrice",
+      "shortReversed": "La cura forse scorre tutta verso l’esterno mentre la tua sorgente si sta esaurendo. Dove potrebbe tornarne un po’ a te?",
+      "shortUpright": "Qualcosa sta crescendo, in te o intorno a te. Questa carta ti invita a coltivarlo con pazienza e calore."
+    },
+    "major_04": {
+      "keywordsReversed": [
+        "rigidità",
+        "controllo",
+        "basi instabili",
+        "riprendersi autorità"
+      ],
+      "keywordsUpright": [
+        "struttura",
+        "guida stabile",
+        "responsabilità",
+        "confini chiari",
+        "protezione"
+      ],
+      "name": "L’Imperatore",
+      "shortReversed": "Regole che un tempo aiutavano ora possono stare strette. Come sarebbe una struttura più gentile e più solida?",
+      "shortUpright": "Un momento per dare struttura a ciò che conta e per assumerti con calma la responsabilità delle tue scelte."
+    },
+    "major_05": {
+      "keywordsReversed": [
+        "mettere in discussione",
+        "convinzioni personali",
+        "regole superate",
+        "trovare la tua strada"
+      ],
+      "keywordsUpright": [
+        "tradizione",
+        "valori condivisi",
+        "imparare dagli altri",
+        "guida di un mentore",
+        "appartenenza"
+      ],
+      "name": "Il Papa",
+      "shortReversed": "Una regola ereditata potrebbe non andarti più bene. Questa carta ti invita a confrontarla con ciò a cui tieni davvero.",
+      "shortUpright": "Forse c’è saggezza in ciò che altri hanno percorso prima di te. Quale tradizione o maestro potrebbe aiutarti ora?"
+    },
+    "major_06": {
+      "keywordsReversed": [
+        "conflitto interiore",
+        "disallineamento",
+        "decisione evitata",
+        "ritrovare i valori"
+      ],
+      "keywordsUpright": [
+        "legame",
+        "scelta significativa",
+        "valori allineati",
+        "sincerità",
+        "rispetto reciproco"
+      ],
+      "name": "Gli Amanti",
+      "shortReversed": "Una parte di te forse vuole una cosa e un’altra parte un’altra. Questa carta ti invita ad ascoltarle entrambe prima di scegliere.",
+      "shortUpright": "Una scelta fatta insieme dal cuore e dalla mente, in sintonia con ciò a cui tieni davvero."
+    },
+    "major_07": {
+      "keywordsReversed": [
+        "direzione perduta",
+        "forzare le cose",
+        "spinte contrastanti",
+        "riprendere le redini"
+      ],
+      "keywordsUpright": [
+        "determinazione",
+        "direzione",
+        "autocontrollo",
+        "slancio in avanti",
+        "unire gli opposti"
+      ],
+      "name": "Il Carro",
+      "shortReversed": "L’energia forse tira in più direzioni insieme. Dove potresti riprendere con delicatezza le redini?",
+      "shortUpright": "Lo slancio è possibile quando tieni insieme le tue diverse spinte e le orienti in un’unica direzione."
+    },
+    "major_08": {
+      "keywordsReversed": [
+        "insicurezza",
+        "pazienza logorata",
+        "dialogo interiore duro",
+        "ricostruire il coraggio"
+      ],
+      "keywordsUpright": [
+        "coraggio gentile",
+        "pazienza",
+        "compassione",
+        "stabilità interiore",
+        "fiducia tranquilla"
+      ],
+      "name": "La Forza",
+      "shortReversed": "La tua stabilità interiore forse ora è sottile. La gentilezza verso di te potrebbe essere un solido punto di partenza.",
+      "shortUpright": "Il coraggio non sempre ruggisce. A volte ha il volto della pazienza, della gentilezza e del restare dentro una difficoltà."
+    },
+    "major_09": {
+      "keywordsReversed": [
+        "isolamento",
+        "evitare di riflettere",
+        "rimuginare",
+        "tornare agli altri"
+      ],
+      "keywordsUpright": [
+        "solitudine",
+        "riflessione",
+        "guida interiore",
+        "ricerca",
+        "saggezza nel silenzio"
+      ],
+      "name": "L’Eremita",
+      "shortReversed": "La solitudine forse è scivolata nell’isolamento, o nell’evitare del tutto il silenzio. Quale equilibrio ti sembra giusto?",
+      "shortUpright": "Un po’ di tempo in disparte potrebbe aiutarti a sentire i tuoi pensieri con più chiarezza."
+    },
+    "major_10": {
+      "keywordsReversed": [
+        "resistere al cambiamento",
+        "sensazione di stallo",
+        "schemi che si ripetono",
+        "ritrovare l’equilibrio"
+      ],
+      "keywordsUpright": [
+        "cicli",
+        "cambiamento",
+        "punti di svolta",
+        "adattabilità",
+        "prospettiva"
+      ],
+      "name": "La Ruota della Fortuna",
+      "shortReversed": "Uno schema familiare forse si sta ripresentando. Che cosa potresti fare di diverso questa volta?",
+      "shortUpright": "Le cose stanno girando. Questa carta ti invita a notare il ciclo in cui ti trovi e come vuoi muoverti con esso."
+    },
+    "major_11": {
+      "keywordsReversed": [
+        "squilibrio",
+        "evitare responsabilità",
+        "giudicarsi troppo",
+        "cercare equità"
+      ],
+      "keywordsUpright": [
+        "equità",
+        "onestà",
+        "responsabilità",
+        "giudizio lucido",
+        "causa ed effetto"
+      ],
+      "name": "La Giustizia",
+      "shortReversed": "Qualcosa forse sembra squilibrato. Questa carta ti invita a guardarlo con chiarezza, compresa la tua parte.",
+      "shortUpright": "Un momento per pesare le cose con onestà e agire in un modo che ti sentiresti bene a spiegare in seguito."
+    },
+    "major_12": {
+      "keywordsReversed": [
+        "stallo",
+        "resistere alla pausa",
+        "indecisione",
+        "voglia di ripartire"
+      ],
+      "keywordsUpright": [
+        "pausa",
+        "resa",
+        "nuova prospettiva",
+        "lasciar andare",
+        "attesa con uno scopo"
+      ],
+      "name": "L’Appeso",
+      "shortReversed": "L’attesa forse è diventata stallo. Che cosa ti aiuterebbe a decidere se restare immobile o muoverti?",
+      "shortUpright": "Una pausa, scelta o no, può offrirti una visuale che non vedresti mai correndo avanti."
+    },
+    "major_13": {
+      "keywordsReversed": [
+        "trattenere",
+        "resistere al cambiamento",
+        "finali che si trascinano",
+        "transizione lenta"
+      ],
+      "keywordsUpright": [
+        "conclusioni",
+        "trasformazione",
+        "fare spazio",
+        "chiudere un capitolo",
+        "rilascio"
+      ],
+      "name": "La Morte",
+      "shortReversed": "Qualcosa forse è pronto a finire mentre una parte di te lo trattiene. Che cosa ti aiuterebbe ad allentare la presa?",
+      "shortUpright": "Una fase potrebbe chiudersi. Questa carta ti invita a notare che cosa sta finendo e lo spazio che lascia."
+    },
+    "major_14": {
+      "keywordsReversed": [
+        "eccesso",
+        "squilibrio",
+        "impazienza",
+        "ritrovare la misura"
+      ],
+      "keywordsUpright": [
+        "equilibrio",
+        "moderazione",
+        "armonizzare",
+        "pazienza",
+        "la via di mezzo"
+      ],
+      "name": "La Temperanza",
+      "shortReversed": "Qualcosa forse pende troppo da una parte. Questa carta ti invita a notarlo e a riequilibrarlo con delicatezza.",
+      "shortUpright": "Una miscela più lenta e costante di ciò di cui hai bisogno potrebbe darti più serenità di qualsiasi estremo."
+    },
+    "major_15": {
+      "keywordsReversed": [
+        "legami che si allentano",
+        "rompere uno schema",
+        "riprendersi la scelta",
+        "guardare la tua ombra"
+      ],
+      "keywordsUpright": [
+        "attaccamento",
+        "abitudini che legano",
+        "tentazione",
+        "il lato in ombra",
+        "consapevolezza sincera"
+      ],
+      "name": "Il Diavolo",
+      "shortReversed": "Uno schema che un tempo aveva una presa salda forse si sta allentando. Che cosa ti aiuterebbe ad allontanartene ancora?",
+      "shortUpright": "Un’abitudine o un attaccamento forse ha su di te una presa più forte di quanto immagini. Notarlo è il primo passo."
+    },
+    "major_16": {
+      "keywordsReversed": [
+        "evitare lo scossone",
+        "lento sgretolarsi",
+        "resistere al cambiamento",
+        "ricostruire"
+      ],
+      "keywordsUpright": [
+        "cambiamento improvviso",
+        "fare piazza pulita",
+        "svolta",
+        "certezze scosse",
+        "verità che emerge"
+      ],
+      "name": "La Torre",
+      "shortReversed": "Il cambiamento forse arriva piano, non tutto in una volta. Che cosa potresti ricostruire in modo più autentico?",
+      "shortUpright": "Qualcosa costruito su un terreno instabile forse si sta muovendo. Questa carta ti invita a notare che cosa non reggeva."
+    },
+    "major_17": {
+      "keywordsReversed": [
+        "scoraggiamento",
+        "distacco",
+        "fiducia in sé che cala",
+        "riaccendere la speranza"
+      ],
+      "keywordsUpright": [
+        "speranza",
+        "rinnovamento",
+        "calma",
+        "apertura",
+        "ispirazione quieta"
+      ],
+      "name": "La Stella",
+      "shortReversed": "La speranza forse ora sembra lontana. Piccole cose costanti potrebbero aiutarti a ritrovare la strada verso di lei.",
+      "shortUpright": "Dopo un tratto difficile, una speranza più quieta forse sta tornando. Questa carta ti invita a lasciarla entrare."
+    },
+    "major_18": {
+      "keywordsReversed": [
+        "confusione che si dirada",
+        "guardare le paure",
+        "autoinganno",
+        "fidarsi del cammino"
+      ],
+      "keywordsUpright": [
+        "incertezza",
+        "intuizione",
+        "sogni",
+        "l’ignoto",
+        "emozioni mutevoli"
+      ],
+      "name": "La Luna",
+      "shortReversed": "Forse la nebbia comincia a diradarsi. Che cosa vedi ora con più chiarezza di prima?",
+      "shortUpright": "Non tutto è ancora chiaro, e va bene così. Questa carta ti invita a procedere piano e a fidarti dei tuoi sensi."
+    },
+    "major_19": {
+      "keywordsReversed": [
+        "gioia attenuata",
+        "insicurezza",
+        "troppa esposizione",
+        "ritrovare la luce"
+      ],
+      "keywordsUpright": [
+        "gioia",
+        "chiarezza",
+        "calore",
+        "fiducia",
+        "vitalità"
+      ],
+      "name": "Il Sole",
+      "shortReversed": "La luce c’è ancora, anche se passano le nuvole. Che cosa ti aiuta a sentire calore e chiarezza?",
+      "shortUpright": "Un momento di calore e di chiarezza. Questa carta ti invita a goderti ciò che è luminoso e aperto nella tua vita."
+    },
+    "major_20": {
+      "keywordsReversed": [
+        "autocritica",
+        "ignorare la chiamata",
+        "dubbio",
+        "imparare dal passato"
+      ],
+      "keywordsUpright": [
+        "risveglio",
+        "resa dei conti",
+        "rinnovamento",
+        "rispondere a un richiamo",
+        "riflessione sincera"
+      ],
+      "name": "Il Giudizio",
+      "shortReversed": "Il tuo critico interiore forse parla più forte del solito. Che cosa ti mostrerebbe uno sguardo equo e gentile sul tuo passato?",
+      "shortUpright": "Un momento per guardare indietro con onestà, perdonare ciò che puoi e rispondere a ciò che ti chiama avanti."
+    },
+    "major_21": {
+      "keywordsReversed": [
+        "questioni in sospeso",
+        "cercare una chiusura",
+        "fili da annodare",
+        "un ultimo passo"
+      ],
+      "keywordsUpright": [
+        "compimento",
+        "interezza",
+        "integrazione",
+        "realizzazione",
+        "appartenenza"
+      ],
+      "name": "Il Mondo",
+      "shortReversed": "Qualcosa forse è quasi finito. Quale ultimo passo o quale filo da annodare merita la tua attenzione?",
+      "shortUpright": "Un ciclo forse si sta chiudendo. Questa carta ti invita a fermarti e a onorare ciò che hai portato a termine."
+    },
+    "pentacles_01": {
+      "keywordsReversed": [
+        "occasione non piantata",
+        "basi instabili",
+        "fondamenta affrettate",
+        "ripensare il piano"
+      ],
+      "keywordsUpright": [
+        "un seme concreto",
+        "inizi pratici",
+        "occasione concreta",
+        "curare le basi"
+      ],
+      "name": "Asso di Denari",
+      "shortReversed": "Un inizio promettente forse ha bisogno di un terreno più saldo. Potresti verificare di quale sostegno ha bisogno prima di costruirci sopra.",
+      "shortUpright": "Un inizio piccolo e solido chiede la tua attenzione. Qualcosa di pratico forse è pronto per essere piantato e curato."
+    },
+    "pentacles_02": {
+      "keywordsReversed": [
+        "troppi piatti in aria",
+        "attenzione dispersa",
+        "agenda rigida",
+        "scegliere cosa lasciare"
+      ],
+      "keywordsUpright": [
+        "destreggiarsi",
+        "adattabilità",
+        "mantenere il ritmo",
+        "equilibrio flessibile"
+      ],
+      "name": "Due di Denari",
+      "shortReversed": "Il numero di equilibrismo forse è scivolato nella fatica. Considera quale richiesta si potrebbe posare, condividere o spostare per ora.",
+      "shortUpright": "Forse stai tenendo in movimento diverse cose insieme. Nota il ritmo che ti permette di adattarti senza perdere l’equilibrio."
+    },
+    "pentacles_03": {
+      "keywordsReversed": [
+        "sforzi disallineati",
+        "ruoli poco chiari",
+        "lavorare da sé",
+        "rivedere il progetto"
+      ],
+      "keywordsUpright": [
+        "collaborazione",
+        "mestiere condiviso",
+        "abilità complementari",
+        "costruire insieme"
+      ],
+      "name": "Tre di Denari",
+      "shortReversed": "Uno sforzo comune forse tira in direzioni diverse. Potrebbe aiutare rivedere i ruoli, i piani e il modo in cui vi ascoltate.",
+      "shortUpright": "Il buon lavoro spesso cresce tra le persone. Nota come abilità diverse potrebbero incastrarsi in qualcosa a cui tieni."
+    },
+    "pentacles_04": {
+      "keywordsReversed": [
+        "allentare la presa",
+        "paura di perdere",
+        "accumulare energie",
+        "imparare a condividere"
+      ],
+      "keywordsUpright": [
+        "trattenere",
+        "sicurezza",
+        "proteggere le risorse",
+        "controllo",
+        "confini prudenti"
+      ],
+      "name": "Quattro di Denari",
+      "shortReversed": "Una presa stretta forse si sta allentando, o chiede di farlo. Potresti esplorare che cosa lasciar scorrere senza sentirti in pericolo.",
+      "shortUpright": "Forse tieni qualcosa stretto a te per proteggerlo. Nota dove quella protezione ti dà stabilità e dove comincia a limitarti."
+    },
+    "pentacles_05": {
+      "keywordsReversed": [
+        "calore che torna",
+        "accettare aiuto",
+        "ansia che resta",
+        "trovare riparo"
+      ],
+      "keywordsUpright": [
+        "tempi difficili",
+        "esclusione",
+        "scarsità",
+        "aiuto non visto"
+      ],
+      "name": "Cinque di Denari",
+      "shortReversed": "Un tratto difficile forse si sta alleggerendo. Potresti notare dove calore e sostegno cominciano di nuovo a raggiungerti.",
+      "shortUpright": "Una stagione forse sembra fredda o povera. L’aiuto a volte è più vicino di quanto sembri, anche quando chiederlo è difficile."
+    },
+    "pentacles_06": {
+      "keywordsReversed": [
+        "scambio squilibrato",
+        "condizioni nascoste",
+        "dare troppo",
+        "riequilibrare"
+      ],
+      "keywordsUpright": [
+        "dare e ricevere",
+        "generosità",
+        "scambio equo",
+        "sostegno reciproco"
+      ],
+      "name": "Sei di Denari",
+      "shortReversed": "Uno scambio forse sembra sbilanciato. Potresti guardare che cosa viene dato, che cosa ci si aspetta in cambio e che cosa sarebbe più equo.",
+      "shortUpright": "Risorse, tempo e cura circolano tra le persone. Nota come dai, come ricevi e che cosa sembra equo a tutti."
+    },
+    "pentacles_07": {
+      "keywordsReversed": [
+        "impazienza",
+        "sforzi senza direzione",
+        "ripensare l’impegno",
+        "fretta di risultati"
+      ],
+      "keywordsUpright": [
+        "valutazione paziente",
+        "impegno a lungo termine",
+        "fare il punto",
+        "crescita lenta"
+      ],
+      "name": "Sette di Denari",
+      "shortReversed": "I progressi forse sembrano più lenti di quanto speravi. Potresti chiederti se l’impegno abbia bisogno di pazienza, di una nuova direzione o di riposo.",
+      "shortUpright": "Qualcosa che hai curato sta crescendo lentamente. Potrebbe essere un buon momento per fermarti, guardare i progressi e scegliere che cosa nutrire ora."
+    },
+    "pentacles_08": {
+      "keywordsReversed": [
+        "perfezionismo",
+        "pilota automatico",
+        "lavoro affrettato",
+        "ritrovare la cura"
+      ],
+      "keywordsUpright": [
+        "pratica costante",
+        "maestria artigiana",
+        "cura dei dettagli",
+        "imparare facendo"
+      ],
+      "name": "Otto di Denari",
+      "shortReversed": "Il lavoro forse è diventato affrettato o rifinito all’infinito. Potresti cercare la cura che ti aveva avvicinato all’inizio.",
+      "shortUpright": "Una pratica costante e concentrata sta dando forma a un’abilità. Nota la soddisfazione silenziosa di fare bene una cosa, ancora e ancora."
+    },
+    "pentacles_09": {
+      "keywordsReversed": [
+        "bisogno di approvazione",
+        "troppo lavoro",
+        "comfort vuoto",
+        "ritrovare l’agio"
+      ],
+      "keywordsUpright": [
+        "autosufficienza",
+        "godersi il costruito",
+        "raffinatezza quieta",
+        "indipendenza",
+        "valore di sé"
+      ],
+      "name": "Nove di Denari",
+      "shortReversed": "Il benessere forse sembra fuori portata o stranamente vuoto. Potresti chiederti che cosa ti permetterebbe di riposare davvero in ciò che hai già.",
+      "shortUpright": "Forse è il momento di goderti ciò che il tuo impegno ha coltivato. Nota la fiducia tranquilla di abitare uno spazio che hai plasmato."
+    },
+    "pentacles_10": {
+      "keywordsReversed": [
+        "pressione ereditata",
+        "tensioni familiari",
+        "basi instabili",
+        "ridefinire la casa"
+      ],
+      "keywordsUpright": [
+        "eredità",
+        "appartenenza",
+        "basi durature",
+        "generazioni",
+        "radici condivise"
+      ],
+      "name": "Dieci di Denari",
+      "shortReversed": "Vecchie strutture o aspettative forse pesano. Potresti considerare quali tradizioni tenere e quali rimodellare a modo tuo.",
+      "shortUpright": "Qualcosa costruito per durare forse si sta delineando. Nota le radici, le tradizioni e le persone che ti fanno sentire parte di qualcosa di più grande."
+    },
+    "pentacles_11": {
+      "keywordsReversed": [
+        "distrazione",
+        "piani senza azione",
+        "paura di cominciare",
+        "imparare al tuo ritmo"
+      ],
+      "keywordsUpright": [
+        "voglia di imparare",
+        "curiosità",
+        "studio pratico",
+        "una nuova abilità",
+        "concentrazione costante"
+      ],
+      "name": "Fante di Denari",
+      "shortReversed": "L’interesse forse c’è, ma manca la continuità. Considera quale piccolo passo realistico trasformerebbe la curiosità in pratica.",
+      "shortUpright": "Un’energia curiosa e studiosa è presente. Potresti notare qualcosa di pratico che vorresti imparare, e fare un primo passo reale in quella direzione."
+    },
+    "pentacles_12": {
+      "keywordsReversed": [
+        "routine che imprigiona",
+        "troppa prudenza",
+        "noia",
+        "piccoli cambi di ritmo"
+      ],
+      "keywordsUpright": [
+        "affidabilità",
+        "progresso costante",
+        "routine",
+        "scrupolosità",
+        "impegno"
+      ],
+      "name": "Cavaliere di Denari",
+      "shortReversed": "La costanza forse è diventata un solco da cui è difficile uscire. Potresti considerare dove un piccolo cambio di ritmo potrebbe riportare energia.",
+      "shortUpright": "Un impegno costante e affidabile sta facendo avanzare le cose. Nota il valore dell’esserci con regolarità, anche quando i progressi sembrano lenti."
+    },
+    "pentacles_13": {
+      "keywordsReversed": [
+        "trascurarsi",
+        "dare oltre le forze",
+        "cura come controllo",
+        "fare spazio a te"
+      ],
+      "keywordsUpright": [
+        "cura premurosa",
+        "intraprendenza",
+        "una casa accogliente",
+        "calore pratico",
+        "radicamento"
+      ],
+      "name": "Regina di Denari",
+      "shortReversed": "La cura forse scorre verso l’esterno mentre tu resti a secco. Potresti guardare come prenderti cura dei tuoi bisogni con lo stesso calore che dai agli altri.",
+      "shortUpright": "Calore pratico e cura sono a tua disposizione. Nota come crei comfort per gli altri, e se includi anche te."
+    },
+    "pentacles_14": {
+      "keywordsReversed": [
+        "rigidità",
+        "apparenza e sostanza",
+        "controllo eccessivo",
+        "ripensare il successo"
+      ],
+      "keywordsUpright": [
+        "buona amministrazione",
+        "stabilità",
+        "guida generosa",
+        "provvedere con costanza",
+        "padronanza pratica"
+      ],
+      "name": "Re di Denari",
+      "shortReversed": "La sicurezza forse è diventata un peso difficile da portare. Potresti chiederti che cosa significhi per te il successo al di là del controllo o delle apparenze.",
+      "shortUpright": "Una presenza stabile e capace è a tua disposizione. Nota come potresti usare la tua esperienza e le tue risorse per creare stabilità per te e per gli altri."
+    },
+    "swords_01": {
+      "keywordsReversed": [
+        "pensiero offuscato",
+        "rimuginare",
+        "parole trattenute",
+        "durezza senza cura",
+        "attesa di chiarezza"
+      ],
+      "keywordsUpright": [
+        "chiarezza",
+        "un’idea nuova",
+        "verità sincera",
+        "andare al cuore",
+        "prospettiva fresca"
+      ],
+      "name": "Asso di Spade",
+      "shortReversed": "La chiarezza forse è vicina ma non ancora a portata; c’è spazio per lasciare che la nebbia si posi prima di decidere.",
+      "shortUpright": "Arriva un pensiero chiaro; potresti notare che cosa diventa semplice quando lo chiami per nome."
+    },
+    "swords_02": {
+      "keywordsReversed": [
+        "verità che affiorano",
+        "indecisione che cede",
+        "evitamento",
+        "pressione a scegliere",
+        "aprire gli occhi"
+      ],
+      "keywordsUpright": [
+        "una scelta difficile",
+        "stallo",
+        "valutare le opzioni",
+        "equilibrio difensivo",
+        "pausa per decidere"
+      ],
+      "name": "Due di Spade",
+      "shortReversed": "La pausa forse sta finendo; qualcosa che hai evitato di guardare potrebbe chiedere uno sguardo gentile e sincero.",
+      "shortUpright": "Due opzioni per ora si bilanciano; potresti notare che cosa tieni fuori dalla vista per mantenere la pace."
+    },
+    "swords_03": {
+      "keywordsReversed": [
+        "lenta ripresa",
+        "lasciar andare il male",
+        "trattenere il dolore",
+        "perdono col tempo",
+        "la tempesta che passa"
+      ],
+      "keywordsUpright": [
+        "tristezza",
+        "parole che feriscono",
+        "dolore",
+        "verità dolorosa",
+        "lasciar scendere lacrime"
+      ],
+      "name": "Tre di Spade",
+      "shortReversed": "La parte più acuta di una ferita forse si sta attenuando; potresti notare che cosa ti aiuta a respirare un po’ più liberamente.",
+      "shortUpright": "Un momento triste o doloroso forse chiede di essere sentito e non spiegato; la tristezza si può onorare con delicatezza."
+    },
+    "swords_04": {
+      "keywordsReversed": [
+        "irrequietezza",
+        "riposo rimandato",
+        "tornare all’azione",
+        "segnali di esaurimento",
+        "quiete come fuga"
+      ],
+      "keywordsUpright": [
+        "riposo",
+        "recupero",
+        "ritiro tranquillo",
+        "quiete",
+        "ricaricare le energie"
+      ],
+      "name": "Quattro di Spade",
+      "shortReversed": "Il riposo forse continua a essere rimandato, o un periodo di quiete è pronto a finire; potresti notare che cosa ti sembra vero.",
+      "shortUpright": "Una pausa fa parte del lavoro; questo potrebbe essere il momento di posare le cose e lasciare che la mente si quieti."
+    },
+    "swords_05": {
+      "keywordsReversed": [
+        "fare ammenda",
+        "lasciar correre",
+        "risentimento che resta",
+        "andarsene",
+        "riconciliazione"
+      ],
+      "keywordsUpright": [
+        "conflitto",
+        "vincere a caro prezzo",
+        "orgoglio",
+        "benevolenza incrinata",
+        "scegliere le battaglie"
+      ],
+      "name": "Cinque di Spade",
+      "shortReversed": "Un conflitto forse è pronto a raffreddarsi; potrebbe esserci spazio per rinunciare ad avere ragione in favore della pace.",
+      "shortUpright": "Forse si vince una discussione mentre si perde qualcos’altro; potresti chiederti quanto sia costata davvero la vittoria."
+    },
+    "swords_06": {
+      "keywordsReversed": [
+        "resistere al cambiamento",
+        "questioni in sospeso",
+        "partenza rimandata",
+        "portare vecchi pesi",
+        "tornare a riflettere"
+      ],
+      "keywordsUpright": [
+        "transizione",
+        "voltare pagina",
+        "acque più calme",
+        "lasciare il noto",
+        "cambiamento graduale"
+      ],
+      "name": "Sei di Spade",
+      "shortReversed": "Qualcosa forse ti trattiene sulla vecchia riva; potresti notare che cosa non ti senti ancora di lasciare.",
+      "shortUpright": "Forse ti stai muovendo da acque agitate verso rive più calme; il cambiamento può essere quieto e lento ed essere comunque reale."
+    },
+    "swords_07": {
+      "keywordsReversed": [
+        "vuotare il sacco",
+        "ripensare un piano",
+        "autoinganno",
+        "chiedere aiuto",
+        "segreti che emergono"
+      ],
+      "keywordsUpright": [
+        "strategia",
+        "agire in solitudine",
+        "evitamento",
+        "motivi nascosti",
+        "farla franca"
+      ],
+      "name": "Sette di Spade",
+      "shortReversed": "Un piano nascosto forse perde attrattiva; la sincerità con te o con gli altri potrebbe pesare meno della fatica di nascondere.",
+      "shortUpright": "Forse è in gioco un piano astuto o una scappatoia silenziosa; potresti chiederti se si addice alla persona che vuoi essere."
+    },
+    "swords_08": {
+      "keywordsReversed": [
+        "nuova prospettiva",
+        "liberazione",
+        "convinzioni che cedono",
+        "piccole libertà",
+        "vecchi schemi di ritorno"
+      ],
+      "keywordsUpright": [
+        "sensazione di blocco",
+        "convinzioni limitanti",
+        "restrizione",
+        "paura di muoversi",
+        "visuale ristretta"
+      ],
+      "name": "Otto di Spade",
+      "shortReversed": "I legacci forse si stanno allentando; potresti notare una convinzione che non ti stringe più come prima.",
+      "shortUpright": "Forse ti senti con le spalle al muro, eppure alcuni limiti vivono soprattutto nel pensiero; un piccolo movimento potrebbe mostrare più spazio del previsto."
+    },
+    "swords_09": {
+      "keywordsReversed": [
+        "ansia che si allenta",
+        "chiedere sostegno",
+        "stress nascosto",
+        "prospettiva che torna",
+        "condividere il carico"
+      ],
+      "keywordsUpright": [
+        "preoccupazione",
+        "pensieri insonni",
+        "peso mentale",
+        "paure notturne",
+        "rimuginio"
+      ],
+      "name": "Nove di Spade",
+      "shortReversed": "Il peso della preoccupazione forse comincia a sollevarsi, o forse chiede di essere condiviso invece di essere portato senza nessuno.",
+      "shortUpright": "Le preoccupazioni possono sembrare più grandi nelle ore di silenzio; potresti notare quali paure riguardano l’adesso e quali un forse."
+    },
+    "swords_10": {
+      "keywordsReversed": [
+        "lenta ripresa",
+        "rialzarsi",
+        "resistere a una fine",
+        "lezioni raccolte",
+        "l’alba dopo la notte"
+      ],
+      "keywordsUpright": [
+        "una fine",
+        "toccare il fondo",
+        "esaurimento",
+        "chiudere un capitolo",
+        "posare il peso"
+      ],
+      "name": "Dieci di Spade",
+      "shortReversed": "Il punto più basso forse è alle tue spalle; potresti notare i primi segni di una stabilità che ritorna.",
+      "shortUpright": "Un capitolo difficile forse sta arrivando alla fine; dargli un nome può fare spazio al riposo e a una lenta svolta."
+    },
+    "swords_11": {
+      "keywordsReversed": [
+        "attenzione dispersa",
+        "pettegolezzi",
+        "parlare senza ascoltare",
+        "atteggiamento difensivo",
+        "idee non verificate"
+      ],
+      "keywordsUpright": [
+        "curiosità",
+        "domande appassionate",
+        "apprendimento",
+        "vigilanza",
+        "idee nuove"
+      ],
+      "name": "Fante di Spade",
+      "shortReversed": "I pensieri entusiasti forse si disperdono in molte direzioni; potresti notare dove ascoltare servirebbe più che parlare.",
+      "shortUpright": "La curiosità è sveglia; potresti seguire una domanda con occhi nuovi e vedere dove porta il tuo pensiero."
+    },
+    "swords_12": {
+      "keywordsReversed": [
+        "correre avanti",
+        "impazienza",
+        "bruschezza",
+        "rallentare",
+        "forza dispersa"
+      ],
+      "keywordsUpright": [
+        "azione decisa",
+        "spinta",
+        "prendere la parola",
+        "pensiero rapido",
+        "determinazione"
+      ],
+      "name": "Cavaliere di Spade",
+      "shortReversed": "La velocità forse supera il pensiero; rallentare per un momento potrebbe aiutarti ad arrivare dove vuoi davvero andare.",
+      "shortUpright": "Lo slancio c’è; potresti incanalare il pensiero rapido in un’azione con uno scopo, tenendo d’occhio chi ti sta accanto."
+    },
+    "swords_13": {
+      "keywordsReversed": [
+        "freddezza",
+        "critica dura",
+        "diffidenza",
+        "amarezza",
+        "smussare gli spigoli"
+      ],
+      "keywordsUpright": [
+        "giudizio lucido",
+        "confini sinceri",
+        "indipendenza",
+        "saggezza vissuta",
+        "gentilezza diretta"
+      ],
+      "name": "Regina di Spade",
+      "shortReversed": "La chiarezza forse si è indurita in distanza; potresti notare dove il calore potrebbe tornare senza perdere la sincerità.",
+      "shortUpright": "Uno sguardo chiaro e una voce gentile e diretta possono andare insieme; potresti fidarti di ciò che l’esperienza ti ha insegnato."
+    },
+    "swords_14": {
+      "keywordsReversed": [
+        "rigidità",
+        "logica fredda",
+        "autorità mal usata",
+        "ripensamenti continui",
+        "ragione ed empatia"
+      ],
+      "keywordsUpright": [
+        "autorevolezza mentale",
+        "equità",
+        "principi chiari",
+        "decisioni ragionate",
+        "integrità"
+      ],
+      "name": "Re di Spade",
+      "shortReversed": "La logica forse è diventata rigida o distaccata; potresti chiederti se i tuoi principi lasciano ancora spazio alle persone.",
+      "shortUpright": "Un ragionamento stabile e principi equi possono guidarti; potresti decidere in base a ciò che è vero e non a ciò che è facile."
+    },
+    "wands_01": {
+      "keywordsReversed": [
+        "partenza rimandata",
+        "energia dispersa",
+        "blocco creativo",
+        "attesa che si accenda",
+        "incubazione quieta"
+      ],
+      "keywordsUpright": [
+        "scintilla di ispirazione",
+        "impulso creativo",
+        "entusiasmo",
+        "energia nuova",
+        "un’idea nuova"
+      ],
+      "name": "Asso di Bastoni",
+      "shortReversed": "La scintilla forse c’è, ma qualcosa le impedisce ancora di accendersi; nota di che cosa ha bisogno.",
+      "shortUpright": "Una nuova scintilla di interesse chiede un po’ d’aria e di attenzione prima di poter diventare fiamma."
+    },
+    "wands_02": {
+      "keywordsReversed": [
+        "restare nel noto",
+        "paura dell’ignoto",
+        "direzione incerta",
+        "piani senza azione",
+        "ridisegnare la mappa"
+      ],
+      "keywordsUpright": [
+        "pianificare",
+        "orizzonti più ampi",
+        "intenzione audace",
+        "valutare le opzioni",
+        "visione personale"
+      ],
+      "name": "Due di Bastoni",
+      "shortReversed": "Comodità e prudenza forse tengono un progetto più grande nel cassetto; potresti guardare di nuovo che cosa ti trattiene.",
+      "shortUpright": "Sei al confine di ciò che conosci e guardi oltre; è un buon momento per abbozzare dove potresti voler andare."
+    },
+    "wands_03": {
+      "keywordsReversed": [
+        "impazienza",
+        "risultati lenti",
+        "piani frustrati",
+        "correggere la rotta",
+        "visuale ristretta"
+      ],
+      "keywordsUpright": [
+        "slancio",
+        "espansione",
+        "guardare avanti",
+        "primi progressi",
+        "fiducia nei tuoi sforzi"
+      ],
+      "name": "Tre di Bastoni",
+      "shortReversed": "I progressi forse sembrano più lenti di quanto speravi; potrebbe essere il momento di rivedere le aspettative, non di arrenderti.",
+      "shortUpright": "Qualcosa che hai messo in moto comincia a viaggiare; puoi osservare che cosa ritorna e prepararti alla fase successiva."
+    },
+    "wands_04": {
+      "keywordsReversed": [
+        "terreno incerto",
+        "festa in sordina",
+        "sentirsi in disparte",
+        "gratitudine privata",
+        "ricostruire le basi"
+      ],
+      "keywordsUpright": [
+        "celebrazione",
+        "ritorno a casa",
+        "stabilità",
+        "traguardi condivisi",
+        "appartenenza"
+      ],
+      "name": "Quattro di Bastoni",
+      "shortReversed": "Una festa forse sembra più sommessa o meno serena del previsto; potresti guardare che cosa ti farebbe sentire a casa.",
+      "shortUpright": "Un traguardo merita di essere celebrato; è il momento di riunirsi, ringraziare e godersi un senso di casa."
+    },
+    "wands_05": {
+      "keywordsReversed": [
+        "evitare il conflitto",
+        "trovare punti comuni",
+        "tiro alla fune interiore",
+        "tensione che si allenta",
+        "schiarire l’aria"
+      ],
+      "keywordsUpright": [
+        "attrito",
+        "idee in competizione",
+        "dibattito vivace",
+        "mettersi alla prova",
+        "energia irrequieta"
+      ],
+      "name": "Cinque di Bastoni",
+      "shortReversed": "Uno scontro forse si sta placando, o sta finendo sotto traccia; potresti notare quali disaccordi meritano ancora un ascolto equo.",
+      "shortUpright": "Molte voci ed energie si scontrano; l’attrito forse affina le idee tanto quanto ti stanca."
+    },
+    "wands_06": {
+      "keywordsReversed": [
+        "cercare approvazione",
+        "impegno non visto",
+        "insicurezza",
+        "successo silenzioso",
+        "ridefinire il successo"
+      ],
+      "keywordsUpright": [
+        "riconoscimento",
+        "fiducia",
+        "successo pubblico",
+        "incoraggiamento",
+        "orgoglio per il lavoro"
+      ],
+      "name": "Sei di Bastoni",
+      "shortReversed": "Il riconoscimento forse manca o soddisfa meno del previsto; potresti chiederti che cosa significhi per te il successo, alle tue condizioni.",
+      "shortUpright": "Il tuo impegno forse viene notato; lasciati raggiungere da un po’ di riconoscimento e nota chi ti ha aiutato ad arrivare qui."
+    },
+    "wands_07": {
+      "keywordsReversed": [
+        "carico eccessivo",
+        "atteggiamento difensivo",
+        "scegliere le battaglie",
+        "determinazione incerta",
+        "lasciar perdere qualcosa"
+      ],
+      "keywordsUpright": [
+        "difendere la posizione",
+        "convinzione",
+        "perseveranza",
+        "proteggere i confini",
+        "coraggio sotto pressione"
+      ],
+      "name": "Sette di Bastoni",
+      "shortReversed": "Difendere tutto insieme può sfinirti; potresti scegliere quale terreno valga davvero la pena di tenere.",
+      "shortUpright": "Forse stai difendendo una posizione importante per te; questa carta onora il coraggio che serve per non cedere."
+    },
+    "wands_08": {
+      "keywordsReversed": [
+        "ritardi",
+        "fretta eccessiva",
+        "segnali incrociati",
+        "rallentare",
+        "attenzione dispersa"
+      ],
+      "keywordsUpright": [
+        "movimento rapido",
+        "slancio",
+        "messaggi in viaggio",
+        "energia focalizzata",
+        "cose che si allineano"
+      ],
+      "name": "Otto di Bastoni",
+      "shortReversed": "Ritmo e tempi forse non tornano, tra ritardi e troppa fretta; potresti fermarti a controllare dove punta la tua energia.",
+      "shortUpright": "Le cose forse si muovono in fretta; l’energia bloccata trova una direzione chiara e puoi seguire lo slancio con cura."
+    },
+    "wands_09": {
+      "keywordsReversed": [
+        "esaurimento",
+        "diffidenza",
+        "toccare i propri limiti",
+        "chiedere aiuto",
+        "abbassare le difese"
+      ],
+      "keywordsUpright": [
+        "resilienza",
+        "perseveranza",
+        "l’ultimo tratto",
+        "saggezza sudata",
+        "forza vigile"
+      ],
+      "name": "Nove di Bastoni",
+      "shortReversed": "Restare in guardia così a lungo può stancare; potresti notare dove è sicuro riposare e lasciar entrare gli altri.",
+      "shortUpright": "Hai attraversato molto e sei ancora in piedi; questa carta onora la tua resilienza nell’ultimo tratto."
+    },
+    "wands_10": {
+      "keywordsReversed": [
+        "posare i pesi",
+        "delegare",
+        "dire di no",
+        "sollievo",
+        "portare tutto da sé"
+      ],
+      "keywordsUpright": [
+        "carico pesante",
+        "responsabilità",
+        "troppi impegni",
+        "tenere duro",
+        "vicino alla meta"
+      ],
+      "name": "Dieci di Bastoni",
+      "shortReversed": "Una parte del carico forse è pronta a scendere dalle tue spalle; potresti vedere che cosa posare, condividere o rifiutare.",
+      "shortUpright": "Forse porti più della tua parte; questa carta ti invita a notare il peso e ciò che va davvero portato."
+    },
+    "wands_11": {
+      "keywordsReversed": [
+        "irrequietezza",
+        "inizi incompiuti",
+        "curiosità esitante",
+        "mancanza di direzione",
+        "idee ancora in germe"
+      ],
+      "keywordsUpright": [
+        "curiosità",
+        "esplorazione",
+        "entusiasmo giocoso",
+        "voglia di imparare",
+        "primi passi audaci"
+      ],
+      "name": "Fante di Bastoni",
+      "shortReversed": "L’entusiasmo forse salta da una cosa all’altra o è frenato dal dubbio; potresti sceglierne una da esplorare con calma.",
+      "shortUpright": "Un’energia curiosa e giocosa vuole esplorare; segui ciò che ti entusiasma e concediti di essere principiante."
+    },
+    "wands_12": {
+      "keywordsReversed": [
+        "impulsività",
+        "fretta",
+        "passione dispersa",
+        "frustrazione",
+        "incanalare l’energia"
+      ],
+      "keywordsUpright": [
+        "avventura",
+        "azione audace",
+        "passione",
+        "spontaneità",
+        "energia senza paura"
+      ],
+      "name": "Cavaliere di Bastoni",
+      "shortReversed": "L’energia forse corre più veloce della direzione; potrebbe essere il momento di rallentare la carica e scegliere dove mirare.",
+      "shortUpright": "Un’energia audace e avventurosa è pronta a muoversi; potresti seguire la tua passione tenendo d’occhio la strada."
+    },
+    "wands_13": {
+      "keywordsReversed": [
+        "insicurezza",
+        "esaurimento",
+        "fiducia offuscata",
+        "gelosia",
+        "ritrovare la scintilla"
+      ],
+      "keywordsUpright": [
+        "fiducia calorosa",
+        "carisma",
+        "indipendenza",
+        "vitalità creativa",
+        "presenza generosa"
+      ],
+      "name": "Regina di Bastoni",
+      "shortReversed": "Il tuo fuoco interiore forse vacilla o è messo a dura prova; potresti guardare che cosa prosciuga la tua fiducia e che cosa la rinnova.",
+      "shortUpright": "Un’energia calda e sicura è a tua disposizione; potresti concederti di occupare spazio e condividere la tua luce."
+    },
+    "wands_14": {
+      "keywordsReversed": [
+        "impazienza",
+        "spinta prepotente",
+        "obiettivi irrealistici",
+        "direzione perduta",
+        "guidare ascoltando"
+      ],
+      "keywordsUpright": [
+        "guida visionaria",
+        "direzione",
+        "integrità",
+        "prendere l’iniziativa",
+        "ispirare gli altri"
+      ],
+      "name": "Re di Bastoni",
+      "shortReversed": "Una forte spinta forse scivola nell’impazienza o nel controllo; potresti verificare se la tua visione lascia ancora spazio agli altri.",
+      "shortUpright": "Un’energia chiara e visionaria ti invita a guidare con uno scopo e a trasformare grandi idee in una direzione che altri possano seguire."
+    }
+  },
+  "locale": "it",
+  "version": 1
+}

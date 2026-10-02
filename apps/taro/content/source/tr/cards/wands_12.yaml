@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_12"
+reviewStatus: "machine"
+sourceHash: >-
+  ee8ccb9aab1b0989eaeddd89acc673816d7d80876b32ea4815fde24f206f82f0
+name: "Asa Şövalyesi"
+keywordsUpright:
+  - "macera"
+  - "cesur eylem"
+  - "tutku"
+  - "kendiliğindenlik"
+  - "korkusuz enerji"
+keywordsReversed:
+  - "dürtüsellik"
+  - "acelecilik"
+  - "dağınık tutku"
+  - "hayal kırıklığı"
+  - "enerjiyi yönlendirmek"
+shortUpright: >-
+  Cesur ve maceracı bir enerji harekete hazır; yolu gözden kaçırmadan tutkunu izleyebilirsin.
+shortReversed: >-
+  Enerji yönün önüne geçiyor olabilir; hücumu yavaşlatıp nereye nişan alacağını seçmenin zamanı olabilir.
+meaningUpright: |-
+  Asa Şövalyesi hareket hâlindeki ateştir. Coşkulu bir atın üzerinde, asasını havaya kaldırmış bu figür tutku, özgüven ve macera tadıyla ileri atılır. Prens merak ederken Şövalye harekete geçer.
+  Bu enerji, ani bir yolculuk kararı, sonunda o projeye başlamak için yükselen bir motivasyon dalgası ya da bir zamanlar fazla cesur gelecek bir riski almaya isteklilik olarak ortaya çıkabilir. Başkalarını da peşinden sürükleyen bir çekicilik, cesaret ve bulaşıcı bir coşku getirebilir.
+  Bu kart, iç itkine güvenmeye ve onun seni yeni topraklara taşımasına izin vermeye davet eder. İvme değerlidir ve bazen bir yolun nereye çıktığını keşfetmenin tek yolu yola koyulmaktır. Aynı zamanda dörtnala koşan bir atın, aşağı yukarı nereye gittiğini bilen bir biniciye ihtiyacı vardır. Bu enerjiyi net bir maceraya yönlendirip ayağının altındaki zemin değişirse yön değiştirebilecek kadar farkındalığı koruyabilirsin.
+meaningReversed: |-
+  Ters geldiğinde Asa Şövalyesi, yönünü geride bırakan bir enerjiyi yansıtabilir. İşlere aceleyle başlayıp yarı yolda ilgini kaybedebilir, bir dürtüyle hareket edip sonra sonuçlarıyla uğraşmak zorunda kalabilir ya da iç itkinin gidecek bir yeri olmadığı için hayal kırıklığı yaşayabilirsin.
+  Koşullar seni bekletmeye devam ettiği için huzursuzluğun biriktiği, geri tutulan bir tutkuya da işaret edebilir.
+  Ateşinin nereye gitmek istediğini ve tükenmeden oraya varmasına neyin yardım edeceğini sormanın zamanı olabilir. Büyük bir karardan önce durabilir, bir sonrakine başlamadan önce bir işi bitirebilir ya da huzursuz enerji için hareket, yaratıcı bir iş veya neyin tıkalı hissettirdiğine dair dürüst bir konuşma gibi sağlıklı bir çıkış yolu bulabilirsin.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart heyecanı, çekimi ve bir macera duygusunu yansıtabilir: kendiliğinden planlar, yoğun sohbetler, birlikte bir şeyler yapma isteği. Enerjinin tadını çıkarırken temponun herkese uyup uymadığını da kontrol edebilirsin. Ortak maceralar, iki kişinin de yön konusunda söz sahibi olduğunda daha zengin hissettirir.
+  relationshipsReversed: >-
+    Ters geldiğinde güçlü duygular iletişimden daha hızlı ilerleyebilir ya da coşku geldiği kadar çabuk soğuyabilir. Senin ya da sana yakın birinin birbirine danışmadan bir dürtüyle hareket edip etmediğini fark edebilirsin. Her bir kişinin gerçekte ne istediğini konuşmak için yavaşlamak, kıvılcımlarla dolu bir bağa istikrar getirebilir.
+  workUpright: >-
+    İşte ya da bir projede Asa Şövalyesi cesur bir inisiyatif almaya işaret edebilir: iddialı bir fikri sunmak, bir atılıma öncülük etmek ya da bir fırsat için hızla harekete geçmek. Bu itkiyi durgunluğu kırmak için kullanırken ilk heyecan dalgasından sonraki adımlar için basit bir plan yapabilirsin.
+  workReversed: >-
+    Ters geldiğinde kararları aceleye getiriyor ya da tıkanmış ve sabırsız hissediyor olabilirsin. Hızın gerçekten gerekli olup olmadığını ya da planlama için kısa bir duraklamanın sana daha iyi hizmet edip etmeyeceğini kontrol edebilirsin. Hayal kırıklığını net bir sonraki adımlar listesine dönüştürmek, enerjinin kendi etrafında dönmek yerine ileri gitmesine yardım edebilir.
+  growthUpright: >-
+    Cesaret ve deneyime duyulan iştah, bu kartın kullanmanı istediği armağanlardır. Kendi coşkuna güvenseydin ne yapardın? Seni biraz zorlayan bir şeyi deneyip yalnızca temkinle değil, tutkuyla hareket etmenin nasıl hissettirdiğini fark edebilirsin.
+  growthReversed: >-
+    Ters geldiğinde dürtüyle olan ilişkini keşfedebilirsin. Kendiliğindenlik sana ne zaman sevinç getiriyor, ne zaman seni dağınık bırakıyor? Kıvılcımını kaybetmeden harekete geçmeden önce kısa bir an durmayı öğrenmek, enerjinin seni yönlendiren bir şey olmaktan çıkıp senin yönlendirdiğin bir şeye dönüşmesine yardım edebilir.
+reflectionQuestions:
+  - "Şu anda nerede ileri gitmek için güçlü bir istek duyuyorsun?"
+  - >-
+    Coşkun çevrendeki insanları iyi ya da daha az iyi yönde nasıl etkileyebilir?
+  - "Yola çıkmadan önce enerjine nişan almana ne yardım ederdi?"
+imageryNote: >-
+  Dörtnala giden bir binici, şaha kalkan ya da sıçrayan bir atın üzerinde öne eğilir; asası havada, pelerini arkasında dalgalanır. Önünde çöl tepeleri ya da açık ovalar uzanır; binicinin giysilerini küçük alev biçimleri ya da semenderler süsleyebilir. Sıçrayan at tutkuyu ve itkiyi, kaldırılmış asa eyleme taşınan amacı, geniş manzara ise hâlâ açılmakta olan macerayı temsil eder. Öne eğilmiş duruş hem cesareti hem de aceleciliği ima eder.

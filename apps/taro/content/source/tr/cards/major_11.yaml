@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_11"
+reviewStatus: "machine"
+sourceHash: >-
+  f2f2b18cce2d6a6923375b3631bd971f2463606c92e0f9b723bdab253bab3aa4
+name: "Adalet"
+keywordsUpright:
+  - "adalet duygusu"
+  - "dürüstlük"
+  - "hesap verebilirlik"
+  - "net muhakeme"
+  - "sebep ve sonuç"
+keywordsReversed:
+  - "dengesizlik"
+  - "sorumluluktan kaçmak"
+  - "kendini yargılamak"
+  - "hakkaniyet aramak"
+shortUpright: >-
+  Her şeyi dürüstçe tartmanın ve sonradan gönül rahatlığıyla açıklayabileceğin şekilde davranmanın zamanı.
+shortReversed: >-
+  Bir şey dengesiz hissettiriyor olabilir. Bu kart, kendi payın da dahil, ona açıkça bakmaya davet ediyor.
+meaningUpright: |-
+  Adalet bir elinde terazi, öbür elinde kılıç tutar. Terazi her şeyi dikkatle tartmayı, kılıç ise tarttıktan sonra harekete geçmek için gereken netliği temsil eder. Bu kart hakkaniyet, dürüstlük ve seçimlerinin sorumluluğunu almakla ilgilidir; eylemlerin sonuçları olduğunu ve onları özenle seçebileceğini anlamakla.
+  Gündelik hayatta bu kart, işleri adil bölüşmek, dürüst geri bildirim vermek ya da bir hatayı kabul edip telafi etmek gibi soğukkanlılık isteyen bir kararı yansıtabilir. Tepki vermeden önce bir duruma her açıdan bakman ve başkalarına olmaya çalıştığın kadar kendine de adil olman istenen anlara işaret edebilir.
+  Bu kart, dengeli bir tepkinin nasıl görüneceğini düşünmeye davet eder. Hangi gerçeklerin önemli olduğunu, işin içindeki her kişinin neye ihtiyaç duyduğunu ve neyin sorumluluğunu alabileceğini sorabilirsin. Adalet, resmî bir meselenin nasıl sonuçlanacağı hakkında bir şey söylemez. Dürüstlüğü öne çıkarır: doğru olduğuna inandığın şeyle uyumlu davranmak ve ardından gelene sakin bir zihinle bakabilmek.
+meaningReversed: |-
+  Ters geldiğinde Adalet, bir şeyin haksız olduğu ya da bir durumdaki terazinin bir yana devrildiği hissini yansıtabilir. Payına düşenden fazlasını taşıdığını hissedebilir ya da bir zorluktaki kendi payına bakmaktan kaçınma eğilimini fark edebilirsin.
+  Bu kart kendini fazla sert yargılamaya, her seçimi ulaşılamaz bir ölçütle tartmaya da işaret edebilir. Hesap verebilirlik faydalıdır; sürekli öz eleştiri ise aynı şey sayılmaz.
+  Durumu, adil düşünen bir arkadaşına anlatıyormuş gibi olabildiğince tarafsız yazmak isteyebilirsin. Hangi kısmı sahiplenmen gerekiyor, hangisi senin değil? Hakkaniyet aramak, sesini yükseltmek, bir şeyi onarmak ya da artık taşıması ağır gelen bir yargıyı bırakmak anlamına gelebilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Adalet, dengeyi ve karşılıklı saygıyı yansıtabilir: iki kişinin de adil hissettiren bir şekilde verip alması. Sorumlulukların ve özenin nasıl paylaşıldığına dürüstçe bakmaya davet edebilir. Beklentiler hakkında açık ve nazik konuşmalar güveni güçlendirebilir ve sessiz kırgınlıkların önüne geçebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, bir kişinin duygusal ya da pratik işin daha fazlasını üstlenmesi ya da suçun tek tarafa yüklendiği bir çatışma gibi bir dengesizliğe işaret edebilir. Her iki bakış açısından hakkaniyetin nasıl görüneceğini ve bir özrün ya da daha net bir anlaşmanın dengeyi yeniden kurup kuramayacağını düşünebilirsin.
+  workUpright: >-
+    İşte ya da bir projede Adalet, dürüstlüğü, adil süreçleri ve dikkatli kararları öne çıkarır. Beklentileri yeniden gözden geçirmeyi, dengeli geri bildirim vermeyi ya da seçenekleri kendi değerleriyle tartmayı yansıtabilir. Hangi seçimi bundan etkilenen herkese açıkça anlatmakta rahat olacağını sorabilirsin.
+  workReversed: >-
+    Ters geldiğinde Adalet, haksız muameleden ya da belirsiz kurallardan duyulan hayal kırıklığını yansıtabilir. Baskı altında işi baştan savma eğilimine de işaret edebilir. Gerçekleri sakince not edebilir, gerekirse uygun destek arayabilir ve kendi davranışlarının başkalarından beklediğin ölçüte uyup uymadığını kontrol edebilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, değerlerine göre yaşamaya ve seçimlerini sahiplenmeye davet eder. Eylemlerinin etkileri üzerine sertlik olmadan düşünmek gelişmene yardım edebilir. Yakın zamanda verdiğin bir karara bakıp neyi koruyacağını ve bir dahaki sefere neyi farklı yapabileceğini sorabilirsin.
+  growthReversed: >-
+    Ters geldiğinde Adalet, kendini başkalarına uyguladığından çok daha katı bir ölçütle değerlendirip değerlendirmediğini sorabilir. Ders çoktan alındıktan sonra bile süren bir suçluluk duygusunu yansıtabilir. Kendini adil değerlendirmeyi deneyebilirsin: hem neyin yanlış gittiğine hem de neyin doğru gittiğine ad vererek.
+reflectionQuestions:
+  - >-
+    Burada hem başkalarına hem kendine adil bir tepki nasıl görünürdü?
+  - >-
+    Yakın bir ilişkide sorumlulukların nerede yeniden dengelenmesi gerekebilir?
+  - "Bu hafta neyi sahiplenmeye hazırsın?"
+imageryNote: >-
+  Taro’nun Adalet kartı, dengeli bir teraziyi kalp hizasında ve gökyüzünü gösteren dik bir kılıcı tutan, sakin ve dik duruşlu bir figür olarak hayal edilir. Figür doğrudan izleyiciye bakar; hiçbir şeyin saklanmadığı bir dürüstlüğü çağrıştırır. Arkadaki iki sade sütun ve düz bir perde sahneyi yalın tutar; sanki dikkatli düşünmeye yer açar. Serin hava mavileri ve tek bir sıcak vurgu, akılla vicdanın buluşmasını yansıtabilir.

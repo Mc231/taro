@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_00"
+reviewStatus: "machine"
+sourceHash: >-
+  e3b77217bc24cc92fbc35d6ea971d1697a08dcd0440c88bde808d7629c085db4
+name: "Deli"
+keywordsUpright:
+  - "yeni bir başlangıç"
+  - "merak"
+  - "açıklık"
+  - "bilinmeyene adım"
+  - "acemi zihni"
+keywordsReversed:
+  - "tereddüt"
+  - "düşüncesiz risk"
+  - "hazır olmayı beklemek"
+  - "dağınık odak"
+shortUpright: >-
+  Yeni bir şeye doğru, her şeyi bilmeden ama merakla atılan bir adım.
+shortReversed: >-
+  Kıyıda bir duraklama: bu dikkat mi, yoksa gülünç görünme korkusu mu?
+meaningUpright: |-
+  Deli, Büyük Arkana’nın en başında, sıfır numarasıyla, henüz hiçbir ders öğrenilmeden önce durur. Bu, yanında hafif bir çanta ve yüzünde açık bir ifadeyle yola çıkan birinin enerjisidir; yolun nerede bittiğini bilmekle değil, yolun ona neler gösterebileceğiyle ilgilenir.
+  Gündelik hayatta bu kart, yeni bir yerdeki ilk haftayı, ustalaşma planı olmadan başlanan bir hobiyi ya da her cümlesini prova etmeden başlattığın bir sohbeti yansıtabilir. Bir yanın hiç kimsenin veremeyeceği bir güvence isterken, denemeye hazır olan başka bir yanına işaret edebilir. Burada bilmemek bir kusur sayılmaz; her yolculuk zaten buradan başlar.
+  Bu kart, biraz daha hafiflik nerede iyi gelebilir, bunu düşünmeye davet eder. Kendine yeniden acemi olma, basit sorular sorma ve yaparak öğrenme izni verseydin ne değişirdi? Deli senden sağduyunu bir kenara bırakmanı istemez. Yanlış yapma korkusunun seni hiç adım atmaktan alıkoyup alıkoymadığını fark etmeni ister.
+meaningReversed: |-
+  Ters geldiğinde Deli, henüz tam alevlenmemiş yeni bir başlangıç kıvılcımını gösterebilir. Bir yandan taze bir şeye doğru çekildiğini hissederken öte yandan kıpırdamadan duruyor, fikri evirip çevirerek harekete geçmenin güvenli olduğuna dair bir işaret bekliyor olabilirsin. Bazen bu bekleyiş akıllıcadır; bazen de sessizce bir alışkanlığa dönüşmüştür.
+  Bu kart ters yöndeki eğilimi de yansıtabilir: bakmadan ileri atılan, her şeye evet diyen ve ayağının nereye bastığını fark etmeye pek yer bırakmayan bir enerji. İki eğilim de hazır olmak ve güvenmekle ilgili bir soruyu paylaşır.
+  Şu anda hangisinin sana daha yakın geldiğini kendine sorabilirsin. Geri duruyorsan, suyun sıcaklığını yoklamanın küçük ve risksiz bir yolu ne olabilir? Hızla koşuyorsan, coşkunu korurken bir sonraki atılımdan önce kısa bir duraklama eklemek nasıl görünürdü?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Deli, oyunbaz ve savunmasız bir niteliği yansıtabilir: biriyle senaryosuz tanışmak ya da tanıdık bir bağın seni yeniden şaşırtmasına izin vermek. Sana yakın insanlara merakla yaklaşmaya, cevabını zaten bildiğini sandığın soruları sormaya davet edebilir. Buradaki açıklık saflık sayılmaz; işlerin nasıl gitmesi gerektiğine önceden karar vermeden orada olmaya istekli olmaktır.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, birini hayatına almakla ilgili bir tereddüde ya da diğer kişinin yetişmesine pek fırsat bırakmayacak kadar hızlı ilerlemeye işaret edebilir. Belirsiz kalarak kendini koruyup korumadığını ya da birini tanımanın yavaş kısımlarını atlayıp atlamadığını fark edebilirsin. Hem senin hem onun temposu üzerine nazik bir konuşma ikinize de alan açabilir.
+  workUpright: >-
+    İşte ya da herhangi bir projede Deli, alışık olmadığın bir şeyin başlangıcını yansıtabilir: yeni bir rol, bir kurs, henüz geçmişi olmayan yaratıcı bir fikir. İlk hataları birer hüküm olarak değil, birer bilgi olarak görmeye davet eder. İlk denemenin kaba olmasına izin verilseydi neyi denerdin ve yol boyunca işin inceliklerini öğrenmene kim yardım edebilirdi?
+  workReversed: >-
+    Ters geldiğinde Deli, koşullar kusursuz görünene kadar hep ertelenen bir fikri ya da temel şeyler kontrol edilmeden yapılan bir atılımı yansıtabilir. Daha fazla bilgiye mi yoksa yalnızca biraz daha cesarete mi ihtiyacın olduğunu düşünebilirsin. Atabileceğin en küçük ilk adımı ve pratik bir önlemi yazmak, belirsiz bir isteği her şeyi ortaya koymadan deneyebileceğin bir şeye dönüştürebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart acemi zihnini kutlar. Korunacak bir itibarın olmadığı bir şeyi denemeye davet edebilir: yeni bir beceri, eve giden farklı bir yol, yüksek sesle sorulan bir soru. Buradaki gelişim, her şeyi ilk denemede doğru yapmaktan değil, meraklı kalmaktan ve kendini şaşırmaya bırakmaktan doğar.
+  growthReversed: >-
+    Ters geldiğinde Deli, saçma görünme korkusunun dünyanı daraltmaya başlayıp başlamadığını sorabilir. Hiçbirinin kök salmasına izin vermeden bir yeni şeyden ötekine atlayan bir huzursuzluğu da yansıtabilir. Hangi örüntünün sana tanıdık geldiğini fark edip bir hafta boyunca onun yumuşak zıddını deneyebilirsin.
+reflectionQuestions:
+  - "Acemi olmana izin verilseydi neyi denerdin?"
+  - >-
+    Hayatında küçük bir risk almanı kolaylaştıran kim ve bunu nasıl yapıyor?
+  - "Bu hafta atabileceğin risksiz bir ilk adım ne olabilir?"
+imageryNote: >-
+  Taro’nun Delisi, önünde açık bir gökyüzü olan yüksek bir yerin kenarında, adım atmak üzereyken ve yanında yalnızca küçük bir bohçayla hayal edilir. Ayaklarının dibindeki küçük bir hayvan, oyunbaz ya da uyarıcı bir içgüdüyü temsil edebilir. Tek bir beyaz çiçek masumiyeti ve açıklığı çağrıştırabilir; geniş ufuk ve sabah ışığı ise olasılıklardan söz eder. Figürün yukarı dönük yüzü, izleyiciyi neye baktığını ve neyi taşımamayı seçtiğini sormaya davet eder.

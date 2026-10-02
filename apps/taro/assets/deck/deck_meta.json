@@ -705,13 +705,35 @@
     }
   ],
   "checksums": {
+    "ar.json": "b5f75b4a82c494b4ce050aa491601b66cf16e2d58cdcead8826b09a4286c300c",
     "crisis_resources.json": "e54c7ec9da6de70afd2e817fcedbf61ff07c3133946de452d16f5d54c0b8f52e",
+    "de.json": "6a6495cdb2e4bed7222ef5e9ab652885feb9610214608c70d37f4ac49776faf5",
     "en.json": "543dea725a1ab0251851473ef6f1c9c36b5b26e4fad1af71c5746af1c5ce3dce",
-    "spreads.json": "385669d88af11ab7f3640b3015d80275205cec2a927c8d76daaa8fe84e835c12"
+    "es.json": "1961eb3cb2a572c117b23b12d764fb8e02510f093e42cf588105b231fe860eba",
+    "fr.json": "39f1ba0168a5d709fb9b76e210dad2315949185a54904d4535d116fed5d9629a",
+    "it.json": "637559f2be6d915534074bb78ec442f7d028e9e96b5c68161cbcdc5e2dc64f99",
+    "ja.json": "1f307a8474c256137c96d24fa2ad9a3ac3776e0807f0cd3d607dd57c8a4695e2",
+    "ko.json": "fc79bd2c2f1d62efea29b47a78ea5cb8e55579f4d95d71206a4b319e9e9d4400",
+    "nl.json": "cf6ecc4a3ca2d1b170cf2c8b37f5412baace370a4a4ad7928ee0a3cb9c62eef2",
+    "pt.json": "c2b29ca7eab8b46399e623231bfd2026defffc35c0c7392b1cfea265bd9d7d8b",
+    "spreads.json": "385669d88af11ab7f3640b3015d80275205cec2a927c8d76daaa8fe84e835c12",
+    "tr.json": "6c639d2a8bc87c1a3f66b0e19ffd098094e5277681357ae7178c7ccb730dd462",
+    "uk.json": "811aff50610e9334b67aeafe46e500e325915a1b2aa35ebb82b3f481e74743d1"
   },
   "id": "rws_original",
   "locales": [
-    "en"
+    "en",
+    "ar",
+    "de",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "nl",
+    "pt",
+    "tr",
+    "uk"
   ],
   "version": 1
 }

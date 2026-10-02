@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_12"
+reviewStatus: "machine"
+sourceHash: >-
+  ee8ccb9aab1b0989eaeddd89acc673816d7d80876b32ea4815fde24f206f82f0
+name: "Ritter der Stäbe"
+keywordsUpright:
+  - "Abenteuer"
+  - "mutiges Handeln"
+  - "Leidenschaft"
+  - "Spontaneität"
+  - "furchtlose Energie"
+keywordsReversed:
+  - "Impulsivität"
+  - "Hast"
+  - "verzettelte Leidenschaft"
+  - "Frust"
+  - "Energie lenken"
+shortUpright: >-
+  Eine mutige, abenteuerlustige Energie will los; du könntest deiner Leidenschaft folgen und dabei den Weg im Blick behalten.
+shortReversed: >-
+  Die Energie läuft vielleicht der Richtung voraus; ein Moment, den Ansturm zu bremsen und zu wählen, wohin du zielst.
+meaningUpright: |-
+  Der Ritter der Stäbe ist Feuer in Bewegung. Auf einem temperamentvollen Pferd, den Stab erhoben, stürmt diese Gestalt voller Leidenschaft, Selbstvertrauen und Abenteuerlust voran. Wo der Bube staunt, handelt der Ritter.
+  Diese Energie kann sich als plötzlicher Entschluss zu reisen zeigen, als Motivationsschub, endlich jenes Projekt zu beginnen, oder als Bereitschaft, ein Risiko einzugehen, das sich früher zu kühn angefühlt hätte. Sie kann Charme, Mut und eine ansteckende Begeisterung mitbringen, die andere mitreißt.
+  Diese Karte lädt dich ein, deinem Antrieb zu vertrauen und dich von ihm in neues Gebiet tragen zu lassen. Schwung ist kostbar, und manchmal findest du nur heraus, wohin ein Weg führt, indem du aufbrichst. Zugleich braucht ein stürmendes Pferd jemanden im Sattel, der ungefähr weiß, wohin es geht. Du könntest diese Energie in ein klares Abenteuer lenken und aufmerksam genug bleiben, um nachzusteuern, wenn sich der Boden unter dir verändert.
+meaningReversed: |-
+  Umgekehrt kann der Ritter der Stäbe Energie spiegeln, die ihrer Richtung davonläuft. Vielleicht beginnst du Dinge überstürzt und verlierst auf halbem Weg das Interesse, handelst aus einem Impuls heraus und musst dann mit den Folgen umgehen, oder du bist frustriert, weil dein Antrieb nirgendwohin kann.
+  Die Karte kann auch auf zurückgehaltene Leidenschaft hinweisen, bei der sich Unruhe aufbaut, weil die Umstände dich warten lassen.
+  Das könnte ein Moment sein, dich zu fragen, wohin dein Feuer will und was ihm helfen würde, dorthin zu gelangen, ohne auszubrennen. Du könntest vor einer großen Entscheidung innehalten, eine Sache abschließen, bevor du die nächste beginnst, oder einen gesunden Ausgang für unruhige Energie finden, etwa Bewegung, eine kreative Aufgabe oder ein ehrliches Gespräch darüber, was sich blockiert anfühlt.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann diese Karte Aufregung, Anziehung und Abenteuerlust spiegeln: spontane Pläne, intensive Gespräche, den Wunsch, gemeinsam etwas zu unternehmen. Du könntest die Energie genießen und zugleich prüfen, ob das Tempo für alle passt. Gemeinsame Abenteuer fühlen sich meist reicher an, wenn beide bei der Richtung mitreden.
+  relationshipsReversed: >-
+    Umgekehrt bewegen sich starke Gefühle vielleicht schneller als die Kommunikation, oder die Begeisterung kühlt so schnell ab, wie sie gekommen ist. Vielleicht bemerkst du, ob du oder ein naher Mensch impulsiv handelt, ohne sich abzustimmen. Langsamer zu werden und darüber zu sprechen, was jede Seite wirklich will, kann einer Verbindung voller Funken Beständigkeit geben.
+  workUpright: >-
+    Bei der Arbeit oder in einem Projekt kann der Ritter der Stäbe auf mutige Initiative hinweisen: eine ehrgeizige Idee vorstellen, einen Vorstoß anführen oder eine Gelegenheit rasch ergreifen. Du könntest diesen Antrieb nutzen, um Trägheit zu durchbrechen, und dir einen einfachen Plan für die Schritte nach dem ersten aufregenden Schub machen.
+  workReversed: >-
+    Umgekehrt triffst du Entscheidungen vielleicht überstürzt oder fühlst dich blockiert und ungeduldig. Du könntest prüfen, ob Tempo wirklich nötig ist oder ob dir eine kurze Planungspause mehr nützen würde. Frust in eine klare Liste nächster Schritte zu verwandeln, kann deiner Energie helfen, vorwärts zu gehen statt im Kreis.
+  growthUpright: >-
+    Mut und Lust auf Erfahrung sind Gaben, die diese Karte dich bittet zu nutzen. Was würdest du tun, wenn du deiner eigenen Begeisterung vertrautest? Du könntest etwas ausprobieren, das dich herausfordert, und bemerken, wie es sich anfühlt, aus Leidenschaft zu handeln, nicht nur aus Vorsicht.
+  growthReversed: >-
+    Umgekehrt könntest du dein Verhältnis zu Impulsen erkunden. Wann bringt dir Spontaneität Freude, und wann lässt sie dich zerstreut zurück? Zu lernen, vor dem Handeln kurz innezuhalten, ohne deinen Funken zu verlieren, kann helfen, dass deine Energie etwas wird, das du steuerst, und nicht etwas, das dich steuert.
+reflectionQuestions:
+  - "Wo spürst du gerade einen starken Drang, voranzugehen?"
+  - >-
+    Wie könnte deine Begeisterung die Menschen um dich herum beeinflussen, zum Guten oder weniger Guten?
+  - >-
+    Was würde dir helfen, deine Energie auszurichten, bevor du aufbrichst?
+imageryNote: >-
+  Eine Gestalt im vollen Galopp lehnt sich auf einem steigenden oder springenden Pferd nach vorn, den Stab hoch erhoben, der Umhang weht hinter ihr. Wüstenhügel oder offene Ebenen erstrecken sich vor ihr, und kleine Flammenformen oder Salamander können die Kleidung schmücken. Das springende Pferd steht für Leidenschaft und Antrieb, der erhobene Stab für Absicht, die in Handlung getragen wird, und die weite Landschaft für ein Abenteuer, das sich noch entfaltet. Die Vorwärtsneigung deutet Mut und Hast zugleich an.

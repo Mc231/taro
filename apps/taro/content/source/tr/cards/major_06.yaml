@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_06"
+reviewStatus: "machine"
+sourceHash: >-
+  4280cd4e60181278ce5568ad4e4eba73bb16134eda9205e44902168e53fb13cf
+name: "Aşıklar"
+keywordsUpright:
+  - "bağ"
+  - "anlamlı bir seçim"
+  - "değerlerin uyumu"
+  - "dürüstlük"
+  - "karşılıklı saygı"
+keywordsReversed:
+  - "iç çatışma"
+  - "uyumsuzluk"
+  - "ertelenen karar"
+  - "değerlere dönmek"
+shortUpright: >-
+  Gerçekten değer verdiklerinle uyumlu, kalple aklın birlikte verdiği bir karar.
+shortReversed: >-
+  Bir yanın bir şeyi, öbür yanın başka bir şeyi istiyor olabilir. Bu kart seçmeden önce ikisini de dinlemeye davet ediyor.
+meaningUpright: |-
+  Aşıklar çoğu zaman bir romantizm kartı olarak okunur ama asıl teması uyumdur: iki parçanın, iki insanın ya da iki yolun bütünlüklü hissettiren bir şekilde buluşması. En çok neye değer verdiğini ve önündeki seçimlerin bunu yansıtıp yansıtmadığını sorar. Buradaki bağ hem başkalarıyla hem de kendinledir.
+  Gündelik hayatta bu kart, kendini gerçekten görülmüş hissettiğin bir ilişkiyi, fikirlerin kolayca aktığı bir iş ortaklığını ya da senin için neyin önemli olduğunu açıkça söylemeni gerektiren bir kararı yansıtabilir. Belirgin bir doğru cevabın olmadığı, yalnızca dönüşmekte olduğun kişiye uyan bir seçeneğin bulunduğu, iki iyi seçenek arasında seçim yapma anına işaret edebilir.
+  Bu kart, kendine ve başkalarına ne kadar dürüst davrandığını düşünmeye davet eder. Neye çekildiğini ve neden çekildiğini, neye bağlanmaya istekli olduğunu sorabilirsin. Aşıklar, anlamlı seçimlerin nadiren kusursuzlukla ilgili olduğunu öne çıkarır. Bu seçimler kalbini ve muhakemeni aynı odaya getirip konuşmalarına izin vermekle ilgilidir.
+meaningReversed: |-
+  Ters geldiğinde Aşıklar, iki yöne çekildiğin hissini yansıtabilir. İstediğin şeyle istemen gerektiğini düşündüğün şey örtüşmüyor olabilir ya da yakın bir bağ, her biri bunu söylemeden farklı şeylere değer veren iki kişi yüzünden biraz akordu bozuk hissettirebilir.
+  Bu kart sürekli ertelenen bir karara da işaret edebilir; belki de bir seçeneği seçmek diğerini bırakmak anlamına geldiği için. Seçimden kaçmak kısa vadede daha kolay gelebilir ama sessizce enerji tüketir.
+  Her seçeneğin sana dürüstçe ne sunduğunu ve senden ne istediğini, hangi değerlerini desteklediğini yazmak isteyebilirsin. En çok kendin gibi hissettiğin yeri fark etmek yardımcı olabilir. Yeniden uyum çoğu zaman küçük ve dürüst bir itirafla başlar; önce kendine, sonra da doğru geliyorsa bir başkasına.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Aşıklar, ister romantik ister dostluk ya da aile bağı olsun, derin bir karşılıklı anlayışı ve birbirini seçmenin keyfini yansıtabilir. Gerçekten neye değer verdiğini paylaşmaya ve diğer kişinin neye değer verdiğini dinlemeye davet edebilir. Yakınlık, iki kişi de dürüst olabildiğinde ve yine de kabul gördüğünü hissettiğinde büyür.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, iki kişinin umutları ya da öncelikleri arasındaki bir boşluğa veya dile getirilmemiş duygulara işaret edebilir. Huzuru korumak için kendini fazla mı uyarladığını ya da birinin neye ihtiyaç duyduğunu tahmin etmesini mi beklediğini düşünebilirsin. Değerler üzerine açık ve nazik bir konuşma, ikinizin de nerede durduğunuzu görmenize yardım edebilir.
+  workUpright: >-
+    İşte ya da bir projede Aşıklar, iş birliğini ve değerlerine dayanan seçimleri öne çıkarır. İki kişinin de iyi yanlarını ortaya çıkaran bir ortaklığı ya da hangi yönü izleyeceğine dair bir kararı yansıtabilir. Hangi seçeneğin hem pratik hem de anlamlı geldiğini sorup seçiminde ikisinin de söz sahibi olmasına izin verebilirsin.
+  workReversed: >-
+    Ters geldiğinde Aşıklar, bir ortaklıktaki sürtüşmeyi ya da işinin önemsediğin şeylerle örtüşmediği hissini yansıtabilir. İki yol arasındaki bir seçimde duyulan tereddüde de işaret edebilir. Her yolun senden neler isteyeceğini listeleyip hangisine bunu vermeye daha istekli olduğunu fark edebilirsin.
+  growthUpright: >-
+    Kendi değerlerini daha net tanımak, bu kartın işaret ettiği iç çalışmadır. Senin için neyin önemli olduğunu anladığında seçimler başkalarını memnun etmekle değil, kendine sadık kalmakla ilgili hâle gelir. Üç değerini yazıp günlerine zaten nerede yön verdiklerini fark edebilirsin.
+  growthReversed: >-
+    Ters geldiğinde Aşıklar bir iç çatışmayı yansıtabilir: bir yanın değişim isterken öbür yanın rahatlık ister. İki yan da yanlış sayılmaz. Her birine kâğıt üzerinde ya da bir sohbette söz hakkı verip, kısmen de olsa ikisini de onurlandıran bir seçim olup olmadığını görebilirsin.
+reflectionQuestions:
+  - "Şu anda onurlandırmak için en önemli gelen değerin hangisi?"
+  - >-
+    Yakın bir ilişkide ne istediğin konusunda nerede biraz daha dürüst olabilirsin?
+  - "Hangi seçimi erteliyorsun ve onu yapmana ne yardımcı olurdu?"
+imageryNote: >-
+  Taro’nun Aşıkları, dar bir derenin iki yakasında durup derenin üzerinden el ele tutuşmaya uzanan iki figür olarak hayal edilir; herkesin kendini iki figürden birinde görebileceği şekilde çizilirler. Üstlerinde iki kuş aynı parlak gökyüzünde döner. Bir kıyıda meyve veren bir ağaç, öbüründe çiçek açmış bir sarmaşık büyür; iki farklı armağan ortada buluşur. Dere, gerçek bir bağın iki kişiden de istediği seçimi ve çabayı çağrıştırır.

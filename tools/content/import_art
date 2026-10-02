@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# tools/content/import_art: thin wrapper around tools/dart_tools/bin/import_art.dart
+# (Phase 18 Sprint 18.1). Needs cwebp (libwebp: brew install webp).
+# All options: tools/content/import_art --help
+set -euo pipefail
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec dart run "$repo_root/tools/dart_tools/bin/import_art.dart" --repo-root "$repo_root" "$@"

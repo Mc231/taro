@@ -1,0 +1,52 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "cups_04"
+reviewStatus: "machine"
+sourceHash: >-
+  d8ced58f335964daf5696c81a86fb58ae171f738c13968aee927ee90ab8b8e53
+name: "Vier der Kelche"
+keywordsUpright:
+  - "Besinnung"
+  - "Teilnahmslosigkeit"
+  - "Rückzug"
+  - "Neubewertung"
+  - "Wendung nach innen"
+keywordsReversed:
+  - "neues Interesse"
+  - "Angebote bemerken"
+  - "sich wieder einlassen"
+  - "Unruhe"
+  - "Gewohnheit des Neins"
+shortUpright: >-
+  Vielleicht bist du eine Weile nach innen gewandt; diese Karte lädt dich ein zu bemerken, was dir angeboten wird, während du nachdenkst.
+shortReversed: >-
+  Nach einer stillen Zeit kehrt vielleicht Interesse zurück; überlege, welche Einladung es jetzt wert ist, angenommen zu werden.
+meaningUpright: |-
+  Die Vier der Kelche zeigt oft eine Gestalt, die abseits sitzt und auf drei Kelche vor sich blickt, während ein vierter angeboten wird, vielleicht unbemerkt. Sie ist eine Karte des Innehaltens und inneren Abwägens. Etwas, das dich einmal zufrieden gemacht hat, hat vielleicht seinen Reiz verloren, und du bist dir noch nicht sicher, was es ersetzen könnte.
+  Das kann wie Langeweile mit einer Routine aussehen, wie ein flaches Gefühl nach dem Erreichen eines Ziels oder wie der Wunsch, dich eine Weile aus dem sozialen Leben zurückzuziehen. Es kann auch echte Besinnung sein: dir Zeit zu nehmen, um zu überlegen, was du willst, bevor du zu irgendetwas anderem Ja sagst.
+  Rückzug ist kein Versagen. Manchmal ist er gerade das, was ein müdes Herz braucht. Die Karte lädt dich nur ein, neugierig zu bleiben und dich nicht zu verschließen. Während du bei deinen Gedanken bist, könntest du ab und zu aufblicken und bemerken, was dir hingehalten wird. Ein Hilfsangebot, eine neue Idee oder eine kleine Freundlichkeit sind vielleicht näher, als es scheint, und du kannst frei entscheiden, ob es passt.
+meaningReversed: |-
+  Umgekehrt kann die Vier der Kelche einen Wendepunkt nach einer Zeit des Rückzugs spiegeln. Vielleicht fühlst du dich bereit, wieder aufzublicken, offen für Gespräche und Möglichkeiten, die vorher langweilig oder unerreichbar schienen. Neugier kann leise zurückkehren, zuerst als Unruhe, dann als Interesse.
+  Sie kann auch in die andere Richtung weisen: ein Rückzug, der länger gedauert hat, als er geholfen hat, und zur Gewohnheit des Neinsagens geworden ist. Vielleicht bemerkst du, ob du Einladungen aus echtem Bedürfnis ablehnst oder einfach aus Trägheit.
+  So oder so lädt diese Karte zu einem sanften Innehalten ein. Was, wenn überhaupt, hat begonnen, wieder deine Aufmerksamkeit zu wecken? Du musst nicht jedes Angebot annehmen, das kommt. Eine kleine Sache zu wählen, auf die du dich einlässt, und zu sehen, wie es sich anfühlt, kann genügen, um zu erfahren, wofür du jetzt bereit bist.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann die Vier der Kelche ein Bedürfnis nach Raum spiegeln oder das Gefühl, dass eine Verbindung zur Routine geworden ist. Sie kann dich einladen zu fragen, ob du Fürsorge übersiehst, die dir angeboten wird, etwa eine Geste, eine Frage oder eine Einladung. Du könntest einem nahen Menschen sagen, dass du Zeit zum Nachdenken brauchst, damit Abstand nicht für Desinteresse gehalten wird.
+  relationshipsReversed: >-
+    Umgekehrt kann diese Karte nahelegen, nach einer zurückgezogenen Zeit wieder Kontakt aufzunehmen. Vielleicht bist du eher bereit zu hören, was jemand dir sagen wollte, oder dich zuerst zu melden. Wenn du noch Raum brauchst, kann es die Verbindung schützen, das freundlich zu sagen. Kleine gemeinsame Momente, wie ein Spaziergang oder ein Essen, können ein angenehmer Weg zurück sein.
+  workUpright: >-
+    Bei der Arbeit kann diese Karte Unruhe spiegeln, das Gefühl, dass Aufgaben nicht mehr viel bedeuten, oder eine Pause, um die Richtung neu zu bewerten. Sie kann dich einladen, Gelegenheiten noch einmal anzusehen, die du schnell abgetan hast. Ein Gespräch, eine neue Verantwortung oder ein Kurs, den du übergangen hast, könnte einen zweiten Blick wert sein, auch wenn der Funke noch nicht da ist.
+  workReversed: >-
+    Umgekehrt kann die Karte auf zurückkehrende Motivation hinweisen oder auf die Bereitschaft, zu etwas Neuem Ja zu sagen. Vielleicht bemerkst du, welche Projekte dich wieder zu interessieren beginnen. Wenn du dich in einer Schleife des Ablehnens gefangen fühlst, könntest du eine kleine Zusage ausprobieren und danach überlegen, ob sie dir Energie gegeben oder genommen hat.
+  growthUpright: >-
+    Für dein persönliches Wachstum lädt die Vier der Kelche zu ehrlicher Besinnung darauf ein, was dich wirklich erfüllt. Du könntest die Dinge auflisten, die du aus Gewohnheit tust, und fragen, welche davon dir noch wichtig sind. Stille Zeit kann wertvoll sein, solange sie eine Wahl bleibt und kein Ort, an dem du dich festgefahren fühlst.
+  growthReversed: >-
+    Umgekehrt kann diese Karte spiegeln, dass du mit klareren Prioritäten aus einer nachdenklichen Zeit hervorgehst. Vielleicht bemerkst du, wie Dankbarkeit für Dinge zurückkehrt, die du für selbstverständlich gehalten hast. Es könnte helfen aufzuschreiben, was du in der Zeit des Rückzugs gelernt hast, damit die Einsicht bei dir bleibt, wenn das Leben wieder voller wird.
+reflectionQuestions:
+  - >-
+    Was hat in letzter Zeit seinen Reiz für dich verloren, und was könnte dir das sagen?
+  - >-
+    Was bietet dir jemand vielleicht an, das du noch nicht ganz bemerkt hast?
+  - >-
+    Zu welcher kleinen Einladung könntest du Ja sagen, nur um zu sehen, wie es sich anfühlt?
+imageryNote: >-
+  Das Bild zeigt eine sitzende Gestalt unter einem Baum oder an stillem Wasser, die Arme verschränkt, den Blick auf drei Kelche am Boden gesenkt. Ein vierter Kelch treibt mit einer Brise auf sie zu oder schwimmt auf der Wasseroberfläche, leicht zu übersehen. Gedämpfte Farben und eine geschlossene Haltung können Innerlichkeit und ein Bedürfnis nach Pause andeuten, während der angebotene Kelch einen Faden der Möglichkeit sichtbar hält.

@@ -188,8 +188,14 @@ class StoreLayout extends StatelessWidget {
             semanticsLabel: l10n.commonClose,
             onPressed: onClose,
           ),
-          const Spacer(),
-          ?balance,
+          // Expanded so a long translation wraps inside the pill instead of
+          // overflowing the bar (01 §12).
+          Expanded(
+            child: Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: balance,
+            ),
+          ),
         ],
       ),
     );

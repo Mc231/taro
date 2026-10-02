@@ -3,7 +3,7 @@ name: Nightly
 # 06 §4, §8; Phase 3 Sprint 3.4. Every night at 03:00 (Gitea evaluates cron
 # in the server's time zone): integration on the iOS simulator and the
 # Android emulator, the full golden run, npm audit, and a `dart pub outdated`
-# report. On Mondays (or with `weekly: true`): check_urls.py online, and the
+# report, and the install-size report (01 §16, 02 §17). On Mondays (or with `weekly: true`): check_urls.py online, and the
 # `eval:safety` against the staging provider keys (Phase 8 Sprint 8.6).
 
 on:
@@ -104,6 +104,78 @@ jobs:
             ${{ runner.temp }}/pub-outdated.txt
           if-no-files-found: ignore
           retention-days: 14
+
+  # Phase 18 Sprint 18.1 (01 §16, 02 §17): release builds of the prod flavor
+  # (Android: debug-signed AAB; iOS: --no-codesign Runner.app), then
+  # tools/check_install_size.py: iOS download <= 60 MB, each Android per-ABI
+  # split <= 40 MB. A build that fails is a warning and its platform is
+  # skipped; an over-budget build fails the job.
+  install-size:
+    name: Install size report
+    runs-on: macos
+    timeout-minutes: 75
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Isolate CI Gradle home
+        run: echo "GRADLE_USER_HOME=$HOME/.gradle-ci" >> "$GITHUB_ENV"
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: '17'
+
+      - name: Read pinned Flutter version (QA14)
+        id: flutter-pin
+        run: |
+          v=$(sed -n 's/^[[:space:]]*flutter:[[:space:]]*\([0-9][0-9.]*\)[[:space:]]*$/\1/p' pubspec.yaml | head -n 1)
+          if [ -z "$v" ]; then
+            echo "::error::environment.flutter is missing from the root pubspec.yaml (QA14)"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.flutter-pin.outputs.version }}
+          channel: stable
+          cache: true
+          pub-cache: false
+
+      - name: Bootstrap melos
+        run: |
+          ulimit -n 65536 || true
+          mv=$(awk '/^  melos:/{f=1} f && /^    version:/{gsub(/"/, "", $2); print $2; exit}' pubspec.lock)
+          dart pub global activate melos "${mv:?melos version not found in pubspec.lock}"
+          echo "${PUB_CACHE:-$HOME/.pub-cache}/bin" >> "$GITHUB_PATH"
+          "${PUB_CACHE:-$HOME/.pub-cache}/bin/melos" bootstrap
+
+      - name: Release builds (prod flavor, best effort)
+        working-directory: apps/taro
+        shell: bash
+        run: |
+          common=(--release --flavor prod -t lib/main_prod.dart --dart-define-from-file=config/prod.json)
+          flutter build appbundle "${common[@]}" \
+            || echo "::warning::flutter build appbundle failed; Android size skipped"
+          flutter build ios --no-codesign "${common[@]}" \
+            || echo "::warning::flutter build ios failed; iOS size skipped"
+
+      - name: Setup Python 3.12 venv (tools/)
+        run: |
+          py=$(command -v python3.12 || true)
+          if [ -z "$py" ]; then
+            echo "::error::python3.12 is not on the runner PATH (QA14)"
+            exit 1
+          fi
+          "$py" -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet --upgrade pip
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: check_install_size.py (iOS <= 60 MB, Android per-ABI <= 40 MB)
+        run: tools/.venv/bin/python tools/check_install_size.py --report "$GITHUB_STEP_SUMMARY"
 
   weekly:
     name: Weekly (Monday) - URLs + eval:safety

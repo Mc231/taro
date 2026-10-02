@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_01"
+reviewStatus: "machine"
+sourceHash: >-
+  fa92e5f43628834f25ff3f4740fa6b3275b23781f8f4724fc06f288336c936fe
+name: "Büyücü"
+keywordsUpright:
+  - "odaklanmış irade"
+  - "beceriklilik"
+  - "eylemdeki beceri"
+  - "net bir niyet"
+  - "hayata geçirmek"
+keywordsReversed:
+  - "kullanılmayan yetenek"
+  - "dağınık çaba"
+  - "kendinden şüphe"
+  - "kurnaz kestirmeler"
+  - "niyeti yeniden hizalamak"
+shortUpright: >-
+  İhtiyacın olanın sandığından fazlası zaten elinde olabilir; bu kart onunla ne yaratmak istediğini soruyor.
+shortReversed: >-
+  Araçların masada ama dikkatin başka yerde olabilir. Onu toparlamana ne yardımcı olur?
+meaningUpright: |-
+  Büyücü, bir fikri gerçek bir şeye dönüştürmenin kartıdır. Deli hiçbir plan yapmadan yola çıkarken Büyücü durur, elinin altındakilere bakar ve onları kullanmaya karar verir. Bir eli yukarı kalkmış, diğeri aşağıyı gösteren geleneksel görüntü, niyetle eylem, hayal ettiğinle bugün gerçekten yapabileceğin arasında bir köprüyü çağrıştırır.
+  Gündelik hayatta bu kart, bir planın sonunda bir tarih, ayrılmış bir zaman ya da ilk taslak kazandığı anı yansıtabilir. Kolayca yaptığın için gözden kaçırdığın becerilere işaret edebilir: bir şeyleri açıklama, küçük sorunları çözme ya da insanları bir araya getirme yeteneği. Buradaki beceriklilik, parçaların zaten masada olduğunu fark etmektir.
+  Bu kart, dikkatinin nereye gittiğini düşünmeye davet eder. Odaklanmak bir zanaattır; üzerinde çalışılabilir. Var etmek istediğin tek bir şeyin ne olduğunu ve elindeki araçlardan hangisinin onu bir adım yaklaştırabileceğini kendine sorabilirsin. Büyücü sonuç vaat etmez. Niyetle ortaya çıkmanın ve elindekini kullanmanın gücünü öne çıkarır.
+meaningReversed: |-
+  Ters geldiğinde Büyücü, var olan ama henüz kullanılmayan bir yeteneği yansıtabilir. Becerilere ve fikirlere sahip olsan da enerjinin pek çok yöne dağıldığını hissedebilir ya da katkının önemli olduğundan şüphe edebilirsin. Masa kurulmuş; eller ise henüz tam olarak hareket etmiyor.
+  Bu kart, biraz yön değiştirmiş bir zekâya da işaret edebilir: işin sıkıcı gelen kısmını atlamak için çekiciliği ya da hızlı konuşmayı kullanmak veya içten içe emin değilken dışarıya özgüvenli bir yüz göstermek. İkisi de ahlaki bir kusur sayılmaz. İkisi de niyetle eylemin birbirinden uzaklaştığının işaretleri olabilir.
+  Odağının nerede bölündüğüne bakmak isteyebilirsin. Küçük ve somut bir görev seçip onu bitirmek, kendi ellerine olan güvenini yeniden inşa edebilir. Kimse izlemiyor olsaydı neyi farklı yapacağını kendine sormak da yardımcı olabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Büyücü, açık ve doğrudan iletişimin gücünü yansıtabilir. Ne demek istediğini söylemeye ve sözlerinle uyumlu davranmaya davet edebilir. Bir bağın tonunu küçük ve bilinçli jestlerle ne kadar şekillendirebildiğini fark edebilirsin: düşünceli bir mesaj, sonuna kadar götürülen bir plan, dikkati dağılmadan verilen ilgi.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, yakın bir bağda sözlerle eylemlerin örtüşüp örtüşmediğini sorabilir; seninkilerin ya da diğer kişininkilerin. Gerçekte ne düşündüğünü saklamayı ya da sevileceğine inandığın bir versiyonunu sergilemeyi de yansıtabilir. Gerçek niyetlerini, emin olmadıkların da dahil, birinin görmesine izin verseydin ne değişirdi, bunu düşünebilirsin.
+  workUpright: >-
+    İşte ya da bir projede Büyücü, becerinin fırsatla buluşmasına işaret eder. Yeteneklerini, bağlantılarını ve kaynaklarını gözden geçirip onları tek ve net bir hedefe yöneltmeye davet edebilir. Bu, başlamanın, bir fikri sunmanın, bir prototip yapmanın ya da sonunda o teklifi yazmanın kartıdır. Burada her cevabı önceden bilmekten çok odak ve sebat önemlidir.
+  workReversed: >-
+    Ters geldiğinde Büyücü, yeterince kullanılmayan bir yeteneği ya da hiçbir şeyin tam yerine oturmadığı kadar ince dağılmış bir çabayı yansıtabilir. Abartma ya da işi baştan savma eğilimine de işaret edebilir. Şu anda hangi görevin enerjini gerçekten hak ettiğini ve önümüzdeki birkaç gün onun üzerinde dürüst ve istikrarlı çalışmanın nasıl görüneceğini sorabilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, kendi eylem gücünü tanımaya davet eder. Zaten sahip olduğun becerileri, alışkanlıkları ve destekleri listeleyip bunların önemsediğin bir şeye nasıl hizmet edebileceğini fark edebilirsin. Pratik, tekrar ve net niyet Büyücü’nün sessiz araçlarıdır; küçük günlük seçimler adım adım gerçek bir değişime dönüşebilir.
+  growthReversed: >-
+    Ters geldiğinde Büyücü, olabileceğini bildiğin kişiyle yaşadığın alışkanlıklar arasındaki boşluğu yansıtabilir. Kendinden şüphenin seni nerede izin beklemeye ittiğini sorabilir. Açıkça ve kusurlarıyla çalışacağın bir beceri seçip özgüvenin hazır hissetmeyi beklemekle değil, yapmakla nasıl büyüdüğünü fark edebilirsin.
+reflectionQuestions:
+  - "Hangi becerilerini olağan sayma eğilimindesin?"
+  - "Şu anda sözlerinle eylemlerin nerede tam örtüşmüyor?"
+  - "Elindekilerle bugün hangi niyetini eyleme dökebilirsin?"
+imageryNote: >-
+  Taro’nun Büyücüsü, şafak vakti bir kavşaktaki pazar tezgâhında, dört takım için dört mütevazı nesneyi düzenlerken hayal edilir: yeşil bir dal, toprak bir kupa, ekmek kesmek için bir bıçak ve tek bir sikke. Bir eli tezgâha uzanır, diğeri aydınlanan gökyüzünü işaret ederek fikirle eylemi birbirine bağlar. Nesneler arasında uzanan ışık iplikleri, ayrı araçları tek bir amaçta birleştiren dikkati çağrıştırır; yarım kalmış bir somun ise yaratma işinin daha yeni başladığını ima eder.

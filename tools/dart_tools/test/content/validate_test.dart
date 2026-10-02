@@ -633,6 +633,19 @@ void main() {
       expect(r.err, contains('missing: 107 de glossary names'));
     });
 
+    test('--launch-gate fails on machine content and implies strict', () {
+      final r = run(runContentValidate, repo, ['--launch-gate']);
+      expect(r.code, 1);
+      expect(r.err, contains('de/spreads.yaml: missing'));
+      expect(r.err, contains('launch gate: review.de is missing'));
+      expect(
+        r.err,
+        contains('en/cards: launch gate: 22 of 22 major cards not reviewed'),
+      );
+      expect(r.err, contains('of 56 minor cards not reviewed'));
+      expect(r.err, contains('0 of 56 minor long texts reviewed, at least 12'));
+    });
+
     test('--print-hashes prints en hashes', () {
       final r = run(runContentValidate, repo, ['--print-hashes']);
       expect(r.code, 0);
@@ -884,6 +897,49 @@ void main() {
       );
       expect(result.completeLocales, ['en', 'ar', 'ja']);
       expect(hasErrors(result.issues), isTrue);
+    });
+  });
+
+  group('launch gate', () {
+    test('passes when majors, short texts and a 20% sample are reviewed', () {
+      final repo = FixtureRepo.create(locales: kTargetLocales);
+      addTearDown(repo.dispose);
+      final minors = kCardIds.where((id) => arcanaOf(id) == 'minor').toList();
+      for (final l in kLocales) {
+        for (final id in kCardIds) {
+          repo.edit(repo.cardPath(l, id), (d) {
+            if (arcanaOf(id) == 'major' || minors.indexOf(id) < 12) {
+              d['reviewStatus'] = 'reviewed';
+            } else {
+              d['shortReviewStatus'] = 'reviewed';
+            }
+          });
+        }
+      }
+      final ok = run(runContentValidate, repo, ['--launch-gate']);
+      expect(ok.err, isEmpty);
+      expect(ok.code, 0);
+
+      repo.edit(
+        repo.cardPath('ja', minors.first),
+        (d) => d['reviewStatus'] = 'machine',
+      );
+      final short = run(runContentValidate, repo, ['--launch-gate']);
+      expect(short.code, 1);
+      expect(short.err, contains('ja/cards: launch gate: names, keywords'));
+      expect(short.err, contains('11 of 56 minor long texts reviewed'));
+    });
+
+    test('a bad shortReviewStatus is an error', () {
+      final repo = FixtureRepo.create();
+      addTearDown(repo.dispose);
+      repo.edit(
+        repo.cardPath('en', 'major_00'),
+        (d) => d['shortReviewStatus'] = 'done',
+      );
+      final r = run(runContentValidate, repo);
+      expect(r.code, 1);
+      expect(r.err, contains('shortReviewStatus must be one of'));
     });
   });
 

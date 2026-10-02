@@ -43,6 +43,7 @@ def repo(tmp_path: Path) -> Path:
         "tools/check_commit_msg.py",
         "tools/check_changelog.py",
         "tools/check_urls.py",
+        "tools/check_l10n.py",
         "tools/store_copy/check_store_copy.py",
         "tools/tests/check_not_a_check.py",
         "tools/dart_tools/bin/check_architecture.dart",
@@ -94,13 +95,15 @@ def test_full_runs_every_stage_in_order(repo: Path) -> None:
         "melos repo run analyze",
         "python repo tools/check_alpha.py",
         "python repo tools/check_changelog.py",
+        "python repo tools/check_l10n.py --strict-translations --require-all-locales",
         "python repo tools/check_urls.py --offline",
         "python repo tools/store_copy/check_store_copy.py",
         "dart repo run tools/dart_tools/bin/check_architecture.dart",
-        "dart repo run tools/dart_tools/bin/content_validate.dart",
+        "dart repo run tools/dart_tools/bin/content_validate.dart --strict-locales",
         "dart repo run tools/dart_tools/bin/content_build.dart --check",
         "dart repo run tools/dart_tools/bin/content_sync_check.dart",
         "dart repo run tools/dart_tools/bin/placeholder_art.dart --check",
+        "dart repo run tools/dart_tools/bin/import_art.dart --check",
         "gitleaks repo detect --no-banner",
         "npm worker run lint",
         "npm worker run typecheck",
@@ -173,7 +176,7 @@ def test_content_checks_are_skipped_without_the_content_tools(repo: Path) -> Non
     code, out, calls = _run(repo, "--fast")
     assert code == 0, out
     assert "skip  content (no tools/dart_tools/bin/content_validate.dart)" in out
-    assert not any("content_" in c or "placeholder_art" in c for c in calls)
+    assert not any("content_" in c or "_art" in c for c in calls)
 
 
 def test_a_failing_content_check_fails_the_run(repo: Path) -> None:
@@ -181,6 +184,7 @@ def test_a_failing_content_check_fails_the_run(repo: Path) -> None:
     assert code == 1
     assert "FAIL  content: sync_check" in out
     assert "ok    content: placeholder_art --check" in out
+    assert "ok    content: import_art --check" in out
 
 
 def test_help_and_bad_arguments(repo: Path) -> None:

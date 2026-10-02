@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_00"
+reviewStatus: "machine"
+sourceHash: >-
+  e3b77217bc24cc92fbc35d6ea971d1697a08dcd0440c88bde808d7629c085db4
+name: "Der Narr"
+keywordsUpright:
+  - "Neuanfang"
+  - "Neugier"
+  - "Offenheit"
+  - "Sprung ins Unbekannte"
+  - "Anfängergeist"
+keywordsReversed:
+  - "Zögern"
+  - "leichtfertiges Risiko"
+  - "Warten auf Bereitschaft"
+  - "zerstreuter Fokus"
+shortUpright: >-
+  Ein Schritt in etwas Neues, getragen mehr von Neugier als von Gewissheit.
+shortReversed: >-
+  Ein Innehalten am Rand: Ist es Vorsicht oder die Angst, dich lächerlich zu machen?
+meaningUpright: |-
+  Der Narr steht ganz am Anfang der Großen Arkana, mit der Zahl Null, noch bevor irgendeine Lektion gelernt ist. Er verkörpert die Energie von jemandem, der mit leichtem Gepäck und offenem Gesicht aufbricht und sich mehr dafür interessiert, was der Weg zeigen könnte, als dafür, wo er endet.
+  Im Alltag kann diese Karte die erste Woche an einem neuen Ort spiegeln, ein Hobby, das du ohne den Plan anfängst, es zu meistern, oder ein Gespräch, das du beginnst, ohne jede Zeile einzuüben. Sie kann auf einen Teil von dir hinweisen, der bereit ist, etwas zu wagen, während ein anderer Teil nach einer Sicherheit verlangt, die niemand bieten kann. Nicht zu wissen ist hier kein Makel; es ist einfach der Punkt, an dem jede Reise beginnt.
+  Diese Karte lädt dich ein zu überlegen, wo etwas mehr Leichtigkeit helfen könnte. Was würde sich ändern, wenn du dir erlaubst, wieder Anfängerin oder Anfänger zu sein, einfache Fragen zu stellen und durch Tun zu lernen? Der Narr verlangt nicht, dass du den gesunden Menschenverstand beiseitelässt. Er fragt, ob die Angst, etwas falsch zu machen, dich davon abhält, überhaupt einen Schritt zu gehen.
+meaningReversed: |-
+  Umgekehrt kann der Narr den Funken eines Neuanfangs zeigen, der noch nicht ganz übergesprungen ist. Vielleicht zieht dich etwas Neues an, während du gleichzeitig ganz still stehst, die Idee hin und her wendest und auf ein Zeichen wartest, dass es sicher ist, loszugehen. Manchmal ist dieses Warten klug; manchmal ist es unbemerkt zur Gewohnheit geworden.
+  Die Karte kann auch die entgegengesetzte Neigung spiegeln: Energie, die losstürmt, ohne hinzuschauen, die zu allem Ja sagt und kaum Raum lässt, um zu bemerken, wohin deine Füße treten. Beide Neigungen teilen eine Frage nach Bereitschaft und Vertrauen.
+  Vielleicht möchtest du dich fragen, welche davon dir gerade näher ist. Wenn du dich zurückhältst: Wie könntest du auf eine kleine Weise, bei der wenig auf dem Spiel steht, vorsichtig vorfühlen? Wenn du vorauseilst: Wie würde es aussehen, deine Begeisterung zu behalten und vor dem nächsten Sprung einen Moment innezuhalten?
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann der Narr eine verspielte, ungeschützte Seite spiegeln: jemandem ohne Drehbuch zu begegnen oder dich von einer vertrauten Verbindung neu überraschen zu lassen. Er kann dich einladen, den Menschen in deiner Nähe mit Neugier zu begegnen und Fragen zu stellen, deren Antworten du schon zu kennen glaubst. Offenheit ist hier keine Naivität; sie ist die Bereitschaft, präsent zu sein, ohne vorab festzulegen, wie es laufen soll.
+  relationshipsReversed: >-
+    Umgekehrt kann diese Karte auf Zögern hinweisen, jemanden an dich heranzulassen, oder darauf, dass du so schnell vorangehst, dass die andere Person kaum Schritt halten kann. Vielleicht bemerkst du, ob du dich schützt, indem du vage bleibst, oder ob du die langsameren Phasen des Kennenlernens überspringst. Ein behutsames Gespräch über das Tempo, deines und das der anderen Person, könnte euch beiden Raum geben.
+  workUpright: >-
+    Bei der Arbeit oder in einem Projekt kann der Narr den Beginn von etwas Unbekanntem spiegeln: eine neue Rolle, einen Kurs, eine kreative Idee ohne bisherige Erfolge. Er lädt dich ein, frühe Fehler als Information zu sehen, nicht als Urteil. Du könntest dich fragen, was du ausprobieren würdest, wenn der erste Versuch holprig sein dürfte, und wer dir helfen könnte, dich unterwegs einzuarbeiten.
+  workReversed: >-
+    Umgekehrt kann der Narr eine Idee spiegeln, die immer wieder verschoben wird, bis die Bedingungen perfekt erscheinen, oder einen Sprung, bei dem die Grundlagen nicht geprüft wurden. Du könntest überlegen, ob du mehr Informationen brauchst oder einfach mehr Mut. Den kleinstmöglichen ersten Schritt und eine praktische Absicherung aufzuschreiben, kann einen vagen Wunsch in etwas verwandeln, das du ausprobieren kannst, ohne alles darauf zu setzen.
+  growthUpright: >-
+    Für dein persönliches Wachstum feiert diese Karte den Anfängergeist. Sie kann dich einladen, etwas zu versuchen, bei dem du keinen Ruf zu verteidigen hast: eine neue Fähigkeit, einen anderen Heimweg, eine laut gestellte Frage. Wachstum entsteht hier dadurch, neugierig zu bleiben und dich überraschen zu lassen, nicht dadurch, beim ersten Versuch alles richtig zu machen.
+  growthReversed: >-
+    Umgekehrt kann der Narr fragen, ob die Angst, albern zu wirken, deine Welt kleiner werden lässt. Er kann auch eine Rastlosigkeit spiegeln, die von einer neuen Sache zur nächsten springt, ohne dass etwas Wurzeln schlagen kann. Vielleicht bemerkst du, welches Muster dir vertraut ist, und probierst eine Woche lang sein sanftes Gegenteil aus.
+reflectionQuestions:
+  - >-
+    Was würdest du ausprobieren, wenn du Anfängerin oder Anfänger sein dürftest?
+  - >-
+    Wer in deinem Leben macht es dir leichter, ein kleines Risiko einzugehen, und warum?
+  - >-
+    Welchen ersten Schritt mit wenig Risiko könntest du diese Woche gehen?
+imageryNote: >-
+  Der Narr von Taro steht am Rand einer Anhöhe, vor sich den offenen Himmel, mitten im Schritt, und trägt nur ein kleines Bündel. Ein kleines Tier an seinen Fersen kann für Instinkt stehen, verspielt oder warnend. Eine einzelne weiße Blume kann Unschuld und Offenheit andeuten, während der weite Horizont und das Morgenlicht von Möglichkeiten erzählen. Das nach oben gewandte Gesicht der Figur lädt dazu ein zu fragen, wohin sie blickt und was sie bewusst nicht mitnimmt.

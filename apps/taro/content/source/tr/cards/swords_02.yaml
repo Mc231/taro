@@ -1,0 +1,52 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_02"
+reviewStatus: "machine"
+sourceHash: >-
+  3d53373d8512e47710f4728995c228c46879dfc27d6fb78728edc22f7e6260ff
+name: "Kılıç İkilisi"
+keywordsUpright:
+  - "zor bir seçim"
+  - "çıkmaz"
+  - "seçenekleri tartmak"
+  - "korunan denge"
+  - "karar için durmak"
+keywordsReversed:
+  - "yüzeye çıkan bilgi"
+  - "gevşeyen kararsızlık"
+  - "kaçınma"
+  - "seçme baskısı"
+  - "gözleri açmak"
+shortUpright: >-
+  İki seçenek şimdilik birbirini dengeliyor; huzuru korumak için neyi gözden uzak tuttuğunu fark edebilirsin.
+shortReversed: >-
+  Duraklama sona eriyor olabilir; bakmaktan kaçındığın bir şey nazik ve dürüst bir bakış istiyor olabilir.
+meaningUpright: |-
+  Kılıç İkilisi iki yol arasında tutulan bir duruşu anlatır. Seçeneklerden hiçbiri açıkça doğru değildir; bu yüzden onları dengede tutar, kollarını kavuşturup beklersin. Bu, seçmeden önce nefes almak için akıllıca bir duraklama olabilir. Seçimi netleştirecek bir şeye bakmamanın bir yolu da olabilir.
+  Bu kartı sürekli ertelediğin bir kararda, taraf tutmamayı seçtiğin bir anlaşmazlıkta ya da henüz yüzleşmek istemediğin bir soru hakkında kendinle yaptığın bir ateşkeste tanıyabilirsin. Yüzeydeki sakinlik altında büyük bir çabayı gizleyebilir; iki ağır şeyi hareketsiz tutmak yorucudur.
+  Bu kart, bu durgunluğun neyi koruduğunu düşünmeye davet eder. Sana bilgi toplamak için zaman mı tanıyor, yoksa zaten sahip olduğun bilgiden mi uzak tutuyor? Her seçeneği, yalnızca ne düşündüğünü değil ne hissettiğini de dahil ederek açıkça adlandırmak isteyebilirsin. Bazen gizli bir duygunun gün ışığına çıkmasına izin verildiği anda denge değişir ve bir sonraki adımı atmak kolaylaşır.
+meaningReversed: |-
+  Ters geldiğinde Kılıç İkilisi gevşemeye başlayan bir çıkmazı yansıtabilir. Göz bağı kayar; hazır hissetsen de hissetmesen de kaçındığın bir şey görünür hâle geliyor olabilir. Bu bir rahatlama getirebilir; bir kenara koyduğun duyguların bir anda gelmesine de yol açabilir.
+  Bir başka okuma, dengenin çok az hareketten çok fazla baskıya kaymasıdır: düşünmeye zamanın olmadan başkalarının seni seçmeye zorlaması ya da yalnızca beklemenin rahatsızlığını bitirmek için aceleyle verilen bir karar.
+  Artık önceden bilmene izin vermediğin neyi bildiğini sorabilirsin. Atlamaya gerek yok; yeni manzarayı yavaşça içine sindirebilirsin. Tamamını görmene izin verdiğinde hangi seçim farklı görünüyor ve buradan düşünceli bir sonraki adım nasıl görünürdü?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart sessiz bir çıkmaza işaret edebilir: ortalığı sakin tutmak için bir konudan kaçınan iki kişi ya da başkaları arasında tarafsız kalmak için görüşünü saklayan sen. Bu şekilde korunan huzur kırılgan hissettirebilir. Dikkatli bir sessizliğin yerine nazik ve dürüst bir konuşmanın geçip geçemeyeceğini ve iki tarafı birden korumak zorunda olmasaydın ne söylemek isteyeceğini düşünebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde Kılıç İkilisi biten bir ateşkesi yansıtabilir. Bir kenara itilmiş duygular yüzeye çıkabilir ya da biri sonunda nerede durduğunu söylemeni isteyebilir. Bu rahatsız edici gelebilir ama daha fazla dürüstlüğe de yer açabilir. İçinde tuttuklarını bir anda değil, küçük ve net parçalar hâlinde paylaşmak isteyebilirsin.
+  workUpright: >-
+    İşte bu kart beklemeye alınmış bir kararı yansıtabilir: iki yaklaşım, zamanın için iki teklif ya da eşit derecede acil görünen iki öncelik. Daha fazla bilgiye ihtiyacın varsa beklemek mantıklı olabilir. Her seçeneğin senden ne isteyeceğini ve sana ne vereceğini listeleyip hangi listeden kaçındığını fark edebilirsin. Bu isteksizlik de faydalı bir bilgi olabilir.
+  workReversed: >-
+    Ters geldiğinde duran seçim, bazen bir son tarih ya da yeni bir ayrıntı soruyu zorladığı için yeniden hareketleniyor olabilir. Kendini aceleye getirilmiş hissedebilirsin. Bugün gerçekten karar verilmesi gerekenle biraz daha bekleyebilecek olanı ayırmak yardımcı olabilir. Bir bilgiden kaçınıyorsan ona doğrudan bakıp sana yol göstermesine izin vermenin zamanı olabilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç İkilisi, hareketsiz kalarak kendini zor duygulardan nasıl koruduğunu fark etmeye davet eder. Durgunluk dinlendirici olabilir; hissetmemenin bir yolu da olabilir. Her seçenekle birkaç dakika oturup akıl yürütmenin yanı sıra bedeninin tepkisine de dikkat etmeyi deneyebilirsin. İki tür bilme de önemlidir.
+  growthReversed: >-
+    Ters geldiğinde bu kart, kendine dürüst olmada bir dönüm noktasını yansıtabilir. Uzak tuttuğun bir şey artık sana daha yakın. Ona yargıyla değil merakla, kendi temponda yaklaşabilirsin. Gözlerini açmak hemen harekete geçmen gerektiği anlamına gelmez; karar vermeden önce net görmeyi seçtiğin anlamına gelir.
+reflectionQuestions:
+  - >-
+    Bir karar dengede kalabilsin diye neyi gözden uzak tutuyorsun?
+  - >-
+    İnsanlar arasında nerede dikkatli bir huzuru koruyorsun ve bu sana neye mal oluyor?
+  - >-
+    Bu hafta bakmana izin verebileceğin bir gerçek ya da duygu ne?
+imageryNote: >-
+  Özgün çizimde oturan bir figür, çapraz iki kılıcı göğsüne yakın tutar; gözlerinin üzerinde yumuşak bir bez vardır. Taşlarla bezeli sakin ve sığ bir suyun üzerinde alçakta soluk bir hilal asılıdır. Çapraz kılıçlar kapalı tutulan bir kapı gibi korunaklı bir biçim oluşturur. Durgun su ve gece ışığı yüzeyin altında dinlenen duyguları düşündürür; örtülü gözler ise henüz bakmamayı seçmeye işaret eder.

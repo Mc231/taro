@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_06"
+reviewStatus: "machine"
+sourceHash: >-
+  71c6770d9fb21e9d011257158cd20007ac8914571ae0a1cb7e8bf324f4c1524d
+name: "Sechs der Stäbe"
+keywordsUpright:
+  - "Anerkennung"
+  - "Selbstvertrauen"
+  - "sichtbarer Erfolg"
+  - "Ermutigung"
+  - "Stolz auf die Arbeit"
+keywordsReversed:
+  - "Suche nach Anerkennung"
+  - "unbemerkte Mühe"
+  - "Selbstzweifel"
+  - "stiller Erfolg"
+  - "Erfolg neu definieren"
+shortUpright: >-
+  Deine Mühe wird vielleicht bemerkt; erlaube dir, Anerkennung anzunehmen, und achte darauf, wer dir geholfen hat, hierherzukommen.
+shortReversed: >-
+  Anerkennung fehlt vielleicht oder befriedigt weniger als erhofft; du könntest fragen, was Erfolg für dich bedeutet, ganz nach deinen Maßstäben.
+meaningUpright: |-
+  Die Sechs der Stäbe ist eine Karte der Anerkennung. Nach der Reibung der Fünf reitet jemand mit einem Kranz am Stab voran, und die Menschen am Weg scheinen zu jubeln. Sie fängt den Moment ein, in dem Mühe sichtbar wird und andere sie würdigen.
+  Das kann gutes Feedback auf eine Arbeit sein, in die du viel gesteckt hast, eine Freundin oder ein Freund, die dir sagen, wie sehr sie bewundern, wie du etwas gemeistert hast, oder eine Herausforderung, die du abschließt, obwohl du einmal daran gezweifelt hast. Es kann auch eine stillere Art von Selbstvertrauen sein: ein wenig aufrechter zu stehen, weil du weißt, dass du es gut gemacht hast.
+  Diese Karte lädt dich ein, Wertschätzung anzunehmen, ohne sie beiseitezuschieben. Anerkennung kann beflügeln und dir Mut für den nächsten Schritt geben. Zugleich ist die Gestalt von Menschen umgeben, eine Erinnerung daran, dass wenige Erfolge ganz allein entstehen. Du könntest den Moment genießen und auch überlegen, wer dich unterstützt hat und wie du etwas von der Anerkennung teilen könntest.
+meaningReversed: |-
+  Umgekehrt kann die Sechs der Stäbe Mühe spiegeln, die unbemerkt geblieben ist, oder Lob, das dich nicht ganz erreicht. Vielleicht hast du etwas erreicht und hast trotzdem das Gefühl, dass es erst zählt, wenn jemand anderes es sagt. Sie kann auch auf Müdigkeit davon hinweisen, Selbstsicherheit vorzuführen, die du nicht ganz fühlst.
+  Manchmal beschreibt diese Karte umgekehrt einen stillen Erfolg, der dir viel bedeutet, auch wenn andere ihn nicht sehen. Auch diese Art von Fortschritt zählt.
+  Das könnte ein Moment sein, dir anzusehen, wie sehr dein Selbstwert von Beifall abhängt. Wie wäre es, deine eigene Mühe zuerst anzuerkennen? Du könntest aufschreiben, worauf du stolz bist, auch auf die Teile, die niemand sonst gesehen hat, und das zu einer beständigeren Quelle der Ermutigung machen als Zustimmung von außen.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann diese Karte Wertschätzung spiegeln, die in beide Richtungen fließt: stolz auf einen nahen Menschen zu sein oder dich von ihm gesehen und unterstützt zu fühlen. Sie kann dich einladen, die Erfolge des anderen laut zu feiern. Du könntest einer Freundin, einem Freund, einer Partnerin, einem Partner oder einem Familienmitglied sagen, was du an ihnen bewunderst, und dir erlauben, ihre Ermutigung anzunehmen.
+  relationshipsReversed: >-
+    Umgekehrt hast du vielleicht das Gefühl, dass deine Mühe in einer Beziehung unbemerkt bleibt oder dass Anerkennung zu einem stillen Wettbewerb geworden ist. Du könntest klar sagen, welche Art von Wertschätzung dir wichtig ist, und die andere Person dasselbe fragen. Kleiner, konkreter Dank kann die Stimmung oft mehr verändern als große Gesten.
+  workUpright: >-
+    Bei der Arbeit oder im Studium kann die Sechs der Stäbe auf sichtbare Ergebnisse hinweisen: positives Feedback, ein gut aufgenommenes Projekt, ein Moment, um zu präsentieren, was du geleistet hast. Du könntest dieses Selbstvertrauen nutzen, um deine Ideen offener zu teilen, und dabei die Menschen nennen, die beigetragen haben. Großzügig geteilte Anerkennung stärkt Teams meist.
+  workReversed: >-
+    Umgekehrt fühlen sich deine Beiträge vielleicht übersehen an, oder Erfolg hängt zu sehr davon ab, wie die Dinge von außen wirken. Du könntest deine Arbeit auf ruhige, sachliche Weise sichtbarer machen, etwa mit einer kurzen Zusammenfassung dessen, was du geliefert hast, und auch darüber nachdenken, welche Ergebnisse dir wichtig sind, egal wer sie bemerkt.
+  growthUpright: >-
+    Für dein persönliches Wachstum lädt diese Karte dich ein, dir zu erlauben, stolz zu sein. Deine Fortschritte anzuerkennen, kann Selbstvertrauen aufbauen, das dich in die nächste Herausforderung trägt. Du könntest eine kurze Liste von Dingen führen, die du kürzlich gut gemeistert hast, und an Tagen darauf zurückgreifen, an denen dein Selbstvertrauen dünner wirkt.
+  growthReversed: >-
+    Umgekehrt trüben Selbstzweifel oder ein Bedürfnis nach Zustimmung vielleicht dein Gefühl für das Erreichte. Du könntest erkunden, woher deine Vorstellung von Erfolg stammt und ob sie noch zu dir passt. Erfolg in deinen eigenen Worten zu definieren, kann Anerkennung von anderen zu einer schönen Zugabe machen, nicht zu etwas, von dem du abhängst.
+reflectionQuestions:
+  - >-
+    Was hast du kürzlich erreicht, das du noch nicht ganz anerkannt hast?
+  - >-
+    Wer hat dir unterwegs geholfen, und wie könntest du die Anerkennung mit ihnen teilen?
+  - "Wie sähe Erfolg aus, wenn niemand sonst zuschauen würde?"
+imageryNote: >-
+  Eine Gestalt reitet auf einem ruhigen Pferd durch eine kleine Menge und hält einen Stab, gekrönt von einem Blätterkranz. Weitere erhobene Stäbe säumen den Weg wie eine Ehrenwache. Der Kranz steht für Anerkennung, die durch Mühe verdient wurde, das ruhige Pferd für Selbstvertrauen, das geübt und nicht überstürzt ist, und die umstehenden Gestalten für die Gemeinschaft, die den Erfolg teilt und mitträgt.

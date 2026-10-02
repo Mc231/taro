@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "cups_04"
+reviewStatus: "machine"
+sourceHash: >-
+  d8ced58f335964daf5696c81a86fb58ae171f738c13968aee927ee90ab8b8e53
+name: "Kupa Dörtlüsü"
+keywordsUpright:
+  - "tefekkür"
+  - "ilgisizlik"
+  - "geri çekilme"
+  - "yeniden değerlendirme"
+  - "içe dönmek"
+keywordsReversed:
+  - "yenilenen ilgi"
+  - "sunulanı fark etmek"
+  - "yeniden katılmak"
+  - "huzursuzluk"
+  - "hayır deme alışkanlığı"
+shortUpright: >-
+  Bir süreliğine içe dönmüş olabilirsin; bu kart düşünürken sana neyin sunulduğunu fark etmeye davet ediyor.
+shortReversed: >-
+  Sessiz bir dönemin ardından ilgi geri dönüyor olabilir; şimdi hangi davetin kabul etmeye değer olduğunu düşün.
+meaningUpright: |-
+  Kupa Dörtlüsü çoğu zaman bir kenarda oturan, önündeki üç kupaya bakarken belki fark etmeden dördüncüsü kendisine uzatılan bir figürü gösterir. Bir duraklama ve içsel tartma kartıdır. Bir zamanlar seni doyuran bir şey tadını kaybetmiş olabilir ve onun yerine neyin geçeceğinden henüz emin değilsin.
+  Bu bir rutinden sıkılmak, bir hedefe ulaştıktan sonraki yavan his ya da bir süreliğine sosyal hayattan geri çekilme isteği gibi görünebilir. Gerçek bir tefekkür de olabilir: başka bir şeye evet demeden önce ne istediğini düşünmeye zaman ayırmak.
+  Geri çekilmek başarısızlık sayılmaz. Bazen yorgun bir kalbin tam da ihtiyaç duyduğu şeydir. Kart yalnızca kapanmak yerine meraklı kalmaya davet eder. Düşüncelerinle otururken arada bir başını kaldırıp sana neyin uzatıldığını fark edebilirsin. Bir yardım teklifi, yeni bir fikir ya da küçük bir incelik göründüğünden daha yakın olabilir ve sana uyup uymadığına karar vermekte özgürsün.
+meaningReversed: |-
+  Ters geldiğinde Kupa Dörtlüsü, bir geri çekilme döneminin ardından bir dönüm noktasını yansıtabilir. Yeniden başını kaldırmaya, daha önce sıkıcı ya da ulaşılmaz görünen konuşmalara ve olasılıklara açık olmaya hazır hissedebilirsin. Merak sessizce, önce bir huzursuzluk, sonra bir ilgi olarak geri dönebilir.
+  Öbür yöne de işaret edebilir: yardımcı olduğundan daha uzun sürmüş ve bir hayır deme alışkanlığına dönüşmüş bir geri çekilme. Davetleri gerçek bir ihtiyaçtan mı yoksa yalnızca ataletten mi geri çevirdiğini fark edebilirsin.
+  Her iki durumda da bu kart nazik bir yoklamaya davet eder. Dikkatini yeniden çekmeye başlayan bir şey var mı? Gelen her teklifi kabul etmek zorunda değilsin. Katılacağın küçük bir şey seçip nasıl hissettirdiğini görmek, şimdi neye hazır olduğunu öğrenmek için yeterli olabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Kupa Dörtlüsü bir alan ihtiyacını ya da bir bağın rutinleştiği hissini yansıtabilir. Bir jest, bir soru ya da bir davet gibi sunulan bir özeni gözden kaçırıp kaçırmadığını sormaya davet edebilir. Sana yakın birine düşünmek için zamana ihtiyacın olduğunu söyleyebilirsin; böylece mesafe ilgisizlik sanılmaz.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, içe kapanık bir dönemin ardından yeniden bağ kurmayı önerebilir. Birinin sana söylemeye çalıştığı şeyi duymaya ya da önce senin ulaşmaya daha istekli hissedebilirsin. Hâlâ alana ihtiyacın varsa bunu nazikçe söylemek bağı koruyabilir. Bir yürüyüş ya da bir yemek gibi küçük ortak anlar geri dönüş yolunu bulmanın rahat bir yolu olabilir.
+  workUpright: >-
+    İşte bu kart huzursuzluğu, görevlerin artık pek bir anlam taşımadığı hissini ya da yönü yeniden değerlendirmek için bir duraklamayı yansıtabilir. Çabucak geri çevirdiğin fırsatlara yeniden bakmaya davet edebilir. Bir konuşma, yeni bir sorumluluk ya da görmezden geldiğin bir kurs, kıvılcım henüz orada olmasa bile ikinci bir bakışa değer olabilir.
+  workReversed: >-
+    Ters geldiğinde kart geri dönen bir motivasyona ya da yeni bir şeye evet demeye hazır olmaya işaret edebilir. Hangi projelerin yeniden ilgini çekmeye başladığını fark edebilirsin. Geri çevirme döngüsüne takılmış hissediyorsan küçük bir taahhüt deneyip ardından sana enerji mi verdiğini yoksa enerjini mi aldığını düşünebilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından Kupa Dörtlüsü, seni gerçekten neyin doyurduğu üzerine dürüst bir düşünmeye davet eder. Alışkanlıktan yaptığın şeyleri listeleyip hangilerinin hâlâ önemli olduğunu sorabilirsin. Sessiz zaman, takılıp kaldığın bir yer değil bir seçim olarak kaldığı sürece değerli olabilir.
+  growthReversed: >-
+    Ters geldiğinde bu kart, daha net önceliklerle bir iç gözlem döneminden çıkmayı yansıtabilir. Bir zamanlar olağan saydığın şeylere duyduğun minnetin geri döndüğünü fark edebilirsin. Geri çekildiğin sırada öğrendiklerini yazmak, hayat yeniden yoğunlaştıkça bu içgörünün seninle kalmasına yardım edebilir.
+reflectionQuestions:
+  - >-
+    Son zamanlarda hangi şey çekiciliğini kaybetti ve bu sana ne söylüyor olabilir?
+  - "Biri sana tam olarak fark etmediğin neyi sunuyor olabilir?"
+  - >-
+    Yalnızca nasıl hissettirdiğini görmek için hangi küçük davete evet diyebilirsin?
+imageryNote: >-
+  Görsel, bir ağacın altında ya da durgun bir suyun kenarında, kollarını kavuşturmuş ve bakışlarını yerdeki üç kupaya indirmiş oturan bir figürü gösterir. Dördüncü bir kupa bir esintiyle ona doğru süzülür ya da suyun yüzeyinde yüzer; gözden kaçması kolaydır. Soluk renkler ve kapalı bir duruş içe dönüklüğü ve bir duraklama ihtiyacını çağrıştırabilir; uzatılan kupa ise bir olasılık ipliğini görünür tutar.

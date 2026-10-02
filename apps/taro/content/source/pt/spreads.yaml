@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Use uma carta quando quiser um ponto claro de reflexão para levar ao longo do dia, ou quando a pergunta for simples e você quiser um ponto de partida para refletir, sem um mapa detalhado. Também funciona bem quando o tempo é curto ou quando você está começando com as cartas.
+  three_ppf: >-
+    Use Passado, presente, futuro quando quiser ver como uma situação vem se desenvolvendo ao longo do tempo. Essa tiragem ajuda você a notar os padrões que trouxeram você até aqui, o que está ativo agora e para onde as coisas podem estar indo se nada mudar, para que você decida o que gostaria de manter ou mudar.
+  three_sao: >-
+    Use Situação, ação, resultado quando estiver diante de algo prático e quiser pensar no que poderia fazer a seguir. Essa tiragem olha para a situação como ela está, para uma abordagem que vale considerar e para aonde essa abordagem pode levar se você segui-la.
+  relationship: >-
+    Use a tiragem Relacionamento para refletir sobre qualquer vínculo próximo: alguém com quem você se relaciona, uma amizade, um familiar ou um colega de trabalho. Ela olha para o que você traz, como a outra pessoa pode estar vivendo as coisas, o que une vocês, o que pesa sobre o vínculo e no que ele pode se transformar. Ela descreve o seu olhar sobre o relacionamento, não os pensamentos da outra pessoa.
+  two_paths: >-
+    Use Dois caminhos quando estiver pesando uma escolha entre duas opções. Dê um nome a cada uma antes de tirar as cartas: Caminho A e Caminho B. A tiragem olha para a situação por trás da escolha, para o que cada caminho pode pedir de você e para aonde cada um pode levar, para que você os compare com seus próprios valores. A decisão continua sendo sua.
+  celtic_cross: >-
+    Use a Cruz Celta para uma situação complexa que você quer explorar a fundo. Suas dez posições olham para o centro da questão, o que a atravessa, suas raízes, os acontecimentos recentes e o que pode vir a seguir; depois para você, o que está ao seu redor, suas esperanças e medos, e para onde as coisas podem estar indo se nada mudar. Reserve um tempo para ler com calma.

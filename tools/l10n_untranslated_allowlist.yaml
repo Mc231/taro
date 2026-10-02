@@ -6,6 +6,8 @@
 # locales: {<locale>: [keys]} allowed in that locale only
 keys:
   - appTitle  # the brand "Taro", Latin script in every locale (05 §8.1 rule 4)
+  - launchSemantics  # S01 splash label = the brand "Taro" (05 §8.1 rule 4)
+  - settingsVersion  # "Taro {version} ({build})": brand plus numbers only
 locales:
   # Glossary terms (apps/taro/content/source/glossary.yaml) that are spelled
   # the same as in English.
@@ -13,15 +15,35 @@ locales:
     - spread_three_sao_pos_situation_name  # "Situation"
     - spread_two_paths_pos_situation_name  # "Situation"
     - cardElementLabel  # "Element"
+    - cardElementValue  # "Element: {element}"
+    - tabJournal  # glossary terms.journal de = "Journal"
+    - commonJournal  # "Journal" (glossary)
+    - journalTitle  # "Journal" (glossary)
+    - privacyTracking  # "Tracking", the iOS German Settings label
   fr:
     - tabJournal  # "Journal" is the French word too
     - spread_three_sao_pos_situation_name  # "Situation"
     - spread_three_sao_pos_action_name  # "Action"
     - spread_two_paths_pos_situation_name  # "Situation"
     - elementAir  # "Air"
+    - commonJournal  # "Journal" is the French word too
+    - journalTitle  # "Journal" is the French word too
+    - durationHoursMinutes  # "{hours} h {minutes} min": same unit symbols in French
   nl:
     - spread_single_pos_focus_name  # "Focus"
     - cardElementLabel  # "Element"
     - elementWater  # "Water"
+    - cardElementValue  # "Element: {element}"
+    - durationMinutes  # "{minutes} min": same unit symbol in Dutch
+    - commonPrivacy  # "Privacy" is the standard Dutch UI word
+    - legalDisclaimer  # "Disclaimer" is the standard Dutch legal label
+    - privacyTracking  # "Tracking", the iOS Dutch Settings label
   tr:
     - cardElementLabel  # "Element"
+  it:
+    - commonPrivacy  # "Privacy" is the standard Italian UI word
+    - durationHoursMinutes  # "{hours} h {minutes} min": same unit symbols in Italian
+    - durationMinutes  # "min" is the Italian abbreviation too
+  es:
+    - durationHoursMinutes  # "{hours} h {minutes} min": same unit symbols in Spanish
+    - durationMinutes  # "min" is the Spanish abbreviation too

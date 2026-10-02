@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_01"
+reviewStatus: "machine"
+sourceHash: >-
+  d44ff04d2580e8acbe11ca0f221cdd65baec075de66b9152cca034b362a1aa47
+name: "Kılıç Ası"
+keywordsUpright:
+  - "netlik"
+  - "yeni bir fikir"
+  - "dürüst gerçek"
+  - "karmaşayı yarmak"
+  - "taze bakış açısı"
+keywordsReversed:
+  - "bulanık düşünce"
+  - "aşırı düşünmek"
+  - "söylenmeyen sözler"
+  - "özensiz keskinlik"
+  - "netliği beklemek"
+shortUpright: >-
+  Net bir düşünce beliriyor; bir şeye açıkça ad verdiğinde neyin basitleştiğini fark edebilirsin.
+shortReversed: >-
+  Netlik yakın ama henüz tam ulaşılabilir olmayabilir; karar vermeden önce sisin durulmasına izin verecek zaman var.
+meaningUpright: |-
+  Kılıç Ası bir düşüncenin odağa geldiği andır. Bir süre süren gürültü ya da karışıklığın ardından tek bir fikir, boş bir sayfaya çizilmiş tek bir çizgi gibi berrakça öne çıkar. Bu kart, artık öncekinden daha net neyi gördüğünü ve bu netliğin neyi mümkün kıldığını düşünmeye davet eder.
+  Gündelik hayatta bu, haftalardır etrafında dolaştığın bir duygu için sonunda sözcükleri bulmak ya da karmaşık sandığın bir sorunun tek ve dürüst bir merkezi olduğunu fark etmek gibi görünebilir. Yeni bir planın başlangıcı, yüksek sesle sormaya hazır olduğun bir soru ya da artık lafı dolandırmadan dile getirebileceğin bir karar olabilir. Bazen yalnızca anlamanın verdiği rahatlamadır.
+  Net düşünmek bir araçtır ve her araç gibi özenle tutulduğunda iyi işler. Bu yeni netliği hem gerçeğe hem de onun dokunduğu insanlara saygı gösteren bir şekilde nasıl kullanabileceğini sorabilirsin. Basit olanı nazikçe söylemek ve tek bir net fikrin bir sonraki küçük adımına yol göstermesine izin vermek nasıl görünürdü?
+meaningReversed: |-
+  Ters geldiğinde Kılıç Ası, engellenmiş ya da gecikmiş bir netliği yansıtabilir. Fikir orada olabilir ama kayıp gidip durur ya da başka pek çok düşünceye dolanmış olarak gelir. Aynı tartışmayı kafanda prova ettiğini ya da bir mesajı göndermeden defalarca taslak hâline getirdiğini fark edebilirsin.
+  Bir başka okuma da özenini yitirmiş bir keskinliktir: duyulması zor olacak kadar sert söylenmiş bir gerçek ya da başka görüşleri dışarıda bırakan bir emin olma hâli. Netlik anlamak için değil kazanmak için kullanıldığında kırılganlaşabilir.
+  Bu kart, düşüncelerine biraz alan tanımaya davet eder. Bir şeyleri yazmak, yürüyüşe çıkmak ya da güvendiğin biriyle konuşmak sisin kendiliğinden incelmesine izin verebilir. Cevabın tamamına bugün ihtiyacın olmayabilir. Zaten bildiğin küçük şey ne ve oradan nasıl başlayabilirsin?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Kılıç Ası havayı temizleyen bir konuşmaya işaret edebilir. Sonunda neye ihtiyaç duyduğunu adlandırabilir ya da sana yakın birinin söylemeye çalıştığı şeyi duyabilirsin. Sıcaklıkla sunulan dürüstlük bir bağı daha hafif hissettirebilir. Gerçek bir duvar değil bir köprü olsun diye, net ama kesici olmayan sözcükler seçmek isteyebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart söylenmeden kalan ya da fazla keskin söylenen sözleri yansıtabilir. Belki her bir kişi diğerinin ne demek istediğini tahmin etmeye çalıştığı için bir yanlış anlama büyümüştür. Zor bir konuşmadan önce yavaşlamayı düşünebilirsin: diğer kişinin gerçekte neyi anlamasını istiyorsun ve onu duymasına ne yardım ederdi? Nazik bir soru keskin bir cevaptan daha fazlasını açabilir.
+  workUpright: >-
+    İşte ya da bir projede Kılıç Ası anlayışta bir atılımı işaretleyebilir: sonunda anlam kazanan bir sorun tanımı, temiz bir plan ya da denemeye değer yeni bir fikir. Fikri tazeyken yazıp onu keskinleştirmeye yardım edebilecek biriyle paylaşmak için iyi bir an olabilir. Hedef konusundaki netlik çoğu zaman sonraki adımları görmeyi kolaylaştırır.
+  workReversed: >-
+    Ters geldiğinde bu kart sisli hissettiren bir projeyi düşündürebilir: belirsiz hedefler, karışık mesajlar ya da aynı anda yarışan çok fazla fikir. Daha çok zorlamak geri çekilmek kadar yardımcı olmayabilir. Şu anda en önemli olan tek soruyu adlandırmayı ya da tahmin etmek yerine işin içindeki insanlardan netlik istemeyi deneyebilirsin. Bazen en net hamle neyin hâlâ bilinmediğini kabul etmektir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Ası, kendine anlattığın hikâyeleri fark etmeye ve onları gerçekte bildiklerinle sınamaya davet eder. Taze bir bakış açısı eski bir varsayımı gevşetebilir. Düşünceleri sade sözcüklerle yakalamanın bir yolu olarak günlük yazmayı keşfedebilirsin; böylece onların içinden değil, onlara bakabilirsin. Kendi zihnine duyduğun merak sessiz bir cesaret biçimi olabilir.
+  growthReversed: >-
+    Ters geldiğinde bu kart, meşgul ama ilerlemeyen, aynı endişeler ya da planlar arasında dönüp duran bir zihni yansıtabilir. Düşünmenin ne zaman aşırı düşünmeye dönüştüğünü fark edebilirsin. Dinlenmek, hareket etmek ya da ortam değiştirmek düşüncelerine durulmaları için alan verebilir. Netlik kendi temposunda toplanırken bir soruyu biraz daha uzun açık tutmak sorun değil.
+reflectionQuestions:
+  - "Bir ay önce sözcüklere dökemediğin neyi şimdi anlıyorsun?"
+  - >-
+    Net ve nazik bir cümle bir ilişkiyi nerede daha hafif hissettirebilir?
+  - "Solmadan önce yazmak istediğin fikir ne?"
+imageryNote: >-
+  Özgün çizimin merkezinde, aralanan bulutların arasından yükselen ve keskin kenarı ilk ışığı yakalayan tek bir dik kılıç vardır. Ucuna yakın asılı ince bir halka, net bir fikrin yol gösterici bir ilkeye dönüşebileceğini düşündürür. Çevresini düşüncenin ve nefesin elementi olan açık gökyüzü ve hareketli hava sarar. Hava, soğuk sabah havası gibi berrak ve uyanıktır; dağınık bir zihnin izleyeceği tek ve temiz bir çizgi bulduğu anı işaret eder.

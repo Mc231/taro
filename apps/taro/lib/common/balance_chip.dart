@@ -134,6 +134,50 @@ class BalanceChip extends ConsumerWidget {
   /// The S07 wording ("1 free reading today").
   final bool today;
 
+  /// Whether the chip for [view] fits on one line in a [TaroAppBar] that
+  /// has a leading button and no title, at the current width and text scale.
+  /// Long translations (`uk`, `fr`) move the chip into the body instead of
+  /// overflowing the bar (01 §12).
+  static bool fitsAppBar(
+    BuildContext context,
+    BalanceChipView view, {
+    bool today = false,
+  }) {
+    final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
+    final scaler = MediaQuery.textScalerOf(context);
+    final direction = Directionality.of(context);
+    final style = tokens.typography.label;
+    double measure(String text) {
+      final painter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textScaler: scaler,
+        textDirection: direction,
+        maxLines: 1,
+      )..layout();
+      final width = painter.width;
+      painter.dispose();
+      return width;
+    }
+
+    var width = 2 * tokens.space.s5 + measure(view.label(l10n, today: today));
+    width += switch (view.pillState) {
+      BalancePillState.free || BalancePillState.credits => 2 * tokens.space.s3,
+      BalancePillState.zero => 0,
+      BalancePillState.stale ||
+      BalancePillState.unverified => tokens.size.icon.sm + tokens.space.s3,
+    };
+    if (view.sync == BalanceChipSync.unavailable) {
+      width += 2 * tokens.space.s3 + measure(l10n.commonRetry);
+    }
+    final available =
+        MediaQuery.sizeOf(context).width -
+        2 * tokens.space.s2 -
+        tokens.size.touchTarget.min -
+        tokens.space.s2;
+    return width <= available;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = TaroLocalizations.of(context);

@@ -6,7 +6,7 @@ Taro can show App Review and Google Play that its deck is original
 art (D15), no Rider–Waite–Smith scans; 01 PR2). Card **names** are the generic,
 public-domain tarot names (`apps/taro/content/source/glossary.yaml`).
 
-**Status:** stub. The D15 art pipeline (owner, tool, target date for 78 cards +
+**Status:** template (Phase 18 Sprint 18.1: import tooling ready, art not delivered). The D15 art pipeline (owner, tool, target date for 78 cards +
 card back) is decided before Phase 18 (00_DECISIONS D15). Until then the app
 uses the generated typographic placeholder set.
 
@@ -31,16 +31,124 @@ Fill once D15 is decided and again as the art is delivered.
 - **Style references:** _TBD_. No published tarot deck (Rider–Waite–Smith, Thoth, Marseille or any modern deck) is used as an image input, trace or direct reference.
 - **`artSet` key:** _TBD_ (the value in `apps/taro/content/source/deck.yaml`)
 
+### Import
+
+The delivered files (one per art key: `<cardId>.png|jpg|jpeg|webp` and
+`back.<ext>`, portrait at `size.card.aspectRatio` 0.58 ± 2 %, at least 660 px
+wide) are imported with
+
+```bash
+tools/content/import_art --source <folder> --art-set <art_set>
+```
+
+It validates the set (78 + back, no strays, ratio, width), centre-crops to the
+exact ratio, writes lossy WebP with `cwebp` (libwebp, `brew install webp`) to
+`apps/taro/assets/deck/art/<art_set>/<artKey>.webp` (@2x, 440 × 759) and
+`3.0x/<artKey>.webp` (@3x, 660 × 1138), stepping the quality down from 90 to
+60 until each file is ≤ 150 KB (02 §17), and records sizes, qualities and the
+`cacheWidth` hints in `art_manifest.json`. It then sets `deck.yaml` `artSet`,
+adds the pubspec asset folder and runs `tools/content/build` (→
+`deck_meta.json` `artSet`). `tools/content/import_art --check` (CI) re-checks
+the bundled set. Keep the delivered originals outside the repo; record their
+location in the "Source file" column.
+
 ### Per-card record
 
-One row per file in the final art set (78 cards + card back). `imageryNote`
-texts in `apps/taro/content/source/en/cards/*.yaml` are rewritten against the
-delivered art (docs/content/STYLE_GUIDE.md §6).
+One row per art key (78 cards + card back); each covers both density files.
+`imageryNote` texts in `apps/taro/content/source/en/cards/*.yaml` are
+rewritten against the delivered art (docs/content/STYLE_GUIDE.md §6).
 
-| File | `cardId` | Creator | Method / tool (version) | Date delivered | Licence | Source file / reference | Checked by | Notes |
+| Art key | `cardId` / file stem | Creator | Method / tool (version) | Date delivered | Licence | Source file / reference | Checked by | Notes |
 |---|---|---|---|---|---|---|---|---|
-| `card_back.webp` | — | | | | | | | |
-| `major_00.webp` | `major_00` | | | | | | | |
+| `card_back` | `card_back` | | | | | | | |
+| `major_00` | `major_00` | | | | | | | |
+| `major_01` | `major_01` | | | | | | | |
+| `major_02` | `major_02` | | | | | | | |
+| `major_03` | `major_03` | | | | | | | |
+| `major_04` | `major_04` | | | | | | | |
+| `major_05` | `major_05` | | | | | | | |
+| `major_06` | `major_06` | | | | | | | |
+| `major_07` | `major_07` | | | | | | | |
+| `major_08` | `major_08` | | | | | | | |
+| `major_09` | `major_09` | | | | | | | |
+| `major_10` | `major_10` | | | | | | | |
+| `major_11` | `major_11` | | | | | | | |
+| `major_12` | `major_12` | | | | | | | |
+| `major_13` | `major_13` | | | | | | | |
+| `major_14` | `major_14` | | | | | | | |
+| `major_15` | `major_15` | | | | | | | |
+| `major_16` | `major_16` | | | | | | | |
+| `major_17` | `major_17` | | | | | | | |
+| `major_18` | `major_18` | | | | | | | |
+| `major_19` | `major_19` | | | | | | | |
+| `major_20` | `major_20` | | | | | | | |
+| `major_21` | `major_21` | | | | | | | |
+| `wands_01` | `wands_01` | | | | | | | |
+| `wands_02` | `wands_02` | | | | | | | |
+| `wands_03` | `wands_03` | | | | | | | |
+| `wands_04` | `wands_04` | | | | | | | |
+| `wands_05` | `wands_05` | | | | | | | |
+| `wands_06` | `wands_06` | | | | | | | |
+| `wands_07` | `wands_07` | | | | | | | |
+| `wands_08` | `wands_08` | | | | | | | |
+| `wands_09` | `wands_09` | | | | | | | |
+| `wands_10` | `wands_10` | | | | | | | |
+| `wands_11` | `wands_11` | | | | | | | |
+| `wands_12` | `wands_12` | | | | | | | |
+| `wands_13` | `wands_13` | | | | | | | |
+| `wands_14` | `wands_14` | | | | | | | |
+| `cups_01` | `cups_01` | | | | | | | |
+| `cups_02` | `cups_02` | | | | | | | |
+| `cups_03` | `cups_03` | | | | | | | |
+| `cups_04` | `cups_04` | | | | | | | |
+| `cups_05` | `cups_05` | | | | | | | |
+| `cups_06` | `cups_06` | | | | | | | |
+| `cups_07` | `cups_07` | | | | | | | |
+| `cups_08` | `cups_08` | | | | | | | |
+| `cups_09` | `cups_09` | | | | | | | |
+| `cups_10` | `cups_10` | | | | | | | |
+| `cups_11` | `cups_11` | | | | | | | |
+| `cups_12` | `cups_12` | | | | | | | |
+| `cups_13` | `cups_13` | | | | | | | |
+| `cups_14` | `cups_14` | | | | | | | |
+| `swords_01` | `swords_01` | | | | | | | |
+| `swords_02` | `swords_02` | | | | | | | |
+| `swords_03` | `swords_03` | | | | | | | |
+| `swords_04` | `swords_04` | | | | | | | |
+| `swords_05` | `swords_05` | | | | | | | |
+| `swords_06` | `swords_06` | | | | | | | |
+| `swords_07` | `swords_07` | | | | | | | |
+| `swords_08` | `swords_08` | | | | | | | |
+| `swords_09` | `swords_09` | | | | | | | |
+| `swords_10` | `swords_10` | | | | | | | |
+| `swords_11` | `swords_11` | | | | | | | |
+| `swords_12` | `swords_12` | | | | | | | |
+| `swords_13` | `swords_13` | | | | | | | |
+| `swords_14` | `swords_14` | | | | | | | |
+| `pentacles_01` | `pentacles_01` | | | | | | | |
+| `pentacles_02` | `pentacles_02` | | | | | | | |
+| `pentacles_03` | `pentacles_03` | | | | | | | |
+| `pentacles_04` | `pentacles_04` | | | | | | | |
+| `pentacles_05` | `pentacles_05` | | | | | | | |
+| `pentacles_06` | `pentacles_06` | | | | | | | |
+| `pentacles_07` | `pentacles_07` | | | | | | | |
+| `pentacles_08` | `pentacles_08` | | | | | | | |
+| `pentacles_09` | `pentacles_09` | | | | | | | |
+| `pentacles_10` | `pentacles_10` | | | | | | | |
+| `pentacles_11` | `pentacles_11` | | | | | | | |
+| `pentacles_12` | `pentacles_12` | | | | | | | |
+| `pentacles_13` | `pentacles_13` | | | | | | | |
+| `pentacles_14` | `pentacles_14` | | | | | | | |
+
+### Commercial-use confirmation
+
+To be signed off by the owner before the art set ships (05 §6.1, row 4.1 / 5.2):
+
+- [ ] The owner holds the rights listed above for every file in the table (assignment or exclusive licence), including commercial use in the paid app, in-app purchases, ads-supported builds, store listings, screenshots and marketing, worldwide and perpetual.
+- [ ] If a generative tool was used: its terms of service at the time of generation allow commercial use and grant the output to the owner; the tool, model version and terms date are recorded per row.
+- [ ] No file contains third-party trademarks, signatures, watermarks, or a scan, trace or close derivative of a published deck.
+- [ ] Death, Devil and Tower are symbolic rather than gory; nothing is child-oriented (05 §6.1).
+- [ ] Confirmed by: _name_, _date_.
 
 ## Review
 

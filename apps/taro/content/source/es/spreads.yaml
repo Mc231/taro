@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Usa una sola carta cuando quieras una pregunta clara que te acompañe durante el día, o cuando tu pregunta sea sencilla y busques un punto de partida para reflexionar, no un mapa detallado. También funciona bien cuando tienes poco tiempo o te estás iniciando con las cartas.
+  three_ppf: >-
+    Usa Pasado, presente, futuro cuando quieras ver cómo ha ido evolucionando una situación con el tiempo. Te ayuda a notar los patrones que te han traído hasta aquí, lo que está activo ahora y hacia dónde pueden ir las cosas si nada cambia, para que decidas qué te gustaría conservar o cambiar.
+  three_sao: >-
+    Usa Situación, acción, resultado cuando tengas delante algo práctico y quieras pensar en lo que podrías hacer a continuación. Observa la situación tal como está, un enfoque que vale la pena considerar y adónde podría llevarte ese enfoque si lo sigues.
+  relationship: >-
+    Usa la tirada Relación para reflexionar sobre cualquier vínculo cercano: una pareja, una amistad, un familiar o un compañero de trabajo. Observa lo que tú aportas, cómo puede estar viviendo las cosas la otra persona, lo que los une, lo que tensa el vínculo y en qué podría convertirse. Describe tu mirada sobre la relación, no los pensamientos de la otra persona.
+  two_paths: >-
+    Usa Dos caminos cuando estés sopesando una elección entre dos opciones. Ponles nombre antes de sacar las cartas: Camino A y Camino B. La tirada observa la situación que hay detrás de la elección, lo que cada camino podría pedirte y adónde podría llevar cada uno, para que puedas compararlos con tus propios valores. La decisión sigue siendo tuya.
+  celtic_cross: >-
+    Usa la Cruz celta para una situación compleja que quieras explorar a fondo. Sus diez posiciones observan el centro del asunto, lo que se le cruza, sus raíces, los hechos recientes y lo que puede venir después; luego, a ti, tu entorno, tus esperanzas y temores, y hacia dónde pueden ir las cosas si nada cambia. Date tiempo para leerla con calma.

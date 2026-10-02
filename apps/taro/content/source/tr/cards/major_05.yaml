@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_05"
+reviewStatus: "machine"
+sourceHash: >-
+  1ee4b99a254915f6c5a65bc678fc8fdfab0e0bdc29c4c0f91534e1ebe3d0adf1
+name: "Başrahip"
+keywordsUpright:
+  - "gelenek"
+  - "ortak değerler"
+  - "başkalarından öğrenmek"
+  - "mentorluk"
+  - "aidiyet"
+keywordsReversed:
+  - "alışılmışı sorgulamak"
+  - "kişisel inançlar"
+  - "aşılmış kurallar"
+  - "kendi yolunu bulmak"
+shortUpright: >-
+  Senden önce yürüyenlerin bıraktıklarında bir bilgelik olabilir. Şu anda hangi gelenek ya da öğretmen yardımcı olabilir?
+shortReversed: >-
+  Miras kalan bir kural artık uymuyor olabilir. Bu kart onu gerçekten değer verdiklerinle sınamaya davet ediyor.
+meaningUpright: |-
+  Başrahip, ortak bilginin kartıdır: bir topluluğun kuşaktan kuşağa aktardığı yapma biçimleri. Öğretmenleri, mentorları, kurumları, ritüelleri ve uygulama kurallarını, yani insanların birlikte öğrenmesine ve kendilerinden daha büyük bir şeye ait hissetmesine yardım eden her şeyi temsil edebilir.
+  Gündelik hayatta bu kart bir kursa katılmayı, ailede kuşaktan kuşağa geçen bir tarifi izlemeyi, deneyimli bir iş arkadaşından yol göstermesini istemeyi ya da bir dönüm noktasını tanıdık bir törenle kutlamayı yansıtabilir. Her şeyi tek başına icat etmek zorunda olmamanın rahatlığına işaret edebilir. Gelenekler pek çok insanın derslerini taşır ve içlerinde çoğu zaman sağduyu vardır.
+  Bu kart, neyi miras aldığını ve neyi seçtiğini düşünmeye davet eder. Hangi ortak değerlerin hayatına denge kattığını ve şu anda kimden öğrenebileceğini sorabilirsin. Başrahip körü körüne itaatle ilgili sayılmaz; bir biçimi iyi öğrenmenin değerini öne çıkarır, ister onu koru, ister uyarla, ister bir gün kendi sözlerinle aktar.
+meaningReversed: |-
+  Ters geldiğinde Başrahip, büyürken öğrendiğin kurallardan ya da beklentilerden giderek uzaklaştığını yansıtabilir. Bir zamanlar doğru gelen bir şey artık fazla dar görünebilir ya da bir senaryoyu inançtan çok alışkanlıkla izlediğini sezebilirsin.
+  Bu kart ters yöndeki eğilime de işaret edebilir: her geleneği öyle sert bir tavırla reddetmek ki hâlâ işe yarayabilecek olanı kaçırmak. Sorgulamak sağlıklıdır; tepkisel değil meraklı olduğunda genellikle daha iyi işler.
+  Ağır gelen bir beklentiye bakıp onun nereden geldiğini sormak isteyebilirsin. Hâlâ senin değerlerini mi yansıtıyor, yoksa başka birinin değerlerini mi? Kendi yolunu bulmak, sana hâlâ hizmet eden kısımları korumayı ve artık hizmet etmeyenleri saygıyla bırakmayı içerebilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Başrahip, ortak değerleri, bağlılıkları ve insanları bir arada tutan ritüelleri yansıtabilir: aile gelenekleri, yıldönümleri, haftalık telefon konuşmaları. Seninle yakın birinin neye inandığını ve buna nasıl değer verdiğinizi fark etmeye davet edebilir. Güvendiğin bir arkadaştan ya da büyüğünden gelen bir yol gösterme de şu anda yardımcı olabilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, bir ilişkiden beklenenle o ilişkideki insanlar için gerçekten doğru gelen arasındaki gerilime işaret edebilir. Durumuna uymayan dışarıdan normları izleyip izlemediğini düşünebilirsin. İkinizin de nasıl bir bağ istediğine dair dürüst bir konuşma, işleri kendi yolunuzla yapmanıza alan açabilir.
+  workUpright: >-
+    İşte ya da eğitimde Başrahip, bir zanaatı doğru öğrenmeyi, yerleşik yöntemlere saygı göstermeyi ve bir mentor bulmayı öne çıkarır. Bir kursa katılmak, bir yeterlilik kazanmak ya da deneyimli birinden işin inceliklerini göstermesini istemek için iyi bir zaman olabilir. Bir ekibin ya da kurumun parçası olmak, yapının yanı sıra destek de sunabilir.
+  workReversed: >-
+    Ters geldiğinde Başrahip, işlerin hep yapıldığı biçimden duyulan bir hayal kırıklığını ya da resmî yolun sana uymadığı hissini yansıtabilir. Hangi kuralların kaliteyi koruduğunu, hangilerinin yalnızca değişime direndiğini sorabilirsin. Daha iyi bir yaklaşımı sakin bir şekilde ve kanıtlarla önermek, sistemin etrafından dolaşmaktan daha etkili olabilir.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, senden önce gelenlerden öğrenmeye davet eder. Kitaplar, öğretmenler, topluluklar ve uygulamalar gelişimini destekleyen çerçeveler sunabilir. Sabırla çalışacağın bir disiplin ya da gelenek seçip onunla ne yapacağına karar vermeden önce sana neler sunduğunu fark edebilirsin.
+  growthReversed: >-
+    Ters geldiğinde Başrahip, kendi yol gösterici ilkelerini yazman için bir dürtü olabilir. Bir inancı ya da eski bir rolü aştığın bir anı yansıtabilir. Bugün gerçekten benimsediğin değerleri kendi sözlerinle listeleyip bunların sana öğretilenlerle nerede örtüştüğünü ve nerede nazikçe ayrıldığını fark edebilirsin.
+reflectionQuestions:
+  - "Hangi değerleri miras aldın ve hangilerini kendin seçtin?"
+  - >-
+    Sana önemli bir şey öğreten kim ve onun öğretme biçiminden ne öğrendin?
+  - "Bu hafta daha yakından incelemek istediğin beklenti ne?"
+imageryNote: >-
+  Taro’nun Başrahibi, sessiz bir avluda, yaşlı bir ağacın altındaki aşınmış taş bir bankta oturan bir öğretmen olarak hayal edilir; çevresinde farklı yaşlardan küçük bir dinleyici halkası vardır. Öğretmenin kuşağından sarkan ağır bir anahtar, çalışma ve pratikle aktarılan anlayışın simgesidir. Banktaki kitap yığını ve yukarıdaki kemerde asılı bir çan, ortak ritüeli ve öğrenmeyi çağrıştırır. Avlunun öbür ucundaki açık bir kapı, her öğretinin yeni bir yere götürebileceğini ima eder.

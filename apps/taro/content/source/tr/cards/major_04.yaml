@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_04"
+reviewStatus: "machine"
+sourceHash: >-
+  1660547d6dbfaf420232575fa596ca218732149798b3d91dd8791e626e817ed5
+name: "İmparator"
+keywordsUpright:
+  - "yapı"
+  - "istikrarlı liderlik"
+  - "sorumluluk"
+  - "net sınırlar"
+  - "koruma"
+keywordsReversed:
+  - "katılık"
+  - "kontrol"
+  - "sarsılan temeller"
+  - "yetkiyi geri almak"
+shortUpright: >-
+  Önemli olanın çevresine biraz yapı kurmanın ve seçimlerini sakince sahiplenmenin zamanı.
+shortReversed: >-
+  Bir zamanlar işe yarayan kurallar artık dar gelebilir. Daha şefkatli ve sağlam bir yapı nasıl görünürdü?
+meaningUpright: |-
+  İmparator sağlam bir koltukta oturur ve dosdoğru ileriye bakar. İmparatoriçe şeylerin büyümesine izin verirken bu kart onlara içinde büyüyebilecekleri bir çerçeve sunar: rutinler, anlaşmalar, bir çatı ve duvarlar. Bu, sorumluluk almanın, kendi hayatının kurallarının ne olduğuna karar verip onlara bağlı kalmanın enerjisidir.
+  Gündelik hayatta bu kart, zamanını planlamayı, bir proje için plan yazmayı ya da yoğun bir haftada başkalarının dayandığı sağlam kişi olmayı yansıtabilir. Kararlı ve sakin bir "hayır"ın değer verdiğin bir şeyi koruduğu anlara işaret edebilir. Buradaki yapı, kontrolün kendisi için değildir; sen ve çevrendekiler rahat nefes alabilesiniz diye yeterli istikrarı yaratmakla ilgilidir.
+  Bu kart, biraz daha düzenin nerede yardımcı olabileceğini düşünmeye davet eder. Hangi sınırların netleşmeye ihtiyacı olduğunu, hangi taahhütleri gerçekten sürdürmek istediğini ve güçle değil adaletle nasıl öncülük edebileceğini sorabilirsin. İmparator ayrıca kendi hayatın üzerindeki yetkinin, başkasının onu sana vermesini beklemeden adım adım sahiplenebileceğin bir şey olduğunu hatırlatır.
+meaningReversed: |-
+  Ters geldiğinde İmparator, fazla ağırlaşmış bir yapıyı yansıtabilir. Planlar katı kurallara dönüşebilir; güvenlik ihtiyacı ise kendinin ya da başkalarının her ayrıntısını kontrol etme ihtiyacına dönüşebilir. İşler tam ayarlandığı gibi gitmediğinde içinde bir rahatsızlık fark edebilirsin.
+  Bu kart tam tersine de işaret edebilir: biraz yapının yardımcı olacağı yerde yapı eksikliği ya da kuralları başkaları koyarken senin yalnızca uyduğun hissi. Her iki durumda da soru, sağlıklı yetki ve onun nerede durduğuyla ilgilidir.
+  Dengenin bozuk hissettirdiği bir alana bakmak isteyebilirsin. Fazla sıkıysa, önemli olanı kaybetmeden neyi gevşetebilirsin? Fazla gevşekse, hangi küçük rutin ya da sınır sana daha sağlam bir zemin verirdi? Yetkiyi geri almak tek ve net bir kararla başlayabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde İmparator güvenilirliği yansıtabilir: başkalarının güvenebileceği biri olmak ve senin için tutarlı biçimde orada olan insanlara değer vermek. İşleri nasıl paylaştığınız, planları nasıl yürüttüğünüz ya da birbirinizin zamanına nasıl saygı gösterdiğiniz gibi ortak anlaşmalar üzerine konuşmaya davet edebilir. Net sınırlar yakınlığı soğutmaz, daha güvenli hissettirebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, bir ilişkide koşulların çoğunu tek bir kişinin belirleyip belirlemediğini sorabilir. Her iki tarafta da kontrol, inatçılık ya da sessizce kural koyma örüntülerini fark edebilirsin. Her birinizin saygı gördüğünü hissetmek için neye ihtiyaç duyduğu üzerine sakin bir konuşma, bir yarışa dönüşmeden dengeyi yeniden kurmaya yardım edebilir.
+  workUpright: >-
+    İşte ya da bir projede İmparator, düzene ve sahiplenmeye işaret eder. Öncelikleri belirlemek, rolleri tanımlamak ya da günlük işi kolaylaştıran bir sistem kurmak için iyi bir an olabilir. Buradaki liderlik, resmî bir unvanın olsun ya da olmasın istikrar, adalet ve sözünün arkasında durmak gibi görünür.
+  workReversed: >-
+    Ters geldiğinde İmparator, aşırı katı hissettiren bir iş ortamını ya da stres altındayken her şeyi en ince ayrıntısına kadar yönetme eğilimini yansıtabilir. Otoriteyle ilgili bir hayal kırıklığına da işaret edebilir. Hangi kuralların gerçekten işe hizmet ettiğini ve nerede yapıcı bir şekilde daha fazla esneklik sunabileceğini ya da isteyebileceğini sorabilirsin.
+  growthUpright: >-
+    Sessiz bir gelişim biçimi, kendin için sağlam bir dayanak olmaktır. Rutinler, öz disiplin ve kendine verdiğin sözleri tutmak sessiz bir özgüven inşa edebilir. İstediğin hayatı destekleyen bir alışkanlık seçip ona basit ve güvenilir bir yapı verebilirsin.
+  growthReversed: >-
+    Ters geldiğinde İmparator, kendine karşı fazla mı katı yoksa yeterince katı değil mi olduğunu sorabilir. Sertleşen öz disiplin enerjini tüketebilir; hiç yapı olmaması ise seni boşlukta bırakabilir. Orta yolu arayabilirsin: seni tutacak kadar sağlam, içinde yaşanabilecek kadar yumuşak bir çerçeve.
+reflectionQuestions:
+  - >-
+    Hayatındaki hangi sınır daha açık ifade edilmekten fayda görürdü?
+  - >-
+    Nerede yetkin olduğunu hissediyorsun ve onu nerede başkasına bırakıyorsun?
+  - "Hangi rutin haftana daha sağlam bir biçim verebilir?"
+imageryNote: >-
+  Taro’nun İmparatoru, bir yamaca oyulmuş sağlam taş bir masada oturan bir figür olarak hayal edilir; önünde bir harita, bir ölçü çubuğu ve bir lamba özenle dizilmiştir. Arkadaki tarlaları kesen kuru taş duvarlar, taş taş elle örülmüş sınırları gösterir. Hemen ötede otlayan bir koç, Koç burcuna ve başlama dürtüsüne gönderme yapabilir. Sıcak kırmızılar canlılığı çağrıştırır; duvarlardan birinde açık bırakılmış küçük bir kapı ise sağlam yapıların yine de insanlara geçit verebileceğini ima eder.

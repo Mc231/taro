@@ -277,9 +277,11 @@ class QuestionLayout extends ConsumerWidget {
     final status = _statusCard(context);
     final notice = _notice(context);
     final balance = BalanceChip(today: true, onTap: onOpenOptions);
-    // At large text the chip leaves the bar for the body (01 §12).
+    // At large text, or when a long translation does not fit, the chip
+    // leaves the bar for the body (01 §12).
     final chipInBody =
-        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale ||
+        !BalanceChip.fitsAppBar(context, chip, today: true);
     return TaroScaffold(
       appBar: TaroAppBar(
         onLeading: onBack,

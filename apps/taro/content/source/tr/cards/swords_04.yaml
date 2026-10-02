@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_04"
+reviewStatus: "machine"
+sourceHash: >-
+  34013de7420fbcdb87e967acb20b237602aa47804b85df50fbf80a13adf4d8a6
+name: "Kılıç Dörtlüsü"
+keywordsUpright:
+  - "dinlenme"
+  - "toparlanma"
+  - "sessiz bir inziva"
+  - "dinginlik"
+  - "enerjiyi yenilemek"
+keywordsReversed:
+  - "huzursuzluk"
+  - "ertelenen dinlenme"
+  - "harekete dönmek"
+  - "tükenme işaretleri"
+  - "kaçış olarak durgunluk"
+shortUpright: >-
+  Bir duraklama işin bir parçasıdır; bir şeyleri bırakıp zihninin sessizleşmesine izin vermenin zamanı olabilir.
+shortReversed: >-
+  Dinlenme sürekli ertelenebilir ya da sessiz bir dönem bitmeye hazır olabilir; hangisinin doğru hissettirdiğini fark edebilirsin.
+meaningUpright: |-
+  Kılıç Dörtlüsü bilinçli bir dinlenmenin kartıdır. Kılıçlar kaldırılmıştır; kaybolmamış ya da kırılmamış, yalnızca bir süreliğine bir kenara konmuştur. Bir çabanın, bir çatışmanın ya da uzun süre yoğun düşünmenin ardından zihnin uzanacak bir yere ihtiyacı vardır.
+  Bu, plansız bir hafta sonu, ekransız bir akşam ya da yalnızca bir taahhüde daha hayır demek olarak ortaya çıkabilir. Zorlu bir şeyin ardından daha az yapmanın yapabileceğin en faydalı şey olduğu bir toparlanma dönemini yansıtabilir. Sessiz bir iç gözleme de işaret edebilir: dünyaya geri dönmeden önce düşüncelerini ayıklamak için yalnız geçirilen zaman.
+  Pek çok insan dinlenmeyi çalışmaktan daha zor bulur, çünkü durmak duyguların ve soruların yüzeye çıkmasına izin verir. Bu kart, dinlenmeyi hak edilmesi gereken bir ödül olarak değil, bir beceri olarak görmeye davet eder. Kısa bir süre bile olsa kendine gerçek bir dinginlik vermek nasıl görünürdü? Hangi tür duraklamaların seni tazelediğini, hangilerinin yalnızca dikkatini dağıttığını fark edebilirsin. Kendine gerçekten durma izni verdiğinde ardından dünyaya dönmek daha net hissettirebilir.
+meaningReversed: |-
+  Ters geldiğinde Kılıç Dörtlüsü sürekli ertelenen bir dinlenmeyi yansıtabilir. Kendine bir görev daha bitirince yavaşlayacağını söyleyerek yedek enerjiyle ilerliyor olabilirsin. Huzursuzluk, kafayı dağıtamamak ya da uyuduktan sonra bile yorgun hissetmek dinlemeye değer işaretler olabilir.
+  Bir başka okuma tam tersidir: yeterince sürmüş bir inziva ve harekete dönmeye yönelik nazik bir hazır olma hâli. Bir zamanlar seni yenileyen durgunluk artık bir kaçış gibi hissettirebilir ve dünyaya doğru küçük bir adım enerjini tüketmek yerine sana enerji getirebilir.
+  Bugün durumuna hangisinin uyduğunu sorabilirsin. Henüz vermediğin bir molaya mı ihtiyacın var, yoksa verdiğin bir moladan kalkmaya mı hazırsın? Her iki durumda da başkasının değil kendi temponu dinlemek bir sonraki adıma yol gösterebilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart bir duraklamaya davet edebilir: düşünmek için ayrı geçirilen zaman, hararetli bir konuya verilen ara ya da konuları konuşma gereği duymadan sessiz bir yoldaşlık. Alan, adı konduğunda ve üzerinde anlaşıldığında özenli olabilir. Sana yakın birine biraz dinlenmeye ihtiyacın olduğunu söyleyebilirsin; böylece sessizliğin bir geri çekilme olarak değil, yenilenme olarak anlaşılır.
+  relationshipsReversed: >-
+    Ters geldiğinde Kılıç Dörtlüsü mesafeye dönüşmüş bir duraklamayı ya da kimsenin nefes alacak alanı olmadığı bir ilişkiyi yansıtabilir. Sessiz bir dönemin ardından yeniden bağ kurma zamanının gelip gelmediğini ya da biraz alan istemen gerekip gerekmediğini düşünebilirsin. İki istek de nazikçe ve suçlamadan dile getirilebilir.
+  workUpright: >-
+    İşte bu kart planlı bir duraklamaya işaret edebilir: bir tatil, daha hafif bir hafta ya da zorlu bir projeyi bitirdikten sonra geri çekilmek. Dinlenme sürdürülebilir çabanın bir parçasıdır. Fikirlerin kendiliğinden durulabilmesi için programsız bir zamanı koruyabilirsin. Zorlarken bulamadığın çözüm çoğu zaman ona doğrudan bakmayı bıraktığında görünür hâle gelir.
+  workReversed: >-
+    Ters geldiğinde bu kart bitkinliğe rağmen çalışmayı ya da kafayı dağıtamamayı yansıtabilir. Dinlenmenin listede nerede sürekli aşağı kaydığını fark edebilirsin. Öte yandan bir aranın ardından taze bir bakış açısıyla geri dönmeye hazır olmayı da işaretleyebilir. Küçük ve yönetilebilir görevlerle başlamak kendini bunaltmadan yavaşça işe dönmene yardım edebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Dörtlüsü dinlendirici alışkanlıklar edinmeye davet eder: düzenli duraklamalar, sessiz sabahlar ya da doğada geçen zaman. Dinginlik düşüncelerine kendilerini düzenleme fırsatı verir. Birkaç dakika hiçbir şey yapmamayı deneyip neyin belirdiğini fark edebilirsin. Dinlenmek tembellik sayılmaz; enerjinin geri gelme yoludur.
+  growthReversed: >-
+    Ters geldiğinde bu kart durmaya direnen huzursuz bir zihni ya da sessizce bir saklanma yerine dönüşmüş bir inzivayı yansıtabilir. Kendine nazikçe sorabilirsin: bu duraklama sana hâlâ bir şey veriyor mu? Dinlenmek imkânsız geliyorsa kısa bir yürüyüş ya da daha yavaş bir nefes bir başlangıç olabilir. Harekete hazırsan yumuşakça başla.
+reflectionQuestions:
+  - >-
+    Hangi tür dinlenme yalnızca vakit doldurmak yerine seni gerçekten yeniliyor?
+  - "Hayatında sessiz bir gün istesen kim anlayışla karşılardı?"
+  - >-
+    Bu hafta dinginliğe yer açmak için hangi taahhüdü bir kenara koyabilirsin?
+imageryNote: >-
+  Özgün çizim, sessiz ve kemerli bir mekânda alçak bir taş bankta dinlenen bir figürü gösterir. Yukarıda duvarda üç kılıç sakince asılıdır, dördüncüsü bankın altında yatay durur; hepsi kaldırılmıştır. Küçük bir pencereden yumuşak bir ışık süzülür. Kapalı oda güvenli bir inzivayı, kaldırılmış kılıçlar şimdilik bir kenara konmuş düşünceleri, yumuşak ışık ise dışarıdaki dünyanın sabırla beklediğini ima eder.

@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_16"
+reviewStatus: "machine"
+sourceHash: >-
+  29820f2f024cac876af25a3e2beedd831bdcbf51e8325c8c49486235af9503a1
+name: "Kule"
+keywordsUpright:
+  - "ani değişim"
+  - "temizlenmek"
+  - "atılım"
+  - "sarsılan varsayımlar"
+  - "açığa çıkan gerçek"
+keywordsReversed:
+  - "altüst oluşu önlemek"
+  - "yavaş çözülme"
+  - "değişime direnmek"
+  - "yeniden inşa"
+shortUpright: >-
+  Çürük bir zemin üzerine kurulmuş bir şey kayıyor olabilir. Bu kart neyin taşımadığını fark etmeye davet ediyor.
+shortReversed: >-
+  Değişim bir anda değil, yavaşça geliyor olabilir. Neyi daha dürüst bir şekilde yeniden kurabilirsin?
+meaningUpright: |-
+  Kule, ani değişimin kartıdır. Sağlam görünen bir yapı sarsılır ve gizli olan görünür hâle gelir. Bu tedirgin edici hissettirebilir ama bu kart bir felaketten çok bir temizlenmeyle ilgilidir: gerçekte işlemeyen bir şeyin artık görmezden gelinemediği an. Dökülüp giden çoğu zaman sağlam bir zemine değil, varsayımlara dayanarak kurulmuş olandır.
+  Gündelik hayatta bu kart, planlarını değiştiren beklenmedik bir haberi, bir duruma bakışını altüst eden bir farkındalığı ya da kendine anlattığın eski bir hikâyenin artık anlam taşımadığı bir anı yansıtabilir. Rahatsız edici ama faydalı bir netlik anı ve işlerin tam olarak eskisi gibi olamayacağı hissini getirebilir.
+  Bu kart, bir sarsıntının sana ne gösteriyor olabileceğini düşünmeye davet eder. Hangi inançların ya da düzenlemelerin çürük temeller üzerinde durduğunu ve daha sağlam bir yapının nasıl görünebileceğini sorabilirsin. Kule, bir temizlenmenin ardından artık bildiklerini yansıtan bir şekilde yeniden inşa etmek için alan olduğunu öne çıkarır.
+meaningReversed: |-
+  Ters geldiğinde Kule, tek bir ani sarsıntı yerine yavaş bir çözülme olarak gerçekleşen bir değişimi yansıtabilir. Bir şeyin değişmesi gerektiğini sezip yine de daha büyük bir sarsıntıdan kaçınmayı umarak onu desteklemeye devam ediyor olabilirsin.
+  Bu kart büyük bir altüst oluşun ardından gelen döneme de işaret edebilir: tozun yatıştığı ve yeniden inşa çalışmasının başladığı zaman. Bu aşama, değişim anının kendisinden daha sessiz ve daha düşünceli olabilir.
+  Bir arada tuttuğun ve yeniden tasarlanmaya hazır olabilecek şeyin ne olduğunu sormak isteyebilirsin. Koşulların daha büyüğünü dayatmasını beklemek yerine şimdi küçük ve bilinçli bir değişiklik yapabilir misin? Zaten yeniden inşa ediyorsan, eskiden neyi korumak ve bu sefer neyi farklı yapmak istersin?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Kule, uzun süredir kaçınılan bir konuşmanın sonunda gerçekleşmesi ya da biri hakkındaki bir varsayımın altüst olması gibi ani ve dürüst bir anı yansıtabilir. Tedirgin edici gelebilir ama havayı temizleyebilir. Bu yeni netliğin neyi mümkün kıldığını ve senin ve başkalarının dengenizi bulmak için hangi desteğe ihtiyaç duyduğunu düşünebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, sessizce biriken bir gerginliğe ya da huzuru korumak için zor bir gerçekten kaçınmaya işaret edebilir. Bir şeye şimdi nazikçe ad vermenin ileride daha büyük bir kopuşu önleyip önleyemeyeceğini düşünebilirsin. Zor bir dönemin ardından daha dürüst bir zeminde yeniden kurulan bir bağı da yansıtabilir.
+  workUpright: >-
+    İşte ya da bir projede Kule, beklenmedik kaymaları öne çıkarır: senden uyum sağlamanı isteyen planlarda, yapılarda ya da önceliklerde bir değişiklik. Olağan yapma biçimini sarsan çığır açıcı bir fikri de yansıtabilir. Etkileyebileceğin şeye ve değişimin neye yer açtığına odaklanabilirsin.
+  workReversed: >-
+    Ters geldiğinde Kule, herkesin kırılgan olduğunu bildiği ama kimsenin ele almadığı bir projeyi ya da sistemi yansıtabilir. Planlı ve kademeli bir değişikliğin beklemekten daha nazik olup olmayacağını sorabilirsin. Bir sarsıntının ardından, daha sağlam bir şey tasarlama fırsatıyla birlikte yeniden inşa etmeye de işaret edebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, artık ayakta durmayan inançları bırakmaya davet eder. Ani bir içgörü insanın yönünü şaşırtabilir ama çoğu zaman gerçek bir ilerlemeye işaret eder. Artık neyi farklı gördüğünü ve bu yeni anlayışın seçimlerini nasıl şekillendirmesini istediğini yazabilirsin.
+  growthReversed: >-
+    Ters geldiğinde Kule, zaten başlamış bir iç değişime direnip direnmediğini sorabilir. Eski savunmaların nazik ve kademeli bir şekilde çözülmesini yansıtabilir. Bir süre tedirgin hissetmene izin verebilir ve daha sağlam bir zeminde yeniden inşa ederken sabırlı olabilirsin.
+reflectionQuestions:
+  - >-
+    Hayatındaki hangi inanç ya da düzen çürük bir zemine dayanıyor olabilir?
+  - >-
+    Hangi dürüst konuşma sana yakın biriyle aradaki havayı temizleyebilir?
+  - >-
+    Artık daha fazlasını bildiğine göre neyi farklı bir şekilde yeniden kurmak isterdin?
+imageryNote: >-
+  Taro’nun Kulesi, kayalık bir zirvede yükselen uzun ve dar bir taş kule olarak hayal edilir; fırtınalı bir gökyüzünden gelen ani bir ışık huzmesi kulenin tepesini kaldırır. Kıvılcımlar ya da küçük alevler rüzgârdaki tohumlar gibi saçılır ve serbest kalanın yeni başlangıçlar taşıyabileceğini düşündürür. Sahne, koyu bulutlara karşı parlayan bir aydınlanma anı olarak çizilir; odak kimseye zarar gelmesinde değil, temizlenme ve içgörüdedir.

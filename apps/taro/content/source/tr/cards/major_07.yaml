@@ -1,0 +1,48 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_07"
+reviewStatus: "machine"
+sourceHash: >-
+  67b499e34c85cc54dc6724d03cbf605394061b30ce925255d5dd8fcf239f0973
+name: "Savaş Arabası"
+keywordsUpright:
+  - "kararlılık"
+  - "yön"
+  - "öz denetim"
+  - "ileri doğru ivme"
+  - "zıtları birleştirmek"
+keywordsReversed:
+  - "kaybolan yön"
+  - "zorlamak"
+  - "çatışan çekimler"
+  - "dizginleri geri almak"
+shortUpright: >-
+  Farklı dürtülerini bir arada tutup tek bir yöne çevirdiğinde ilerlemek mümkün olur.
+shortReversed: >-
+  Enerjin aynı anda birkaç yöne çekiliyor olabilir. Dizginleri nerede nazikçe geri alabilirsin?
+meaningUpright: |-
+  Savaş Arabası, amaçla ilerlemenin kartıdır. Geleneksel görüntüsünde bir arabayı çeken, çoğu zaman farklı renklerde ve her biri kendi yoluna gitmek istiyormuş gibi görünen iki hayvan vardır. Sürücünün görevi onlarla savaşmak değil, onları birlikte yönlendirmektir. Bu kartın özü budur: iç gerilimi istikrarlı bir yöne dönüştürmek.
+  Gündelik hayatta bu kart, sonunda bir hedefe bağlanıp dikkat dağıtıcı şeylere rağmen onun peşinden gittiğin bir haftayı yansıtabilir: bir etkinlik için antrenman yapmak, büyük bir ödevi bitirmek, taşınmak ya da uzun zamandır sözünü ettiğin bir değişikliği yapmak. Birinin tamamen kazanmasına izin vermeden, hırs ile dinlenme ya da heyecan ile temkin gibi çatışan ihtiyaçları dengeleme disiplinine işaret edebilir.
+  Bu kart, nereye gitmek istediğini ve seni rotandan neyin çektiğini düşünmeye davet eder. Karışık duygularını fren gibi değil, yakıt gibi nasıl kullanabileceğini sorabilirsin. Savaş Arabası odağı ve iradeyi öne çıkarır; dümeni tutabilecek kadar kendini iyi tanımanın sessiz korumasını da.
+meaningReversed: |-
+  Ters geldiğinde Savaş Arabası, durmuş ya da dağılmış bir ivmeyi yansıtabilir. Meşgul hissedip yine de tam ilerlemiyor, çok fazla hedef arasında bölünüyor ya da hangi yönün gerçekten senin olduğundan emin olamıyor olabilirsin. Dizginler orada ama gevşek hissettirebilir.
+  Bu kart fazla zorlamaya da işaret edebilir: rotanın ayar istediğine dair işaretleri görmezden gelip yalnızca çabayla ilerlemeyi zorlamak. İrade tek başına seni uzağa götürebilir ama netlikle eşleşmediğinde yorulur.
+  Durup seni çeken güçlere ad vermek isteyebilirsin. Şu anda hangileri en önemli, hangileri bekleyebilir? Önümüzdeki günler için net bir yön seçmek ve diğerlerini bir süreliğine bırakmana izin vermek, sürücü koltuğunda yeniden dengede hissetmene yardım edebilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Savaş Arabası ortak bir yön duygusunu yansıtabilir: yoğun ya da zorlu bir dönemden birlikte geçmek, birbirinin hedeflerini desteklemek. İkinizin de nereye gittiğini ve birbirinize nasıl ayak uydurabileceğinizi konuşmaya davet edebilir. Buradaki bağlılık, istikrarlı çaba ve karşılıklı cesaretlendirme gibi görünür.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, farklı yönlere çeken iki kişiye ya da biri dümeni tutarken öbürünün sürüklendiğini hissettiği bir duruma işaret edebilir. İkiniz de hazır olmadan bir ilişkiyi bir hedefe doğru itip itmediğini düşünebilirsin. Varış noktası üzerinde anlaşmak için yavaşlamak gerginliği hafifletebilir.
+  workUpright: >-
+    İşte ya da bir projede Savaş Arabası, azmi ve odaklanmış çabayı öne çıkarır. Bir projeyi bitiş çizgisine taşımaya çalıştığın, sağlıklı bir şekilde rekabet ettiğin ya da bir ekibi birlikte ilerlettiğin bir dönemi yansıtabilir. Net bir hedef koyabilir, kaynaklarını toplayabilir ve kendine kendi seçtiğin gerçekçi bir zaman çizelgesi verebilirsin.
+  workReversed: >-
+    Ters geldiğinde Savaş Arabası, ivme kaybeden bir projeyi ya da net bir plan olmadan acele etme hissini yansıtabilir. Farklı insanlardan gelen çatışan önceliklere de işaret edebilir. Bir adım geri çekilip başarının gerçekte neye benzediğini netleştirebilir, hangi görevlerin seni ona yaklaştırdığına ve hangilerinin yalnızca meşgul tuttuğuna karar verebilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, kendine yön verme pratiğine davet eder. Ne istediğini bilmek ve farklı ruh hâllerini ve güdülerini bir arada tutmak bir beceridir. Anlamlı bir hedef seçip kendini nasıl rotada tuttuğunu fark edebilir, kat ettiğin her küçük yol parçasını kutlayabilirsin.
+  growthReversed: >-
+    Ters geldiğinde Savaş Arabası, kendini fazla mı zorladığını yoksa rotanı başkalarının mı belirlediğini sorabilir. Gittiğin yere gitmek için kendi nedenlerinle yeniden bağ kurmaya bir davet olabilir. Her sabah kendine bugün hangi yönün gerçekten senin olduğunu sorabilirsin.
+reflectionQuestions:
+  - "Şu anda hangi iki yanın seni farklı yönlere çekiyor?"
+  - "Yolda yanında kim var ve birbirinizi nasıl destekliyorsunuz?"
+  - "Önümüzdeki birkaç gün için hangi tek yöne bağlanabilirsin?"
+imageryNote: >-
+  Taro’nun Savaş Arabası, kıyı boyunca uzanan bir yolda küçük ve sağlam bir arabayı süren bir figür olarak hayal edilir; arabayı biri sakin, biri huzursuz, mizaçları birbirine zıt iki hayvan çeker. Sürücü dizginleri hafifçe tutar ve güçle değil dikkatle yönlendirir. Koltuğun üzerindeki deniz kabuğuna benzeyen tente Yengeç burcuna ve birinin güvenle ilerlemesini sağlayan korumaya gönderme yapabilir; açık yol ve uzaktaki liman ışıkları ise dayatılmamış, seçilmiş bir varış noktasını çağrıştırır.

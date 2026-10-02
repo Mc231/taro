@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Tirez une seule carte lorsque vous souhaitez une piste claire à garder en tête toute la journée, ou lorsqu’une question est simple et que vous cherchez un point de départ pour réfléchir, et non une carte détaillée. Ce tirage convient aussi quand le temps vous manque ou quand vous découvrez les cartes.
+  three_ppf: >-
+    Choisissez Passé, présent, futur lorsque vous voulez voir comment une situation a évolué au fil du temps. Ce tirage vous aide à remarquer les schémas à l’origine de la situation actuelle, ce qui est à l’œuvre maintenant, et la direction que les choses pourraient prendre si rien ne change, pour décider de ce que vous aimeriez garder ou changer.
+  three_sao: >-
+    Choisissez Situation, action, issue lorsque vous faites face à quelque chose de concret et souhaitez réfléchir à ce que vous pourriez faire ensuite. Ce tirage examine la situation telle qu’elle est, une approche à envisager, et là où cette approche pourrait mener si vous la suivez.
+  relationship: >-
+    Choisissez le tirage Relation pour réfléchir à n’importe quel lien proche : un partenaire, un ami, un membre de la famille ou un collègue. Il examine ce que vous y apportez, comment l’autre personne vit peut-être les choses, ce qui vous unit, ce qui met le lien à l’épreuve et ce qu’il pourrait devenir. Il décrit votre regard sur la relation, pas les pensées de l’autre personne.
+  two_paths: >-
+    Choisissez Deux chemins lorsque vous hésitez entre deux options. Nommez-les pour vous-même avant de tirer : Chemin A et Chemin B. Le tirage examine la situation derrière le choix, ce que chaque chemin pourrait vous demander et là où chacun pourrait mener, pour que vous puissiez les comparer à vos propres valeurs. La décision vous appartient.
+  celtic_cross: >-
+    Choisissez la Croix celtique pour explorer en profondeur une situation complexe. Ses dix positions examinent le cœur du sujet, ce qui le traverse, ses racines, les événements récents et ce qui pourrait suivre, puis vous-même, votre entourage, vos espoirs et vos craintes, et la direction que les choses pourraient prendre si rien ne change. Prenez le temps de le lire lentement.

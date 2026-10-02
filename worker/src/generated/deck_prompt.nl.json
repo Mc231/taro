@@ -1,0 +1,1436 @@
+{
+  "cards": {
+    "cups_01": {
+      "keywordsReversed": [
+        "ingehouden gevoelens",
+        "lege reserves",
+        "jezelf bijvullen",
+        "beschermd hart"
+      ],
+      "keywordsUpright": [
+        "open hart",
+        "nieuw gevoel",
+        "ontvankelijkheid",
+        "emotionele vernieuwing",
+        "mededogen"
+      ],
+      "name": "Aas van Kelken",
+      "shortReversed": "Je kelk moet misschien eerst gevuld worden voordat hij kan schenken; bedenk wat je vandaag stilletjes zou aanvullen.",
+      "shortUpright": "Er komt misschien een fris gevoel op; deze kaart nodigt je uit het binnen te laten en op te merken waar het naartoe wil stromen."
+    },
+    "cups_02": {
+      "keywordsReversed": [
+        "onevenwicht",
+        "miscommunicatie",
+        "vertrouwen herstellen",
+        "partner van jezelf zijn"
+      ],
+      "keywordsUpright": [
+        "wederzijdse verbinding",
+        "wederkerigheid",
+        "partnerschap",
+        "gedeeld respect",
+        "aantrekkingskracht"
+      ],
+      "name": "Twee van Kelken",
+      "shortReversed": "Iets tussen jou en een ander voelt misschien uit balans; bedenk waar ieder van jullie echt om vraagt.",
+      "shortUpright": "Een moment om op te merken waar zorg twee kanten op stroomt, en wat een band gelijkwaardig en levend laat voelen."
+    },
+    "cups_03": {
+      "keywordsReversed": [
+        "overdaad",
+        "je buitengesloten voelen",
+        "sociale vermoeidheid",
+        "uit elkaar groeien",
+        "je kring kiezen"
+      ],
+      "keywordsUpright": [
+        "vriendschap",
+        "viering",
+        "gemeenschap",
+        "gedeelde vreugde",
+        "erbij horen"
+      ],
+      "name": "Drie van Kelken",
+      "shortReversed": "Verbinding voelt nu misschien dun of vermoeiend; bedenk welke bijeenkomsten je voeden en welke alleen tijd vullen.",
+      "shortUpright": "Een moment om op te merken wie je vreugde deelt, en hoe jij die van hen kunt delen."
+    },
+    "cups_04": {
+      "keywordsReversed": [
+        "nieuwe interesse",
+        "aanbod opmerken",
+        "weer meedoen",
+        "rusteloosheid",
+        "gewoonte van nee zeggen"
+      ],
+      "keywordsUpright": [
+        "beschouwing",
+        "lusteloosheid",
+        "terugtrekking",
+        "herbezinning",
+        "naar binnen keren"
+      ],
+      "name": "Vier van Kelken",
+      "shortReversed": "Interesse keert misschien terug na een stille periode; bedenk welke uitnodiging het nu waard voelt om aan te nemen.",
+      "shortUpright": "Misschien ben je een tijdje naar binnen gekeerd; deze kaart nodigt je uit op te merken wat je wordt aangeboden terwijl je nadenkt."
+    },
+    "cups_05": {
+      "keywordsReversed": [
+        "aanvaarding",
+        "verder gaan",
+        "vergeving",
+        "vinden wat er blijft"
+      ],
+      "keywordsUpright": [
+        "teleurstelling",
+        "verdriet",
+        "spijt",
+        "gericht op verlies",
+        "rouw"
+      ],
+      "name": "Vijf van Kelken",
+      "shortReversed": "Het gewicht van een teleurstelling neemt misschien af; bedenk wat er bij je is gebleven en waar je je hierna naartoe wilt keren.",
+      "shortUpright": "Een verlies vult misschien je blik; deze kaart nodigt je uit eerlijk te rouwen en, na verloop van tijd, op te merken wat er nog staat."
+    },
+    "cups_06": {
+      "keywordsReversed": [
+        "vast in het verleden",
+        "geïdealiseerd verleden",
+        "verder gaan",
+        "oude verhalen bijwerken"
+      ],
+      "keywordsUpright": [
+        "nostalgie",
+        "jeugdherinneringen",
+        "onschuld",
+        "eenvoudige goedheid",
+        "weerzien"
+      ],
+      "name": "Zes van Kelken",
+      "shortReversed": "Het verleden trekt misschien harder dan anders; bedenk welke herinneringen je voeden en welke je weghouden van het heden.",
+      "shortUpright": "Een herinnering of een eenvoudige vriendelijkheid kan vandaag warmte brengen; deze kaart nodigt je uit op te merken wat het verleden je nog geeft."
+    },
+    "cups_07": {
+      "keywordsReversed": [
+        "helderheid",
+        "geaarde keuzes",
+        "focus",
+        "ontgoocheling",
+        "angst om te kiezen"
+      ],
+      "keywordsUpright": [
+        "veel opties",
+        "verbeelding",
+        "dagdromen",
+        "wensdenken",
+        "keuzes"
+      ],
+      "name": "Zeven van Kelken",
+      "shortReversed": "De mist van opties trekt misschien op; bedenk welke keuze nog echt voelt als de glans van het verbeelden verdwijnt.",
+      "shortUpright": "Veel mogelijkheden glinsteren misschien tegelijk; deze kaart nodigt je uit te genieten van het verbeelden en dan elke mogelijkheid goed te bekijken."
+    },
+    "cups_08": {
+      "keywordsReversed": [
+        "angst om te vertrekken",
+        "besluiteloosheid",
+        "blijven en doorzetten",
+        "doelloos dwalen"
+      ],
+      "keywordsUpright": [
+        "weggaan",
+        "zingeving zoeken",
+        "loslaten",
+        "innerlijke zoektocht",
+        "verder trekken"
+      ],
+      "name": "Acht van Kelken",
+      "shortReversed": "Misschien twijfel je tussen blijven en gaan; bedenk wat je zou moeten weten voordat je een van beide kiest.",
+      "shortUpright": "Iets vervult je misschien niet meer, ook al lijkt het compleet; deze kaart nodigt je uit op te merken waar je hart je nu naartoe trekt."
+    },
+    "cups_09": {
+      "keywordsReversed": [
+        "ontevredenheid",
+        "overdaad",
+        "hol succes",
+        "innerlijke vervulling"
+      ],
+      "keywordsUpright": [
+        "tevredenheid",
+        "voldoening",
+        "dankbaarheid",
+        "genieten",
+        "blij met wat je hebt"
+      ],
+      "name": "Negen van Kelken",
+      "shortReversed": "Iets ziet er misschien bevredigend uit zonder zo te voelen; bedenk wat je van binnenuit tevreden zou maken.",
+      "shortUpright": "Een moment om te genieten van wat al goed is, en op te merken hoeveel ervan je zelf hebt helpen ontstaan."
+    },
+    "cups_10": {
+      "keywordsReversed": [
+        "afstand",
+        "gespannen harmonie",
+        "geïdealiseerd beeld",
+        "nabijheid herstellen"
+      ],
+      "keywordsUpright": [
+        "emotionele vervulling",
+        "harmonie",
+        "erbij horen",
+        "thuis",
+        "gedeeld geluk"
+      ],
+      "name": "Tien van Kelken",
+      "shortReversed": "Harmonie voelt misschien gespannen of onbereikbaar; bedenk wat erbij horen voor jou zou betekenen, los van elk ideaalbeeld.",
+      "shortUpright": "Een moment om op te merken waar je je al thuis voelt, en wie je helpt het gevoel te hebben dat je erbij hoort."
+    },
+    "cups_11": {
+      "keywordsReversed": [
+        "emotioneel onvolwassen",
+        "creatieve blokkade",
+        "onzekerheid",
+        "nutteloos dagdromen",
+        "teer begin"
+      ],
+      "keywordsUpright": [
+        "nieuwsgierigheid",
+        "creatieve vonk",
+        "gevoeligheid",
+        "speelsheid",
+        "intuïtief duwtje"
+      ],
+      "name": "Schildknaap van Kelken",
+      "shortReversed": "Een teer gevoel verstopt zich misschien of wankelt; bedenk hoe je het veilig kunt maken om te uiten wat je voelt.",
+      "shortUpright": "Een speels gevoel of een klein creatief idee kan je verrassen; deze kaart nodigt je uit het met nieuwsgierigheid te ontmoeten."
+    },
+    "cups_12": {
+      "keywordsReversed": [
+        "wisselende stemming",
+        "onrealistische idealen",
+        "gebroken beloften",
+        "een droom aarden"
+      ],
+      "keywordsUpright": [
+        "romantiek",
+        "idealisme",
+        "je hart volgen",
+        "uitnodiging",
+        "charme"
+      ],
+      "name": "Ridder van Kelken",
+      "shortReversed": "Gevoelens lopen misschien voor op de werkelijkheid; bedenk welke beloften en dromen je echt kunt waarmaken.",
+      "shortUpright": "Een gemeend idee of een uitnodiging komt misschien op je af; deze kaart nodigt je uit met gratie te volgen waar je om geeft."
+    },
+    "cups_13": {
+      "keywordsReversed": [
+        "te veel geven",
+        "emotioneel overweldigd",
+        "grenzen nodig hebben",
+        "innerlijke zorg"
+      ],
+      "keywordsUpright": [
+        "mededogen",
+        "emotionele afstemming",
+        "intuïtie",
+        "rustige aanwezigheid",
+        "zorgzaamheid"
+      ],
+      "name": "Koningin van Kelken",
+      "shortReversed": "Misschien neem je meer op dan je kunt dragen; bedenk welke zorg en grenzen je zouden helpen je stabiel te voelen.",
+      "shortUpright": "Deze kaart nodigt je uit diep te luisteren, naar anderen en naar jezelf, met een rustige en meelevende aanwezigheid."
+    },
+    "cups_14": {
+      "keywordsReversed": [
+        "onderdrukte gevoelens",
+        "emotionele controle",
+        "wisselende stemming",
+        "stabiliteit vinden"
+      ],
+      "keywordsUpright": [
+        "emotionele balans",
+        "rustig leiderschap",
+        "diplomatie",
+        "volwassen zorg",
+        "wijsheid"
+      ],
+      "name": "Koning van Kelken",
+      "shortReversed": "Gevoelens worden misschien te stevig vastgehouden of stromen ongelijk over; bedenk wat je zou helpen ze met rust tegemoet te treden.",
+      "shortUpright": "Deze kaart nodigt je uit stabiel te blijven in sterke stromingen, en te leiden met zowel gevoel als helder denken."
+    },
+    "major_00": {
+      "keywordsReversed": [
+        "aarzeling",
+        "onbezonnen risico",
+        "wachten op zekerheid",
+        "versnipperde aandacht"
+      ],
+      "keywordsUpright": [
+        "frisse start",
+        "nieuwsgierigheid",
+        "openheid",
+        "sprong in het onbekende",
+        "beginnersgeest"
+      ],
+      "name": "De Dwaas",
+      "shortReversed": "Een pauze aan de rand: is het voorzichtigheid, of angst om dom over te komen?",
+      "shortUpright": "Een stap in iets nieuws, gezet met meer nieuwsgierigheid dan zekerheid."
+    },
+    "major_01": {
+      "keywordsReversed": [
+        "onbenut vermogen",
+        "versnipperde inzet",
+        "twijfel aan jezelf",
+        "slimme kortere wegen",
+        "intentie herijken"
+      ],
+      "keywordsUpright": [
+        "gerichte wil",
+        "vindingrijkheid",
+        "vaardigheid in actie",
+        "heldere intentie",
+        "iets werkelijk maken"
+      ],
+      "name": "De Magiër",
+      "shortReversed": "Je gereedschap ligt op tafel, maar je aandacht is misschien ergens anders. Wat zou helpen om die te verzamelen?",
+      "shortUpright": "Misschien heb je al meer in handen dan je denkt; deze kaart vraagt wat je daarmee wilt maken."
+    },
+    "major_02": {
+      "keywordsReversed": [
+        "genegeerd instinct",
+        "een druk hoofd",
+        "te lang bewaard geheim",
+        "terugkeren naar binnen"
+      ],
+      "keywordsUpright": [
+        "innerlijk weten",
+        "stilte",
+        "luisteren",
+        "het onuitgesprokene",
+        "geduld"
+      ],
+      "name": "De Hogepriesteres",
+      "shortReversed": "Lawaai van buiten overstemt misschien een zachtere stem in jou; een beetje stilte kan helpen.",
+      "shortUpright": "Een stille uitnodiging om te luisteren naar wat je al aanvoelt, maar nog niet in woorden hebt gevat."
+    },
+    "major_03": {
+      "keywordsReversed": [
+        "jezelf verwaarlozen",
+        "verstikkende zorg",
+        "creatieve blokkade",
+        "weer in je lichaam komen"
+      ],
+      "keywordsUpright": [
+        "zorg en koestering",
+        "overvloed",
+        "creativiteit",
+        "zintuiglijk comfort",
+        "groei"
+      ],
+      "name": "De Keizerin",
+      "shortReversed": "Je zorg stroomt misschien naar buiten terwijl je eigen bron opdroogt. Waar kan een deel ervan naar jou terugkeren?",
+      "shortUpright": "Er groeit iets, in jou of om je heen. Deze kaart nodigt je uit het met geduld en warmte te verzorgen."
+    },
+    "major_04": {
+      "keywordsReversed": [
+        "starheid",
+        "controle",
+        "wankel fundament",
+        "gezag terugnemen"
+      ],
+      "keywordsUpright": [
+        "structuur",
+        "rustig leiderschap",
+        "verantwoordelijkheid",
+        "heldere grenzen",
+        "bescherming"
+      ],
+      "name": "De Keizer",
+      "shortReversed": "Regels die ooit hielpen, voelen nu misschien knellend. Hoe zou een vriendelijkere, stevigere structuur eruitzien?",
+      "shortUpright": "Een tijd om wat structuur te bouwen rond wat ertoe doet, en rustig verantwoordelijkheid te nemen voor je keuzes."
+    },
+    "major_05": {
+      "keywordsReversed": [
+        "conventies bevragen",
+        "eigen overtuigingen",
+        "ontgroeide regels",
+        "je eigen weg vinden"
+      ],
+      "keywordsUpright": [
+        "traditie",
+        "gedeelde waarden",
+        "leren van anderen",
+        "mentorschap",
+        "erbij horen"
+      ],
+      "name": "De Hiërofant",
+      "shortReversed": "Een geërfde regel past misschien niet meer. Deze kaart nodigt je uit hem te toetsen aan wat je echt belangrijk vindt.",
+      "shortUpright": "Er kan wijsheid liggen in wat anderen al voor je hebben bewandeld. Welke traditie of leraar kan nu helpen?"
+    },
+    "major_06": {
+      "keywordsReversed": [
+        "innerlijk conflict",
+        "niet op één lijn",
+        "ontweken beslissing",
+        "terug naar je waarden"
+      ],
+      "keywordsUpright": [
+        "verbinding",
+        "betekenisvolle keuze",
+        "waarden op één lijn",
+        "eerlijkheid",
+        "wederzijds respect"
+      ],
+      "name": "De Geliefden",
+      "shortReversed": "Een deel van jou wil misschien het een en een ander deel het ander. Deze kaart nodigt je uit naar beide te luisteren voor je kiest.",
+      "shortUpright": "Een keuze gemaakt met hart en hoofd samen, in lijn met wat je echt belangrijk vindt."
+    },
+    "major_07": {
+      "keywordsReversed": [
+        "richting kwijt",
+        "forceren",
+        "tegenstrijdige krachten",
+        "de teugels terugnemen"
+      ],
+      "keywordsUpright": [
+        "vastberadenheid",
+        "richting",
+        "zelfbeheersing",
+        "voorwaartse vaart",
+        "tegenpolen bundelen"
+      ],
+      "name": "De Zegewagen",
+      "shortReversed": "Je energie trekt misschien tegelijk verschillende kanten op. Waar zou je rustig de teugels terug kunnen nemen?",
+      "shortUpright": "Vooruitgang is mogelijk als je je verschillende drijfveren samenhoudt en ze één kant op richt."
+    },
+    "major_08": {
+      "keywordsReversed": [
+        "twijfel aan jezelf",
+        "geduld op",
+        "harde innerlijke stem",
+        "moed herwinnen"
+      ],
+      "keywordsUpright": [
+        "zachte moed",
+        "geduld",
+        "mededogen",
+        "innerlijke rust",
+        "stil zelfvertrouwen"
+      ],
+      "name": "Kracht",
+      "shortReversed": "Je innerlijke rust voelt nu misschien dun. Mildheid voor jezelf kan een sterk beginpunt zijn.",
+      "shortUpright": "Moed hoeft niet altijd te brullen. Soms ziet ze eruit als geduld, vriendelijkheid en bij iets moeilijks blijven."
+    },
+    "major_09": {
+      "keywordsReversed": [
+        "isolement",
+        "reflectie vermijden",
+        "verzonken in gedachten",
+        "terug naar anderen"
+      ],
+      "keywordsUpright": [
+        "alleen zijn",
+        "reflectie",
+        "innerlijk kompas",
+        "zoeken",
+        "wijsheid uit stilte"
+      ],
+      "name": "De Kluizenaar",
+      "shortReversed": "Alleen zijn is misschien doorgeslagen naar isolement, of naar het helemaal vermijden van stilte. Welke balans voelt goed?",
+      "shortUpright": "Een beetje tijd voor jezelf kan je helpen je eigen gedachten helderder te horen."
+    },
+    "major_10": {
+      "keywordsReversed": [
+        "verzet tegen verandering",
+        "vastzitten",
+        "herhalende patronen",
+        "weer vaste grond vinden"
+      ],
+      "keywordsUpright": [
+        "cycli",
+        "verandering",
+        "keerpunten",
+        "aanpassingsvermogen",
+        "perspectief"
+      ],
+      "name": "Het Rad van Fortuin",
+      "shortReversed": "Een vertrouwd patroon komt misschien weer langs. Wat zou je deze keer anders kunnen doen?",
+      "shortUpright": "Er draait iets. Deze kaart nodigt je uit de cyclus op te merken waarin je zit en hoe je erin mee wilt bewegen."
+    },
+    "major_11": {
+      "keywordsReversed": [
+        "onevenwicht",
+        "verantwoording ontlopen",
+        "zelfveroordeling",
+        "eerlijkheid zoeken"
+      ],
+      "keywordsUpright": [
+        "eerlijkheid",
+        "oprechtheid",
+        "verantwoording",
+        "helder oordeel",
+        "oorzaak en gevolg"
+      ],
+      "name": "Gerechtigheid",
+      "shortReversed": "Iets voelt misschien uit balans. Deze kaart nodigt je uit er helder naar te kijken, ook naar je eigen aandeel.",
+      "shortUpright": "Een moment om dingen eerlijk af te wegen en zo te handelen dat je het later met een goed gevoel kunt uitleggen."
+    },
+    "major_12": {
+      "keywordsReversed": [
+        "blijven hangen",
+        "verzet tegen de pauze",
+        "besluiteloosheid",
+        "klaar om te bewegen"
+      ],
+      "keywordsUpright": [
+        "pauze",
+        "overgave",
+        "nieuw perspectief",
+        "loslaten",
+        "bewust wachten"
+      ],
+      "name": "De Gehangene",
+      "shortReversed": "Wachten is misschien uitstellen geworden. Wat zou je helpen kiezen tussen stil blijven staan en bewegen?",
+      "shortUpright": "Een pauze, gekozen of niet, kan een uitzicht bieden dat je nooit zou zien als je vooruit raast."
+    },
+    "major_13": {
+      "keywordsReversed": [
+        "vasthouden",
+        "verzet tegen verandering",
+        "slepende afsluitingen",
+        "trage overgang"
+      ],
+      "keywordsUpright": [
+        "afsluitingen",
+        "transformatie",
+        "ruimte maken",
+        "een hoofdstuk afsluiten",
+        "loslaten"
+      ],
+      "name": "De Dood",
+      "shortReversed": "Iets is misschien klaar om te eindigen, terwijl een deel van jou vasthoudt. Wat zou je helpen je greep te verslappen?",
+      "shortUpright": "Een fase sluit zich misschien. Deze kaart nodigt je uit op te merken wat er eindigt en welke ruimte het achterlaat."
+    },
+    "major_14": {
+      "keywordsReversed": [
+        "overdaad",
+        "onevenwicht",
+        "ongeduld",
+        "opnieuw afstemmen"
+      ],
+      "keywordsUpright": [
+        "balans",
+        "matigheid",
+        "mengen",
+        "geduld",
+        "de middenweg vinden"
+      ],
+      "name": "Gematigdheid",
+      "shortReversed": "Iets slaat misschien te ver door naar één kant. Deze kaart nodigt je uit het op te merken en rustig bij te stellen.",
+      "shortUpright": "Een tragere, stabielere mengeling van wat je nodig hebt, kan meer rust brengen dan welk uiterste ook."
+    },
+    "major_15": {
+      "keywordsReversed": [
+        "banden die losser worden",
+        "een patroon doorbreken",
+        "keuze terugwinnen",
+        "de schaduw onder ogen"
+      ],
+      "keywordsUpright": [
+        "gehechtheid",
+        "gewoonten die binden",
+        "verleiding",
+        "schaduwkant",
+        "eerlijk bewustzijn"
+      ],
+      "name": "De Duivel",
+      "shortReversed": "Een patroon dat je ooit stevig vasthield, wordt misschien losser. Wat zou je helpen nog verder afstand te nemen?",
+      "shortUpright": "Een gewoonte of gehechtheid houdt je misschien steviger vast dan je beseft. Het opmerken is de eerste stap."
+    },
+    "major_16": {
+      "keywordsReversed": [
+        "omwenteling afwenden",
+        "langzaam uiteenvallen",
+        "verzet tegen verandering",
+        "opnieuw opbouwen"
+      ],
+      "keywordsUpright": [
+        "plotselinge verandering",
+        "opruimen",
+        "doorbraak",
+        "wankelende aannames",
+        "waarheid aan het licht"
+      ],
+      "name": "De Toren",
+      "shortReversed": "Verandering komt misschien langzaam, niet in één keer. Wat zou je eerlijker opnieuw kunnen opbouwen?",
+      "shortUpright": "Iets wat op wankele grond is gebouwd, verschuift misschien. Deze kaart nodigt je uit op te merken wat geen houvast bood."
+    },
+    "major_17": {
+      "keywordsReversed": [
+        "ontmoediging",
+        "je losgekoppeld voelen",
+        "afnemend zelfvertrouwen",
+        "hoop opnieuw aanwakkeren"
+      ],
+      "keywordsUpright": [
+        "hoop",
+        "vernieuwing",
+        "kalmte",
+        "openheid",
+        "stille inspiratie"
+      ],
+      "name": "De Ster",
+      "shortReversed": "Hoop voelt nu misschien ver weg. Kleine, vaste dingen kunnen je helpen de weg ernaar terug te vinden.",
+      "shortUpright": "Na een zware periode keert er misschien een stillere hoop terug. Deze kaart nodigt je uit die binnen te laten."
+    },
+    "major_18": {
+      "keywordsReversed": [
+        "verwarring die optrekt",
+        "zorgen onder ogen zien",
+        "zelfbedrog",
+        "het pad vertrouwen"
+      ],
+      "keywordsUpright": [
+        "onzekerheid",
+        "intuïtie",
+        "dromen",
+        "het onbekende",
+        "wisselende gevoelens"
+      ],
+      "name": "De Maan",
+      "shortReversed": "Een mist begint misschien op te trekken. Wat zie je nu helderder dan eerst?",
+      "shortUpright": "Nog niet alles is helder, en dat is in orde. Deze kaart nodigt je uit langzaam te gaan en je zintuigen te vertrouwen."
+    },
+    "major_19": {
+      "keywordsReversed": [
+        "gedempte vreugde",
+        "twijfel aan jezelf",
+        "overbelichting",
+        "het licht terugvinden"
+      ],
+      "keywordsUpright": [
+        "vreugde",
+        "helderheid",
+        "warmte",
+        "zelfvertrouwen",
+        "levenskracht"
+      ],
+      "name": "De Zon",
+      "shortReversed": "Het licht is er nog, ook al trekken er wolken voorbij. Wat helpt jou je warm en helder te voelen?",
+      "shortUpright": "Een moment van warmte en helderheid. Deze kaart nodigt je uit te genieten van wat licht en open is in je leven."
+    },
+    "major_20": {
+      "keywordsReversed": [
+        "zelfkritiek",
+        "de roep negeren",
+        "twijfel",
+        "leren van het verleden"
+      ],
+      "keywordsUpright": [
+        "ontwaken",
+        "afrekening",
+        "vernieuwing",
+        "gehoor geven aan je roep",
+        "eerlijke reflectie"
+      ],
+      "name": "Het Oordeel",
+      "shortReversed": "Een innerlijke criticus is misschien luider dan anders. Wat zou een eerlijke, vriendelijke blik op je verleden je laten zien?",
+      "shortUpright": "Een moment om eerlijk terug te kijken, te vergeven wat je kunt en te antwoorden op wat je vooruit roept."
+    },
+    "major_21": {
+      "keywordsReversed": [
+        "onafgemaakte zaken",
+        "afsluiting zoeken",
+        "losse eindjes",
+        "nog één laatste stap"
+      ],
+      "keywordsUpright": [
+        "voltooiing",
+        "heelheid",
+        "integratie",
+        "prestatie",
+        "erbij horen"
+      ],
+      "name": "De Wereld",
+      "shortReversed": "Iets is misschien bijna af. Welke laatste stap of welk los eindje verdient je aandacht?",
+      "shortUpright": "Een cyclus is misschien rond aan het komen. Deze kaart nodigt je uit stil te staan en te eren wat je hebt voltooid."
+    },
+    "pentacles_01": {
+      "keywordsReversed": [
+        "kans niet geplant",
+        "wankel fundament",
+        "grondwerk overhaasten",
+        "het plan herzien"
+      ],
+      "keywordsUpright": [
+        "zaadje van iets echts",
+        "praktisch begin",
+        "geaarde kans",
+        "de basis verzorgen"
+      ],
+      "name": "Aas van Pentakels",
+      "shortReversed": "Een veelbelovend begin heeft misschien stevigere grond nodig. Je kunt nagaan welke steun het nodig heeft voordat je erop bouwt.",
+      "shortUpright": "Een klein, stevig begin vraagt om je aandacht. Iets praktisch is misschien klaar om geplant en verzorgd te worden."
+    },
+    "pentacles_02": {
+      "keywordsReversed": [
+        "te veel ballen",
+        "versnipperde aandacht",
+        "starre planning",
+        "kiezen wat je loslaat"
+      ],
+      "keywordsUpright": [
+        "prioriteiten jongleren",
+        "aanpassingsvermogen",
+        "in het ritme blijven",
+        "flexibele balans"
+      ],
+      "name": "Twee van Pentakels",
+      "shortReversed": "Het evenwichtskunstje is misschien omgeslagen in spanning. Bedenk welke eis je voorlopig kunt neerleggen, delen of verschuiven.",
+      "shortUpright": "Misschien houd je verschillende dingen tegelijk in beweging. Merk het ritme op waarmee je kunt bijsturen zonder je evenwicht te verliezen."
+    },
+    "pentacles_03": {
+      "keywordsReversed": [
+        "inzet die botst",
+        "onduidelijke rollen",
+        "alleen werken",
+        "de bouwtekening herzien"
+      ],
+      "keywordsUpright": [
+        "samenwerking",
+        "gedeeld vakmanschap",
+        "aanvullende vaardigheden",
+        "samen bouwen"
+      ],
+      "name": "Drie van Pentakels",
+      "shortReversed": "Een gezamenlijke inzet trekt misschien verschillende kanten op. Het kan helpen rollen, plannen en hoe jullie naar elkaar luisteren opnieuw te bekijken.",
+      "shortUpright": "Goed werk groeit vaak tussen mensen. Merk op hoe verschillende vaardigheden in elkaar kunnen passen bij iets waar je om geeft."
+    },
+    "pentacles_04": {
+      "keywordsReversed": [
+        "de greep losser maken",
+        "angst voor verlies",
+        "energie oppotten",
+        "leren delen"
+      ],
+      "keywordsUpright": [
+        "vasthouden",
+        "zekerheid",
+        "middelen beschermen",
+        "controle",
+        "zorgvuldige grenzen"
+      ],
+      "name": "Vier van Pentakels",
+      "shortReversed": "Een stevige greep wordt misschien losser, of vraagt daarom. Je kunt verkennen wat je zou kunnen laten stromen zonder je onveilig te voelen.",
+      "shortUpright": "Misschien houd je iets dicht bij je om het veilig te houden. Merk op waar die bescherming je houvast geeft en waar ze je begint te beperken."
+    },
+    "pentacles_05": {
+      "keywordsReversed": [
+        "terugkerende warmte",
+        "hulp aannemen",
+        "blijvende zorgen",
+        "beschutting vinden"
+      ],
+      "keywordsUpright": [
+        "moeilijke tijden",
+        "je buitengesloten voelen",
+        "schaarste",
+        "onopgemerkte steun"
+      ],
+      "name": "Vijf van Pentakels",
+      "shortReversed": "Een moeilijke periode neemt misschien af. Je kunt opmerken waar warmte en steun je weer beginnen te bereiken.",
+      "shortUpright": "Een periode voelt misschien koud of karig. Hulp kan soms dichterbij zijn dan het lijkt, ook als vragen moeilijk voelt."
+    },
+    "pentacles_06": {
+      "keywordsReversed": [
+        "ongelijke uitwisseling",
+        "met voorwaarden",
+        "te veel geven",
+        "opnieuw in balans"
+      ],
+      "keywordsUpright": [
+        "geven en ontvangen",
+        "gulheid",
+        "eerlijke uitwisseling",
+        "wederzijdse steun"
+      ],
+      "name": "Zes van Pentakels",
+      "shortReversed": "Een uitwisseling voelt misschien scheef. Je kunt kijken naar wat er wordt gegeven, wat er terug wordt verwacht en wat gelijkwaardiger zou voelen.",
+      "shortUpright": "Middelen, tijd en zorg bewegen tussen mensen. Merk op hoe je geeft, hoe je ontvangt en wat voor iedereen eerlijk voelt."
+    },
+    "pentacles_07": {
+      "keywordsReversed": [
+        "ongeduld",
+        "inzet zonder richting",
+        "inzet heroverwegen",
+        "frustratie over tempo"
+      ],
+      "keywordsUpright": [
+        "geduldig beoordelen",
+        "inzet op lange termijn",
+        "de balans opmaken",
+        "langzame groei"
+      ],
+      "name": "Zeven van Pentakels",
+      "shortReversed": "Vooruitgang voelt misschien trager dan je hoopte. Je kunt je afvragen of de inzet geduld nodig heeft, een nieuwe richting of gewoon rust.",
+      "shortUpright": "Iets wat je hebt verzorgd, groeit langzaam. Het kan een goed moment zijn om stil te staan, je vooruitgang te bekijken en te kiezen wat je hierna koestert."
+    },
+    "pentacles_08": {
+      "keywordsReversed": [
+        "perfectionisme",
+        "op de automaat",
+        "afgeraffeld werk",
+        "weer zorg ontdekken"
+      ],
+      "keywordsUpright": [
+        "toegewijde oefening",
+        "vakmanschap",
+        "oog voor detail",
+        "leren door te doen"
+      ],
+      "name": "Acht van Pentakels",
+      "shortReversed": "Werk is misschien gehaast geworden of eindeloos gepolijst. Je kunt zoeken naar de zorg die je er ooit naartoe trok.",
+      "shortUpright": "Gestage, gerichte oefening vormt een vaardigheid. Merk de stille voldoening op van één ding goed doen, steeds opnieuw."
+    },
+    "pentacles_09": {
+      "keywordsReversed": [
+        "afhankelijk van bijval",
+        "overwerk",
+        "hol comfort",
+        "gemak terugwinnen"
+      ],
+      "keywordsUpright": [
+        "zelfredzaamheid",
+        "genieten van je oogst",
+        "stille verfijning",
+        "onafhankelijkheid",
+        "eigenwaarde"
+      ],
+      "name": "Negen van Pentakels",
+      "shortReversed": "Comfort voelt misschien onbereikbaar of vreemd leeg. Je kunt je afvragen wat je echt zou laten rusten in wat je al hebt.",
+      "shortUpright": "Misschien ben je klaar om te genieten van wat je eigen inzet liet groeien. Merk het stille zelfvertrouwen op van een ruimte die je zelf vormde."
+    },
+    "pentacles_10": {
+      "keywordsReversed": [
+        "geërfde druk",
+        "spanning in de familie",
+        "wankele fundamenten",
+        "thuis opnieuw bepalen"
+      ],
+      "keywordsUpright": [
+        "nalatenschap",
+        "erbij horen",
+        "blijvende fundamenten",
+        "generaties",
+        "gedeelde wortels"
+      ],
+      "name": "Tien van Pentakels",
+      "shortReversed": "Oude structuren of verwachtingen voelen misschien zwaar. Je kunt overwegen welke tradities je wilt houden en welke je zelf anders wilt vormgeven.",
+      "shortUpright": "Iets wat is gebouwd om te blijven, komt misschien in beeld. Merk de wortels, tradities en mensen op die je laten voelen dat je deel bent van iets groters."
+    },
+    "pentacles_11": {
+      "keywordsReversed": [
+        "afleiding",
+        "plannen zonder actie",
+        "angst om te beginnen",
+        "leren in je eigen tempo"
+      ],
+      "keywordsUpright": [
+        "leergierigheid",
+        "nieuwsgierigheid",
+        "praktische studie",
+        "een nieuwe vaardigheid",
+        "gestage focus"
+      ],
+      "name": "Schildknaap van Pentakels",
+      "shortReversed": "Interesse is er misschien wel, maar zonder vervolg. Bedenk welke kleine, realistische stap nieuwsgierigheid zou omzetten in oefening.",
+      "shortUpright": "Er is een nieuwsgierige, leergierige energie. Je kunt iets praktisch opmerken wat je zou willen leren, en er een eerste echte stap naartoe zetten."
+    },
+    "pentacles_12": {
+      "keywordsReversed": [
+        "vast in routine",
+        "overdreven voorzichtig",
+        "verveling",
+        "kleine tempowisselingen"
+      ],
+      "keywordsUpright": [
+        "betrouwbaarheid",
+        "gestage vooruitgang",
+        "routine",
+        "grondigheid",
+        "toewijding"
+      ],
+      "name": "Ridder van Pentakels",
+      "shortReversed": "Consequent zijn is misschien een sleur geworden. Je kunt overwegen waar een kleine tempowisseling weer energie zou kunnen brengen.",
+      "shortUpright": "Gestage, betrouwbare inzet brengt dingen vooruit. Merk de waarde op van er steeds weer zijn, ook als vooruitgang traag voelt."
+    },
+    "pentacles_13": {
+      "keywordsReversed": [
+        "jezelf verwaarlozen",
+        "jezelf overvragen",
+        "zorg als controle",
+        "ruimte voor jezelf"
+      ],
+      "keywordsUpright": [
+        "zorgzaamheid",
+        "vindingrijkheid",
+        "een gastvrij thuis",
+        "praktische warmte",
+        "geaardheid"
+      ],
+      "name": "Koningin van Pentakels",
+      "shortReversed": "Zorg stroomt misschien naar buiten terwijl jij opraakt. Je kunt kijken hoe je net zo warm voor je eigen behoeften zorgt als voor die van anderen.",
+      "shortUpright": "Praktische warmte en zorg zijn er voor je. Merk op hoe je comfort schept voor anderen, en of je jezelf daarbij meetelt."
+    },
+    "pentacles_14": {
+      "keywordsReversed": [
+        "starheid",
+        "status boven inhoud",
+        "te veel controle",
+        "succes herzien"
+      ],
+      "keywordsUpright": [
+        "rentmeesterschap",
+        "stabiliteit",
+        "gul leiderschap",
+        "gestage zorg",
+        "praktisch meesterschap"
+      ],
+      "name": "Koning van Pentakels",
+      "shortReversed": "Zekerheid is misschien een zware last geworden. Je kunt je afvragen wat succes voor je betekent, voorbij controle of uiterlijk vertoon.",
+      "shortUpright": "Er is een stabiele, bekwame aanwezigheid voor je beschikbaar. Merk op hoe je ervaring en middelen kunt inzetten voor stabiliteit, voor jezelf en anderen."
+    },
+    "swords_01": {
+      "keywordsReversed": [
+        "vertroebeld denken",
+        "piekeren",
+        "ingehouden woorden",
+        "scherpte zonder zorg",
+        "wachten op helderheid"
+      ],
+      "keywordsUpright": [
+        "helderheid",
+        "een nieuw idee",
+        "eerlijke waarheid",
+        "erdoorheen snijden",
+        "fris perspectief"
+      ],
+      "name": "Aas van Zwaarden",
+      "shortReversed": "Helderheid is misschien dichtbij maar nog niet binnen bereik; er is ruimte om de mist te laten zakken voordat je beslist.",
+      "shortUpright": "Er komt een heldere gedachte; je kunt opmerken wat eenvoudig wordt zodra je het gewoon benoemt."
+    },
+    "swords_02": {
+      "keywordsReversed": [
+        "informatie die opduikt",
+        "minder besluiteloos",
+        "vermijding",
+        "druk om te kiezen",
+        "de ogen openen"
+      ],
+      "keywordsUpright": [
+        "een moeilijke keuze",
+        "patstelling",
+        "opties afwegen",
+        "behoedzaam evenwicht",
+        "pauze om te beslissen"
+      ],
+      "name": "Twee van Zwaarden",
+      "shortReversed": "De pauze loopt misschien ten einde; iets waar je niet naar wilde kijken, vraagt mogelijk om een zachte, eerlijke blik.",
+      "shortUpright": "Twee opties houden elkaar voorlopig in evenwicht; je kunt opmerken wat je uit het zicht houdt om de vrede te bewaren."
+    },
+    "swords_03": {
+      "keywordsReversed": [
+        "langzaam herstel",
+        "pijn loslaten",
+        "pijn binnenhouden",
+        "vergeving op termijn",
+        "de storm trekt voorbij"
+      ],
+      "keywordsUpright": [
+        "verdriet",
+        "kwetsende woorden",
+        "rouw",
+        "pijnlijke waarheid",
+        "tranen laten komen"
+      ],
+      "name": "Drie van Zwaarden",
+      "shortReversed": "Het scherpste deel van een pijn neemt misschien af; je kunt opmerken wat je helpt iets vrijer te ademen.",
+      "shortUpright": "Een verdrietig of kwetsend moment vraagt misschien om gevoeld te worden en niet om weggeredeneerd; verdriet mag zacht worden geëerd."
+    },
+    "swords_04": {
+      "keywordsReversed": [
+        "rusteloosheid",
+        "uitgestelde rust",
+        "weer actief worden",
+        "signalen van uitputting",
+        "stilte als vermijding"
+      ],
+      "keywordsUpright": [
+        "rust",
+        "herstel",
+        "stille terugtrekking",
+        "stilte",
+        "energie aanvullen"
+      ],
+      "name": "Vier van Zwaarden",
+      "shortReversed": "Rust wordt misschien steeds uitgesteld, of een stille periode is klaar om te eindigen; je kunt opmerken wat voor jou klopt.",
+      "shortUpright": "Een pauze hoort bij het werk; dit kan een tijd zijn om dingen neer te leggen en je hoofd stil te laten worden."
+    },
+    "swords_05": {
+      "keywordsReversed": [
+        "het goedmaken",
+        "het laten rusten",
+        "blijvende wrok",
+        "weglopen",
+        "verzoening"
+      ],
+      "keywordsUpright": [
+        "conflict",
+        "winnen tegen een prijs",
+        "trots",
+        "verstoorde goodwill",
+        "je strijd kiezen"
+      ],
+      "name": "Vijf van Zwaarden",
+      "shortReversed": "Een conflict is misschien klaar om af te koelen; er kan ruimte zijn om gelijk krijgen los te laten ten gunste van vrede.",
+      "shortUpright": "Een discussie wordt misschien gewonnen terwijl er iets anders verloren gaat; je kunt je afvragen wat de overwinning eigenlijk kostte."
+    },
+    "swords_06": {
+      "keywordsReversed": [
+        "verzet tegen verandering",
+        "onafgemaakte zaken",
+        "uitgesteld vertrek",
+        "oud gewicht meedragen",
+        "terugkeren en bezinnen"
+      ],
+      "keywordsUpright": [
+        "overgang",
+        "verder gaan",
+        "rustiger water",
+        "het vertrouwde verlaten",
+        "geleidelijke verandering"
+      ],
+      "name": "Zes van Zwaarden",
+      "shortReversed": "Iets houdt je misschien vast op de oude oever; je kunt opmerken wat je nog niet klaar bent om te verlaten.",
+      "shortUpright": "Misschien beweeg je van ruw water naar rustiger kusten; verandering kan stil en langzaam zijn en toch echt."
+    },
+    "swords_07": {
+      "keywordsReversed": [
+        "opbiechten",
+        "een plan herzien",
+        "zelfbedrog",
+        "om hulp vragen",
+        "geheimen die bovenkomen"
+      ],
+      "keywordsUpright": [
+        "strategie",
+        "alleen handelen",
+        "vermijding",
+        "verborgen motieven",
+        "ermee wegkomen"
+      ],
+      "name": "Zeven van Zwaarden",
+      "shortReversed": "Een verborgen plan verliest misschien zijn aantrekkingskracht; eerlijkheid tegenover jezelf of anderen kan lichter voelen dan de moeite van verbergen.",
+      "shortUpright": "Een slim plan of een stille omweg is misschien in het spel; je kunt je afvragen of het past bij wie je wilt zijn."
+    },
+    "swords_08": {
+      "keywordsReversed": [
+        "nieuw perspectief",
+        "bevrijding",
+        "losser wordende ideeën",
+        "kleine vrijheden",
+        "terugkerende patronen"
+      ],
+      "keywordsUpright": [
+        "vastzitten",
+        "beperkende overtuigingen",
+        "beperking",
+        "angst om te bewegen",
+        "nauwe blik"
+      ],
+      "name": "Acht van Zwaarden",
+      "shortReversed": "De banden worden misschien losser; je kunt een overtuiging opmerken die je minder stevig vasthoudt dan vroeger.",
+      "shortUpright": "Misschien voel je je ingesloten, maar sommige grenzen bestaan vooral in gedachten; één kleine beweging kan meer ruimte laten zien dan het lijkt."
+    },
+    "swords_09": {
+      "keywordsReversed": [
+        "zorgen die wijken",
+        "contact zoeken",
+        "verborgen stress",
+        "perspectief keert terug",
+        "de last delen"
+      ],
+      "keywordsUpright": [
+        "zorgen",
+        "slapeloze gedachten",
+        "mentale last",
+        "nachtelijke angsten",
+        "piekeren"
+      ],
+      "name": "Negen van Zwaarden",
+      "shortReversed": "Het gewicht van zorgen begint misschien te wijken, of het vraagt erom gedeeld te worden en niet alleen gedragen.",
+      "shortUpright": "Zorgen kunnen groter opdoemen in de stille uren; je kunt opmerken welke angsten over nu gaan en welke over misschien."
+    },
+    "swords_10": {
+      "keywordsReversed": [
+        "langzaam herstel",
+        "weer opstaan",
+        "verzet tegen een einde",
+        "verzamelde lessen",
+        "dageraad na de nacht"
+      ],
+      "keywordsUpright": [
+        "een einde",
+        "het dieptepunt",
+        "uitputting",
+        "een hoofdstuk afsluiten",
+        "de last neerleggen"
+      ],
+      "name": "Tien van Zwaarden",
+      "shortReversed": "Het dieptepunt ligt misschien achter je; je kunt de eerste tekenen opmerken van stabiliteit die terugkeert.",
+      "shortUpright": "Een zwaar hoofdstuk loopt misschien ten einde; het benoemen kan ruimte maken voor rust en een langzame wending."
+    },
+    "swords_11": {
+      "keywordsReversed": [
+        "versnipperde focus",
+        "roddel",
+        "praten voor luisteren",
+        "defensief zijn",
+        "ongeteste ideeën"
+      ],
+      "keywordsUpright": [
+        "nieuwsgierigheid",
+        "gretige vragen",
+        "leren",
+        "alertheid",
+        "nieuwe ideeën"
+      ],
+      "name": "Schildknaap van Zwaarden",
+      "shortReversed": "Gretige gedachten vliegen misschien alle kanten op; je kunt opmerken waar luisteren beter zou werken dan praten.",
+      "shortUpright": "Nieuwsgierigheid is wakker; je kunt een vraag met frisse ogen volgen en zien waar ze je denken naartoe brengt."
+    },
+    "swords_12": {
+      "keywordsReversed": [
+        "vooruit stormen",
+        "ongeduld",
+        "botheid",
+        "vertragen",
+        "versnipperde kracht"
+      ],
+      "keywordsUpright": [
+        "daadkrachtig handelen",
+        "gedrevenheid",
+        "je uitspreken",
+        "snel denken",
+        "vastberadenheid"
+      ],
+      "name": "Ridder van Zwaarden",
+      "shortReversed": "Snelheid loopt misschien voor op het denken; even vertragen kan je helpen aan te komen waar je echt naartoe wilt.",
+      "shortUpright": "De vaart is er; je kunt snel denken omzetten in doelgericht handelen en tegelijk letten op wie er naast je staat."
+    },
+    "swords_13": {
+      "keywordsReversed": [
+        "kilheid",
+        "harde kritiek",
+        "op je hoede zijn",
+        "verbittering",
+        "de scherpte verzachten"
+      ],
+      "keywordsUpright": [
+        "helder oordeel",
+        "eerlijke grenzen",
+        "onafhankelijkheid",
+        "wijsheid uit ervaring",
+        "directe vriendelijkheid"
+      ],
+      "name": "Koningin van Zwaarden",
+      "shortReversed": "Helderheid is misschien verhard tot afstand; je kunt opmerken waar warmte kan terugkeren zonder eerlijkheid te verliezen.",
+      "shortUpright": "Helder zien en een vriendelijke, directe stem kunnen samengaan; je kunt vertrouwen op wat ervaring je heeft geleerd."
+    },
+    "swords_14": {
+      "keywordsReversed": [
+        "starheid",
+        "kille logica",
+        "misbruikt gezag",
+        "jezelf betwijfelen",
+        "verstand met empathie"
+      ],
+      "keywordsUpright": [
+        "intellectueel gezag",
+        "rechtvaardigheid",
+        "heldere principes",
+        "beredeneerde keuzes",
+        "integriteit"
+      ],
+      "name": "Koning van Zwaarden",
+      "shortReversed": "Logica is misschien star of afstandelijk geworden; je kunt je afvragen of je principes nog ruimte laten voor mensen.",
+      "shortUpright": "Rustig redeneren en eerlijke principes kunnen je leiden; je kunt beslissen vanuit wat waar is en niet vanuit wat makkelijk is."
+    },
+    "wands_01": {
+      "keywordsReversed": [
+        "uitgestelde start",
+        "versnipperde energie",
+        "creatieve blokkade",
+        "nog geen vlam",
+        "stil laten rijpen"
+      ],
+      "keywordsUpright": [
+        "vonk van inspiratie",
+        "creatieve impuls",
+        "enthousiasme",
+        "frisse energie",
+        "een nieuw idee"
+      ],
+      "name": "Aas van Staven",
+      "shortReversed": "De vonk is er misschien, maar iets houdt haar nog tegen; merk op wat ze nodig heeft.",
+      "shortUpright": "Een nieuwe vonk van interesse vraagt om wat lucht en aandacht voordat er een vlam van kan komen."
+    },
+    "wands_02": {
+      "keywordsReversed": [
+        "vasthouden aan het oude",
+        "angst voor het onbekende",
+        "onduidelijke richting",
+        "plannen zonder te doen",
+        "de kaart herzien"
+      ],
+      "keywordsUpright": [
+        "vooruit plannen",
+        "wijdere horizon",
+        "gedurfde intentie",
+        "opties afwegen",
+        "persoonlijke visie"
+      ],
+      "name": "Twee van Staven",
+      "shortReversed": "Comfort en voorzichtigheid houden een groter plan misschien op de plank; je kunt nog eens kijken wat je daar vasthoudt.",
+      "shortUpright": "Je staat aan de rand van wat je kent en kijkt naar buiten; een goed moment om te schetsen waar je naartoe zou willen."
+    },
+    "wands_03": {
+      "keywordsReversed": [
+        "ongeduld",
+        "trage opbrengst",
+        "gefrustreerde plannen",
+        "koers bijstellen",
+        "beperkt zicht"
+      ],
+      "keywordsUpright": [
+        "vaart",
+        "uitbreiding",
+        "vooruitkijken",
+        "eerste vooruitgang",
+        "vertrouwen in je inzet"
+      ],
+      "name": "Drie van Staven",
+      "shortReversed": "Vooruitgang voelt misschien trager dan je hoopte; dit kan een tijd zijn om verwachtingen bij te stellen, niet om op te geven.",
+      "shortUpright": "Iets wat je in gang hebt gezet, begint te reizen; je kunt uitkijken naar wat terugkomt en je voorbereiden op de volgende fase."
+    },
+    "wands_04": {
+      "keywordsReversed": [
+        "onvaste grond",
+        "ingetogen viering",
+        "je buitengesloten voelen",
+        "stille dankbaarheid",
+        "fundament herstellen"
+      ],
+      "keywordsUpright": [
+        "viering",
+        "thuiskomen",
+        "stabiliteit",
+        "gedeelde mijlpalen",
+        "erbij horen"
+      ],
+      "name": "Vier van Staven",
+      "shortReversed": "Een viering voelt misschien stiller of minder stevig dan verwacht; je kunt kijken wat je zou helpen je thuis te voelen.",
+      "shortUpright": "Een mijlpaal verdient het om gemarkeerd te worden; een moment om samen te komen, te bedanken en te genieten van een thuisgevoel."
+    },
+    "wands_05": {
+      "keywordsReversed": [
+        "conflict vermijden",
+        "gemeenschappelijke grond",
+        "innerlijk touwtrekken",
+        "spanning die afneemt",
+        "de lucht klaren"
+      ],
+      "keywordsUpright": [
+        "wrijving",
+        "botsende ideeën",
+        "levendig debat",
+        "krachten meten",
+        "rusteloze energie"
+      ],
+      "name": "Vijf van Staven",
+      "shortReversed": "Een botsing komt misschien tot rust, of gaat ondergronds; je kunt opmerken welke meningsverschillen nog een eerlijk gehoor nodig hebben.",
+      "shortUpright": "Veel stemmen en energieën botsen; de wrijving scherpt ideeën misschien net zo goed aan als dat ze je uitput."
+    },
+    "wands_06": {
+      "keywordsReversed": [
+        "goedkeuring zoeken",
+        "onopgemerkte inzet",
+        "twijfel aan jezelf",
+        "stil succes",
+        "succes herdefiniëren"
+      ],
+      "keywordsUpright": [
+        "erkenning",
+        "zelfvertrouwen",
+        "zichtbaar succes",
+        "aanmoediging",
+        "trots op je werk"
+      ],
+      "name": "Zes van Staven",
+      "shortReversed": "Erkenning lijkt misschien te ontbreken of minder voldoening te geven dan gehoopt; je kunt je afvragen wat succes op jouw eigen voorwaarden betekent.",
+      "shortUpright": "Je inzet wordt misschien opgemerkt; laat wat erkenning toe en merk op wie je heeft geholpen hier te komen."
+    },
+    "wands_07": {
+      "keywordsReversed": [
+        "je overweldigd voelen",
+        "defensief zijn",
+        "je strijd kiezen",
+        "wankelend voornemen",
+        "wat laten gaan"
+      ],
+      "keywordsUpright": [
+        "voet bij stuk houden",
+        "overtuiging",
+        "doorzettingsvermogen",
+        "grenzen beschermen",
+        "moed onder druk"
+      ],
+      "name": "Zeven van Staven",
+      "shortReversed": "Alles tegelijk verdedigen kan je uitputten; je kunt kiezen welke grond echt de moeite waard is om vast te houden.",
+      "shortUpright": "Misschien verdedig je een standpunt dat belangrijk voor je is; deze kaart eert de moed die het kost om stand te houden."
+    },
+    "wands_08": {
+      "keywordsReversed": [
+        "vertraging",
+        "vooruit haasten",
+        "gekruiste signalen",
+        "vertragen",
+        "versnipperde focus"
+      ],
+      "keywordsUpright": [
+        "snelle beweging",
+        "vaart",
+        "berichten onderweg",
+        "gerichte energie",
+        "dingen vallen samen"
+      ],
+      "name": "Acht van Staven",
+      "shortReversed": "Tempo en timing voelen misschien niet goed, door vertraging of te veel haast; je kunt even stilstaan om te zien waar je energie op gericht is.",
+      "shortUpright": "Dingen gaan nu misschien snel; energie die vastzat vindt een duidelijke richting, en je kunt met zorg op die vaart meegaan."
+    },
+    "wands_09": {
+      "keywordsReversed": [
+        "uitputting",
+        "op je hoede zijn",
+        "grenzen bereiken",
+        "om hulp vragen",
+        "verdediging laten zakken"
+      ],
+      "keywordsUpright": [
+        "veerkracht",
+        "volharding",
+        "het laatste stuk",
+        "zwaarbevochten wijsheid",
+        "waakzame kracht"
+      ],
+      "name": "Negen van Staven",
+      "shortReversed": "Zo lang op je hoede blijven kan vermoeiend zijn; je kunt opmerken waar het veilig is om te rusten en anderen toe te laten.",
+      "shortUpright": "Je hebt veel doorstaan en staat nog overeind; deze kaart eert je veerkracht op het laatste stuk."
+    },
+    "wands_10": {
+      "keywordsReversed": [
+        "lasten neerleggen",
+        "delegeren",
+        "nee zeggen",
+        "opluchting",
+        "het alleen dragen"
+      ],
+      "keywordsUpright": [
+        "zware last",
+        "verantwoordelijkheid",
+        "te veel op je bord",
+        "doorzetten",
+        "bijna af"
+      ],
+      "name": "Tien van Staven",
+      "shortReversed": "Een deel van de last kan misschien van je schouders; je kunt kijken wat je kunt neerleggen, delen of weigeren.",
+      "shortUpright": "Misschien draag je meer dan je deel; deze kaart nodigt je uit het gewicht op te merken en wat echt gedragen moet worden."
+    },
+    "wands_11": {
+      "keywordsReversed": [
+        "rusteloosheid",
+        "onafgemaakte begins",
+        "aarzelend nieuwsgierig",
+        "gebrek aan richting",
+        "ideeën in wording"
+      ],
+      "keywordsUpright": [
+        "nieuwsgierigheid",
+        "ontdekken",
+        "speels enthousiasme",
+        "leergierigheid",
+        "gedurfde eerste stappen"
+      ],
+      "name": "Schildknaap van Staven",
+      "shortReversed": "Enthousiasme flakkert misschien tussen veel dingen of wordt tegengehouden door twijfel; je kunt er één kiezen om rustig te verkennen.",
+      "shortUpright": "Een nieuwsgierige, speelse energie wil op ontdekking; volg wat je enthousiast maakt en sta jezelf toe beginner te zijn."
+    },
+    "wands_12": {
+      "keywordsReversed": [
+        "impulsiviteit",
+        "haast",
+        "versnipperde passie",
+        "frustratie",
+        "energie kanaliseren"
+      ],
+      "keywordsUpright": [
+        "avontuur",
+        "gedurfd handelen",
+        "passie",
+        "spontaniteit",
+        "onbevreesde energie"
+      ],
+      "name": "Ridder van Staven",
+      "shortReversed": "Energie loopt misschien voor op de richting; dit kan een moment zijn om de vaart te minderen en te kiezen waar je op mikt.",
+      "shortUpright": "Een gedurfde, avontuurlijke energie staat klaar om te bewegen; je kunt je passie volgen en tegelijk de weg in het oog houden."
+    },
+    "wands_13": {
+      "keywordsReversed": [
+        "twijfel aan jezelf",
+        "opgebrand zijn",
+        "gedimd zelfvertrouwen",
+        "jaloezie",
+        "je vonk terugwinnen"
+      ],
+      "keywordsUpright": [
+        "warm zelfvertrouwen",
+        "uitstraling",
+        "onafhankelijkheid",
+        "creatieve levenskracht",
+        "gulle aanwezigheid"
+      ],
+      "name": "Koningin van Staven",
+      "shortReversed": "Je innerlijke vuur flakkert misschien of is dun uitgesmeerd; je kunt kijken wat je zelfvertrouwen leegzuigt en wat het vernieuwt.",
+      "shortUpright": "Een warme, zelfverzekerde energie is voor je beschikbaar; je kunt jezelf ruimte laten innemen en je licht met anderen delen."
+    },
+    "wands_14": {
+      "keywordsReversed": [
+        "ongeduld",
+        "dominante drive",
+        "onrealistische doelen",
+        "richting kwijt",
+        "leiden door luisteren"
+      ],
+      "keywordsUpright": [
+        "visionair leiderschap",
+        "richting",
+        "integriteit",
+        "initiatief nemen",
+        "anderen inspireren"
+      ],
+      "name": "Koning van Staven",
+      "shortReversed": "Sterke drive slaat misschien door naar ongeduld of controle; je kunt nagaan of je visie nog ruimte laat voor anderen.",
+      "shortUpright": "Een heldere, visionaire energie nodigt je uit met een doel te leiden en grote ideeën om te zetten in een richting die anderen kunnen volgen."
+    }
+  },
+  "locale": "nl",
+  "version": 1
+}

@@ -157,6 +157,10 @@ check_args() {
       fi
       ;;
     check_urls.py) echo "--offline" ;; # the network run is weekly (nightly)
+    check_l10n.py) # Phase 18: all 12 locales translated
+      echo "--strict-translations"
+      echo "--require-all-locales"
+      ;;
     *) ;;
   esac
 }
@@ -214,11 +218,12 @@ content_checks() {
     skip "content" "no $bin/content_validate.dart"
     return
   fi
-  step "content: validate" "$DART" run "$bin/content_validate.dart"
+  step "content: validate" "$DART" run "$bin/content_validate.dart" --strict-locales
   step "content: build --check" "$DART" run "$bin/content_build.dart" --check
   step "content: sync_check" "$DART" run "$bin/content_sync_check.dart"
   step "content: placeholder_art --check" \
     "$DART" run "$bin/placeholder_art.dart" --check
+  step "content: import_art --check" "$DART" run "$bin/import_art.dart" --check
 }
 
 # Design tokens (Phase 15 Sprint 15.1, 02 §14.1), as in reusable-static.yml:

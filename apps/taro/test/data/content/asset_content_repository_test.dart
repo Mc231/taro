@@ -80,13 +80,20 @@ void main() {
       expect(bundle.loads[ContentAssets.deckTexts('en')], 1);
     });
 
-    test('regional and unknown locales fall back to English', () async {
-      const id = CardId('cups_03');
-      final en = expectOk(await content.cardText(id, 'en'));
-      expect(expectOk(await content.cardText(id, 'uk')), en);
-      expect(expectOk(await content.cardText(id, 'pt-BR')), en);
-      expect(expectOk(await content.cardText(id, 'EN_gb')), en);
-    });
+    test(
+      'regional locales use their language; unknown fall back to en',
+      () async {
+        const id = CardId('cups_03');
+        final en = expectOk(await content.cardText(id, 'en'));
+        expect(expectOk(await content.cardText(id, 'sv')), en);
+        expect(expectOk(await content.cardText(id, 'pt-BR')).locale, 'pt');
+        // Phase 18: every shipped locale has its own deck texts.
+        final uk = expectOk(await content.cardText(id, 'uk'));
+        expect(uk.locale, 'uk');
+        expect(uk.name, isNot(en.name));
+        expect(expectOk(await content.cardText(id, 'EN_gb')), en);
+      },
+    );
 
     test('crisis fallback by region', () async {
       final de = expectOk(await content.fallbackCrisisResources('DE'));

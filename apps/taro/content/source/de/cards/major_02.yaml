@@ -1,0 +1,50 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_02"
+reviewStatus: "machine"
+sourceHash: >-
+  df03fba5a9889efd8fec8594e1134edf61f0db01c57ff63e900a46b5be62fa1a
+name: "Die Hohepriesterin"
+keywordsUpright:
+  - "inneres Wissen"
+  - "Stille"
+  - "Zuhören"
+  - "das Unausgesprochene"
+  - "Geduld"
+keywordsReversed:
+  - "übergangene Instinkte"
+  - "lauter Kopf"
+  - "zu lange Geheimnisse"
+  - "Rückkehr nach innen"
+shortUpright: >-
+  Eine leise Einladung, auf das zu hören, was du schon spürst, aber noch nicht in Worte gefasst hast.
+shortReversed: >-
+  Lärm von außen übertönt vielleicht eine leisere Stimme in dir; ein wenig Stille könnte helfen.
+meaningUpright: |-
+  Die Hohepriesterin sitzt zwischen zwei Säulen, an der Schwelle zwischen dem Bekannten und dem noch Verborgenen. Diese Gestalt handelt nicht und erklärt nicht; ihre Gabe ist Aufmerksamkeit: jenes tiefe, geduldige Zuhören, das wahrnimmt, was unter der Oberfläche einer Situation, eines Gesprächs oder eines Gefühls liegt.
+  Im Alltag kann diese Karte eine Ahnung spiegeln, die du nicht ganz begründen kannst, das Gefühl, dass etwas nicht ausgesprochen wird, oder einen Traum, der bis in den Nachmittag nachklingt. Sie kann auf Momente hinweisen, in denen sich die Antwort nicht durch noch mehr Informationen findet, sondern dadurch, still bei dem zu bleiben, was du schon hast. Manches wird erst klar, wenn du aufhörst, Klarheit zu erzwingen.
+  Diese Karte lädt dich ein, den langsameren, weniger wortreichen Seiten in dir zu vertrauen. Du könntest dir Zeit zum Schreiben nehmen, für einen Spaziergang ohne Kopfhörer oder einfach für eine Pause, bevor du antwortest. Inneres Wissen ersetzt keine Fakten, und es kann neben ihnen bestehen. Die Hohepriesterin bittet dich zu bemerken, was deine leisere Stimme dir sagen wollte, und ihr ein wenig Raum zu geben, bevor du entscheidest, was du tust.
+meaningReversed: |-
+  Umgekehrt kann die Hohepriesterin andeuten, dass deine innere Stimme da ist, aber schwer zu hören. Volle Tage, die Meinungen anderer oder ein stetiger Strom von Bildschirmen können die Stille verdrängen, die diese Karte braucht. Vielleicht bemerkst du, dass du andere immer wieder fragst, was du mit etwas tun sollst, das du zum Teil schon weißt.
+  Die Karte kann auch darauf hinweisen, dass du etwas zu lange zurückhältst: ein Gefühl, eine Frage oder eine Wahrheit, die verborgen geblieben ist und sich jetzt schwer anfühlt. Privatsphäre ist gesund; Heimlichkeit, die dich isoliert, verdient vielleicht einen zweiten Blick.
+  Vielleicht möchtest du dir eine kleine Nische der Ruhe schaffen und sehen, was auftaucht. Es kann helfen, ohne Korrektur zu schreiben oder dir eine einfache Frage zu stellen und auf die erste ehrliche Antwort zu warten. Was hast du gespürt, das du dir noch nicht erlaubt hast auszusprechen?
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann die Hohepriesterin eine Verbindung spiegeln, in der vieles ohne Worte verstanden wird, oder einen Moment, in dem Zuhören wichtiger ist als Sprechen. Sie kann dich einladen, die Unterströmungen wahrzunehmen: was das Schweigen einer Freundin oder eines Freundes bedeuten könnte oder was dein eigenes Zögern schützt. Du könntest einem nahen Menschen das Geschenk ungeteilter, ruhiger Aufmerksamkeit machen.
+  relationshipsReversed: >-
+    Umgekehrt kann diese Karte auf Unausgesprochenes zwischen dir und einem nahen Menschen hinweisen oder auf die Gewohnheit, zwischen den Zeilen zu lesen, ohne direkt zu fragen. Du könntest überlegen, ob eine behutsame, ehrliche Frage das Rätselraten ersetzen könnte. Sie kann auch das Bedürfnis spiegeln, deine Innenwelt zu schützen und jemanden trotzdem ein wenig mehr davon sehen zu lassen.
+  workUpright: >-
+    Bei der Arbeit oder in einem Projekt kann die Hohepriesterin andeuten, dass nicht jede Entscheidung heute fallen muss. Sie kann dich einladen zu beobachten, Eindrücke zu sammeln und deinem Gespür für das richtige Timing zu vertrauen. Nachdenkliche Arbeit wie Recherche, Schreiben, Planen oder Mentoring passt gut zu dieser Karte. Stille Kompetenz und Diskretion werden vielleicht mehr geschätzt, als dir bewusst ist.
+  workReversed: >-
+    Umgekehrt kann die Hohepriesterin spiegeln, dass du einen stimmigen Instinkt anzweifelst, weil andere lauter sind, oder dass in einem Team Informationen zurückgehalten werden. Du könntest dich fragen, was du über eine Situation weißt, das du noch nicht ausgesprochen hast. Einen ruhigen, passenden Weg zu finden, es zu teilen, könnte die Arbeit für alle klarer machen, auch für dich.
+  growthUpright: >-
+    Wachstum mit der Hohepriesterin beginnt meist in der Stille. Du könntest ausprobieren, jeden Tag ein paar Minuten lang einfach deine Gedanken, deinen Atem oder deine Umgebung wahrzunehmen, ohne etwas reparieren zu wollen. Mit der Zeit kann dir diese Art von Aufmerksamkeit helfen, ängstliches Gedankenrauschen von einem ruhigeren inneren Gespür zu unterscheiden.
+  growthReversed: >-
+    Umgekehrt kann die Hohepriesterin fragen, ob du in letzter Zeit vor allem an der Oberfläche gelebt hast, reagierend statt nachdenkend. Sie kann ein Anstoß sein, dich wieder nach innen zu wenden, ohne den Druck, sofort Antworten zu finden. Du könntest dir diese Woche ein stilles Ritual vornehmen und bemerken, was sich verändert, wenn du dir Raum zum Zuhören gibst.
+reflectionQuestions:
+  - >-
+    Was spürst du über deine Situation, das du noch nicht laut ausgesprochen hast?
+  - >-
+    Wessen Schweigen, auch dein eigenes, wäre es wert, aufmerksamer hinzuhören?
+  - "Wo könntest du dir diese Woche zehn stille Minuten nehmen?"
+imageryNote: >-
+  Die Hohepriesterin von Taro sitzt an der Schwelle eines mondbeschienenen Torbogens, halb im Licht und halb im Schatten, ein geschlossenes Buch auf den Knien. Hinter der Gestalt bewegt sich ein Vorhang, als würde dahinter etwas warten. Eine Mondsichel, die sich in einem stillen Becken spiegelt, kann an Zyklen und Intuition erinnern, und tiefe Blautöne deuten Ruhe an der Oberfläche und Tiefe darunter an. Die stille, aufmerksame Ruhe der Gestalt bildet die Mitte des Bildes.

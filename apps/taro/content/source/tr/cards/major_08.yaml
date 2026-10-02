@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_08"
+reviewStatus: "machine"
+sourceHash: >-
+  fc9d424e061487e204fcf25da2f88840bffdbc666936d9f363ce3548399a27c1
+name: "Güç"
+keywordsUpright:
+  - "yumuşak cesaret"
+  - "sabır"
+  - "şefkat"
+  - "iç denge"
+  - "sessiz özgüven"
+keywordsReversed:
+  - "kendinden şüphe"
+  - "tükenen sabır"
+  - "sert iç ses"
+  - "cesareti yeniden kurmak"
+shortUpright: >-
+  Cesaret her zaman kükremez. Bazen sabır, nezaket ve zor bir şeyle kalabilmek gibi görünür.
+shortReversed: >-
+  İç dengen şu anda zayıf hissettirebilir. Kendine yumuşak davranmak güçlü bir başlangıç olabilir.
+meaningUpright: |-
+  Güç bir cesaret kartıdır ama gürültülü olanından değil. Geleneksel görüntüsünde bir figür elini sakince bir aslanın üzerine koyar; onu alt etmez, yatıştırır. Buradaki güç; sabırdan, sıcaklıktan ve vahşi bir enerjiyi, ister başkasının ister kendinin olsun, paniğe kapılmadan karşılayabilen istikrarlı bir varlıktan gelir.
+  Gündelik hayatta bu kart, gergin bir konuşmada sakin kalmayı, zahmetli hâle gelmiş bir sözü tutmayı ya da güçlü bir duyguya hemen göre davranmak yerine onu anlayacak kadar onunla kalmayı yansıtabilir. Hiçbir şeyi kanıtlamaya ihtiyaç duymayan birinin sessiz özgüvenine işaret edebilir. Aslanı evcilleştirmek onu bastırmak değil, onunla dost olmaktır.
+  Bu kart, baskıya nasıl tepki verdiğini düşünmeye davet eder. Kendine duyduğun şefkat de dahil olmak üzere, şefkatin nerede güçten daha etkili olabileceğini sorabilirsin. Güç, yumuşaklıkla kararlılığın bir arada yaşayabileceğini ve en kalıcı cesaretin çoğu zaman istikrarlı, nazik ve sebatlı olduğunu düşündürür.
+meaningReversed: |-
+  Ters geldiğinde Güç, alışık olduğun dengeyi bulmanın zorlaştığı bir dönemi yansıtabilir. Sabrın çabucak tükenebilir ya da her zamankinden daha keskin ve eleştirel bir iç ses duyabilirsin. Aslan huzursuz, sen de öyle.
+  Bu kart içe dönmüş ve henüz dışa vurulmamış bir cesarete de işaret edebilir: hissettiğinden daha güçlü olabilirsin ama kendinden şüphe etmek bunu göstermeyi zorlaştırmış olabilir. Ya da her şeyi yalnızca iradeyle bir arada tutma çabasını yansıtabilir; bu da genellikle yıpratır.
+  İşler zorlaştığında kendinle nasıl konuştuğunu fark etmek isteyebilirsin. Korkmuş bir arkadaşınla konuşurken kullanacağın tonu kullansaydın ne değişirdi? Cesareti yeniden kurmak çoğu zaman kendine gösterilen küçük nezaketlerle ve yük ağırlaştığında destek istemekle başlar.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Güç, insanların yanında kendini güvende hissetmesine yardım eden sabrı ve sıcaklığı yansıtabilir. Kendi sınırlarını korurken birinin zor ruh hâllerini onun yoğunluğuna eşlik ederek değil, sakinlikle karşılamaya davet edebilir. Nazik bir kararlılık adım adım güven inşa edebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, çabuk parlayan öfkelere ya da çatışmadan kaçmak için duygularını yutan birine işaret edebilir. Kendine ya da sana yakın birine karşı fazla sert olup olmadığını düşünebilirsin. Hayal kırıklığı birikmeden nazikçe konuşmak, hem bağı hem de kendi dengeni koruyabilir.
+  workUpright: >-
+    İşte ya da bir projede Güç, sebatı ve duygusal olgunluğu öne çıkarır. Zorlu bir görevi ya da kişiyi sabır ve incelikle idare etmeyi veya baskıyla değil cesaretlendirerek yol göstermeyi yansıtabilir. Kimse izlemediğinde bile istikrarlı ve tutarlı çabanın önemli olduğuna güvenebilirsin.
+  workReversed: >-
+    Ters geldiğinde Güç, baskı altında yıpranmış hissetmeyi ya da bir zorlukla başa çıkma yeteneğinden şüphe etmeyi yansıtabilir. Stres altında sert tepki vermeye de işaret edebilir. Ayaklarını yeniden yere basmana hangi destek ya da dinlenmenin yardım edeceğini ve sürdürebileceğin bir tempoyu nasıl belirleyeceğini sorabilirsin.
+  growthUpright: >-
+    Güç, kendi iç aslanını kafese kapatmak yerine onunla dost olmayı önerir: seni sen yapan güçlü duygular, arzular ve içgüdüler. Onlarla savaşmak yerine neye ihtiyaç duyduklarını merak edebilirsin. Burada öz şefkat zayıflık sayılmaz; cesareti daha sürdürülebilir kılan bir pratiktir.
+  growthReversed: >-
+    Ters geldiğinde Güç, özgüvenin inip yeniden yükselebileceğini hatırlatıyor olabilir. Kendinden şüphe ettiğin ya da sert bir iç eleştiri yaşadığın bir dönemi yansıtabilir. İyi başa çıktığın anların kısa bir listesini tutup zor günlerde, zaten sahip olduğun dengenin kanıtı olarak okuyabilirsin.
+reflectionQuestions:
+  - "Aklındaki durumda yumuşak bir cesaret nasıl görünürdü?"
+  - >-
+    Kimin zor ruh hâliyle karşılaşıyorsun ve onun yanında nasıl dengede kalabilirsin?
+  - "Bugün kendine hangi nazik sözleri söyleyebilirsin?"
+imageryNote: >-
+  Taro’nun Güç kartı, güneşli bir çayırda büyük bir aslanın yanında diz çökmüş sakin bir figür olarak hayal edilir; bir eli aslanın yelesinde durur, hayvan ise rahat ve güven içinde ona yaslanır. Hiçbir ip ya da zincir görünmez; bağ yakınlık ve rahatlıkla gösterilir. İkisinin çevresinde biten kır çiçekleri, sabrın daha narin şeylerin serpilmesine izin verdiğini düşündürür. Sıcak altın ışık havayı huzurlu tutar ve gücü yumuşaklıkla yan yana gösterir.

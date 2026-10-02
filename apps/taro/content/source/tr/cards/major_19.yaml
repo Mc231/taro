@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_19"
+reviewStatus: "machine"
+sourceHash: >-
+  606684d4bde52091decce689899941ae99eb03ccdc14c7a9811d4880ab6c313b
+name: "Güneş"
+keywordsUpright:
+  - "neşe"
+  - "netlik"
+  - "sıcaklık"
+  - "özgüven"
+  - "canlılık"
+keywordsReversed:
+  - "sönük neşe"
+  - "kendinden şüphe"
+  - "aşırı görünürlük"
+  - "ışığı yeniden bulmak"
+shortUpright: >-
+  Bir sıcaklık ve netlik anı. Bu kart hayatındaki parlak ve açık şeylerin tadını çıkarmaya davet ediyor.
+shortReversed: >-
+  Bulutlar geçiyor olsa bile ışık hâlâ orada. Kendini sıcak ve berrak hissetmene ne yardımcı oluyor?
+meaningUpright: |-
+  Güneş, destedeki en açıkça neşeli kartlardan biridir. Berrak bir sabahın, bahçede oynayan bir çocuğun, saklanmaya gerek duymadan tamamen kendin olmanın enerjisidir. Ay’ın belirsizliğinden sonra bu kart netlik getirir: şeyler oldukları gibi görülebilir ve çoğu zaman korkulduğundan daha basit ve daha sıcaktır.
+  Gündelik hayatta bu kart, her şeyin biraz daha kolay geldiği bir günü, yaptığın bir şeyle duyduğun gururu, keyfini yükselten açık havada geçen zamanı ya da kabul gördüğünü ve rahat olduğunu hissettiğin bir ilişkiyi yansıtabilir. Bağırmaya ihtiyaç duymayan bir özgüvene ve hayatı güzel hissettiren basit zevklere işaret edebilir: kahkaha, güneş ışığı, oyun.
+  Bu kart, sana gerçek bir neşe getiren şeyi ve ona nasıl daha çok yer açabileceğini düşünmeye davet eder. Kendini nerede daha bütünüyle görünür kılabileceğini sorabilirsin. Güneş, şimdiki ana dayanan bir iyimserliği öne çıkarır; iyi giden şeyleri kutlamanın, sıcaklığını paylaşmanın ve onun sana geri dönmesine izin vermenin sorun olmadığını hatırlatır.
+meaningReversed: |-
+  Ters geldiğinde Güneş, neşenin biraz kısık hissettirdiği bir dönemi yansıtabilir. Sıcaklık yok olmadı; yalnızca yoğun bir programın, yorgunluğun ya da kendinden şüphenin arkasına gizlenmiş olabilir. Güzel anların tadını çıkarmak ya da kendinle gurur duymak her zamankinden zor gelebilir.
+  Bu kart fazla parlaklığa da işaret edebilir: başka türlü hissederken neşeli bir yüz takınmak ya da kendini her zaman olumlu olmaya zorlamak.
+  Açık havada zaman geçirmek, oyunlu bir etkinlik ya da seni güldüren biri gibi küçük ve basit sıcaklık kaynakları aramak isteyebilirsin. Hissetmen gerektiğini düşündüğün şeyi değil, gerçekte hissettiğin şeyi hissetmene izin vermek de yardımcı olabilir. Gerçek neşe, zorlanmadığında çoğu zaman daha kolay geri döner.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Güneş sıcaklığı, açıklığı ve paylaşılan mutluluğu yansıtabilir. Önemsediğin insanlarla karmaşasız zamanın tadını çıkarmaya davet edebilir: gülmek, oynamak, açık havada olmak. İki kişi de kendisi olmakta ve birbirini kutlamakta özgür hissettiğinde ilişkiler daha hafif gelebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, belki stres ya da rutin altında hafifliğinin bir kısmını kaybetmiş bir ilişkiye işaret edebilir. Birlikte basit ve eğlenceli bir şey planlamayı ya da birinin gerçekte nasıl hissettiğini neşeli bir yüzün arkasına saklayıp saklamadığını kontrol etmeyi düşünebilirsin. Hafiflik küçük, paylaşılan anlarla geri dönebilir.
+  workUpright: >-
+    İşte ya da bir projede Güneş netliği, görünürlüğü ve coşkuyu öne çıkarır. Çabalarının fark edildiği ya da işin seni tüketmek yerine enerji verdiği bir anı yansıtabilir. Fikirlerini özgüvenle paylaşıp yol boyunca ilerlemenin tadını çıkarmana izin verebilirsin.
+  workReversed: >-
+    Ters geldiğinde Güneş, göz ardı edildiğini hissetmeyi ya da işin için coşku bulmakta zorlanmayı yansıtabilir. Performans göstermeye yönelik fazla baskı gibi aşırı bir görünürlüğe de işaret edebilir. İş günlerine daha fazla enerji ve sıcaklık getirecek küçük değişikliğin ne olduğunu sorabilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, doğal coşkun ve merakınla yeniden bağ kurmaya davet eder. Çocukken sevdiğin bir şeye geri dönebilir ya da sırf eğlencesi için yeni bir şey deneyebilirsin. Özgüven başarıdan olduğu kadar neşeden de büyüyebilir.
+  growthReversed: >-
+    Ters geldiğinde Güneş, kendine fazla mı sert davrandığını ya da uzun süredir fazla mı ciddi olduğunu sorabilir. Oyuna, dinlenmeye ve hafifliğe duyulan ihtiyacı yansıtabilir. Bu hafta, tadını çıkarmaktan başka hiçbir amacı olmayan küçük ve neşeli bir etkinliği programına ekleyebilirsin.
+reflectionQuestions:
+  - >-
+    Ne kadar küçük olursa olsun, son zamanlarda sana gerçek bir neşe veren ne oldu?
+  - "Kimin yanında kendin olmakta en özgür hissediyorsun?"
+  - "Bu hafta yalnızca keyfi için ne yapabilirsin?"
+imageryNote: >-
+  Taro’nun Güneş’i, öğle vakti geniş bir yaz tarlası olarak hayal edilir; farklı yaşlardan arkadaşlar kocaman ve sıcak bir güneşin altında bir örtünün üzerinde yiyeceklerini paylaşır. Uçurtmalar esintiyle yükselir ve uzun gölgelerden eser yoktur; saklanacak hiçbir şeyin olmadığı bir anı çağrıştırır. Parlak sarılar ve sıcak turuncular sahneyi doldururken çimenlerin arasında koşan bir köpek oyunbaz bir not ekler. Görüntü izleyiciyi sıcaklığı, netliği ve karmaşasız bir neşeyi hissetmeye davet eder.

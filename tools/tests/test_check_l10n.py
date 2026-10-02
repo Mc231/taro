@@ -25,6 +25,7 @@ EXPECTED: dict[str, set[str]] = {
     "fail_icu_plural_category": {"icu_mismatch"},
     "fail_icu_plural_no_other": {"icu_mismatch"},
     "fail_icu_plural_exact": {"icu_mismatch"},
+    "fail_icu_plural_collision": {"icu_mismatch"},
     "fail_icu_not_in_en": {"icu_mismatch"},
     "fail_invalid_icu": {"invalid_icu"},
     "fail_invalid_icu_en": {"invalid_icu"},

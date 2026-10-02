@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_10"
+reviewStatus: "machine"
+sourceHash: >-
+  fe93f7466c331e9a39281c18c5973aa5102d39317f87ecaf984d1e0b6eb01766
+name: "Kader Çarkı"
+keywordsUpright:
+  - "döngüler"
+  - "değişim"
+  - "dönüm noktaları"
+  - "uyum sağlamak"
+  - "bakış açısı"
+keywordsReversed:
+  - "değişime direnmek"
+  - "takılı kalmak"
+  - "tekrar eden örüntüler"
+  - "ayağını yere basmak"
+shortUpright: >-
+  İşler dönüyor. Bu kart içinde bulunduğun döngüyü ve onunla nasıl hareket etmek istediğini fark etmeye davet ediyor.
+shortReversed: >-
+  Tanıdık bir örüntü yeniden karşına çıkıyor olabilir. Bu sefer neyi farklı yapabilirsin?
+meaningUpright: |-
+  Kader Çarkı döngülerin kartıdır. Mevsimler döner, ruh hâlleri yükselip alçalır, yoğun dönemler yerini sakin dönemlere bırakır. Hiçbir şey sonsuza dek tepede ya da dipte kalmaz. Bu kart, değişimin hayatın olağan bir parçası olduğunu, bir kısmının kimsenin kontrolünde olmadığını, bir kısmının ise onu nasıl karşıladığına göre şekillendiğini hatırlatır.
+  Gündelik hayatta bu kart bir dönüm noktasını yansıtabilir: bir bölümün kapanıp başka birinin açılması, planlarını değiştiren şanslı bir fırsat ya da temponu değiştiren beklenmedik bir aksilik. Daha önce de ortaya çıkmış bir örüntüyü, örneğin aynı türden bir durumun yeni bir biçimde gelmesini fark etmeye ve ona taze bir gözle bakmaya da işaret edebilir.
+  Bu kart, şu anda kendi çarkının neresinde olduğunu düşünmeye davet eder. Bu dönemin senden ne istediğini ve sana ne öğretiyor olabileceğini sorabilirsin. Çark senin yerine hayatına karar vermez. Esnekliğin, bakış açısının ve mizah duygusunun dönemeçleri atlatmana yardım edebileceğini ve zor bir mevsimin kalıcı bir hâl sayılmayacağını, yalnızca bir mevsim olduğunu öne çıkarır.
+meaningReversed: |-
+  Ters geldiğinde Kader Çarkı, bir döngüye takılıp kalmış hissini ya da zaten başlamış bir değişime direnmeyi yansıtabilir. Olayların senin başına geldiğini hissedebilir ya da aynı can sıkıcı örüntünün farklı kılıklarda geri dönüp durduğunu fark edebilirsin.
+  Bu kart iyi bir döneme sıkıca tutunmaya, onun süremeyeceğinden korkmaya da işaret edebilir. Sıkı sıkıya tutunmak, doğal dönüşü daha zor hissettirir.
+  Elinin altında olana bakmak isteyebilirsin. Örüntüler çoğu zaman, nasıl tepki verdiğimizde bir şey azıcık da olsa değişene kadar tekrar eder. Gördüğün döngüye bir ad vermek, suçlamadan kendi payını fark etmek ve farklı yapacağın küçük bir şey seçmek yardımcı olabilir. Çarkı durduramazsın ama üzerinde daha sağlam bir yer bulabilirsin.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Çark yeni bir evreyi yansıtabilir: yakınlaşmak, farklı bir aşamaya geçmek ya da yalnızca değişen koşullara uyum sağlamak. Esnek kalmaya ve işlerin nasıl değiştiği hakkında açıkça konuşmaya davet edebilir. İlişkilerin de mevsimler gibi ritimleri vardır; onlara ad vermek, bu ritimlerin içinden birlikte geçmenize yardım edebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, geri dönüp duran tanıdık çatışmalara ya da bir ilişkinin biçim değiştirmesine direnmeye işaret edebilir. Seninle yakın birinin hangi örüntüyü tekrarlama eğiliminde olduğunu ve her birinizin neyi farklı deneyebileceğini düşünebilirsin. Değişim kayıp anlamına gelmek zorunda değil; büyüme anlamına da gelebilir.
+  workUpright: >-
+    İşte ya da bir projede Çark, değişen koşulları ve yeni açılımları öne çıkarır. Planlarda bir değişikliği, yeni bir ekibi ya da birden ilerlemeye başlayan bir projeyi yansıtabilir. Fırsatlara açık kalırken yoğun ya da yavaş, her dönemin sunacak bir şeyi olduğunu hatırlayabilirsin.
+  workReversed: >-
+    Ters geldiğinde Çark, gecikmelerden duyulan hayal kırıklığını ya da çabanın karşılığını vermediği hissini yansıtabilir. Aynı yaklaşımı tekrarlayıp farklı bir sonuç beklemeye de işaret edebilir. Daha önce neyin işe yarayıp neyin yaramadığını ve yöntemdeki küçük bir değişikliğin örüntüyü nerede değiştirebileceğini gözden geçirebilirsin.
+  growthUpright: >-
+    Hayatını tek bir düz çizgi olarak değil, bir dizi döngü olarak görmek özgürleştirici olabilir. Ne zaman enerjik hissettiğin ya da ne zaman dinlenmeye ihtiyaç duyduğun gibi kendi ritimlerini fark etmek, onlara karşı değil onlarla birlikte plan yapmana yardım edebilir. Geçen yılın haritasını çıkarıp dönüm noktalarını fark edebilirsin.
+  growthReversed: >-
+    Ters geldiğinde Çark, kontrol edilemeyeni kontrol etmeye çalışıp çalışmadığını sorabilir. Değişen bir dönemde güvence arzusunu yansıtabilir. Etkileyemeyeceğin bir şeyi bırakmayı deneyip o enerjiyi etkileyebileceğin bir şeye aktarabilirsin. Küçük de olsa elinde olan bir adım, belirsizliğin içinde sana tutunacak bir yer verebilir.
+reflectionQuestions:
+  - "Şu anda kendini hangi döngüde ya da mevsimde hissediyorsun?"
+  - >-
+    İlişkilerinde hangi örüntü geri dönüp duruyor ve senden ne istiyor olabilir?
+  - "Bu hafta kontrolünde olan hangi şeye odaklanabilirsin?"
+imageryNote: >-
+  Taro’nun Kader Çarkı, bir kenarında şafaktan öbür kenarında geceye dönüşen bir gökyüzüne yerleştirilmiş, her evreyi aynı anda gösteren büyük ve dönen bir çark olarak hayal edilir. Kenarında küçük figürler ve yaratıklar yolculuk eder; kimi yükselir, kimi alçalır, hiçbiri yerinde durmaz. Köşelerdeki dört mevsimin sembolleri doğal döngüler fikrini çerçeveleyebilir. Göbekte sakin ve hareketsiz bir merkez, her şey dönerken bile bulunabilecek istikrarlı bakış açısını çağrıştırır.

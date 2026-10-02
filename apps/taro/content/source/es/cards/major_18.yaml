@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_18"
+reviewStatus: "machine"
+sourceHash: >-
+  7efd66bb1d64906ed3b4d32041e74bfa43206adcd1abe11bb0d8d48f91eb7d62
+name: "La Luna"
+keywordsUpright:
+  - "incertidumbre"
+  - "intuición"
+  - "sueños"
+  - "lo desconocido"
+  - "emociones cambiantes"
+keywordsReversed:
+  - "disipar la confusión"
+  - "mirar las inquietudes"
+  - "autoengaño"
+  - "confiar en el camino"
+shortUpright: >-
+  No todo está claro todavía, y no pasa nada. Esta carta te invita a ir despacio y confiar en tus sentidos.
+shortReversed: >-
+  Quizá la niebla empiece a levantarse. ¿Qué ves ahora con más claridad que antes?
+meaningUpright: |-
+  La Luna es la carta de lo intermedio: la luz que muestra las formas sin mostrar sus bordes. En ese brillo suave, las cosas pueden parecer más grandes, más extrañas o más mágicas de lo que son a la luz del día. La carta habla de sueños, estados de ánimo, imaginación y la sensación inquieta de no saber del todo dónde estás.
+  En la vida cotidiana, esta carta puede reflejar una situación a la que le faltan piezas, un sentimiento al que no sabes poner nombre o preocupaciones que parecen más grandes de noche que por la mañana. Puede señalar un momento en que la lógica por sí sola no ayuda mucho, y en que la intuición, los sueños y el trabajo creativo pueden ofrecer pistas. Aquí la incertidumbre no es una advertencia; es simplemente parte de recorrer un camino que aún no puedes ver del todo.
+  Esta carta te invita a considerar qué es real y qué puede ser imaginado. Puedes preguntarte cuáles de tus miedos se basan en hechos y cuáles en historias que te has contado. La Luna destaca la paciencia con la ambigüedad. Ir despacio, consultar con tus instintos y esperar a que haya más luz antes de tomar grandes decisiones puede ser un enfoque sabio en tiempos de niebla.
+meaningReversed: |-
+  Invertida, la Luna puede reflejar una confusión que empieza a disiparse. Algo que parecía turbio quizá se esté enfocando, o quizá te sientas con ánimo de mirar de frente una preocupación que venías evitando. Eso puede traer alivio, aunque la imagen no sea del todo cómoda.
+  Esta carta también puede señalar las trampas que nos tiende la mente: contarte una historia conveniente o dejar que los pensamientos ansiosos den vueltas en bucle. Notar estos patrones ya es un paso hacia la claridad.
+  Quizá quieras escribir lo que sabes con certeza y lo que estás suponiendo. Ver la diferencia en el papel puede reducir una preocupación a su tamaño real. Confiar en el camino no exige verlo entero; puede bastar con ver el siguiente paso y darlo con cuidado.
+aspects:
+  relationshipsUpright: >-
+    En las relaciones, la Luna puede reflejar incertidumbre sobre en qué punto estás o sobre lo que siente otra persona. Puede invitarte a notar si estás rellenando huecos con suposiciones. Las preguntas amables y directas y la paciencia pueden ayudar, igual que prestar atención a tus propias reacciones emocionales sin precipitarte a sacar conclusiones.
+  relationshipsReversed: >-
+    Invertida, esta carta puede señalar malentendidos que empiezan a aclararse, o que reconoces una historia poco útil que te has contado sobre alguien. Puedes considerar tener una conversación honesta para comprobar qué es verdad y dejar espacio a la versión de la otra persona. La claridad suele llegar a pedazos, y cada intercambio sincero añade uno.
+  workUpright: >-
+    En el trabajo o en un proyecto, la Luna destaca la ambigüedad: objetivos poco claros, información cambiante o un proceso creativo que aún no ha encontrado su forma. Puede invitarte a tolerar no saber durante un tiempo. Aquí puede florecer la lluvia de ideas imaginativa, mientras que a los compromisos firmes quizá les convenga esperar a que haya más claridad.
+  workReversed: >-
+    Invertida, la Luna puede reflejar una confusión que se disipa al llegar nueva información, o la ocasión de aclarar un malentendido. Puedes anotar las preguntas abiertas y buscar respuestas claras. También puede señalar que te sorprendes pensando en el peor escenario y eliges una mirada más tranquila. Los hechos claros suelen aligerar la siguiente decisión.
+  growthUpright: >-
+    Bajo la Luna vale la pena explorar los sueños, la imaginación y las partes menos racionales de tu mente. Escribir un diario o el juego creativo pueden ayudarte a escucharlos. Puedes notar tus estados de ánimo y sus patrones, tratándolos como información y no como órdenes.
+  growthReversed: >-
+    Invertida, la Luna puede preguntarte si la ansiedad ha moldeado tu visión más que los hechos. Puede reflejar una capacidad creciente para ver a través de las preocupaciones. Puedes practicar una pausa cuando aparezca un pensamiento temeroso y preguntarte qué notaría una amistad más serena. Con el tiempo, esa pausa puede convertirse en un hábito más estable.
+reflectionQuestions:
+  - >-
+    ¿Cuáles de tus preocupaciones actuales se basan en hechos y cuáles en suposiciones?
+  - >-
+    ¿Dónde podrías estar llenando un silencio con suposiciones sobre alguien?
+  - >-
+    ¿Cuál es el siguiente pequeño paso que ves con claridad, aunque el resto esté en niebla?
+imageryNote: >-
+  La Luna de Taro se imagina como una luna pálida, medio oculta por nubes a la deriva, sobre un sendero entre juncos altos junto a la orilla. El sendero brilla en algunos tramos y desaparece en otros, así que quien camina avanza despacio. Una garza inmóvil en las aguas poco profundas puede sugerir una atención paciente, mientras que las ondas en el agua insinúan sentimientos que suben desde abajo. La luz plateada, las sombras suaves y los bordes difuminados invitan a confiar en los sentidos en un viaje incierto.

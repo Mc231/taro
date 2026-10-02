@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Nutze eine einzelne Karte, wenn du einen klaren Impuls suchst, der dich durch den Tag begleitet, oder wenn eine Frage einfach ist und du einen Ausgangspunkt zum Nachdenken möchtest, keine ausführliche Landkarte. Sie passt auch gut, wenn wenig Zeit ist oder du die Karten gerade erst kennenlernst.
+  three_ppf: >-
+    Nutze Vergangenheit, Gegenwart, Zukunft, wenn du sehen möchtest, wie sich eine Situation mit der Zeit entwickelt hat. Die Legung hilft dir, Muster zu bemerken, die dich hierher gebracht haben, was gerade wirkt und wohin es gehen könnte, wenn sich nichts ändert. So kannst du entscheiden, was du behalten und was du ändern möchtest.
+  three_sao: >-
+    Nutze Situation, Handlung, Ergebnis, wenn du vor etwas Praktischem stehst und überlegen möchtest, was du als Nächstes tun könntest. Die Legung betrachtet die Situation, wie sie ist, einen Ansatz, der sich anzuschauen lohnt, und wohin dieser Ansatz führen könnte, wenn du ihm folgst.
+  relationship: >-
+    Nutze die Beziehungslegung, um über eine enge Verbindung nachzudenken: zu einer Partnerin oder einem Partner, zu Freunden, Familie oder Kolleginnen und Kollegen. Sie betrachtet, was du einbringst, wie die andere Person die Dinge erleben könnte, was euch verbindet, was die Verbindung belastet und was daraus wachsen könnte. Sie beschreibt deine Sicht auf die Beziehung, nicht die Gedanken der anderen Person.
+  two_paths: >-
+    Nutze Zwei Wege, wenn du zwischen zwei Möglichkeiten abwägst. Benenne sie für dich, bevor du ziehst: Weg A und Weg B. Die Legung betrachtet die Situation hinter der Wahl, was jeder Weg von dir verlangen könnte und wohin er führen könnte, damit du beide an deinen eigenen Werten messen kannst. Die Entscheidung bleibt bei dir.
+  celtic_cross: >-
+    Nutze das Keltische Kreuz für eine vielschichtige Situation, die du gründlich erkunden möchtest. Seine zehn Positionen betrachten den Kern der Sache, was ihn kreuzt, seine Wurzeln, jüngste Ereignisse und was als Nächstes kommen könnte, dann dich selbst, dein Umfeld, deine Hoffnungen und Ängste und wohin es gehen könnte, wenn sich nichts ändert. Nimm dir Zeit, es langsam zu lesen.

@@ -1,5 +1,6 @@
 /// The deck content pipeline `tools/content` (01 §11, Phase 5 Sprint 5.2):
-/// `validate`, `build`, `translate`, `sync_check` and `placeholder_art` over
+/// `validate`, `build`, `translate`, `sync_check`, `placeholder_art` and
+/// `import_art` over
 /// `apps/taro/content/source/` (format: that folder's README.md; schemas:
 /// `tools/content/schema/`).
 ///
@@ -19,6 +20,7 @@ import 'package:taro_dart_tools/src/content/builder.dart';
 import 'package:taro_dart_tools/src/content/claude_client.dart';
 import 'package:taro_dart_tools/src/content/common.dart';
 import 'package:taro_dart_tools/src/content/ids.dart';
+import 'package:taro_dart_tools/src/content/import_art.dart';
 import 'package:taro_dart_tools/src/content/placeholder_art.dart';
 import 'package:taro_dart_tools/src/content/source.dart';
 import 'package:taro_dart_tools/src/content/sync_check.dart';
@@ -30,6 +32,7 @@ export 'src/content/builder.dart';
 export 'src/content/claude_client.dart';
 export 'src/content/common.dart';
 export 'src/content/ids.dart';
+export 'src/content/import_art.dart';
 export 'src/content/pixel_font.dart';
 export 'src/content/placeholder_art.dart';
 export 'src/content/source.dart';
@@ -157,7 +160,8 @@ void _printReport(ValidationResult result, ContentIo io) {
   }
 }
 
-/// `tools/content/validate [--release] [--strict-locales] [--print-hashes]`.
+/// `tools/content/validate [--release] [--strict-locales] [--launch-gate]
+/// [--print-hashes]`.
 int runContentValidate(List<String> args, {ContentIo? io}) {
   final ctx = io ?? ContentIo();
   final parser = _parser()
@@ -170,6 +174,13 @@ int runContentValidate(List<String> args, {ContentIo? io}) {
       'strict-locales',
       negatable: false,
       help: 'Missing or stale translations are errors (Phase 18).',
+    )
+    ..addFlag(
+      'launch-gate',
+      negatable: false,
+      help:
+          'Native-review launch gate (01 §11 step 6); implies '
+          '--strict-locales.',
     )
     ..addFlag(
       'print-hashes',
@@ -196,6 +207,7 @@ int runContentValidate(List<String> args, {ContentIo? io}) {
       today: ctx.today,
       release: results.flag('release'),
       strictLocales: results.flag('strict-locales'),
+      launchGate: results.flag('launch-gate'),
       arbKeys: _arbKeys(root),
     ),
   );
@@ -518,4 +530,174 @@ bool _sameBytes(File file, Uint8List bytes) {
     if (current[i] != bytes[i]) return false;
   }
   return true;
+}
+
+/// Creates the art encoder for a `--cwebp` binary.
+typedef ArtEncoderFactory = ArtEncoder Function(String executable);
+
+ArtEncoder _cwebp(String executable) => CwebpEncoder(executable: executable);
+
+/// `tools/content/import_art --source DIR --art-set KEY [--no-build]`, or
+/// `tools/content/import_art --check [--art-set KEY]` (Sprint 18.1).
+int runImportArt(
+  List<String> args, {
+  ContentIo? io,
+  ArtEncoderFactory? encoderFactory,
+}) {
+  final ctx = io ?? ContentIo();
+  final parser = _parser()
+    ..addOption('source', help: 'Folder of <cardId>.<ext> + back.<ext>.')
+    ..addOption(
+      'art-set',
+      help: 'Art set key (snake_case; default with --check: deck.yaml artSet).',
+    )
+    ..addOption(
+      'width',
+      defaultsTo: '$kDefaultArtWidth3x',
+      help: '@3x width in pixels (@2x = 2/3 of it).',
+    )
+    ..addOption(
+      'aspect-tolerance',
+      defaultsTo: '$kDefaultAspectTolerance',
+      help: 'Accepted relative deviation from size.card.aspectRatio.',
+    )
+    ..addOption('cwebp', defaultsTo: 'cwebp', help: 'The cwebp binary.')
+    ..addFlag(
+      'build',
+      defaultsTo: true,
+      help: 'Run tools/content/build after the import (deck_meta.json).',
+    )
+    ..addFlag(
+      'check',
+      negatable: false,
+      help: 'Write nothing; check the bundled art set (02 §17 budget).',
+    );
+  final (results, code) = _parse(
+    parser,
+    args,
+    'import_art',
+    'Validates and converts the deck art (78 cards + back) to WebP @2x/@3x '
+        '(<= 150 KB) in $kAppDeckDir/art/<art_set>/, then sets deck.yaml '
+        'artSet, the pubspec asset entry and rebuilds deck_meta.json.',
+    ctx,
+  );
+  if (results == null) return code!;
+  final width = int.tryParse(results.option('width')!);
+  final tolerance = double.tryParse(results.option('aspect-tolerance')!);
+  if (width == null || width < 3 || tolerance == null || tolerance < 0) {
+    ctx.err.writeln(
+      'content import_art: --width and --aspect-tolerance must be positive',
+    );
+    return 64;
+  }
+  final root = _root(results, 'import_art', ctx);
+  if (root == null) return 1;
+  final CardSizeTokens tokens;
+  try {
+    tokens = readCardSizeTokens(root);
+  } on ContentFormatException catch (e) {
+    ctx.err.writeln('content import_art: $e');
+    return 1;
+  }
+  final snake = RegExp(r'^[a-z][a-z0-9_]*$');
+  if (results.flag('check')) {
+    var artSet = results.option('art-set');
+    if (artSet == null) {
+      try {
+        final deck = readYaml(root, kDeckYamlPath);
+        artSet = deck is Map ? '${deck['artSet']}' : null;
+      } on FileSystemException catch (e) {
+        ctx.err.writeln('content import_art: ${e.path}: ${e.message}');
+        return 1;
+      }
+    }
+    final problems = checkArtSet(
+      root,
+      artSet ?? '',
+      aspectRatio: tokens.aspectRatio,
+      aspectTolerance: tolerance,
+    )..forEach(ctx.err.writeln);
+    if (problems.isNotEmpty) {
+      ctx.err.writeln(
+        'content import_art --check: ${problems.length} problem(s)',
+      );
+      return 1;
+    }
+    ctx.out.writeln('content import_art --check: art set $artSet OK');
+    return 0;
+  }
+  final source = results.option('source');
+  final artSet = results.option('art-set');
+  if (source == null || artSet == null) {
+    ctx.err.writeln('content import_art: --source and --art-set are required');
+    return 64;
+  }
+  if (!snake.hasMatch(artSet) || artSet == kPlaceholderArtSet) {
+    ctx.err.writeln(
+      'content import_art: --art-set must be snake_case and not '
+      '$kPlaceholderArtSet',
+    );
+    return 64;
+  }
+  final options = ArtImportOptions(
+    artSet: artSet,
+    aspectRatio: tokens.aspectRatio,
+    cardWidths: tokens.widths,
+    width3x: width,
+    aspectTolerance: tolerance,
+  );
+  final encoder = (encoderFactory ?? _cwebp)(results.option('cwebp')!);
+  final sourceDir = Directory(source).isAbsolute
+      ? Directory(source)
+      : Directory('${ctx.cwd.path}/$source');
+  final ArtImport plan;
+  try {
+    plan = planArtImport(sourceDir, options, encoder, log: ctx.out.writeln);
+  } on ArtEncoderException catch (e) {
+    ctx.err.writeln('content import_art: $e');
+    return 1;
+  }
+  if (plan.errors.isNotEmpty) {
+    plan.errors.forEach(ctx.err.writeln);
+    ctx.err.writeln(
+      'content import_art: ${plan.errors.length} problem(s); nothing written',
+    );
+    return 1;
+  }
+  final stale = listArtSet(root, artSet)..removeWhere(plan.files.containsKey);
+  var written = 0;
+  for (final MapEntry(key: path, value: bytes) in plan.files.entries) {
+    if (_sameBytes(File('${root.path}/$path'), bytes)) continue;
+    File('${root.path}/$path')
+      ..parent.createSync(recursive: true)
+      ..writeAsBytesSync(bytes);
+    written++;
+  }
+  for (final path in stale) {
+    File('${root.path}/$path').deleteSync();
+    ctx.out.writeln('deleted $path');
+  }
+  try {
+    final deck = File('${root.path}/$kDeckYamlPath');
+    deck.writeAsStringSync(withArtSet(deck.readAsStringSync(), artSet));
+    final pubspec = File('${root.path}/$kAppPubspecPath');
+    if (pubspec.existsSync()) {
+      pubspec.writeAsStringSync(
+        withArtAsset(pubspec.readAsStringSync(), artSet),
+      );
+    }
+  } on ContentFormatException catch (e) {
+    ctx.err.writeln('content import_art: $e');
+    return 1;
+  } on FileSystemException catch (e) {
+    ctx.err.writeln('content import_art: ${e.path}: ${e.message}');
+    return 1;
+  }
+  ctx.out.writeln(
+    'content import_art: ${plan.files.length} file(s) in '
+    '${artSetDir(artSet)} ($written written, ${stale.length} deleted); '
+    'deck.yaml artSet = $artSet',
+  );
+  if (!results.flag('build')) return 0;
+  return runContentBuild(['--repo-root', root.path], io: ctx);
 }

@@ -1,0 +1,52 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_03"
+reviewStatus: "machine"
+sourceHash: >-
+  aa63922d9fb5bc4ac15c58710aedb0a14eb2cf6207fe2250fb59daf01f857ecb
+name: "Asa Üçlüsü"
+keywordsUpright:
+  - "ivme"
+  - "genişleme"
+  - "ileriye bakmak"
+  - "ilk ilerleme"
+  - "emeğine güvenmek"
+keywordsReversed:
+  - "sabırsızlık"
+  - "yavaş karşılık"
+  - "engellenen planlar"
+  - "rotayı ayarlamak"
+  - "dar bakış"
+shortUpright: >-
+  Harekete geçirdiğin bir şey yol almaya başlıyor; geri dönenleri izleyip bir sonraki aşamaya hazırlanabilirsin.
+shortReversed: >-
+  İlerleme umduğundan yavaş hissettirebilir; vazgeçmek yerine beklentileri ayarlamanın zamanı olabilir.
+meaningUpright: |-
+  Asa İkilisi planlamayla ilgiliyken Asa Üçlüsü çoktan harekete geçmiş planları gösterir. Bir bakıma gemiler limandan ayrılmıştır: mesajlar gönderilmiş, başvurular yapılmış, ilk adımlar atılmıştır. Şimdi, işler doğrudan kontrolünün ötesinde gelişirken ufku izleme dönemidir.
+  Bu kart, ilk ilerlemenin tatmin edici hissini yansıtabilir: ilk destekçilerini kazanan bir proje, yerine oturan yeni bir alışkanlık ya da beklediğinden daha uzağa ulaşan bir iş birliği. Hazırlığın değerini de öne çıkarabilir: geri çekilip daha ileriye bakabilecek kadar zemin hazırlamışsındır.
+  Buradaki davet, iki şeyi aynı anda tutmaktır: başlattığın şeye güven ve onun nasıl gelişeceğine açıklık. Çabalarının nerede başka insanlarla bağ kurmaya başladığını fark edip bir sonraki aşamanın senden ne isteyebileceğini düşünebilirsin. Genişleme çoğu zaman yeni beceriler, yeni ortaklar ya da kurduğun şeye dair biraz daha büyük bir resim gerektirir.
+meaningReversed: |-
+  Ters geldiğinde Asa Üçlüsü, huzursuzluğa dönüşmüş bir beklemeyi yansıtabilir. İşini yapmış olmana rağmen pek az şeyin geri döndüğünü görebilirsin ya da sonuçlar hayal ettiğinden farklı görünebilir. İşler yalnızca zaman alıyor olsa bile yavaşlığı başarısızlık olarak okumak kolaydır.
+  Bazen bu kart dar bir bakışa da işaret eder: tek bir sonuca odaklanıp çevrendeki küçük hareket işaretlerini kaçırmak ya da o kadar ileriyi planlamak ki şimdiki an boş hissettirir.
+  Beklentilerine bakmak için iyi bir an olabilir. Zaman çizelgelerin gerçekçi miydi? Eksik olan bir bilgi ya da henüz yardım istemediğin bir ortak var mı? Planı bırakmadan ayarlayabilir ve sessizce gerçekleşmiş olan ilerlemeleri not edebilirsin.
+aspects:
+  relationshipsUpright: >-
+    Yakın bağlarda bu kart, daha fazla güven, yeni ortak planlar ya da başka insanlara da yer açma isteğiyle ilk bölümünün ötesine büyüyen bir bağı yansıtabilir. Birlikte ne kadar yol aldığınızın kıymetini bilmeye ve bundan sonra nereye gitmek istediğinizi konuşmaya davet edebilir; her bir kişinin kendi ufkuna da yer bırakarak.
+  relationshipsReversed: >-
+    Ters geldiğinde birinin seninle ortada buluşmasını beklediğini ya da bir ilişkinin umduğun hızda gelişmediğini hissedebilirsin. İlerlemeyi sessizce ölçmek yerine beklentilerini açıkça paylaşmak yardımcı olabilir. Zaman çizelgeleriniz yalnızca farklı olabileceğinden, diğer kişinin neyi umduğunu da sorabilirsin.
+  workUpright: >-
+    İşte ya da eğitimde Asa Üçlüsü, erişimini genişleten projelere işaret edebilir: bir lansman, bir tanıtım çalışması, ekipler ya da yerler arası bir iş birliği. Bu ivmeyi takip ederek, ağını genişleterek ya da bir sonraki aşamaya o gelmeden hazırlanarak nasıl destekleyebileceğini düşünebilirsin; böylece kendi ilerlemen seni hazırlıksız yakalamaz.
+  workReversed: >-
+    Ters geldiğinde sonuçların ortaya çıkması gecikebilir ya da bir plan kontrol edemediğin gecikmelerle karşılaşmış olabilir. Aynı yönde daha çok zorlamak yerine şimdiye kadar öğrendiklerini gözden geçirip rotayı ayarlayabilirsin. İşin içindeki insanlarla konuşmak, bulunduğun yerden kolayca gözden kaçan engelleri ya da sessiz başarıları ortaya çıkarabilir.
+  growthUpright: >-
+    Zaten harcadığın emeğe güvenmek sessiz bir gelişim biçimidir. Gelişim çoğu zaman ilk adımlardan sonra gözden uzakta devam eder. Birkaç ay önce nereden başladığına dönüp bakarak neyin değiştiğini fark edebilir, ardından bu daha geniş bakışla bir sonraki adımda neyi keşfetmek istediğini seçebilirsin.
+  growthReversed: >-
+    Ters geldiğinde kendine karşı sabırsızlık, gerçek ilerlemeyi görmeni bulandırıyor olabilir. Nerede anında değişim beklediğini ve nerede daha yavaş bir ritmin daha şefkatli olacağını keşfedebilirsin. Küçük adımların basit bir kaydını tutmak, ufuk hâlâ boş görünürken gelişimi görmeyi kolaylaştırabilir.
+reflectionQuestions:
+  - >-
+    Çoktan harekete geçirdiğin hangi şey bir an takdir edilmeyi hak ediyor?
+  - >-
+    Bulunduğun yerden görebildiğinden daha uzağı görmene kim yardım edebilir?
+  - >-
+    Başlattığın bir şeyin bir sonraki aşamasına şimdiden nasıl hazırlanabilirsin?
+imageryNote: >-
+  Bir tepenin ya da yarın üzerinde, sırtı kısmen dönük bir figür durur; çevresine emeğin işaretleri gibi üç asa dikilmiştir ve aşağıda açık sularda ya da ovalarda ilerleyen tekneleri veya yolcuları izler. Erken saatlerin ışığı yeni bir aşamanın başladığını düşündürebilir. Uzaktaki hareket çoktan yola çıkmış planları, sağlam duruş ise sonuçlar hâlâ yoldayken sabırlı bir güveni temsil eder.

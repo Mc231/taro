@@ -1,0 +1,52 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_04"
+reviewStatus: "machine"
+sourceHash: >-
+  34013de7420fbcdb87e967acb20b237602aa47804b85df50fbf80a13adf4d8a6
+name: "Cuatro de Espadas"
+keywordsUpright:
+  - "descanso"
+  - "recuperación"
+  - "retiro tranquilo"
+  - "quietud"
+  - "recuperar energía"
+keywordsReversed:
+  - "inquietud"
+  - "descanso aplazado"
+  - "volver a la actividad"
+  - "señales de agotamiento"
+  - "quietud como evasión"
+shortUpright: >-
+  Una pausa forma parte del trabajo; quizá sea momento de dejar las cosas a un lado y dejar que tu mente se aquiete.
+shortReversed: >-
+  Quizá el descanso se siga aplazando, o una etapa tranquila esté lista para terminar; puedes notar cuál se siente verdad.
+meaningUpright: |-
+  El Cuatro de Espadas es una carta de descanso deliberado. Las espadas están guardadas, no perdidas ni rotas, simplemente apartadas por un tiempo. Tras un esfuerzo, un conflicto o una larga racha de pensar mucho, la mente necesita un lugar donde tumbarse.
+  Esto puede aparecer como un fin de semana sin planes, una tarde sin pantallas o simplemente decir que no a un compromiso más. Puede reflejar un periodo de recuperación tras algo exigente, en el que hacer menos es lo más útil que puedes hacer. También puede señalar una reflexión tranquila: tiempo a solas para ordenar tus pensamientos antes de volver al mundo.
+  A mucha gente le cuesta más descansar que trabajar, porque detenerse deja aflorar sentimientos y preguntas. Esta carta te invita a ver el descanso como una habilidad y no como una recompensa que hay que ganarse. ¿Cómo sería darte una quietud real, aunque sea breve? Puedes notar qué tipo de pausas te renuevan y cuáles solo te distraen. Volver al mundo después puede sentirse más claro cuando de verdad te has permitido parar.
+meaningReversed: |-
+  Invertido, el Cuatro de Espadas puede reflejar un descanso que se sigue aplazando. Quizá estés tirando de reservas, diciéndote que bajarás el ritmo después de una tarea más. La inquietud, la dificultad para desconectar o el cansancio incluso después de dormir pueden ser señales que merece la pena escuchar.
+  Otra lectura es la contraria: un retiro que ya ha durado lo suficiente y una suave disposición a volver a la actividad. La quietud que antes te reparaba quizá ahora se sienta como evasión, y un pequeño paso de vuelta al mundo podría darte energía en vez de quitártela.
+  Puedes preguntarte cuál de las dos encaja hoy con tu situación. ¿Necesitas una pausa que no te has tomado, o es momento de levantarte de una que ya tuviste? En cualquier caso, escuchar tu propio ritmo, y no el de otra persona, puede guiar el siguiente paso.
+aspects:
+  relationshipsUpright: >-
+    En las relaciones, esta carta puede invitar a una pausa: un tiempo aparte para pensar, un descanso de un tema acalorado o simplemente una compañía tranquila sin necesidad de hablarlo todo. El espacio puede ser una forma de cuidado cuando se nombra y se acuerda. Puedes hacerle saber a alguien cercano que necesitas descansar un poco, para que tu quietud se entienda como recarga y no como retirada.
+  relationshipsReversed: >-
+    Invertida, el Cuatro de Espadas puede reflejar una pausa que se ha convertido en distancia, o una relación en la que nadie tiene espacio para respirar. Puedes considerar si es momento de reconectar tras una etapa tranquila, o si necesitas pedir algo de espacio. Ambas peticiones pueden hacerse con suavidad y sin culpas.
+  workUpright: >-
+    En el trabajo, esta carta puede señalar una pausa planificada: unas vacaciones, una semana más ligera o dar un paso atrás tras terminar un proyecto exigente. El descanso forma parte de un esfuerzo sostenible. Puedes proteger algo de tiempo sin agenda para que las ideas se asienten solas. A menudo la solución que no encontrabas mientras empujabas se hace visible cuando dejas de buscarla de frente.
+  workReversed: >-
+    Invertido, esta carta puede reflejar que trabajas a pesar del agotamiento o que no consigues desconectar. Puedes notar dónde el descanso sigue bajando en la lista. También puede marcar la disposición a volver tras un descanso, con una perspectiva renovada. Empezar con tareas pequeñas y manejables puede ayudarte a retomar el ritmo sin desbordarte.
+  growthUpright: >-
+    Para el crecimiento personal, el Cuatro de Espadas te invita a crear hábitos de descanso: pausas regulares, mañanas tranquilas o tiempo en la naturaleza. La quietud da a tus pensamientos la ocasión de ordenarse. Puedes experimentar con unos minutos de no hacer nada en absoluto y notar qué surge. Descansar no es pereza; es como vuelve la energía.
+  growthReversed: >-
+    Invertido, esta carta puede reflejar una mente inquieta que se resiste a parar, o un retiro que se ha convertido en silencio en un escondite. Puedes preguntarte con suavidad: ¿esta pausa todavía te da algo? Si descansar parece imposible, un paseo corto o una respiración más lenta pueden ser un comienzo. Si es momento de moverte, empieza con suavidad.
+reflectionQuestions:
+  - >-
+    ¿Qué tipo de descanso te repara de verdad, en vez de solo llenar el tiempo?
+  - >-
+    ¿Quién en tu vida lo entendería si le pidieras un día tranquilo?
+  - >-
+    ¿Qué compromiso podrías dejar a un lado esta semana para hacer espacio a la quietud?
+imageryNote: >-
+  La ilustración original muestra a una figura que descansa sobre un banco bajo de piedra en un espacio abovedado y tranquilo. Tres espadas cuelgan en calma de la pared y una cuarta yace bajo el banco, todas guardadas. Una luz suave entra por una pequeña ventana. La sala cerrada sugiere un refugio seguro; las espadas guardadas, pensamientos apartados por ahora, y la luz suave, que el mundo de fuera espera con paciencia.

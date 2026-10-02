@@ -1,0 +1,1436 @@
+{
+  "cards": {
+    "cups_01": {
+      "keywordsReversed": [
+        "zurückgehaltene Gefühle",
+        "leere Reserven",
+        "inneres Auffüllen",
+        "geschütztes Herz"
+      ],
+      "keywordsUpright": [
+        "offenes Herz",
+        "neues Gefühl",
+        "Empfänglichkeit",
+        "emotionale Erneuerung",
+        "Mitgefühl"
+      ],
+      "name": "Ass der Kelche",
+      "shortReversed": "Dein Kelch muss vielleicht erst gefüllt werden, bevor er ausgießen kann; überlege, was dich heute still auffüllen würde.",
+      "shortUpright": "Vielleicht steigt ein frisches Gefühl auf; diese Karte lädt dich ein, es hereinzulassen und zu bemerken, wohin es fließen will."
+    },
+    "cups_02": {
+      "keywordsReversed": [
+        "Ungleichgewicht",
+        "Missverständnis",
+        "Vertrauen reparieren",
+        "dir selbst Partner sein"
+      ],
+      "keywordsUpright": [
+        "gegenseitige Verbindung",
+        "Gegenseitigkeit",
+        "Partnerschaft",
+        "geteilter Respekt",
+        "Anziehung"
+      ],
+      "name": "Zwei der Kelche",
+      "shortReversed": "Etwas zwischen dir und einem anderen Menschen fühlt sich vielleicht unausgewogen an; überlege, worum jede Seite wirklich bittet.",
+      "shortUpright": "Ein Moment, um zu bemerken, wo Fürsorge in beide Richtungen fließt und was eine Verbindung gleichwertig und lebendig macht."
+    },
+    "cups_03": {
+      "keywordsReversed": [
+        "Übermaß",
+        "außen vor sein",
+        "soziale Müdigkeit",
+        "auseinanderdriften",
+        "den eigenen Kreis wählen"
+      ],
+      "keywordsUpright": [
+        "Freundschaft",
+        "Feier",
+        "Gemeinschaft",
+        "geteilte Freude",
+        "Zugehörigkeit"
+      ],
+      "name": "Drei der Kelche",
+      "shortReversed": "Verbindung fühlt sich gerade vielleicht dünn oder ermüdend an; überlege, welche Treffen dich nähren und welche nur Zeit füllen.",
+      "shortUpright": "Ein Moment, um zu bemerken, wer deine Freuden teilt, und wie du im Gegenzug ihre teilen könntest."
+    },
+    "cups_04": {
+      "keywordsReversed": [
+        "neues Interesse",
+        "Angebote bemerken",
+        "sich wieder einlassen",
+        "Unruhe",
+        "Gewohnheit des Neins"
+      ],
+      "keywordsUpright": [
+        "Besinnung",
+        "Teilnahmslosigkeit",
+        "Rückzug",
+        "Neubewertung",
+        "Wendung nach innen"
+      ],
+      "name": "Vier der Kelche",
+      "shortReversed": "Nach einer stillen Zeit kehrt vielleicht Interesse zurück; überlege, welche Einladung es jetzt wert ist, angenommen zu werden.",
+      "shortUpright": "Vielleicht bist du eine Weile nach innen gewandt; diese Karte lädt dich ein zu bemerken, was dir angeboten wird, während du nachdenkst."
+    },
+    "cups_05": {
+      "keywordsReversed": [
+        "Annahme",
+        "weitergehen",
+        "Vergebung",
+        "finden, was bleibt"
+      ],
+      "keywordsUpright": [
+        "Enttäuschung",
+        "Trauer",
+        "Bedauern",
+        "Blick auf den Verlust",
+        "Abschied nehmen"
+      ],
+      "name": "Fünf der Kelche",
+      "shortReversed": "Das Gewicht einer Enttäuschung lässt vielleicht nach; überlege, was dir geblieben ist und wohin du dich als Nächstes wenden möchtest.",
+      "shortUpright": "Ein Verlust füllt vielleicht dein Blickfeld; diese Karte lädt dich ein, ehrlich zu trauern und mit der Zeit zu bemerken, was noch steht."
+    },
+    "cups_06": {
+      "keywordsReversed": [
+        "in der Vergangenheit",
+        "verklärte Erinnerungen",
+        "weitergehen",
+        "alte Geschichten ändern"
+      ],
+      "keywordsUpright": [
+        "Nostalgie",
+        "Kindheitserinnerungen",
+        "Unschuld",
+        "einfache Freundlichkeit",
+        "Wiedersehen"
+      ],
+      "name": "Sechs der Kelche",
+      "shortReversed": "Die Vergangenheit zieht vielleicht stärker als sonst; überlege, welche Erinnerungen dich nähren und welche dich von der Gegenwart abhalten.",
+      "shortUpright": "Eine Erinnerung oder eine einfache Freundlichkeit bringt heute vielleicht Wärme; diese Karte lädt dich ein zu bemerken, was dir die Vergangenheit noch schenkt."
+    },
+    "cups_07": {
+      "keywordsReversed": [
+        "Klarheit",
+        "geerdete Entscheidungen",
+        "Fokus",
+        "Ernüchterung",
+        "Angst vor der Wahl"
+      ],
+      "keywordsUpright": [
+        "viele Möglichkeiten",
+        "Vorstellungskraft",
+        "Tagträume",
+        "Wunschdenken",
+        "Wahlmöglichkeiten"
+      ],
+      "name": "Sieben der Kelche",
+      "shortReversed": "Der Nebel der Möglichkeiten lichtet sich vielleicht; überlege, welche Wahl sich noch echt anfühlt, wenn der Glanz des Träumens verblasst.",
+      "shortUpright": "Viele Möglichkeiten schimmern vielleicht zugleich; diese Karte lädt dich ein, das Träumen zu genießen und dann jede einzelne näher anzusehen."
+    },
+    "cups_08": {
+      "keywordsReversed": [
+        "Angst vor dem Gehen",
+        "Unentschlossenheit",
+        "bleiben, neu versuchen",
+        "zielloses Treiben"
+      ],
+      "keywordsUpright": [
+        "weggehen",
+        "Suche nach Sinn",
+        "loslassen",
+        "innere Suche",
+        "weiterziehen"
+      ],
+      "name": "Acht der Kelche",
+      "shortReversed": "Vielleicht bist du hin- und hergerissen zwischen Bleiben und Gehen; überlege, was du wissen müsstest, bevor du dich für eines entscheidest.",
+      "shortUpright": "Etwas erfüllt dich vielleicht nicht mehr, auch wenn es vollständig aussieht; diese Karte lädt dich ein zu bemerken, wohin dein Herz als Nächstes zieht."
+    },
+    "cups_09": {
+      "keywordsReversed": [
+        "Unzufriedenheit",
+        "Übermaß",
+        "hohler Erfolg",
+        "innere Erfüllung"
+      ],
+      "keywordsUpright": [
+        "Zufriedenheit",
+        "Erfüllung",
+        "Dankbarkeit",
+        "Genuss",
+        "genießen, was du hast"
+      ],
+      "name": "Neun der Kelche",
+      "shortReversed": "Etwas sieht vielleicht befriedigend aus, ohne sich so anzufühlen; überlege, was dir Zufriedenheit von innen heraus bringen würde.",
+      "shortUpright": "Ein Moment, um zu genießen, was schon gut ist, und zu bemerken, wie viel du selbst dazu beigetragen hast."
+    },
+    "cups_10": {
+      "keywordsReversed": [
+        "Entfremdung",
+        "angespannte Harmonie",
+        "Idealbild",
+        "Nähe neu aufbauen"
+      ],
+      "keywordsUpright": [
+        "emotionale Erfüllung",
+        "Harmonie",
+        "Zugehörigkeit",
+        "Zuhause",
+        "geteiltes Glück"
+      ],
+      "name": "Zehn der Kelche",
+      "shortReversed": "Harmonie fühlt sich vielleicht angespannt oder unerreichbar an; überlege, was Zugehörigkeit für dich bedeuten würde, jenseits jedes Idealbilds.",
+      "shortUpright": "Ein Moment, um zu bemerken, wo du dich schon zu Hause fühlst und wer dir das Gefühl gibt, dazuzugehören."
+    },
+    "cups_11": {
+      "keywordsReversed": [
+        "emotionale Unreife",
+        "kreative Blockade",
+        "Unsicherheit",
+        "müßiges Träumen",
+        "zarte Anfänge"
+      ],
+      "keywordsUpright": [
+        "Neugier",
+        "kreativer Funke",
+        "Feinfühligkeit",
+        "Verspieltheit",
+        "intuitiver Anstoß"
+      ],
+      "name": "Bube der Kelche",
+      "shortReversed": "Ein zartes Gefühl versteckt sich vielleicht oder wankt; überlege, wie du es sicher machen könntest, auszudrücken, was du fühlst.",
+      "shortUpright": "Ein verspieltes Gefühl oder eine kleine kreative Idee überrascht dich vielleicht; diese Karte lädt dich ein, ihr mit Neugier zu begegnen."
+    },
+    "cups_12": {
+      "keywordsReversed": [
+        "Launenhaftigkeit",
+        "unrealistische Ideale",
+        "gebrochene Versprechen",
+        "einen Traum erden"
+      ],
+      "keywordsUpright": [
+        "Romantik",
+        "Idealismus",
+        "dem Herzen folgen",
+        "Einladung",
+        "Charme"
+      ],
+      "name": "Ritter der Kelche",
+      "shortReversed": "Gefühle eilen der Wirklichkeit vielleicht voraus; überlege, welche Versprechen und Träume du wirklich umsetzen kannst.",
+      "shortUpright": "Eine herzliche Idee oder Einladung kommt dir vielleicht entgegen; diese Karte lädt dich ein, dem, was dir wichtig ist, mit Anmut zu folgen."
+    },
+    "cups_13": {
+      "keywordsReversed": [
+        "zu viel geben",
+        "emotionale Überflutung",
+        "Grenzen brauchen",
+        "innere Fürsorge"
+      ],
+      "keywordsUpright": [
+        "Mitgefühl",
+        "feines Gespür",
+        "Intuition",
+        "ruhige Präsenz",
+        "Fürsorge"
+      ],
+      "name": "Königin der Kelche",
+      "shortReversed": "Vielleicht nimmst du mehr auf, als du halten kannst; überlege, welche Fürsorge und welche Grenzen dir helfen würden, dich stabil zu fühlen.",
+      "shortUpright": "Diese Karte lädt dich ein, tief zuzuhören, anderen und dir selbst, mit einer ruhigen und mitfühlenden Präsenz."
+    },
+    "cups_14": {
+      "keywordsReversed": [
+        "unterdrückte Gefühle",
+        "Gefühle kontrollieren",
+        "Launenhaftigkeit",
+        "Halt finden"
+      ],
+      "keywordsUpright": [
+        "inneres Gleichgewicht",
+        "ruhige Führung",
+        "Diplomatie",
+        "reife Fürsorge",
+        "Weisheit"
+      ],
+      "name": "König der Kelche",
+      "shortReversed": "Gefühle werden vielleicht zu fest gehalten oder schwappen ungleichmäßig über; überlege, was dir helfen würde, ihnen mit Ruhe zu begegnen.",
+      "shortUpright": "Diese Karte lädt dich ein, in starken Strömungen ruhig zu bleiben und mit Gefühl und klarem Denken zugleich zu leiten."
+    },
+    "major_00": {
+      "keywordsReversed": [
+        "Zögern",
+        "leichtfertiges Risiko",
+        "Warten auf Bereitschaft",
+        "zerstreuter Fokus"
+      ],
+      "keywordsUpright": [
+        "Neuanfang",
+        "Neugier",
+        "Offenheit",
+        "Sprung ins Unbekannte",
+        "Anfängergeist"
+      ],
+      "name": "Der Narr",
+      "shortReversed": "Ein Innehalten am Rand: Ist es Vorsicht oder die Angst, dich lächerlich zu machen?",
+      "shortUpright": "Ein Schritt in etwas Neues, getragen mehr von Neugier als von Gewissheit."
+    },
+    "major_01": {
+      "keywordsReversed": [
+        "ungenutzte Fähigkeiten",
+        "verzettelte Kräfte",
+        "Selbstzweifel",
+        "clevere Abkürzungen",
+        "Absicht neu ausrichten"
+      ],
+      "keywordsUpright": [
+        "gebündelter Wille",
+        "Einfallsreichtum",
+        "Können in Aktion",
+        "klare Absicht",
+        "etwas real machen"
+      ],
+      "name": "Der Magier",
+      "shortReversed": "Deine Werkzeuge liegen auf dem Tisch, doch deine Aufmerksamkeit ist vielleicht woanders. Was hilft dir, sie zu sammeln?",
+      "shortUpright": "Vielleicht hast du schon mehr von dem, was du brauchst, als du denkst; diese Karte fragt, was du daraus machen willst."
+    },
+    "major_02": {
+      "keywordsReversed": [
+        "übergangene Instinkte",
+        "lauter Kopf",
+        "zu lange Geheimnisse",
+        "Rückkehr nach innen"
+      ],
+      "keywordsUpright": [
+        "inneres Wissen",
+        "Stille",
+        "Zuhören",
+        "das Unausgesprochene",
+        "Geduld"
+      ],
+      "name": "Die Hohepriesterin",
+      "shortReversed": "Lärm von außen übertönt vielleicht eine leisere Stimme in dir; ein wenig Stille könnte helfen.",
+      "shortUpright": "Eine leise Einladung, auf das zu hören, was du schon spürst, aber noch nicht in Worte gefasst hast."
+    },
+    "major_03": {
+      "keywordsReversed": [
+        "Selbstvernachlässigung",
+        "erdrückende Fürsorge",
+        "kreative Blockade",
+        "zurück zum Körper"
+      ],
+      "keywordsUpright": [
+        "Fürsorge",
+        "Fülle",
+        "Kreativität",
+        "Freude der Sinne",
+        "Wachstum"
+      ],
+      "name": "Die Herrscherin",
+      "shortReversed": "Vielleicht fließt deine Fürsorge nach außen, während deine eigene Quelle versiegt. Wo könnte etwas davon zu dir zurückkommen?",
+      "shortUpright": "Etwas wächst, in dir oder um dich herum. Diese Karte lädt dich ein, es mit Geduld und Wärme zu pflegen."
+    },
+    "major_04": {
+      "keywordsReversed": [
+        "Starrheit",
+        "Kontrolle",
+        "wackelige Grundlagen",
+        "Autorität zurückholen"
+      ],
+      "keywordsUpright": [
+        "Struktur",
+        "beständige Führung",
+        "Verantwortung",
+        "klare Grenzen",
+        "Schutz"
+      ],
+      "name": "Der Herrscher",
+      "shortReversed": "Regeln, die einst geholfen haben, fühlen sich jetzt vielleicht eng an. Wie sähe eine freundlichere, stabilere Struktur aus?",
+      "shortUpright": "Eine Zeit, um dem, was zählt, etwas Struktur zu geben und ruhig Verantwortung für deine Entscheidungen zu übernehmen."
+    },
+    "major_05": {
+      "keywordsReversed": [
+        "Normen hinterfragen",
+        "eigene Überzeugungen",
+        "überholte Regeln",
+        "den eigenen Weg finden"
+      ],
+      "keywordsUpright": [
+        "Tradition",
+        "gemeinsame Werte",
+        "von anderen lernen",
+        "Mentoring",
+        "Zugehörigkeit"
+      ],
+      "name": "Der Hierophant",
+      "shortReversed": "Eine überlieferte Regel passt vielleicht nicht mehr. Diese Karte lädt dich ein, sie an deinen wahren Werten zu prüfen.",
+      "shortUpright": "Vielleicht liegt Weisheit in dem, was andere vor dir gegangen sind. Welche Tradition oder Lehrperson könnte jetzt helfen?"
+    },
+    "major_06": {
+      "keywordsReversed": [
+        "innerer Konflikt",
+        "Unstimmigkeit",
+        "vermiedene Entscheidung",
+        "zurück zu den Werten"
+      ],
+      "keywordsUpright": [
+        "Verbindung",
+        "bedeutsame Wahl",
+        "stimmige Werte",
+        "Ehrlichkeit",
+        "gegenseitiger Respekt"
+      ],
+      "name": "Die Liebenden",
+      "shortReversed": "Ein Teil von dir will vielleicht das eine, ein anderer etwas anderes. Diese Karte lädt dich ein, beiden zuzuhören, bevor du wählst.",
+      "shortUpright": "Eine Entscheidung, die Herz und Kopf gemeinsam treffen, im Einklang mit dem, was dir wirklich wichtig ist."
+    },
+    "major_07": {
+      "keywordsReversed": [
+        "verlorene Richtung",
+        "etwas erzwingen",
+        "widerstreitende Kräfte",
+        "die Zügel zurückholen"
+      ],
+      "keywordsUpright": [
+        "Entschlossenheit",
+        "Richtung",
+        "Selbstbeherrschung",
+        "Vorwärtsdrang",
+        "Gegensätze lenken"
+      ],
+      "name": "Der Wagen",
+      "shortReversed": "Vielleicht zieht deine Energie gerade in mehrere Richtungen zugleich. Wo könntest du die Zügel sanft wieder aufnehmen?",
+      "shortUpright": "Schwung entsteht, wenn du deine verschiedenen Antriebe zusammenhältst und in eine Richtung lenkst."
+    },
+    "major_08": {
+      "keywordsReversed": [
+        "Selbstzweifel",
+        "dünne Geduld",
+        "harte Selbstgespräche",
+        "Mut neu aufbauen"
+      ],
+      "keywordsUpright": [
+        "sanfter Mut",
+        "Geduld",
+        "Mitgefühl",
+        "innere Stabilität",
+        "leise Zuversicht"
+      ],
+      "name": "Die Kraft",
+      "shortReversed": "Deine innere Stabilität fühlt sich gerade vielleicht dünn an. Sanftheit dir selbst gegenüber kann ein starker Anfang sein.",
+      "shortUpright": "Mut muss nicht brüllen. Manchmal zeigt er sich als Geduld, Freundlichkeit und Ausdauer bei etwas Schwerem."
+    },
+    "major_09": {
+      "keywordsReversed": [
+        "Isolation",
+        "Besinnung meiden",
+        "in Gedanken verloren",
+        "zurück zu anderen"
+      ],
+      "keywordsUpright": [
+        "Alleinsein",
+        "Besinnung",
+        "innere Führung",
+        "Suche",
+        "Weisheit aus der Stille"
+      ],
+      "name": "Der Eremit",
+      "shortReversed": "Vielleicht ist Alleinsein in Isolation gekippt, oder du meidest die Stille ganz. Welches Gleichgewicht fühlt sich richtig an?",
+      "shortUpright": "Ein wenig Zeit für dich allein könnte dir helfen, deine eigenen Gedanken klarer zu hören."
+    },
+    "major_10": {
+      "keywordsReversed": [
+        "Widerstand gegen Wandel",
+        "festgefahren sein",
+        "wiederkehrende Muster",
+        "Halt finden"
+      ],
+      "keywordsUpright": [
+        "Zyklen",
+        "Wandel",
+        "Wendepunkte",
+        "Anpassungsfähigkeit",
+        "Perspektive"
+      ],
+      "name": "Das Rad des Schicksals",
+      "shortReversed": "Ein vertrautes Muster kommt vielleicht wieder. Was könntest du diesmal anders machen?",
+      "shortUpright": "Die Dinge drehen sich. Diese Karte lädt dich ein, den Zyklus zu bemerken, in dem du bist, und wie du dich mit ihm bewegen willst."
+    },
+    "major_11": {
+      "keywordsReversed": [
+        "Ungleichgewicht",
+        "Verantwortung meiden",
+        "Selbstverurteilung",
+        "Suche nach Fairness"
+      ],
+      "keywordsUpright": [
+        "Fairness",
+        "Ehrlichkeit",
+        "Verantwortung",
+        "klares Urteil",
+        "Ursache und Wirkung"
+      ],
+      "name": "Die Gerechtigkeit",
+      "shortReversed": "Etwas fühlt sich vielleicht unausgewogen an. Diese Karte lädt dich ein, es klar anzusehen, auch deinen eigenen Anteil.",
+      "shortUpright": "Ein Moment, um ehrlich abzuwägen und so zu handeln, dass du es später gern erklärst."
+    },
+    "major_12": {
+      "keywordsReversed": [
+        "Hinhalten",
+        "Pause verweigern",
+        "Unentschlossenheit",
+        "bereit zum Aufbruch"
+      ],
+      "keywordsUpright": [
+        "Pause",
+        "Hingabe",
+        "neue Perspektive",
+        "Loslassen",
+        "bewusstes Warten"
+      ],
+      "name": "Der Gehängte",
+      "shortReversed": "Vielleicht ist aus Warten Hinhalten geworden. Was hilft dir zu entscheiden, ob du stillhältst oder dich bewegst?",
+      "shortUpright": "Eine Pause, gewählt oder nicht, kann dir einen Blick schenken, den du im Vorwärtseilen nie hättest."
+    },
+    "major_13": {
+      "keywordsReversed": [
+        "Festhalten",
+        "Widerstand gegen Wandel",
+        "zögernde Abschlüsse",
+        "langsamer Übergang"
+      ],
+      "keywordsUpright": [
+        "Abschlüsse",
+        "Verwandlung",
+        "Raum schaffen",
+        "ein Kapitel schließen",
+        "Loslassen"
+      ],
+      "name": "Der Tod",
+      "shortReversed": "Etwas ist vielleicht bereit zu enden, während ein Teil von dir festhält. Was hilft dir, den Griff zu lockern?",
+      "shortUpright": "Eine Phase geht vielleicht zu Ende. Diese Karte lädt dich ein zu bemerken, was endet und welchen Raum es hinterlässt."
+    },
+    "major_14": {
+      "keywordsReversed": [
+        "Übermaß",
+        "Ungleichgewicht",
+        "Ungeduld",
+        "neu austarieren"
+      ],
+      "keywordsUpright": [
+        "Gleichgewicht",
+        "Maß halten",
+        "Verbinden",
+        "Geduld",
+        "den Mittelweg finden"
+      ],
+      "name": "Die Mäßigkeit",
+      "shortReversed": "Etwas kippt vielleicht zu weit in eine Richtung. Diese Karte lädt dich ein, es zu bemerken und sanft auszugleichen.",
+      "shortUpright": "Eine langsamere, beständigere Mischung aus dem, was du brauchst, könnte mehr Leichtigkeit bringen als jedes Extrem."
+    },
+    "major_15": {
+      "keywordsReversed": [
+        "Bindungen lockern",
+        "ein Muster brechen",
+        "Wahlfreiheit zurück",
+        "dem Schatten begegnen"
+      ],
+      "keywordsUpright": [
+        "Anhaftung",
+        "bindende Gewohnheiten",
+        "Versuchung",
+        "Schattenseite",
+        "ehrliches Hinsehen"
+      ],
+      "name": "Der Teufel",
+      "shortReversed": "Ein Muster, das dich einmal fest im Griff hatte, lockert sich vielleicht. Was hilft dir, weiter Abstand zu gewinnen?",
+      "shortUpright": "Eine Gewohnheit oder Anhaftung hält dich vielleicht fester, als dir bewusst ist. Sie zu bemerken, ist der erste Schritt."
+    },
+    "major_16": {
+      "keywordsReversed": [
+        "Umbruch abwenden",
+        "langsames Auflösen",
+        "Widerstand gegen Wandel",
+        "Wiederaufbau"
+      ],
+      "keywordsUpright": [
+        "plötzlicher Wandel",
+        "Aufräumen",
+        "Durchbruch",
+        "erschütterte Annahmen",
+        "Wahrheit kommt ans Licht"
+      ],
+      "name": "Der Turm",
+      "shortReversed": "Veränderung kommt vielleicht langsam und nicht auf einen Schlag. Was könntest du ehrlicher neu aufbauen?",
+      "shortUpright": "Etwas, das auf wackeligem Grund gebaut war, gerät vielleicht in Bewegung. Diese Karte lädt dich ein zu bemerken, was nicht getragen hat."
+    },
+    "major_17": {
+      "keywordsReversed": [
+        "Entmutigung",
+        "Entfremdung",
+        "schwindendes Vertrauen",
+        "Hoffnung neu entfachen"
+      ],
+      "keywordsUpright": [
+        "Hoffnung",
+        "Erneuerung",
+        "Ruhe",
+        "Offenheit",
+        "leise Inspiration"
+      ],
+      "name": "Der Stern",
+      "shortReversed": "Hoffnung fühlt sich gerade vielleicht weit weg an. Kleine, beständige Dinge könnten dir helfen, zu ihr zurückzufinden.",
+      "shortUpright": "Nach einer schweren Strecke kehrt vielleicht eine leisere Hoffnung zurück. Diese Karte lädt dich ein, sie hereinzulassen."
+    },
+    "major_18": {
+      "keywordsReversed": [
+        "Verwirrung klärt sich",
+        "Sorgen begegnen",
+        "Selbsttäuschung",
+        "dem Weg vertrauen"
+      ],
+      "keywordsUpright": [
+        "Ungewissheit",
+        "Intuition",
+        "Träume",
+        "das Unbekannte",
+        "wechselnde Gefühle"
+      ],
+      "name": "Der Mond",
+      "shortReversed": "Vielleicht beginnt sich ein Nebel zu lichten. Was siehst du jetzt klarer als zuvor?",
+      "shortUpright": "Noch ist nicht alles klar, und das ist in Ordnung. Diese Karte lädt dich ein, langsam zu gehen und deinen Sinnen zu vertrauen."
+    },
+    "major_19": {
+      "keywordsReversed": [
+        "gedämpfte Freude",
+        "Selbstzweifel",
+        "zu viel Licht",
+        "wieder Licht finden"
+      ],
+      "keywordsUpright": [
+        "Freude",
+        "Klarheit",
+        "Wärme",
+        "Selbstvertrauen",
+        "Lebenskraft"
+      ],
+      "name": "Die Sonne",
+      "shortReversed": "Das Licht ist noch da, auch wenn Wolken vorüberziehen. Was hilft dir, dich warm und klar zu fühlen?",
+      "shortUpright": "Ein Moment der Wärme und Klarheit. Diese Karte lädt dich ein, das Helle und Offene in deinem Leben zu genießen."
+    },
+    "major_20": {
+      "keywordsReversed": [
+        "Selbstkritik",
+        "den Ruf überhören",
+        "Zweifel",
+        "aus Erfahrung lernen"
+      ],
+      "keywordsUpright": [
+        "Erwachen",
+        "Bilanz ziehen",
+        "Erneuerung",
+        "einem Ruf folgen",
+        "ehrliche Rückschau"
+      ],
+      "name": "Das Gericht",
+      "shortReversed": "Eine innere Kritikerstimme ist vielleicht lauter als sonst. Was würde ein fairer, freundlicher Blick auf deine Vergangenheit zeigen?",
+      "shortUpright": "Ein Moment, ehrlich zurückzublicken, zu vergeben, was du kannst, und dem zu folgen, was dich nach vorn ruft."
+    },
+    "major_21": {
+      "keywordsReversed": [
+        "Unerledigtes",
+        "Suche nach Abschluss",
+        "lose Enden",
+        "ein letzter Schritt"
+      ],
+      "keywordsUpright": [
+        "Vollendung",
+        "Ganzheit",
+        "Integration",
+        "Erfüllung",
+        "Zugehörigkeit"
+      ],
+      "name": "Die Welt",
+      "shortReversed": "Etwas ist vielleicht fast abgeschlossen. Welcher letzte Schritt oder welches lose Ende verdient deine Aufmerksamkeit?",
+      "shortUpright": "Ein Zyklus schließt sich vielleicht. Diese Karte lädt dich ein, innezuhalten und zu würdigen, was du vollendet hast."
+    },
+    "pentacles_01": {
+      "keywordsReversed": [
+        "ungesäte Chance",
+        "wackelige Grundlagen",
+        "überhastete Vorarbeit",
+        "den Plan überdenken"
+      ],
+      "keywordsUpright": [
+        "Keim von etwas Echtem",
+        "praktische Anfänge",
+        "geerdete Gelegenheit",
+        "Grundlagen pflegen"
+      ],
+      "name": "Ass der Münzen",
+      "shortReversed": "Ein vielversprechender Anfang braucht vielleicht festeren Boden. Du könntest prüfen, welche Stütze er braucht, bevor du darauf aufbaust.",
+      "shortUpright": "Ein kleiner, solider Anfang bittet um deine Aufmerksamkeit. Etwas Praktisches ist vielleicht bereit, gepflanzt und gepflegt zu werden."
+    },
+    "pentacles_02": {
+      "keywordsReversed": [
+        "zu viele Bälle",
+        "zerstreuter Blick",
+        "starrer Zeitplan",
+        "wählen, was wegfällt"
+      ],
+      "keywordsUpright": [
+        "Prioritäten jonglieren",
+        "Anpassungsfähigkeit",
+        "im Rhythmus bleiben",
+        "bewegliche Balance"
+      ],
+      "name": "Zwei der Münzen",
+      "shortReversed": "Der Balanceakt ist vielleicht in Anspannung gekippt. Überlege, welche Anforderung du vorerst ablegen, teilen oder verschieben könntest.",
+      "shortUpright": "Vielleicht hältst du gerade mehrere Dinge gleichzeitig in Bewegung. Achte auf den Rhythmus, der dich anpassen lässt, ohne den Halt zu verlieren."
+    },
+    "pentacles_03": {
+      "keywordsReversed": [
+        "unabgestimmte Mühen",
+        "unklare Rollen",
+        "Alleingang",
+        "den Bauplan prüfen"
+      ],
+      "keywordsUpright": [
+        "Zusammenarbeit",
+        "gemeinsames Handwerk",
+        "sich ergänzendes Können",
+        "gemeinsam bauen"
+      ],
+      "name": "Drei der Münzen",
+      "shortReversed": "Eine gemeinsame Mühe zieht vielleicht in verschiedene Richtungen. Es könnte helfen, Rollen, Pläne und euer Zuhören neu anzusehen.",
+      "shortUpright": "Gute Arbeit wächst oft zwischen Menschen. Achte darauf, wie verschiedene Fähigkeiten bei etwas zusammenpassen könnten, das dir wichtig ist."
+    },
+    "pentacles_04": {
+      "keywordsReversed": [
+        "den Griff lockern",
+        "Angst vor Verlust",
+        "Energie horten",
+        "teilen lernen"
+      ],
+      "keywordsUpright": [
+        "festhalten",
+        "Sicherheit",
+        "Ressourcen schützen",
+        "Kontrolle",
+        "sorgsame Grenzen"
+      ],
+      "name": "Vier der Münzen",
+      "shortReversed": "Ein fester Griff lockert sich vielleicht oder möchte es. Du könntest erkunden, was du fließen lassen kannst, ohne dich unsicher zu fühlen.",
+      "shortUpright": "Vielleicht hältst du etwas eng bei dir, um es zu schützen. Achte darauf, wo dieser Schutz dir Halt gibt und wo er dich einzuengen beginnt."
+    },
+    "pentacles_05": {
+      "keywordsReversed": [
+        "zurückkehrende Wärme",
+        "Hilfe annehmen",
+        "anhaltende Sorge",
+        "Zuflucht finden"
+      ],
+      "keywordsUpright": [
+        "schwere Zeiten",
+        "sich außen vor fühlen",
+        "Knappheit",
+        "übersehene Hilfe"
+      ],
+      "name": "Fünf der Münzen",
+      "shortReversed": "Eine schwere Strecke lässt vielleicht nach. Du könntest bemerken, wo Wärme und Unterstützung dich wieder zu erreichen beginnen.",
+      "shortUpright": "Eine Zeit fühlt sich vielleicht kalt oder knapp an. Hilfe ist manchmal näher, als es scheint, auch wenn das Bitten schwerfällt."
+    },
+    "pentacles_06": {
+      "keywordsReversed": [
+        "ungleicher Austausch",
+        "Bedingungen daran",
+        "zu viel geben",
+        "neu ausgleichen"
+      ],
+      "keywordsUpright": [
+        "Geben und Nehmen",
+        "Großzügigkeit",
+        "fairer Austausch",
+        "gegenseitige Hilfe"
+      ],
+      "name": "Sechs der Münzen",
+      "shortReversed": "Ein Austausch fühlt sich vielleicht einseitig an. Du könntest ansehen, was gegeben wird, was im Gegenzug erwartet wird und was ausgeglichener wäre.",
+      "shortUpright": "Mittel, Zeit und Fürsorge bewegen sich zwischen Menschen. Achte darauf, wie du gibst, wie du empfängst und was sich für alle fair anfühlt."
+    },
+    "pentacles_07": {
+      "keywordsReversed": [
+        "Ungeduld",
+        "Mühe ohne Richtung",
+        "Mühe überdenken",
+        "Frust über das Tempo"
+      ],
+      "keywordsUpright": [
+        "geduldige Prüfung",
+        "langfristige Mühe",
+        "Bilanz ziehen",
+        "langsames Wachstum"
+      ],
+      "name": "Sieben der Münzen",
+      "shortReversed": "Der Fortschritt fühlt sich vielleicht langsamer an als erhofft. Du könntest fragen, ob die Mühe Geduld, eine neue Richtung oder einfach eine Pause braucht.",
+      "shortUpright": "Etwas, das du gepflegt hast, wächst langsam. Vielleicht ein guter Moment, innezuhalten, deinen Fortschritt anzusehen und zu wählen, was du als Nächstes pflegst."
+    },
+    "pentacles_08": {
+      "keywordsReversed": [
+        "Perfektionismus",
+        "Arbeit im Autopilot",
+        "gehetzte Arbeit",
+        "Sorgfalt wiederfinden"
+      ],
+      "keywordsUpright": [
+        "hingebungsvolles Üben",
+        "Handwerkskunst",
+        "Liebe zum Detail",
+        "Lernen durch Tun"
+      ],
+      "name": "Acht der Münzen",
+      "shortReversed": "Die Arbeit ist vielleicht gehetzt oder endlos poliert geworden. Du könntest nach der Sorgfalt suchen, die dich ursprünglich angezogen hat.",
+      "shortUpright": "Beständiges, konzentriertes Üben formt eine Fähigkeit. Achte auf die stille Zufriedenheit, eine Sache gut zu machen, immer wieder."
+    },
+    "pentacles_09": {
+      "keywordsReversed": [
+        "Abhängigkeit von Lob",
+        "Überarbeitung",
+        "hohle Behaglichkeit",
+        "Leichtigkeit zurückholen"
+      ],
+      "keywordsUpright": [
+        "Eigenständigkeit",
+        "Selbstgebautes genießen",
+        "stille Verfeinerung",
+        "Unabhängigkeit",
+        "Selbstwert"
+      ],
+      "name": "Neun der Münzen",
+      "shortReversed": "Behaglichkeit fühlt sich vielleicht unerreichbar oder seltsam leer an. Du könntest fragen, was dich in dem ruhen ließe, was du schon hast.",
+      "shortUpright": "Vielleicht bist du bereit zu genießen, was deine eigene Mühe hat wachsen lassen. Achte auf die stille Zuversicht in einem Raum, den du selbst gestaltet hast."
+    },
+    "pentacles_10": {
+      "keywordsReversed": [
+        "geerbter Druck",
+        "Spannung in der Familie",
+        "wackelige Fundamente",
+        "Zuhause neu bestimmen"
+      ],
+      "keywordsUpright": [
+        "Vermächtnis",
+        "Zugehörigkeit",
+        "dauerhafte Fundamente",
+        "Generationen",
+        "gemeinsame Wurzeln"
+      ],
+      "name": "Zehn der Münzen",
+      "shortReversed": "Alte Strukturen oder Erwartungen fühlen sich vielleicht schwer an. Du könntest überlegen, welche Traditionen du behältst und welche du für dich umgestaltest.",
+      "shortUpright": "Etwas, das auf Dauer gebaut ist, kommt vielleicht in den Blick. Achte auf die Wurzeln, Traditionen und Menschen, die dich Teil von etwas Größerem sein lassen."
+    },
+    "pentacles_11": {
+      "keywordsReversed": [
+        "Ablenkung",
+        "Pläne ohne Taten",
+        "Angst vor dem Anfang",
+        "im eigenen Tempo lernen"
+      ],
+      "keywordsUpright": [
+        "eifriges Lernen",
+        "Neugier",
+        "praktisches Studium",
+        "eine neue Fähigkeit",
+        "beständiger Fokus"
+      ],
+      "name": "Bube der Münzen",
+      "shortReversed": "Interesse ist vielleicht da, ohne dass etwas folgt. Überlege, welcher kleine, realistische Schritt aus Neugier Übung machen würde.",
+      "shortUpright": "Eine neugierige, lernfreudige Energie ist da. Vielleicht bemerkst du etwas Praktisches, das du lernen möchtest, und gehst einen ersten echten Schritt darauf zu."
+    },
+    "pentacles_12": {
+      "keywordsReversed": [
+        "in Routine gefangen",
+        "Übervorsicht",
+        "Langeweile",
+        "kleine Tempowechsel"
+      ],
+      "keywordsUpright": [
+        "Verlässlichkeit",
+        "stetiger Fortschritt",
+        "Routine",
+        "Gründlichkeit",
+        "Verbindlichkeit"
+      ],
+      "name": "Ritter der Münzen",
+      "shortReversed": "Beständigkeit ist vielleicht zum Trott geworden. Du könntest überlegen, wo ein kleiner Tempowechsel wieder Energie bringen könnte.",
+      "shortUpright": "Beständige, verlässliche Mühe bringt die Dinge voran. Achte auf den Wert, regelmäßig da zu sein, auch wenn sich Fortschritt langsam anfühlt."
+    },
+    "pentacles_13": {
+      "keywordsReversed": [
+        "Selbstvernachlässigung",
+        "sich übernehmen",
+        "Fürsorge als Kontrolle",
+        "Raum für dich schaffen"
+      ],
+      "keywordsUpright": [
+        "nährende Fürsorge",
+        "Einfallsreichtum",
+        "ein einladendes Zuhause",
+        "praktische Wärme",
+        "Erdung"
+      ],
+      "name": "Königin der Münzen",
+      "shortReversed": "Fürsorge fließt vielleicht nach außen, während deine Kraft nachlässt. Du könntest schauen, wie du deine eigenen Bedürfnisse so warm pflegst wie die anderer.",
+      "shortUpright": "Praktische Wärme und Fürsorge stehen dir zur Verfügung. Achte darauf, wie du für andere Behaglichkeit schaffst und ob du dich selbst einschließt."
+    },
+    "pentacles_14": {
+      "keywordsReversed": [
+        "Starrheit",
+        "Status vor Substanz",
+        "Überkontrolle",
+        "Erfolg neu denken"
+      ],
+      "keywordsUpright": [
+        "verantwortliche Sorge",
+        "Stabilität",
+        "großzügige Führung",
+        "beständige Versorgung",
+        "praktische Meisterschaft"
+      ],
+      "name": "König der Münzen",
+      "shortReversed": "Sicherheit ist vielleicht zu einer schweren Last geworden. Du könntest fragen, was Erfolg für dich jenseits von Kontrolle oder äußerem Schein bedeutet.",
+      "shortUpright": "Eine beständige, fähige Präsenz steht dir zur Verfügung. Achte darauf, wie du Erfahrung und Mittel nutzen könntest, um dir und anderen Stabilität zu geben."
+    },
+    "swords_01": {
+      "keywordsReversed": [
+        "getrübtes Denken",
+        "Grübeln",
+        "zurückgehaltene Worte",
+        "Schärfe ohne Sorgfalt",
+        "auf Klarheit warten"
+      ],
+      "keywordsUpright": [
+        "Klarheit",
+        "eine neue Idee",
+        "ehrliche Wahrheit",
+        "durchschneiden",
+        "frische Perspektive"
+      ],
+      "name": "Ass der Schwerter",
+      "shortReversed": "Klarheit ist vielleicht nah, aber noch nicht ganz greifbar; es gibt Raum, den Nebel sich setzen zu lassen, bevor du entscheidest.",
+      "shortUpright": "Ein klarer Gedanke kommt; vielleicht bemerkst du, was einfach wird, sobald du es schlicht benennst."
+    },
+    "swords_02": {
+      "keywordsReversed": [
+        "Information taucht auf",
+        "Zögern löst sich",
+        "Vermeidung",
+        "Druck zu wählen",
+        "die Augen öffnen"
+      ],
+      "keywordsUpright": [
+        "eine schwere Wahl",
+        "Patt",
+        "Möglichkeiten abwägen",
+        "wachsames Gleichgewicht",
+        "Innehalten vor der Wahl"
+      ],
+      "name": "Zwei der Schwerter",
+      "shortReversed": "Die Pause geht vielleicht zu Ende; etwas, das du nicht ansehen wolltest, bittet womöglich um einen sanften, ehrlichen Blick.",
+      "shortUpright": "Zwei Möglichkeiten halten sich vorerst die Waage; vielleicht bemerkst du, was du ausblendest, um den Frieden zu wahren."
+    },
+    "swords_03": {
+      "keywordsReversed": [
+        "langsame Erholung",
+        "Kränkung loslassen",
+        "Schmerz zurückhalten",
+        "Vergebung mit der Zeit",
+        "der Sturm zieht ab"
+      ],
+      "keywordsUpright": [
+        "Kummer",
+        "verletzende Worte",
+        "Trauer",
+        "schmerzhafte Wahrheit",
+        "Tränen zulassen"
+      ],
+      "name": "Drei der Schwerter",
+      "shortReversed": "Das Schärfste an einer Kränkung lässt vielleicht nach; du könntest bemerken, was dir hilft, etwas freier zu atmen.",
+      "shortUpright": "Ein trauriger oder verletzender Moment möchte vielleicht gefühlt statt wegerklärt werden; Kummer darf sanft gewürdigt werden."
+    },
+    "swords_04": {
+      "keywordsReversed": [
+        "Rastlosigkeit",
+        "aufgeschobene Ruhe",
+        "zurück ins Tun",
+        "Zeichen von Erschöpfung",
+        "Stille als Ausweichen"
+      ],
+      "keywordsUpright": [
+        "Ruhe",
+        "Erholung",
+        "stiller Rückzug",
+        "Stille",
+        "Kraft schöpfen"
+      ],
+      "name": "Vier der Schwerter",
+      "shortReversed": "Ruhe wird vielleicht immer wieder aufgeschoben, oder eine stille Zeit ist bereit zu enden; du könntest bemerken, was sich stimmig anfühlt.",
+      "shortUpright": "Eine Pause gehört zur Arbeit; vielleicht ist es Zeit, die Dinge abzulegen und deinen Geist still werden zu lassen."
+    },
+    "swords_05": {
+      "keywordsReversed": [
+        "wiedergutmachen",
+        "es gut sein lassen",
+        "anhaltender Groll",
+        "weggehen",
+        "Versöhnung"
+      ],
+      "keywordsUpright": [
+        "Konflikt",
+        "Sieg mit Preis",
+        "Stolz",
+        "getrübtes Wohlwollen",
+        "Kämpfe wählen"
+      ],
+      "name": "Fünf der Schwerter",
+      "shortReversed": "Ein Konflikt ist vielleicht bereit abzukühlen; es könnte Raum geben, das Rechthaben zugunsten des Friedens loszulassen.",
+      "shortUpright": "Vielleicht wird ein Streit gewonnen, während etwas anderes verloren geht; du könntest fragen, was der Sieg tatsächlich gekostet hat."
+    },
+    "swords_06": {
+      "keywordsReversed": [
+        "Widerstand gegen Wandel",
+        "Unerledigtes",
+        "verzögerter Aufbruch",
+        "altes Gewicht tragen",
+        "zurück zum Nachdenken"
+      ],
+      "keywordsUpright": [
+        "Übergang",
+        "weiterziehen",
+        "ruhigere Gewässer",
+        "Vertrautes verlassen",
+        "allmählicher Wandel"
+      ],
+      "name": "Sechs der Schwerter",
+      "shortReversed": "Etwas hält dich vielleicht noch am alten Ufer; du könntest bemerken, was du noch nicht bereit bist zu verlassen.",
+      "shortUpright": "Vielleicht bewegst du dich von rauem Wasser auf ruhigere Ufer zu; Veränderung kann leise und langsam und trotzdem echt sein."
+    },
+    "swords_07": {
+      "keywordsReversed": [
+        "reinen Tisch machen",
+        "einen Plan überdenken",
+        "Selbsttäuschung",
+        "um Hilfe bitten",
+        "Geheimnisse tauchen auf"
+      ],
+      "keywordsUpright": [
+        "Strategie",
+        "Alleingang",
+        "Vermeidung",
+        "verborgene Motive",
+        "ungeschoren davonkommen"
+      ],
+      "name": "Sieben der Schwerter",
+      "shortReversed": "Ein verborgener Plan verliert vielleicht seinen Reiz; Ehrlichkeit mit dir oder anderen könnte sich leichter anfühlen als die Mühe des Verbergens.",
+      "shortUpright": "Ein cleverer Plan oder ein stiller Umweg ist vielleicht im Spiel; du könntest fragen, ob er zu dem Menschen passt, der du sein willst."
+    },
+    "swords_08": {
+      "keywordsReversed": [
+        "neue Perspektive",
+        "Befreiung",
+        "Glaubenssätze lockern",
+        "kleine Freiheiten",
+        "Rückfall in alte Muster"
+      ],
+      "keywordsUpright": [
+        "festgefahren sein",
+        "einengende Überzeugung",
+        "Einschränkung",
+        "Angst, sich zu bewegen",
+        "enger Blick"
+      ],
+      "name": "Acht der Schwerter",
+      "shortReversed": "Die Fesseln lockern sich vielleicht; du könntest eine Überzeugung bemerken, die dich nicht mehr so fest hält wie früher.",
+      "shortUpright": "Vielleicht fühlst du dich eingeengt, doch manche Grenzen bestehen vor allem in Gedanken; eine kleine Bewegung zeigt vielleicht mehr Raum, als es scheint."
+    },
+    "swords_09": {
+      "keywordsReversed": [
+        "Sorge lässt nach",
+        "sich öffnen",
+        "verborgener Stress",
+        "Perspektive kehrt zurück",
+        "die Last teilen"
+      ],
+      "keywordsUpright": [
+        "Sorge",
+        "schlaflose Gedanken",
+        "geistige Last",
+        "nächtliche Ängste",
+        "Grübeln"
+      ],
+      "name": "Neun der Schwerter",
+      "shortReversed": "Das Gewicht der Sorge beginnt sich vielleicht zu heben, oder es möchte geteilt statt allein getragen werden.",
+      "shortUpright": "Sorgen können in stillen Stunden größer wirken; du könntest bemerken, welche Ängste dem Jetzt gelten und welche einem Vielleicht."
+    },
+    "swords_10": {
+      "keywordsReversed": [
+        "langsame Erholung",
+        "wieder aufstehen",
+        "Widerstand gegen Ende",
+        "gesammelte Lehren",
+        "Morgen nach der Nacht"
+      ],
+      "keywordsUpright": [
+        "ein Ende",
+        "Tiefpunkt",
+        "Erschöpfung",
+        "ein Kapitel schließen",
+        "die Last ablegen"
+      ],
+      "name": "Zehn der Schwerter",
+      "shortReversed": "Der tiefste Punkt liegt vielleicht hinter dir; du könntest die ersten Zeichen zurückkehrender Beständigkeit bemerken.",
+      "shortUpright": "Ein schweres Kapitel geht vielleicht zu Ende; es zu benennen, kann Raum für Ruhe und eine langsame Wende schaffen."
+    },
+    "swords_11": {
+      "keywordsReversed": [
+        "zerstreuter Fokus",
+        "Tratsch",
+        "reden vor zuhören",
+        "Abwehrhaltung",
+        "unerprobte Ideen"
+      ],
+      "keywordsUpright": [
+        "Neugier",
+        "eifrige Fragen",
+        "Lernen",
+        "Wachheit",
+        "neue Ideen"
+      ],
+      "name": "Bube der Schwerter",
+      "shortReversed": "Eifrige Gedanken zerstreuen sich vielleicht in viele Richtungen; du könntest bemerken, wo Zuhören mehr bringt als Reden.",
+      "shortUpright": "Die Neugier ist wach; du könntest einer Frage mit frischen Augen folgen und sehen, wohin sie dein Denken führt."
+    },
+    "swords_12": {
+      "keywordsReversed": [
+        "vorpreschen",
+        "Ungeduld",
+        "Unverblümtheit",
+        "langsamer werden",
+        "zerstreute Kraft"
+      ],
+      "keywordsUpright": [
+        "entschlossenes Handeln",
+        "Antrieb",
+        "das Wort ergreifen",
+        "schnelles Denken",
+        "Entschlossenheit"
+      ],
+      "name": "Ritter der Schwerter",
+      "shortReversed": "Tempo überholt vielleicht das Denken; kurz langsamer zu werden, könnte dir helfen, dort anzukommen, wo du wirklich hinwillst.",
+      "shortUpright": "Der Schwung ist da; du könntest schnelles Denken in zielgerichtetes Handeln lenken und dabei im Blick behalten, wer neben dir ist."
+    },
+    "swords_13": {
+      "keywordsReversed": [
+        "Kälte",
+        "harte Kritik",
+        "Verschlossenheit",
+        "Bitterkeit",
+        "die Schärfe mildern"
+      ],
+      "keywordsUpright": [
+        "klares Urteil",
+        "ehrliche Grenzen",
+        "Unabhängigkeit",
+        "Weisheit aus Erfahrung",
+        "direkte Freundlichkeit"
+      ],
+      "name": "Königin der Schwerter",
+      "shortReversed": "Klarheit ist vielleicht zu Distanz erstarrt; du könntest bemerken, wo Wärme zurückkehren könnte, ohne Ehrlichkeit zu verlieren.",
+      "shortUpright": "Klarer Blick und eine freundliche, direkte Stimme können zusammengehen; du könntest dem vertrauen, was dich die Erfahrung gelehrt hat."
+    },
+    "swords_14": {
+      "keywordsReversed": [
+        "Starrheit",
+        "kalte Logik",
+        "missbrauchte Autorität",
+        "Selbstzweifel",
+        "Vernunft mit Einfühlung"
+      ],
+      "keywordsUpright": [
+        "geistige Autorität",
+        "Fairness",
+        "klare Grundsätze",
+        "bedachte Entscheidungen",
+        "Integrität"
+      ],
+      "name": "König der Schwerter",
+      "shortReversed": "Logik ist vielleicht starr oder distanziert geworden; du könntest fragen, ob deine Grundsätze noch Raum für Menschen lassen.",
+      "shortUpright": "Ruhiges Denken und faire Grundsätze können dich leiten; du könntest nach dem entscheiden, was stimmt, nicht nach dem, was leicht ist."
+    },
+    "wands_01": {
+      "keywordsReversed": [
+        "verzögerter Start",
+        "verstreute Energie",
+        "kreative Blockade",
+        "noch nicht entfacht",
+        "stilles Reifen"
+      ],
+      "keywordsUpright": [
+        "Funke der Inspiration",
+        "kreativer Impuls",
+        "Begeisterung",
+        "frische Energie",
+        "eine neue Idee"
+      ],
+      "name": "Ass der Stäbe",
+      "shortReversed": "Der Funke ist vielleicht da, doch etwas hindert ihn noch am Zünden; achte darauf, was er braucht.",
+      "shortUpright": "Ein neuer Funke von Interesse braucht etwas Luft und Aufmerksamkeit, bevor er zur Flamme werden kann."
+    },
+    "wands_02": {
+      "keywordsReversed": [
+        "im Vertrauten bleiben",
+        "Angst vor Unbekanntem",
+        "unklare Richtung",
+        "planen ohne zu handeln",
+        "die Karte neu lesen"
+      ],
+      "keywordsUpright": [
+        "vorausplanen",
+        "weitere Horizonte",
+        "kühne Absicht",
+        "Möglichkeiten abwägen",
+        "eigene Vision"
+      ],
+      "name": "Zwei der Stäbe",
+      "shortReversed": "Bequemlichkeit und Vorsicht halten einen größeren Plan vielleicht im Regal; du könntest neu ansehen, was dich dort hält.",
+      "shortUpright": "Du stehst am Rand dessen, was du kennst, und schaust hinaus; ein guter Moment, zu skizzieren, wohin du gehen möchtest."
+    },
+    "wands_03": {
+      "keywordsReversed": [
+        "Ungeduld",
+        "langsamer Ertrag",
+        "durchkreuzte Pläne",
+        "Kurs anpassen",
+        "begrenzter Blick"
+      ],
+      "keywordsUpright": [
+        "Schwung",
+        "Ausdehnung",
+        "Blick nach vorn",
+        "erste Fortschritte",
+        "Vertrauen in die Mühe"
+      ],
+      "name": "Drei der Stäbe",
+      "shortReversed": "Fortschritt fühlt sich vielleicht langsamer an als erhofft; eine Zeit, Erwartungen anzupassen, ohne aufzugeben.",
+      "shortUpright": "Etwas, das du in Gang gesetzt hast, beginnt zu reisen; du kannst schauen, was zurückkommt, und dich auf die nächste Etappe vorbereiten."
+    },
+    "wands_04": {
+      "keywordsReversed": [
+        "unsicherer Boden",
+        "gedämpfte Feier",
+        "sich außen vor fühlen",
+        "stille Dankbarkeit",
+        "Fundamente erneuern"
+      ],
+      "keywordsUpright": [
+        "Feier",
+        "Heimkehr",
+        "Stabilität",
+        "gemeinsame Meilensteine",
+        "Zugehörigkeit"
+      ],
+      "name": "Vier der Stäbe",
+      "shortReversed": "Eine Feier fühlt sich vielleicht stiller oder unsicherer an als erwartet; du könntest schauen, was dir hilft, dich zu Hause zu fühlen.",
+      "shortUpright": "Ein Meilenstein verdient es, gewürdigt zu werden; ein Moment, um zusammenzukommen, zu danken und ein Gefühl von Zuhause zu genießen."
+    },
+    "wands_05": {
+      "keywordsReversed": [
+        "Konflikte meiden",
+        "Gemeinsames finden",
+        "inneres Tauziehen",
+        "Spannung lässt nach",
+        "die Luft reinigen"
+      ],
+      "keywordsUpright": [
+        "Reibung",
+        "konkurrierende Ideen",
+        "lebhafte Debatte",
+        "Kräftemessen",
+        "unruhige Energie"
+      ],
+      "name": "Fünf der Stäbe",
+      "shortReversed": "Ein Streit beruhigt sich vielleicht oder geht in den Untergrund; achte darauf, welche Meinungsverschiedenheiten noch ein faires Gehör brauchen.",
+      "shortUpright": "Viele Stimmen und Energien prallen aufeinander; die Reibung schärft vielleicht Ideen ebenso, wie sie dich ermüdet."
+    },
+    "wands_06": {
+      "keywordsReversed": [
+        "Suche nach Anerkennung",
+        "unbemerkte Mühe",
+        "Selbstzweifel",
+        "stiller Erfolg",
+        "Erfolg neu definieren"
+      ],
+      "keywordsUpright": [
+        "Anerkennung",
+        "Selbstvertrauen",
+        "sichtbarer Erfolg",
+        "Ermutigung",
+        "Stolz auf die Arbeit"
+      ],
+      "name": "Sechs der Stäbe",
+      "shortReversed": "Anerkennung fehlt vielleicht oder befriedigt weniger als erhofft; du könntest fragen, was Erfolg für dich bedeutet, ganz nach deinen Maßstäben.",
+      "shortUpright": "Deine Mühe wird vielleicht bemerkt; erlaube dir, Anerkennung anzunehmen, und achte darauf, wer dir geholfen hat, hierherzukommen."
+    },
+    "wands_07": {
+      "keywordsReversed": [
+        "Überforderung",
+        "Abwehrhaltung",
+        "Kämpfe wählen",
+        "wankender Entschluss",
+        "manches loslassen"
+      ],
+      "keywordsUpright": [
+        "Standhaftigkeit",
+        "Überzeugung",
+        "Ausdauer",
+        "Grenzen schützen",
+        "Mut unter Druck"
+      ],
+      "name": "Sieben der Stäbe",
+      "shortReversed": "Alles auf einmal zu verteidigen, kann dich erschöpfen; du könntest wählen, welcher Boden es wirklich wert ist, gehalten zu werden.",
+      "shortUpright": "Vielleicht verteidigst du eine Position, die dir wichtig ist; diese Karte würdigt den Mut, standhaft zu bleiben."
+    },
+    "wands_08": {
+      "keywordsReversed": [
+        "Verzögerungen",
+        "vorauseilen",
+        "gekreuzte Signale",
+        "langsamer werden",
+        "zerstreuter Fokus"
+      ],
+      "keywordsUpright": [
+        "schnelle Bewegung",
+        "Schwung",
+        "Nachrichten unterwegs",
+        "gebündelte Energie",
+        "alles fügt sich"
+      ],
+      "name": "Acht der Stäbe",
+      "shortReversed": "Tempo und Timing wirken vielleicht schief, mit Verzögerungen oder zu viel Eile; du könntest innehalten und prüfen, worauf deine Energie zielt.",
+      "shortUpright": "Die Dinge bewegen sich vielleicht gerade schnell; festgefahrene Energie findet eine klare Richtung, und du kannst den Schwung mit Sorgfalt nutzen."
+    },
+    "wands_09": {
+      "keywordsReversed": [
+        "Erschöpfung",
+        "Verschlossenheit",
+        "an Grenzen stoßen",
+        "um Hilfe bitten",
+        "Schutz lockern"
+      ],
+      "keywordsUpright": [
+        "Widerstandskraft",
+        "Beharrlichkeit",
+        "die letzte Strecke",
+        "hart erworbene Weisheit",
+        "wachsame Stärke"
+      ],
+      "name": "Neun der Stäbe",
+      "shortReversed": "So lange auf der Hut zu sein, kann ermüden; du könntest bemerken, wo es sicher ist, zu ruhen und andere hereinzulassen.",
+      "shortUpright": "Du hast viel durchgestanden und stehst noch; diese Karte würdigt deine Widerstandskraft auf der letzten Strecke."
+    },
+    "wands_10": {
+      "keywordsReversed": [
+        "Lasten ablegen",
+        "delegieren",
+        "Nein sagen",
+        "Erleichterung",
+        "alles allein tragen"
+      ],
+      "keywordsUpright": [
+        "schwere Last",
+        "Verantwortung",
+        "zu viel zugesagt",
+        "durchhalten",
+        "kurz vor dem Ziel"
+      ],
+      "name": "Zehn der Stäbe",
+      "shortReversed": "Ein Teil der Last ist vielleicht bereit, von deinen Schultern zu gehen; du könntest schauen, was du ablegen, teilen oder ablehnen kannst.",
+      "shortUpright": "Vielleicht trägst du mehr als deinen Anteil; diese Karte lädt dich ein, das Gewicht wahrzunehmen und was wirklich getragen werden muss."
+    },
+    "wands_11": {
+      "keywordsReversed": [
+        "Rastlosigkeit",
+        "halbe Anfänge",
+        "zögernde Neugier",
+        "fehlende Richtung",
+        "Ideen im Werden"
+      ],
+      "keywordsUpright": [
+        "Neugier",
+        "Entdeckungslust",
+        "verspielter Eifer",
+        "eifriges Lernen",
+        "mutige erste Schritte"
+      ],
+      "name": "Bube der Stäbe",
+      "shortReversed": "Die Begeisterung flackert vielleicht zwischen vielem hin und her oder wird von Zweifeln gebremst; du könntest eines wählen und sanft erkunden.",
+      "shortUpright": "Eine neugierige, verspielte Energie will entdecken; folge dem, was dich begeistert, und erlaube dir, Anfängerin oder Anfänger zu sein."
+    },
+    "wands_12": {
+      "keywordsReversed": [
+        "Impulsivität",
+        "Hast",
+        "verzettelte Leidenschaft",
+        "Frust",
+        "Energie lenken"
+      ],
+      "keywordsUpright": [
+        "Abenteuer",
+        "mutiges Handeln",
+        "Leidenschaft",
+        "Spontaneität",
+        "furchtlose Energie"
+      ],
+      "name": "Ritter der Stäbe",
+      "shortReversed": "Die Energie läuft vielleicht der Richtung voraus; ein Moment, den Ansturm zu bremsen und zu wählen, wohin du zielst.",
+      "shortUpright": "Eine mutige, abenteuerlustige Energie will los; du könntest deiner Leidenschaft folgen und dabei den Weg im Blick behalten."
+    },
+    "wands_13": {
+      "keywordsReversed": [
+        "Selbstzweifel",
+        "Ausgebranntsein",
+        "gedämpfte Zuversicht",
+        "Eifersucht",
+        "den Funken zurückholen"
+      ],
+      "keywordsUpright": [
+        "warme Zuversicht",
+        "Ausstrahlung",
+        "Unabhängigkeit",
+        "kreative Lebenskraft",
+        "großzügige Präsenz"
+      ],
+      "name": "Königin der Stäbe",
+      "shortReversed": "Dein inneres Feuer flackert vielleicht oder ist zu dünn verteilt; du könntest schauen, was deiner Zuversicht Kraft raubt und was sie erneuert.",
+      "shortUpright": "Eine warme, selbstbewusste Energie steht dir zur Verfügung; du könntest dir erlauben, Raum einzunehmen und dein Licht mit anderen zu teilen."
+    },
+    "wands_14": {
+      "keywordsReversed": [
+        "Ungeduld",
+        "übermächtiger Antrieb",
+        "unrealistische Ziele",
+        "verlorene Richtung",
+        "durch Zuhören führen"
+      ],
+      "keywordsUpright": [
+        "visionäre Führung",
+        "Richtung",
+        "Integrität",
+        "Initiative ergreifen",
+        "andere inspirieren"
+      ],
+      "name": "König der Stäbe",
+      "shortReversed": "Starker Antrieb kippt vielleicht in Ungeduld oder Kontrolle; du könntest prüfen, ob deine Vision noch Raum für andere lässt.",
+      "shortUpright": "Eine klare, visionäre Energie lädt dich ein, mit Absicht zu führen und große Ideen in eine Richtung zu verwandeln, der andere folgen können."
+    }
+  },
+  "locale": "de",
+  "version": 1
+}

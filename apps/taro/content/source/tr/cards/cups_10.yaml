@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "cups_10"
+reviewStatus: "machine"
+sourceHash: >-
+  cedd92bceba940bed4347a083604278048554b3498d845e6349577ef0b0fdce6
+name: "Kupa Onlusu"
+keywordsUpright:
+  - "duygusal doyum"
+  - "uyum"
+  - "aidiyet"
+  - "yuva"
+  - "paylaşılan mutluluk"
+keywordsReversed:
+  - "kopukluk"
+  - "zorlanan uyum"
+  - "idealleşmiş resim"
+  - "yakınlığı yeniden kurmak"
+shortUpright: >-
+  Kendini zaten nerede evinde hissettiğini ve ait olduğunu hissetmene kimin yardım ettiğini fark etmek için bir an.
+shortReversed: >-
+  Uyum zorlanmış ya da ulaşılmaz hissettirebilir; herhangi bir ideal resmin ötesinde aidiyetin senin için ne anlama geleceğini düşün.
+meaningUpright: |-
+  Kupa Onlusu, su takımını paylaşılan bir mutluluk görüntüsüyle tamamlar: yuva gibi hissettiren bir yerde bir arada olan insanlar ve çevrelerinde toplanmış on kupa. Aidiyetten, duygusal doyumdan ve seni kabul eden insanlar arasında olmanın rahatlığından söz eder.
+  Bu karttaki yuva yalnızca bir yer ya da geleneksel bir aile değildir. Seçilmiş bir aile, yakın bir arkadaş çevresi, bir topluluk ya da kendi içindeki bir huzur anı bile olabilir. Önemli olan, olduğun gibi hoş karşılanma hissidir.
+  Gündelik hayatta bu, sevdiklerinle geçen rahat bir akşam, zor bir dönemin ardından gelen bir uyum hissi ya da yalnızca insanları birbirine bağlayan küçük rutinlerin kıymetini bilmek gibi görünebilir. Kart, kendini zaten nerede evinde hissettiğini fark etmeye ve bu bağları beslemeye davet eder. Bu aidiyet duygusuna neler kattığını ve onu biraz daha geniş bir çevreyle nasıl paylaşabileceğini de sorabilir.
+meaningReversed: |-
+  Ters geldiğinde Kupa Onlusu, zorlanmış bir uyumu ya da mutlu bir yuva resmiyle işlerin gerçekte nasıl hissettirdiği arasındaki boşluğu yansıtabilir. Bir aile ya da grup içinde bir kopukluk sezebilir veya gerçeğe uymayan bir ideali sürdürme baskısı hissedebilirsin.
+  İçe de işaret edebilir: adlandırması zor bir aidiyet özlemi ya da henüz nereye uyduğunu bulamadığın hissi.
+  Bu kart, aidiyete dürüstlük ve şefkatle bakmaya davet eder. Beklentilerin ötesinde, kendini evinde hissetmek senin için gerçekte nasıl görünürdü? Bir yemeği paylaşmak ya da dikkatin dağılmadan dinlemek gibi yakınlık kuran küçük eylemlerle başlayabilirsin. Aidiyet çoğu zaman sıradan özen anlarıyla yavaşça büyür ve pek çok farklı biçim alabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart, ister bir partnerle ister aileyle, arkadaşlarla ya da seçilmiş bir çevreyle olsun, karşılıklı özeni, bağlılığı ve ortak bir yuva duygusunu yansıtabilir. Bu bağları ayakta tutan gündelik ritüellerin kıymetini bilmeye davet edebilir. Ait olduğunu hissettiren insanlara minnetini sözlerle ya da küçük eylemlerle ifade edebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde Kupa Onlusu, yakın bir gruptaki gerginliğe ya da mesafeye veya ilişkilerini idealleşmiş bir resimle kıyaslamaya işaret edebilir. Her bir kişinin birlikte kendini evinde hissetmek için gerçekte neye ihtiyaç duyduğunu sorabilirsin. Açık ve nazik konuşmalar yakınlığı gerçekçi bir tempoda yeniden kurmaya yardım edebilir.
+  workUpright: >-
+    İşte bu kart destekleyici bir ekibi, ortak bir amaç duygusunu ya da insanların birbirini gerçekten önemsediği bir iş yerini yansıtabilir. Bu kültüre katkıda bulunmaya davet edebilir. Değer gördüğünü hissetmenin işini nasıl etkilediğini ve başkalarının da aynı şeyi hissetmesine nasıl yardım edebileceğini fark edebilirsin.
+  workReversed: >-
+    Ters geldiğinde kart, aile olmaktan söz eden ama her zaman öyle davranmayan bir iş yerini ya da özel hayatla iş arasındaki bulanık bir çizgiyi yansıtabilir. Hangi sınırların evdeki zamanını koruyacağını düşünebilirsin. Aidiyeti birkaç farklı yerde aramak herhangi birinin üzerindeki baskıyı hafifletebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kupa Onlusu, kendi içinde bir yuva duygusu yetiştirmeye davet eder. Belli yerler, pratikler ya da insanlar gibi kendini yerleşmiş ve bütün hissetmene neyin yardım ettiğini fark edebilirsin. Bunları rutinine katmak, başkalarıyla bağ kurabileceğin istikrarlı bir temel sunabilir.
+  growthReversed: >-
+    Ters geldiğinde bu kart, mutlu bir hayatın nasıl görünmesi gerektiğine dair inançlarını incelemeni isteyebilir. Bazı beklentilerin senden değil başkalarından geldiğini fark edebilirsin. İdealleşmiş bir resmi bırakmak daha sahici ve daha yaşanabilir bir doyum duygusuna yer açabilir.
+reflectionQuestions:
+  - "Nerede ya da kimlerle kendini en çok evinde hissediyorsun?"
+  - >-
+    Sana nasıl görünmesi gerektiği öğretilenin dışında, aidiyet senin için ne anlama geliyor?
+  - >-
+    Bu hafta hangi küçük eylem bir yuva duygusunu güçlendirebilir?
+imageryNote: >-
+  Görsel, on kupayı farklı yaşlardan bir grup figürün çevresinde toplar; figürler yakınında bir ev bulunan açık bir manzarayı paylaşır. Yeşil topraklardan akan su, bir topluluğu ayakta tutan duygusal beslenmeyi çağrıştırır. Açık kollar, birbirine kenetlenmiş eller ya da ortak bir dans sevinci ve rahatlığı aktarabilir. Parlak ama yumuşak renkler sıcaklığı, güveni ve güzel bir yere varmış olma hissini yansıtır.

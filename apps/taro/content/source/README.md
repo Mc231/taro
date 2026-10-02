@@ -8,7 +8,8 @@ and `worker/src/generated/`; nothing else writes those files.
 ```bash
 tools/content/validate                  # all checks; exit 0 = valid (staleness is only reported)
 tools/content/validate --release        # + every crisis entry verified within 200 days
-tools/content/validate --strict-locales # missing/stale translations are errors (Phase 18)
+tools/content/validate --strict-locales # missing/stale translations are errors (Phase 18; CI and verify.sh run this)
+tools/content/validate --launch-gate    # + the 01 §11 step 6 native-review gate (see `reviewStatus`)
 tools/content/validate --print-hashes   # print the sourceHash of every en card / spreads / article
 tools/content/build                     # validate, then write the generated JSON (idempotent)
 tools/content/build --check             # CI: fail if a generated file is out of date or stale
@@ -82,6 +83,14 @@ exactly one of these values (the taro_core `ReviewStatus` enum):
 | `machine` | Written or translated by an LLM and **not yet reviewed by a person**. Every LLM draft, English included, starts here. |
 | `reviewed` | A person did the edit / review pass (owner for `en`, native reviewer for other locales). Only a person sets this. |
 
+A card may also carry `shortReviewStatus` (same values, optional): `reviewed`
+when a person reviewed its `name`, keywords and short texts but not (yet) the
+long texts. `validate --launch-gate` (01 §11 step 6) requires, in all 12
+locales: `glossary.yaml` `review.<locale>: reviewed`; every major card
+`reviewStatus: reviewed`; every minor card `reviewStatus` or
+`shortReviewStatus` `reviewed`; and at least 20 % of the minor cards (12 of 56)
+with `reviewStatus: reviewed` (the long-text sample).
+
 ## Voice (all text)
 
 Reflection voice only (01 PR1, `docs/content/STYLE_GUIDE.md`): "invites you to
@@ -108,6 +117,10 @@ version: 1            # content version, integer >= 1; bump when card texts chan
 artSet: placeholder   # art set key: `placeholder` until the D15 art arrives
 ```
 
+`artSet` is set by `tools/content/import_art --source <folder> --art-set <key>`
+(Phase 18), which also writes `apps/taro/assets/deck/art/<key>/` and the
+pubspec asset entry; `docs/ART_PROVENANCE.md` has the input rules.
+
 ## `en/cards/<cardId>.yaml`
 
 One file per card; the file name must equal `cardId`. Field names match
@@ -117,6 +130,7 @@ taro_core `CardText` (01 §10.1).
 |---|---|---|
 | `cardId` | string | equals the file name |
 | `reviewStatus` | `machine` \| `reviewed` | see above |
+| `shortReviewStatus` | `machine` \| `reviewed` | optional; name, keywords and short texts reviewed (see above) |
 | `element` | `fire` \| `water` \| `air` \| `earth` | **en only.** Required for minor cards and must be the suit element (wands = fire, cups = water, swords = air, pentacles = earth). Optional for major cards (authored correspondence). |
 | `astrology` | string | **en only**, optional. Correspondence key, lower snake_case (`^[a-z][a-z0-9_]*$`), e.g. `venus`, `aries`, `sun_in_leo` |
 | `name` | string | exactly the glossary name (`glossary.yaml` `cards.<cardId>.<locale>`); single line |

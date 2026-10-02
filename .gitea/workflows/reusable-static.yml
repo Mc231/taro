@@ -2,8 +2,8 @@ name: Reusable - Static checks
 
 # 06 §6, §8; Phase 3 Sprint 3.4. Everything that needs no test run:
 # Dart format + analyze, the architecture check, the deck content checks
-# (tools/content: validate, build --check, sync_check, placeholder_art
-# --check), every tools/check_*.py,
+# (tools/content: validate, build --check, sync_check, placeholder_art --check,
+# import_art --check), every tools/check_*.py,
 # commit messages of the pushed range, the CHANGELOG range check, gitleaks,
 # actionlint, shellcheck, and the Worker's typecheck / eslint / prettier /
 # dry-run bundle (with a size budget) / npm audit.
@@ -97,10 +97,10 @@ jobs:
       - name: Architecture check (02 AR2)
         run: dart run tools/dart_tools/bin/check_architecture.dart
 
-      # Deck content pipeline (Phase 5, RC26). Missing translations are only a
-      # report until Phase 18; missing or invalid en content is an error.
-      - name: Content validate (tools/content/validate)
-        run: tools/content/validate
+      # Deck content pipeline (Phase 5, RC26). Since Phase 18 every locale is
+      # translated, so a missing or stale translation is an error too.
+      - name: Content validate (tools/content/validate --strict-locales)
+        run: tools/content/validate --strict-locales
 
       - name: Generated content is current (tools/content/build --check)
         run: tools/content/build --check
@@ -110,6 +110,9 @@ jobs:
 
       - name: Placeholder art is current (tools/content/placeholder_art --check)
         run: tools/content/placeholder_art --check
+
+      - name: Bundled art set within budget (tools/content/import_art --check)
+        run: tools/content/import_art --check
 
       # Design tokens (Phase 15 Sprint 15.1, 02 §14.1): the 01 §14 contract
       # (names in both modes, reduced motion, fonts per script, contrast) and
@@ -132,6 +135,8 @@ jobs:
               check_coverage.py|check_commit_msg.py|check_changelog.py) continue ;;
               # PRs never touch the network; nightly.yml runs it online weekly.
               check_urls.py) set -- --offline ;;
+              # Phase 18: all 12 locales translated; strict from here on.
+              check_l10n.py) set -- --strict-translations --require-all-locales ;;
               *) set -- ;;
             esac
             ran=$((ran + 1))

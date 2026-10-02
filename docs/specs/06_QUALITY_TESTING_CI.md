@@ -294,6 +294,7 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC26, RC38, RC39, RC62, RC69, RC79, RC8
 | `check_changelog.py` | Used by deploy workflows: no `## [X.Y.Z] - YYYY-MM-DD` section for the version being shipped, or `## [Unreleased]` missing. |
 | `check_retention.py` | The retention periods in the 03 §13 table differ from the privacy-policy source `web/privacy.en.md` §Retention or from the ARB `aiConsentBody` (RC69). |
 | `tools/store_copy/check_store_copy.py` rule `review_notes_labels_exist` | A button label quoted in the App Review notes' HOW TO REVIEW block has no identical value in `app_en.arb` (RC79). |
+| `check_install_size.py` | Nightly (01 §16, 02 §17): the iOS release download estimate (`.ipa`, else the deflated `Runner.app`) is over 60 MB, or an Android per-ABI split estimated from the `.aab` is over 40 MB (1 MB = 10^6 bytes). A missing build is skipped with a note unless `--require`; `--report` appends a Markdown table to the step summary. |
 | `check_worker_env.py` | `worker/wrangler.toml` `[env.prod]` defines `ALLOW_DEBUG_ATTESTATION`, `AI_PROVIDER` or `DEBUG_ATTESTATION_TOKEN` (RC86); also run in `worker-deploy.yml` before a prod deploy. |
 
 Secrets scanning: `gitleaks detect --no-banner` with `.gitleaks.toml` in `ci` and a pre-push hook.

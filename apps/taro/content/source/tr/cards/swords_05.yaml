@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_05"
+reviewStatus: "machine"
+sourceHash: >-
+  469352d181aeb82ffb5052f11540bc0d85631d686fe26f071d0da7473deea4cf
+name: "Kılıç Beşlisi"
+keywordsUpright:
+  - "çatışma"
+  - "bedeli olan zafer"
+  - "gurur"
+  - "zedelenen iyi niyet"
+  - "mücadeleyi seçmek"
+keywordsReversed:
+  - "telafi etmek"
+  - "bırakıp geçmek"
+  - "süren kırgınlık"
+  - "uzaklaşmak"
+  - "barışma"
+shortUpright: >-
+  Bir tartışma kazanılırken başka bir şey kaybediliyor olabilir; bu zaferin gerçekte neye mal olduğunu sorabilirsin.
+shortReversed: >-
+  Bir çatışma soğumaya hazır olabilir; huzur için haklı olma isteğini bırakmaya yer olabilir.
+meaningUpright: |-
+  Kılıç Beşlisi çatışmaya olup bittikten sonra bakar. Biri kılıçları toplamış ve sayıyı almıştır; diğerleri ise sırtlarını dönüp uzaklaşır. Kartın sorduğu soru kimin kazandığı değil, kazanmanın neye değdiğidir.
+  Bu kartı haklı olduğunu kanıtladığın ama odanın soğuduğu bir anlaşmazlıkta, sertleşen bir grup sohbetinde ya da yalnızca gerginliği bitirmek için boyun eğdiğin bir durumda görebilirsin. Gururu, son sözü söyleme isteğini ya da kastettiğinden fazlasını söylemiş olmanın tedirginliğini yansıtabilir. Öbür tarafta olmaya, kendini güçsüz hissedip gitmeyi seçmeye de işaret edebilir.
+  Bu kart, hangi mücadelelerin senin için gerçekten önemli olduğunu düşünmeye davet eder. Değerlerinin arkasında durmak önemlidir; her çatışma aynı enerjiye değmez. Bir tartışma bittikten sonra ne hissettiğini fark edebilirsin: tatmin, yalnızlık, rahatlama, pişmanlık. Bu his bir sonraki anlaşmazlığa nasıl yaklaşacağına ve bazı köprülerin onarılmaya değer olup olmadığına yol gösterebilir.
+meaningReversed: |-
+  Ters geldiğinde Kılıç Beşlisi harareti azalan bir çatışmayı yansıtabilir. İnsanlar tutumlarını bırakmaya hazır olabilir ya da fazla ileri gitmiş bir tartışmanın ardından telafi etme isteği duyabilirsin. Barışma basit bir kabulle başlayabilir.
+  Bir başka okuma da süren bir kırgınlıktır: resmî olarak bitmiş ama zihninde hâlâ tekrar oynatılan bir anlaşmazlık ya da yeni konuşmaları renklendiren yarım kalmış bir iş hissi.
+  Burada bırakmanın nasıl görüneceğini sorabilirsin. Bu, aynı fikirde olmak anlamına gelmek zorunda değil; yalnızca kavgayı daha fazla taşımamayı seçmektir. Bazen uzaklaşmak sessiz bir güç biçimidir; bazen de uzanmak. İşlerin bırakıldığı hâlle barışık hissetmene ne yardım ederdi?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart, haklı olmanın yakın olmaktan daha önemli hâle geldiği bir tartışmayı yansıtabilir. Kendinde ya da başkalarında hesap tutma ya da son sözü söyleme ihtiyacı örüntülerini fark edebilirsin. Her bir kişinin gerçekte neyi korumaya çalıştığını sormak yardımcı olabilir. Bu ihtiyacı anlamak bir konuşmayı bir yarışmadan ortak bir soruna dönüştürebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde Kılıç Beşlisi bir kırılmanın ardından onarıma ya da kibar sözlerin altında hâlâ kaynayan bir gerginliğe işaret edebilir. Bir özrün, açıklayıcı bir konuşmanın ya da yalnızca biraz nezaketin durumu yumuşatıp yumuşatamayacağını düşünebilirsin. Bir bağ hep aynı kavgaya dönüyorsa onu yeniden başlatan şeyi keşfetmeye değer olabilir.
+  workUpright: >-
+    İşte bu kart rekabeti ya da ofis gerginliğini yansıtabilir: sahiplenilen övgü, geçiştirilen fikirler ya da insanları yaralı bırakan bir tartışma. Senin kazanmanın ortak hedefe yardım edip etmediğini sorabilirsin. İş birliği bazen işin ilerleyebilmesi için bir noktayı bırakmanı ister. Mücadelelerini seçmek hem enerjini hem de çalışma ilişkilerini koruyabilir.
+  workReversed: >-
+    Ters geldiğinde bu kart işyerindeki bir sürtüşmenin ardından havayı temizlemeye ya da yıpratıcı bir anlaşmazlıktan uzaklaşmaya karar vermeye işaret edebilir. Eski bir çatışmanın seninle bir iş arkadaşının iletişimini hâlâ etkileyip etkilemediğini fark edebilirsin. Geleceğe odaklanan kısa ve sakin bir konuşma, kimin haklı olduğunu yeniden tartışmaktan daha fazlasını yapabilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Beşlisi, kazanma ve kaybetmeyle olan ilişkine bakmaya davet eder. Çatışma sende neyi kıpırdatıyor: kendini kanıtlama ihtiyacını mı, göz ardı edilme korkusunu mu? Hararetli bir anda yanıt vermeden önce durmayı deneyebilirsin; tepki vermek yerine sözcüklerini seçmek için kendine bir nefeslik zaman tanıyarak.
+  growthReversed: >-
+    Ters geldiğinde bu kart eski bir kini ya da geçmiş tartışmaları tekrar oynatma isteğini bırakmayı yansıtabilir. Bırakmak kaybetmek gibi hissettirebilir ama çoğu zaman şimdi önemsediğin şeyler için enerji açar. Söyleyebilseydin ne söyleyeceğini yazıp bunun yüksek sesle söylenmesi mi yoksa yalnızca bir kenara konması mı gerektiğine karar verebilirsin.
+reflectionQuestions:
+  - "Son anlaşmazlığın bittiğinde ne hissettin?"
+  - "Bir noktayı bırakırsan hangi ilişki bundan fayda görebilir?"
+  - "Bu hafta girmemeyi seçebileceğin bir mücadele ne?"
+imageryNote: >-
+  Özgün çizim, yırtık ve hızla ilerleyen bulutların altında rüzgârlı bir kıyıyı gösterir. Bir figür üç kılıcı gevşekçe tutup geriye bakar; iki kılıç daha kumda yatar. Diğer iki figür suya doğru uzaklaşır. Dağınık kılıçlar çözülmeden bırakılmış tartışmaları, dönük sırtlar ise çatışmanın yarattığı mesafeyi düşündürür. Huzursuz gökyüzü, sözler bittikten sonra bile hâlâ çalkalanan bir zihni yansıtır.

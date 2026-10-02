@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "wands_09"
+reviewStatus: "machine"
+sourceHash: >-
+  47b59fb1d14ec9f89999f61e61b048a675a3a19b1ca04761c25c179c4b60f350
+name: "Asa Dokuzlusu"
+keywordsUpright:
+  - "dayanıklılık"
+  - "sebat"
+  - "son düzlük"
+  - "zorlukla gelen bilgelik"
+  - "tetikte güç"
+keywordsReversed:
+  - "bitkinlik"
+  - "temkinlilik"
+  - "sınırlara varmak"
+  - "yardım istemek"
+  - "savunmayı indirmek"
+shortUpright: >-
+  Çok şeyin içinden geçtin ve hâlâ ayaktasın; bu kart son düzlükteki dayanıklılığını onurlandırıyor.
+shortReversed: >-
+  Uzun süre tetikte kalmak yorucu olabilir; dinlenmenin ve başkalarını içeri almanın güvenli olduğu yerleri fark edebilirsin.
+meaningUpright: |-
+  Asa Dokuzlusu zorluklardan geçmiş ve hâlâ ayakta olan birini gösterir. Biraz yorgun ve tetikte, bir asaya yaslanır; çevresine diğer asalar kendi kurduğu bir çit gibi dikilmiştir. Bu, deneyimin bazı izlerini taşıyan bir dayanıklılıktır: dokunulmamış değil ama yenilmiş de değil.
+  Uzun bir proje bitmek üzereyken, bakım verdiğin ya da yoğun çalıştığın zorlu bir dönemden geçerken veya aksiliklerle karşılaşıp devam etmeyi seçtiğinde sana seslenebilir. Artık başlangıçta bildiğinden daha fazlasını biliyorsun; sınırlarının nerede olduğunu da.
+  Bu kart, ne kadar yol aldığını kabul etmeye ve öğrendiklerini kullanmaya davet eder. Sebat değerlidir; tempo ayarlamak da öyle. Bu son düzlükten geçmene neyin yardım edeceğini sorabilirsin: net bir bitiş çizgisi, birkaç saatlik dinlenme, pratik bir sınır ya da sona hissettiğinden daha yakın olduğuna dair bir hatırlatma.
+meaningReversed: |-
+  Ters geldiğinde Asa Dokuzlusu, yavaş yavaş birikmiş bir yorgunluğu yansıtabilir. Kendini ya da projelerini o kadar uzun süredir koruyorsun ki rahatlamak imkânsız görünebilir. Geçmiş zorluklardan öğrenilen temkin, her yeni duruma karşı bir şüpheye dönüşebilir.
+  Bu kart bir sınıra ulaşıldığına da işaret edebilir. Dişini sıkıp devam etmek her zaman en güçlü seçim sayılmaz; bazen güç, bir molaya ya da bir yardım eline ihtiyaç duyduğunu kabul etmektir.
+  Savunmalarının nerede hâlâ işe yaradığını ve nerede artık zorlukla birlikte desteği de dışarıda tuttuğunu keşfedebilirsin. Yaslanabileceğin biri, devredebileceğin bir görev ya da kendine tanıyabileceğin bir mola var mı? Güvenli bir yerde savunmanı biraz indirmek, kurduğun dayanıklılığa özen göstermenin bir yolu olabilir.
+aspects:
+  relationshipsUpright: >-
+    Yakın bağlarda bu kart, zor zamanlara göğüs germiş ve hâlâ ayakta olan bir ilişkiyi yansıtabilir. Geçmiş kırgınlıklardan öğrenilmiş bir temkine de işaret edebilir. Birlikte kurduğunuz istikrarın kıymetini bilirken, güvenilebileceğini göstermiş biriyle eski tetikteliğe hâlâ ihtiyaç olup olmadığını fark edebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde yeniden hayal kırıklığına uğramamak için başkalarını uzakta tutuyor ya da her zamanki kadar vermek için fazla yorgun hissediyor olabilirsin. Sana yakın birine gücünün azaldığını söylemeyi düşünebilirsin. Desteklenmene izin vermek bir bağı zayıflatmak yerine derinleştirebilir.
+  workUpright: >-
+    İşte ya da eğitimde Asa Dokuzlusu, uzun bir çabanın son hamlesine işaret edebilir. Deneyim seni engeller konusunda daha gerçekçi kılmıştır ve bu bilgi işe yarar. Kalan adımları dikkatle planlayabilir, odağını koruyabilir ve neden başladığını kendine hatırlatabilirsin; böylece son düzlük yalnızca tüketici değil, amaçlı hissettirir.
+  workReversed: >-
+    Ters geldiğinde sınırına yakın olabilir, savunmacı bir şekilde çalışıyor ya da her şeyle tek başına ilgilenmen gerektiğini hissediyor olabilirsin. Neyin devredilebileceğine, ertelenebileceğine ya da sadeleştirilebileceğine bakabilirsin. Kapasiten hakkında dürüstçe konuşmak hem seni hem de işi koruyan sorumlu bir seçim olabilir.
+  growthUpright: >-
+    Kendine tanıdığından daha dayanıklı olabilirsin. Karşılaştığın her zorluk sana neyle başa çıkabileceğin hakkında bir şey öğretti. Son zamanlardaki zorluklardan birkaç ders yazıp bunların sana biraz daha fazla güvenle ve biraz daha az zorlanarak nasıl yol gösterebileceğini düşünebilirsin.
+  growthReversed: >-
+    Ters geldiğinde sürekli tetikte olmak bedelini ödetiyor olabilir. Dinlenmenin senin için neye benzediğini ve kendine yeterince izin verip vermediğini keşfedebilirsin. Sessiz bir akşam ya da dürüst bir konuşma gibi küçük ve güvenli yollarla savunmanı yumuşatmak, gücünün bir zırh gibi hissettirmesini azaltabilir.
+reflectionQuestions:
+  - "İçinden geçtiğin hangi zorluk gücünü gösteriyor?"
+  - >-
+    Nerede hâlâ tetiktesin ve bu korumaya bugün ne kadar ihtiyacın var?
+  - >-
+    Son düzlükten geçmene nasıl bir destek ya da dinlenme yardım ederdi?
+imageryNote: >-
+  Alacakaranlıkta bir figür, toprağa çakılmış asalardan oluşan bir halkanın içinde durur; birine yaslanmış, dikkatli gözlerle dışarı bakar. Yanında küçük bir kamp ateşi kısık yanar. Asalardan halka deneyimle kurulmuş savunmaları, kısık ateş uzun bir çabanın ardından hâlâ canlı tutulan enerjiyi, sönen ışık ise sonuna yaklaşan bir günü çağrıştırır. Tetikteki duruş hem yorgunluğu hem de devam ettiren sebatı taşır.

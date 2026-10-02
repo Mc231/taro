@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_09"
+reviewStatus: "machine"
+sourceHash: >-
+  741be1243c3ae000dec35a36f2b83cb022cb7776887048778ef778d84fd3ecbd
+name: "Ermiş"
+keywordsUpright:
+  - "yalnız kalmak"
+  - "iç gözlem"
+  - "iç rehberlik"
+  - "arayış"
+  - "sessizlikten bilgelik"
+keywordsReversed:
+  - "yalıtılmışlık"
+  - "iç gözlemden kaçmak"
+  - "düşüncelere dalmak"
+  - "başkalarına dönmek"
+shortUpright: >-
+  Biraz uzak kalmak kendi düşüncelerini daha net duymana yardım edebilir.
+shortReversed: >-
+  Yalnızlık yalıtılmışlığa ya da sessizlikten tümüyle kaçmaya dönüşmüş olabilir. Hangi denge doğru geliyor?
+meaningUpright: |-
+  Ermiş bir dağ yolunda tek başına yürür; elindeki fener yalnızca sonraki birkaç adımı aydınlatır. Bu kart, kendi cevaplarını aramak için gürültüden geri çekilmekle ilgilidir. Ermiş’in yalnızlığı bir boşluk sayılmaz, bir amacı vardır: geri çekilmenin bir nedeni vardır ve ışık beklenmez, taşınır.
+  Gündelik hayatta bu kart, kalabalık bir akşam yerine sessiz bir akşamı seçmeyi, bir karar üzerine düşünmek için tek başına yürüyüşe çıkmayı ya da konsantrasyon isteyen bir kitap, bir defter veya bir el işiyle vakit geçirmeyi yansıtabilir. Başkalarının görüşlerinin, senin için neyin doğru olduğuna dair yavaşça şekillenen kendi hissinden daha az önemli olduğu, öncelikleri yeniden değerlendirdiğin bir döneme işaret edebilir.
+  Bu kart, neyi aradığını ve onu bulmak için kendine yeterince alan tanıyıp tanımadığını düşünmeye davet eder. Uzun bir yürüyüşe yanında hangi soruyu götüreceğini sorabilirsin. Ermiş, bilgeliğin çoğu zaman küçük ve istikrarlı ışıltılarla, tıpkı yolu adım adım gösteren bir fener gibi geldiğini ve bunun yola devam etmek için yeterli olduğunu düşündürür.
+meaningReversed: |-
+  Ters geldiğinde Ermiş, yardımcı olduğundan daha uzun sürmüş bir yalnızlığı yansıtabilir. Yalnız geçirilen zaman, her gün birine ulaşmanın biraz daha zorlaştığı bir içe kapanmaya yavaşça dönüşebilir. Bir şeye doğru değil, kendi etrafında döner gibi düşündüğünü fark edebilirsin.
+  Bu kart tam tersine de işaret edebilir: iç gözleme hiç yer kalmayacak kadar meşgul olmak ya da hep başkalarıyla çevrili kalmak. Sessizlikten kaçmak, yüzleşmeye hazır olmadığın bir sorudan kaçmanın bir yolu olabilir.
+  Hangi tarafın sana daha yakın geldiğine bakmak isteyebilirsin. Çok yalnız kaldıysan, biriyle yeniden bağ kurmanın küçük ve rahat bir yolu ne olabilir? Dinginlikten kaçıyorsan, düşüncelerinle baş başa geçireceğin on dakikadan ne öğrenebilirsin? Feneri kaldırmak hâlâ senin elinde.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Ermiş, düşünmek için alana duyulan ihtiyacı ve bu ihtiyaca saygı gösteren insanların değerini yansıtabilir. Geri çekilmenin reddetmek değil, iç gözlem olduğunu nazikçe açıklamaya davet edebilir. Yalnız geçirilen zaman, ne istediğin ve ne sunabileceğin konusunda daha net bir şekilde başkalarına dönmene yardım edebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, başkalarının mesafe olarak hissettiği bir içe kapanmaya ya da söz etmediğin bir yalnızlığa işaret edebilir. Birinin önce sana ulaşmasını bekleyip beklemediğini düşünebilirsin. Kısa ve dürüst bir mesaj, ardından yine biraz sessizliğe ihtiyaç duysan bile bir kapıyı yeniden açabilir.
+  workUpright: >-
+    İşte ya da eğitimde Ermiş, derin ve odaklı çalışmayı ve bağımsız düşünmeyi öne çıkarır. Araştırma, yazma, planlama ya da bir şeyi baştan sona öğrenmek için iyi bir an olabilir. Bölünmeden çalışabileceğin bir zamanı koruyup sürekli başkalarına yanıt vermediğinde hangi içgörülerin geldiğini fark edebilirsin.
+  workReversed: >-
+    Ters geldiğinde Ermiş, fazla uzun süre yalnız çalışmayı ya da yardımcı olabilecek görüşleri kaçırmayı yansıtabilir. Bir karar üzerine fazla düşünmeye de işaret edebilir. Güvendiğin bir iş arkadaşından ya da mentordan taze bir bakış isteyebilir ve fikirlerini paylaşmanın onları nasıl keskinleştirdiğini fark edebilirsin.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, yalnız kalma ve kendini sorgulama pratiğine davet eder. Günlük yazmak, yürümek ya da bir soruyla sessizce oturmak kendini daha iyi anlamana yardım edebilir. Kendi fenerini son zamanlarda edindiğin tek bir içgörü olarak düşünüp bir sonraki adımını onun aydınlatmasına izin verebilirsin.
+  growthReversed: >-
+    Ters geldiğinde Ermiş, kendinden mi yoksa başkalarından mı saklandığını sorabilir. İç gözlemi bağ kurmakla dengeleme ihtiyacını yansıtabilir. Bu hafta sessiz bir ritüel ve küçük bir sosyal an planlayıp her birinin nasıl hissettirdiğini fark edebilirsin. Buradaki denge kişiseldir; doğru karışımı yalnızca sen sezebilirsin.
+reflectionQuestions:
+  - "Uzun ve sessiz bir yürüyüşe yanında hangi soruyu götürürdün?"
+  - >-
+    Alan ihtiyacına kim saygı gösteriyor ve buna değer verdiğini ona nasıl hissettirebilirsin?
+  - >-
+    Bu hafta kendin için hiç bölünmeyecek bir saati nerede koruyabilirsin?
+imageryNote: >-
+  Taro’nun Ermiş’i, alacakaranlıkta yüksek ve karlı bir sırtta, yolun yalnızca sonraki birkaç adımını aydınlatan sade bir fener taşıyan pelerinli bir figür olarak hayal edilir. Kullanıldıkça pürüzsüzleşmiş bir baston, deneyimden edinilmiş desteği çağrıştırır. Arkadaki kardaki ayak izleri figürün ne kadar yol aldığını gösterir. Soğuk maviler ve griler yalnızlığı ve berrak havayı anlatırken fenerin sıcak ışığı, içgörünün yolun en karanlık kısmına bile taşınabileceğini gösterir.

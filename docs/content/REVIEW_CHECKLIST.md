@@ -64,7 +64,7 @@ batch in `docs/content/AUTHORING_LOG.md`.
 
 ## 6. Sign-off
 
-- [ ] `reviewStatus: reviewed` set on the card.
+- [ ] `reviewStatus: reviewed` set on the card. For a minor card outside the 20 % long-text sample, set only `shortReviewStatus: reviewed` once sections 1, 2 (name, keywords, short texts), 3 (keywords, short texts) and 5 are ticked for those fields.
 - [ ] Batch row added to `docs/content/AUTHORING_LOG.md` (date, batch, cards, author = owner or native reviewer, `reviewed`).
 - [ ] `tools/content validate` green again after the edits.
 

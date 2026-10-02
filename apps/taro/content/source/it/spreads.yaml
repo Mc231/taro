@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 run); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Usa una sola carta quando desideri uno spunto chiaro da portare con te durante la giornata, o quando la domanda è semplice e ti serve un punto di partenza per riflettere più che una mappa dettagliata. Funziona bene anche quando hai poco tempo o quando ti stai avvicinando alle carte per la prima volta.
+  three_ppf: >-
+    Usa Passato, presente, futuro quando vuoi vedere come una situazione si è sviluppata nel tempo. Ti aiuta a notare gli schemi che ti hanno portato fin qui, ciò che è attivo adesso e dove le cose potrebbero andare se nulla cambia, così da decidere che cosa vorresti tenere o cambiare.
+  three_sao: >-
+    Usa Situazione, azione, esito quando affronti qualcosa di pratico e vuoi pensare a che cosa potresti fare adesso. Guarda la situazione così com’è, un approccio da considerare e dove quell’approccio potrebbe portare se decidi di seguirlo.
+  relationship: >-
+    Usa la stesa Relazione per riflettere su qualsiasi legame stretto: un partner, un’amicizia, un familiare o una persona con cui lavori. Guarda ciò che porti tu, come l’altra persona potrebbe vivere le cose, ciò che vi unisce, ciò che mette alla prova il legame e ciò che potrebbe diventare. Descrive il tuo punto di vista sulla relazione, non i pensieri dell’altra persona.
+  two_paths: >-
+    Usa Due percorsi quando stai soppesando una scelta tra due opzioni. Dai loro un nome prima di pescare: Percorso A e Percorso B. La stesa guarda la situazione dietro la scelta, che cosa potrebbe chiederti ciascun percorso e dove potrebbe portare, così puoi confrontarli con i tuoi valori. La decisione resta tua.
+  celtic_cross: >-
+    Usa la Croce celtica per una situazione complessa che vuoi esplorare a fondo. Le sue dieci posizioni guardano il cuore della questione, ciò che la attraversa, le sue radici, gli eventi recenti e ciò che potrebbe venire dopo, poi te, ciò che ti circonda, le tue speranze e i tuoi timori, e dove le cose potrebbero andare se nulla cambia. Concediti il tempo di leggerla con calma.

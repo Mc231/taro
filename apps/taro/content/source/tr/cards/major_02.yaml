@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_02"
+reviewStatus: "machine"
+sourceHash: >-
+  df03fba5a9889efd8fec8594e1134edf61f0db01c57ff63e900a46b5be62fa1a
+name: "Başrahibe"
+keywordsUpright:
+  - "içsel bilgi"
+  - "dinginlik"
+  - "dinlemek"
+  - "söylenmeyen"
+  - "sabır"
+keywordsReversed:
+  - "göz ardı edilen sezgi"
+  - "gürültülü zihin"
+  - "fazla uzun saklananlar"
+  - "içe dönmek"
+shortUpright: >-
+  Zaten sezdiğin ama henüz kelimelere dökmediğin şeyi dinlemeye sessiz bir davet.
+shortReversed: >-
+  Dışarıdaki gürültü içindeki daha sessiz bir sesi bastırıyor olabilir; biraz sessizlik iyi gelebilir.
+meaningUpright: |-
+  Başrahibe iki sütunun arasında, bilinenle henüz gizli olanın eşiğinde oturur. Bu figür harekete geçmez ya da açıklama yapmaz; onun armağanı dikkattir: bir durumun, bir konuşmanın ya da bir duygunun yüzeyinin altında yatanı fark eden derin ve sabırlı bir dinleme.
+  Gündelik hayatta bu kart, tam olarak gerekçelendiremediğin bir önseziyi, bir şeyin söylenmediği hissini ya da öğleden sonraya kadar aklından çıkmayan bir rüyayı yansıtabilir. Cevabın daha fazla bilgi toplayarak değil, elindekiyle sessizce oturarak bulunduğu anlara işaret edebilir. Bazı şeyler ancak netlik için zorlamayı bıraktığında netleşir.
+  Bu kart, kendinin daha yavaş ve daha az sözel yanlarına güvenmeye davet eder. Günlük yazmaya, kulaklıksız bir yürüyüşe ya da yalnızca cevap vermeden önce kısa bir duraklamaya zaman ayırabilirsin. İçsel bilgi gerçeklerin yerini tutmaz; onlarla yan yana durabilir. Başrahibe, daha sessiz sesinin sana ne söylemeye çalıştığını fark etmeni ve ne yapacağına karar vermeden önce ona biraz alan tanımanı ister.
+meaningReversed: |-
+  Ters geldiğinde Başrahibe, iç sesinin orada olduğunu ama duyulmasının zor olduğunu düşündürebilir. Yoğun günler, başkalarının fikirleri ya da hiç durmayan ekranlar bu kartın ihtiyaç duyduğu dinginliği bastırabilir. Kısmen zaten bildiğin bir konuda başkalarına ne yapman gerektiğini sorup durduğunu fark edebilirsin.
+  Bu kart, bir şeyi fazla uzun süre içinde tutmaya da işaret edebilir: gizli kalmış ve artık ağır gelen bir duygu, bir soru ya da bir gerçek. Mahremiyet sağlıklıdır; seni yalnızlaştıran bir gizlilik ise ikinci bir bakışı hak edebilir.
+  Küçük bir sessizlik cebi yaratıp neyin yüzeye çıktığını görmek isteyebilirsin. Düzeltmeden yazmak ya da kendine basit bir soru sorup aklına gelen ilk dürüst cevabı beklemek yardımcı olabilir. Sezdiğin ama henüz söylemene izin vermediğin şey ne?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Başrahibe, pek çok şeyin sözsüz anlaşıldığı bir bağı ya da dinlemenin konuşmaktan daha önemli olduğu bir anı yansıtabilir. Alttan akan duyguları fark etmeye davet edebilir: bir arkadaşının sessizliğinin ne anlama gelebileceği ya da kendi isteksizliğinin neyi koruduğu. Sana yakın birine acele etmeyen bir ilgi armağan edebilirsin.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, seninle yakın biri arasında söylenmeden kalan şeylere ya da doğrudan sormak yerine satır aralarını okuma alışkanlığına işaret edebilir. Nazik ve dürüst bir sorunun tahminlerin yerini alıp alamayacağını düşünebilirsin. İç dünyanı korurken birinin onun biraz daha fazlasını görmesine izin verme ihtiyacını da yansıtabilir.
+  workUpright: >-
+    İşte ya da bir projede Başrahibe, her kararın bugün verilmesi gerekmediğini düşündürebilir. Gözlemlemeye, izlenimler toplamaya ve zamanlama sezgine güvenmeye davet edebilir. Araştırma, yazma, planlama ya da mentorluk gibi düşünsel işler bu karta çok uyar. Sessiz yetkinlik ve ağzı sıkılık, sandığından daha çok değer görüyor olabilir.
+  workReversed: >-
+    Ters geldiğinde Başrahibe, başkaları daha yüksek sesle konuştuğu için sağlam bir sezgiden şüphe etmeyi ya da bir ekipte bilginin saklanmasını yansıtabilir. Bir durum hakkında bildiğin ama dile getirmediğin şeyin ne olduğunu sorabilirsin. Bunu paylaşmanın sakin ve uygun bir yolunu bulmak, işi sen de dahil herkes için daha anlaşılır kılabilir.
+  growthUpright: >-
+    Başrahibe ile gelişim çoğu zaman dinginlikte başlar. Her gün birkaç dakika hiçbir şeyi düzeltmeye çalışmadan düşüncelerini, nefesini ya da çevreni fark etmeyi deneyebilirsin. Bu tür bir dikkat, giderek kaygılı iç konuşma ile daha sağlam bir iç his arasındaki farkı ayırt etmene yardım edebilir.
+  growthReversed: >-
+    Ters geldiğinde Başrahibe, son zamanlarda daha çok yüzeyde yaşayıp yaşamadığını, düşünmek yerine tepki verip vermediğini sorabilir. Hemen cevap bulma baskısı olmadan yeniden içe dönmen için bir dürtü olabilir. Bu hafta sessiz bir ritüele yer açıp kendine dinleme alanı tanıdığında neyin değiştiğini fark edebilirsin.
+reflectionQuestions:
+  - >-
+    Durumunla ilgili sezdiğin ama yüksek sesle söylemediğin şey ne?
+  - >-
+    Kendininki de dahil, kimin sessizliğini daha dikkatle dinlemeye değer?
+  - "Bu hafta kendine on sessiz dakikayı nerede ayırabilirsin?"
+imageryNote: >-
+  Taro’nun Başrahibesi, ay ışığıyla aydınlanan bir kapı eşiğinde, yarısı ışıkta yarısı gölgede, dizlerinde kapalı bir kitapla otururken hayal edilir. Figürün arkasında bir perde, ötesinde bir şey bekliyormuş gibi kıpırdar. Durgun bir havuzda yansıyan hilal döngüleri ve sezgiyi yankılayabilir; koyu mavi tonlar ise yüzeyde sakinliği, altında derinliği çağrıştırır. Figürün sessiz ve dikkatli dinginliği görüntünün merkezidir.

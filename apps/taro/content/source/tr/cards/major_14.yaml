@@ -1,0 +1,49 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_14"
+reviewStatus: "machine"
+sourceHash: >-
+  7ae5c4ef62a8f2b95d5fb3d0234f0c18f036c2d72621d0710a5aa65927acac0c
+name: "Denge"
+keywordsUpright:
+  - "denge"
+  - "ölçülülük"
+  - "harmanlamak"
+  - "sabır"
+  - "orta yolu bulmak"
+keywordsReversed:
+  - "aşırılık"
+  - "dengesizlik"
+  - "sabırsızlık"
+  - "yeniden ayarlamak"
+shortUpright: >-
+  İhtiyacın olanların daha yavaş ve istikrarlı bir karışımı, herhangi bir uç noktadan daha çok rahatlık getirebilir.
+shortReversed: >-
+  Bir şey bir yöne fazla kayıyor olabilir. Bu kart bunu fark edip nazikçe yeniden dengelemeye davet ediyor.
+meaningUpright: |-
+  Denge, şeyleri doğru ölçüde karıştırmanın kartıdır. Görselinde çoğu zaman suyun iki kap arasında, pek az şey dökülecek şekilde özenle aktarıldığı görülür. Buradaki beceri bir şeyi diğerine tercih etmekte değil, onları harmanlamaktadır: çalışma ve dinlenme, eylem ve sabır, şimdi istediğin ve sonra isteyeceğin.
+  Gündelik hayatta bu kart, işe yarayan bir ritim bulmayı yansıtabilir: içinde yeterince boşluk olan bir program, iki kişiye de saygı gösteren bir uzlaşma ya da doğru hissettirene kadar azar azar ayarlanan bir alışkanlık. Uç noktalardan daha az heyecan verici ama çoğu zaman daha sürdürülebilir olan ölçülülüğün sessiz doyumuna işaret edebilir.
+  Bu kart, hayatının neresinin biraz daha dengeye ihtiyaç duyduğunu düşünmeye davet eder. Hangi kısımların fazla dolu, hangilerinin ihmal edilmiş hissettirdiğini ve hangi küçük ayarların onları birbirine yaklaştırabileceğini sorabilirsin. Denge sabrı öne çıkarır: iyi karışımlar vakit alır ve nazikçe denemek, ani bir köklü değişiklikten daha çok şey öğretebilir.
+meaningReversed: |-
+  Ters geldiğinde Denge, bir dengesizlik hissini yansıtabilir. İş, bir ilişki ya da bir endişe gibi hayatın bir alanına fazla şey dökerken bir başka alan kuruyor olabilir. Ya da uçlar arasında gidip geldiğini fark edebilirsin: ya hep ya hiç, ya yoğun ya bitkin, ya katı ya umursamaz.
+  Bu kart, zaman isteyen bir sürece karşı sabırsızlığa ve sonuçların kendiliğinden harmanlanmasına izin vermek yerine onları zorlama eğilimine de işaret edebilir.
+  Basit bir envanter çıkarmak isteyebilirsin. Nerede aşırıya kaçıyorsun, nerede eksik kalıyorsun? Çarpıcı bir çözüm yerine nazik bir ayar seçmek, yeniden ayar yapmana yardım edebilir. Denge bir kez varıp kaldığın bir yer sayılmaz; küçük düzeltmelerle tekrar tekrar döndüğün bir şeydir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Denge, uzlaşma ve anlayışla kurulan bir uyumu yansıtabilir. Biriyle ortada buluşmaya, farklı tarzlarınızı ve ihtiyaçlarınızı harmanlamaya ve birbirinizin ritimlerini öğrenirken sabırlı olmaya davet edebilir. Sakin ve istikrarlı bir özen, bir bağın içinde olmayı kolay hissettirebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, bir kişinin ihtiyaçlarının ağır bastığı ya da çatışmaların çabucak tırmandığı bir ilişkiye işaret edebilir. Yoğunluğu nasıl azaltabileceğini düşünebilirsin: konuşmaları yavaşlatmak, ortam ısındığında ara vermek ve her birinizin istediği şeylerin kesiştiği yeri aramak.
+  workUpright: >-
+    İşte ya da bir projede Denge, istikrarlı ilerlemeyi ve iyi iş birliğini öne çıkarır. Farklı becerileri ya da fikirleri iyi işleyen bir bütünde birleştirmeyi ya da enerjinin yetmesi için temponu ayarlamayı yansıtabilir. Planın hem iddialı hem de sürdürülebilir olan hâlini arayabilirsin.
+  workReversed: >-
+    Ters geldiğinde Denge, aşırı çalışmayı, aceleyle verilen kararları ya da farklı yaklaşımlara sahip insanlar arasındaki sürtüşmeyi yansıtabilir. Temponun nerede gerçek dışı hâle geldiğini ve neyin sadeleştirilebileceğini sorabilirsin. Çatışan öncelikler arasında bir orta yol bulmak herkesin stresini azaltabilir. Toplantısız tek bir öğleden sonra bile daha dengeli bir temponun nasıl hissettirdiğini gösterebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından bu kart, katılığa kaçmadan ölçülü olmayı denemeye davet eder. Kendi denge noktalarını fark edebilirsin: ne kadar dinlenmenin, hareketin, yalnız geçen zamanın ve başkalarıyla geçen zamanın kendini dengede hissetmene yardım ettiğini. Küçük ve tutarlı ayarlar büyük kararlardan daha çok rahatlık getirebilir.
+  growthReversed: >-
+    Ters geldiğinde Denge, uç noktalarda yaşayıp yaşamadığını sorabilir. Yavaşlama, dinlenme ya da günlerine eksik bir malzemeyi yeniden katma ihtiyacını yansıtabilir. Nazikçe yeniden dengeleyeceğin bir alan seçip yerine oturması için kendine zaman tanıyabilirsin.
+reflectionQuestions:
+  - >-
+    Hayatının hangi kısmı fazla dolu, hangisi ihmal edilmiş hissettiriyor?
+  - "Bu hafta sana yakın biriyle nerede ortada buluşabilirsin?"
+  - "Hangi küçük ayar günlerine daha çok rahatlık getirebilir?"
+imageryNote: >-
+  Taro’nun Denge kartı, ağır akan bir nehrin kıyısında, biri topraktan biri camdan iki farklı kap arasında özenle sıvı aktaran kanatlı bir figür olarak hayal edilir. Aralarındaki akış yumuşakça kıvrılır; sanki denge o anda bulunuyormuş gibi. Nehri geçen basamak taşları bir kıyıdan ötekine uzanan bir orta yolu çağrıştırır; uzak tepelerin üzerindeki yumuşak gün doğumu renkleri ise havayı sakin ve umutlu tutar.

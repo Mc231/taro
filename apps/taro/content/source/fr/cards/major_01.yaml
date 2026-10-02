@@ -1,0 +1,52 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_01"
+reviewStatus: "machine"
+sourceHash: >-
+  fa92e5f43628834f25ff3f4740fa6b3275b23781f8f4724fc06f288336c936fe
+name: "Le Magicien"
+keywordsUpright:
+  - "volonté concentrée"
+  - "ingéniosité"
+  - "savoir-faire en action"
+  - "intention claire"
+  - "concrétiser"
+keywordsReversed:
+  - "talent inexploité"
+  - "efforts dispersés"
+  - "doute de soi"
+  - "raccourcis habiles"
+  - "réaligner l’intention"
+shortUpright: >-
+  Vous avez peut-être déjà plus que vous ne le pensez ; cette carte demande ce que vous voulez en faire.
+shortReversed: >-
+  Vos outils sont sur la table, mais votre attention est peut-être ailleurs. Qu’est-ce qui vous aiderait à la rassembler ?
+meaningUpright: |-
+  Le Magicien est la carte qui transforme une idée en réalité. Là où le Mat part sans rien prévoir, le Magicien s’arrête, regarde ce qui est à sa portée et décide de s’en servir. L’image traditionnelle d’une main levée et d’une main tournée vers le sol suggère un pont entre l’intention et l’action, entre ce que vous imaginez et ce que vous pouvez réellement faire aujourd’hui.
+  Dans la vie quotidienne, cette carte peut refléter le moment où un projet reçoit enfin une date, un temps réservé, un premier jet. Elle peut désigner des compétences que vous avez tendance à négliger parce qu’elles vous viennent facilement : un talent pour expliquer, pour régler les petits problèmes, pour rassembler les gens. L’ingéniosité consiste ici à remarquer que les pièces sont déjà sur la table.
+  Cette carte vous invite à observer où va votre attention. La concentration est une forme d’artisanat ; elle se travaille. Vous pourriez vous demander quelle chose vous aimeriez faire naître, et lequel des outils que vous avez déjà pourrait la rapprocher d’un pas. Le Magicien ne promet aucun résultat. Il met en lumière la force qu’il y a à se présenter avec une intention et à utiliser ce que l’on a.
+meaningReversed: |-
+  Renversé, le Magicien peut refléter une capacité bien présente mais pas encore utilisée. Vous avez peut-être les compétences et les idées, tout en sentant votre énergie fuir dans trop de directions, ou en doutant que votre contribution compte. La table est mise ; les mains ne bougent pas tout à fait.
+  Cette carte peut aussi désigner une habileté légèrement détournée : utiliser le charme ou la parole facile pour éviter la partie du travail qui semble ennuyeuse, ou afficher une façade assurée alors qu’à l’intérieur le doute domine. Ni l’un ni l’autre n’est une faute morale. Ce sont peut-être des signes que l’intention et l’action se sont éloignées.
+  Vous pourriez regarder où votre attention se divise. Choisir une petite tâche concrète et la terminer peut redonner confiance en vos propres mains. Il peut aussi être utile de vous demander ce que vous feriez autrement si personne ne regardait.
+aspects:
+  relationshipsUpright: >-
+    Dans les relations, le Magicien peut refléter la force d’une communication claire et directe. Il peut vous inviter à dire ce que vous pensez et à agir en accord avec vos paroles. Vous pourriez remarquer combien vous pouvez influencer le ton d’un lien par de petits gestes délibérés : un message attentionné, un projet mené à terme, une attention offerte sans distraction.
+  relationshipsReversed: >-
+    Renversée, cette carte peut demander si les paroles et les actes concordent dans un lien proche, de votre côté ou de celui de l’autre personne. Elle peut aussi refléter le fait de garder pour vous ce que vous pensez vraiment, ou de jouer une version de vous-même que vous croyez plus appréciée. Vous pourriez vous demander ce qui changerait si vous laissiez quelqu’un voir vos véritables intentions, même les plus incertaines.
+  workUpright: >-
+    Au travail ou dans un projet, le Magicien désigne la rencontre entre le savoir-faire et l’occasion. Il peut vous inviter à faire le point sur vos capacités, vos contacts et vos ressources, et à les orienter vers un objectif clair. C’est une carte de lancement : présenter une idée, construire un prototype ou enfin rédiger la proposition. La concentration et la persévérance comptent ici davantage que d’avoir toutes les réponses à l’avance.
+  workReversed: >-
+    Renversé, le Magicien peut refléter un talent sous-utilisé, ou des efforts si dispersés que rien n’aboutit vraiment. Il peut aussi désigner la tentation d’en promettre trop ou de bâcler certaines étapes. Vous pourriez vous demander quelle tâche mérite vraiment votre énergie en ce moment, et à quoi ressemblerait un travail honnête et régulier sur elle dans les prochains jours.
+  growthUpright: >-
+    Pour l’épanouissement personnel, cette carte vous invite à reconnaître votre propre capacité d’agir. Vous pourriez dresser la liste des compétences, des habitudes et des soutiens dont vous disposez déjà, et remarquer comment ils pourraient servir quelque chose qui vous tient à cœur. La pratique, la répétition et une intention claire sont les outils discrets du Magicien ; de petits choix quotidiens peuvent, avec le temps, produire un vrai changement.
+  growthReversed: >-
+    Renversé, le Magicien peut refléter un écart entre la personne que vous savez pouvoir devenir et les habitudes que vous vivez. Il peut demander où le doute de soi vous fait attendre une permission. Vous pourriez choisir une compétence à pratiquer ouvertement, imparfaitement, et remarquer comment la confiance naît de l’action et non de l’attente du bon moment.
+reflectionQuestions:
+  - >-
+    Laquelle de vos compétences avez-vous tendance à considérer comme acquise ?
+  - >-
+    Où vos paroles et vos actes ne concordent-ils pas tout à fait en ce moment ?
+  - >-
+    Quelle intention pourriez-vous concrétiser aujourd’hui avec ce que vous avez déjà ?
+imageryNote: >-
+  Le Magicien de Taro est imaginé à l’aube, devant un étal de marché à un carrefour, disposant quatre objets modestes pour les quatre couleurs : une branche verte, une coupe d’argile, un couteau à pain et une seule pièce. Une main se tend vers l’étal, l’autre désigne le ciel qui s’éclaircit, reliant l’idée et l’action. Des fils de lumière entre les objets suggèrent l’attention qui unit des outils séparés autour d’un même but, et une miche inachevée laisse entendre que l’ouvrage ne fait que commencer.

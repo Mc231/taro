@@ -1,0 +1,1436 @@
+{
+  "cards": {
+    "cups_01": {
+      "keywordsReversed": [
+        "geri tutulan duygular",
+        "boşalan rezervler",
+        "içten dolmak",
+        "korunan kalp"
+      ],
+      "keywordsUpright": [
+        "açık kalp",
+        "yeni bir duygu",
+        "alıcılık",
+        "duygusal yenilenme",
+        "şefkat"
+      ],
+      "name": "Kupa Ası",
+      "shortReversed": "Kupanın dökülebilmesi için önce dolması gerekebilir; bugün seni sessizce neyin yenileyeceğini düşün.",
+      "shortUpright": "Taze bir duygu yükseliyor olabilir; bu kart onu içeri almaya ve nereye akmak istediğini fark etmeye davet ediyor."
+    },
+    "cups_02": {
+      "keywordsReversed": [
+        "dengesizlik",
+        "yanlış anlaşılma",
+        "güveni onarmak",
+        "kendine eş olmak"
+      ],
+      "keywordsUpright": [
+        "karşılıklı bağ",
+        "karşılıklılık",
+        "ortaklık",
+        "ortak saygı",
+        "çekim"
+      ],
+      "name": "Kupa İkilisi",
+      "shortReversed": "Seninle bir başkası arasındaki bir şey dengesiz hissettirebilir; her birinizin gerçekte ne istediğini düşün.",
+      "shortUpright": "Özenin iki yönde aktığı yerleri ve bir bağı eşit ve canlı hissettiren şeyi fark etmek için bir an."
+    },
+    "cups_03": {
+      "keywordsReversed": [
+        "aşırıya kaçmak",
+        "dışlanmışlık",
+        "sosyal yorgunluk",
+        "uzaklaşmak",
+        "çevreni seçmek"
+      ],
+      "keywordsUpright": [
+        "dostluk",
+        "kutlama",
+        "topluluk",
+        "paylaşılan sevinç",
+        "aidiyet"
+      ],
+      "name": "Kupa Üçlüsü",
+      "shortReversed": "Bağlar şu anda zayıf ya da yorucu hissettirebilir; hangi buluşmaların seni beslediğini, hangilerinin yalnızca vakit doldurduğunu düşün.",
+      "shortUpright": "Sevinçlerini kimlerin paylaştığını ve onların sevinçlerini karşılığında nasıl paylaşabileceğini fark etmek için bir an."
+    },
+    "cups_04": {
+      "keywordsReversed": [
+        "yenilenen ilgi",
+        "sunulanı fark etmek",
+        "yeniden katılmak",
+        "huzursuzluk",
+        "hayır deme alışkanlığı"
+      ],
+      "keywordsUpright": [
+        "tefekkür",
+        "ilgisizlik",
+        "geri çekilme",
+        "yeniden değerlendirme",
+        "içe dönmek"
+      ],
+      "name": "Kupa Dörtlüsü",
+      "shortReversed": "Sessiz bir dönemin ardından ilgi geri dönüyor olabilir; şimdi hangi davetin kabul etmeye değer olduğunu düşün.",
+      "shortUpright": "Bir süreliğine içe dönmüş olabilirsin; bu kart düşünürken sana neyin sunulduğunu fark etmeye davet ediyor."
+    },
+    "cups_05": {
+      "keywordsReversed": [
+        "kabullenme",
+        "ilerlemek",
+        "affetmek",
+        "kalanı bulmak"
+      ],
+      "keywordsUpright": [
+        "hayal kırıklığı",
+        "yas",
+        "pişmanlık",
+        "kayba odaklanmak",
+        "yas tutmak"
+      ],
+      "name": "Kupa Beşlisi",
+      "shortReversed": "Bir hayal kırıklığının ağırlığı hafifliyor olabilir; neyin seninle kaldığını ve bundan sonra nereye dönmek istediğini düşün.",
+      "shortUpright": "Bir kayıp görüşünü dolduruyor olabilir; bu kart dürüstçe yas tutmaya ve zamanı geldiğinde hâlâ ayakta olanı fark etmeye davet ediyor."
+    },
+    "cups_06": {
+      "keywordsReversed": [
+        "geçmişe takılmak",
+        "idealleşen anılar",
+        "ilerlemek",
+        "eski hikâyeyi yenilemek"
+      ],
+      "keywordsUpright": [
+        "nostalji",
+        "çocukluk anıları",
+        "masumiyet",
+        "sade bir incelik",
+        "kavuşma"
+      ],
+      "name": "Kupa Altılısı",
+      "shortReversed": "Geçmiş her zamankinden güçlü çekiyor olabilir; hangi anıların seni beslediğini, hangilerinin şimdiden uzak tuttuğunu düşün.",
+      "shortUpright": "Bir anı ya da sade bir incelik bugün sıcaklık getirebilir; bu kart geçmişin sana hâlâ ne verdiğini fark etmeye davet ediyor."
+    },
+    "cups_07": {
+      "keywordsReversed": [
+        "netlik",
+        "ayağı yere basan seçim",
+        "odak",
+        "hayal kırıklığı",
+        "seçme korkusu"
+      ],
+      "keywordsUpright": [
+        "pek çok seçenek",
+        "hayal gücü",
+        "hayaller",
+        "temenni",
+        "seçimler"
+      ],
+      "name": "Kupa Yedilisi",
+      "shortReversed": "Seçeneklerin sisi kalkıyor olabilir; hayal etmenin parıltısı solduktan sonra hangi seçimin hâlâ gerçek hissettirdiğini düşün.",
+      "shortUpright": "Pek çok olasılık aynı anda ışıldıyor olabilir; bu kart hayal etmenin tadını çıkarmaya, sonra her birine yakından bakmaya davet ediyor."
+    },
+    "cups_08": {
+      "keywordsReversed": [
+        "gitme korkusu",
+        "kararsızlık",
+        "denemek için kalmak",
+        "amaçsız savrulmak"
+      ],
+      "keywordsUpright": [
+        "arkasını dönüp gitmek",
+        "anlam aramak",
+        "bırakmak",
+        "iç arayış",
+        "yola devam etmek"
+      ],
+      "name": "Kupa Sekizlisi",
+      "shortReversed": "Kalmakla gitmek arasında kalmış olabilirsin; ikisinden birini seçmeden önce neyi bilmen gerektiğini düşün.",
+      "shortUpright": "Bir şey tamam görünse de artık seni doyurmuyor olabilir; bu kart kalbinin seni şimdi nereye çektiğini fark etmeye davet ediyor."
+    },
+    "cups_09": {
+      "keywordsReversed": [
+        "hoşnutsuzluk",
+        "aşırılık",
+        "boş başarı",
+        "iç doyum"
+      ],
+      "keywordsUpright": [
+        "hoşnutluk",
+        "doyum",
+        "minnet",
+        "keyif",
+        "sahip olduklarının tadı"
+      ],
+      "name": "Kupa Dokuzlusu",
+      "shortReversed": "Bir şey doyurucu görünse de öyle hissettirmiyor olabilir; içeriden hoşnutluk getirecek şeyin ne olduğunu düşün.",
+      "shortUpright": "Zaten iyi olanın tadını çıkarmak ve bunun ne kadarını senin ortaya çıkardığını fark etmek için bir an."
+    },
+    "cups_10": {
+      "keywordsReversed": [
+        "kopukluk",
+        "zorlanan uyum",
+        "idealleşmiş resim",
+        "yakınlığı yeniden kurmak"
+      ],
+      "keywordsUpright": [
+        "duygusal doyum",
+        "uyum",
+        "aidiyet",
+        "yuva",
+        "paylaşılan mutluluk"
+      ],
+      "name": "Kupa Onlusu",
+      "shortReversed": "Uyum zorlanmış ya da ulaşılmaz hissettirebilir; herhangi bir ideal resmin ötesinde aidiyetin senin için ne anlama geleceğini düşün.",
+      "shortUpright": "Kendini zaten nerede evinde hissettiğini ve ait olduğunu hissetmene kimin yardım ettiğini fark etmek için bir an."
+    },
+    "cups_11": {
+      "keywordsReversed": [
+        "duygusal toyluk",
+        "yaratıcı tıkanıklık",
+        "güvensizlik",
+        "boş hayaller",
+        "narin başlangıçlar"
+      ],
+      "keywordsUpright": [
+        "merak",
+        "yaratıcı kıvılcım",
+        "duyarlılık",
+        "oyunbazlık",
+        "sezgisel dürtü"
+      ],
+      "name": "Kupa Prensi",
+      "shortReversed": "Narin bir duygu saklanıyor ya da sallanıyor olabilir; hissettiğini ifade etmeyi nasıl güvenli kılabileceğini düşün.",
+      "shortUpright": "Oyunbaz bir duygu ya da küçük yaratıcı bir fikir seni şaşırtabilir; bu kart onu merakla karşılamaya davet ediyor."
+    },
+    "cups_12": {
+      "keywordsReversed": [
+        "ruh hâli dalgalanması",
+        "gerçek dışı idealler",
+        "tutulmayan sözler",
+        "hayali temellendirmek"
+      ],
+      "keywordsUpright": [
+        "romantizm",
+        "idealizm",
+        "kalbin peşinden gitmek",
+        "davet",
+        "çekicilik"
+      ],
+      "name": "Kupa Şövalyesi",
+      "shortReversed": "Duygular gerçeklerin önüne geçiyor olabilir; hangi sözleri ve hayalleri gerçekten sonuna kadar taşıyabileceğini düşün.",
+      "shortUpright": "Yürekten bir fikir ya da davet sana doğru geliyor olabilir; bu kart önemsediğin şeyin peşinden zarafetle gitmeye davet ediyor."
+    },
+    "cups_13": {
+      "keywordsReversed": [
+        "fazla vermek",
+        "duygusal bunalma",
+        "sınır ihtiyacı",
+        "iç özen"
+      ],
+      "keywordsUpright": [
+        "şefkat",
+        "duygusal uyum",
+        "sezgi",
+        "sakin varlık",
+        "besleyici özen"
+      ],
+      "name": "Kupa Kraliçesi",
+      "shortReversed": "Taşıyabileceğinden fazlasını içine çekiyor olabilirsin; dengede hissetmene hangi özenin ve sınırların yardım edeceğini düşün.",
+      "shortUpright": "Bu kart hem başkalarını hem kendini sakin ve şefkatli bir varlıkla derinden dinlemeye davet ediyor."
+    },
+    "cups_14": {
+      "keywordsReversed": [
+        "bastırılan duygular",
+        "duygusal kontrol",
+        "değişken ruh hâli",
+        "dengeyi bulmak"
+      ],
+      "keywordsUpright": [
+        "duygusal denge",
+        "sakin liderlik",
+        "diplomasi",
+        "olgun özen",
+        "bilgelik"
+      ],
+      "name": "Kupa Kralı",
+      "shortReversed": "Duygular fazla sıkı tutuluyor ya da düzensizce taşıyor olabilir; onları dengeyle karşılamana neyin yardım edeceğini düşün.",
+      "shortUpright": "Bu kart güçlü akıntılarda dengede kalmaya, hem duyguyla hem de net düşünceyle yol göstermeye davet ediyor."
+    },
+    "major_00": {
+      "keywordsReversed": [
+        "tereddüt",
+        "düşüncesiz risk",
+        "hazır olmayı beklemek",
+        "dağınık odak"
+      ],
+      "keywordsUpright": [
+        "yeni bir başlangıç",
+        "merak",
+        "açıklık",
+        "bilinmeyene adım",
+        "acemi zihni"
+      ],
+      "name": "Deli",
+      "shortReversed": "Kıyıda bir duraklama: bu dikkat mi, yoksa gülünç görünme korkusu mu?",
+      "shortUpright": "Yeni bir şeye doğru, her şeyi bilmeden ama merakla atılan bir adım."
+    },
+    "major_01": {
+      "keywordsReversed": [
+        "kullanılmayan yetenek",
+        "dağınık çaba",
+        "kendinden şüphe",
+        "kurnaz kestirmeler",
+        "niyeti yeniden hizalamak"
+      ],
+      "keywordsUpright": [
+        "odaklanmış irade",
+        "beceriklilik",
+        "eylemdeki beceri",
+        "net bir niyet",
+        "hayata geçirmek"
+      ],
+      "name": "Büyücü",
+      "shortReversed": "Araçların masada ama dikkatin başka yerde olabilir. Onu toparlamana ne yardımcı olur?",
+      "shortUpright": "İhtiyacın olanın sandığından fazlası zaten elinde olabilir; bu kart onunla ne yaratmak istediğini soruyor."
+    },
+    "major_02": {
+      "keywordsReversed": [
+        "göz ardı edilen sezgi",
+        "gürültülü zihin",
+        "fazla uzun saklananlar",
+        "içe dönmek"
+      ],
+      "keywordsUpright": [
+        "içsel bilgi",
+        "dinginlik",
+        "dinlemek",
+        "söylenmeyen",
+        "sabır"
+      ],
+      "name": "Başrahibe",
+      "shortReversed": "Dışarıdaki gürültü içindeki daha sessiz bir sesi bastırıyor olabilir; biraz sessizlik iyi gelebilir.",
+      "shortUpright": "Zaten sezdiğin ama henüz kelimelere dökmediğin şeyi dinlemeye sessiz bir davet."
+    },
+    "major_03": {
+      "keywordsReversed": [
+        "kendini ihmal",
+        "boğucu ilgi",
+        "yaratıcı tıkanıklık",
+        "bedenle yeniden bağ"
+      ],
+      "keywordsUpright": [
+        "şefkatle beslemek",
+        "bolluk",
+        "yaratıcılık",
+        "duyuların rahatlığı",
+        "büyüme"
+      ],
+      "name": "İmparatoriçe",
+      "shortReversed": "Özen dışarıya akarken kendi kuyun azalıyor olabilir. Bir kısmı sana nerede geri dönebilir?",
+      "shortUpright": "Sende ya da çevrende bir şey büyüyor. Bu kart onu sabır ve sıcaklıkla beslemeye davet ediyor."
+    },
+    "major_04": {
+      "keywordsReversed": [
+        "katılık",
+        "kontrol",
+        "sarsılan temeller",
+        "yetkiyi geri almak"
+      ],
+      "keywordsUpright": [
+        "yapı",
+        "istikrarlı liderlik",
+        "sorumluluk",
+        "net sınırlar",
+        "koruma"
+      ],
+      "name": "İmparator",
+      "shortReversed": "Bir zamanlar işe yarayan kurallar artık dar gelebilir. Daha şefkatli ve sağlam bir yapı nasıl görünürdü?",
+      "shortUpright": "Önemli olanın çevresine biraz yapı kurmanın ve seçimlerini sakince sahiplenmenin zamanı."
+    },
+    "major_05": {
+      "keywordsReversed": [
+        "alışılmışı sorgulamak",
+        "kişisel inançlar",
+        "aşılmış kurallar",
+        "kendi yolunu bulmak"
+      ],
+      "keywordsUpright": [
+        "gelenek",
+        "ortak değerler",
+        "başkalarından öğrenmek",
+        "mentorluk",
+        "aidiyet"
+      ],
+      "name": "Başrahip",
+      "shortReversed": "Miras kalan bir kural artık uymuyor olabilir. Bu kart onu gerçekten değer verdiklerinle sınamaya davet ediyor.",
+      "shortUpright": "Senden önce yürüyenlerin bıraktıklarında bir bilgelik olabilir. Şu anda hangi gelenek ya da öğretmen yardımcı olabilir?"
+    },
+    "major_06": {
+      "keywordsReversed": [
+        "iç çatışma",
+        "uyumsuzluk",
+        "ertelenen karar",
+        "değerlere dönmek"
+      ],
+      "keywordsUpright": [
+        "bağ",
+        "anlamlı bir seçim",
+        "değerlerin uyumu",
+        "dürüstlük",
+        "karşılıklı saygı"
+      ],
+      "name": "Aşıklar",
+      "shortReversed": "Bir yanın bir şeyi, öbür yanın başka bir şeyi istiyor olabilir. Bu kart seçmeden önce ikisini de dinlemeye davet ediyor.",
+      "shortUpright": "Gerçekten değer verdiklerinle uyumlu, kalple aklın birlikte verdiği bir karar."
+    },
+    "major_07": {
+      "keywordsReversed": [
+        "kaybolan yön",
+        "zorlamak",
+        "çatışan çekimler",
+        "dizginleri geri almak"
+      ],
+      "keywordsUpright": [
+        "kararlılık",
+        "yön",
+        "öz denetim",
+        "ileri doğru ivme",
+        "zıtları birleştirmek"
+      ],
+      "name": "Savaş Arabası",
+      "shortReversed": "Enerjin aynı anda birkaç yöne çekiliyor olabilir. Dizginleri nerede nazikçe geri alabilirsin?",
+      "shortUpright": "Farklı dürtülerini bir arada tutup tek bir yöne çevirdiğinde ilerlemek mümkün olur."
+    },
+    "major_08": {
+      "keywordsReversed": [
+        "kendinden şüphe",
+        "tükenen sabır",
+        "sert iç ses",
+        "cesareti yeniden kurmak"
+      ],
+      "keywordsUpright": [
+        "yumuşak cesaret",
+        "sabır",
+        "şefkat",
+        "iç denge",
+        "sessiz özgüven"
+      ],
+      "name": "Güç",
+      "shortReversed": "İç dengen şu anda zayıf hissettirebilir. Kendine yumuşak davranmak güçlü bir başlangıç olabilir.",
+      "shortUpright": "Cesaret her zaman kükremez. Bazen sabır, nezaket ve zor bir şeyle kalabilmek gibi görünür."
+    },
+    "major_09": {
+      "keywordsReversed": [
+        "yalıtılmışlık",
+        "iç gözlemden kaçmak",
+        "düşüncelere dalmak",
+        "başkalarına dönmek"
+      ],
+      "keywordsUpright": [
+        "yalnız kalmak",
+        "iç gözlem",
+        "iç rehberlik",
+        "arayış",
+        "sessizlikten bilgelik"
+      ],
+      "name": "Ermiş",
+      "shortReversed": "Yalnızlık yalıtılmışlığa ya da sessizlikten tümüyle kaçmaya dönüşmüş olabilir. Hangi denge doğru geliyor?",
+      "shortUpright": "Biraz uzak kalmak kendi düşüncelerini daha net duymana yardım edebilir."
+    },
+    "major_10": {
+      "keywordsReversed": [
+        "değişime direnmek",
+        "takılı kalmak",
+        "tekrar eden örüntüler",
+        "ayağını yere basmak"
+      ],
+      "keywordsUpright": [
+        "döngüler",
+        "değişim",
+        "dönüm noktaları",
+        "uyum sağlamak",
+        "bakış açısı"
+      ],
+      "name": "Kader Çarkı",
+      "shortReversed": "Tanıdık bir örüntü yeniden karşına çıkıyor olabilir. Bu sefer neyi farklı yapabilirsin?",
+      "shortUpright": "İşler dönüyor. Bu kart içinde bulunduğun döngüyü ve onunla nasıl hareket etmek istediğini fark etmeye davet ediyor."
+    },
+    "major_11": {
+      "keywordsReversed": [
+        "dengesizlik",
+        "sorumluluktan kaçmak",
+        "kendini yargılamak",
+        "hakkaniyet aramak"
+      ],
+      "keywordsUpright": [
+        "adalet duygusu",
+        "dürüstlük",
+        "hesap verebilirlik",
+        "net muhakeme",
+        "sebep ve sonuç"
+      ],
+      "name": "Adalet",
+      "shortReversed": "Bir şey dengesiz hissettiriyor olabilir. Bu kart, kendi payın da dahil, ona açıkça bakmaya davet ediyor.",
+      "shortUpright": "Her şeyi dürüstçe tartmanın ve sonradan gönül rahatlığıyla açıklayabileceğin şekilde davranmanın zamanı."
+    },
+    "major_12": {
+      "keywordsReversed": [
+        "oyalanmak",
+        "duraklamaya direnmek",
+        "kararsızlık",
+        "yeniden harekete hazır"
+      ],
+      "keywordsUpright": [
+        "duraklama",
+        "teslim olmak",
+        "yeni bir bakış açısı",
+        "bırakmak",
+        "amaçlı beklemek"
+      ],
+      "name": "Asılan Adam",
+      "shortReversed": "Beklemek oyalanmaya dönüşmüş olabilir. Durmak mı yoksa harekete geçmek mi, buna karar vermene ne yardımcı olur?",
+      "shortUpright": "İster seçilmiş ister seçilmemiş olsun, bir duraklama aceleyle ilerlerken asla göremeyeceğin bir manzara sunabilir."
+    },
+    "major_13": {
+      "keywordsReversed": [
+        "tutunmak",
+        "değişime direnmek",
+        "uzayan bitişler",
+        "yavaş geçiş"
+      ],
+      "keywordsUpright": [
+        "bitişler",
+        "dönüşüm",
+        "alan açmak",
+        "bir bölümü kapatmak",
+        "bırakmak"
+      ],
+      "name": "Ölüm",
+      "shortReversed": "Bir şey bitmeye hazırken bir yanın ona tutunuyor olabilir. Elini gevşetmene ne yardımcı olur?",
+      "shortUpright": "Bir dönem kapanıyor olabilir. Bu kart neyin bittiğini ve geride bıraktığı alanı fark etmeye davet ediyor."
+    },
+    "major_14": {
+      "keywordsReversed": [
+        "aşırılık",
+        "dengesizlik",
+        "sabırsızlık",
+        "yeniden ayarlamak"
+      ],
+      "keywordsUpright": [
+        "denge",
+        "ölçülülük",
+        "harmanlamak",
+        "sabır",
+        "orta yolu bulmak"
+      ],
+      "name": "Denge",
+      "shortReversed": "Bir şey bir yöne fazla kayıyor olabilir. Bu kart bunu fark edip nazikçe yeniden dengelemeye davet ediyor.",
+      "shortUpright": "İhtiyacın olanların daha yavaş ve istikrarlı bir karışımı, herhangi bir uç noktadan daha çok rahatlık getirebilir."
+    },
+    "major_15": {
+      "keywordsReversed": [
+        "bağları gevşetmek",
+        "bir örüntüyü kırmak",
+        "seçimi geri almak",
+        "gölgeyle yüzleşmek"
+      ],
+      "keywordsUpright": [
+        "bağımlılık",
+        "bağlayan alışkanlıklar",
+        "ayartı",
+        "gölge yan",
+        "dürüst farkındalık"
+      ],
+      "name": "Şeytan",
+      "shortReversed": "Bir zamanlar sıkı tutan bir örüntü gevşiyor olabilir. Biraz daha uzaklaşmana ne yardımcı olur?",
+      "shortUpright": "Bir alışkanlık ya da bağlılık seni sandığından daha sıkı tutuyor olabilir. Bunu fark etmek ilk adımdır."
+    },
+    "major_16": {
+      "keywordsReversed": [
+        "altüst oluşu önlemek",
+        "yavaş çözülme",
+        "değişime direnmek",
+        "yeniden inşa"
+      ],
+      "keywordsUpright": [
+        "ani değişim",
+        "temizlenmek",
+        "atılım",
+        "sarsılan varsayımlar",
+        "açığa çıkan gerçek"
+      ],
+      "name": "Kule",
+      "shortReversed": "Değişim bir anda değil, yavaşça geliyor olabilir. Neyi daha dürüst bir şekilde yeniden kurabilirsin?",
+      "shortUpright": "Çürük bir zemin üzerine kurulmuş bir şey kayıyor olabilir. Bu kart neyin taşımadığını fark etmeye davet ediyor."
+    },
+    "major_17": {
+      "keywordsReversed": [
+        "cesaret kırıklığı",
+        "kopukluk",
+        "azalan öz inanç",
+        "umudu yeniden yakmak"
+      ],
+      "keywordsUpright": [
+        "umut",
+        "yenilenme",
+        "sakinlik",
+        "açıklık",
+        "sessiz ilham"
+      ],
+      "name": "Yıldız",
+      "shortReversed": "Umut şu anda uzak hissettirebilir. Küçük ve istikrarlı şeyler ona geri dönen yolu bulmana yardım edebilir.",
+      "shortUpright": "Zor bir dönemin ardından daha sessiz bir umut geri dönüyor olabilir. Bu kart onu içeri almaya davet ediyor."
+    },
+    "major_18": {
+      "keywordsReversed": [
+        "karışıklığın dağılması",
+        "endişelerle yüzleşmek",
+        "kendini kandırmak",
+        "yola güvenmek"
+      ],
+      "keywordsUpright": [
+        "belirsizlik",
+        "sezgi",
+        "rüyalar",
+        "bilinmeyen",
+        "değişken duygular"
+      ],
+      "name": "Ay",
+      "shortReversed": "Bir sis kalkmaya başlıyor olabilir. Şimdi neyi öncekinden daha net görüyorsun?",
+      "shortUpright": "Her şey henüz net değil ve bu sorun değil. Bu kart yavaş ilerlemeye ve duyularına güvenmeye davet ediyor."
+    },
+    "major_19": {
+      "keywordsReversed": [
+        "sönük neşe",
+        "kendinden şüphe",
+        "aşırı görünürlük",
+        "ışığı yeniden bulmak"
+      ],
+      "keywordsUpright": [
+        "neşe",
+        "netlik",
+        "sıcaklık",
+        "özgüven",
+        "canlılık"
+      ],
+      "name": "Güneş",
+      "shortReversed": "Bulutlar geçiyor olsa bile ışık hâlâ orada. Kendini sıcak ve berrak hissetmene ne yardımcı oluyor?",
+      "shortUpright": "Bir sıcaklık ve netlik anı. Bu kart hayatındaki parlak ve açık şeylerin tadını çıkarmaya davet ediyor."
+    },
+    "major_20": {
+      "keywordsReversed": [
+        "öz eleştiri",
+        "çağrıyı duymamak",
+        "şüphe",
+        "geçmişten öğrenmek"
+      ],
+      "keywordsUpright": [
+        "uyanış",
+        "hesaplaşma",
+        "yenilenme",
+        "bir çağrıya yanıt",
+        "dürüst iç gözlem"
+      ],
+      "name": "Mahkeme",
+      "shortReversed": "İçindeki eleştirmen her zamankinden yüksek sesle konuşuyor olabilir. Geçmişine adil ve şefkatli bir bakış sana ne gösterirdi?",
+      "shortUpright": "Dürüstçe geriye bakmanın, affedebildiğini affetmenin ve seni ileri çağıran şeye yanıt vermenin zamanı."
+    },
+    "major_21": {
+      "keywordsReversed": [
+        "yarım kalan işler",
+        "kapanış aramak",
+        "açık uçlar",
+        "son bir adım"
+      ],
+      "keywordsUpright": [
+        "tamamlanma",
+        "bütünlük",
+        "bütünleşme",
+        "başarı",
+        "aidiyet"
+      ],
+      "name": "Dünya",
+      "shortReversed": "Bir şey neredeyse bitmiş olabilir. Hangi son adım ya da açık uç dikkatini hak ediyor?",
+      "shortUpright": "Bir döngü tamamlanıyor olabilir. Bu kart durup tamamladığın şeyi onurlandırmaya davet ediyor."
+    },
+    "pentacles_01": {
+      "keywordsReversed": [
+        "ekilmemiş bir fırsat",
+        "sarsak temeller",
+        "zemini aceleye getirmek",
+        "planı yeniden düşünmek"
+      ],
+      "keywordsUpright": [
+        "gerçek bir tohum",
+        "pratik başlangıçlar",
+        "somut bir fırsat",
+        "temele özen"
+      ],
+      "name": "Tılsım Ası",
+      "shortReversed": "Umut verici bir başlangıç daha sağlam bir zemine ihtiyaç duyabilir. Üzerine inşa etmeden önce hangi desteğe ihtiyaç duyduğunu kontrol edebilirsin.",
+      "shortUpright": "Küçük ve sağlam bir başlangıç dikkatini istiyor. Pratik bir şey ekilmeye ve bakılmaya hazır olabilir."
+    },
+    "pentacles_02": {
+      "keywordsReversed": [
+        "fazla yük",
+        "dağınık dikkat",
+        "katı programlar",
+        "neyi bırakacağını seçmek"
+      ],
+      "keywordsUpright": [
+        "öncelikleri idare etmek",
+        "uyum sağlamak",
+        "ritmi korumak",
+        "esnek denge"
+      ],
+      "name": "Tılsım İkilisi",
+      "shortReversed": "Denge kurma çabası zorlanmaya dönüşmüş olabilir. Hangi talebin şimdilik bırakılabileceğini, paylaşılabileceğini ya da ertelenebileceğini düşün.",
+      "shortUpright": "Aynı anda birkaç şeyi hareket hâlinde tutuyor olabilirsin. Dengeni kaybetmeden ayar yapmanı sağlayan ritmi fark et."
+    },
+    "pentacles_03": {
+      "keywordsReversed": [
+        "uyumsuz çabalar",
+        "belirsiz roller",
+        "tek başına çalışmak",
+        "planı gözden geçirmek"
+      ],
+      "keywordsUpright": [
+        "iş birliği",
+        "ortak zanaat",
+        "tamamlayan beceriler",
+        "birlikte inşa etmek"
+      ],
+      "name": "Tılsım Üçlüsü",
+      "shortReversed": "Ortak bir çaba farklı yönlere çekiliyor olabilir. Rolleri, planları ve birbirinizi nasıl dinlediğinizi yeniden gözden geçirmek yardımcı olabilir.",
+      "shortUpright": "İyi işler çoğu zaman insanlar arasında büyür. Farklı becerilerin önemsediğin bir şeyde nasıl bir araya gelebileceğini fark et."
+    },
+    "pentacles_04": {
+      "keywordsReversed": [
+        "tutuşu gevşetmek",
+        "kaybetme korkusu",
+        "enerjiyi biriktirmek",
+        "paylaşmayı öğrenmek"
+      ],
+      "keywordsUpright": [
+        "sıkı tutunmak",
+        "güvenlik",
+        "kaynakları korumak",
+        "kontrol",
+        "özenli sınırlar"
+      ],
+      "name": "Tılsım Dörtlüsü",
+      "shortReversed": "Sıkı bir tutuş gevşiyor ya da gevşemeyi istiyor olabilir. Kendini güvensiz hissetmeden neyin akmasına izin verebileceğini keşfedebilirsin.",
+      "shortUpright": "Bir şeyi güvende tutmak için kendine yakın tutuyor olabilirsin. Bu korumanın seni nerede dengelediğini ve nerede kısıtlamaya başladığını fark et."
+    },
+    "pentacles_05": {
+      "keywordsReversed": [
+        "geri dönen sıcaklık",
+        "yardımı kabul etmek",
+        "süren kaygı",
+        "sığınak bulmak"
+      ],
+      "keywordsUpright": [
+        "zor zamanlar",
+        "dışlanmışlık",
+        "kıtlık",
+        "gözden kaçan destek"
+      ],
+      "name": "Tılsım Beşlisi",
+      "shortReversed": "Zor bir dönem hafifliyor olabilir. Sıcaklığın ve desteğin sana yeniden nerede ulaşmaya başladığını fark edebilirsin.",
+      "shortUpright": "Bir dönem soğuk ya da eksik hissettirebilir. İstemek zor gelse bile yardım bazen göründüğünden daha yakın olabilir."
+    },
+    "pentacles_06": {
+      "keywordsReversed": [
+        "eşitsiz alışveriş",
+        "karşılık beklentisi",
+        "fazla vermek",
+        "yeniden dengelemek"
+      ],
+      "keywordsUpright": [
+        "vermek ve almak",
+        "cömertlik",
+        "adil alışveriş",
+        "karşılıklı destek"
+      ],
+      "name": "Tılsım Altılısı",
+      "shortReversed": "Bir alışveriş dengesiz hissettirebilir. Neyin verildiğine, karşılığında neyin beklendiğine ve neyin daha dengeli hissettireceğine bakabilirsin.",
+      "shortUpright": "Kaynaklar, zaman ve özen insanlar arasında dolaşıyor. Nasıl verdiğini, nasıl aldığını ve herkese neyin adil geldiğini fark et."
+    },
+    "pentacles_07": {
+      "keywordsReversed": [
+        "sabırsızlık",
+        "yönsüz çaba",
+        "emeği yeniden düşünmek",
+        "tempodan bıkkınlık"
+      ],
+      "keywordsUpright": [
+        "sabırlı değerlendirme",
+        "uzun vadeli emek",
+        "durum değerlendirmesi",
+        "yavaş büyüme"
+      ],
+      "name": "Tılsım Yedilisi",
+      "shortReversed": "İlerleme umduğundan yavaş hissettirebilir. Bu çabanın sabra mı, yeni bir yöne mi, yoksa yalnızca dinlenmeye mi ihtiyacı olduğunu sorabilirsin.",
+      "shortUpright": "Özen gösterdiğin bir şey yavaşça büyüyor. Durup ilerlemene bakmak ve bundan sonra neyi besleyeceğini seçmek için iyi bir an olabilir."
+    },
+    "pentacles_08": {
+      "keywordsReversed": [
+        "mükemmeliyetçilik",
+        "otomatik pilotta iş",
+        "aceleye gelen iş",
+        "özeni yeniden bulmak"
+      ],
+      "keywordsUpright": [
+        "adanmış pratik",
+        "ustalık",
+        "ayrıntıya dikkat",
+        "yaparak öğrenmek"
+      ],
+      "name": "Tılsım Sekizlisi",
+      "shortReversed": "İş ya aceleye gelmiş ya da bitmek bilmeyen bir cilaya dönüşmüş olabilir. Seni başlangıçta ona çeken özeni arayabilirsin.",
+      "shortUpright": "İstikrarlı ve odaklı bir pratik bir beceriyi şekillendiriyor. Bir şeyi tekrar tekrar iyi yapmanın sessiz doyumunu fark et."
+    },
+    "pentacles_09": {
+      "keywordsReversed": [
+        "onaya bağımlılık",
+        "aşırı çalışmak",
+        "boş bir rahatlık",
+        "rahatlığı geri almak"
+      ],
+      "keywordsUpright": [
+        "kendine yetmek",
+        "kurduğunun tadı",
+        "sessiz incelik",
+        "bağımsızlık",
+        "öz değer"
+      ],
+      "name": "Tılsım Dokuzlusu",
+      "shortReversed": "Rahatlık ulaşılmaz ya da tuhaf bir şekilde boş hissettirebilir. Zaten sahip olduklarında gerçekten dinlenmeni neyin sağlayacağını sorabilirsin.",
+      "shortUpright": "Kendi emeğinin yetiştirdiklerinin tadını çıkarmaya hazır olabilirsin. Kendi şekillendirdiğin bir alanda durmanın sessiz özgüvenini fark et."
+    },
+    "pentacles_10": {
+      "keywordsReversed": [
+        "miras kalan baskı",
+        "aile gerginliği",
+        "sarsak temeller",
+        "yuvayı yeniden kurmak"
+      ],
+      "keywordsUpright": [
+        "miras",
+        "aidiyet",
+        "kalıcı temeller",
+        "kuşaklar",
+        "ortak kökler"
+      ],
+      "name": "Tılsım Onlusu",
+      "shortReversed": "Eski yapılar ya da beklentiler ağır hissettirebilir. Hangi gelenekleri koruyup hangilerini kendin için yeniden şekillendireceğini düşünebilirsin.",
+      "shortUpright": "Kalıcı olmak üzere kurulmuş bir şey görünür hâle geliyor olabilir. Seni daha büyük bir şeyin parçası gibi hissettiren kökleri, gelenekleri ve insanları fark et."
+    },
+    "pentacles_11": {
+      "keywordsReversed": [
+        "dikkat dağınıklığı",
+        "eylemsiz planlar",
+        "başlama korkusu",
+        "kendi temponda öğrenmek"
+      ],
+      "keywordsUpright": [
+        "hevesle öğrenmek",
+        "merak",
+        "pratik çalışma",
+        "yeni bir beceri",
+        "istikrarlı odak"
+      ],
+      "name": "Tılsım Prensi",
+      "shortReversed": "İlgi sonu getirilmeden kalıyor olabilir. Hangi küçük ve gerçekçi adımın merakı pratiğe dönüştüreceğini düşün.",
+      "shortUpright": "Meraklı ve çalışkan bir enerji var. Öğrenmek istediğin pratik bir şeyi fark edip ona doğru gerçek bir ilk adım atabilirsin."
+    },
+    "pentacles_12": {
+      "keywordsReversed": [
+        "rutine takılmak",
+        "aşırı temkin",
+        "sıkılmışlık",
+        "küçük tempo değişimi"
+      ],
+      "keywordsUpright": [
+        "güvenilirlik",
+        "istikrarlı ilerleme",
+        "rutin",
+        "titizlik",
+        "bağlılık"
+      ],
+      "name": "Tılsım Şövalyesi",
+      "shortReversed": "Tutarlılık bir tekdüzeliğe dönüşmüş olabilir. Küçük bir tempo değişikliğinin enerjiyi nerede geri getirebileceğini düşünebilirsin.",
+      "shortUpright": "İstikrarlı ve güvenilir bir çaba işleri ilerletiyor. İlerleme yavaş hissettirse bile tutarlı bir şekilde orada olmanın değerini fark et."
+    },
+    "pentacles_13": {
+      "keywordsReversed": [
+        "kendini ihmal",
+        "kendini fazla yormak",
+        "kontrol olarak özen",
+        "kendine yer açmak"
+      ],
+      "keywordsUpright": [
+        "besleyici özen",
+        "beceriklilik",
+        "sıcak bir yuva",
+        "pratik sıcaklık",
+        "ayağı yere basmak"
+      ],
+      "name": "Tılsım Kraliçesi",
+      "shortReversed": "Özen dışarıya akarken senin gücün azalıyor olabilir. Kendi ihtiyaçlarına başkalarınınki kadar sıcak bir şekilde nasıl bakabileceğine bakabilirsin.",
+      "shortUpright": "Pratik bir sıcaklık ve özen senin için hazır. Başkaları için nasıl rahatlık yarattığını ve kendini de buna katıp katmadığını fark et."
+    },
+    "pentacles_14": {
+      "keywordsReversed": [
+        "katılık",
+        "özden çok statü",
+        "aşırı kontrol",
+        "başarıyı sorgulamak"
+      ],
+      "keywordsUpright": [
+        "emanete özen",
+        "istikrar",
+        "cömert liderlik",
+        "istikrarlı sağlayış",
+        "pratik ustalık"
+      ],
+      "name": "Tılsım Kralı",
+      "shortReversed": "Güvenlik taşınması ağır bir yüke dönüşmüş olabilir. Kontrolün ya da görünüşün ötesinde başarının senin için ne anlama geldiğini sorabilirsin.",
+      "shortUpright": "İstikrarlı ve yetkin bir varlık senin için hazır. Deneyimini ve kaynaklarını kendin ve başkaları için istikrar yaratmakta nasıl kullanabileceğini fark et."
+    },
+    "swords_01": {
+      "keywordsReversed": [
+        "bulanık düşünce",
+        "aşırı düşünmek",
+        "söylenmeyen sözler",
+        "özensiz keskinlik",
+        "netliği beklemek"
+      ],
+      "keywordsUpright": [
+        "netlik",
+        "yeni bir fikir",
+        "dürüst gerçek",
+        "karmaşayı yarmak",
+        "taze bakış açısı"
+      ],
+      "name": "Kılıç Ası",
+      "shortReversed": "Netlik yakın ama henüz tam ulaşılabilir olmayabilir; karar vermeden önce sisin durulmasına izin verecek zaman var.",
+      "shortUpright": "Net bir düşünce beliriyor; bir şeye açıkça ad verdiğinde neyin basitleştiğini fark edebilirsin."
+    },
+    "swords_02": {
+      "keywordsReversed": [
+        "yüzeye çıkan bilgi",
+        "gevşeyen kararsızlık",
+        "kaçınma",
+        "seçme baskısı",
+        "gözleri açmak"
+      ],
+      "keywordsUpright": [
+        "zor bir seçim",
+        "çıkmaz",
+        "seçenekleri tartmak",
+        "korunan denge",
+        "karar için durmak"
+      ],
+      "name": "Kılıç İkilisi",
+      "shortReversed": "Duraklama sona eriyor olabilir; bakmaktan kaçındığın bir şey nazik ve dürüst bir bakış istiyor olabilir.",
+      "shortUpright": "İki seçenek şimdilik birbirini dengeliyor; huzuru korumak için neyi gözden uzak tuttuğunu fark edebilirsin."
+    },
+    "swords_03": {
+      "keywordsReversed": [
+        "yavaş toparlanma",
+        "kırgınlığı bırakmak",
+        "acıyı içte tutmak",
+        "kendi vaktinde affetmek",
+        "geçen fırtına"
+      ],
+      "keywordsUpright": [
+        "hüzün",
+        "kırıcı sözler",
+        "yas",
+        "acı veren gerçek",
+        "gözyaşına izin vermek"
+      ],
+      "name": "Kılıç Üçlüsü",
+      "shortReversed": "Bir kırgınlığın en keskin yanı hafifliyor olabilir; biraz daha rahat nefes almana neyin yardım ettiğini fark edebilirsin.",
+      "shortUpright": "Hüzünlü ya da kırıcı bir an açıklanıp geçiştirilmek değil hissedilmek istiyor olabilir; hüzün nazikçe onurlandırılabilir."
+    },
+    "swords_04": {
+      "keywordsReversed": [
+        "huzursuzluk",
+        "ertelenen dinlenme",
+        "harekete dönmek",
+        "tükenme işaretleri",
+        "kaçış olarak durgunluk"
+      ],
+      "keywordsUpright": [
+        "dinlenme",
+        "toparlanma",
+        "sessiz bir inziva",
+        "dinginlik",
+        "enerjiyi yenilemek"
+      ],
+      "name": "Kılıç Dörtlüsü",
+      "shortReversed": "Dinlenme sürekli ertelenebilir ya da sessiz bir dönem bitmeye hazır olabilir; hangisinin doğru hissettirdiğini fark edebilirsin.",
+      "shortUpright": "Bir duraklama işin bir parçasıdır; bir şeyleri bırakıp zihninin sessizleşmesine izin vermenin zamanı olabilir."
+    },
+    "swords_05": {
+      "keywordsReversed": [
+        "telafi etmek",
+        "bırakıp geçmek",
+        "süren kırgınlık",
+        "uzaklaşmak",
+        "barışma"
+      ],
+      "keywordsUpright": [
+        "çatışma",
+        "bedeli olan zafer",
+        "gurur",
+        "zedelenen iyi niyet",
+        "mücadeleyi seçmek"
+      ],
+      "name": "Kılıç Beşlisi",
+      "shortReversed": "Bir çatışma soğumaya hazır olabilir; huzur için haklı olma isteğini bırakmaya yer olabilir.",
+      "shortUpright": "Bir tartışma kazanılırken başka bir şey kaybediliyor olabilir; bu zaferin gerçekte neye mal olduğunu sorabilirsin."
+    },
+    "swords_06": {
+      "keywordsReversed": [
+        "değişime direnmek",
+        "yarım kalan işler",
+        "geciken bir yolculuk",
+        "eski yükü taşımak",
+        "dönüp düşünmek"
+      ],
+      "keywordsUpright": [
+        "geçiş",
+        "yola devam etmek",
+        "daha sakin sular",
+        "tanıdığı bırakmak",
+        "yavaş değişim"
+      ],
+      "name": "Kılıç Altılısı",
+      "shortReversed": "Bir şey seni eski kıyıda tutuyor olabilir; henüz neyi bırakmaya hazır olmadığını fark edebilirsin.",
+      "shortUpright": "Dalgalı sulardan daha sakin kıyılara doğru ilerliyor olabilirsin; değişim sessiz ve yavaş olup yine de gerçek olabilir."
+    },
+    "swords_07": {
+      "keywordsReversed": [
+        "açık sözlü olmak",
+        "planı yeniden düşünmek",
+        "kendini kandırmak",
+        "yardım istemek",
+        "yüzeye çıkan sırlar"
+      ],
+      "keywordsUpright": [
+        "strateji",
+        "tek başına hareket",
+        "kaçınma",
+        "gizli niyetler",
+        "paçayı kurtarmak"
+      ],
+      "name": "Kılıç Yedilisi",
+      "shortReversed": "Gizli bir plan çekiciliğini yitiriyor olabilir; kendine ya da başkalarına dürüst olmak saklamanın çabasından daha hafif gelebilir.",
+      "shortUpright": "Akıllıca bir plan ya da sessiz bir dolambaç devrede olabilir; bunun olmak istediğin kişiye uyup uymadığını sorabilirsin."
+    },
+    "swords_08": {
+      "keywordsReversed": [
+        "yeni bir bakış açısı",
+        "serbest kalmak",
+        "gevşeyen inançlar",
+        "küçük özgürlükler",
+        "dönen eski örüntüler"
+      ],
+      "keywordsUpright": [
+        "sıkışmışlık",
+        "kendini sınırlayan inanç",
+        "kısıtlama",
+        "hareket etme korkusu",
+        "dar bakış"
+      ],
+      "name": "Kılıç Sekizlisi",
+      "shortReversed": "Bağlar gevşiyor olabilir; seni artık eskisi kadar sıkı tutmayan bir inancı fark edebilirsin.",
+      "shortUpright": "Kuşatılmış hissedebilirsin ama bazı sınırlar çoğunlukla düşüncede yaşar; küçük bir hareket göründüğünden fazla alan gösterebilir."
+    },
+    "swords_09": {
+      "keywordsReversed": [
+        "kalkan endişe",
+        "birine açılmak",
+        "gizli stres",
+        "dönen bakış açısı",
+        "yükü paylaşmak"
+      ],
+      "keywordsUpright": [
+        "endişe",
+        "uykusuz düşünceler",
+        "zihinsel yük",
+        "gece büyüyen korkular",
+        "zihinde evirip çevirme"
+      ],
+      "name": "Kılıç Dokuzlusu",
+      "shortReversed": "Endişenin ağırlığı kalkmaya başlıyor olabilir ya da tek başına taşınmak yerine paylaşılmak istiyor olabilir.",
+      "shortUpright": "Endişeler sessiz saatlerde daha büyük görünebilir; hangi korkuların şimdiyle, hangilerinin belkiyle ilgili olduğunu fark edebilirsin."
+    },
+    "swords_10": {
+      "keywordsReversed": [
+        "yavaş toparlanma",
+        "yeniden doğrulmak",
+        "bir sona direnmek",
+        "toplanan dersler",
+        "geceden sonra şafak"
+      ],
+      "keywordsUpright": [
+        "bir son",
+        "dibe vurmak",
+        "bitkinlik",
+        "bir bölümün kapanması",
+        "yükü bırakmak"
+      ],
+      "name": "Kılıç Onlusu",
+      "shortReversed": "En dip nokta geride kalmış olabilir; dengenin geri dönmeye başladığına dair ilk işaretleri fark edebilirsin.",
+      "shortUpright": "Zor bir bölüm sonuna yaklaşıyor olabilir; ona ad vermek dinlenmeye ve yavaş bir dönüşe yer açabilir."
+    },
+    "swords_11": {
+      "keywordsReversed": [
+        "dağınık odak",
+        "dedikodu",
+        "dinlemeden konuşmak",
+        "savunmacılık",
+        "sınanmamış fikirler"
+      ],
+      "keywordsUpright": [
+        "merak",
+        "hevesli sorular",
+        "öğrenmek",
+        "uyanıklık",
+        "yeni fikirler"
+      ],
+      "name": "Kılıç Prensi",
+      "shortReversed": "Hevesli düşünceler pek çok yöne dağılıyor olabilir; konuşmak yerine dinlemenin nerede daha iyi olacağını fark edebilirsin.",
+      "shortUpright": "Merak uyanık; bir soruyu taze gözlerle izleyip düşüncelerini nereye götürdüğüne bakabilirsin."
+    },
+    "swords_12": {
+      "keywordsReversed": [
+        "aceleyle ilerlemek",
+        "sabırsızlık",
+        "patavatsızlık",
+        "yavaşlamak",
+        "dağınık güç"
+      ],
+      "keywordsUpright": [
+        "kararlı eylem",
+        "itki",
+        "sesini yükseltmek",
+        "hızlı düşünmek",
+        "azim"
+      ],
+      "name": "Kılıç Şövalyesi",
+      "shortReversed": "Hız düşüncenin önüne geçiyor olabilir; kısa bir süre yavaşlamak gerçekten gitmek istediğin yere varmana yardım edebilir.",
+      "shortUpright": "İvme burada; hızlı düşünmeyi amaçlı bir eyleme yönlendirirken yanında kimin olduğunu da gözden kaçırmayabilirsin."
+    },
+    "swords_13": {
+      "keywordsReversed": [
+        "soğukluk",
+        "sert eleştiri",
+        "temkinlilik",
+        "burukluk",
+        "keskinliği yumuşatmak"
+      ],
+      "keywordsUpright": [
+        "net muhakeme",
+        "dürüst sınırlar",
+        "bağımsızlık",
+        "deneyimden bilgelik",
+        "dolaysız nezaket"
+      ],
+      "name": "Kılıç Kraliçesi",
+      "shortReversed": "Netlik mesafeye dönüşüp sertleşmiş olabilir; dürüstlüğü kaybetmeden sıcaklığın nerede geri dönebileceğini fark edebilirsin.",
+      "shortUpright": "Net görüş ve nazik, dolaysız bir ses bir arada olabilir; deneyimin sana öğrettiklerine güvenebilirsin."
+    },
+    "swords_14": {
+      "keywordsReversed": [
+        "katılık",
+        "soğuk mantık",
+        "kötüye kullanılan yetki",
+        "kendinden şüphe etmek",
+        "empatiyle akıl"
+      ],
+      "keywordsUpright": [
+        "düşünsel otorite",
+        "hakkaniyet",
+        "net ilkeler",
+        "gerekçeli kararlar",
+        "dürüstlük"
+      ],
+      "name": "Kılıç Kralı",
+      "shortReversed": "Mantık katılaşmış ya da kopmuş olabilir; ilkelerinin insanlara hâlâ yer bırakıp bırakmadığını sorabilirsin.",
+      "shortUpright": "İstikrarlı bir akıl yürütme ve adil ilkeler sana yol gösterebilir; kolay olana değil doğru olana göre karar verebilirsin."
+    },
+    "wands_01": {
+      "keywordsReversed": [
+        "geciken başlangıç",
+        "dağınık enerji",
+        "yaratıcı tıkanıklık",
+        "alev almayı beklemek",
+        "sessiz kuluçka"
+      ],
+      "keywordsUpright": [
+        "ilham kıvılcımı",
+        "yaratıcı dürtü",
+        "coşku",
+        "taze enerji",
+        "yeni bir fikir"
+      ],
+      "name": "Asa Ası",
+      "shortReversed": "Kıvılcım orada olabilir ama bir şey henüz tutuşmasını engelliyor; neye ihtiyaç duyduğunu fark et.",
+      "shortUpright": "Yeni bir ilgi kıvılcımı, aleve dönüşmeden önce biraz hava ve dikkat istiyor."
+    },
+    "wands_02": {
+      "keywordsReversed": [
+        "tanıdıkta kalmak",
+        "bilinmeyen korkusu",
+        "belirsiz yön",
+        "eylemsiz planlamak",
+        "haritayı yeniden çizmek"
+      ],
+      "keywordsUpright": [
+        "ileriyi planlamak",
+        "geniş ufuklar",
+        "cesur niyet",
+        "seçenekleri tartmak",
+        "kişisel vizyon"
+      ],
+      "name": "Asa İkilisi",
+      "shortReversed": "Rahatlık ve temkin daha büyük bir planı rafta tutuyor olabilir; seni orada tutan şeye yeniden bakabilirsin.",
+      "shortUpright": "Bildiklerinin kıyısında durup dışarı bakıyorsun; nereye gitmek isteyebileceğini taslağa dökmek için iyi bir an."
+    },
+    "wands_03": {
+      "keywordsReversed": [
+        "sabırsızlık",
+        "yavaş karşılık",
+        "engellenen planlar",
+        "rotayı ayarlamak",
+        "dar bakış"
+      ],
+      "keywordsUpright": [
+        "ivme",
+        "genişleme",
+        "ileriye bakmak",
+        "ilk ilerleme",
+        "emeğine güvenmek"
+      ],
+      "name": "Asa Üçlüsü",
+      "shortReversed": "İlerleme umduğundan yavaş hissettirebilir; vazgeçmek yerine beklentileri ayarlamanın zamanı olabilir.",
+      "shortUpright": "Harekete geçirdiğin bir şey yol almaya başlıyor; geri dönenleri izleyip bir sonraki aşamaya hazırlanabilirsin."
+    },
+    "wands_04": {
+      "keywordsReversed": [
+        "oturmamış zemin",
+        "sönük kutlama",
+        "dışarıda kalmışlık",
+        "içten gelen minnet",
+        "temelleri yenilemek"
+      ],
+      "keywordsUpright": [
+        "kutlama",
+        "eve dönüş",
+        "istikrar",
+        "ortak dönüm noktaları",
+        "aidiyet"
+      ],
+      "name": "Asa Dörtlüsü",
+      "shortReversed": "Bir kutlama beklenenden daha sessiz ya da daha az oturmuş hissettirebilir; kendini evinde hissetmene neyin yardım edeceğine bakabilirsin.",
+      "shortUpright": "Bir dönüm noktası işaretlenmeyi hak ediyor; bir araya gelmenin, teşekkür etmenin ve yuva hissinin tadını çıkarmanın zamanı."
+    },
+    "wands_05": {
+      "keywordsReversed": [
+        "çatışmadan kaçmak",
+        "ortak zemin bulmak",
+        "iç çekişme",
+        "yatışan gerginlik",
+        "havayı temizlemek"
+      ],
+      "keywordsUpright": [
+        "sürtüşme",
+        "yarışan fikirler",
+        "hararetli tartışma",
+        "gücü sınamak",
+        "huzursuz enerji"
+      ],
+      "name": "Asa Beşlisi",
+      "shortReversed": "Bir çatışma yatışıyor ya da yer altına çekiliyor olabilir; hangi anlaşmazlıkların hâlâ adil bir dinlenmeye ihtiyacı olduğunu fark edebilirsin.",
+      "shortUpright": "Pek çok ses ve enerji çatışıyor; bu sürtüşme seni yorduğu kadar fikirleri de keskinleştiriyor olabilir."
+    },
+    "wands_06": {
+      "keywordsReversed": [
+        "onay aramak",
+        "fark edilmeyen emek",
+        "kendinden şüphe",
+        "sessiz başarı",
+        "başarıyı yeniden anlamak"
+      ],
+      "keywordsUpright": [
+        "takdir",
+        "özgüven",
+        "görünür başarı",
+        "cesaretlendirme",
+        "emeğinle gurur"
+      ],
+      "name": "Asa Altılısı",
+      "shortReversed": "Takdir eksik ya da umduğundan daha az doyurucu gelebilir; başarının kendi koşullarında senin için ne anlama geldiğini sorabilirsin.",
+      "shortUpright": "Emeğin fark ediliyor olabilir; biraz takdiri kabul etmene ve buraya gelmene kimin yardım ettiğini fark etmene izin ver."
+    },
+    "wands_07": {
+      "keywordsReversed": [
+        "bunalmışlık",
+        "savunmacılık",
+        "mücadeleyi seçmek",
+        "sarsılan kararlılık",
+        "bazılarını bırakmak"
+      ],
+      "keywordsUpright": [
+        "yerinde durmak",
+        "inanç",
+        "azim",
+        "sınırları korumak",
+        "baskı altında cesaret"
+      ],
+      "name": "Asa Yedilisi",
+      "shortReversed": "Her şeyi aynı anda savunmak seni yıpratabilir; hangi zeminin gerçekten korunmaya değer olduğunu seçebilirsin.",
+      "shortUpright": "Senin için önemli bir duruşu koruyor olabilirsin; bu kart sağlam durmanın gerektirdiği cesareti onurlandırıyor."
+    },
+    "wands_08": {
+      "keywordsReversed": [
+        "gecikmeler",
+        "aceleyle ilerlemek",
+        "karışan sinyaller",
+        "yavaşlamak",
+        "dağınık odak"
+      ],
+      "keywordsUpright": [
+        "hızlı hareket",
+        "ivme",
+        "yola çıkan mesajlar",
+        "odaklı enerji",
+        "yerine oturan şeyler"
+      ],
+      "name": "Asa Sekizlisi",
+      "shortReversed": "Tempo ve zamanlama yerinde değil gibi gelebilir; gecikmeler ya da fazla acele varsa enerjinin nereye yöneldiğine bakmak için durabilirsin.",
+      "shortUpright": "İşler şu anda hızla ilerliyor olabilir; takılı kalan enerji net bir yön buluyor ve bu ivmeyi özenle değerlendirebilirsin."
+    },
+    "wands_09": {
+      "keywordsReversed": [
+        "bitkinlik",
+        "temkinlilik",
+        "sınırlara varmak",
+        "yardım istemek",
+        "savunmayı indirmek"
+      ],
+      "keywordsUpright": [
+        "dayanıklılık",
+        "sebat",
+        "son düzlük",
+        "zorlukla gelen bilgelik",
+        "tetikte güç"
+      ],
+      "name": "Asa Dokuzlusu",
+      "shortReversed": "Uzun süre tetikte kalmak yorucu olabilir; dinlenmenin ve başkalarını içeri almanın güvenli olduğu yerleri fark edebilirsin.",
+      "shortUpright": "Çok şeyin içinden geçtin ve hâlâ ayaktasın; bu kart son düzlükteki dayanıklılığını onurlandırıyor."
+    },
+    "wands_10": {
+      "keywordsReversed": [
+        "yükleri bırakmak",
+        "görev devretmek",
+        "hayır demek",
+        "rahatlama",
+        "her şeyi tek başına"
+      ],
+      "keywordsUpright": [
+        "ağır yük",
+        "sorumluluk",
+        "aşırı taahhüt",
+        "dişini sıkmak",
+        "sona yaklaşmak"
+      ],
+      "name": "Asa Onlusu",
+      "shortReversed": "Yükün bir kısmı omuzlarından inmeye hazır olabilir; neyi bırakabileceğine, paylaşabileceğine ya da reddedebileceğine bakabilirsin.",
+      "shortUpright": "Payına düşenden fazlasını taşıyor olabilirsin; bu kart ağırlığı ve gerçekten neyin taşınması gerektiğini fark etmeye davet ediyor."
+    },
+    "wands_11": {
+      "keywordsReversed": [
+        "huzursuzluk",
+        "yarım kalan başlangıçlar",
+        "çekingen merak",
+        "yön eksikliği",
+        "şekillenmeyi bekleyen"
+      ],
+      "keywordsUpright": [
+        "merak",
+        "keşif",
+        "oyunbaz coşku",
+        "hevesle öğrenmek",
+        "cesur ilk adımlar"
+      ],
+      "name": "Asa Prensi",
+      "shortReversed": "Coşku pek çok şey arasında gidip geliyor ya da şüpheyle geri tutuluyor olabilir; nazikçe keşfedeceğin birini seçebilirsin.",
+      "shortUpright": "Meraklı ve oyunbaz bir enerji keşfetmek istiyor; seni heyecanlandıranı izle ve acemi olmana izin ver."
+    },
+    "wands_12": {
+      "keywordsReversed": [
+        "dürtüsellik",
+        "acelecilik",
+        "dağınık tutku",
+        "hayal kırıklığı",
+        "enerjiyi yönlendirmek"
+      ],
+      "keywordsUpright": [
+        "macera",
+        "cesur eylem",
+        "tutku",
+        "kendiliğindenlik",
+        "korkusuz enerji"
+      ],
+      "name": "Asa Şövalyesi",
+      "shortReversed": "Enerji yönün önüne geçiyor olabilir; hücumu yavaşlatıp nereye nişan alacağını seçmenin zamanı olabilir.",
+      "shortUpright": "Cesur ve maceracı bir enerji harekete hazır; yolu gözden kaçırmadan tutkunu izleyebilirsin."
+    },
+    "wands_13": {
+      "keywordsReversed": [
+        "kendinden şüphe",
+        "tükenmişlik",
+        "sönen özgüven",
+        "kıskançlık",
+        "kıvılcımı geri almak"
+      ],
+      "keywordsUpright": [
+        "sıcak özgüven",
+        "karizma",
+        "bağımsızlık",
+        "yaratıcı canlılık",
+        "cömert varlık"
+      ],
+      "name": "Asa Kraliçesi",
+      "shortReversed": "İçindeki ateş titreşiyor ya da fazla gerilmiş olabilir; özgüvenini neyin tükettiğine ve neyin yenilediğine bakabilirsin.",
+      "shortUpright": "Sıcak ve özgüvenli bir enerji senin için hazır; yer kaplamana ve ışığını başkalarıyla paylaşmana izin verebilirsin."
+    },
+    "wands_14": {
+      "keywordsReversed": [
+        "sabırsızlık",
+        "baskın itki",
+        "gerçek dışı hedefler",
+        "kaybolan yön",
+        "dinleyerek önderlik"
+      ],
+      "keywordsUpright": [
+        "vizyoner liderlik",
+        "yön",
+        "dürüstlük",
+        "inisiyatif almak",
+        "ilham vermek"
+      ],
+      "name": "Asa Kralı",
+      "shortReversed": "Güçlü itki sabırsızlığa ya da kontrole kayıyor olabilir; vizyonunun başkalarına hâlâ yer bırakıp bırakmadığına bakabilirsin.",
+      "shortUpright": "Net ve vizyoner bir enerji, amaçla yol göstermeye ve büyük fikirleri başkalarının izleyebileceği bir yöne dönüştürmeye davet ediyor."
+    }
+  },
+  "locale": "tr",
+  "version": 1
+}

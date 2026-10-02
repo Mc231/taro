@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_07"
+reviewStatus: "machine"
+sourceHash: >-
+  eadee7960df7fe7d2d9c217b827c426c012f6131b8e92d61ad13a9db011e414f
+name: "Sieben der Schwerter"
+keywordsUpright:
+  - "Strategie"
+  - "Alleingang"
+  - "Vermeidung"
+  - "verborgene Motive"
+  - "ungeschoren davonkommen"
+keywordsReversed:
+  - "reinen Tisch machen"
+  - "einen Plan überdenken"
+  - "Selbsttäuschung"
+  - "um Hilfe bitten"
+  - "Geheimnisse tauchen auf"
+shortUpright: >-
+  Ein cleverer Plan oder ein stiller Umweg ist vielleicht im Spiel; du könntest fragen, ob er zu dem Menschen passt, der du sein willst.
+shortReversed: >-
+  Ein verborgener Plan verliert vielleicht seinen Reiz; Ehrlichkeit mit dir oder anderen könnte sich leichter anfühlen als die Mühe des Verbergens.
+meaningUpright: |-
+  Die Sieben der Schwerter zeigt jemanden, der sich mit mehr davonstiehlt, als ihm gegeben wurde, und zurückblickt, ob es jemand bemerkt hat. Sie ist eine Karte der Strategie, der Cleverness und des Alleingangs. Manchmal ist das Einfallsreichtum; manchmal ist es ein Weg, einem schwereren, ehrlicheren Weg auszuweichen.
+  Du erkennst diese Karte vielleicht in einer Abkürzung, die dich reizt, in einem Gespräch, dem du ausweichst, indem du still um jemanden herumarbeitest, oder in einem Plan, den du für dich behalten hast. Sie kann das Gefühl spiegeln, Dinge allein regeln zu müssen, weil Fragen zu kompliziert wäre. Sie kann auch auf die Vermutung hinweisen, dass in einer Situation um dich herum etwas nicht ganz offen ist, ohne dass du dir sicher bist.
+  Diese Karte lädt dich ein zu überlegen, was die Heimlichkeit oder der Alleingang schützt. Unabhängigkeit kann klug sein, und nicht jeder Plan braucht Publikum. Trotzdem könntest du dich fragen, ob dieser Weg zu deinen Werten passt und was es kostet, ihn verborgen zu halten. Ließe sich dasselbe Ziel auf eine Weise erreichen, über die du offen sprechen könntest?
+meaningReversed: |-
+  Umgekehrt kann die Sieben der Schwerter einen verborgenen Plan spiegeln, der seinen Griff verliert. Etwas geheim zu halten, ist vielleicht anstrengender geworden, als es wert ist, oder du fühlst dich bereit, zu teilen, was du allein getragen hast. Reinen Tisch zu machen, auch nur teilweise, kann unerwartete Erleichterung bringen.
+  Eine andere Lesart wendet sich nach innen: die Geschichte, die du dir erzählst, um einer unbequemen Wahrheit auszuweichen. Selbsttäuschung kann subtil sein, etwa wenn du dich überzeugst, dass ein Problem von jemand anderem gelöst werden muss.
+  Du könntest dich fragen, wo etwas mehr Offenheit deine Situation einfacher machen würde. Das kann bedeuten, einen Fehler zuzugeben, um Hilfe zu bitten, die du bisher nicht erbeten hast, oder eine Strategie zu überdenken, die darauf angewiesen ist, dass niemand etwas bemerkt. Was würde sich ändern, wenn du einen vertrauten Menschen das ganze Bild sehen ließest?
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann diese Karte etwas Unausgesprochenes spiegeln: eine still getroffene Entscheidung, ein Bedürfnis, das anderswo erfüllt wird, oder das unbehagliche Gefühl, dass nicht alles geteilt wird. Sie beschuldigt niemanden. Du könntest überlegen, wo sich Offenheit riskant anfühlt und warum. Behutsame Neugier statt Misstrauen lädt eher zu Ehrlichkeit ein, bei anderen und bei dir selbst.
+  relationshipsReversed: >-
+    Umgekehrt kann die Sieben der Schwerter darauf hinweisen, dass Wahrheiten ans Licht kommen oder dass du dir mehr Offenheit mit einem nahen Menschen wünschst. Vielleicht fühlst du dich bereit zu sagen, was du zurückgehalten hast. Wenn sich jemand anderes dir öffnet, kann Zuhören ohne sofortiges Urteil eine Annäherung möglich machen. Vertrauen wächst oft, wenn Ehrlichkeit mit Sorgfalt empfangen wird.
+  workUpright: >-
+    Bei der Arbeit kann diese Karte spiegeln, dass du um ein System herumarbeitest, statt durch es hindurch, still Anerkennung für dich beanspruchst oder eine Aufgabe allein trägst, um dich nicht mit anderen abstimmen zu müssen. Einfallsreichtum hat seinen Wert. Du könntest dich fragen, ob dein Vorgehen bestehen würde, wenn alle es sehen könnten, und ob ein direktes Gespräch dich mit weniger Anstrengung weiterbringen könnte.
+  workReversed: >-
+    Umgekehrt kann diese Karte nahelegen, eine Strategie zu überdenken, die davon abhängt, unter dem Radar zu bleiben, oder endlich Informationen zu teilen, die du zurückgehalten hast. Du könntest um Hilfe bei etwas bitten, mit dem du dich allein abgemüht hast. Eine Abkürzung oder einen Fehler früh offen anzusprechen, kann viel leichter sein, als später damit umzugehen.
+  growthUpright: >-
+    Für dein persönliches Wachstum lädt die Sieben der Schwerter dich ein anzusehen, wann du Dinge allein angehst und warum. Selbstständigkeit kann eine Stärke sein und auch ein Weg, Verletzlichkeit zu vermeiden. Vielleicht bemerkst du Situationen, in denen du Cleverness der Direktheit vorziehst, und probierst aus, schlicht um das zu bitten, was du willst.
+  growthReversed: >-
+    Umgekehrt kann diese Karte eine wachsende Ehrlichkeit mit dir selbst spiegeln. Vielleicht ertappst du eine bequeme Geschichte, die du dir erzählt hast, und hinterfragst sie behutsam. Ehrlichkeit mit dir selbst verlangt keine Härte; sie heißt einfach, dir zu erlauben, klar zu sehen. Was würdest du anders machen, wenn du aufhörtest, diese Situation wegzuerklären?
+reflectionQuestions:
+  - "Was regelst du allein, das du vielleicht teilen könntest?"
+  - >-
+    Wo könnte ein direktes Gespräch besser funktionieren als ein stiller Umweg?
+  - >-
+    Welche kleine Wahrheit könntest du diese Woche laut aussprechen?
+imageryNote: >-
+  Das eigene Bild zeigt eine Gestalt, die auf Zehenspitzen ein mondbeschienenes Feld überquert, einen Armvoll Klingen tragend, während einige hinter ihr im Gras stehen bleiben. Ferne Zelte leuchten sanft, ahnungslos. Eine Spur von Fußabdrücken zeigt den gegangenen Weg. Der Armvoll deutet an, mehr zu nehmen, als angeboten wurde, die zurückgebliebenen Klingen lassen ahnen, was sich nicht tragen lässt, und der Blick zurück weist auf das Unbehagen hin, ungesehen zu handeln.

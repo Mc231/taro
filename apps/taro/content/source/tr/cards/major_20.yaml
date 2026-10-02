@@ -1,0 +1,48 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_20"
+reviewStatus: "machine"
+sourceHash: >-
+  f57814a6575e8b4cf03c0ac2716116afe8138599dbcac8b7b5fc78030e437978
+name: "Mahkeme"
+keywordsUpright:
+  - "uyanış"
+  - "hesaplaşma"
+  - "yenilenme"
+  - "bir çağrıya yanıt"
+  - "dürüst iç gözlem"
+keywordsReversed:
+  - "öz eleştiri"
+  - "çağrıyı duymamak"
+  - "şüphe"
+  - "geçmişten öğrenmek"
+shortUpright: >-
+  Dürüstçe geriye bakmanın, affedebildiğini affetmenin ve seni ileri çağıran şeye yanıt vermenin zamanı.
+shortReversed: >-
+  İçindeki eleştirmen her zamankinden yüksek sesle konuşuyor olabilir. Geçmişine adil ve şefkatli bir bakış sana ne gösterirdi?
+meaningUpright: |-
+  Mahkeme, uyanışın ve yenilenmenin kartıdır. Başkaları tarafından yargılanmaktan çok, dürüst bir iç gözlem noktasına varmakla ilgilidir: nerelerden geçtiğine bakmak, öğrendiklerini almak ve yeni bir bölüme yükselmeye hazır hissetmek. Çoğu zaman bir çağrı hissi vardır; zamanın geldiğini söyleyen bir iç ses.
+  Gündelik hayatta bu kart, uzun bir karışıklık döneminin ardından gelen bir netlik anını, ertelediğin bir şeyin peşine sonunda düşme kararını ya da ilerlemene yardım eden geçmişteki bir seçimle hesaplaşmayı yansıtabilir. İster kendini ister bir başkasını affetmeye ve hikâyeni daha bütünlüklü, daha adil bir ışıkta görmenin rahatlığına işaret edebilir.
+  Bu kart, şu anda seni neyin çağırdığını düşünmeye davet eder. Geçmiş deneyimlerinin seni buna hazırladığına güvenseydin ne yapacağını sorabilirsin. Mahkeme, anlayışla gelen yenilenmeyi öne çıkarır: geçmişine dürüstlük ve şefkatle bakabildiğinde, sırada olanı seçmekte daha özgür olduğunu fark edebilirsin.
+meaningReversed: |-
+  Ters geldiğinde Mahkeme, sert bir iç eleştirmeni yansıtabilir. Eski hataları zihninde tekrar oynatıyor, değerinden şüphe ediyor ya da geçmişteki bir şey yüzünden ilerlemekte tereddüt ediyor olabilirsin. Çağrı orada ama suçluluk ya da korku onu bastırıyor olabilir.
+  Bu kart iç gözlemden tümüyle kaçınmaya da işaret edebilir: olanlardan ders çıkarmak için durmadan bir şeyden ötekine geçmek.
+  Geçmişine bir arkadaşına göstereceğin adaletle bakmak isteyebilirsin. Ne öğrendin ve neyi bırakmaya hazırsın? Daha genç hâline anlayış dolu bir mektup yazmak başlamanın bir yolu olabilir. Çağrıya yanıt vermek kusursuzluk gerektirmez; tek bir dürüst adımla başlayabilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Mahkeme bir dönüm noktasını yansıtabilir: eski kırgınların temizlenmesi, yenilenmiş bir bağlılık ya da sizi yakınlaştıran karşılıklı bir hesaplaşma. Geçmiş hakkında dürüstçe konuşmaya ve bundan sonra ne istediğinize birlikte karar vermeye davet edebilir. Doğru geldiği yerde affetmek yeni bir başlangıca yer açabilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, bir ilişkide bir tarafta ya da iki tarafta da süren suçlamaya veya yargıya işaret edebilir. Eski kırgınlıklara tutunmanın seni hâlâ koruyup korumadığını ya da yerinde saydırıp saydırmadığını düşünebilirsin. Açık ve sakin bir konuşma iki kişinin de her şeyi daha adil görmesine yardım edebilir.
+  workUpright: >-
+    İşte ya da bir projede Mahkeme bir uğraş duygusunu öne çıkarır. Nasıl bir işin anlamlı geldiğini fark etmeyi ya da sırada ne olduğuna karar vermek için geçmiş projeleri gözden geçirmeyi yansıtabilir. Seni neyin heyecanlandırdığına kulak verip becerilerinin o yöne nasıl hizmet edebileceğini sorabilirsin.
+  workReversed: >-
+    Ters geldiğinde Mahkeme, eleştirilme korkusunun seni geri tutmasını ya da değişim zamanının geldiği hissini görmezden gelmeyi yansıtabilir. Geçmişteki performansına karşı fazla eleştirel olmaya da işaret edebilir. Neler öğrendiğini ve bunun bir sonraki adımına nasıl yol gösterebileceğini listeleyebilirsin.
+  growthUpright: >-
+    Şimdiye kadarki yolculuğuna düşünceli bir bakış, kendi başına bir dönüm noktası olabilir. Önemli bir döneme dönüp bakarak nasıl geliştiğini ve neleri bıraktığını fark edebilirsin. Bu bakış açısı yeni bir çağrıya özgüven ve netlikle yanıt vermene yardım edebilir.
+  growthReversed: >-
+    Ters geldiğinde Mahkeme, gereksiz bir suçluluk ya da kendini suçlama yükü taşıyıp taşımadığını sorabilir. Kendin hakkındaki eski hikâyeleri bırakma ihtiyacını yansıtabilir. İç sesinin sertleştiği anları fark edip kendine nazikçe daha adil bir bakış sunmayı deneyebilirsin. Daha adil bir iç ses gelişimi daha hafif ve daha mümkün hissettirebilir.
+reflectionQuestions:
+  - "Şu anda seni ileri çağırıyormuş gibi hissettiren ne?"
+  - "Kendin de dahil, kimi daha adil görmeye hazırsın?"
+  - "Geçmişten hangi dersi bir sonraki bölümüne taşımak isterdin?"
+imageryNote: >-
+  Taro’nun Mahkeme kartı, uzun bir kışın ardından geniş bir şafak manzarası olarak hayal edilir; bir tepeden berrak bir çan çalar ve insanlar evlerinden ilk ışığa çıkıp gerinerek yukarı bakar. Eriyen kar altındaki yeşil filizleri ortaya çıkarır. Perdeleri dışarı doğru uçuşan açık bir pencere, yanıt verilen bir iç çağrıyı düşündürür. Uzaktaki dağlar dürüst iç gözlemin getirdiği bakış açısını ima eder; soluk sabah renkleri ise yenilenmeden söz eder.

@@ -5,6 +5,7 @@ import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../../packages/taro_ui/test/helpers/golden/golden_sizes.dart';
 import '../helpers/pump_app.dart';
 
 final DateTime _now = DateTime.utc(2026, 9, 30, 8);
@@ -206,6 +207,53 @@ void main() {
       await pumpTaro(tester, const Center(child: BalanceChip()), fakes: fakes);
       await tester.pump();
       expect(find.textContaining('3 readings'), findsOneWidget);
+    });
+  });
+
+  group('BalanceChip.fitsAppBar (01 §12)', () {
+    Future<bool> fits(
+      WidgetTester tester,
+      BalanceChipView view, {
+      Locale locale = const Locale('en'),
+      double textScale = 1.0,
+      Size size = kPhoneSmall,
+    }) async {
+      late bool result;
+      await pumpTaro(
+        tester,
+        Builder(
+          builder: (context) {
+            result = BalanceChip.fitsAppBar(context, view, today: true);
+            return const SizedBox.shrink();
+          },
+        ),
+        locale: locale,
+        textScale: textScale,
+        size: size,
+      );
+      return result;
+    }
+
+    testWidgets('a short label fits; a long translation does not', (
+      tester,
+    ) async {
+      final view = _view(_balance(free: 1));
+      expect(await fits(tester, view), isTrue);
+      expect(
+        await fits(tester, view, locale: const Locale('uk'), textScale: 1.3),
+        isFalse,
+      );
+    });
+
+    testWidgets('the unavailable chip with Retry needs a wide bar', (
+      tester,
+    ) async {
+      final view = _view(
+        null,
+        status: const SyncStatus.unavailable(failure: Failure.network()),
+      );
+      expect(await fits(tester, view), isFalse);
+      expect(await fits(tester, view, size: kTabletIpad13), isTrue);
     });
   });
 }

@@ -1,0 +1,50 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_07"
+reviewStatus: "machine"
+sourceHash: >-
+  eadee7960df7fe7d2d9c217b827c426c012f6131b8e92d61ad13a9db011e414f
+name: "Kılıç Yedilisi"
+keywordsUpright:
+  - "strateji"
+  - "tek başına hareket"
+  - "kaçınma"
+  - "gizli niyetler"
+  - "paçayı kurtarmak"
+keywordsReversed:
+  - "açık sözlü olmak"
+  - "planı yeniden düşünmek"
+  - "kendini kandırmak"
+  - "yardım istemek"
+  - "yüzeye çıkan sırlar"
+shortUpright: >-
+  Akıllıca bir plan ya da sessiz bir dolambaç devrede olabilir; bunun olmak istediğin kişiye uyup uymadığını sorabilirsin.
+shortReversed: >-
+  Gizli bir plan çekiciliğini yitiriyor olabilir; kendine ya da başkalarına dürüst olmak saklamanın çabasından daha hafif gelebilir.
+meaningUpright: |-
+  Kılıç Yedilisi, kendisine verilenden fazlasıyla sıvışan ve biri fark etti mi diye geriye bakan birini gösterir. Strateji, kurnazlık ve tek başına hareket etmenin kartıdır. Bazen bu bir beceriklilik, bazen de daha zor ve daha dürüst bir yoldan kaçınmanın bir yoludur.
+  Bu kartı kullanmaya meylettiğin bir kestirmede, birinin etrafından sessizce dolaşarak sakındığın bir konuşmada ya da kendine sakladığın bir planda tanıyabilirsin. Yardım istemek fazla karmaşık olacağı için işleri tek başına halletmen gerektiği hissini yansıtabilir. Çevrendeki bir durumda bir şeyin tam açık olmadığından, emin olmadan şüphelenmeye de işaret edebilir.
+  Bu kart, bu gizliliğin ya da tek başına çabanın neyi koruduğunu düşünmeye davet eder. Bağımsızlık akıllıca olabilir ve her planın bir izleyiciye ihtiyacı yoktur. Yine de bu yolun değerlerinle örtüşüp örtüşmediğini ve onu gizli tutmanın neye mal olduğunu sorabilirsin. Aynı hedefe açıkça konuşabileceğin bir yolla ulaşmak mümkün olur muydu?
+meaningReversed: |-
+  Ters geldiğinde Kılıç Yedilisi tutuşunu kaybeden gizli bir planı yansıtabilir. Bir şeyi saklamak değdiğinden daha yorucu hâle gelmiş olabilir ya da tek başına taşıdığın şeyi paylaşmaya hazır hissedebilirsin. Kısmen de olsa açık sözlü olmak beklenmedik bir rahatlama getirebilir.
+  Bir başka okuma içe dönüktür: rahatsız edici bir gerçekten kaçınmak için kendine anlattığın hikâye. Kendini kandırmak, bir sorunun çözümünün başka birine düştüğüne kendini inandırmak gibi ince olabilir.
+  Biraz daha açıklığın durumunu nerede daha basit kılacağını sorabilirsin. Bu bir hatayı kabul etmek, istemekten kaçındığın yardımı istemek ya da kimsenin fark etmemesine dayanan bir stratejiyi yeniden düşünmek anlamına gelebilir. Güvendiğin tek bir kişinin resmin tamamını görmesine izin verseydin ne değişirdi?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart söylenmemiş bir şeyi yansıtabilir: sessizce verilmiş bir karar, başka yerde karşılanan bir ihtiyaç ya da her şeyin paylaşılmadığına dair tedirgin bir his. Kimseyi suçlamaz. Açıklığın nerede riskli hissettirdiğini ve nedenini düşünebilirsin. Şüphe yerine nazik bir merak, başkalarını da kendini de dürüstlüğe davet etme eğilimindedir.
+  relationshipsReversed: >-
+    Ters geldiğinde Kılıç Yedilisi gün ışığına çıkan gerçeklere ya da yakın biriyle daha şeffaf olma isteğine işaret edebilir. Geri tuttuğun şeyi söylemeye hazır hissedebilirsin. Başka biri sana açılırsa hemen yargılamadan dinlemek onarımı mümkün kılabilir. Güven çoğu zaman dürüstlük özenle karşılandığında büyür.
+  workUpright: >-
+    İşte bu kart bir sistemin içinden değil etrafından dolaşarak çalışmayı, övgüyü sessizce sahiplenmeyi ya da başkalarıyla koordinasyondan kaçınmak için bir görevi tek başına yürütmeyi yansıtabilir. Becerikliliğin değeri vardır. Herkes görebilseydi yaklaşımının ayakta kalıp kalmayacağını ve doğrudan bir konuşmanın seni daha az zorlanarak daha ileri götürüp götüremeyeceğini sorabilirsin.
+  workReversed: >-
+    Ters geldiğinde bu kart göz önünde olmamaya dayanan bir stratejiyi yeniden düşünmeyi ya da sakladığın bilgiyi sonunda paylaşmayı düşündürebilir. Tek başına uğraştığın bir konuda yardım isteyebilirsin. Bir kestirme ya da hata konusunda erkenden açık olmak, onu sonradan idare etmekten çok daha kolay olabilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Yedilisi, ne zaman ve neden tek başına hareket ettiğine bakmaya davet eder. Kendine yetmek bir güç olabilir; kırılganlıktan kaçınmanın bir yolu da olabilir. Doğrudanlık yerine kurnazlığı seçtiğin durumları fark edip istediğin şeyi açıkça istemeyi deneyebilirsin.
+  growthReversed: >-
+    Ters geldiğinde bu kart kendine karşı büyüyen bir dürüstlüğü yansıtabilir. Kendine anlattığın işine gelen bir hikâyeyi yakalayıp onu nazikçe sorgulayabilirsin. Kendine dürüst olmak sertlik gerektirmez; yalnızca net görmene izin vermek demektir. Bu durumu açıklayıp geçiştirmeyi bıraksaydın neyi farklı yapardın?
+reflectionQuestions:
+  - "Tek başına idare ettiğin ama paylaşabileceğin şey ne?"
+  - >-
+    Sessiz bir dolambaç yerine doğrudan bir konuşma nerede daha iyi işleyebilir?
+  - "Bu hafta yüksek sesle söyleyebileceğin küçük bir gerçek ne?"
+imageryNote: >-
+  Özgün çizim, ay ışığıyla aydınlanan bir tarlayı parmak uçlarında geçen, kucağında bir yığın kılıç taşıyan bir figürü gösterir; birkaç kılıç ise arkada çimenlerin arasında dikili kalır. Uzaktaki çadırlar habersizce, yumuşakça parıldar. Bir ayak izi dizisi izlenen yolu gösterir. Kucaktaki yığın sunulandan fazlasını üstlenmeyi, geride kalan kılıçlar taşınamayacak olanı, geriye dönük bakış ise görülmeden hareket etmenin tedirginliğini düşündürür.

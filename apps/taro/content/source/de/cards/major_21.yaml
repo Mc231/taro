@@ -1,0 +1,51 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_21"
+reviewStatus: "machine"
+sourceHash: >-
+  b881c1ca13c04ac4472e00071fc2fe9aa2ec8a1a4c541fd25acdb591508ac936
+name: "Die Welt"
+keywordsUpright:
+  - "Vollendung"
+  - "Ganzheit"
+  - "Integration"
+  - "Erfüllung"
+  - "Zugehörigkeit"
+keywordsReversed:
+  - "Unerledigtes"
+  - "Suche nach Abschluss"
+  - "lose Enden"
+  - "ein letzter Schritt"
+shortUpright: >-
+  Ein Zyklus schließt sich vielleicht. Diese Karte lädt dich ein, innezuhalten und zu würdigen, was du vollendet hast.
+shortReversed: >-
+  Etwas ist vielleicht fast abgeschlossen. Welcher letzte Schritt oder welches lose Ende verdient deine Aufmerksamkeit?
+meaningUpright: |-
+  Die Welt ist die letzte Karte der Großen Arkana, das Ende der Reise, die mit dem Narren begann. Sie ist eine Karte der Vollendung und Ganzheit: das Gefühl, dass die Teile zusammengefunden haben, ein Zyklus durchlebt ist und du für diesen Moment in der Geschichte zu Hause bist, die du bisher gelebt hast.
+  Im Alltag kann diese Karte spiegeln, dass du ein langes Projekt abschließt, ein Ziel erreichst, auf das du hingearbeitet hast, oder dich einfach in deinem Leben und deinem Körper zu Hause fühlst. Sie kann auf Integration hinweisen: die Lehren vieler Erfahrungen, der leichten und der schweren, zu einem Gefühl dafür zusammenzuführen, wer du bist. Zugehörigkeit kann hier bedeuten, zu einer Gemeinschaft, einem Ort oder zu dir selbst zu gehören.
+  Diese Karte lädt dich ein zu überlegen, was du erreicht hast, und es zu feiern. Du könntest dich fragen, wie du dich verändert hast, seit dieser Zyklus begann, und was du in den nächsten mitnehmen möchtest. Die Welt zeigt, dass Vollendung kein Ende im Sinne von Aufhören ist. Sie ist ein Moment der Fülle, bevor eine neue Reise beginnt.
+meaningReversed: |-
+  Umgekehrt kann die Welt einen Zyklus spiegeln, der fast, aber noch nicht ganz abgeschlossen ist. Ein paar lose Enden, ein unausgesprochener Abschied oder eine letzte Aufgabe halten dich vielleicht davon ab, dich fertig zu fühlen. Vielleicht spürst du, dass du bereit bist weiterzugehen, während dich noch etwas festhält.
+  Die Karte kann auch darauf hinweisen, dass du den Abschluss anderswo suchst, nach Abkürzungen Ausschau hältst oder hoffst, dass andere die Dinge für dich zu Ende bringen.
+  Vielleicht möchtest du die ein oder zwei Dinge benennen, die dir helfen würden, dich vollständig zu fühlen. Das kann eine praktische Aufgabe sein, die du abschließt, ein Dank an jemanden, das Anerkennen einer Enttäuschung oder einfach die Würdigung dessen, wie weit du gekommen bist. Diesen letzten Schritt bewusst zu gehen, kann aus einem Fast-Ende ein wirkliches machen.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann die Welt ein Gefühl von Erfüllung und gegenseitigem Verständnis spiegeln, als sei eine Verbindung ganz bei sich angekommen. Sie kann dich einladen, wertzuschätzen, was ihr gemeinsam aufgebaut habt, und gemeinsame Meilensteine zu feiern. Beziehungen fühlen sich hier ganz an, mit Raum für Nähe und für persönliche Freiheit.
+  relationshipsReversed: >-
+    Umgekehrt kann diese Karte auf etwas Ungeklärtes in einer Beziehung hinweisen, ein Gespräch, das nicht zu Ende geführt wurde, oder ein Kapitel, das nicht abgeschlossen ist. Du könntest überlegen, was euch beiden helfen würde, Frieden zu finden, ob das bedeutet, etwas auszusprechen, oder anzunehmen, dass es gesagt worden ist.
+  workUpright: >-
+    Bei der Arbeit oder in einem Projekt betont die Welt Abschluss und Anerkennung. Sie kann spiegeln, dass du eine bedeutende Arbeit fertigstellst, einen Meilenstein erreichst oder spürst, dass deine Rolle gut zu dir passt. Du könntest dir Zeit nehmen, anzuerkennen, was du und andere erreicht haben, bevor du mit dem Nächsten beginnst.
+  workReversed: >-
+    Umgekehrt kann die Welt ein Projekt spiegeln, das in der letzten Phase feststeckt, oder das Gefühl, die Ziellinie nicht ganz zu erreichen. Du könntest auflisten, was noch offen ist, und entscheiden, ob es wirklich getan werden muss oder losgelassen werden kann. Kleine, gezielte Mühe kann helfen, die Dinge sauber abzuschließen.
+  growthUpright: >-
+    Bevor du nach dem nächsten Ziel greifst, kann es helfen zu erkennen, wie weit du gekommen bist. Du könntest über die Lehren, Herausforderungen und Freuden eines kürzlichen Kapitels nachdenken und bemerken, wie sie sich zu einem volleren Bild von dir zusammenfügen. Integration ist eine stille Art von Erfolg.
+  growthReversed: >-
+    Umgekehrt kann die Welt fragen, was du brauchst, um dich vollständig zu fühlen. Sie kann Rastlosigkeit oder ein Gefühl von Unvollständigkeit spiegeln. Du könntest eine Sache benennen, die du schon lange abschließen wolltest, ihr deine volle Aufmerksamkeit schenken und dann bemerken, wie es sich anfühlt, diesen Kreis zu schließen.
+reflectionQuestions:
+  - >-
+    Welcher Zyklus in deinem Leben fühlt sich an, als würde er sich gerade schließen?
+  - >-
+    Wem möchtest du für die Hilfe danken, die dich dorthin gebracht hat, wo du bist?
+  - >-
+    Welcher letzte Schritt würde dir helfen, etwas als wirklich abgeschlossen zu empfinden?
+imageryNote: >-
+  Die Welt von Taro ist eine Gestalt, die in einem großen ovalen Kranz aus Blättern und Blumen aller Jahreszeiten tanzt und sich frei in der Mitte eines Sternenhimmels bewegt. Rund um den Kranz markieren vier kleine Sinnbilder für Feuer, Wasser, Luft und Erde die Ränder der Szene und deuten Gleichgewicht und Ganzheit an. Ein Band, das aus der Hand der tanzenden Gestalt flattert, kehrt in einer Schleife zu seinem Anfang zurück und lädt dazu ein, ein Gefühl von Ankommen und einer Reise zu spüren, die sich rundet.

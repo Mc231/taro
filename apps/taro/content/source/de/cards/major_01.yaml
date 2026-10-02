@@ -1,0 +1,52 @@
+# Machine translation (claude-opus-5-5, in-session, tools/content/translate format); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_01"
+reviewStatus: "machine"
+sourceHash: >-
+  fa92e5f43628834f25ff3f4740fa6b3275b23781f8f4724fc06f288336c936fe
+name: "Der Magier"
+keywordsUpright:
+  - "gebündelter Wille"
+  - "Einfallsreichtum"
+  - "Können in Aktion"
+  - "klare Absicht"
+  - "etwas real machen"
+keywordsReversed:
+  - "ungenutzte Fähigkeiten"
+  - "verzettelte Kräfte"
+  - "Selbstzweifel"
+  - "clevere Abkürzungen"
+  - "Absicht neu ausrichten"
+shortUpright: >-
+  Vielleicht hast du schon mehr von dem, was du brauchst, als du denkst; diese Karte fragt, was du daraus machen willst.
+shortReversed: >-
+  Deine Werkzeuge liegen auf dem Tisch, doch deine Aufmerksamkeit ist vielleicht woanders. Was hilft dir, sie zu sammeln?
+meaningUpright: |-
+  Der Magier ist die Karte, die eine Idee in etwas Wirkliches verwandelt. Wo der Narr ohne Plan aufbricht, hält der Magier inne, betrachtet, was in Reichweite liegt, und beschließt, es zu nutzen. Das traditionelle Bild mit einer erhobenen und einer nach unten zeigenden Hand deutet eine Brücke zwischen Absicht und Handlung an, zwischen dem, was du dir vorstellst, und dem, was du heute tatsächlich tun kannst.
+  Im Alltag kann diese Karte den Moment spiegeln, in dem ein Plan endlich ein Datum, ein Zeitbudget, einen ersten Entwurf bekommt. Sie kann auf Fähigkeiten hinweisen, die du leicht übersiehst, weil sie dir mühelos gelingen: ein Talent, Dinge zu erklären, kleine Probleme zu lösen, Menschen zusammenzubringen. Einfallsreichtum bedeutet hier zu bemerken, dass die Teile bereits auf dem Tisch liegen.
+  Diese Karte lädt dich ein zu überlegen, wohin deine Aufmerksamkeit geht. Fokus ist eine Art Handwerk; man kann ihn üben. Du könntest dich fragen, was du ins Leben rufen möchtest und welches deiner vorhandenen Werkzeuge es einen Schritt näher bringen könnte. Der Magier verspricht keine Ergebnisse. Er zeigt, welche Kraft darin liegt, mit Absicht da zu sein und zu nutzen, was du hast.
+meaningReversed: |-
+  Umgekehrt kann der Magier Fähigkeiten spiegeln, die vorhanden, aber noch nicht im Einsatz sind. Vielleicht hast du das Können und die Ideen, spürst aber, wie deine Energie in zu viele Richtungen versickert, oder zweifelst daran, dass dein Beitrag zählt. Der Tisch ist gedeckt; die Hände bewegen sich noch nicht ganz.
+  Die Karte kann auch auf Cleverness hinweisen, die leicht in die falsche Richtung läuft: Charme oder flinke Worte, um den Teil der Arbeit zu überspringen, der sich langweilig anfühlt, oder eine selbstsichere Fassade, während du innerlich unsicher bist. Beides ist kein moralisches Versagen. Beides kann ein Zeichen sein, dass Absicht und Handlung auseinandergedriftet sind.
+  Vielleicht möchtest du dir ansehen, wo sich dein Fokus aufspaltet. Eine kleine, konkrete Aufgabe auszuwählen und zu Ende zu bringen, kann das Vertrauen in deine eigenen Hände wieder stärken. Es kann auch helfen, dich zu fragen, was du anders machen würdest, wenn niemand zusähe.
+aspects:
+  relationshipsUpright: >-
+    In Beziehungen kann der Magier die Kraft klarer, direkter Kommunikation spiegeln. Er kann dich einladen zu sagen, was du meinst, und so zu handeln, dass es zu deinen Worten passt. Vielleicht bemerkst du, wie sehr du den Ton einer Verbindung durch kleine, bewusste Gesten prägen kannst: eine durchdachte Nachricht, einen Plan, den du einhältst, Aufmerksamkeit ohne Ablenkung.
+  relationshipsReversed: >-
+    Umgekehrt kann diese Karte fragen, ob Worte und Taten in einer engen Verbindung zusammenpassen, deine oder die der anderen Person. Sie kann auch spiegeln, dass du zurückhältst, was du wirklich denkst, oder eine Version von dir zeigst, von der du glaubst, dass sie gemocht wird. Du könntest überlegen, was sich ändern würde, wenn du jemanden deine wirklichen Absichten sehen ließest, auch die unsicheren.
+  workUpright: >-
+    Bei der Arbeit oder in einem Projekt zeigt der Magier, wie Können auf Gelegenheit trifft. Er kann dich einladen, eine Bestandsaufnahme deiner Fähigkeiten, Kontakte und Mittel zu machen und sie auf ein klares Ziel zu richten. Das ist eine Karte des Anfangens, des Präsentierens, des ersten Prototyps oder des Angebots, das du endlich schreibst. Fokus und Durchhaltevermögen zählen hier mehr, als jede Antwort im Voraus zu kennen.
+  workReversed: >-
+    Umgekehrt kann der Magier ein Talent spiegeln, das zu wenig genutzt wird, oder Mühe, die so dünn verteilt ist, dass nichts richtig ankommt. Er kann auch auf die Versuchung hinweisen, zu übertreiben oder Abkürzungen zu nehmen. Du könntest dich fragen, welche Aufgabe deine Energie gerade wirklich verdient und wie ehrliche, stetige Arbeit daran in den nächsten Tagen aussehen würde.
+  growthUpright: >-
+    Für dein persönliches Wachstum lädt diese Karte dich ein, deine eigene Handlungsfähigkeit zu erkennen. Du könntest die Fähigkeiten, Gewohnheiten und Unterstützung auflisten, die du schon hast, und bemerken, wie sie etwas dienen könnten, das dir wichtig ist. Übung, Wiederholung und klare Absicht sind die stillen Werkzeuge des Magiers; kleine tägliche Entscheidungen können sich zu echter Veränderung summieren.
+  growthReversed: >-
+    Umgekehrt kann der Magier eine Lücke spiegeln zwischen dem Menschen, der du sein könntest, und den Gewohnheiten, die du lebst. Er kann fragen, wo Selbstzweifel dich auf eine Erlaubnis warten lassen. Du könntest eine Fähigkeit wählen, die du offen und unvollkommen übst, und bemerken, wie Zuversicht aus dem Tun wächst, ohne darauf zu warten, dich bereit zu fühlen.
+reflectionQuestions:
+  - >-
+    Welche deiner Fähigkeiten hältst du oft für selbstverständlich?
+  - >-
+    Wo passen deine Worte und deine Taten gerade nicht ganz zusammen?
+  - >-
+    Welche Absicht könntest du heute mit dem umsetzen, was du schon hast?
+imageryNote: >-
+  Der Magier von Taro steht im Morgengrauen an einem Marktstand an einer Wegkreuzung und ordnet vier einfache Gegenstände für die vier Farben: einen grünen Zweig, einen Tonbecher, ein Brotmesser und eine einzelne Münze. Eine Hand greift zum Stand, die andere weist zum heller werdenden Himmel und verbindet Idee und Handlung. Lichtfäden zwischen den Gegenständen deuten an, wie Aufmerksamkeit einzelne Werkzeuge zu einem Zweck verbindet, und ein unfertiges Brot lässt ahnen, dass das Schaffen gerade erst begonnen hat.

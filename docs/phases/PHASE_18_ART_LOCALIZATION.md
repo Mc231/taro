@@ -1,6 +1,6 @@
 # Phase 18: Deck Art & Full Localization (12 locales)
 
-**Status:** ⬜ Not Started
+**Status:** 🟡 In progress — machine translation + self-review done; art and native review pending
 **Depends on:** Phase 5 (pipeline + EN source), Phase 13 (ARB keys), Phase 16. The UI strings must be stable, so Sprint 18.2 starts after Phase 17 is feature-complete.
 **Parallel with:** Phase 17 (Sprints 18.1 and 18.3 can start earlier)
 
@@ -33,10 +33,10 @@ It also includes native review to the 01 §11 launch gate, and verification of t
 
 **Tasks:**
 - [ ] Receive the art per the Phase 1 decision: 78 cards + card back, consistent visual language, symbolic rather than gory (Death, Devil, Tower), not child-oriented, and no Rider-Waite-Smith scans or trademarks (05 §6.1, 4.1/5.2 row).
-- [ ] `tools/content/import_art`: validates the file set (78 + back), aspect ratio (`size.card.aspectRatio`), size budget (≤ 150 KB @3x; the 02 §17 budget is the stricter of 01 and 02), WebP conversion, and `cacheWidth` hints. It writes `assets/art/<art_set>/` and updates `deck_meta.json` `artSet`. Tests use a fixture art set.
-- [ ] `docs/ART_PROVENANCE.md`: source, tool and licence per card; commercial-use confirmation.
+- [x] `tools/content/import_art`: validates the file set (78 + back), aspect ratio (`size.card.aspectRatio`), size budget (≤ 150 KB @3x; the 02 §17 budget is the stricter of 01 and 02), WebP conversion, and `cacheWidth` hints. It writes `assets/art/<art_set>/` and updates `deck_meta.json` `artSet`. Tests use a fixture art set. *(`tools/dart_tools/lib/src/content/import_art.dart`, `runImportArt` in `lib/content.dart`, `tools/content/import_art`; encoder `cwebp` (libwebp); output `assets/deck/art/<art_set>/{<artKey>.webp @2x, 3.0x/<artKey>.webp @3x, art_manifest.json}`, then `deck.yaml` `artSet` + pubspec + `tools/content build`; `--check` in `verify.sh` / `reusable-static.yml`; tests `tools/dart_tools/test/content/import_art_test.dart`.)*
+- [ ] `docs/ART_PROVENANCE.md`: source, tool and licence per card; commercial-use confirmation. *(Template ready: 79 per-card rows and the commercial-use checklist; filled when the art is delivered.)*
 - [ ] `imageryNote` in the EN card YAML is updated to match the final art symbolism (01 §10.1); re-run `validate` + `build`.
-- [ ] CI install-size report: the iOS download is ≤ 60 MB and each Android per-ABI AAB split ≤ 40 MB (01 §16, 02 §17). Add it to `nightly.yml`.
+- [x] CI install-size report: the iOS download is ≤ 60 MB and each Android per-ABI AAB split ≤ 40 MB (01 §16, 02 §17). Add it to `nightly.yml`. *(`tools/check_install_size.py` + `tools/tests/test_check_install_size.py`; `nightly.yml` job `install-size`; skips a missing build.)*
 - [ ] Regenerate **all** goldens once with the final art (06 risks: one bulk commit).
 
 ---
@@ -44,10 +44,10 @@ It also includes native review to the 01 §11 launch gate, and verification of t
 ## Sprint 18.2: UI string translation (ARB)
 
 **Tasks:**
-- [ ] Machine-translate `app_en.arb` into 11 locales with the glossary and style guide (`tools/content/translate --arb`). Keep the ICU plural and select structure; `pt` = pt-BR tone (02 Open question 8).
+- [x] Machine-translate `app_en.arb` into 11 locales with the glossary and style guide (`tools/content/translate --arb`). Keep the ICU plural and select structure; `pt` = pt-BR tone (02 Open question 8). *(In-session machine translation in the `translate` format: `apps/taro/lib/l10n/arb/app_{ar,de,es,fr,it,ja,ko,nl,pt,tr,uk}.arb`, 776 keys each; `ios/Runner/<locale>.lproj/InfoPlist.strings` ×11 wired into `Runner.xcodeproj` (`knownRegions`, `InfoPlist.strings` variant group) and `Info.plist` `CFBundleLocalizations`; `flutter gen-l10n` warning-free; `flutter build ios --simulator --flavor dev` bundles all 11 `.lproj`.)*
 - [ ] Compliance strings (05 §3 keys, refusal, crisis, disclaimer, AI consent, paywall disclosures, ATT pre-prompt, `NSUserTrackingUsageDescription` via `ios/Runner/<locale>.lproj/InfoPlist.strings`) get **native review in all 12 locales** before release *(MANUAL, reviewers)*.
-- [ ] `check_l10n.py` in strict mode: no `x-translate` markers left, placeholders identical, no non-EN value equal to EN outside `tools/l10n_untranslated_allowlist.yaml`.
-- [ ] Re-run the 12-locale smoke test, the text-expansion goldens (`de`), CJK line breaking (`ja`) and the RTL goldens (`ar`).
+- [x] `check_l10n.py` in strict mode: no `x-translate` markers left, placeholders identical, no non-EN value equal to EN outside `tools/l10n_untranslated_allowlist.yaml`. *(`check_l10n.py --strict-translations --require-all-locales` OK; now the default in `tools/verify.sh` `check_args` and `reusable-static.yml`; new `=N`/category collision rule, fixture `tools/tests/fixtures/check_l10n/fail_icu_plural_collision/`.)*
+- [x] Re-run the 12-locale smoke test, the text-expansion goldens (`de`), CJK line breaking (`ja`) and the RTL goldens (`ar`). *(`test/l10n/locale_smoke_test.dart` green in 12 locales after the S07/S11 balance-chip overflow fix (`BalanceChip.fitsAppBar`, `test/common/balance_chip_test.dart`); 280 ar/de/ja goldens regenerated via `melos run golden:update` on the reference Mac (macOS arm64, Flutter 3.44.8); the final-art regeneration stays under 18.1.)*
 
 ---
 
@@ -55,13 +55,13 @@ It also includes native review to the 01 §11 launch gate, and verification of t
 
 **Tasks:**
 - [ ] Glossary: native check for all 11 locales. The glossary must be 100% reviewed before step 4 (01 §11 step 2) *(MANUAL)*.
-- [ ] `tools/content/translate` for 78 cards × 11 locales, plus spreads, articles (About, FAQ) and crisis descriptions. The output carries `sourceHash` and `reviewStatus: machine`.
-- [ ] LLM self-review pass on every machine text (01 Q5), producing a findings report in `docs/content/reviews/<locale>.md`.
+- [x] `tools/content/translate` for 78 cards × 11 locales, plus spreads, articles (About, FAQ) and crisis descriptions. The output carries `sourceHash` and `reviewStatus: machine`. *(`apps/taro/content/source/<locale>/{cards/*.yaml ×78, spreads.yaml, articles/{about,faq}.md}` ×11 in the `translate.dart` format; crisis resources have no per-locale description (one shared file; crisis copy is in the ARB). `validate --strict-locales`: all 12 locales complete, 0 stale.)*
+- [x] LLM self-review pass on every machine text (01 Q5), producing a findings report in `docs/content/reviews/<locale>.md`. *(`docs/content/reviews/{ar,de,es,fr,it,ja,ko,nl,pt,tr,uk}.md` + index `docs/content/reviews/README.md`.)*
 - [ ] **Launch gate** (01 §11 step 6) *(MANUAL, reviewers)*:
   - all 22 Major Arcana, and all names, keywords and short meanings, `reviewed` in all 12 locales;
   - minor long texts ≥ 20% sampled per locale, the rest `machine` + self-review.
-  - `tools/content/validate --launch-gate` enforces this.
-- [ ] `tools/content/build` → the per-locale app assets and `deck_prompt.{locale}.json`. Run the Worker parity test. Deploy to staging.
+  - `tools/content/validate --launch-gate` enforces this. *(Implemented: `ValidateOptions.launchGate`, tests in `tools/dart_tools/test/content/validate_test.dart` group `launch gate`; optional card key `shortReviewStatus` for minors outside the long-text sample. Today it fails with 48 errors, all MANUAL: `review.<locale>` machine ×12, 22 majors, 56 minor short texts and 0/12 sampled long texts per locale ×12.)*
+- [ ] `tools/content/build` → the per-locale app assets and `deck_prompt.{locale}.json`. Run the Worker parity test. Deploy to staging. *(Build and parity done: `apps/taro/assets/deck/<locale>.json` ×11, `worker/src/generated/deck_prompt.<locale>.json` ×11, `names.json` unchanged; `worker/test/unit/content/deck_parity.test.ts` checks all 12 feeds; worker suite green with no snapshot or `versions.lock` change. Staging deploy pending.)*
 - [ ] Re-run the Worker quality eval (Phase 8.6) across the 12 locales with the localized deck names. The language-correctness score must not regress.
 
 ---

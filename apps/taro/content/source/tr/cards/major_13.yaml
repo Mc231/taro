@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_13"
+reviewStatus: "machine"
+sourceHash: >-
+  913c2cd70a8012b231ac0c7b9a84de93fb6de5a30d88fd6e114cbf47d5f8a19d
+name: "Ölüm"
+keywordsUpright:
+  - "bitişler"
+  - "dönüşüm"
+  - "alan açmak"
+  - "bir bölümü kapatmak"
+  - "bırakmak"
+keywordsReversed:
+  - "tutunmak"
+  - "değişime direnmek"
+  - "uzayan bitişler"
+  - "yavaş geçiş"
+shortUpright: >-
+  Bir dönem kapanıyor olabilir. Bu kart neyin bittiğini ve geride bıraktığı alanı fark etmeye davet ediyor.
+shortReversed: >-
+  Bir şey bitmeye hazırken bir yanın ona tutunuyor olabilir. Elini gevşetmene ne yardımcı olur?
+meaningUpright: |-
+  Adına rağmen bu kart fiziksel ölümle ilgili değildir. Bitişlerden gündelik, insani anlamıyla söz eder: bir dönemin, bir rolün, bir alışkanlığın ya da kendini görme biçiminin sona ermesi. Yeni filizlerden önce dalları temizleyen sonbahar gibi, bazı şeylerin başlayabilmesi için başka şeylerin bitmesi gerektiğini düşündürür.
+  Gündelik hayatta bu kart, bir evden taşınmayı, bir kursu bitirmeyi, bir projeden ayrılmayı ya da kendinin eski bir hâlinin artık sana uymadığını fark etmeyi yansıtabilir. Karışık duygular getirebilir: rahatlama, hüzün, belirsizlik, hatta heyecan. Hepsi doğaldır. Dönüşüm nadiren derli topludur ve bir değişimin neyi mümkün kıldığını anlamak çoğu zaman vakit alır.
+  Bu kart, neyin bırakılmaya hazır olduğunu düşünmeye davet eder. Hâlâ alışkanlıktan taşıdığın şeyin ne olduğunu ve onu yere bıraksan hangi alanın açılabileceğini sorabilirsin. Ölüm, istenen bitişlerin bile kabul görmeyi hak ettiğini öne çıkarır. Geçmişte kalanı onurlandırmak, sırada gelebilecek olana dönmeyi kolaylaştırabilir.
+meaningReversed: |-
+  Ters geldiğinde Ölüm, acele etmeyen bir bitişi yansıtabilir. Bir dönemin bittiğini sezip yine de ona tutunuyor olabilirsin; belki tanıdık olan bilinmeyenden daha güvenli geldiği için, belki de bırakmak kendinden bir parçayı kaybetmek gibi hissettirdiği için.
+  Bu kart, tek ve net bir anda değil, yavaşça ve sessizce, yüzeyin altında gerçekleşen bir geçişe de işaret edebilir. Her değişim keskin bir kopuşla gelmez.
+  Neye tutunduğunu ve bu tutunmanın neyi koruduğunu fark etmek isteyebilirsin. Göndermeyeceğin bir veda mektubu yazmak, bir çekmeceyi boşaltmak ya da bir son günü işaretlemek gibi küçük kapanış ritüelleri yardımcı olabilir. Acele etmeye gerek yok. Biten şeyin yasını tutmana izin vermek, bırakmayı daha yumuşak hissettirebilir.
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart, bir bağın işleyişindeki önemli bir değişimi yansıtabilir: yeni bir aşama, rollerde bir kayma ya da iki kişiye de artık yardımcı olmayan bir örüntünün sona ermesi. Kimsenin fiziksel sağlığıyla ilgili bir şeye işaret etmez. Neyin değiştiğini birlikte, dürüstlük ve özenle kabul etmeye davet edebilir.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart, iki kişinin de çoktan aştığı eski bir dinamiğe tutunmaya ya da bir bağın değiştiğini kabul etmekte zorlanmaya işaret edebilir. Bu ilişkinin yeni biçimini almasına izin vermek için, o biçim ne olursa olsun, neye ihtiyaç duyacağını düşünebilirsin.
+  workUpright: >-
+    İşte ya da bir projede Ölüm, tamamlanmayı ve geçişi öne çıkarır. Bir rolü bitirmeyi, bir projeyi kapatmayı ya da ömrünü doldurmuş bir çalışma biçimini emekliye ayırmayı yansıtabilir. Neler öğrendiğini ve bir sonraki bölüme neyi taşımak istediğini gözden geçirebilirsin.
+  workReversed: >-
+    Ters geldiğinde Ölüm, artık uymadığı hâlde bir göreve, role ya da yönteme alışkanlıktan bağlı kalmayı yansıtabilir. Sonrasında gelecek olandan duyulan korkuya da işaret edebilir. Mevcut durumun sana hâlâ ne verdiğini ve neye mal olduğunu listeleyip bu dengenin sana ne söylediğini fark edebilirsin.
+  growthUpright: >-
+    Eski kimlikler yapraklar gibi dökülüp hâlâ şekillenmekte olana yer açabilir. Bir zamanlar kendin hakkında doğru olan ama artık doğru olmayan inançları fark edebilirsin. Onları bırakmak, dönüşmekte olduğun kişiye daha sadık bir hâline alan yaratabilir.
+  growthReversed: >-
+    Ters geldiğinde Ölüm, değişim korkusunun seni ihtiyaç duyduğundan daha dar bir alanda tutup tutmadığını sorabilir. Güvenini hak eden yavaş ve sabırlı bir dönüşümü yansıtabilir. Bu hafta bırakacağın küçük bir şey seçip sonrasında nasıl hissettirdiğini fark edebilirsin.
+reflectionQuestions:
+  - >-
+    Hayatının hangi bölümü sessizce kapanıyormuş gibi hissettiriyor?
+  - >-
+    Yakın bir ilişkideki hangi eski örüntü değişmeye hazır olabilir?
+  - >-
+    Bir bitişi özenle işaretlemene hangi küçük ritüel yardımcı olabilir?
+imageryNote: >-
+  Taro’nun Ölüm kartı, ağır akan bir nehrin dökülen yaprakları ufukta yükselen güneşe doğru taşıdığı sessiz bir sonbahar manzarası olarak hayal edilir. Pelerinli ve telaşsız bir figür suyun kenarında yürür; elinde, biten şeyin ve büyümeyi bekleyen şeyin simgeleri olarak tek bir tohum kabuğu ya da çıplak bir dal taşır. Koyu bir zemin üzerindeki beyaz bir çiçek, bırakmanın içindeki yenilenmeyi çağrıştırabilir. Hava sakin ve saygılıdır; kayba değil dönüşüme işaret eder.

@@ -1,0 +1,17 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Kies één kaart als je één heldere aanzet de dag door wilt meenemen, of als een vraag eenvoudig is en je een beginpunt voor reflectie zoekt en geen gedetailleerde kaart van de situatie. Het werkt ook goed als je weinig tijd hebt of net met de kaarten begint.
+  three_ppf: >-
+    Kies Verleden, heden, toekomst als je wilt zien hoe een situatie zich in de loop van de tijd heeft ontwikkeld. De legging helpt je patronen op te merken die je hier hebben gebracht, wat er nu speelt en waar het naartoe kan gaan als er niets verandert, zodat je kunt beslissen wat je wilt houden of veranderen.
+  three_sao: >-
+    Kies Situatie, actie, uitkomst als je voor iets praktisch staat en wilt nadenken over wat je hierna zou kunnen doen. De legging kijkt naar de situatie zoals die nu is, een aanpak die het overwegen waard is, en waar die aanpak kan uitkomen als je haar volgt.
+  relationship: >-
+    Kies de legging Relatie om te reflecteren op elke hechte band: een partner, vriend, familielid of collega. Ze kijkt naar wat jij inbrengt, hoe de ander het mogelijk beleeft, wat jullie verbindt, wat de band onder druk zet en wat er kan groeien. Ze beschrijft jouw kijk op de relatie, niet de gedachten van de ander.
+  two_paths: >-
+    Kies Twee paden als je een keuze tussen twee opties afweegt. Benoem ze voor jezelf voordat je trekt: pad A en pad B. De legging kijkt naar de situatie achter de keuze, wat elk pad van je zou kunnen vragen en waar elk pad kan uitkomen, zodat je ze naast je eigen waarden kunt leggen. De beslissing blijft bij jou.
+  celtic_cross: >-
+    Kies het Keltisch kruis voor een ingewikkelde situatie die je grondig wilt verkennen. De tien posities kijken naar de kern van de zaak, wat die kruist, de wortels, recente gebeurtenissen en wat er hierna kan komen, en daarna naar jou, je omgeving, je hoop en vrees, en waar het naartoe kan gaan als er niets verandert. Neem de tijd om de legging rustig te lezen.

@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_14"
+reviewStatus: "machine"
+sourceHash: >-
+  1a591759075d9a2c0e0290c4842daca2c27dcfe9c3ef2abadebad34465a51b41
+name: "Kılıç Kralı"
+keywordsUpright:
+  - "düşünsel otorite"
+  - "hakkaniyet"
+  - "net ilkeler"
+  - "gerekçeli kararlar"
+  - "dürüstlük"
+keywordsReversed:
+  - "katılık"
+  - "soğuk mantık"
+  - "kötüye kullanılan yetki"
+  - "kendinden şüphe etmek"
+  - "empatiyle akıl"
+shortUpright: >-
+  İstikrarlı bir akıl yürütme ve adil ilkeler sana yol gösterebilir; kolay olana değil doğru olana göre karar verebilirsin.
+shortReversed: >-
+  Mantık katılaşmış ya da kopmuş olabilir; ilkelerinin insanlara hâlâ yer bırakıp bırakmadığını sorabilirsin.
+meaningUpright: |-
+  Kılıç Kralı yüksek bir tahtta sakince oturur; kılıcı dik, bakışı sabittir. Bu figür olgun bir düşünmeyi temsil eder: kanıtları tartma, ilkeleri tutarlı bir şekilde uygulama ve rahat olmasa bile adil kararlar alma yeteneği. Bu, bir tür liderliğe dönüşmüş bir netliktir.
+  Bu enerjiyi bir durumu tarafsızca değerlendirmen, karmaşık bir konuyu basitçe açıklaman ya da baskı altında ilkelerine bağlı kalman istendiğinde tanıyabilirsin. Hararetli bir anda sağduyunun sesi olmayı ya da net düşünmesine saygı duyduğun birini aramayı yansıtabilir. Kart dürüstlüğe değer verir: inandığını söylediğin şeyle uyumlu davranmak.
+  Bu kart, nasıl karar verdiğini düşünmeye davet eder. Gerçekleri toplayıp farklı görüşleri dinledikten sonra inançla mı seçiyorsun? Duyguların ya da baskının seni nerede kendi ölçütlerinden uzaklaştırdığını ve sakin, yapılandırılmış bir yaklaşımın nerede yardımcı olabileceğini fark edebilirsin. Aynı zamanda bilgelik, insanların çözülecek sorunlardan ibaret olmadığını bilmeyi de içerir. Net düşünmen aynı anda hem hakkaniyete hem anlayışa nasıl hizmet edebilir?
+meaningReversed: |-
+  Ters geldiğinde Kılıç Kralı katılaşmış ya da kopmuş bir akıl yürütmeyi yansıtabilir. Kurallar etkiledikleri insanlar gözetilmeden uygulanabilir ya da zekâ netleştirmek yerine kontrol etmek için kullanılabilir. Tartışmalar kazanılırken güven kaybedilebilir.
+  Bir başka okuma da belirsiz bir otoritedir: muhakemenden şüphe etmek, daha iyisini bildiğin hâlde başkalarına bırakmak ya da karar veremeyecek gibi hissetmek.
+  Bu kart, mantığı insanlıkla yeniden bağlamaya davet eder. İlkelerinin hâlâ amacına hizmet edip etmediğini ya da alışkanlıklara dönüşüp sertleşip sertleşmediğini sorabilirsin. Bir kararın başkalarına nasıl dokunacağını dinlemek onu zayıflatmaz, daha bilge kılabilir. İnandığın şeyin arkasında dururken empatinin akıl yürütmene nerede katkı sunmasına izin verebilirsin?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde Kılıç Kralı istikrarlı ve adil bir varlığı yansıtabilir: konuları sakince konuşan, sözünü tutan ve başkalarının bir durumu net görmesine yardım eden biri. Bu enerjiyi bir anlaşmazlığa gerçeklere ve ortak değerlere odaklanarak getirebilirsin. Duyguları da adlandırmayı unutma; böylece netlik mesafe gibi algılanmaz.
+  relationshipsReversed: >-
+    Ters geldiğinde bu kart soğukluğa, nutuk atmaya ya da birinin duygularını mantıkla geçiştirmeye işaret edebilir. Net bir tutum almakta zorlanmayı da yansıtabilir. Kırılganlıktan kaçınmak için akıl yürütmeye sığındığın anları fark edebilirsin. Başkalarının aklın kadar kalbini de görmesine izin vermek güveni ve anlayışı derinleştirebilir.
+  workUpright: >-
+    İşte Kılıç Kralı net düşünceyle gelen bir liderliği düşündürebilir: adil politikalar belirlemek, zor kararları şeffaf bir şekilde vermek ya da uzman yol gösterme sunmak. Yarışan görüşleri tartıp karar vermen konusunda sana güvenilebilir. Gerekçeni açıkça anlatmak ve tutarlı kalmak başkalarının seni güvenle izlemesine yardım eder.
+  workReversed: >-
+    Ters geldiğinde bu kart katı kuralları, etkilenenlere danışılmadan alınan kararları ya da hiçbir şey kıpırdamayana kadar aşırı çözümleme eğilimini yansıtabilir. Bir sürecin hâlâ hedefine hizmet edip etmediğini sorabilirsin. Görüş davet etmek ve belirsizliği kabul etmek yetkini azaltmak yerine güçlendirebilir.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Kralı ilkelerini tanımlamaya ve onlara göre yaşamaya davet eder. Seçimlerine yön veren değerleri yazıp son kararlarını onlarla karşılaştırabilirsin. Net düşünmek pratik edilebilen bir beceridir: gerçekleri topla, bakış açılarını düşün, sonra düşünceli bir şekilde bir rotaya bağlan.
+  growthReversed: >-
+    Ters geldiğinde bu kart çözümlemeye aşırı güvenmeyi ya da sert bir öz yargıyı yansıtabilir. Kendinden kusursuz bir mantık talep ettiğin ve hatalara yer bırakmadığın anları fark edebilirsin. Aklı öz şefkatle dengelemek daha özgürce karar vermene ve seni şaşırtan sonuçlardan daha nazikçe öğrenmene yardım edebilir.
+reflectionQuestions:
+  - "Kararlarının en çok hangi ilkeyi yansıtmasını istersin?"
+  - >-
+    Akıl yürütmende başka birinin nasıl hissettiği nerede eksik kalıyor olabilir?
+  - >-
+    Bu hafta gerçekleri sakince tartarak verebileceğin bir karar ne?
+imageryNote: >-
+  Özgün çizim, bir dağ sırtındaki uzun taş bir tahtta oturan, kılıcını kusursuzca dik tutan ve yüzünü doğrudan izleyiciye çeviren bir figürü gösterir. İnce ve düzenli bulutlar soluk bir gökyüzü boyunca uzanır ve tepede iki kuş paralel çizgiler hâlinde uçar. Dik kılıç sağlam ilkeleri, doğrudan bakış dürüstlüğü, düzenli gökyüzü ise sakinliğini bulmuş bir zihni ima eder.

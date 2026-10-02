@@ -91,8 +91,10 @@ void main() {
         final faq = (await load(ArticleId.faq, 'en')).valueOrNull!;
         expect(faq.title, 'Frequently asked questions');
         expect(faq.sections.expand((s) => s.entries), isNotEmpty);
-        final about = (await load(ArticleId.about, 'uk')).valueOrNull!;
+        final about = (await load(ArticleId.about, 'sv')).valueOrNull!;
         expect(about.title, contains('About'));
+        final uk = (await load(ArticleId.about, 'uk')).valueOrNull!;
+        expect(uk.title, isNot(contains('About')));
       },
     );
 

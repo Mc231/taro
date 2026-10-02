@@ -9,2790 +9,771 @@
   "failureContract": "حدث خطأ ما. يُرجى المحاولة مرة أخرى.",
   "failureHoldConflict": "لا يمكن متابعة هذه القراءة. يُرجى بدء قراءة جديدة.",
   "failureInsufficientCredits": "نفدت قراءاتك في الوقت الحالي.",
-  "failureNetwork": "أنت غير متصل بالإنترنت. تحقّق من اتصالك وحاول مرة أخرى.",
+  "failureNetwork": "لا يوجد اتصال بالإنترنت. يُرجى التحقق من الاتصال والمحاولة مرة أخرى.",
   "failureProductUnavailable": "هذا العنصر غير متاح في المتجر حاليًا.",
   "failurePurchase": "تعذّر إتمام عملية الشراء. يُرجى المحاولة مرة أخرى.",
-  "failurePurchaseAlreadyClaimed": "تم استخدام عملية الشراء هذه بالفعل على جهاز آخر.",
-  "failurePurchaseCancelled": "تم إلغاء عملية الشراء.",
-  "failurePurchasePending": "عملية الشراء بانتظار الموافقة. ستظهر قراءاتك بمجرد الموافقة عليها.",
-  "failurePurchasesBlocked": "عمليات الشراء غير متاحة حاليًا.",
+  "failurePurchaseAlreadyClaimed": "سبق استخدام عملية الشراء هذه على جهاز آخر.",
+  "failurePurchaseCancelled": "أُلغيت عملية الشراء.",
+  "failurePurchasePending": "عملية الشراء بانتظار الموافقة. ستظهر قراءاتك فور الموافقة عليها.",
+  "failurePurchasesBlocked": "عمليات الشراء غير متاحة الآن.",
   "failureRateLimited": "طلبات كثيرة جدًا. يُرجى الانتظار قليلًا ثم المحاولة مرة أخرى.",
-  "failureReadingExpiredRefunded": "انتهت صلاحية هذه القراءة قبل تسليمها. تمت إعادة رصيدك.",
+  "failureReadingExpiredRefunded": "انتهت صلاحية هذه القراءة قبل تسليمها. أُعيد إليك رصيدك.",
   "failureReadingsPaused": "قراءات الذكاء الاصطناعي متوقفة مؤقتًا الآن. لا يزال بإمكانك إجراء قراءة كلاسيكية.",
-  "failureRequestInProgress": "لا تزال قراءتك قيد التحضير. يُرجى الانتظار قليلًا.",
-  "failureRewardUnavailable": "القراءة مقابل مشاهدة فيديو غير متاحة حاليًا.",
+  "failureRequestInProgress": "لا تزال قراءتك قيد الإعداد. يُرجى الانتظار قليلًا.",
+  "failureRewardUnavailable": "القراءة مقابل مشاهدة فيديو غير متاحة الآن.",
   "failureServer": "حدث خطأ من جهتنا. يُرجى المحاولة مرة أخرى.",
-  "failureSessionExpired": "انتهت صلاحية جلستك. يُرجى المحاولة مرة أخرى.",
+  "failureSessionExpired": "انتهت صلاحية الجلسة. يُرجى المحاولة مرة أخرى.",
   "failureStorage": "تعذّر على Taro حفظ البيانات أو تحميلها على هذا الجهاز.",
   "failureTimeout": "يستغرق هذا وقتًا أطول من اللازم. يُرجى المحاولة مرة أخرى.",
-  "failureTimezoneChangeRejected": "ستبقى إعادة التعيين اليومية على منطقتك الزمنية السابقة في الوقت الحالي.",
+  "failureTimezoneChangeRejected": "تبقى إعادة الضبط اليومية على منطقتك الزمنية السابقة في الوقت الحالي.",
   "failureUnexpected": "حدث أمر غير متوقع. يُرجى المحاولة مرة أخرى.",
   "failureUpgradeRequired": "يُرجى تحديث Taro لمواصلة استخدامه.",
-  "safetyDeclinedHealth": "لا يمكن للتاروت الإجابة عن الأسئلة الصحية. يُرجى التحدث إلى طبيب أو مختص آخر. يمكنك أن تسأل عمّا يمكنك تعلّمه عن نفسك في هذا الموقف.",
-  "safetyDeclinedPregnancy": "لا يمكن للتاروت الإجابة عن أسئلة الحمل. يمكن للطبيب أو القابلة المساعدة. يمكنك أن تسأل عن كيفية الاعتناء بنفسك الآن.",
-  "safetyDeclinedDeath": "لا يمكن للتاروت الإجابة عن الأسئلة المتعلقة بالموت. يمكنك أن تسأل عن الدعم الذي تحتاجه الآن.",
-  "safetyDeclinedLegal": "لا يمكن للتاروت التنبؤ بنتائج القضايا القانونية. يمكن للمحامي المساعدة في المسائل القانونية. يمكنك أن تسأل عمّا يمكنك تعلّمه عن نفسك في هذا الموقف.",
-  "safetyDeclinedFinancial": "لا يمكن للتاروت تقديم نصائح مالية أو استثمارية. يمكنك أن تسأل عمّا يهمك أكثر في هذا القرار.",
-  "safetyDeclinedGambling": "لا يمكن للتاروت التنبؤ بنتائج المقامرة أو الأرقام. يمكنك أن تسأل عمّا تأمل أن يتغير.",
+  "safetyDeclinedHealth": "لا يستطيع التاروت الإجابة عن الأسئلة الصحية. يُرجى التحدث إلى طبيب أو مختص آخر. يمكنك أن تسأل عمّا يمكنك تعلّمه عن نفسك في هذا الموقف.",
+  "safetyDeclinedPregnancy": "لا يستطيع التاروت الإجابة عن الأسئلة المتعلقة بالحمل. يمكن لطبيب أو قابلة أن يساعدا في ذلك. يمكنك أن تسأل عن طرق الاعتناء بنفسك الآن.",
+  "safetyDeclinedDeath": "لا يستطيع التاروت الإجابة عن الأسئلة المتعلقة بالموت. يمكنك أن تسأل عن الدعم الذي تحتاج إليه الآن.",
+  "safetyDeclinedLegal": "لا يستطيع التاروت التنبؤ بنتائج المسائل القانونية. يمكن لمحامٍ أن يساعد في الأسئلة القانونية. يمكنك أن تسأل عمّا يمكنك تعلّمه عن نفسك في هذا الموقف.",
+  "safetyDeclinedFinancial": "لا يستطيع التاروت تقديم نصائح مالية أو استثمارية. يمكنك أن تسأل عمّا يهمّك أكثر في هذا القرار.",
+  "safetyDeclinedGambling": "لا يستطيع التاروت التنبؤ بنتائج المقامرة أو بالأرقام. يمكنك أن تسأل عمّا تأمل أن يتغيّر.",
   "safetyDeclinedSelfHarm": "لا يستطيع Taro تقديم قراءة حول هذا الأمر. أنت تستحق الدعم الآن. يُرجى التواصل مع شخص تثق به أو مع خط مساعدة للأزمات.",
-  "safetyDeclinedHarmToOthers": "لا يستطيع Taro تقديم قراءة حول هذا الأمر. إذا كنت أنت أو شخص آخر في خطر، يُرجى الاتصال بخدمات الطوارئ المحلية.",
+  "safetyDeclinedHarmToOthers": "لا يستطيع Taro تقديم قراءة حول هذا الأمر. إذا كنت أنت أو أي شخص آخر في خطر، يُرجى الاتصال بخدمات الطوارئ المحلية.",
   "safetyDeclinedSexualMinors": "لا يستطيع Taro المساعدة في ذلك.",
-  "safetyDeclinedHateOrHarassment": "لا يستطيع Taro المساعدة في ذلك. جرّب طرح سؤال مختلف.",
+  "safetyDeclinedHateOrHarassment": "لا يستطيع Taro المساعدة في ذلك. يمكنك تجربة سؤال مختلف.",
   "tabToday": "اليوم",
-  "tabJournal": "اليوميات",
+  "tabJournal": "المذكرات",
   "tabLearn": "تعلّم",
   "tabSettings": "الإعدادات",
-  "bootstrapStorageErrorTitle": "لا يستطيع Taro فتح مساحة التخزين",
-  "bootstrapStorageErrorBody": "هناك ما يمنع Taro من الوصول إلى مساحة التخزين على هذا الجهاز. حاول مرة أخرى، وتواصل مع الدعم إذا تكرر ذلك.",
-  "bootstrapRetry": "حاول مرة أخرى",
-  "bootstrapContactSupport": "تواصل مع الدعم",
-  "drawLeaveTitle": "هل تريد مغادرة هذه القراءة؟",
-  "drawLeaveBody": "لن يتم الاحتفاظ بالبطاقات التي اخترتها حتى الآن.",
+  "bootstrapStorageErrorTitle": "تعذّر على Taro فتح مساحة التخزين",
+  "bootstrapStorageErrorBody": "هناك ما يمنع Taro من الوصول إلى مساحة التخزين على هذا الجهاز. يُرجى المحاولة مرة أخرى، والتواصل مع الدعم إذا تكرر ذلك.",
+  "bootstrapRetry": "إعادة المحاولة",
+  "bootstrapContactSupport": "التواصل مع الدعم",
+  "drawLeaveTitle": "مغادرة هذه القراءة؟",
+  "drawLeaveBody": "لن تُحفظ البطاقات التي اخترتها حتى الآن.",
   "drawLeaveStay": "متابعة السحب",
   "drawLeaveConfirm": "مغادرة",
-  "reminderChannelName": "تذكير يومي",
-  "reminderChannelDescription": "تذكير يومي لطيف لسحب بطاقتك.",
-  "reminderBody1": "بطاقتك اليومية بانتظارك متى كنت مستعدًا.",
-  "reminderBody2": "لحظة هادئة لبطاقة اليوم؟",
-  "reminderBody3": "خذ نفسًا واسحب بطاقة اليوم.",
+  "reminderChannelName": "التذكير اليومي",
+  "reminderChannelDescription": "تذكير يومي لطيف بسحب بطاقتك.",
+  "reminderBody1": "بطاقتك اليومية بانتظارك متى شئت.",
+  "reminderBody2": "لحظة هادئة مع بطاقة اليوم؟",
+  "reminderBody3": "نفَسٌ عميق، ثم بطاقة اليوم.",
   "reminderBody4": "بطاقة اليوم هنا متى أردتها.",
-  "reminderBody5": "بضع دقائق لنفسك: اسحب بطاقتك اليومية.",
-  "reminderBody6": "توقّف وتأمّل مع بطاقة اليوم.",
-  "disclaimerShort": "For entertainment and self-reflection. Not professional advice.",
-  "@disclaimerShort": {
-    "x-translate": true
-  },
-  "disclaimerOnboardingTitle": "Tarot for reflection",
-  "@disclaimerOnboardingTitle": {
-    "x-translate": true
-  },
-  "disclaimerOnboardingBody": "Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice.",
-  "@disclaimerOnboardingBody": {
-    "x-translate": true
-  },
-  "aiConsentTitle": "Your readings use AI",
-  "@aiConsentTitle": {
-    "x-translate": true
-  },
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI’s GPT models to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
-  "@aiConsentBody": {
-    "x-translate": true
-  },
-  "aiConsentAccept": "Allow AI readings",
-  "@aiConsentAccept": {
-    "x-translate": true
-  },
-  "aiConsentDecline": "Not now",
-  "@aiConsentDecline": {
-    "x-translate": true
-  },
-  "aiLabel": "AI-generated",
-  "@aiLabel": {
-    "x-translate": true
-  },
-  "refusalGeneric": "Tarot can’t answer questions about health, pregnancy, death, legal or money decisions, or gambling. Try asking what you can learn about yourself in this situation.",
-  "@refusalGeneric": {
-    "x-translate": true
-  },
-  "crisisTitle": "You’re not alone",
-  "@crisisTitle": {
-    "x-translate": true
-  },
-  "crisisBody": "If you are thinking about harming yourself, please reach out now. Talking to someone can help.",
-  "@crisisBody": {
-    "x-translate": true
-  },
-  "reportReadingTitle": "Report this reading",
-  "@reportReadingTitle": {
-    "x-translate": true
-  },
-  "reportReadingDisclosure": "Your question and this reading will be sent to Taro and kept for 90 days.",
-  "@reportReadingDisclosure": {
-    "x-translate": true
-  },
-  "commonRetry": "Try again",
-  "@commonRetry": {
-    "x-translate": true
-  },
-  "commonCancel": "Cancel",
-  "@commonCancel": {
-    "x-translate": true
-  },
-  "commonClose": "Close",
-  "@commonClose": {
-    "x-translate": true
-  },
-  "commonBack": "Back",
-  "@commonBack": {
-    "x-translate": true
-  },
-  "commonDone": "Done",
-  "@commonDone": {
-    "x-translate": true
-  },
-  "commonContinue": "Continue",
-  "@commonContinue": {
-    "x-translate": true
-  },
-  "commonNotNow": "Not now",
-  "@commonNotNow": {
-    "x-translate": true
-  },
-  "commonOpenSettings": "Open settings",
-  "@commonOpenSettings": {
-    "x-translate": true
-  },
-  "commonMore": "More options",
-  "@commonMore": {
-    "x-translate": true
-  },
-  "commonDismiss": "Dismiss",
-  "@commonDismiss": {
-    "x-translate": true
-  },
-  "commonDelete": "Delete",
-  "@commonDelete": {
-    "x-translate": true
-  },
-  "commonUndo": "Undo",
-  "@commonUndo": {
-    "x-translate": true
-  },
-  "commonShare": "Share",
-  "@commonShare": {
-    "x-translate": true
-  },
-  "commonCopy": "Copy",
-  "@commonCopy": {
-    "x-translate": true
-  },
-  "commonCopied": "Copied",
-  "@commonCopied": {
-    "x-translate": true
-  },
-  "commonSaving": "Saving…",
-  "@commonSaving": {
-    "x-translate": true
-  },
-  "commonSavedOnDevice": "Saved on this device",
-  "@commonSavedOnDevice": {
-    "x-translate": true
-  },
-  "commonLoading": "Loading…",
-  "@commonLoading": {
-    "x-translate": true
-  },
-  "commonLearnMore": "Learn more",
-  "@commonLearnMore": {
-    "x-translate": true
-  },
-  "commonTerms": "Terms",
-  "@commonTerms": {
-    "x-translate": true
-  },
-  "commonPrivacy": "Privacy",
-  "@commonPrivacy": {
-    "x-translate": true
-  },
-  "commonPrivacyPolicy": "Privacy policy",
-  "@commonPrivacyPolicy": {
-    "x-translate": true
-  },
-  "commonDailyCard": "Daily card",
-  "@commonDailyCard": {
-    "x-translate": true
-  },
-  "commonLearn": "Learn",
-  "@commonLearn": {
-    "x-translate": true
-  },
-  "commonJournal": "Journal",
-  "@commonJournal": {
-    "x-translate": true
-  },
-  "commonBackToToday": "Back to Today",
-  "@commonBackToToday": {
-    "x-translate": true
-  },
+  "reminderBody5": "بضع دقائق لنفسك مع بطاقتك اليومية.",
+  "reminderBody6": "وقفة تأمل مع بطاقة اليوم.",
+  "disclaimerShort": "للترفيه والتأمل الذاتي. ليست نصيحة مهنية.",
+  "disclaimerOnboardingTitle": "التاروت للتأمل",
+  "disclaimerOnboardingBody": "يستخدم Taro رموز التاروت لمساعدتك على التأمل. القراءات للترفيه وليست تنبؤات. وهي ليست نصيحة طبية أو قانونية أو مالية أو نفسية.",
+  "aiConsentTitle": "قراءاتك تستخدم الذكاء الاصطناعي",
+  "aiConsentBody": "لكتابة قراءتك، يرسل Taro سؤالك والتوزيع والبطاقات التي سحبتها ولغة التطبيق إلى خادمنا، الذي يطلب من نماذج GPT التابعة لشركة OpenAI كتابة التفسير. لا نرسل أبدًا اسمك أو بريدك الإلكتروني أو معرّف الإعلانات. لا يُخزَّن سؤالك على خادمنا. تُحفظ قراءتك مشفّرة فقط إلى أن يستلمها هاتفك (7 أيام كحدٍّ أقصى)، ثم تُحذف. إذا أبلغت عن قراءة، فإنها تُحفظ لمدة 90 يومًا. لا تستخدم OpenAI هذه البيانات لتدريب نماذجها. القراءات من إنشاء الذكاء الاصطناعي وقد تكون خاطئة أو غير متوقعة.",
+  "aiConsentAccept": "السماح بقراءات الذكاء الاصطناعي",
+  "aiConsentDecline": "ليس الآن",
+  "aiLabel": "من إنشاء الذكاء الاصطناعي",
+  "refusalGeneric": "لا يستطيع التاروت الإجابة عن الأسئلة المتعلقة بالصحة أو الحمل أو الموت أو القرارات القانونية أو المالية أو المقامرة. يمكنك أن تسأل عمّا يمكنك تعلّمه عن نفسك في هذا الموقف.",
+  "crisisTitle": "لست وحدك",
+  "crisisBody": "إذا كانت تراودك أفكار بإيذاء نفسك، يُرجى طلب المساعدة الآن. التحدث إلى أحدٍ ما قد يساعد.",
+  "reportReadingTitle": "الإبلاغ عن هذه القراءة",
+  "reportReadingDisclosure": "سيُرسَل سؤالك وهذه القراءة إلى Taro وسيُحفظان لمدة 90 يومًا.",
+  "commonRetry": "إعادة المحاولة",
+  "commonCancel": "إلغاء",
+  "commonClose": "إغلاق",
+  "commonBack": "رجوع",
+  "commonDone": "تم",
+  "commonContinue": "متابعة",
+  "commonNotNow": "ليس الآن",
+  "commonOpenSettings": "فتح الإعدادات",
+  "commonMore": "مزيد من الخيارات",
+  "commonDismiss": "تجاهل",
+  "commonDelete": "حذف",
+  "commonUndo": "تراجع",
+  "commonShare": "مشاركة",
+  "commonCopy": "نسخ",
+  "commonCopied": "تم النسخ",
+  "commonSaving": "جارٍ الحفظ…",
+  "commonSavedOnDevice": "محفوظ على هذا الجهاز",
+  "commonLoading": "جارٍ التحميل…",
+  "commonLearnMore": "معرفة المزيد",
+  "commonTerms": "الشروط",
+  "commonPrivacy": "الخصوصية",
+  "commonPrivacyPolicy": "سياسة الخصوصية",
+  "commonDailyCard": "بطاقة اليوم",
+  "commonLearn": "تعلّم",
+  "commonJournal": "المذكرات",
+  "commonBackToToday": "العودة إلى «اليوم»",
   "commonUpright": "معتدلة",
   "commonReversed": "معكوسة",
-  "commonFavourite": "Favourite",
-  "@commonFavourite": {
-    "x-translate": true
-  },
-  "commonUnfavourite": "Remove from favourites",
-  "@commonUnfavourite": {
-    "x-translate": true
-  },
-  "commonAddNote": "Add note",
-  "@commonAddNote": {
-    "x-translate": true
-  },
-  "commonYourNote": "Your note",
-  "@commonYourNote": {
-    "x-translate": true
-  },
-  "commonNoteHint": "Write what you notice…",
-  "@commonNoteHint": {
-    "x-translate": true
-  },
+  "commonFavourite": "إضافة إلى المفضلة",
+  "commonUnfavourite": "إزالة من المفضلة",
+  "commonAddNote": "إضافة ملاحظة",
+  "commonYourNote": "ملاحظتك",
+  "commonNoteHint": "دوِّن ما تلاحظه…",
   "commonNoteCounter": "{count} / {max}",
-  "@commonNoteCounter": {
-    "x-translate": true
-  },
-  "commonStepOf": "Step {step} of {total}",
-  "@commonStepOf": {
-    "x-translate": true
-  },
+  "commonStepOf": "الخطوة {step} من {total}",
   "commonItemSeparator": "{first} · {second}",
-  "@commonItemSeparator": {
-    "x-translate": true
-  },
-  "commonAdLabel": "Ad",
-  "@commonAdLabel": {
-    "x-translate": true
-  },
-  "commonAdSemantics": "Advertisement",
-  "@commonAdSemantics": {
-    "x-translate": true
-  },
-  "commonExternalLink": "Opens outside Taro",
-  "@commonExternalLink": {
-    "x-translate": true
-  },
-  "durationHoursMinutes": "{hours} h {minutes} min",
-  "@durationHoursMinutes": {
-    "x-translate": true
-  },
-  "durationMinutes": "{minutes, plural, one{1 min} other{{minutes} min}}",
-  "@durationMinutes": {
-    "x-translate": true
-  },
-  "durationLessThanMinute": "less than a minute",
-  "@durationLessThanMinute": {
-    "x-translate": true
-  },
-  "relativeToday": "Today",
-  "@relativeToday": {
-    "x-translate": true
-  },
-  "relativeYesterday": "Yesterday",
-  "@relativeYesterday": {
-    "x-translate": true
-  },
-  "errorNetworkTitle": "You’re offline",
-  "@errorNetworkTitle": {
-    "x-translate": true
-  },
-  "errorNetworkBody": "Check your connection and try again. Your journal, daily card and Learn still work.",
-  "@errorNetworkBody": {
-    "x-translate": true
-  },
-  "errorServerTitle": "Something went wrong on our side",
-  "@errorServerTitle": {
-    "x-translate": true
-  },
-  "errorServerBody": "Please try again in a moment.",
-  "@errorServerBody": {
-    "x-translate": true
-  },
-  "errorRateLimitedTitle": "Please wait a moment",
-  "@errorRateLimitedTitle": {
-    "x-translate": true
-  },
-  "errorRateLimitedBody": "Too many requests in a short time. Try again shortly.",
-  "@errorRateLimitedBody": {
-    "x-translate": true
-  },
-  "errorDeviceUnverifiedTitle": "Readings unavailable on this device",
-  "@errorDeviceUnverifiedTitle": {
-    "x-translate": true
-  },
-  "errorDeviceUnverifiedBody": "Taro couldn’t verify this device. Your journal, daily card and Learn still work.",
-  "@errorDeviceUnverifiedBody": {
-    "x-translate": true
-  },
-  "errorStorageTitle": "Taro can’t read its storage",
-  "@errorStorageTitle": {
-    "x-translate": true
-  },
-  "errorStorageBody": "Something on this device is blocking Taro’s storage. Try again, and contact support if it keeps happening.",
-  "@errorStorageBody": {
-    "x-translate": true
-  },
-  "errorInvalidFileTitle": "This file can’t be used",
-  "@errorInvalidFileTitle": {
-    "x-translate": true
-  },
-  "errorInvalidFileBody": "Choose another file and try again.",
-  "@errorInvalidFileBody": {
-    "x-translate": true
-  },
-  "errorUnknownTitle": "Something went wrong",
-  "@errorUnknownTitle": {
-    "x-translate": true
-  },
-  "errorUnknownBody": "Please try again.",
-  "@errorUnknownBody": {
-    "x-translate": true
-  },
-  "offlineBanner": "You’re offline. Your journal still works.",
-  "@offlineBanner": {
-    "x-translate": true
-  },
-  "offlineFirstLaunchNote": "Connect to start AI readings",
-  "@offlineFirstLaunchNote": {
-    "x-translate": true
-  },
-  "balanceReadings": "{count, plural, =0{0 readings} one{1 reading} other{{count} readings}}",
-  "@balanceReadings": {
-    "x-translate": true
-  },
-  "balanceFreeReadings": "{count, plural, one{1 free reading} other{{count} free readings}}",
-  "@balanceFreeReadings": {
-    "x-translate": true
-  },
-  "balanceFreeToday": "{count, plural, one{1 free today} other{{count} free today}}",
-  "@balanceFreeToday": {
-    "x-translate": true
-  },
-  "balanceFreeReadingsToday": "{count, plural, one{1 free reading today} other{{count} free readings today}}",
-  "@balanceFreeReadingsToday": {
-    "x-translate": true
-  },
-  "balanceFreeUsed": "Free reading used",
-  "@balanceFreeUsed": {
-    "x-translate": true
-  },
-  "balanceSyncing": "Updating your readings…",
-  "@balanceSyncing": {
-    "x-translate": true
-  },
-  "balanceStale": "Last known balance, you’re offline",
-  "@balanceStale": {
-    "x-translate": true
-  },
-  "balanceUnavailable": "Readings unavailable on this device",
-  "@balanceUnavailable": {
-    "x-translate": true
-  },
-  "balanceUnknown": "Readings",
-  "@balanceUnknown": {
-    "x-translate": true
-  },
-  "balanceOpensOptions": "Shows reading options",
-  "@balanceOpensOptions": {
-    "x-translate": true
-  },
-  "balanceNextFreeIn": "Next free reading in {duration}",
-  "@balanceNextFreeIn": {
-    "x-translate": true
-  },
-  "balanceNextFreeInAt": "Next free reading in {duration} (at {time})",
-  "@balanceNextFreeInAt": {
-    "x-translate": true
-  },
-  "balanceNextFreeTomorrow": "Your next free reading arrives at midnight",
-  "@balanceNextFreeTomorrow": {
-    "x-translate": true
-  },
-  "balanceUpdated": "Balance updated: {balance}",
-  "@balanceUpdated": {
-    "x-translate": true
-  },
+  "commonAdLabel": "إعلان",
+  "commonAdSemantics": "مساحة إعلانية",
+  "commonExternalLink": "يُفتح خارج Taro",
+  "durationHoursMinutes": "{hours} س {minutes} د",
+  "durationMinutes": "{minutes, plural, zero{{minutes} د} one{{minutes} د} two{{minutes} د} few{{minutes} د} many{{minutes} د} other{{minutes} د}}",
+  "durationLessThanMinute": "ثوانٍ معدودة",
+  "relativeToday": "اليوم",
+  "relativeYesterday": "أمس",
+  "errorNetworkTitle": "لا يوجد اتصال",
+  "errorNetworkBody": "يُرجى التحقق من الاتصال والمحاولة مرة أخرى. لا تزال المذكرات وبطاقة اليوم وقسم «تعلّم» تعمل.",
+  "errorServerTitle": "حدث خطأ من جهتنا",
+  "errorServerBody": "يُرجى المحاولة مرة أخرى بعد قليل.",
+  "errorRateLimitedTitle": "يُرجى الانتظار قليلًا",
+  "errorRateLimitedBody": "طلبات كثيرة في وقت قصير. يُرجى المحاولة بعد قليل.",
+  "errorDeviceUnverifiedTitle": "القراءات غير متاحة على هذا الجهاز",
+  "errorDeviceUnverifiedBody": "تعذّر على Taro التحقق من هذا الجهاز. لا تزال المذكرات وبطاقة اليوم وقسم «تعلّم» تعمل.",
+  "errorStorageTitle": "تعذّر على Taro قراءة مساحة التخزين",
+  "errorStorageBody": "هناك ما يمنع Taro من الوصول إلى مساحة التخزين على هذا الجهاز. يُرجى المحاولة مرة أخرى، والتواصل مع الدعم إذا تكرر ذلك.",
+  "errorInvalidFileTitle": "لا يمكن استخدام هذا الملف",
+  "errorInvalidFileBody": "يُرجى اختيار ملف آخر والمحاولة مرة أخرى.",
+  "errorUnknownTitle": "حدث خطأ ما",
+  "errorUnknownBody": "يُرجى المحاولة مرة أخرى.",
+  "offlineBanner": "لا يوجد اتصال. لا تزال المذكرات تعمل.",
+  "offlineFirstLaunchNote": "يلزم الاتصال لبدء قراءات الذكاء الاصطناعي",
+  "balanceReadings": "{count, plural, =0{لا قراءات} one{قراءة واحدة} two{قراءتان} few{{count} قراءات} many{{count} قراءة} other{{count} قراءة}}",
+  "balanceFreeReadings": "{count, plural, zero{لا قراءات مجانية} one{قراءة مجانية واحدة} two{قراءتان مجانيتان} few{{count} قراءات مجانية} many{{count} قراءة مجانية} other{{count} قراءة مجانية}}",
+  "balanceFreeToday": "{count, plural, zero{لا شيء مجاني اليوم} one{واحدة مجانية اليوم} two{اثنتان مجانيتان اليوم} few{{count} مجانية اليوم} many{{count} مجانية اليوم} other{{count} مجانية اليوم}}",
+  "balanceFreeReadingsToday": "{count, plural, zero{لا قراءات مجانية اليوم} one{قراءة مجانية واحدة اليوم} two{قراءتان مجانيتان اليوم} few{{count} قراءات مجانية اليوم} many{{count} قراءة مجانية اليوم} other{{count} قراءة مجانية اليوم}}",
+  "balanceFreeUsed": "استُخدمت القراءة المجانية",
+  "balanceSyncing": "جارٍ تحديث قراءاتك…",
+  "balanceStale": "آخر رصيد معروف، لا يوجد اتصال",
+  "balanceUnavailable": "القراءات غير متاحة على هذا الجهاز",
+  "balanceUnknown": "القراءات",
+  "balanceOpensOptions": "يعرض خيارات القراءة",
+  "balanceNextFreeIn": "القراءة المجانية التالية بعد {duration}",
+  "balanceNextFreeInAt": "القراءة المجانية التالية بعد {duration} (عند {time})",
+  "balanceNextFreeTomorrow": "تصل قراءتك المجانية التالية عند منتصف الليل",
+  "balanceUpdated": "تم تحديث الرصيد: {balance}",
   "launchSemantics": "Taro",
-  "@launchSemantics": {
-    "x-translate": true
-  },
-  "welcomeTitle": "A quiet place to reflect with tarot",
-  "@welcomeTitle": {
-    "x-translate": true
-  },
-  "welcomeLead": "Draw a spread, read a thoughtful interpretation, and keep what you notice in a private journal.",
-  "@welcomeLead": {
-    "x-translate": true
-  },
-  "welcomeFeatureFreeReading": "One free AI reading every day",
-  "@welcomeFeatureFreeReading": {
-    "x-translate": true
-  },
-  "welcomeFeatureDailyCard": "A free daily card, even offline",
-  "@welcomeFeatureDailyCard": {
-    "x-translate": true
-  },
-  "welcomeFeatureJournal": "Your journal stays on this phone",
-  "@welcomeFeatureJournal": {
-    "x-translate": true
-  },
-  "welcomeGetStarted": "Get started",
-  "@welcomeGetStarted": {
-    "x-translate": true
-  },
-  "disclaimerNoticeAi": "Readings are written by AI and may be wrong or unexpected.",
-  "@disclaimerNoticeAi": {
-    "x-translate": true
-  },
-  "disclaimerNoticeYouDecide": "You decide what a card means for you; Taro never tells you what to do.",
-  "@disclaimerNoticeYouDecide": {
-    "x-translate": true
-  },
-  "disclaimerNoticeSupport": "If you’re going through something hard, support lines are listed under Help.",
-  "@disclaimerNoticeSupport": {
-    "x-translate": true
-  },
-  "disclaimerAcknowledge": "I understand",
-  "@disclaimerAcknowledge": {
-    "x-translate": true
-  },
-  "disclaimerReadFull": "Read the full disclaimer",
-  "@disclaimerReadFull": {
-    "x-translate": true
-  },
-  "aiConsentFootnote": "Without AI you still get the daily card, classic readings, Learn and the journal. Change this any time in Settings.",
-  "@aiConsentFootnote": {
-    "x-translate": true
-  },
-  "aiConsentReentryTitle": "AI readings need your permission",
-  "@aiConsentReentryTitle": {
-    "x-translate": true
-  },
-  "aiConsentReentryAllow": "Allow",
-  "@aiConsentReentryAllow": {
-    "x-translate": true
-  },
-  "aiConsentReentryBack": "Back",
-  "@aiConsentReentryBack": {
-    "x-translate": true
-  },
-  "aiConsentReentryFootnote": "Choose Back to draw a classic reading with the card meanings instead. You can allow AI readings any time in Settings.",
-  "@aiConsentReentryFootnote": {
-    "x-translate": true
-  },
-  "attPrepromptTitle": "About ad tracking",
-  "@attPrepromptTitle": {
-    "x-translate": true
-  },
-  "attPrepromptBody": "Taro is free and shows some ads. Next, iOS will ask whether Taro may use your device’s advertising identifier to tailor those ads. Either answer is fine.",
-  "@attPrepromptBody": {
-    "x-translate": true
-  },
-  "attPrepromptAllowTitle": "If you allow",
-  "@attPrepromptAllowTitle": {
-    "x-translate": true
-  },
-  "attPrepromptAllowBody": "Ads may be more relevant to you. You’ll see the same number of ads.",
-  "@attPrepromptAllowBody": {
-    "x-translate": true
-  },
-  "attPrepromptDenyTitle": "If you don’t",
-  "@attPrepromptDenyTitle": {
-    "x-translate": true
-  },
-  "attPrepromptDenyBody": "Ads are less tailored. The app works the same way.",
-  "@attPrepromptDenyBody": {
-    "x-translate": true
-  },
-  "attPrepromptEitherTitle": "Either way",
-  "@attPrepromptEitherTitle": {
-    "x-translate": true
-  },
-  "attPrepromptEitherBody": "Your readings, journal and credits aren’t affected, and your questions are never used for ads.",
-  "@attPrepromptEitherBody": {
-    "x-translate": true
-  },
-  "attPrepromptContinue": "Continue",
-  "@attPrepromptContinue": {
-    "x-translate": true
-  },
-  "attPrepromptFootnote": "You can change this any time in iOS Settings, under Privacy & Security, Tracking.",
-  "@attPrepromptFootnote": {
-    "x-translate": true
-  },
-  "nsUserTrackingUsageDescription": "Allow tracking to see more relevant ads. You’ll still get the same app either way.",
-  "@nsUserTrackingUsageDescription": {
-    "x-translate": true
-  },
-  "homeGreetingMorning": "Good morning",
-  "@homeGreetingMorning": {
-    "x-translate": true
-  },
-  "homeGreetingAfternoon": "Good afternoon",
-  "@homeGreetingAfternoon": {
-    "x-translate": true
-  },
-  "homeGreetingEvening": "Good evening",
-  "@homeGreetingEvening": {
-    "x-translate": true
-  },
-  "homeDailyOverline": "YOUR DAILY CARD",
-  "@homeDailyOverline": {
-    "x-translate": true
-  },
-  "homeDailyTitleNotDrawn": "One card to sit with today",
-  "@homeDailyTitleNotDrawn": {
-    "x-translate": true
-  },
-  "homeDailyCaption": "Free, works offline, no AI.",
-  "@homeDailyCaption": {
-    "x-translate": true
-  },
-  "homeDailyReveal": "Reveal card",
-  "@homeDailyReveal": {
-    "x-translate": true
-  },
-  "homeDailyOpen": "Open",
-  "@homeDailyOpen": {
-    "x-translate": true
-  },
-  "homeDailySemanticsNotDrawn": "Your daily card, not revealed yet",
-  "@homeDailySemanticsNotDrawn": {
-    "x-translate": true
-  },
-  "homeDailySemanticsDrawn": "Your daily card: {card}",
-  "@homeDailySemanticsDrawn": {
-    "x-translate": true
-  },
-  "homeReadingTitle": "Ask the cards a question",
-  "@homeReadingTitle": {
-    "x-translate": true
-  },
-  "homeReadingBody": "Choose a spread, write a question if you like, and get a thoughtful AI interpretation.",
-  "@homeReadingBody": {
-    "x-translate": true
-  },
-  "homeStartReading": "Start a reading",
-  "@homeStartReading": {
-    "x-translate": true
-  },
-  "homeRecent": "Recent",
-  "@homeRecent": {
-    "x-translate": true
-  },
-  "homeCoachmark": "Start here: choose a spread and ask a question.",
-  "@homeCoachmark": {
-    "x-translate": true
-  },
-  "homeUpdateAvailable": "A new version of Taro is available",
-  "@homeUpdateAvailable": {
-    "x-translate": true
-  },
-  "homeUpdateAction": "Update",
-  "@homeUpdateAction": {
-    "x-translate": true
-  },
-  "spreadsTitle": "Choose a spread",
-  "@spreadsTitle": {
-    "x-translate": true
-  },
-  "spreadsSubtitle": "Every spread uses one reading, whatever its size.",
-  "@spreadsSubtitle": {
-    "x-translate": true
-  },
-  "spreadsHowTheyWork": "How spreads work",
-  "@spreadsHowTheyWork": {
-    "x-translate": true
-  },
-  "spreadCardCount": "{count, plural, one{1 card} other{{count} cards}}",
-  "@spreadCardCount": {
-    "x-translate": true
-  },
+  "welcomeTitle": "مساحة هادئة للتأمل مع التاروت",
+  "welcomeLead": "سحب توزيع، وقراءة تفسير متأنٍّ، وتدوين ما تلاحظه في مذكرات خاصة.",
+  "welcomeFeatureFreeReading": "قراءة مجانية بالذكاء الاصطناعي كل يوم",
+  "welcomeFeatureDailyCard": "بطاقة يومية مجانية، حتى دون اتصال",
+  "welcomeFeatureJournal": "مذكراتك تبقى على هذا الهاتف",
+  "welcomeGetStarted": "البدء",
+  "disclaimerNoticeAi": "القراءات يكتبها الذكاء الاصطناعي وقد تكون خاطئة أو غير متوقعة.",
+  "disclaimerNoticeYouDecide": "القرار لك في ما تعنيه البطاقة بالنسبة إليك؛ فـTaro لا يملي عليك ما تفعله أبدًا.",
+  "disclaimerNoticeSupport": "إذا كنت تمر بوقت عصيب، فستجد خطوط الدعم في قسم «المساعدة».",
+  "disclaimerAcknowledge": "فهمت",
+  "disclaimerReadFull": "قراءة إخلاء المسؤولية كاملًا",
+  "aiConsentFootnote": "دون الذكاء الاصطناعي، تبقى لك بطاقة اليوم والقراءات الكلاسيكية وقسم «تعلّم» والمذكرات. يمكنك تغيير ذلك في أي وقت من الإعدادات.",
+  "aiConsentReentryTitle": "قراءات الذكاء الاصطناعي تحتاج إلى إذنك",
+  "aiConsentReentryAllow": "السماح",
+  "aiConsentReentryBack": "رجوع",
+  "aiConsentReentryFootnote": "اختيار «رجوع» يتيح لك إجراء قراءة كلاسيكية بمعاني البطاقات بدلًا من ذلك. يمكنك السماح بقراءات الذكاء الاصطناعي في أي وقت من الإعدادات.",
+  "attPrepromptTitle": "عن تتبّع الإعلانات",
+  "attPrepromptBody": "يتوفر Taro مجانًا ويعرض بعض الإعلانات. بعد ذلك، سيسألك iOS ما إذا كان يُسمح لـTaro باستخدام معرّف الإعلانات الخاص بجهازك لتخصيص تلك الإعلانات. أي إجابة مقبولة.",
+  "attPrepromptAllowTitle": "إذا سمحت",
+  "attPrepromptAllowBody": "قد تكون الإعلانات أقرب إلى اهتماماتك. سيبقى عدد الإعلانات كما هو.",
+  "attPrepromptDenyTitle": "إذا لم تسمح",
+  "attPrepromptDenyBody": "تكون الإعلانات أقل تخصيصًا. ويعمل التطبيق بالطريقة نفسها.",
+  "attPrepromptEitherTitle": "في الحالتين",
+  "attPrepromptEitherBody": "لا تتأثر قراءاتك ومذكراتك ورصيدك، ولا تُستخدم أسئلتك للإعلانات أبدًا.",
+  "attPrepromptContinue": "متابعة",
+  "attPrepromptFootnote": "يمكنك تغيير ذلك في أي وقت من إعدادات iOS، ضمن «الخصوصية والأمن» ثم «التتبع».",
+  "nsUserTrackingUsageDescription": "السماح بالتتبع يتيح لك رؤية إعلانات أقرب إلى اهتماماتك. يبقى التطبيق نفسه في الحالتين.",
+  "homeGreetingMorning": "صباح الخير",
+  "homeGreetingAfternoon": "نهارك سعيد",
+  "homeGreetingEvening": "مساء الخير",
+  "homeDailyOverline": "بطاقتك اليومية",
+  "homeDailyTitleNotDrawn": "بطاقة واحدة تصحبك اليوم",
+  "homeDailyCaption": "مجانية، تعمل دون اتصال، دون ذكاء اصطناعي.",
+  "homeDailyReveal": "كشف البطاقة",
+  "homeDailyOpen": "فتح",
+  "homeDailySemanticsNotDrawn": "بطاقتك اليومية، لم تُكشف بعد",
+  "homeDailySemanticsDrawn": "بطاقتك اليومية: {card}",
+  "homeReadingTitle": "طرح سؤال على البطاقات",
+  "homeReadingBody": "اختيار توزيع، وكتابة سؤال إن شئت، ثم تفسير متأنٍّ بالذكاء الاصطناعي.",
+  "homeStartReading": "بدء قراءة",
+  "homeRecent": "الأحدث",
+  "homeCoachmark": "البداية من هنا: اختيار توزيع وطرح سؤال.",
+  "homeUpdateAvailable": "يتوفر إصدار جديد من Taro",
+  "homeUpdateAction": "تحديث",
+  "spreadsTitle": "اختيار التوزيع",
+  "spreadsSubtitle": "كل توزيع يستخدم قراءة واحدة، مهما كان حجمه.",
+  "spreadsHowTheyWork": "كيف تعمل التوزيعات",
+  "spreadCardCount": "{count, plural, zero{لا بطاقات} one{بطاقة واحدة} two{بطاقتان} few{{count} بطاقات} many{{count} بطاقة} other{{count} بطاقة}}",
   "spreadRowSemantics": "{name}. {cards}. {meta}",
-  "@spreadRowSemantics": {
-    "x-translate": true
-  },
-  "spreadUsesOneReading": "uses one reading",
-  "@spreadUsesOneReading": {
-    "x-translate": true
-  },
-  "spread_single_name": "Single card",
-  "@spread_single_name": {
-    "x-translate": true
-  },
-  "spread_single_meta": "one clear prompt",
-  "@spread_single_meta": {
-    "x-translate": true
-  },
-  "spread_single_whenToUse": "Use a single card when you want one clear prompt to carry through the day, or when a question is simple and you would like a starting point for reflection. It also works well when time is short or when you are new to the cards.",
-  "@spread_single_whenToUse": {
-    "x-translate": true
-  },
-  "spread_three_ppf_name": "Past, Present, Future",
-  "@spread_three_ppf_name": {
-    "x-translate": true
-  },
-  "spread_three_ppf_meta": "how a situation is moving",
-  "@spread_three_ppf_meta": {
-    "x-translate": true
-  },
-  "spread_three_ppf_whenToUse": "Use Past, Present, Future to see how a situation has been developing over time: the patterns that brought you here, what is active now, and where things may be heading if nothing changes.",
-  "@spread_three_ppf_whenToUse": {
-    "x-translate": true
-  },
-  "spread_three_sao_name": "Situation, Action, Outcome",
-  "@spread_three_sao_name": {
-    "x-translate": true
-  },
-  "spread_three_sao_meta": "what you could do next",
-  "@spread_three_sao_meta": {
-    "x-translate": true
-  },
-  "spread_three_sao_whenToUse": "Use Situation, Action, Outcome when you face something practical and want to think about a next step: the situation as it stands, an approach worth considering, and where it may lead.",
-  "@spread_three_sao_whenToUse": {
-    "x-translate": true
-  },
-  "spread_relationship_name": "Relationship",
-  "@spread_relationship_name": {
-    "x-translate": true
-  },
-  "spread_relationship_meta": "a close bond, from both sides",
-  "@spread_relationship_meta": {
-    "x-translate": true
-  },
-  "spread_relationship_whenToUse": "Use the Relationship spread to reflect on a close bond: what you bring, how the other person may be experiencing it, what connects you, what strains it and what it could grow into. It describes your view, not the other person’s thoughts.",
-  "@spread_relationship_whenToUse": {
-    "x-translate": true
-  },
-  "spread_two_paths_name": "Two Paths",
-  "@spread_two_paths_name": {
-    "x-translate": true
-  },
-  "spread_two_paths_meta": "weighing a choice",
-  "@spread_two_paths_meta": {
-    "x-translate": true
-  },
-  "spread_two_paths_whenToUse": "Use Two Paths when you are weighing a choice between two options. Name them for yourself before you draw. The spread looks at each path and where it may lead, so you can compare them against your own values. The decision stays yours.",
-  "@spread_two_paths_whenToUse": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_name": "Celtic Cross",
-  "@spread_celtic_cross_name": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_meta": "a full picture",
-  "@spread_celtic_cross_meta": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_whenToUse": "Use the Celtic Cross for a complex situation you want to explore in depth: the heart of the matter, what crosses it, its roots, you, your surroundings, your hopes and fears, and where things may be heading if nothing changes.",
-  "@spread_celtic_cross_whenToUse": {
-    "x-translate": true
-  },
+  "spreadUsesOneReading": "يستخدم قراءة واحدة",
+  "spread_single_name": "بطاقة واحدة",
+  "spread_single_meta": "سؤال واحد واضح للتأمل",
+  "spread_single_whenToUse": "يناسب توزيع البطاقة الواحدة الأوقات التي تريد فيها فكرة واحدة واضحة ترافقك طوال اليوم، أو حين يكون السؤال بسيطًا وتبحث عن نقطة انطلاق للتأمل. ويفيد أيضًا حين يضيق الوقت أو حين تكون في بداية تعرّفك إلى البطاقات.",
+  "spread_three_ppf_name": "الماضي والحاضر والمستقبل",
+  "spread_three_ppf_meta": "كيف يتطور الموقف",
+  "spread_three_ppf_whenToUse": "يساعد توزيع الماضي والحاضر والمستقبل على رؤية كيف تطوّر موقفٍ ما مع الوقت: الأنماط التي أوصلتك إلى هنا، وما هو فاعل الآن، وإلى أين قد تتجه الأمور إن لم يتغير شيء.",
+  "spread_three_sao_name": "الوضع والفعل والنتيجة",
+  "spread_three_sao_meta": "ما يمكنك فعله بعد ذلك",
+  "spread_three_sao_whenToUse": "يناسب توزيع الوضع والفعل والنتيجة المواقف العملية حين تريد التفكير في خطوتك التالية: الوضع كما هو، ونهج يستحق التفكير فيه، وإلى أين قد يقود.",
+  "spread_relationship_name": "العلاقة",
+  "spread_relationship_meta": "رابط وثيق من الجانبين",
+  "spread_relationship_whenToUse": "يساعد توزيع العلاقة على التأمل في رابط وثيق: ما تقدّمه أنت، وكيف قد يعيشه الطرف الآخر، وما يجمعكما، وما يُثقل عليه، وما يمكن أن ينمو إليه. وهو يصف نظرتك أنت، لا أفكار الطرف الآخر.",
+  "spread_two_paths_name": "طريقان",
+  "spread_two_paths_meta": "الموازنة بين خيارين",
+  "spread_two_paths_whenToUse": "يناسب توزيع الطريقين الأوقات التي توازن فيها بين خيارين. من المفيد تسمية الخيارين لنفسك قبل السحب. يتناول التوزيع كل طريق وإلى أين قد يقود، لتتمكن من مقارنتهما بقيمك الخاصة. ويبقى القرار لك.",
+  "spread_celtic_cross_name": "الصليب السلتي",
+  "spread_celtic_cross_meta": "صورة متكاملة",
+  "spread_celtic_cross_whenToUse": "يناسب الصليب السلتي المواقف المعقدة التي تريد استكشافها بعمق: جوهر المسألة، وما يعترضها، وجذورها، وأنت، ومحيطك، وآمالك ومخاوفك، وإلى أين قد تتجه الأمور إن لم يتغير شيء.",
   "spread_single_pos_focus_name": "محور التركيز",
-  "spread_single_pos_focus_desc": "The theme this card invites you to reflect on today.",
-  "@spread_single_pos_focus_desc": {
-    "x-translate": true
-  },
+  "spread_single_pos_focus_desc": "الفكرة التي تدعوك هذه البطاقة إلى التأمل فيها اليوم.",
   "spread_three_ppf_pos_past_name": "الماضي",
-  "spread_three_ppf_pos_past_desc": "What from before may still shape the situation.",
-  "@spread_three_ppf_pos_past_desc": {
-    "x-translate": true
-  },
+  "spread_three_ppf_pos_past_desc": "ما قد يظل من الماضي مؤثرًا في الموقف.",
   "spread_three_ppf_pos_present_name": "الحاضر",
-  "spread_three_ppf_pos_present_desc": "What is active in the situation right now.",
-  "@spread_three_ppf_pos_present_desc": {
-    "x-translate": true
-  },
+  "spread_three_ppf_pos_present_desc": "ما هو فاعل في الموقف الآن.",
   "spread_three_ppf_pos_future_name": "المستقبل",
-  "spread_three_ppf_pos_future_desc": "Where things may be heading if nothing changes.",
-  "@spread_three_ppf_pos_future_desc": {
-    "x-translate": true
-  },
+  "spread_three_ppf_pos_future_desc": "إلى أين قد تتجه الأمور إن لم يتغير شيء.",
   "spread_three_sao_pos_situation_name": "الوضع",
-  "spread_three_sao_pos_situation_desc": "The situation as it stands.",
-  "@spread_three_sao_pos_situation_desc": {
-    "x-translate": true
-  },
+  "spread_three_sao_pos_situation_desc": "الوضع كما هو الآن.",
   "spread_three_sao_pos_action_name": "الفعل",
-  "spread_three_sao_pos_action_desc": "An approach worth considering, not an instruction.",
-  "@spread_three_sao_pos_action_desc": {
-    "x-translate": true
-  },
+  "spread_three_sao_pos_action_desc": "نهج يستحق التفكير فيه، لا تعليمات.",
   "spread_three_sao_pos_outcome_name": "النتيجة",
-  "spread_three_sao_pos_outcome_desc": "Where things may be heading if you follow that approach and nothing else changes.",
-  "@spread_three_sao_pos_outcome_desc": {
-    "x-translate": true
-  },
+  "spread_three_sao_pos_outcome_desc": "إلى أين قد تتجه الأمور إذا اتبعت هذا النهج ولم يتغير شيء آخر.",
   "spread_relationship_pos_you_name": "أنت",
-  "spread_relationship_pos_you_desc": "What you bring to the relationship right now.",
-  "@spread_relationship_pos_you_desc": {
-    "x-translate": true
-  },
+  "spread_relationship_pos_you_desc": "ما تقدّمه في العلاقة الآن.",
   "spread_relationship_pos_other_name": "الطرف الآخر",
-  "spread_relationship_pos_other_desc": "How the other person may be experiencing it, as a perspective to consider.",
-  "@spread_relationship_pos_other_desc": {
-    "x-translate": true
-  },
+  "spread_relationship_pos_other_desc": "كيف قد يعيش الطرف الآخر العلاقة، كوجهة نظر تستحق التفكير.",
   "spread_relationship_pos_connection_name": "الرابط",
-  "spread_relationship_pos_connection_desc": "What the two of you share.",
-  "@spread_relationship_pos_connection_desc": {
-    "x-translate": true
-  },
+  "spread_relationship_pos_connection_desc": "ما تتشاركانه معًا.",
   "spread_relationship_pos_challenge_name": "التحدي",
-  "spread_relationship_pos_challenge_desc": "A tension or pattern that strains the bond.",
-  "@spread_relationship_pos_challenge_desc": {
-    "x-translate": true
-  },
+  "spread_relationship_pos_challenge_desc": "توتر أو نمط يُثقل على الرابط.",
   "spread_relationship_pos_potential_name": "الإمكانات",
-  "spread_relationship_pos_potential_desc": "What the relationship could grow into; where it may be heading if nothing changes.",
-  "@spread_relationship_pos_potential_desc": {
-    "x-translate": true
-  },
+  "spread_relationship_pos_potential_desc": "ما يمكن أن تنمو إليه العلاقة؛ إلى أين قد تتجه إن لم يتغير شيء.",
   "spread_two_paths_pos_situation_name": "الوضع",
-  "spread_two_paths_pos_situation_desc": "The situation behind the choice.",
-  "@spread_two_paths_pos_situation_desc": {
-    "x-translate": true
-  },
+  "spread_two_paths_pos_situation_desc": "الموقف الكامن وراء الاختيار.",
   "spread_two_paths_pos_path_a_name": "المسار أ",
-  "spread_two_paths_pos_path_a_desc": "What choosing the first option might involve.",
-  "@spread_two_paths_pos_path_a_desc": {
-    "x-translate": true
-  },
+  "spread_two_paths_pos_path_a_desc": "ما قد ينطوي عليه اختيار الخيار الأول.",
   "spread_two_paths_pos_path_a_outcome_name": "نتيجة المسار أ",
-  "spread_two_paths_pos_path_a_outcome_desc": "Where the first option may be heading if nothing else changes.",
-  "@spread_two_paths_pos_path_a_outcome_desc": {
-    "x-translate": true
-  },
+  "spread_two_paths_pos_path_a_outcome_desc": "إلى أين قد يتجه الخيار الأول إن لم يتغير شيء آخر.",
   "spread_two_paths_pos_path_b_name": "المسار ب",
-  "spread_two_paths_pos_path_b_desc": "What choosing the second option might involve.",
-  "@spread_two_paths_pos_path_b_desc": {
-    "x-translate": true
-  },
+  "spread_two_paths_pos_path_b_desc": "ما قد ينطوي عليه اختيار الخيار الثاني.",
   "spread_two_paths_pos_path_b_outcome_name": "نتيجة المسار ب",
-  "spread_two_paths_pos_path_b_outcome_desc": "Where the second option may be heading if nothing else changes.",
-  "@spread_two_paths_pos_path_b_outcome_desc": {
-    "x-translate": true
-  },
+  "spread_two_paths_pos_path_b_outcome_desc": "إلى أين قد يتجه الخيار الثاني إن لم يتغير شيء آخر.",
   "spread_celtic_cross_pos_present_name": "الحاضر",
-  "spread_celtic_cross_pos_present_desc": "The heart of the matter right now.",
-  "@spread_celtic_cross_pos_present_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_present_desc": "جوهر المسألة الآن.",
   "spread_celtic_cross_pos_challenge_name": "التحدي",
-  "spread_celtic_cross_pos_challenge_desc": "What crosses the situation.",
-  "@spread_celtic_cross_pos_challenge_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_challenge_desc": "ما يعترض الموقف.",
   "spread_celtic_cross_pos_foundation_name": "الأساس",
-  "spread_celtic_cross_pos_foundation_desc": "The roots the situation rests on.",
-  "@spread_celtic_cross_pos_foundation_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_foundation_desc": "الجذور التي يقوم عليها الموقف.",
   "spread_celtic_cross_pos_recent_past_name": "الماضي القريب",
-  "spread_celtic_cross_pos_recent_past_desc": "What is fading but still colours the situation.",
-  "@spread_celtic_cross_pos_recent_past_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_recent_past_desc": "ما يتلاشى لكنه لا يزال يلوّن الموقف.",
   "spread_celtic_cross_pos_potential_name": "الإمكانات",
-  "spread_celtic_cross_pos_potential_desc": "What you are reaching for.",
-  "@spread_celtic_cross_pos_potential_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_potential_desc": "ما تسعى إليه.",
   "spread_celtic_cross_pos_near_future_name": "المستقبل القريب",
-  "spread_celtic_cross_pos_near_future_desc": "What may come next if things continue as they are.",
-  "@spread_celtic_cross_pos_near_future_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_near_future_desc": "ما قد يأتي لاحقًا إذا استمرت الأمور على حالها.",
   "spread_celtic_cross_pos_self_name": "الذات",
-  "spread_celtic_cross_pos_self_desc": "Your own stance and the part you play.",
-  "@spread_celtic_cross_pos_self_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_self_desc": "موقفك الخاص والدور الذي تؤديه.",
   "spread_celtic_cross_pos_environment_name": "المحيط",
-  "spread_celtic_cross_pos_environment_desc": "The people and circumstances around you.",
-  "@spread_celtic_cross_pos_environment_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_environment_desc": "الأشخاص والظروف من حولك.",
   "spread_celtic_cross_pos_hopes_fears_name": "الآمال والمخاوف",
-  "spread_celtic_cross_pos_hopes_fears_desc": "What you hope for, fear, or both at once.",
-  "@spread_celtic_cross_pos_hopes_fears_desc": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_hopes_fears_desc": "ما تأمله، أو تخشاه، أو كلاهما معًا.",
   "spread_celtic_cross_pos_outcome_name": "النتيجة",
-  "spread_celtic_cross_pos_outcome_desc": "Where things may be heading if nothing changes; never fate.",
-  "@spread_celtic_cross_pos_outcome_desc": {
-    "x-translate": true
-  },
-  "spread_single_suggestion_1": "What would be helpful to focus on today?",
-  "@spread_single_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_single_suggestion_2": "What is asking for my attention right now?",
-  "@spread_single_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_single_suggestion_3": "What quality could support me in this situation?",
-  "@spread_single_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_three_ppf_suggestion_1": "How has my past shaped where I am now?",
-  "@spread_three_ppf_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_three_ppf_suggestion_2": "What do I need to understand about this situation?",
-  "@spread_three_ppf_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_three_ppf_suggestion_3": "Where might this path be heading, and what can I do about it?",
-  "@spread_three_ppf_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_three_sao_suggestion_1": "What could help me move forward with this?",
-  "@spread_three_sao_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_three_sao_suggestion_2": "What step is within my reach right now?",
-  "@spread_three_sao_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_three_sao_suggestion_3": "How could I approach this decision with more clarity?",
-  "@spread_three_sao_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_relationship_suggestion_1": "What can I learn from this relationship?",
-  "@spread_relationship_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_relationship_suggestion_2": "How can I show up more openly in this connection?",
-  "@spread_relationship_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_relationship_suggestion_3": "What does this relationship need from both of us?",
-  "@spread_relationship_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_relationship_suggestion_4": "What pattern keeps repeating between us?",
-  "@spread_relationship_suggestion_4": {
-    "x-translate": true
-  },
-  "spread_two_paths_suggestion_1": "What should I consider when choosing between these options?",
-  "@spread_two_paths_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_two_paths_suggestion_2": "What might each path ask of me?",
-  "@spread_two_paths_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_two_paths_suggestion_3": "Which choice fits my values more closely?",
-  "@spread_two_paths_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_suggestion_1": "What do I need to understand about this situation?",
-  "@spread_celtic_cross_suggestion_1": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_suggestion_2": "What is really at the heart of this question?",
-  "@spread_celtic_cross_suggestion_2": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_suggestion_3": "What is holding me back, and what could help me grow?",
-  "@spread_celtic_cross_suggestion_3": {
-    "x-translate": true
-  },
-  "spread_celtic_cross_suggestion_4": "What can I learn from this period of my life?",
-  "@spread_celtic_cross_suggestion_4": {
-    "x-translate": true
-  },
-  "questionTitle": "What would you like to reflect on?",
-  "@questionTitle": {
-    "x-translate": true
-  },
-  "questionLabel": "Your question (optional)",
-  "@questionLabel": {
-    "x-translate": true
-  },
-  "questionHint": "Open questions work well. Taro can’t answer health, legal, money or pregnancy questions.",
-  "@questionHint": {
-    "x-translate": true
-  },
-  "questionIdeas": "Ideas",
-  "@questionIdeas": {
-    "x-translate": true
-  },
-  "questionSuggestionSemantics": "Suggestion: {text}. Fills the question",
-  "@questionSuggestionSemantics": {
-    "x-translate": true
-  },
-  "questionPersonalDetails": "Avoid sharing personal details like emails or phone numbers.",
-  "@questionPersonalDetails": {
-    "x-translate": true
-  },
-  "questionOnlySymbols": "Please use words, or leave the question empty.",
-  "@questionOnlySymbols": {
-    "x-translate": true
-  },
-  "questionBegin": "Begin",
-  "@questionBegin": {
-    "x-translate": true
-  },
-  "questionChargeFree": "Uses your free reading. Your question is sent to an AI service to write the reading and isn’t stored.",
-  "@questionChargeFree": {
-    "x-translate": true
-  },
-  "questionChargeCredits": "{count, plural, one{Uses your last reading. Your question is sent to an AI service to write the reading and isn’t stored.} other{Uses 1 of your {count} readings. Your question is sent to an AI service to write the reading and isn’t stored.}}",
-  "@questionChargeCredits": {
-    "x-translate": true
-  },
-  "questionOfflineNotice": "You’re offline. Connect to start an AI reading.",
-  "@questionOfflineNotice": {
-    "x-translate": true
-  },
-  "questionDeviceUnverified": "Readings unavailable on this device",
-  "@questionDeviceUnverified": {
-    "x-translate": true
-  },
-  "questionDailyLimitTitle": "You’ve reached today’s reading limit",
-  "@questionDailyLimitTitle": {
-    "x-translate": true
-  },
-  "questionDailyLimitBody": "You can start new readings tomorrow. The daily card, Learn and a classic reading are still here for you.",
-  "@questionDailyLimitBody": {
-    "x-translate": true
-  },
-  "questionRateLimited": "Please wait a moment and try again.",
-  "@questionRateLimited": {
-    "x-translate": true
-  },
-  "questionRephraseTitle": "Try asking it another way",
-  "@questionRephraseTitle": {
-    "x-translate": true
-  },
-  "questionRephraseExamples": "For example:",
-  "@questionRephraseExamples": {
-    "x-translate": true
-  },
-  "questionRephraseExample1": "What can I learn from this situation?",
-  "@questionRephraseExample1": {
-    "x-translate": true
-  },
-  "questionRephraseExample2": "What would help me feel more steady right now?",
-  "@questionRephraseExample2": {
-    "x-translate": true
-  },
-  "questionReflectWithoutQuestion": "Reflect on the cards without a question",
-  "@questionReflectWithoutQuestion": {
-    "x-translate": true
-  },
-  "questionRefusedTitle": "Taro can’t help with this kind of question",
-  "@questionRefusedTitle": {
-    "x-translate": true
-  },
-  "questionRefusedProfessional": "A qualified professional can help with this.",
-  "@questionRefusedProfessional": {
-    "x-translate": true
-  },
-  "questionSpreadDisabled": "This spread isn’t available right now. Please choose another one.",
-  "@questionSpreadDisabled": {
-    "x-translate": true
-  },
-  "questionTryClassic": "Try a classic reading",
-  "@questionTryClassic": {
-    "x-translate": true
-  },
-  "questionRefusedHeadline": "Let’s look at this another way",
-  "@questionRefusedHeadline": {
-    "x-translate": true
-  },
-  "questionNoReadingUsed": "No reading was used",
-  "@questionNoReadingUsed": {
-    "x-translate": true
-  },
-  "questionRephraseTry": "Try asking about how you feel, or what you can do",
-  "@questionRephraseTry": {
-    "x-translate": true
-  },
-  "questionClassicCaption": "Uses the card meanings for each position. Free, no AI, works offline.",
-  "@questionClassicCaption": {
-    "x-translate": true
-  },
-  "questionConsentDeclinedNotice": "AI readings are off. You can still do a classic reading.",
-  "@questionConsentDeclinedNotice": {
-    "x-translate": true
-  },
-  "pausedTitle": "Readings are resting for a moment",
-  "@pausedTitle": {
-    "x-translate": true
-  },
-  "pausedFreeTitle": "Free readings are resting until tomorrow",
-  "@pausedFreeTitle": {
-    "x-translate": true
-  },
-  "pausedBody": "This is on our side, and nothing has been used from your balance. Your question is kept here for later. Your journal, daily card and Learn still work as usual.",
-  "@pausedBody": {
-    "x-translate": true
-  },
-  "pausedRegionTitle": "AI readings aren’t available in your region",
-  "@pausedRegionTitle": {
-    "x-translate": true
-  },
-  "pausedRegionBody": "You can still draw cards and read their meanings in a classic reading.",
-  "@pausedRegionBody": {
-    "x-translate": true
-  },
-  "drawShuffleTitle": "Shuffle the deck",
-  "@drawShuffleTitle": {
-    "x-translate": true
-  },
-  "drawShuffleButton": "Shuffle",
-  "@drawShuffleButton": {
-    "x-translate": true
-  },
-  "drawShuffleHint": "Hold or tap to shuffle, then continue when you feel ready.",
-  "@drawShuffleHint": {
-    "x-translate": true
-  },
-  "drawPickTitle": "{remaining, plural, one{Pick one more card} other{Pick {remaining} cards}}",
-  "@drawPickTitle": {
-    "x-translate": true
-  },
-  "drawPickSubtitle": "Take your time. Tap a card that draws you.",
-  "@drawPickSubtitle": {
-    "x-translate": true
-  },
-  "drawPickedProgress": "{picked} of {total} picked",
-  "@drawPickedProgress": {
-    "x-translate": true
-  },
-  "drawForMe": "Draw for me",
-  "@drawForMe": {
-    "x-translate": true
-  },
-  "drawPickThis": "Pick this card",
-  "@drawPickThis": {
-    "x-translate": true
-  },
-  "drawCardBackSemantics": "Card back, position {position} of {total}, double-tap to pick",
-  "@drawCardBackSemantics": {
-    "x-translate": true
-  },
-  "drawEmptySlotSemantics": "Empty position {position}: {name}",
-  "@drawEmptySlotSemantics": {
-    "x-translate": true
-  },
-  "drawRevealTitle": "Reveal your cards",
-  "@drawRevealTitle": {
-    "x-translate": true
-  },
-  "drawRevealHint": "Tap each card to turn it over, in order.",
-  "@drawRevealHint": {
-    "x-translate": true
-  },
-  "drawRevealAll": "Reveal all",
-  "@drawRevealAll": {
-    "x-translate": true
-  },
-  "drawCardSemantics": "{card}, {orientation}, position: {position}",
-  "@drawCardSemantics": {
-    "x-translate": true
-  },
-  "drawAwaitingTitle": "Writing your reading…",
-  "@drawAwaitingTitle": {
-    "x-translate": true
-  },
-  "drawAwaitingBody": "The reading is forming. Here are your cards’ keywords while you wait.",
-  "@drawAwaitingBody": {
-    "x-translate": true
-  },
-  "drawSlowReading": "This is taking a little longer than usual",
-  "@drawSlowReading": {
-    "x-translate": true
-  },
-  "drawTimeoutPolling": "Still checking…",
-  "@drawTimeoutPolling": {
-    "x-translate": true
-  },
-  "drawReadingReady": "Reading ready",
-  "@drawReadingReady": {
-    "x-translate": true
-  },
-  "drawGenerationFailedTitle": "We couldn’t create your reading",
-  "@drawGenerationFailedTitle": {
-    "x-translate": true
-  },
-  "drawGenerationFailedBody": "You haven’t been charged. Your cards are saved.",
-  "@drawGenerationFailedBody": {
-    "x-translate": true
-  },
-  "drawFinishLater": "Save and finish later",
-  "@drawFinishLater": {
-    "x-translate": true
-  },
-  "drawDeliveryExpired": "We couldn’t deliver this reading, so you weren’t charged",
-  "@drawDeliveryExpired": {
-    "x-translate": true
-  },
-  "drawHoldLost": "Your cards are saved face-down. Choose how to continue.",
-  "@drawHoldLost": {
-    "x-translate": true
-  },
-  "readingDone": "Done",
-  "@readingDone": {
-    "x-translate": true
-  },
-  "readingSummary": "Summary",
-  "@readingSummary": {
-    "x-translate": true
-  },
-  "readingSynthesis": "How the cards connect",
-  "@readingSynthesis": {
-    "x-translate": true
-  },
-  "readingReflectionPrompts": "Questions to reflect on",
-  "@readingReflectionPrompts": {
-    "x-translate": true
-  },
-  "readingWriteAboutThis": "Write about this",
-  "@readingWriteAboutThis": {
-    "x-translate": true
-  },
+  "spread_celtic_cross_pos_outcome_desc": "إلى أين قد تتجه الأمور إن لم يتغير شيء؛ وليس قدرًا محتومًا.",
+  "spread_single_suggestion_1": "ما الذي قد يفيدني التركيز عليه اليوم؟",
+  "spread_single_suggestion_2": "ما الذي يستدعي انتباهي الآن؟",
+  "spread_single_suggestion_3": "أيّ صفة قد تسندني في هذا الموقف؟",
+  "spread_three_ppf_suggestion_1": "كيف شكّل ماضيَّ المكانَ الذي أنا فيه الآن؟",
+  "spread_three_ppf_suggestion_2": "ما الذي أحتاج إلى فهمه في هذا الموقف؟",
+  "spread_three_ppf_suggestion_3": "إلى أين قد يتجه هذا المسار، وما الذي يمكنني فعله حياله؟",
+  "spread_three_sao_suggestion_1": "ما الذي قد يساعدني على المضي قدمًا في هذا الأمر؟",
+  "spread_three_sao_suggestion_2": "ما الخطوة التي في متناولي الآن؟",
+  "spread_three_sao_suggestion_3": "كيف يمكنني مقاربة هذا القرار بوضوح أكبر؟",
+  "spread_relationship_suggestion_1": "ما الذي يمكنني تعلّمه من هذه العلاقة؟",
+  "spread_relationship_suggestion_2": "كيف يمكنني أن أكون أكثر انفتاحًا في هذه العلاقة؟",
+  "spread_relationship_suggestion_3": "ما الذي تحتاج إليه هذه العلاقة من كلينا؟",
+  "spread_relationship_suggestion_4": "ما النمط الذي يتكرر بيننا؟",
+  "spread_two_paths_suggestion_1": "ما الذي ينبغي أن أراعيه عند الاختيار بين هذين الخيارين؟",
+  "spread_two_paths_suggestion_2": "ماذا قد يطلب مني كل مسار؟",
+  "spread_two_paths_suggestion_3": "أيّ الخيارين أقرب إلى قيمي؟",
+  "spread_celtic_cross_suggestion_1": "ما الذي أحتاج إلى فهمه في هذا الموقف؟",
+  "spread_celtic_cross_suggestion_2": "ما الذي يكمن حقًا في جوهر هذا السؤال؟",
+  "spread_celtic_cross_suggestion_3": "ما الذي يعيقني، وما الذي قد يساعدني على النمو؟",
+  "spread_celtic_cross_suggestion_4": "ما الذي يمكنني تعلّمه من هذه المرحلة من حياتي؟",
+  "questionTitle": "ما الذي تودّ التأمل فيه؟",
+  "questionLabel": "سؤالك (اختياري)",
+  "questionHint": "الأسئلة المفتوحة تناسب القراءة. لا يستطيع Taro الإجابة عن الأسئلة المتعلقة بالصحة أو القانون أو المال أو الحمل.",
+  "questionIdeas": "أفكار",
+  "questionSuggestionSemantics": "اقتراح: {text}. يملأ خانة السؤال",
+  "questionPersonalDetails": "يُفضَّل عدم مشاركة تفاصيل شخصية مثل عناوين البريد الإلكتروني أو أرقام الهواتف.",
+  "questionOnlySymbols": "يُرجى استخدام كلمات، أو ترك السؤال فارغًا.",
+  "questionBegin": "بدء",
+  "questionChargeFree": "تُستخدم قراءتك المجانية. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.",
+  "questionChargeCredits": "{count, plural, zero{تُستخدم قراءة واحدة من رصيدك. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.} one{تُستخدم قراءتك الأخيرة. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.} two{تُستخدم قراءة واحدة من قراءتيك. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.} few{تُستخدم قراءة واحدة من قراءاتك الـ{count}. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.} many{تُستخدم قراءة واحدة من قراءاتك الـ{count}. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.} other{تُستخدم قراءة واحدة من قراءاتك الـ{count}. يُرسَل سؤالك إلى خدمة ذكاء اصطناعي لكتابة القراءة ولا يُخزَّن.}}",
+  "questionOfflineNotice": "لا يوجد اتصال. يلزم الاتصال لبدء قراءة بالذكاء الاصطناعي.",
+  "questionDeviceUnverified": "القراءات غير متاحة على هذا الجهاز",
+  "questionDailyLimitTitle": "بلغت الحد اليومي للقراءات",
+  "questionDailyLimitBody": "يمكنك بدء قراءات جديدة غدًا. لا تزال بطاقة اليوم وقسم «تعلّم» والقراءة الكلاسيكية متاحة لك.",
+  "questionRateLimited": "يُرجى الانتظار قليلًا ثم المحاولة مرة أخرى.",
+  "questionRephraseTitle": "صياغة السؤال بطريقة أخرى",
+  "questionRephraseExamples": "على سبيل المثال:",
+  "questionRephraseExample1": "ما الذي يمكنني تعلّمه من هذا الموقف؟",
+  "questionRephraseExample2": "ما الذي قد يساعدني على الشعور بمزيد من الثبات الآن؟",
+  "questionReflectWithoutQuestion": "التأمل في البطاقات دون سؤال",
+  "questionRefusedTitle": "لا يستطيع Taro المساعدة في هذا النوع من الأسئلة",
+  "questionRefusedProfessional": "يمكن لمختص مؤهل أن يساعد في هذا الأمر.",
+  "questionSpreadDisabled": "هذا التوزيع غير متاح الآن. يُرجى اختيار توزيع آخر.",
+  "questionTryClassic": "تجربة قراءة كلاسيكية",
+  "questionRefusedHeadline": "لننظر إلى الأمر من زاوية أخرى",
+  "questionNoReadingUsed": "لم تُستخدم أي قراءة",
+  "questionRephraseTry": "يمكنك السؤال عن شعورك، أو عمّا يمكنك فعله",
+  "questionClassicCaption": "تعتمد على معاني البطاقات في كل موضع. مجانية، دون ذكاء اصطناعي، وتعمل دون اتصال.",
+  "questionConsentDeclinedNotice": "قراءات الذكاء الاصطناعي متوقفة. لا يزال بإمكانك إجراء قراءة كلاسيكية.",
+  "pausedTitle": "القراءات في استراحة قصيرة",
+  "pausedFreeTitle": "القراءات المجانية في استراحة حتى الغد",
+  "pausedBody": "التوقف من جهتنا، ولم يُخصم شيء من رصيدك. سؤالك محفوظ هنا لوقت لاحق. لا تزال المذكرات وبطاقة اليوم وقسم «تعلّم» تعمل كالمعتاد.",
+  "pausedRegionTitle": "قراءات الذكاء الاصطناعي غير متاحة في منطقتك",
+  "pausedRegionBody": "لا يزال بإمكانك سحب البطاقات وقراءة معانيها في قراءة كلاسيكية.",
+  "drawShuffleTitle": "خلط الأوراق",
+  "drawShuffleButton": "خلط",
+  "drawShuffleHint": "الضغط المطوّل أو النقر للخلط، ثم المتابعة متى شعرت بالاستعداد.",
+  "drawPickTitle": "{remaining, plural, zero{لا بطاقات متبقية} one{اختيار بطاقة أخرى} two{اختيار بطاقتين} few{اختيار {remaining} بطاقات} many{اختيار {remaining} بطاقة} other{اختيار {remaining} بطاقة}}",
+  "drawPickSubtitle": "على مهل. يمكنك النقر على البطاقة التي تجذبك.",
+  "drawPickedProgress": "تم اختيار {picked} من {total}",
+  "drawForMe": "السحب نيابةً عني",
+  "drawPickThis": "اختيار هذه البطاقة",
+  "drawCardBackSemantics": "ظهر البطاقة، الموضع {position} من {total}، النقر مرتين للاختيار",
+  "drawEmptySlotSemantics": "موضع فارغ {position}: {name}",
+  "drawRevealTitle": "كشف بطاقاتك",
+  "drawRevealHint": "النقر على كل بطاقة لقلبها، بالترتيب.",
+  "drawRevealAll": "كشف الكل",
+  "drawCardSemantics": "{card}، {orientation}، الموضع: {position}",
+  "drawAwaitingTitle": "جارٍ كتابة قراءتك…",
+  "drawAwaitingBody": "القراءة تتشكّل. إليك الكلمات المفتاحية لبطاقاتك ريثما تنتظر.",
+  "drawSlowReading": "يستغرق هذا وقتًا أطول قليلًا من المعتاد",
+  "drawTimeoutPolling": "لا يزال التحقق جاريًا…",
+  "drawReadingReady": "القراءة جاهزة",
+  "drawGenerationFailedTitle": "تعذّر إنشاء قراءتك",
+  "drawGenerationFailedBody": "لم يُخصم منك شيء. بطاقاتك محفوظة.",
+  "drawFinishLater": "الحفظ والإكمال لاحقًا",
+  "drawDeliveryExpired": "تعذّر تسليم هذه القراءة، لذلك لم يُخصم منك شيء",
+  "drawHoldLost": "بطاقاتك محفوظة ووجهها إلى الأسفل. يُرجى اختيار طريقة المتابعة.",
+  "readingDone": "تم",
+  "readingSummary": "الملخص",
+  "readingSynthesis": "كيف تترابط البطاقات",
+  "readingReflectionPrompts": "أسئلة للتأمل",
+  "readingWriteAboutThis": "الكتابة عن هذا",
   "readingPositionHeading": "{position} · {card}",
-  "@readingPositionHeading": {
-    "x-translate": true
-  },
-  "readingCardReversed": "{card}, reversed",
-  "@readingCardReversed": {
-    "x-translate": true
-  },
-  "readingQuestionQuoted": "“{question}”",
-  "@readingQuestionQuoted": {
-    "x-translate": true
-  },
-  "readingFullDisclaimer": "Full disclaimer",
-  "@readingFullDisclaimer": {
-    "x-translate": true
-  },
-  "readingRateUp": "Helpful",
-  "@readingRateUp": {
-    "x-translate": true
-  },
-  "readingRateDown": "Not helpful",
-  "@readingRateDown": {
-    "x-translate": true
-  },
-  "readingRatingThanks": "Thanks for the feedback",
-  "@readingRatingThanks": {
-    "x-translate": true
-  },
-  "readingReasonTooGeneric": "Too generic",
-  "@readingReasonTooGeneric": {
-    "x-translate": true
-  },
-  "readingReasonMismatch": "Didn’t match the cards",
-  "@readingReasonMismatch": {
-    "x-translate": true
-  },
-  "readingReasonTone": "Tone",
-  "@readingReasonTone": {
-    "x-translate": true
-  },
-  "readingReasonOther": "Other",
-  "@readingReasonOther": {
-    "x-translate": true
-  },
-  "readingReported": "Reported",
-  "@readingReported": {
-    "x-translate": true
-  },
-  "readingContentLocaleNote": "Written in {language}",
-  "@readingContentLocaleNote": {
-    "x-translate": true
-  },
-  "readingFavouriteAdded": "Added to favourites",
-  "@readingFavouriteAdded": {
-    "x-translate": true
-  },
-  "shareIncludeQuestion": "Include my question",
-  "@shareIncludeQuestion": {
-    "x-translate": true
-  },
-  "shareTitle": "Share this reading",
-  "@shareTitle": {
-    "x-translate": true
-  },
-  "shareCardsLine": "Cards: {cards}",
-  "@shareCardsLine": {
-    "x-translate": true
-  },
-  "shareQuestionLine": "My question: {question}",
-  "@shareQuestionLine": {
-    "x-translate": true
-  },
-  "shareFooter": "Shared from Taro",
-  "@shareFooter": {
-    "x-translate": true
-  },
-  "classicLabel": "Classic reading",
-  "@classicLabel": {
-    "x-translate": true
-  },
-  "classicCaption": "Built from the meaning of each card in its position. No AI, free and works offline.",
-  "@classicCaption": {
-    "x-translate": true
-  },
-  "classicTryAi": "Try an AI reading",
-  "@classicTryAi": {
-    "x-translate": true
-  },
-  "readingNotFound": "This reading isn’t on this device anymore.",
-  "@readingNotFound": {
-    "x-translate": true
-  },
-  "reportBody": "Tell us what felt wrong so we can look into it.",
-  "@reportBody": {
-    "x-translate": true
-  },
-  "reportReasonLegend": "What’s the problem?",
-  "@reportReasonLegend": {
-    "x-translate": true
-  },
-  "reportReasonOffensive": "Offensive",
-  "@reportReasonOffensive": {
-    "x-translate": true
-  },
-  "reportReasonHarmfulAdvice": "Harmful advice",
-  "@reportReasonHarmfulAdvice": {
-    "x-translate": true
-  },
-  "reportReasonSexual": "Sexual content",
-  "@reportReasonSexual": {
-    "x-translate": true
-  },
-  "reportReasonHateful": "Hateful",
-  "@reportReasonHateful": {
-    "x-translate": true
-  },
-  "reportReasonOther": "Something else",
-  "@reportReasonOther": {
-    "x-translate": true
-  },
-  "reportDetailsLabel": "Details (optional)",
-  "@reportDetailsLabel": {
-    "x-translate": true
-  },
-  "reportDetailsHint": "For example, which card or sentence",
-  "@reportDetailsHint": {
-    "x-translate": true
-  },
-  "reportSend": "Send report",
-  "@reportSend": {
-    "x-translate": true
-  },
-  "reportChooseReason": "Choose a reason to send your report.",
-  "@reportChooseReason": {
-    "x-translate": true
-  },
-  "reportSubmitted": "Thanks. We’ll review this reading.",
-  "@reportSubmitted": {
-    "x-translate": true
-  },
-  "reportFailed": "We couldn’t send your report.",
-  "@reportFailed": {
-    "x-translate": true
-  },
-  "reportOffline": "You’re offline. Connect to send your report.",
-  "@reportOffline": {
-    "x-translate": true
-  },
-  "reportRateLimited": "You’ve sent the most reports allowed for today.",
-  "@reportRateLimited": {
-    "x-translate": true
-  },
-  "outOfReadingsTitle": "You’ve used today’s free reading",
-  "@outOfReadingsTitle": {
-    "x-translate": true
-  },
-  "outOfReadingsLowTrustTitle": "Free readings aren’t available on this device right now",
-  "@outOfReadingsLowTrustTitle": {
-    "x-translate": true
-  },
-  "outOfReadingsBody": "Your question and spread are saved.",
-  "@outOfReadingsBody": {
-    "x-translate": true
-  },
-  "outOfReadingsSemantics": "Out of readings",
-  "@outOfReadingsSemantics": {
-    "x-translate": true
-  },
-  "rewardedOfferTitle": "{count, plural, one{Watch an ad for 1 reading} other{Watch an ad for {count} readings}}",
-  "@rewardedOfferTitle": {
-    "x-translate": true
-  },
-  "rewardedOfferLeft": "{count, plural, one{Optional · 1 left today} other{Optional · {count} left today}}",
-  "@rewardedOfferLeft": {
-    "x-translate": true
-  },
-  "rewardedCoolingDown": "Another ad reward is available in {duration}",
-  "@rewardedCoolingDown": {
-    "x-translate": true
-  },
-  "rewardedCapped": "You’ve used today’s ad rewards",
-  "@rewardedCapped": {
-    "x-translate": true
-  },
-  "rewardedNoFill": "No ads available right now",
-  "@rewardedNoFill": {
-    "x-translate": true
-  },
-  "outOfReadingsGetMore": "Get more readings",
-  "@outOfReadingsGetMore": {
-    "x-translate": true
-  },
-  "outOfReadingsFromPrice": "From {price} for {count} · readings don’t expire",
-  "@outOfReadingsFromPrice": {
-    "x-translate": true
-  },
-  "outOfReadingsUntilThen": "Until then:",
-  "@outOfReadingsUntilThen": {
-    "x-translate": true
-  },
-  "outOfReadingsPurchasesUnavailable": "Purchases aren’t available right now.",
-  "@outOfReadingsPurchasesUnavailable": {
-    "x-translate": true
-  },
-  "storeTitle": "More readings",
-  "@storeTitle": {
-    "x-translate": true
-  },
-  "storeBody": "One reading is one spread of any size. Readings don’t expire, and your free daily reading continues.",
-  "@storeBody": {
-    "x-translate": true
-  },
-  "storePackTitle": "{count, plural, one{1 reading} other{{count} readings}}",
-  "@storePackTitle": {
-    "x-translate": true
-  },
-  "storePerReading": "{price} per reading",
-  "@storePerReading": {
-    "x-translate": true
-  },
-  "storeBestValue": "Best value",
-  "@storeBestValue": {
-    "x-translate": true
-  },
-  "storePackSemantics": "{count, plural, one{1 reading for {price}, {perReading} per reading} other{{count} readings for {price}, {perReading} per reading}}",
-  "@storePackSemantics": {
-    "x-translate": true
-  },
-  "storePackSemanticsBestValue": "{label}, best value",
-  "@storePackSemanticsBestValue": {
-    "x-translate": true
-  },
-  "storeBuyPack": "Buy for {price}",
-  "@storeBuyPack": {
-    "x-translate": true
-  },
-  "storeRemoveAdsTitle": "Remove Banner Ads",
-  "@storeRemoveAdsTitle": {
-    "x-translate": true
-  },
-  "storeRemoveAdsBody": "One-time purchase. Optional reward videos stay available.",
-  "@storeRemoveAdsBody": {
-    "x-translate": true
-  },
-  "storeRemoveAdsOwned": "Banner ads removed ✓",
-  "@storeRemoveAdsOwned": {
-    "x-translate": true
-  },
-  "storeRestore": "Restore purchases",
-  "@storeRestore": {
-    "x-translate": true
-  },
-  "storeConsumableDisclosure": "Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases.",
-  "@storeConsumableDisclosure": {
-    "x-translate": true
-  },
-  "storePricesUnavailable": "Prices unavailable — retry",
-  "@storePricesUnavailable": {
-    "x-translate": true
-  },
-  "storeUnavailable": "Purchases aren’t available on this device",
-  "@storeUnavailable": {
-    "x-translate": true
-  },
-  "storePending": "Waiting for approval",
-  "@storePending": {
-    "x-translate": true
-  },
-  "storeVerifying": "Confirming your purchase…",
-  "@storeVerifying": {
-    "x-translate": true
-  },
-  "storeVerificationDelayed": "Your purchase is safe. We’ll add your readings when you’re back online.",
-  "@storeVerificationDelayed": {
-    "x-translate": true
-  },
-  "storeGranted": "{count, plural, one{+1 reading} other{+{count} readings}}",
-  "@storeGranted": {
-    "x-translate": true
-  },
-  "storePurchasesBlocked": "Reading packs can’t be bought on this install right now. Contact support if you have questions.",
-  "@storePurchasesBlocked": {
-    "x-translate": true
-  },
-  "storeRefundDebt": "A refunded purchase was deducted, so reading packs are paused for now. Contact support if you have questions.",
-  "@storeRefundDebt": {
-    "x-translate": true
-  },
-  "storeDisabled": "Reading packs aren’t available right now.",
-  "@storeDisabled": {
-    "x-translate": true
-  },
-  "storeContactSupport": "Contact support",
-  "@storeContactSupport": {
-    "x-translate": true
-  },
-  "storeServiceWarning": "Taro’s service is unreachable. Purchases work, and readings are added once it’s back.",
-  "@storeServiceWarning": {
-    "x-translate": true
-  },
-  "storeTransferHint": "This purchase belongs to another install. Use “Move readings from another device” in Settings.",
-  "@storeTransferHint": {
-    "x-translate": true
-  },
-  "restoreNothingFound": "No purchases to restore. Reading packs are tied to this app installation and can’t be restored.",
-  "@restoreNothingFound": {
-    "x-translate": true
-  },
-  "restoreRemoveAds": "Remove Banner Ads restored",
-  "@restoreRemoveAds": {
-    "x-translate": true
-  },
-  "restoreFailed": "We couldn’t restore purchases.",
-  "@restoreFailed": {
-    "x-translate": true
-  },
-  "rewardedLoadingAd": "Loading a short ad…",
-  "@rewardedLoadingAd": {
-    "x-translate": true
-  },
-  "rewardedGrantingTitle": "Adding your reading…",
-  "@rewardedGrantingTitle": {
-    "x-translate": true
-  },
-  "rewardedGrantingBody": "This usually takes a few seconds.",
-  "@rewardedGrantingBody": {
-    "x-translate": true
-  },
-  "rewardedCloseNote": "If you close this, your reading will still be added.",
-  "@rewardedCloseNote": {
-    "x-translate": true
-  },
-  "rewardedGrantedTitle": "Reading added",
-  "@rewardedGrantedTitle": {
-    "x-translate": true
-  },
-  "rewardedGrantedBody": "{count, plural, one{+1 reading} other{+{count} readings}}",
-  "@rewardedGrantedBody": {
-    "x-translate": true
-  },
-  "rewardedGrantDelayed": "Your reading will appear shortly",
-  "@rewardedGrantDelayed": {
-    "x-translate": true
-  },
-  "rewardedDismissedEarly": "The ad closed early, so no reading was added.",
-  "@rewardedDismissedEarly": {
-    "x-translate": true
-  },
-  "dailyOverline": "YOUR DAILY CARD",
-  "@dailyOverline": {
-    "x-translate": true
-  },
-  "dailyNotDrawnTitle": "One card to sit with today",
-  "@dailyNotDrawnTitle": {
-    "x-translate": true
-  },
-  "dailyReveal": "Reveal card",
-  "@dailyReveal": {
-    "x-translate": true
-  },
-  "dailyNotDrawnCaption": "Free, works offline, no AI.",
-  "@dailyNotDrawnCaption": {
-    "x-translate": true
-  },
+  "readingCardReversed": "{card}، معكوسة",
+  "readingQuestionQuoted": "«{question}»",
+  "readingFullDisclaimer": "إخلاء المسؤولية كاملًا",
+  "readingRateUp": "مفيدة",
+  "readingRateDown": "غير مفيدة",
+  "readingRatingThanks": "شكرًا على ملاحظاتك",
+  "readingReasonTooGeneric": "عامة أكثر من اللازم",
+  "readingReasonMismatch": "لا تتوافق مع البطاقات",
+  "readingReasonTone": "الأسلوب",
+  "readingReasonOther": "أخرى",
+  "readingReported": "تم الإبلاغ",
+  "readingContentLocaleNote": "مكتوبة بـ{language}",
+  "readingFavouriteAdded": "أُضيفت إلى المفضلة",
+  "shareIncludeQuestion": "تضمين سؤالي",
+  "shareTitle": "مشاركة هذه القراءة",
+  "shareCardsLine": "البطاقات: {cards}",
+  "shareQuestionLine": "سؤالي: {question}",
+  "shareFooter": "تمت المشاركة من Taro",
+  "classicLabel": "قراءة كلاسيكية",
+  "classicCaption": "مبنية على معنى كل بطاقة في موضعها. دون ذكاء اصطناعي، مجانية، وتعمل دون اتصال.",
+  "classicTryAi": "تجربة قراءة بالذكاء الاصطناعي",
+  "readingNotFound": "لم تعد هذه القراءة موجودة على هذا الجهاز.",
+  "reportBody": "يُرجى إخبارنا بما بدا لك غير مناسب حتى نتمكن من مراجعته.",
+  "reportReasonLegend": "ما المشكلة؟",
+  "reportReasonOffensive": "مسيء",
+  "reportReasonHarmfulAdvice": "نصيحة ضارة",
+  "reportReasonSexual": "محتوى جنسي",
+  "reportReasonHateful": "يحض على الكراهية",
+  "reportReasonOther": "سبب آخر",
+  "reportDetailsLabel": "التفاصيل (اختياري)",
+  "reportDetailsHint": "مثلًا: أي بطاقة أو أي جملة",
+  "reportSend": "إرسال البلاغ",
+  "reportChooseReason": "يُرجى اختيار سبب لإرسال البلاغ.",
+  "reportSubmitted": "شكرًا. سنراجع هذه القراءة.",
+  "reportFailed": "تعذّر إرسال بلاغك.",
+  "reportOffline": "لا يوجد اتصال. يلزم الاتصال لإرسال البلاغ.",
+  "reportRateLimited": "بلغت الحد الأقصى المسموح به من البلاغات لهذا اليوم.",
+  "outOfReadingsTitle": "استخدمت القراءة المجانية لهذا اليوم",
+  "outOfReadingsLowTrustTitle": "القراءات المجانية غير متاحة على هذا الجهاز حاليًا",
+  "outOfReadingsBody": "سؤالك والتوزيع محفوظان.",
+  "outOfReadingsSemantics": "نفدت القراءات",
+  "rewardedOfferTitle": "{count, plural, zero{مشاهدة إعلان مقابل {count} قراءة} one{مشاهدة إعلان مقابل قراءة واحدة} two{مشاهدة إعلان مقابل قراءتين} few{مشاهدة إعلان مقابل {count} قراءات} many{مشاهدة إعلان مقابل {count} قراءة} other{مشاهدة إعلان مقابل {count} قراءة}}",
+  "rewardedOfferLeft": "{count, plural, zero{اختياري · لم يتبقَّ شيء اليوم} one{اختياري · تتبقى مرة واحدة اليوم} two{اختياري · تتبقى مرتان اليوم} few{اختياري · تتبقى {count} مرات اليوم} many{اختياري · تتبقى {count} مرة اليوم} other{اختياري · تتبقى {count} مرة اليوم}}",
+  "rewardedCoolingDown": "تتوفر مكافأة إعلانية أخرى بعد {duration}",
+  "rewardedCapped": "استخدمت مكافآت الإعلانات لهذا اليوم",
+  "rewardedNoFill": "لا تتوفر إعلانات الآن",
+  "outOfReadingsGetMore": "الحصول على مزيد من القراءات",
+  "outOfReadingsFromPrice": "ابتداءً من {price} مقابل {count} · القراءات لا تنتهي صلاحيتها",
+  "outOfReadingsUntilThen": "حتى ذلك الحين:",
+  "outOfReadingsPurchasesUnavailable": "عمليات الشراء غير متاحة الآن.",
+  "storeTitle": "مزيد من القراءات",
+  "storeBody": "القراءة الواحدة توزيع واحد بأي حجم. القراءات لا تنتهي صلاحيتها، وتستمر قراءتك اليومية المجانية.",
+  "storePackTitle": "{count, plural, zero{{count} قراءة} one{قراءة واحدة} two{قراءتان} few{{count} قراءات} many{{count} قراءة} other{{count} قراءة}}",
+  "storePerReading": "{price} للقراءة الواحدة",
+  "storeBestValue": "القيمة الأفضل",
+  "storePackSemantics": "{count, plural, zero{{count} قراءة مقابل {price}، {perReading} للقراءة الواحدة} one{قراءة واحدة مقابل {price}، {perReading} للقراءة الواحدة} two{قراءتان مقابل {price}، {perReading} للقراءة الواحدة} few{{count} قراءات مقابل {price}، {perReading} للقراءة الواحدة} many{{count} قراءة مقابل {price}، {perReading} للقراءة الواحدة} other{{count} قراءة مقابل {price}، {perReading} للقراءة الواحدة}}",
+  "storePackSemanticsBestValue": "{label}، القيمة الأفضل",
+  "storeBuyPack": "الشراء مقابل {price}",
+  "storeRemoveAdsTitle": "إزالة إعلانات البانر",
+  "storeRemoveAdsBody": "عملية شراء لمرة واحدة. تبقى فيديوهات المكافأة الاختيارية متاحة.",
+  "storeRemoveAdsOwned": "أُزيلت إعلانات البانر ✓",
+  "storeRestore": "استعادة المشتريات",
+  "storeConsumableDisclosure": "القراءات لا تنتهي صلاحيتها وتبقى مرتبطة بتثبيت التطبيق هذا. ولا يمكن استعادتها عبر «استعادة المشتريات».",
+  "storePricesUnavailable": "الأسعار غير متاحة — إعادة المحاولة",
+  "storeUnavailable": "عمليات الشراء غير متاحة على هذا الجهاز",
+  "storePending": "بانتظار الموافقة",
+  "storeVerifying": "جارٍ تأكيد عملية الشراء…",
+  "storeVerificationDelayed": "عملية الشراء آمنة. سنضيف قراءاتك عند عودة الاتصال.",
+  "storeGranted": "{count, plural, zero{+{count} قراءة} one{+قراءة واحدة} two{+قراءتان} few{+{count} قراءات} many{+{count} قراءة} other{+{count} قراءة}}",
+  "storePurchasesBlocked": "لا يمكن شراء باقات القراءات على هذا التثبيت حاليًا. يمكنك التواصل مع الدعم إن كانت لديك أسئلة.",
+  "storeRefundDebt": "خُصمت عملية شراء مستردّة، لذلك أُوقفت باقات القراءات مؤقتًا. يمكنك التواصل مع الدعم إن كانت لديك أسئلة.",
+  "storeDisabled": "باقات القراءات غير متاحة الآن.",
+  "storeContactSupport": "التواصل مع الدعم",
+  "storeServiceWarning": "تعذّر الوصول إلى خدمة Taro. عمليات الشراء تعمل، وستُضاف القراءات عند عودة الخدمة.",
+  "storeTransferHint": "تعود عملية الشراء هذه إلى تثبيت آخر. يمكنك استخدام «نقل القراءات من جهاز آخر» في الإعدادات.",
+  "restoreNothingFound": "لا توجد مشتريات لاستعادتها. باقات القراءات مرتبطة بتثبيت التطبيق هذا ولا يمكن استعادتها.",
+  "restoreRemoveAds": "تمت استعادة «إزالة إعلانات البانر»",
+  "restoreFailed": "تعذّرت استعادة المشتريات.",
+  "rewardedLoadingAd": "جارٍ تحميل إعلان قصير…",
+  "rewardedGrantingTitle": "جارٍ إضافة قراءتك…",
+  "rewardedGrantingBody": "يستغرق ذلك عادةً بضع ثوانٍ.",
+  "rewardedCloseNote": "حتى لو أغلقت هذه الشاشة، ستُضاف قراءتك.",
+  "rewardedGrantedTitle": "أُضيفت القراءة",
+  "rewardedGrantedBody": "{count, plural, zero{+{count} قراءة} one{+قراءة واحدة} two{+قراءتان} few{+{count} قراءات} many{+{count} قراءة} other{+{count} قراءة}}",
+  "rewardedGrantDelayed": "ستظهر قراءتك قريبًا",
+  "rewardedDismissedEarly": "أُغلق الإعلان مبكرًا، لذلك لم تُضف أي قراءة.",
+  "dailyOverline": "بطاقتك اليومية",
+  "dailyNotDrawnTitle": "بطاقة واحدة تصحبك اليوم",
+  "dailyReveal": "كشف البطاقة",
+  "dailyNotDrawnCaption": "مجانية، تعمل دون اتصال، دون ذكاء اصطناعي.",
   "dailyMeta": "{arcana} · {number} · {orientation}",
-  "@dailyMeta": {
-    "x-translate": true
-  },
-  "dailyReflectDeeper": "Reflect deeper with AI",
-  "@dailyReflectDeeper": {
-    "x-translate": true
-  },
-  "dailyAddNote": "Add a note",
-  "@dailyAddNote": {
-    "x-translate": true
-  },
-  "dailyCaption": "Your daily card is free, works offline and uses no AI. Reflecting deeper starts a single-card reading and uses one reading.",
-  "@dailyCaption": {
-    "x-translate": true
-  },
-  "dailyReminderOfferTitle": "Would you like a gentle daily reminder?",
-  "@dailyReminderOfferTitle": {
-    "x-translate": true
-  },
-  "dailyReminderOfferYes": "Yes, remind me",
-  "@dailyReminderOfferYes": {
-    "x-translate": true
-  },
-  "dailyReminderOfferNo": "No thanks",
-  "@dailyReminderOfferNo": {
-    "x-translate": true
-  },
-  "dailyCardFaceSemantics": "{card}, {orientation}",
-  "@dailyCardFaceSemantics": {
-    "x-translate": true
-  },
-  "journalTitle": "Journal",
-  "@journalTitle": {
-    "x-translate": true
-  },
-  "journalSearchHint": "Search questions and notes",
-  "@journalSearchHint": {
-    "x-translate": true
-  },
-  "journalFilterAll": "All",
-  "@journalFilterAll": {
-    "x-translate": true
-  },
-  "journalFilterReadings": "Readings",
-  "@journalFilterReadings": {
-    "x-translate": true
-  },
-  "journalFilterDailyCards": "Daily cards",
-  "@journalFilterDailyCards": {
-    "x-translate": true
-  },
-  "journalFilterFavourites": "Favourites",
-  "@journalFilterFavourites": {
-    "x-translate": true
-  },
-  "journalFilterMore": "Filter",
-  "@journalFilterMore": {
-    "x-translate": true
-  },
-  "journalFilterSpread": "Spread",
-  "@journalFilterSpread": {
-    "x-translate": true
-  },
-  "journalFilterCard": "Contains card",
-  "@journalFilterCard": {
-    "x-translate": true
-  },
-  "journalFilterAnySpread": "Any spread",
-  "@journalFilterAnySpread": {
-    "x-translate": true
-  },
-  "journalFilterAnyCard": "Any card",
-  "@journalFilterAnyCard": {
-    "x-translate": true
-  },
-  "journalFilterApply": "Show entries",
-  "@journalFilterApply": {
-    "x-translate": true
-  },
-  "journalPatternsTitle": "Patterns · last {days} days",
-  "@journalPatternsTitle": {
-    "x-translate": true
-  },
-  "journalPatternsCount": "{count, plural, one{1 entry} other{{count} entries}}",
-  "@journalPatternsCount": {
-    "x-translate": true
-  },
-  "journalPatternsMostDrawn": "{count, plural, one{Most drawn: {card}, once} other{Most drawn: {card}, {count} times}}",
-  "@journalPatternsMostDrawn": {
-    "x-translate": true
-  },
-  "journalPatternsRange30": "30 days",
-  "@journalPatternsRange30": {
-    "x-translate": true
-  },
-  "journalPatternsRange90": "90 days",
-  "@journalPatternsRange90": {
-    "x-translate": true
-  },
-  "journalPatternsMajorMinor": "Major {major} · Minor {minor}",
-  "@journalPatternsMajorMinor": {
-    "x-translate": true
-  },
-  "journalPatternsReversed": "Reversed: {percent}%",
-  "@journalPatternsReversed": {
-    "x-translate": true
-  },
-  "journalPatternsFootnote": "Patterns in your draws, not predictions.",
-  "@journalPatternsFootnote": {
-    "x-translate": true
-  },
-  "journalPatternsSuitBalance": "Suit balance",
-  "@journalPatternsSuitBalance": {
-    "x-translate": true
-  },
+  "dailyReflectDeeper": "تأمل أعمق بالذكاء الاصطناعي",
+  "dailyAddNote": "إضافة ملاحظة",
+  "dailyCaption": "بطاقتك اليومية مجانية، وتعمل دون اتصال، ولا تستخدم الذكاء الاصطناعي. التأمل الأعمق يبدأ قراءة ببطاقة واحدة ويستخدم قراءة واحدة.",
+  "dailyReminderOfferTitle": "هل تودّ تلقي تذكير يومي لطيف؟",
+  "dailyReminderOfferYes": "نعم، ذكّرني",
+  "dailyReminderOfferNo": "لا، شكرًا",
+  "dailyCardFaceSemantics": "{card}، {orientation}",
+  "journalTitle": "المذكرات",
+  "journalSearchHint": "البحث في الأسئلة والملاحظات",
+  "journalFilterAll": "الكل",
+  "journalFilterReadings": "القراءات",
+  "journalFilterDailyCards": "البطاقات اليومية",
+  "journalFilterFavourites": "المفضلة",
+  "journalFilterMore": "تصفية",
+  "journalFilterSpread": "التوزيع",
+  "journalFilterCard": "تحتوي على بطاقة",
+  "journalFilterAnySpread": "أي توزيع",
+  "journalFilterAnyCard": "أي بطاقة",
+  "journalFilterApply": "عرض الإدخالات",
+  "journalPatternsTitle": "الأنماط · آخر {days} يومًا",
+  "journalPatternsCount": "{count, plural, zero{لا إدخالات} one{إدخال واحد} two{إدخالان} few{{count} إدخالات} many{{count} إدخالًا} other{{count} إدخال}}",
+  "journalPatternsMostDrawn": "{count, plural, zero{الأكثر سحبًا: {card}، {count} مرة} one{الأكثر سحبًا: {card}، مرة واحدة} two{الأكثر سحبًا: {card}، مرتين} few{الأكثر سحبًا: {card}، {count} مرات} many{الأكثر سحبًا: {card}، {count} مرة} other{الأكثر سحبًا: {card}، {count} مرة}}",
+  "journalPatternsRange30": "30 يومًا",
+  "journalPatternsRange90": "90 يومًا",
+  "journalPatternsMajorMinor": "الكبرى {major} · الصغرى {minor}",
+  "journalPatternsReversed": "المعكوسة: {percent}%",
+  "journalPatternsFootnote": "أنماط في سحوباتك، لا تنبؤات.",
+  "journalPatternsSuitBalance": "توازن المجموعات",
   "journalPatternsLegendItem": "{name} {count}",
-  "@journalPatternsLegendItem": {
-    "x-translate": true
-  },
-  "journalPatternsCardsDrawn": "{count, plural, one{1 card drawn} other{{count} cards drawn}}",
-  "@journalPatternsCardsDrawn": {
-    "x-translate": true
-  },
-  "journalPending": "Pending",
-  "@journalPending": {
-    "x-translate": true
-  },
-  "journalFinishReading": "Finish reading",
-  "@journalFinishReading": {
-    "x-translate": true
-  },
-  "journalEmptyTitle": "Your readings will live here",
-  "@journalEmptyTitle": {
-    "x-translate": true
-  },
-  "journalEmptyBody": "Every reading and daily card you draw is saved on this phone.",
-  "@journalEmptyBody": {
-    "x-translate": true
-  },
-  "journalFilteredEmpty": "Nothing matches this filter",
-  "@journalFilteredEmpty": {
-    "x-translate": true
-  },
-  "journalClearFilter": "Clear filter",
-  "@journalClearFilter": {
-    "x-translate": true
-  },
-  "journalSearchEmpty": "No entries match “{query}”",
-  "@journalSearchEmpty": {
-    "x-translate": true
-  },
-  "journalDeleteTitle": "Delete this entry?",
-  "@journalDeleteTitle": {
-    "x-translate": true
-  },
-  "journalDeleteBody": "You can undo this for a few seconds.",
-  "@journalDeleteBody": {
-    "x-translate": true
-  },
-  "journalDeleted": "Entry deleted",
-  "@journalDeleted": {
-    "x-translate": true
-  },
-  "journalEntryFavourite": "Favourite",
-  "@journalEntryFavourite": {
-    "x-translate": true
-  },
-  "journalEntryHasNote": "Has a note",
-  "@journalEntryHasNote": {
-    "x-translate": true
-  },
-  "journalDailyCardTitle": "Daily card: {card}",
-  "@journalDailyCardTitle": {
-    "x-translate": true
-  },
+  "journalPatternsCardsDrawn": "{count, plural, zero{لم تُسحب بطاقات} one{بطاقة واحدة مسحوبة} two{بطاقتان مسحوبتان} few{{count} بطاقات مسحوبة} many{{count} بطاقة مسحوبة} other{{count} بطاقة مسحوبة}}",
+  "journalPending": "قيد الانتظار",
+  "journalFinishReading": "إكمال القراءة",
+  "journalEmptyTitle": "ستجد قراءاتك هنا",
+  "journalEmptyBody": "تُحفظ كل قراءة وكل بطاقة يومية تسحبها على هذا الهاتف.",
+  "journalFilteredEmpty": "لا شيء يطابق هذه التصفية",
+  "journalClearFilter": "مسح التصفية",
+  "journalSearchEmpty": "لا إدخالات تطابق «{query}»",
+  "journalDeleteTitle": "حذف هذا الإدخال؟",
+  "journalDeleteBody": "يمكنك التراجع عن ذلك خلال بضع ثوانٍ.",
+  "journalDeleted": "حُذف الإدخال",
+  "journalEntryFavourite": "مفضّل",
+  "journalEntryHasNote": "يحتوي على ملاحظة",
+  "journalDailyCardTitle": "بطاقة اليوم: {card}",
   "journalMonthHeader": "{month}",
-  "@journalMonthHeader": {
-    "x-translate": true
-  },
-  "entryPendingNotice": "This reading isn’t finished yet",
-  "@entryPendingNotice": {
-    "x-translate": true
-  },
-  "entryFailedNotice": "We couldn’t create this reading. You weren’t charged.",
-  "@entryFailedNotice": {
-    "x-translate": true
-  },
-  "entryDelete": "Delete entry",
-  "@entryDelete": {
-    "x-translate": true
-  },
-  "entryFullReading": "Full reading",
-  "@entryFullReading": {
-    "x-translate": true
-  },
-  "entryReflectionQuestion": "Reflection question",
-  "@entryReflectionQuestion": {
-    "x-translate": true
-  },
-  "entryNoteLimit": "Notes can be up to {max} characters.",
-  "@entryNoteLimit": {
-    "x-translate": true
-  },
-  "learnTitle": "Learn",
-  "@learnTitle": {
-    "x-translate": true
-  },
-  "learnSearchHint": "Search cards",
-  "@learnSearchHint": {
-    "x-translate": true
-  },
-  "learnSectionLegend": "Deck section",
-  "@learnSectionLegend": {
-    "x-translate": true
-  },
+  "entryPendingNotice": "لم تكتمل هذه القراءة بعد",
+  "entryFailedNotice": "تعذّر إنشاء هذه القراءة. لم يُخصم منك شيء.",
+  "entryDelete": "حذف الإدخال",
+  "entryFullReading": "القراءة كاملة",
+  "entryReflectionQuestion": "سؤال للتأمل",
+  "entryNoteLimit": "يمكن أن تصل الملاحظات إلى {max} حرف.",
+  "learnTitle": "تعلّم",
+  "learnSearchHint": "البحث في البطاقات",
+  "learnSectionLegend": "قسم مجموعة الأوراق",
   "learnSectionMajor": "الأركانا الكبرى",
   "arcanaMinor": "الأركانا الصغرى",
   "suitWands": "العصي",
   "suitCups": "الكؤوس",
   "suitSwords": "السيوف",
   "suitPentacles": "العملات",
-  "learnSearchEmpty": "No cards match “{query}”",
-  "@learnSearchEmpty": {
-    "x-translate": true
-  },
-  "learnSpreadsGuide": "Spreads guide",
-  "@learnSpreadsGuide": {
-    "x-translate": true
-  },
-  "learnAbout": "About tarot & Taro",
-  "@learnAbout": {
-    "x-translate": true
-  },
-  "cardPosition": "{suit} · {index} of {total}",
-  "@cardPosition": {
-    "x-translate": true
-  },
-  "cardPrevious": "Previous card: {card}",
-  "@cardPrevious": {
-    "x-translate": true
-  },
-  "cardNext": "Next card: {card}",
-  "@cardNext": {
-    "x-translate": true
-  },
+  "learnSearchEmpty": "لا بطاقات تطابق «{query}»",
+  "learnSpreadsGuide": "دليل التوزيعات",
+  "learnAbout": "عن التاروت وTaro",
+  "cardPosition": "{suit} · {index} من {total}",
+  "cardPrevious": "البطاقة السابقة: {card}",
+  "cardNext": "البطاقة التالية: {card}",
   "cardElementLabel": "العنصر",
-  "cardElementValue": "Element: {element}",
-  "@cardElementValue": {
-    "x-translate": true
-  },
+  "cardElementValue": "العنصر: {element}",
   "elementFire": "النار",
   "elementWater": "الماء",
   "elementAir": "الهواء",
   "elementEarth": "التراب",
-  "cardNumberValue": "Number: {number}",
-  "@cardNumberValue": {
-    "x-translate": true
-  },
-  "cardOrientationLegend": "Card orientation",
-  "@cardOrientationLegend": {
-    "x-translate": true
-  },
+  "cardNumberValue": "الرقم: {number}",
+  "cardOrientationLegend": "اتجاه البطاقة",
   "cardMeaning": "المعنى",
   "cardKeywords": "الكلمات المفتاحية",
   "cardAspectRelationships": "العلاقات",
   "cardAspectWork": "العمل والغاية",
   "cardAspectGrowth": "النمو الشخصي",
-  "cardReflectionQuestions": "Questions to reflect on",
-  "@cardReflectionQuestions": {
-    "x-translate": true
-  },
-  "cardDrawnTimes": "{count, plural, =0{Not in your journal yet} one{In your journal: drawn once} other{In your journal: drawn {count} times}}",
-  "@cardDrawnTimes": {
-    "x-translate": true
-  },
-  "cardZoomSemantics": "Card art, full screen. Pinch to zoom.",
-  "@cardZoomSemantics": {
-    "x-translate": true
-  },
-  "cardZoomOpen": "Show the card art full screen",
-  "@cardZoomOpen": {
-    "x-translate": true
-  },
-  "spreadGuideTitle": "Spreads guide",
-  "@spreadGuideTitle": {
-    "x-translate": true
-  },
-  "spreadGuidePager": "Spreads guide · {index} of {total}",
-  "@spreadGuidePager": {
-    "x-translate": true
-  },
-  "spreadGuidePositions": "Positions",
-  "@spreadGuidePositions": {
-    "x-translate": true
-  },
-  "spreadGuideWhenToUse": "When to use it",
-  "@spreadGuideWhenToUse": {
-    "x-translate": true
-  },
-  "spreadGuideStart": "Start this spread",
-  "@spreadGuideStart": {
-    "x-translate": true
-  },
-  "spreadGuideCross": "The cross",
-  "@spreadGuideCross": {
-    "x-translate": true
-  },
-  "spreadGuideStaff": "The staff",
-  "@spreadGuideStaff": {
-    "x-translate": true
-  },
-  "spreadGuidePrevious": "Previous spread",
-  "@spreadGuidePrevious": {
-    "x-translate": true
-  },
-  "spreadGuideNext": "Next spread",
-  "@spreadGuideNext": {
-    "x-translate": true
-  },
-  "aboutSupportLines": "Support and crisis lines",
-  "@aboutSupportLines": {
-    "x-translate": true
-  },
-  "settingsTitle": "Settings",
-  "@settingsTitle": {
-    "x-translate": true
-  },
-  "settingsSectionReadings": "Readings",
-  "@settingsSectionReadings": {
-    "x-translate": true
-  },
-  "settingsSectionExperience": "Experience",
-  "@settingsSectionExperience": {
-    "x-translate": true
-  },
-  "settingsSectionPrivacyData": "Privacy & data",
-  "@settingsSectionPrivacyData": {
-    "x-translate": true
-  },
-  "settingsSectionHelp": "Help",
-  "@settingsSectionHelp": {
-    "x-translate": true
-  },
-  "settingsSectionAbout": "About",
-  "@settingsSectionAbout": {
-    "x-translate": true
-  },
-  "settingsGetMore": "Get more readings",
-  "@settingsGetMore": {
-    "x-translate": true
-  },
-  "settingsLanguage": "Language",
-  "@settingsLanguage": {
-    "x-translate": true
-  },
-  "settingsLanguageSystem": "System",
-  "@settingsLanguageSystem": {
-    "x-translate": true
-  },
-  "settingsReminder": "Daily reminder",
-  "@settingsReminder": {
-    "x-translate": true
-  },
-  "settingsReminderOff": "Off",
-  "@settingsReminderOff": {
-    "x-translate": true
-  },
-  "settingsReversals": "Reversed cards",
-  "@settingsReversals": {
-    "x-translate": true
-  },
-  "settingsReversalsSubtitle": "Cards can land upside down",
-  "@settingsReversalsSubtitle": {
-    "x-translate": true
-  },
-  "settingsHaptics": "Haptics",
-  "@settingsHaptics": {
-    "x-translate": true
-  },
-  "settingsTheme": "Theme",
-  "@settingsTheme": {
-    "x-translate": true
-  },
-  "settingsThemeSystem": "System",
-  "@settingsThemeSystem": {
-    "x-translate": true
-  },
-  "settingsThemeLight": "Light",
-  "@settingsThemeLight": {
-    "x-translate": true
-  },
-  "settingsThemeDark": "Dark",
-  "@settingsThemeDark": {
-    "x-translate": true
-  },
-  "settingsAiReadings": "AI readings",
-  "@settingsAiReadings": {
-    "x-translate": true
-  },
-  "settingsAiAllowed": "Allowed",
-  "@settingsAiAllowed": {
-    "x-translate": true
-  },
-  "settingsAiNotAllowed": "Not allowed",
-  "@settingsAiNotAllowed": {
-    "x-translate": true
-  },
-  "settingsPrivacyChoices": "Privacy choices",
-  "@settingsPrivacyChoices": {
-    "x-translate": true
-  },
-  "settingsExport": "Export backup",
-  "@settingsExport": {
-    "x-translate": true
-  },
-  "settingsImport": "Import backup",
-  "@settingsImport": {
-    "x-translate": true
-  },
-  "settingsDeleteAll": "Delete all data",
-  "@settingsDeleteAll": {
-    "x-translate": true
-  },
-  "settingsHelpFaq": "Help & FAQ",
-  "@settingsHelpFaq": {
-    "x-translate": true
-  },
-  "settingsSupportLines": "Support lines",
-  "@settingsSupportLines": {
-    "x-translate": true
-  },
-  "settingsSupportLinesSubtitle": "People you can talk to, wherever you are",
-  "@settingsSupportLinesSubtitle": {
-    "x-translate": true
-  },
-  "settingsMoveReadings": "Move readings from another device",
-  "@settingsMoveReadings": {
-    "x-translate": true
-  },
-  "settingsMoveReadingsSubtitle": "Get a transfer code to send to support",
-  "@settingsMoveReadingsSubtitle": {
-    "x-translate": true
-  },
-  "settingsTransferChecking": "Checking your past purchases…",
-  "@settingsTransferChecking": {
-    "x-translate": true
-  },
-  "settingsTransferCodeTitle": "Your transfer code",
-  "@settingsTransferCodeTitle": {
-    "x-translate": true
-  },
-  "settingsTransferCodeBody": "Email this code together with your Support ID to support. We’ll move your unused readings to this device.",
-  "@settingsTransferCodeBody": {
-    "x-translate": true
-  },
-  "settingsTransferNothing": "No readings from other devices were found for this store account.",
-  "@settingsTransferNothing": {
-    "x-translate": true
-  },
-  "settingsTransferNotEligible": "These purchases can’t be moved automatically. Contact support with your Support ID.",
-  "@settingsTransferNotEligible": {
-    "x-translate": true
-  },
-  "settingsTransferFailed": "We couldn’t check your purchases. Please try again.",
-  "@settingsTransferFailed": {
-    "x-translate": true
-  },
-  "settingsTransferEmail": "Email support",
-  "@settingsTransferEmail": {
-    "x-translate": true
-  },
-  "settingsTransferEmailLine": "Transfer code: {code}",
-  "@settingsTransferEmailLine": {
-    "x-translate": true
-  },
-  "settingsLegal": "Legal",
-  "@settingsLegal": {
-    "x-translate": true
-  },
-  "settingsLegalSubtitle": "Terms, privacy, licences",
-  "@settingsLegalSubtitle": {
-    "x-translate": true
-  },
-  "settingsRate": "Rate Taro",
-  "@settingsRate": {
-    "x-translate": true
-  },
+  "cardReflectionQuestions": "أسئلة للتأمل",
+  "cardDrawnTimes": "{count, plural, =0{ليست في مذكراتك بعد} one{في مذكراتك: سُحبت مرة واحدة} two{في مذكراتك: سُحبت مرتين} few{في مذكراتك: سُحبت {count} مرات} many{في مذكراتك: سُحبت {count} مرة} other{في مذكراتك: سُحبت {count} مرة}}",
+  "cardZoomSemantics": "رسم البطاقة بملء الشاشة. يمكن التكبير بإصبعين.",
+  "cardZoomOpen": "عرض رسم البطاقة بملء الشاشة",
+  "spreadGuideTitle": "دليل التوزيعات",
+  "spreadGuidePager": "دليل التوزيعات · {index} من {total}",
+  "spreadGuidePositions": "المواضع",
+  "spreadGuideWhenToUse": "متى يُستخدم",
+  "spreadGuideStart": "بدء هذا التوزيع",
+  "spreadGuideCross": "الصليب",
+  "spreadGuideStaff": "العمود",
+  "spreadGuidePrevious": "التوزيع السابق",
+  "spreadGuideNext": "التوزيع التالي",
+  "aboutSupportLines": "خطوط الدعم والأزمات",
+  "settingsTitle": "الإعدادات",
+  "settingsSectionReadings": "القراءات",
+  "settingsSectionExperience": "التجربة",
+  "settingsSectionPrivacyData": "الخصوصية والبيانات",
+  "settingsSectionHelp": "المساعدة",
+  "settingsSectionAbout": "حول",
+  "settingsGetMore": "الحصول على مزيد من القراءات",
+  "settingsLanguage": "اللغة",
+  "settingsLanguageSystem": "لغة النظام",
+  "settingsReminder": "التذكير اليومي",
+  "settingsReminderOff": "متوقف",
+  "settingsReversals": "البطاقات المعكوسة",
+  "settingsReversalsSubtitle": "قد تظهر البطاقات مقلوبة",
+  "settingsHaptics": "الاهتزاز اللمسي",
+  "settingsTheme": "المظهر",
+  "settingsThemeSystem": "النظام",
+  "settingsThemeLight": "فاتح",
+  "settingsThemeDark": "داكن",
+  "settingsAiReadings": "قراءات الذكاء الاصطناعي",
+  "settingsAiAllowed": "مسموح بها",
+  "settingsAiNotAllowed": "غير مسموح بها",
+  "settingsPrivacyChoices": "خيارات الخصوصية",
+  "settingsExport": "تصدير نسخة احتياطية",
+  "settingsImport": "استيراد نسخة احتياطية",
+  "settingsDeleteAll": "حذف كل البيانات",
+  "settingsHelpFaq": "المساعدة والأسئلة الشائعة",
+  "settingsSupportLines": "خطوط الدعم",
+  "settingsSupportLinesSubtitle": "أشخاص يمكنك التحدث إليهم، أينما كنت",
+  "settingsMoveReadings": "نقل القراءات من جهاز آخر",
+  "settingsMoveReadingsSubtitle": "الحصول على رمز نقل لإرساله إلى الدعم",
+  "settingsTransferChecking": "جارٍ التحقق من مشترياتك السابقة…",
+  "settingsTransferCodeTitle": "رمز النقل الخاص بك",
+  "settingsTransferCodeBody": "يُرجى إرسال هذا الرمز مع معرّف الدعم إلى فريق الدعم عبر البريد الإلكتروني. سننقل قراءاتك غير المستخدمة إلى هذا الجهاز.",
+  "settingsTransferNothing": "لم يُعثر على قراءات من أجهزة أخرى لحساب المتجر هذا.",
+  "settingsTransferNotEligible": "لا يمكن نقل هذه المشتريات تلقائيًا. يُرجى التواصل مع الدعم مع ذكر معرّف الدعم.",
+  "settingsTransferFailed": "تعذّر التحقق من مشترياتك. يُرجى المحاولة مرة أخرى.",
+  "settingsTransferEmail": "مراسلة الدعم",
+  "settingsTransferEmailLine": "رمز النقل: {code}",
+  "settingsLegal": "الشؤون القانونية",
+  "settingsLegalSubtitle": "الشروط، والخصوصية، والتراخيص",
+  "settingsRate": "تقييم Taro",
   "settingsVersion": "Taro {version} ({build})",
-  "@settingsVersion": {
-    "x-translate": true
-  },
-  "settingsSupportId": "Support ID {id}",
-  "@settingsSupportId": {
-    "x-translate": true
-  },
-  "settingsCopyId": "Copy ID",
-  "@settingsCopyId": {
-    "x-translate": true
-  },
-  "settingsCopyIdSemantics": "Copy Support ID {id}",
-  "@settingsCopyIdSemantics": {
-    "x-translate": true
-  },
-  "settingsSupportIdCaption": "Share the Support ID if you contact us. It doesn’t identify you.",
-  "@settingsSupportIdCaption": {
-    "x-translate": true
-  },
-  "settingsRestoreInProgress": "Restoring purchases…",
-  "@settingsRestoreInProgress": {
-    "x-translate": true
-  },
-  "languageTitle": "Language",
-  "@languageTitle": {
-    "x-translate": true
-  },
-  "languageBody": "Menus, card meanings and new readings use this language.",
-  "@languageBody": {
-    "x-translate": true
-  },
-  "languageLegend": "App language",
-  "@languageLegend": {
-    "x-translate": true
-  },
-  "languageUsePhone": "Use phone language",
-  "@languageUsePhone": {
-    "x-translate": true
-  },
-  "languageFromPhone": "{language}, from your phone settings",
-  "@languageFromPhone": {
-    "x-translate": true
-  },
-  "languageChoose": "Choose a language",
-  "@languageChoose": {
-    "x-translate": true
-  },
-  "languageNote": "Past readings in your journal keep the language they were written in. Only new readings change.",
-  "@languageNote": {
-    "x-translate": true
-  },
-  "reminderTitle": "Daily reminder",
-  "@reminderTitle": {
-    "x-translate": true
-  },
-  "reminderBody": "A gentle nudge for your daily card.",
-  "@reminderBody": {
-    "x-translate": true
-  },
-  "reminderToggle": "Daily card reminder",
-  "@reminderToggle": {
-    "x-translate": true
-  },
-  "reminderAt": "Remind me at",
-  "@reminderAt": {
-    "x-translate": true
-  },
-  "reminderChange": "Change",
-  "@reminderChange": {
-    "x-translate": true
-  },
-  "reminderPreviewCaption": "What you’ll see",
-  "@reminderPreviewCaption": {
-    "x-translate": true
-  },
-  "reminderPreviewNote": "The wording changes a little from day to day. It never shows your card.",
-  "@reminderPreviewNote": {
-    "x-translate": true
-  },
-  "reminderPermissionNote": "Your phone asks for permission to send notifications when you turn this on.",
-  "@reminderPermissionNote": {
-    "x-translate": true
-  },
-  "reminderPermissionDenied": "Notifications are off in system settings",
-  "@reminderPermissionDenied": {
-    "x-translate": true
-  },
-  "reminderTimeSemantics": "Reminder time {time}. Double-tap to change",
-  "@reminderTimeSemantics": {
-    "x-translate": true
-  },
-  "privacyTitle": "Privacy choices",
-  "@privacyTitle": {
-    "x-translate": true
-  },
-  "privacyBody": "Taro works fully whatever you choose here.",
-  "@privacyBody": {
-    "x-translate": true
-  },
-  "privacyAiHeading": "AI readings",
-  "@privacyAiHeading": {
-    "x-translate": true
-  },
-  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (OpenAI) to write readings.",
-  "@privacyAiAllowedSubtitle": {
-    "x-translate": true
-  },
-  "privacyAiNotAllowedSubtitle": "Nothing is sent. You can still use classic readings.",
-  "@privacyAiNotAllowedSubtitle": {
-    "x-translate": true
-  },
-  "privacyAiWithdraw": "Withdraw",
-  "@privacyAiWithdraw": {
-    "x-translate": true
-  },
-  "privacyAiAllow": "Allow",
-  "@privacyAiAllow": {
-    "x-translate": true
-  },
-  "privacyWithdrawTitle": "Stop AI readings?",
-  "@privacyWithdrawTitle": {
-    "x-translate": true
-  },
-  "privacyWithdrawBody": "You can still use classic readings, the daily card, Learn and your journal.",
-  "@privacyWithdrawBody": {
-    "x-translate": true
-  },
-  "privacyWithdrawConfirm": "Stop AI readings",
-  "@privacyWithdrawConfirm": {
-    "x-translate": true
-  },
-  "privacyAdsHeading": "Ads",
-  "@privacyAdsHeading": {
-    "x-translate": true
-  },
-  "privacyAdPersonalisation": "Ad personalisation",
-  "@privacyAdPersonalisation": {
-    "x-translate": true
-  },
-  "privacyAdPersonalisationSubtitle": "Managed through the ad consent form. Ads never appear inside a reading.",
-  "@privacyAdPersonalisationSubtitle": {
-    "x-translate": true
-  },
-  "privacyReviewAdChoices": "Review ad choices",
-  "@privacyReviewAdChoices": {
-    "x-translate": true
-  },
-  "privacyTracking": "Tracking",
-  "@privacyTracking": {
-    "x-translate": true
-  },
-  "privacyTrackingAllowed": "Allowed · change in iOS Settings",
-  "@privacyTrackingAllowed": {
-    "x-translate": true
-  },
-  "privacyTrackingNotAllowed": "Not allowed · change in iOS Settings",
-  "@privacyTrackingNotAllowed": {
-    "x-translate": true
-  },
-  "privacyTrackingNotAsked": "Not asked yet",
-  "@privacyTrackingNotAsked": {
-    "x-translate": true
-  },
-  "privacyImprovingHeading": "Improving Taro",
-  "@privacyImprovingHeading": {
-    "x-translate": true
-  },
-  "privacyAnalytics": "Usage analytics",
-  "@privacyAnalytics": {
-    "x-translate": true
-  },
-  "privacyAnalyticsSubtitle": "Which screens get used, and crash reports. Never your questions or readings.",
-  "@privacyAnalyticsSubtitle": {
-    "x-translate": true
-  },
-  "privacyReadPolicy": "Read the privacy policy",
-  "@privacyReadPolicy": {
-    "x-translate": true
-  },
-  "exportTitle": "Export backup",
-  "@exportTitle": {
-    "x-translate": true
-  },
-  "exportBody": "Keep a copy of your journal in one file.",
-  "@exportBody": {
-    "x-translate": true
-  },
-  "exportIncluded": "Included",
-  "@exportIncluded": {
-    "x-translate": true
-  },
-  "exportJournal": "Your journal",
-  "@exportJournal": {
-    "x-translate": true
-  },
-  "exportJournalCount": "{count, plural, one{1 entry} other{{count} entries}}",
-  "@exportJournalCount": {
-    "x-translate": true
-  },
-  "exportNotes": "Your notes",
-  "@exportNotes": {
-    "x-translate": true
-  },
-  "exportFavourites": "Favourites",
-  "@exportFavourites": {
-    "x-translate": true
-  },
-  "exportSettings": "Settings: theme, language, reminder",
-  "@exportSettings": {
-    "x-translate": true
-  },
-  "exportNotIncluded": "Not included",
-  "@exportNotIncluded": {
-    "x-translate": true
-  },
-  "exportBalance": "Readings balance and purchases",
-  "@exportBalance": {
-    "x-translate": true
-  },
-  "exportBalanceCaption": "They stay with this install.",
-  "@exportBalanceCaption": {
-    "x-translate": true
-  },
-  "exportConsent": "Privacy and AI choices",
-  "@exportConsent": {
-    "x-translate": true
-  },
-  "exportConsentCaption": "You make them again on a new phone.",
-  "@exportConsentCaption": {
-    "x-translate": true
-  },
-  "exportButton": "Export backup",
-  "@exportButton": {
-    "x-translate": true
-  },
-  "exportPreparing": "Preparing…",
-  "@exportPreparing": {
-    "x-translate": true
-  },
-  "exportButtonCaption": "Opens the share sheet: Files, Drive, email and more.",
-  "@exportButtonCaption": {
-    "x-translate": true
-  },
-  "exportDoneTitle": "Backup saved.",
-  "@exportDoneTitle": {
-    "x-translate": true
-  },
-  "exportDoneBody": "Keep it somewhere private: it holds your questions and notes.",
-  "@exportDoneBody": {
-    "x-translate": true
-  },
-  "exportFailed": "We couldn’t create the backup file.",
-  "@exportFailed": {
-    "x-translate": true
-  },
-  "importTitle": "Import backup",
-  "@importTitle": {
-    "x-translate": true
-  },
-  "importBody": "Check what’s in the file, then choose how to bring it in.",
-  "@importBody": {
-    "x-translate": true
-  },
-  "importChooseFile": "Choose a file",
-  "@importChooseFile": {
-    "x-translate": true
-  },
-  "importChooseAnother": "Choose another file",
-  "@importChooseAnother": {
-    "x-translate": true
-  },
-  "importValidating": "Checking the file…",
-  "@importValidating": {
-    "x-translate": true
-  },
-  "importExportedOn": "Exported {date}",
-  "@importExportedOn": {
-    "x-translate": true
-  },
-  "importSummary": "{readings, plural, one{1 reading} other{{readings} readings}} · {dailyCards, plural, one{1 daily card} other{{dailyCards} daily cards}}",
-  "@importSummary": {
-    "x-translate": true
-  },
-  "importChecked": "File checked. Everything looks right.",
-  "@importChecked": {
-    "x-translate": true
-  },
-  "importBalanceNote": "Backups don’t include readings balance or purchases, so yours stays as it is.",
-  "@importBalanceNote": {
-    "x-translate": true
-  },
-  "importModeLegend": "How to bring it in",
-  "@importModeLegend": {
-    "x-translate": true
-  },
-  "importMerge": "Merge with my journal",
-  "@importMerge": {
-    "x-translate": true
-  },
-  "importMergeBody": "Adds what you don’t have yet. If an entry is in both, the newer version is kept.",
-  "@importMergeBody": {
-    "x-translate": true
-  },
-  "importReplace": "Replace my journal",
-  "@importReplace": {
-    "x-translate": true
-  },
-  "importReplaceBody": "Removes the journal on this phone and uses the backup instead. You’ll confirm first.",
-  "@importReplaceBody": {
-    "x-translate": true
-  },
-  "importButton": "Import",
-  "@importButton": {
-    "x-translate": true
-  },
-  "importInvalidNotTaro": "This isn’t a Taro backup file",
-  "@importInvalidNotTaro": {
-    "x-translate": true
-  },
-  "importInvalidNewerVersion": "Update Taro to import this backup",
-  "@importInvalidNewerVersion": {
-    "x-translate": true
-  },
-  "importInvalidCorrupt": "This file is damaged and can’t be imported",
-  "@importInvalidCorrupt": {
-    "x-translate": true
-  },
-  "importInvalidTooLarge": "This file is larger than 20 MB",
-  "@importInvalidTooLarge": {
-    "x-translate": true
-  },
-  "importInvalidNotTaroBody": "It may be a different kind of file, or it was damaged while it was being copied.",
-  "@importInvalidNotTaroBody": {
-    "x-translate": true
-  },
-  "importInvalidNewerVersionBody": "This backup was made by a newer version of Taro. Update the app, then import it again.",
-  "@importInvalidNewerVersionBody": {
-    "x-translate": true
-  },
-  "importInvalidCorruptBody": "Part of the file is missing or was changed after it was exported.",
-  "@importInvalidCorruptBody": {
-    "x-translate": true
-  },
-  "importInvalidTooLargeBody": "Taro can import backups up to 20 MB.",
-  "@importInvalidTooLargeBody": {
-    "x-translate": true
-  },
-  "importChosenFile": "The chosen file",
-  "@importChosenFile": {
-    "x-translate": true
-  },
-  "importTryHeading": "What you can try",
-  "@importTryHeading": {
-    "x-translate": true
-  },
-  "importTry1": "Choose the file whose name starts with taro-backup- and ends in .json.",
-  "@importTry1": {
-    "x-translate": true
-  },
-  "importTry2": "If it came by email or chat, save it to Files first, then choose it again.",
-  "@importTry2": {
-    "x-translate": true
-  },
-  "importTry3": "Still stuck? Make a fresh backup in Settings, Export backup, on the phone that has your journal.",
-  "@importTry3": {
-    "x-translate": true
-  },
-  "importNothingChanged": "Nothing was changed in your journal.",
-  "@importNothingChanged": {
-    "x-translate": true
-  },
-  "importBackToSettings": "Back to Settings",
-  "@importBackToSettings": {
-    "x-translate": true
-  },
-  "importConfirmReplaceTitle": "Replace your journal?",
-  "@importConfirmReplaceTitle": {
-    "x-translate": true
-  },
-  "importConfirmReplaceBody": "{count, plural, one{The 1 entry on this phone will be removed.} other{The {count} entries on this phone will be removed.}}",
-  "@importConfirmReplaceBody": {
-    "x-translate": true
-  },
-  "importConfirmReplaceAction": "Replace",
-  "@importConfirmReplaceAction": {
-    "x-translate": true
-  },
-  "importProgress": "Importing {done} of {total}…",
-  "@importProgress": {
-    "x-translate": true
-  },
-  "importDone": "Imported {readings, plural, one{1 reading} other{{readings} readings}} and {dailyCards, plural, one{1 daily card} other{{dailyCards} daily cards}}",
-  "@importDone": {
-    "x-translate": true
-  },
-  "importOpenJournal": "Open Journal",
-  "@importOpenJournal": {
-    "x-translate": true
-  },
-  "importFailed": "We couldn’t import this backup. Your journal is unchanged.",
-  "@importFailed": {
-    "x-translate": true
-  },
-  "deleteTitle": "Delete all data",
-  "@deleteTitle": {
-    "x-translate": true
-  },
-  "deleteBody": "This can’t be undone. If you might want your journal later, export a backup first.",
-  "@deleteBody": {
-    "x-translate": true
-  },
-  "deleteExportFirst": "Export a backup",
-  "@deleteExportFirst": {
-    "x-translate": true
-  },
-  "deleteErasedHeading": "What’s erased",
-  "@deleteErasedHeading": {
-    "x-translate": true
-  },
-  "deleteErasedJournal": "{count, plural, =0{Your journal} one{Your journal: 1 entry} other{Your journal: {count} readings and daily cards}}",
-  "@deleteErasedJournal": {
-    "x-translate": true
-  },
-  "deleteErasedNotes": "Your notes and favourites",
-  "@deleteErasedNotes": {
-    "x-translate": true
-  },
-  "deleteErasedSettings": "Settings and reminders on this phone",
-  "@deleteErasedSettings": {
-    "x-translate": true
-  },
-  "deleteErasedServer": "Readings waiting on our server to be delivered",
-  "@deleteErasedServer": {
-    "x-translate": true
-  },
-  "deleteKeptHeading": "What’s kept",
-  "@deleteKeptHeading": {
-    "x-translate": true
-  },
-  "deleteKeptBalance": "Your readings balance: {balance}",
-  "@deleteKeptBalance": {
-    "x-translate": true
-  },
-  "deleteKeptRemoveAds": "Your Remove Banner Ads purchase",
-  "@deleteKeptRemoveAds": {
-    "x-translate": true
-  },
-  "deleteKeptCaption": "So you don’t lose what you paid for.",
-  "@deleteKeptCaption": {
-    "x-translate": true
-  },
-  "deleteConfirmLabel": "Type {word} to confirm",
-  "@deleteConfirmLabel": {
-    "x-translate": true
-  },
-  "deleteConfirmWord": "DELETE",
-  "@deleteConfirmWord": {
-    "x-translate": true
-  },
-  "deleteButton": "Delete all data",
-  "@deleteButton": {
-    "x-translate": true
-  },
-  "deleteDoneTitle": "Your data is deleted",
-  "@deleteDoneTitle": {
-    "x-translate": true
-  },
-  "deleteDoneBody": "Your remaining readings and Remove Banner Ads are kept.",
-  "@deleteDoneBody": {
-    "x-translate": true
-  },
-  "deletePartial": "Deleted on this phone. We’ll finish removing server data when you’re back online.",
-  "@deletePartial": {
-    "x-translate": true
-  },
-  "deleteFailed": "We couldn’t delete your data. Nothing was removed.",
-  "@deleteFailed": {
-    "x-translate": true
-  },
-  "crisisEmergency": "If you’re in immediate danger, call {number}",
-  "@crisisEmergency": {
-    "x-translate": true
-  },
-  "crisisCallNumber": "Call {number}",
-  "@crisisCallNumber": {
-    "x-translate": true
-  },
-  "crisisSupportIn": "Support in {country}",
-  "@crisisSupportIn": {
-    "x-translate": true
-  },
-  "crisisCall": "Call",
-  "@crisisCall": {
-    "x-translate": true
-  },
-  "crisisText": "Text",
-  "@crisisText": {
-    "x-translate": true
-  },
-  "crisisOpen": "Open",
-  "@crisisOpen": {
-    "x-translate": true
-  },
+  "settingsSupportId": "معرّف الدعم {id}",
+  "settingsCopyId": "نسخ المعرّف",
+  "settingsCopyIdSemantics": "نسخ معرّف الدعم {id}",
+  "settingsSupportIdCaption": "يمكنك مشاركة معرّف الدعم عند التواصل معنا. فهو لا يكشف هويتك.",
+  "settingsRestoreInProgress": "جارٍ استعادة المشتريات…",
+  "languageTitle": "اللغة",
+  "languageBody": "تستخدم القوائم ومعاني البطاقات والقراءات الجديدة هذه اللغة.",
+  "languageLegend": "لغة التطبيق",
+  "languageUsePhone": "استخدام لغة الهاتف",
+  "languageFromPhone": "{language}، من إعدادات هاتفك",
+  "languageChoose": "اختيار لغة",
+  "languageNote": "تحتفظ القراءات السابقة في مذكراتك باللغة التي كُتبت بها. تتغير القراءات الجديدة فقط.",
+  "reminderTitle": "التذكير اليومي",
+  "reminderBody": "تنبيه لطيف لبطاقتك اليومية.",
+  "reminderToggle": "تذكير بطاقة اليوم",
+  "reminderAt": "وقت التذكير",
+  "reminderChange": "تغيير",
+  "reminderPreviewCaption": "ما ستراه",
+  "reminderPreviewNote": "تتغير الصياغة قليلًا من يوم لآخر. ولا تكشف بطاقتك أبدًا.",
+  "reminderPermissionNote": "يطلب هاتفك الإذن بإرسال الإشعارات عند تفعيل هذا الخيار.",
+  "reminderPermissionDenied": "الإشعارات متوقفة في إعدادات النظام",
+  "reminderTimeSemantics": "وقت التذكير {time}. النقر مرتين للتغيير",
+  "privacyTitle": "خيارات الخصوصية",
+  "privacyBody": "يعمل Taro بالكامل مهما كان اختيارك هنا.",
+  "privacyAiHeading": "قراءات الذكاء الاصطناعي",
+  "privacyAiAllowedSubtitle": "يُرسَل سؤالك وبطاقاتك إلى خدمة ذكاء اصطناعي (OpenAI) لكتابة القراءات.",
+  "privacyAiNotAllowedSubtitle": "لا يُرسَل أي شيء. لا يزال بإمكانك استخدام القراءات الكلاسيكية.",
+  "privacyAiWithdraw": "سحب الموافقة",
+  "privacyAiAllow": "السماح",
+  "privacyWithdrawTitle": "إيقاف قراءات الذكاء الاصطناعي؟",
+  "privacyWithdrawBody": "لا يزال بإمكانك استخدام القراءات الكلاسيكية وبطاقة اليوم وقسم «تعلّم» ومذكراتك.",
+  "privacyWithdrawConfirm": "إيقاف قراءات الذكاء الاصطناعي",
+  "privacyAdsHeading": "الإعلانات",
+  "privacyAdPersonalisation": "تخصيص الإعلانات",
+  "privacyAdPersonalisationSubtitle": "تُدار من خلال نموذج الموافقة على الإعلانات. لا تظهر الإعلانات أبدًا داخل القراءة.",
+  "privacyReviewAdChoices": "مراجعة خيارات الإعلانات",
+  "privacyTracking": "التتبع",
+  "privacyTrackingAllowed": "مسموح · يمكن تغييره من إعدادات iOS",
+  "privacyTrackingNotAllowed": "غير مسموح · يمكن تغييره من إعدادات iOS",
+  "privacyTrackingNotAsked": "لم يُطلب بعد",
+  "privacyImprovingHeading": "تحسين Taro",
+  "privacyAnalytics": "تحليلات الاستخدام",
+  "privacyAnalyticsSubtitle": "الشاشات المستخدمة، وتقارير الأعطال. لا تشمل أسئلتك أو قراءاتك أبدًا.",
+  "privacyReadPolicy": "قراءة سياسة الخصوصية",
+  "exportTitle": "تصدير نسخة احتياطية",
+  "exportBody": "الاحتفاظ بنسخة من مذكراتك في ملف واحد.",
+  "exportIncluded": "مُضمَّن",
+  "exportJournal": "مذكراتك",
+  "exportJournalCount": "{count, plural, zero{لا إدخالات} one{إدخال واحد} two{إدخالان} few{{count} إدخالات} many{{count} إدخالًا} other{{count} إدخال}}",
+  "exportNotes": "ملاحظاتك",
+  "exportFavourites": "المفضلة",
+  "exportSettings": "الإعدادات: المظهر، واللغة، والتذكير",
+  "exportNotIncluded": "غير مُضمَّن",
+  "exportBalance": "رصيد القراءات والمشتريات",
+  "exportBalanceCaption": "تبقى مع هذا التثبيت.",
+  "exportConsent": "خيارات الخصوصية والذكاء الاصطناعي",
+  "exportConsentCaption": "تُحدَّد من جديد على الهاتف الجديد.",
+  "exportButton": "تصدير نسخة احتياطية",
+  "exportPreparing": "جارٍ التحضير…",
+  "exportButtonCaption": "يفتح قائمة المشاركة: الملفات، وDrive، والبريد الإلكتروني، وغيرها.",
+  "exportDoneTitle": "حُفظت النسخة الاحتياطية.",
+  "exportDoneBody": "يُستحسن حفظها في مكان خاص: فهي تحتوي على أسئلتك وملاحظاتك.",
+  "exportFailed": "تعذّر إنشاء ملف النسخة الاحتياطية.",
+  "importTitle": "استيراد نسخة احتياطية",
+  "importBody": "يمكنك مراجعة محتوى الملف أولًا، ثم تحديد طريقة استيراده.",
+  "importChooseFile": "اختيار ملف",
+  "importChooseAnother": "اختيار ملف آخر",
+  "importValidating": "جارٍ فحص الملف…",
+  "importExportedOn": "صُدِّر في {date}",
+  "importSummary": "{readings, plural, zero{لا قراءات} one{قراءة واحدة} two{قراءتان} few{{readings} قراءات} many{{readings} قراءة} other{{readings} قراءة}} · {dailyCards, plural, zero{لا بطاقات يومية} one{بطاقة يومية واحدة} two{بطاقتان يوميتان} few{{dailyCards} بطاقات يومية} many{{dailyCards} بطاقة يومية} other{{dailyCards} بطاقة يومية}}",
+  "importChecked": "تم فحص الملف. كل شيء يبدو سليمًا.",
+  "importBalanceNote": "لا تتضمن النسخ الاحتياطية رصيد القراءات أو المشتريات، لذا يبقى رصيدك كما هو.",
+  "importModeLegend": "طريقة الاستيراد",
+  "importMerge": "الدمج مع مذكراتي",
+  "importMergeBody": "يضيف ما ليس لديك بعد. إذا وُجد إدخال في الاثنين، يُحتفظ بالنسخة الأحدث.",
+  "importReplace": "استبدال مذكراتي",
+  "importReplaceBody": "يزيل المذكرات الموجودة على هذا الهاتف ويستخدم النسخة الاحتياطية بدلًا منها. سيُطلب منك التأكيد أولًا.",
+  "importButton": "استيراد",
+  "importInvalidNotTaro": "هذا ليس ملف نسخة احتياطية من Taro",
+  "importInvalidNewerVersion": "يلزم تحديث Taro لاستيراد هذه النسخة الاحتياطية",
+  "importInvalidCorrupt": "هذا الملف تالف ولا يمكن استيراده",
+  "importInvalidTooLarge": "حجم هذا الملف يتجاوز 20 ميغابايت",
+  "importInvalidNotTaroBody": "قد يكون نوعًا مختلفًا من الملفات، أو ربما تلف أثناء نسخه.",
+  "importInvalidNewerVersionBody": "أُنشئت هذه النسخة الاحتياطية بإصدار أحدث من Taro. يلزم تحديث التطبيق ثم استيرادها مرة أخرى.",
+  "importInvalidCorruptBody": "جزء من الملف مفقود أو تغيّر بعد تصديره.",
+  "importInvalidTooLargeBody": "يمكن لـTaro استيراد نسخ احتياطية يصل حجمها إلى 20 ميغابايت.",
+  "importChosenFile": "الملف المختار",
+  "importTryHeading": "ما يمكنك تجربته",
+  "importTry1": "اختيار الملف الذي يبدأ اسمه بـ taro-backup- وينتهي بـ .json.",
+  "importTry2": "إذا وصلك عبر البريد الإلكتروني أو الدردشة، يُرجى حفظه في «الملفات» أولًا ثم اختياره مرة أخرى.",
+  "importTry3": "ألا يزال الأمر عالقًا؟ يمكنك إنشاء نسخة احتياطية جديدة من الإعدادات، «تصدير نسخة احتياطية»، على الهاتف الذي يحتوي على مذكراتك.",
+  "importNothingChanged": "لم يتغير شيء في مذكراتك.",
+  "importBackToSettings": "العودة إلى الإعدادات",
+  "importConfirmReplaceTitle": "استبدال مذكراتك؟",
+  "importConfirmReplaceBody": "{count, plural, zero{لا توجد إدخالات على هذا الهاتف لإزالتها.} one{سيُزال الإدخال الوحيد الموجود على هذا الهاتف.} two{سيُزال الإدخالان الموجودان على هذا الهاتف.} few{ستُزال الإدخالات الـ{count} الموجودة على هذا الهاتف.} many{ستُزال الإدخالات الـ{count} الموجودة على هذا الهاتف.} other{ستُزال الإدخالات الـ{count} الموجودة على هذا الهاتف.}}",
+  "importConfirmReplaceAction": "استبدال",
+  "importProgress": "جارٍ استيراد {done} من {total}…",
+  "importDone": "تم استيراد {readings, plural, zero{لا قراءات} one{قراءة واحدة} two{قراءتين} few{{readings} قراءات} many{{readings} قراءة} other{{readings} قراءة}} و{dailyCards, plural, zero{لا بطاقات يومية} one{بطاقة يومية واحدة} two{بطاقتين يوميتين} few{{dailyCards} بطاقات يومية} many{{dailyCards} بطاقة يومية} other{{dailyCards} بطاقة يومية}}",
+  "importOpenJournal": "فتح المذكرات",
+  "importFailed": "تعذّر استيراد هذه النسخة الاحتياطية. لم تتغير مذكراتك.",
+  "deleteTitle": "حذف كل البيانات",
+  "deleteBody": "لا يمكن التراجع عن ذلك. إن كنت قد تحتاج إلى مذكراتك لاحقًا، فيُستحسن تصدير نسخة احتياطية أولًا.",
+  "deleteExportFirst": "تصدير نسخة احتياطية",
+  "deleteErasedHeading": "ما سيُمحى",
+  "deleteErasedJournal": "{count, plural, =0{مذكراتك} one{مذكراتك: إدخال واحد} two{مذكراتك: إدخالان} few{مذكراتك: {count} من القراءات والبطاقات اليومية} many{مذكراتك: {count} من القراءات والبطاقات اليومية} other{مذكراتك: {count} من القراءات والبطاقات اليومية}}",
+  "deleteErasedNotes": "ملاحظاتك ومفضلاتك",
+  "deleteErasedSettings": "الإعدادات والتذكيرات على هذا الهاتف",
+  "deleteErasedServer": "القراءات التي تنتظر التسليم على خادمنا",
+  "deleteKeptHeading": "ما سيبقى",
+  "deleteKeptBalance": "رصيد قراءاتك: {balance}",
+  "deleteKeptRemoveAds": "مشترياتك من «إزالة إعلانات البانر»",
+  "deleteKeptCaption": "حتى لا تخسر ما دفعت ثمنه.",
+  "deleteConfirmLabel": "للتأكيد، يُرجى كتابة {word}",
+  "deleteConfirmWord": "حذف",
+  "deleteButton": "حذف كل البيانات",
+  "deleteDoneTitle": "حُذفت بياناتك",
+  "deleteDoneBody": "تبقى قراءاتك المتبقية و«إزالة إعلانات البانر» محفوظة.",
+  "deletePartial": "حُذفت البيانات من هذا الهاتف. سنُكمل إزالة البيانات من الخادم عند عودة الاتصال.",
+  "deleteFailed": "تعذّر حذف بياناتك. لم يُحذف أي شيء.",
+  "crisisEmergency": "إذا كنت في خطر مباشر، يُرجى الاتصال بالرقم {number}",
+  "crisisCallNumber": "الاتصال بالرقم {number}",
+  "crisisSupportIn": "الدعم في {country}",
+  "crisisCall": "اتصال",
+  "crisisText": "رسالة نصية",
+  "crisisOpen": "فتح",
   "crisisHours": "{contact} · {hours}",
-  "@crisisHours": {
-    "x-translate": true
-  },
-  "crisisInternationalName": "Find a helpline in another country",
-  "@crisisInternationalName": {
-    "x-translate": true
-  },
-  "crisisInternationalBody": "Free, confidential support lines worldwide",
-  "@crisisInternationalBody": {
-    "x-translate": true
-  },
-  "crisisOtherCountry": "Show resources for another country",
-  "@crisisOtherCountry": {
-    "x-translate": true
-  },
-  "crisisCountryPicker": "Choose a country",
-  "@crisisCountryPicker": {
-    "x-translate": true
-  },
-  "crisisLastChecked": "Last checked {date}",
-  "@crisisLastChecked": {
-    "x-translate": true
-  },
-  "crisisCallSemantics": "Call {name} on {number}",
-  "@crisisCallSemantics": {
-    "x-translate": true
-  },
-  "crisisTextSemantics": "Text {name} on {number}",
-  "@crisisTextSemantics": {
-    "x-translate": true
-  },
-  "crisisOpenSemantics": "Open {site}",
-  "@crisisOpenSemantics": {
-    "x-translate": true
-  },
-  "crisisOpenFailed": "Couldn’t open this on your device. You can dial or visit it yourself.",
-  "@crisisOpenFailed": {
-    "x-translate": true
-  },
-  "helpTitle": "Help & FAQ",
-  "@helpTitle": {
-    "x-translate": true
-  },
-  "helpSearchHint": "Search help",
-  "@helpSearchHint": {
-    "x-translate": true
-  },
-  "helpCommonQuestions": "Common questions",
-  "@helpCommonQuestions": {
-    "x-translate": true
-  },
-  "helpSearchEmpty": "No answers match “{query}”",
-  "@helpSearchEmpty": {
-    "x-translate": true
-  },
-  "helpContactHeading": "Contact support",
-  "@helpContactHeading": {
-    "x-translate": true
-  },
-  "helpEmail": "Email",
-  "@helpEmail": {
-    "x-translate": true
-  },
-  "helpSupportIdLabel": "Support ID",
-  "@helpSupportIdLabel": {
-    "x-translate": true
-  },
-  "helpEmailSupport": "Email support",
-  "@helpEmailSupport": {
-    "x-translate": true
-  },
-  "helpEmailSubject": "Taro support ({supportId})",
-  "@helpEmailSubject": {
-    "x-translate": true
-  },
-  "helpEmailBody": "App: {version}\nSystem: {os}\nLanguage: {locale}\nSupport ID: {supportId}\n\n",
-  "@helpEmailBody": {
-    "x-translate": true
-  },
-  "legalTitle": "Legal",
-  "@legalTitle": {
-    "x-translate": true
-  },
-  "legalDisclaimer": "Disclaimer",
-  "@legalDisclaimer": {
-    "x-translate": true
-  },
-  "legalTerms": "Terms of use",
-  "@legalTerms": {
-    "x-translate": true
-  },
-  "legalPrivacy": "Privacy policy",
-  "@legalPrivacy": {
-    "x-translate": true
-  },
-  "legalLicences": "Open-source licences",
-  "@legalLicences": {
-    "x-translate": true
-  },
-  "legalVersion": "v{version} · effective {date}",
-  "@legalVersion": {
-    "x-translate": true
-  },
-  "legalWebNote": "Terms and privacy policy are also at taro.vshyrochuk.com",
-  "@legalWebNote": {
-    "x-translate": true
-  },
-  "legalOpenInBrowser": "Open in browser",
-  "@legalOpenInBrowser": {
-    "x-translate": true
-  },
-  "legalReadOnline": "Read online",
-  "@legalReadOnline": {
-    "x-translate": true
-  },
-  "legalWebBody": "Opens in a browser window inside Taro.",
-  "@legalWebBody": {
-    "x-translate": true
-  },
-  "legalViewLicences": "View licences",
-  "@legalViewLicences": {
-    "x-translate": true
-  },
-  "legalLicencesBody": "Taro is built with open-source software. Each package and its licence is listed here.",
-  "@legalLicencesBody": {
-    "x-translate": true
-  },
-  "legalSupportLine": "Find a support line",
-  "@legalSupportLine": {
-    "x-translate": true
-  },
-  "legalDisclaimerBody": "Taro does not predict the future. The cards are prompts for your own reflection, and what a card means for you is your decision. If you are going through something difficult, please talk to someone you trust or a support line.",
-  "@legalDisclaimerBody": {
-    "x-translate": true
-  },
-  "updateTitle": "Please update Taro",
-  "@updateTitle": {
-    "x-translate": true
-  },
-  "updateBody": "This version of Taro can no longer get new readings. Update to keep drawing readings.",
-  "@updateBody": {
-    "x-translate": true
-  },
-  "updateSafeTitle": "Your journal is safe.",
-  "@updateSafeTitle": {
-    "x-translate": true
-  },
-  "updateSafeBody": "It stays on this phone, and your readings balance and purchases stay too.",
-  "@updateSafeBody": {
-    "x-translate": true
-  },
-  "updateButton": "Update",
-  "@updateButton": {
-    "x-translate": true
-  },
-  "updateCaptionIos": "Opens the App Store · You have Taro {version}",
-  "@updateCaptionIos": {
-    "x-translate": true
-  },
-  "updateCaptionAndroid": "Opens Google Play · You have Taro {version}",
-  "@updateCaptionAndroid": {
-    "x-translate": true
-  },
-  "screenOutOfReadings": "Reading options",
-  "@screenOutOfReadings": {
-    "x-translate": true
-  },
-  "screenRewarded": "Rewarded ad",
-  "@screenRewarded": {
-    "x-translate": true
-  },
-  "screenReport": "Report",
-  "@screenReport": {
-    "x-translate": true
-  },
-  "drawLeaveBodySaved": "Your cards are saved and you can finish it from the Journal.",
-  "@drawLeaveBodySaved": {
-    "x-translate": true
-  },
-  "drawShuffleNote": "The order is already random. Shuffling is your moment to pause.",
-  "@drawShuffleNote": {
-    "x-translate": true
-  },
-  "drawShuffleReady": "I’m ready — draw",
-  "@drawShuffleReady": {
-    "x-translate": true
-  },
-  "drawRevealedProgress": "{revealed} of {total} revealed",
-  "@drawRevealedProgress": {
-    "x-translate": true
-  },
-  "drawTapToReveal": "Tap to reveal",
-  "@drawTapToReveal": {
-    "x-translate": true
-  },
-  "drawDeckSemantics": "{count, plural, one{Deck, 1 card} other{Deck, {count} cards}}",
-  "@drawDeckSemantics": {
-    "x-translate": true
-  },
-  "drawSlotBackSemantics": "Card back, position {position} of {total}, {name}",
-  "@drawSlotBackSemantics": {
-    "x-translate": true
-  },
-  "drawSlotRevealSemantics": "Card back, position {position} of {total}, {name}. Double-tap to reveal",
-  "@drawSlotRevealSemantics": {
-    "x-translate": true
-  },
-  "storeOfflineNotice": "You’re offline. Connect to buy readings.",
-  "@storeOfflineNotice": {
-    "x-translate": true
-  },
-  "cardPreviousAction": "Previous card",
-  "@cardPreviousAction": {
-    "x-translate": true
-  },
-  "cardNextAction": "Next card",
-  "@cardNextAction": {
-    "x-translate": true
-  },
-  "importImporting": "Importing…",
-  "@importImporting": {
-    "x-translate": true
-  },
-  "journalFailedLabel": "Not created",
-  "@journalFailedLabel": {
-    "x-translate": true
-  },
-  "readingRatingPrompt": "Was this reading helpful?",
-  "@readingRatingPrompt": {
-    "x-translate": true
-  },
-  "shareQuestionLabel": "My question",
-  "@shareQuestionLabel": {
-    "x-translate": true
-  },
-  "homeCoachmarkTitle": "Your first AI reading today is free",
-  "@homeCoachmarkTitle": {
-    "x-translate": true
-  },
-  "homeCoachmarkFreeBody": "Start here when a question is on your mind. You get one free reading every day.",
-  "@homeCoachmarkFreeBody": {
-    "x-translate": true
-  },
-  "homeCoachmarkDismiss": "Got it",
-  "@homeCoachmarkDismiss": {
-    "x-translate": true
-  },
-  "dailyCardBackSemantics": "Card back, double-tap to reveal",
-  "@dailyCardBackSemantics": {
-    "x-translate": true
-  },
-  "dailyRevealedAnnouncement": "Card revealed: {card}",
-  "@dailyRevealedAnnouncement": {
-    "x-translate": true
-  },
-  "dailyHeaderSemantics": "Your daily card, {date}",
-  "@dailyHeaderSemantics": {
-    "x-translate": true
-  },
-  "dailyKeywordsSemantics": "Keywords: {keywords}",
-  "@dailyKeywordsSemantics": {
-    "x-translate": true
-  },
-  "dailyNotDrawnPrompt": "Tap the card to reveal today’s card",
-  "@dailyNotDrawnPrompt": {
-    "x-translate": true
-  },
-  "dailyNotDrawnBody": "Take a breath first, if you like. It stays the same all day.",
-  "@dailyNotDrawnBody": {
-    "x-translate": true
-  },
-  "dailyNotDrawnBadge": "Free · works offline · no AI",
-  "@dailyNotDrawnBadge": {
-    "x-translate": true
-  },
-  "dailyBackToToday": "Back to Today",
-  "@dailyBackToToday": {
-    "x-translate": true
-  },
-  "learnCardTileSemantics": "{name}, {section}, card {index} of {total}",
-  "@learnCardTileSemantics": {
-    "x-translate": true
-  },
-  "cardMeaningUpright": "Upright meaning",
-  "@cardMeaningUpright": {
-    "x-translate": true
-  },
-  "cardMeaningReversed": "Reversed meaning",
-  "@cardMeaningReversed": {
-    "x-translate": true
-  },
-  "spreadGuideDiagramSemantics": "{name} layout, {cards}. The positions are listed below in order.",
-  "@spreadGuideDiagramSemantics": {
-    "x-translate": true
-  }
+  "crisisInternationalName": "العثور على خط مساعدة في بلد آخر",
+  "crisisInternationalBody": "خطوط دعم مجانية وسرية حول العالم",
+  "crisisOtherCountry": "عرض موارد بلد آخر",
+  "crisisCountryPicker": "اختيار بلد",
+  "crisisLastChecked": "آخر تحقق في {date}",
+  "crisisCallSemantics": "الاتصال بـ{name} على الرقم {number}",
+  "crisisTextSemantics": "مراسلة {name} نصيًا على الرقم {number}",
+  "crisisOpenSemantics": "فتح {site}",
+  "crisisOpenFailed": "تعذّر فتح هذا على جهازك. يمكنك الاتصال بالرقم أو زيارة الموقع بنفسك.",
+  "helpTitle": "المساعدة والأسئلة الشائعة",
+  "helpSearchHint": "البحث في المساعدة",
+  "helpCommonQuestions": "أسئلة شائعة",
+  "helpSearchEmpty": "لا إجابات تطابق «{query}»",
+  "helpContactHeading": "التواصل مع الدعم",
+  "helpEmail": "البريد الإلكتروني",
+  "helpSupportIdLabel": "معرّف الدعم",
+  "helpEmailSupport": "مراسلة الدعم",
+  "helpEmailSubject": "دعم Taro ({supportId})",
+  "helpEmailBody": "التطبيق: {version}\nالنظام: {os}\nاللغة: {locale}\nمعرّف الدعم: {supportId}\n\n",
+  "legalTitle": "الشؤون القانونية",
+  "legalDisclaimer": "إخلاء المسؤولية",
+  "legalTerms": "شروط الاستخدام",
+  "legalPrivacy": "سياسة الخصوصية",
+  "legalLicences": "تراخيص البرمجيات مفتوحة المصدر",
+  "legalVersion": "الإصدار {version} · ساري من {date}",
+  "legalWebNote": "الشروط وسياسة الخصوصية متاحة أيضًا على taro.vshyrochuk.com",
+  "legalOpenInBrowser": "فتح في المتصفح",
+  "legalReadOnline": "القراءة عبر الإنترنت",
+  "legalWebBody": "يُفتح في نافذة متصفح داخل Taro.",
+  "legalViewLicences": "عرض التراخيص",
+  "legalLicencesBody": "بُني Taro باستخدام برمجيات مفتوحة المصدر. تجد هنا كل حزمة وترخيصها.",
+  "legalSupportLine": "العثور على خط دعم",
+  "legalDisclaimerBody": "لا يتنبأ Taro بالمستقبل. البطاقات منطلقات لتأملك الخاص، وما تعنيه البطاقة بالنسبة إليك قرارك أنت. إذا كنت تمر بوقت صعب، يُرجى التحدث إلى شخص تثق به أو إلى خط دعم.",
+  "updateTitle": "يُرجى تحديث Taro",
+  "updateBody": "لم يعد بإمكان هذا الإصدار من Taro الحصول على قراءات جديدة. يلزم التحديث لمواصلة إجراء القراءات.",
+  "updateSafeTitle": "مذكراتك في أمان.",
+  "updateSafeBody": "تبقى على هذا الهاتف، ويبقى معها رصيد قراءاتك ومشترياتك أيضًا.",
+  "updateButton": "تحديث",
+  "updateCaptionIos": "يفتح App Store · لديك Taro {version}",
+  "updateCaptionAndroid": "يفتح Google Play · لديك Taro {version}",
+  "screenOutOfReadings": "خيارات القراءة",
+  "screenRewarded": "إعلان بمكافأة",
+  "screenReport": "بلاغ",
+  "drawLeaveBodySaved": "بطاقاتك محفوظة ويمكنك إكمال القراءة من المذكرات.",
+  "drawShuffleNote": "الترتيب عشوائي بالفعل. الخلط لحظتك للتمهّل.",
+  "drawShuffleReady": "لنبدأ — السحب",
+  "drawRevealedProgress": "تم كشف {revealed} من {total}",
+  "drawTapToReveal": "النقر للكشف",
+  "drawDeckSemantics": "{count, plural, zero{مجموعة الأوراق، لا بطاقات} one{مجموعة الأوراق، بطاقة واحدة} two{مجموعة الأوراق، بطاقتان} few{مجموعة الأوراق، {count} بطاقات} many{مجموعة الأوراق، {count} بطاقة} other{مجموعة الأوراق، {count} بطاقة}}",
+  "drawSlotBackSemantics": "ظهر البطاقة، الموضع {position} من {total}، {name}",
+  "drawSlotRevealSemantics": "ظهر البطاقة، الموضع {position} من {total}، {name}. النقر مرتين للكشف",
+  "storeOfflineNotice": "لا يوجد اتصال. يلزم الاتصال لشراء القراءات.",
+  "cardPreviousAction": "البطاقة السابقة",
+  "cardNextAction": "البطاقة التالية",
+  "importImporting": "جارٍ الاستيراد…",
+  "journalFailedLabel": "لم تُنشأ",
+  "readingRatingPrompt": "هل كانت هذه القراءة مفيدة؟",
+  "shareQuestionLabel": "سؤالي",
+  "homeCoachmarkTitle": "قراءتك الأولى بالذكاء الاصطناعي اليوم مجانية",
+  "homeCoachmarkFreeBody": "يمكنك البدء من هنا حين يشغلك سؤال. لديك قراءة مجانية واحدة كل يوم.",
+  "homeCoachmarkDismiss": "حسنًا",
+  "dailyCardBackSemantics": "ظهر البطاقة، النقر مرتين للكشف",
+  "dailyRevealedAnnouncement": "كُشفت البطاقة: {card}",
+  "dailyHeaderSemantics": "بطاقتك اليومية، {date}",
+  "dailyKeywordsSemantics": "الكلمات المفتاحية: {keywords}",
+  "dailyNotDrawnPrompt": "النقر على البطاقة يكشف بطاقة اليوم",
+  "dailyNotDrawnBody": "يمكنك أخذ نفَس أولًا إن شئت. تبقى البطاقة نفسها طوال اليوم.",
+  "dailyNotDrawnBadge": "مجانية · تعمل دون اتصال · دون ذكاء اصطناعي",
+  "dailyBackToToday": "العودة إلى «اليوم»",
+  "learnCardTileSemantics": "{name}، {section}، البطاقة {index} من {total}",
+  "cardMeaningUpright": "المعنى في الوضع المعتدل",
+  "cardMeaningReversed": "المعنى في الوضع المعكوس",
+  "spreadGuideDiagramSemantics": "تخطيط {name}، {cards}. المواضع مدرجة أدناه بالترتيب."
 }

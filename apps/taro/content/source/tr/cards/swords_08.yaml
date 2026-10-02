@@ -1,0 +1,51 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+cardId: "swords_08"
+reviewStatus: "machine"
+sourceHash: >-
+  5f0a6ad9f3b19f307b30e1cc0937c06f732a9add49a791fba9cbd28941fc8d2a
+name: "Kılıç Sekizlisi"
+keywordsUpright:
+  - "sıkışmışlık"
+  - "kendini sınırlayan inanç"
+  - "kısıtlama"
+  - "hareket etme korkusu"
+  - "dar bakış"
+keywordsReversed:
+  - "yeni bir bakış açısı"
+  - "serbest kalmak"
+  - "gevşeyen inançlar"
+  - "küçük özgürlükler"
+  - "dönen eski örüntüler"
+shortUpright: >-
+  Kuşatılmış hissedebilirsin ama bazı sınırlar çoğunlukla düşüncede yaşar; küçük bir hareket göründüğünden fazla alan gösterebilir.
+shortReversed: >-
+  Bağlar gevşiyor olabilir; seni artık eskisi kadar sıkı tutmayan bir inancı fark edebilirsin.
+meaningUpright: |-
+  Kılıç Sekizlisi kılıçlarla çevrili, gözleri örtülü, elleri gevşekçe bağlı bir figürü gösterir. Daha yakından bakınca çemberde bir boşluk olduğu ve bağların pek de sıkı olmadığı görülür. Bu kart, tuzağın bir kısmı düşüncelerden yapılmışken kapana kısılmış hissetme deneyiminden söz eder.
+  Bu kartı her seçeneğin kapalı göründüğü, denemeden önce "Yapamam" deyip durduğun ya da yanlış yapma korkusunun seni tamamen hareketsiz bıraktığı bir durumda tanıyabilirsin. Gerçek kısıtlamalar vardır ve bu kart onları yok saymaz. Yalnızca duvarlardan bazılarının sorgulanmamış inançlar olup olmadığını sorar: başka seçeneğin olmadığı, kimsenin yardım etmeyeceği, değişmek için çok geç olduğu.
+  Bu kart, bir sınırı nazikçe sınamaya davet eder. Seni yerinde tutan düşünceleri yazıp hangilerinin gerçek, hangilerinin korku olduğunu sorabilirsin. Bazen bir inanca ad vermek onu gevşetmeye yeter. Sandığından biraz daha fazla alan olduğunu varsaysaydın hangi küçük adımı atardın?
+meaningReversed: |-
+  Ters geldiğinde Kılıç Sekizlisi bir serbest kalma hissini yansıtabilir. Göz bağı kayar ve çember eskisi kadar kapalı görünmez. Daha önce göremediğin seçenekleri fark ediyor ya da seni takılı bırakan bir durumdan çıkmaya hazır hissediyor olabilirsin.
+  Bir başka okuma da eski örüntülerin çekimidir: tam harekete geçmeye başlarken tanıdık şüpheler geri döner ve seni yeniden çemberin içine çekmeye çalışır. Bu bir başarısızlık sayılmaz, değişimin sık rastlanan bir parçasıdır.
+  Azıcık da olsa özgürlük kazanmana neyin yardım ettiğini ve bundan nasıl daha fazla yapabileceğini sorabilirsin. Başkalarının desteği, yeni bilgiler ya da yalnızca pratik bağları gevşek tutabilir. Hangi inancı bırakmaya hazırsın ve yerine ne koymak isterdin?
+aspects:
+  relationshipsUpright: >-
+    İlişkilerde bu kart sıkışmış hissetmeyi yansıtabilir: neye ihtiyaç duyduğunu söyleyememek ya da sana dar gelmiş bir rolle bağlı kalmak. Başkalarının ne düşündüğüne dair varsayımların seni nasıl sessiz tuttuğunu da gösterebilir. Bu varsayımlardan birini nazik bir soruyla doğrudan kontrol edebilirsin. İnsanlar çoğu zaman korkularımızın düşündürdüğünden daha fazla değişime açıktır.
+  relationshipsReversed: >-
+    Ters geldiğinde Kılıç Sekizlisi bir bağda yeni bir özgürlüğe işaret edebilir: sonunda sesini çıkarmak, bir sınır koymak ya da tanıdık bir dinamiği taze bir gözle görmek. Eski korkuların seni nerede hâlâ susturmaya çalıştığını fark edebilirsin. Küçük dürüstlük eylemlerini denemek yeni bakış açısının ilişki kurma biçiminin istikrarlı bir parçası olmasına yardım edebilir.
+  workUpright: >-
+    İşte bu kart beklentiler, kurallar ya da durumunu değiştirecek becerilerin olmadığı inancıyla kutuya kapatılmış hissetmeyi yansıtabilir. Bazı sınırlar gerçek olabilir. Geçiştirdiğin seçenekleri listeleyip birine yeniden bakabilirsin. Bir mentorla ya da arkadaşla yapılacak bir konuşma düşünmediğin yolları ortaya çıkarabilir.
+  workReversed: >-
+    Ters geldiğinde bu kart bir tekdüzelikten çıkmayı düşündürebilir: yeni bir yaklaşım denemek, farklı sorumluluklar istemek ya da neler yapabileceğine dair eski bir hikâyeyi bırakmak. Harekete geçtikçe bir kendinden şüphe kıpırtısı fark edebilirsin. Onu durmak için bir neden değil, gelişmenin bir işareti olarak gör.
+  growthUpright: >-
+    Kişisel gelişim açısından Kılıç Sekizlisi, yapamayacağını söyleyen iç sesi fark etmeye davet eder. O sesin kurallarını nereden öğrendiğini nazikçe sorabilirsin. Bir inancı sorgulamak kendini her korkunun ötesine zorlamak anlamına gelmez; çemberdeki boşluğu araman için kendine izin vermek demektir.
+  growthReversed: >-
+    Ters geldiğinde bu kart kendini sınırlayan düşüncelerin gerçek bir şekilde gevşemesini yansıtabilir. Ne kadar küçük olursa olsun kaydettiğin ilerlemeyi işaretleyebilir ve yeni bakışı güçlensin diye düzenli olarak deneyebilirsin. Eski şüpheler geri döndüğünde onları teslimiyetle değil merakla karşılayabilirsin.
+reflectionQuestions:
+  - >-
+    Sınırlarından hangisi bir gerçek, hangisi gerçek kılığına girmiş bir korku olabilir?
+  - >-
+    Kimin görüşünün seni geri tuttuğunu hayal ediyorsun ve bunu ona nasıl sorabilirsin?
+  - "Bu hafta çemberin dışına atabileceğin küçük bir adım ne?"
+imageryNote: >-
+  Özgün çizimde bir figür, toprağa dikilmiş kılıçlardan oluşan gevşek bir halkanın içinde, yumuşak ve bataklık bir zeminde durur. İnce bir kurdele gözlerini örter, bir başkası ise düğümlenmeden bileklerine sarkar. Figürün arkasında halka açıktır ve bir patika uzaktaki tepelere uzanır. Kurdeleler gevşetilebilecek sınırları, açık aralık ise henüz görülmemiş seçenekleri düşündürür.

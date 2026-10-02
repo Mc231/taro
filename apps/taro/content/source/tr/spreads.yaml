@@ -1,0 +1,17 @@
+# Machine translation (Phase 18, LLM translator pass); reviewStatus: machine until a native reviewer edits it.
+reviewStatus: "machine"
+sourceHash: >-
+  d37a2f188a37aee43c303c5dfee1f89939b7c6a8aabf9c3062114d67268aff92
+whenToUse:
+  single: >-
+    Gün boyunca seninle kalacak tek ve net bir yönlendirme istediğinde ya da sorun basitse ve iç gözlem için sade bir başlangıç noktası arıyorsan tek kart kullan. Vaktin azsa veya kartlarla yeni tanışıyorsan da iyi bir seçimdir.
+  three_ppf: >-
+    Bir durumun zaman içinde nasıl geliştiğini görmek istediğinde Geçmiş, Şimdi, Gelecek açılımını kullan. Seni buraya getiren örüntüleri, şu anda etkin olanları ve hiçbir şey değişmezse işlerin nereye gidiyor olabileceğini fark etmene yardım eder; böylece neyi korumak, neyi değiştirmek istediğine sen karar verebilirsin.
+  three_sao: >-
+    Pratik bir durumla karşı karşıyaysan ve bundan sonra neler yapabileceğini düşünmek istiyorsan Durum, Eylem, Sonuç açılımını kullan. Durumun şu anki hâline, üzerinde düşünmeye değer bir yaklaşıma ve bu yaklaşımı izlersen nereye varabileceğine bakar.
+  relationship: >-
+    Herhangi bir yakın bağ üzerine düşünmek için İlişki açılımını kullan: bir partner, arkadaş, aile üyesi ya da iş arkadaşı. Senin kattıklarına, diğer kişinin olanları nasıl yaşıyor olabileceğine, sizi neyin bağladığına, bağı neyin zorladığına ve bu bağın neye dönüşebileceğine bakar. Açılım ilişkiye dair senin bakış açını yansıtır; diğer kişinin düşüncelerini okumaz.
+  two_paths: >-
+    İki seçenek arasında karar vermeye çalışırken İki Yol açılımını kullan. Kartları çekmeden önce seçeneklerine kendin ad ver: A Yolu ve B Yolu. Açılım seçimin arkasındaki duruma, her yolun senden neler isteyebileceğine ve her birinin nereye götürebileceğine bakar; böylece onları kendi değerlerinle karşılaştırabilirsin. Karar her zaman senin.
+  celtic_cross: >-
+    Derinlemesine keşfetmek istediğin karmaşık bir durum için Kelt Haçı açılımını kullan. On pozisyonu önce meselenin özüne, önüne çıkan engele, köklerine, yakın zamanda olanlara ve sırada ne olabileceğine; ardından sana, çevrene, umutlarına ve korkularına ve hiçbir şey değişmezse işlerin nereye gidiyor olabileceğine bakar. Okurken kendine zaman tanı.

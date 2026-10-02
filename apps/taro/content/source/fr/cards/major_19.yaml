@@ -1,0 +1,50 @@
+# Machine translation (claude-opus-5-5, in-session Phase 18 draft; same format as tools/content/translate); reviewStatus: machine until a native reviewer edits it.
+cardId: "major_19"
+reviewStatus: "machine"
+sourceHash: >-
+  606684d4bde52091decce689899941ae99eb03ccdc14c7a9811d4880ab6c313b
+name: "Le Soleil"
+keywordsUpright:
+  - "joie"
+  - "clarté"
+  - "chaleur"
+  - "confiance"
+  - "vitalité"
+keywordsReversed:
+  - "joie voilée"
+  - "doute de soi"
+  - "trop d’exposition"
+  - "retrouver la lumière"
+shortUpright: >-
+  Un moment de chaleur et de clarté. Cette carte vous invite à savourer ce qui est lumineux et ouvert dans votre vie.
+shortReversed: >-
+  La lumière est toujours là, même si des nuages passent. Qu’est-ce qui vous aide à retrouver chaleur et clarté ?
+meaningUpright: |-
+  Le Soleil est l’une des cartes les plus ouvertement joyeuses du jeu. C’est l’énergie d’un matin clair, d’un enfant qui joue dans un jardin, du sentiment de pouvoir être pleinement soi sans avoir besoin de se cacher. Après l’incertitude de la Lune, cette carte apporte la clarté : les choses peuvent être vues telles qu’elles sont, et elles sont souvent plus simples et plus chaleureuses qu’on ne le craignait.
+  Dans la vie de tous les jours, cette carte peut refléter une journée où tout semble un peu plus facile, une forme de fierté pour quelque chose que vous avez accompli, un moment dehors qui vous remonte le moral, ou une relation où l’on vous accepte comme vous êtes et où vous vous sentez à l’aise. Elle peut désigner une confiance qui n’a pas besoin de crier, et les plaisirs simples qui rendent la vie agréable : le rire, le soleil, le jeu.
+  Cette carte vous invite à regarder ce qui vous apporte une joie sincère et comment vous pourriez lui faire plus de place. Vous pourriez vous demander où vous pourriez vous laisser voir plus pleinement. Le Soleil met en lumière un optimisme ancré dans le moment présent, et rappelle qu’il est permis de célébrer ce qui va bien, de partager votre chaleur et de la laisser vous revenir.
+meaningReversed: |-
+  Renversé, le Soleil peut refléter une période où la joie semble un peu en sourdine. La chaleur n’a pas disparu ; elle est peut-être simplement cachée derrière un emploi du temps chargé, la fatigue ou le doute de soi. Il vous est peut-être plus difficile que d’habitude de savourer les bons moments ou de reconnaître ce que vous avez accompli.
+  Cette carte peut aussi désigner un excès de lumière : afficher un visage enjoué alors que vous ressentez autre chose, ou vous imposer une humeur positive en permanence.
+  Vous pourriez chercher de petites sources simples de chaleur, comme du temps dehors, une activité ludique, ou quelqu’un qui vous fait rire. Il peut aussi être utile de vous laisser ressentir ce que vous ressentez vraiment, et non ce que vous pensez devoir ressentir. La joie sincère revient souvent plus facilement quand on ne la force pas.
+aspects:
+  relationshipsUpright: >-
+    Dans les relations, le Soleil peut refléter la chaleur, l’ouverture et un bonheur partagé. Il peut vous inviter à profiter de moments simples avec les personnes qui comptent pour vous : rire, jouer, être dehors. Les relations peuvent sembler plus légères quand chacun se sent libre d’être soi-même et de célébrer l’autre.
+  relationshipsReversed: >-
+    Renversée, cette carte peut désigner une relation qui a perdu un peu de sa légèreté, peut-être sous l’effet du stress ou de la routine. Vous pourriez prévoir quelque chose de simple et d’amusant ensemble, ou vérifier si quelqu’un cache ce qu’il ressent vraiment derrière une façade enjouée. La légèreté peut revenir à travers de petits moments partagés.
+  workUpright: >-
+    Au travail ou dans un projet, le Soleil met en avant la clarté, la visibilité et l’enthousiasme. Il peut refléter un moment où vos efforts sont reconnus, ou où le travail donne de l’énergie au lieu d’en prendre. Vous pourriez partager vos idées avec assurance et vous laisser savourer les progrès en chemin.
+  workReversed: >-
+    Renversé, le Soleil peut refléter le sentiment que votre travail passe inaperçu, ou une difficulté à trouver de l’enthousiasme pour ce que vous faites. Il peut aussi désigner une exposition excessive, comme une trop forte pression à briller. Vous pourriez vous demander quel petit changement apporterait plus d’énergie et de chaleur à vos journées de travail.
+  growthUpright: >-
+    Pour l’épanouissement personnel, cette carte vous invite à renouer avec votre enthousiasme et votre curiosité naturels. Vous pourriez revenir à quelque chose que vous aimiez enfant, ou essayer une nouveauté juste pour le plaisir. La confiance peut naître de la joie autant que de la réussite.
+  growthReversed: >-
+    Renversé, le Soleil peut demander si vous avez manqué d’indulgence envers vous-même ou pris les choses trop au sérieux depuis trop longtemps. Il peut refléter un besoin de jeu, de repos et de légèreté. Vous pourriez prévoir cette semaine une petite activité joyeuse, sans autre but que d’en profiter.
+reflectionQuestions:
+  - >-
+    Qu’est-ce qui vous a apporté une joie sincère récemment, même petite ?
+  - "Avec qui vous sentez-vous le plus libre d’être vous-même ?"
+  - >-
+    Que pourriez-vous faire cette semaine uniquement pour le plaisir ?
+imageryNote: >-
+  Le Soleil de Taro est imaginé comme un vaste champ d’été à midi, où des amis de tous âges partagent un repas sur une couverture sous un immense soleil chaleureux. Des cerfs-volants montent dans la brise et aucune ombre longue n’est visible, suggérant un moment où il n’y a rien à cacher. Les jaunes vifs et les oranges chauds remplissent la scène, tandis qu’un chien qui court dans l’herbe ajoute une note de jeu. L’image invite à ressentir la chaleur, la clarté et une joie sans complication.
