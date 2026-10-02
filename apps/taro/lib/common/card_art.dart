@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show FutureProviderFamily;
 import 'package:taro/di/providers.dart';
 import 'package:taro_core/taro_core.dart';
+import 'package:taro_ui/taro_ui.dart';
 
 /// The art set of the bundled deck (`deck_meta.json` `artSet`, RC26).
 final FutureProvider<String> deckArtSetProvider = FutureProvider((ref) async {
@@ -40,6 +41,11 @@ abstract final class CardArt {
     AssetImage('assets/deck/art/$artSet/${id.value}.webp'),
   );
 
+  /// The card back of [artSet] (`card_back` in `art_manifest.json`).
+  /// `TaroCardBack` adds the decode width of its size.
+  static ImageProvider back({String artSet = defaultArtSet}) =>
+      AssetImage('assets/deck/art/$artSet/card_back.webp');
+
   /// The decode width in physical pixels of a card [logicalWidth] wide in
   /// [context] (the `cacheWidth` of [face]).
   static int cacheWidthOf(BuildContext context, double logicalWidth) =>
@@ -62,5 +68,25 @@ abstract final class CardArt {
           onError: (_, _) {},
         ),
     ]);
+  }
+}
+
+/// Supplies the bundled card back of the deck's art set to every
+/// `TaroCardBack` below it (a [TaroCardBackArt]; the default set while the
+/// deck loads). `TaroApp` places it above all routes.
+class CardBackArtScope extends ConsumerWidget {
+  /// Creates the scope around [child].
+  const CardBackArtScope({required this.child, super.key});
+
+  /// The subtree whose card backs show the art.
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final artSet = ref.watch(deckArtSetProvider).value;
+    return TaroCardBackArt(
+      image: CardArt.back(artSet: artSet ?? CardArt.defaultArtSet),
+      child: child,
+    );
   }
 }

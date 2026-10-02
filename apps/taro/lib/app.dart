@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:taro/app_state/settings_controller.dart';
+import 'package:taro/common/card_art.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/consent/view/att_preprompt_view.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -11,8 +12,9 @@ import 'package:taro_ui/taro_ui.dart';
 /// Root widget (02 §2.2 `app.dart`): `MaterialApp.router` with the router,
 /// the Taro token themes (fonts for the active locale's script, 01 §13),
 /// `TaroLocalizations`, the Settings theme and language override, the
-/// in-app reduce-motion and haptics settings ([TaroA11yScope]) and the ATT
-/// pre-prompt host above every route (RC19).
+/// in-app reduce-motion and haptics settings ([TaroA11yScope]), the card
+/// back art ([CardBackArtScope]) and the ATT pre-prompt host above every
+/// route (RC19).
 class TaroApp extends ConsumerWidget {
   /// Creates the app.
   const TaroApp({super.key});
@@ -40,7 +42,9 @@ class TaroApp extends ConsumerWidget {
             Theme.of(context).brightness,
             TaroScript.forLocale(Localizations.localeOf(context)),
           ),
-          child: AttPrePromptHost(child: child ?? const SizedBox.shrink()),
+          child: CardBackArtScope(
+            child: AttPrePromptHost(child: child ?? const SizedBox.shrink()),
+          ),
         ),
       ),
     );

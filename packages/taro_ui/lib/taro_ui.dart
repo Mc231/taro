@@ -18,6 +18,7 @@ export 'src/components/deck/spread_canvas.dart';
 export 'src/components/deck/spread_diagram.dart';
 export 'src/components/deck/spread_layout.dart';
 export 'src/components/deck/taro_card_back.dart';
+export 'src/components/deck/taro_card_back_art.dart';
 export 'src/components/deck/taro_card_face.dart';
 export 'src/components/deck/taro_card_flip.dart';
 export 'src/components/deck/taro_card_size.dart';

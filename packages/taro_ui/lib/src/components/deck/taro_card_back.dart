@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/deck/taro_card_back_art.dart';
 import 'package:taro_ui/src/components/deck/taro_card_ornament.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
@@ -10,8 +11,10 @@ import 'package:taro_ui/src/tokens/taro_strokes.dart';
 ///
 /// Identical in both themes: the field is `color.card.back` and the
 /// ornament keeps the dark-mode `color.card.frame` the art was signed off
-/// with (`docs/design/assets/README.md`). [art] replaces the painted
-/// ornament with a raster (for example `card-back@3x.png`).
+/// with (`docs/design/assets/README.md`). Raster art ([art], else the
+/// ambient [TaroCardBackArt]) replaces the painted ornament; it is decoded
+/// at the card's physical width (`ResizeImage`) and the ornament stands in
+/// while it decodes or when it fails to load.
 ///
 /// States: idle; [picked] (`color.card.glow` ring and `elevation.3`);
 /// disabled (`onTap == null` while [enabled] is false, `opacity.disabled`).
@@ -45,7 +48,8 @@ class TaroCardBack extends StatelessWidget {
   /// Called on tap (the pick gesture).
   final VoidCallback? onTap;
 
-  /// Optional raster art instead of the painted ornament.
+  /// Raster art instead of the painted ornament; null uses the ambient
+  /// [TaroCardBackArt] (and the ornament without one).
   final ImageProvider? art;
 
   @override
@@ -54,18 +58,37 @@ class TaroCardBack extends StatelessWidget {
     final card = size.sizeOf(tokens);
     final radius = BorderRadius.circular(tokens.radius.card);
     final glow = tokens.color.card.glow;
+    final ornament = CustomPaint(
+      painter: TaroCardOrnamentPainter(
+        field: tokens.color.card.back,
+        frame: TaroColorTokens.dark.card.frame,
+      ),
+    );
+    final image = art ?? TaroCardBackArt.maybeOf(context);
     Widget face = ClipRRect(
       borderRadius: radius,
       child: SizedBox.fromSize(
         size: card,
-        child: art == null
-            ? CustomPaint(
-                painter: TaroCardOrnamentPainter(
-                  field: tokens.color.card.back,
-                  frame: TaroColorTokens.dark.card.frame,
-                ),
-              )
-            : Image(image: art!, fit: BoxFit.cover),
+        child: image == null
+            ? ornament
+            : Image(
+                image: image is ResizeImage
+                    ? image
+                    : ResizeImage(
+                        image,
+                        width:
+                            (card.width *
+                                    MediaQuery.devicePixelRatioOf(
+                                      context,
+                                    ))
+                                .ceil(),
+                      ),
+                fit: BoxFit.cover,
+                gaplessPlayback: true,
+                frameBuilder: (context, child, frame, sync) =>
+                    frame == null && !sync ? ornament : child,
+                errorBuilder: (context, error, stack) => ornament,
+              ),
       ),
     );
     face = AnimatedContainer(

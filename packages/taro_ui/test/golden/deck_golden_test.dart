@@ -69,6 +69,34 @@ void main() {
     );
   }, phoneSizes: const [kPhoneSmall]);
 
+  goldenMatrix('taro_card_back_art', (v) {
+    return SingleChildScrollView(
+      padding: const EdgeInsetsDirectional.all(16),
+      child: TaroCardBackArt(
+        image: const PlaceholderArt(glyph: TaroIcons.majorStar),
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          children: [
+            const TaroCardBack(),
+            TaroCardBack(
+              semanticsLabel: 'Card back',
+              picked: true,
+              onTap: () {},
+            ),
+            TaroCardBack(
+              semanticsLabel: 'Card back',
+              enabled: false,
+              onTap: () {},
+            ),
+            const TaroCardBack(size: TaroCardSize.thumb),
+            const TaroCardBack(art: PendingArt()),
+          ],
+        ),
+      ),
+    );
+  }, phoneSizes: const [kPhoneSmall]);
+
   final ppf = ['Past', 'Present', 'Future'];
   final ppfAr = ['الماضي', 'الحاضر', 'المستقبل'];
 

@@ -209,7 +209,8 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 - **Tokens:** `color.card.back`, `color.card.frame` (ornament line), `radius.card`, `size.card.*`, `elevation.2`, `color.card.glow` (picked).
 - **States:** idle, picked (glow + `elevation.3`), in flight, disabled.
 - **Screens:** S05 daily-card teaser, S08, S13 `notDrawn`, S10 `holdLost` (picked cards stay face-down), `CardBack` artboard.
-- **Golden:** [`taro_card/`](../../packages/taro_ui/test/golden/goldens/taro_card/) ([`deck_golden_test.dart`](../../packages/taro_ui/test/golden/deck_golden_test.dart)).
+- **Art:** `art` (an `ImageProvider`), else the ambient `TaroCardBackArt`, replaces the painted ornament, decoded at the card's physical width (`ResizeImage`); the ornament stands in while it decodes, on error, and without art (the `taro_ui` goldens). The app supplies the deck's `card_back` once (`CardBackArtScope` in `TaroApp`, `CardArt.back`), so every back, including `CardFan`'s, shows it.
+- **Golden:** [`taro_card/`](../../packages/taro_ui/test/golden/goldens/taro_card/), [`taro_card_back_art/`](../../packages/taro_ui/test/golden/goldens/taro_card_back_art/) ([`deck_golden_test.dart`](../../packages/taro_ui/test/golden/deck_golden_test.dart)).
 
 ### `TaroCardFlip` — 02 §14.3
 - **Purpose:** animates back → face.

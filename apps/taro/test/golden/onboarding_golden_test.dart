@@ -1,18 +1,41 @@
 @Tags(['golden'])
 library;
 
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/common/card_art.dart';
 import 'package:taro/features/consent/view/att_preprompt_view.dart';
 import 'package:taro/features/onboarding/controller/ai_consent_controller.dart';
 import 'package:taro/features/onboarding/view/ai_consent_screen.dart';
 import 'package:taro/features/onboarding/view/disclaimer_screen.dart';
 import 'package:taro/features/onboarding/view/welcome_screen.dart';
 import 'package:taro_core/taro_core.dart';
+import 'package:taro_ui/taro_ui.dart';
 
 import '../../../../packages/taro_ui/test/helpers/golden/golden_matrix.dart';
 import '../helpers/pump_taro_widget.dart';
 
 void _noop() {}
+
+/// [pumpTaroGolden] with the bundled card back (as `TaroApp` supplies it),
+/// decoded before the golden is taken.
+Future<void> _pumpWithBackArt(
+  WidgetTester tester,
+  Widget child,
+  GoldenVariant variant,
+) async {
+  await pumpTaroGolden(
+    tester,
+    TaroCardBackArt(image: CardArt.back(), child: child),
+    variant,
+  );
+  await tester.runAsync(() async {
+    for (final element in find.byType(Image).evaluate()) {
+      await precacheImage((element.widget as Image).image, element);
+    }
+  });
+  await tester.pump();
+}
 
 /// Phase 16 Sprint 16.1 goldens (06 §3, RC24): S02 `content`, S03
 /// `content` and S04 `undecided` are ★ (also at `kTabletIpad13` and
@@ -25,7 +48,7 @@ void main() {
     keyScreen: true,
     accessibility: true,
     largeText: true,
-    pump: pumpTaroGolden,
+    pump: _pumpWithBackArt,
   );
   goldenMatrix(
     's03_disclaimer_content',

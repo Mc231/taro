@@ -246,12 +246,132 @@ void main() {
       );
     });
 
+    Finder ornament() => find.byWidgetPredicate(
+      (w) => w is CustomPaint && w.painter is TaroCardOrnamentPainter,
+    );
+
     testWidgets('raster art replaces the painted ornament', (tester) async {
       await pumpTaroUiWidget(
         tester,
         const Center(child: TaroCardBack(art: PlaceholderArt())),
       );
       expect(find.byType(Image), findsOneWidget);
+      expect(ornament(), findsNothing);
+    });
+
+    testWidgets('art decodes at the card width in physical pixels', (
+      tester,
+    ) async {
+      await pumpTaroUiWidget(
+        tester,
+        Builder(
+          builder: (context) => MediaQuery(
+            data: MediaQuery.of(context).copyWith(devicePixelRatio: 3),
+            child: const Center(child: TaroCardBack(art: PlaceholderArt())),
+          ),
+        ),
+      );
+      final image = tester.widget<Image>(find.byType(Image)).image;
+      expect(image, isA<ResizeImage>());
+      expect(
+        (image as ResizeImage).width,
+        (TaroTokens.light().size.card.sm * 3).ceil(),
+      );
+      expect(image.height, isNull);
+      expect(image.imageProvider, const PlaceholderArt());
+    });
+
+    testWidgets('pre-sized art is used as given', (tester) async {
+      const sized = ResizeImage(PlaceholderArt(), width: 10);
+      await pumpTaroUiWidget(
+        tester,
+        const Center(child: TaroCardBack(art: sized)),
+      );
+      expect(tester.widget<Image>(find.byType(Image)).image, same(sized));
+    });
+
+    testWidgets('the ornament stands in while the art decodes', (
+      tester,
+    ) async {
+      await pumpTaroUiWidget(
+        tester,
+        const Center(child: TaroCardBack(art: PendingArt())),
+      );
+      expect(find.byType(Image), findsOneWidget);
+      expect(ornament(), findsOneWidget);
+    });
+
+    testWidgets('the ornament stands in when the art fails', (tester) async {
+      await pumpTaroUiWidget(
+        tester,
+        const Center(child: TaroCardBack(art: BrokenArt())),
+      );
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+      expect(ornament(), findsOneWidget);
+    });
+
+    testWidgets('backs draw the ambient TaroCardBackArt', (tester) async {
+      final handle = tester.ensureSemantics();
+      await pumpTaroUiWidget(
+        tester,
+        const TaroCardBackArt(
+          image: PlaceholderArt(),
+          child: Center(
+            child: TaroCardBack(
+              size: TaroCardSize.thumb,
+              semanticsLabel: 'Card back',
+            ),
+          ),
+        ),
+      );
+      final image = tester.widget<Image>(find.byType(Image)).image;
+      expect((image as ResizeImage).imageProvider, const PlaceholderArt());
+      expect(ornament(), findsNothing);
+      expect(
+        tester.getSemantics(find.byType(TaroCardBack)),
+        isSemantics(label: 'Card back'),
+      );
+      handle.dispose();
+    });
+
+    testWidgets('own art wins over the scope; a null scope paints', (
+      tester,
+    ) async {
+      await pumpTaroUiWidget(
+        tester,
+        const TaroCardBackArt(
+          image: PlaceholderArt(),
+          child: Column(
+            children: [
+              TaroCardBack(art: PlaceholderArt(glyph: TaroIcons.sword)),
+              TaroCardBackArt(image: null, child: TaroCardBack()),
+            ],
+          ),
+        ),
+      );
+      final image = tester.widget<Image>(find.byType(Image)).image;
+      expect(
+        (image as ResizeImage).imageProvider,
+        const PlaceholderArt(glyph: TaroIcons.sword),
+      );
+      expect(ornament(), findsOneWidget);
+    });
+
+    test('the scope notifies only when the image changes', () {
+      const a = TaroCardBackArt(image: PlaceholderArt(), child: SizedBox());
+      expect(
+        a.updateShouldNotify(
+          const TaroCardBackArt(image: PlaceholderArt(), child: SizedBox()),
+        ),
+        isFalse,
+      );
+      expect(
+        a.updateShouldNotify(
+          const TaroCardBackArt(image: null, child: SizedBox()),
+        ),
+        isTrue,
+      );
     });
 
     test('the ornament painter repaints only on colour changes', () {

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/bootstrap/bootstrap.dart' show noProviderRetry;
 import 'package:taro/bootstrap/flavor_config.dart';
+import 'package:taro/common/card_art.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/services/consent/consent_orchestrator.dart';
 import 'package:taro/services/iap/store_ownership.dart';
@@ -311,7 +312,8 @@ final class TaroFakes {
 /// Pumps [screen] for a screen test with providers (06 §2.3, RC77, RC95):
 /// `ProviderScope(overrides: fakes.toOverrides())` around
 /// [pumpTaroWidget]'s scaffolding (locale, theme, text scale, size, reduced
-/// motion). Returns the fakes in use.
+/// motion), with the card back art as `TaroApp` supplies it
+/// ([CardBackArtScope]). Returns the fakes in use.
 Future<TaroFakes> pumpTaro(
   WidgetTester tester,
   Widget screen, {
@@ -328,7 +330,7 @@ Future<TaroFakes> pumpTaro(
     ProviderScope(
       overrides: [...used.toOverrides(), ...overrides],
       retry: noProviderRetry,
-      child: screen,
+      child: CardBackArtScope(child: screen),
     ),
     locale: locale,
     theme: theme,
