@@ -55,5 +55,49 @@ void main() {
       );
       expect(image, CardArt.back());
     });
+
+    testWidgets('precaches the back at the TaroCardBack decode width', (
+      tester,
+    ) async {
+      imageCache.clear();
+      late BuildContext context;
+      await pumpTaro(
+        tester,
+        Builder(
+          builder: (c) {
+            context = c;
+            return const SizedBox();
+          },
+        ),
+        overrides: [deckArtSetProvider.overrideWith((ref) async => 'codex_v1')],
+      );
+      final width = CardArt.cacheWidthOf(
+        context,
+        TaroCardSize.sm.widthIn(context),
+      );
+      final key = await tester.runAsync(
+        () => ResizeImage(CardArt.back(), width: width).obtainKey(
+          createLocalImageConfiguration(context),
+        ),
+      );
+      final status = imageCache.statusForKey(key!);
+      expect(status.tracked, isTrue);
+      final other = await tester.runAsync(
+        () => ResizeImage(CardArt.back(), width: width + 1).obtainKey(
+          createLocalImageConfiguration(context),
+        ),
+      );
+      expect(imageCache.statusForKey(other!).tracked, isFalse);
+    });
+
+    testWidgets('a back that fails to load is tolerated', (tester) async {
+      await pumpTaro(
+        tester,
+        const SizedBox(),
+        overrides: [deckArtSetProvider.overrideWith((ref) async => 'missing')],
+      );
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+    });
   });
 }

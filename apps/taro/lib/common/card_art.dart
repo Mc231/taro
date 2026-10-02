@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show FutureProviderFamily;
@@ -46,6 +48,23 @@ abstract final class CardArt {
   static ImageProvider back({String artSet = defaultArtSet}) =>
       AssetImage('assets/deck/art/$artSet/card_back.webp');
 
+  /// Decodes the back of [artSet] at the width `TaroCardBack` of [size]
+  /// decodes it (`ResizeImage` of [back] at [cacheWidthOf] the card width),
+  /// so the first face-down cards show the art without the ornament
+  /// flashing in. Missing art is ignored.
+  static Future<void> precacheBack(
+    BuildContext context, {
+    String artSet = defaultArtSet,
+    TaroCardSize size = TaroCardSize.sm,
+  }) => precacheImage(
+    ResizeImage(
+      back(artSet: artSet),
+      width: cacheWidthOf(context, size.widthIn(context)),
+    ),
+    context,
+    onError: (_, _) {},
+  );
+
   /// The decode width in physical pixels of a card [logicalWidth] wide in
   /// [context] (the `cacheWidth` of [face]).
   static int cacheWidthOf(BuildContext context, double logicalWidth) =>
@@ -73,8 +92,10 @@ abstract final class CardArt {
 
 /// Supplies the bundled card back of the deck's art set to every
 /// `TaroCardBack` below it (a [TaroCardBackArt]; the default set while the
-/// deck loads). `TaroApp` places it above all routes.
-class CardBackArtScope extends ConsumerWidget {
+/// deck loads). `TaroApp` places it above all routes. After the first frame
+/// it precaches the back at the `TaroCardBack` decode width
+/// ([CardArt.precacheBack]), once per art set.
+class CardBackArtScope extends ConsumerStatefulWidget {
   /// Creates the scope around [child].
   const CardBackArtScope({required this.child, super.key});
 
@@ -82,11 +103,26 @@ class CardBackArtScope extends ConsumerWidget {
   final Widget child;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final artSet = ref.watch(deckArtSetProvider).value;
+  ConsumerState<CardBackArtScope> createState() => _CardBackArtScopeState();
+}
+
+class _CardBackArtScopeState extends ConsumerState<CardBackArtScope> {
+  /// The art set whose back is already precached (or scheduled).
+  String? _precached;
+
+  @override
+  Widget build(BuildContext context) {
+    final artSet = ref.watch(deckArtSetProvider).value ?? CardArt.defaultArtSet;
+    if (_precached != artSet) {
+      // Once per art set, after the frame: never blocks the first frame.
+      _precached = artSet;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) unawaited(CardArt.precacheBack(context, artSet: artSet));
+      });
+    }
     return TaroCardBackArt(
-      image: CardArt.back(artSet: artSet ?? CardArt.defaultArtSet),
-      child: child,
+      image: CardArt.back(artSet: artSet),
+      child: widget.child,
     );
   }
 }
