@@ -47,6 +47,7 @@ final class AdMobBannerSlotView implements BannerSlotView {
     required this.ready,
     required this.nonPersonalizedAds,
     required this.logger,
+    this.analytics,
     this.anchoredSize = gma.AdSize.getLargeAnchoredAdaptiveBannerAdSize,
     this.adWidget = defaultAdWidget,
   });
@@ -63,6 +64,9 @@ final class AdMobBannerSlotView implements BannerSlotView {
   /// Logs load failures (never ad content).
   final Logger logger;
 
+  /// Receives `ad_banner_impression` / `ad_banner_failed` (04 §14).
+  final AnalyticsService? analytics;
+
   /// The adaptive size lookup (the SDK by default).
   final AnchoredSizeLookup anchoredSize;
 
@@ -74,17 +78,24 @@ final class AdMobBannerSlotView implements BannerSlotView {
 
   @override
   Widget build(BannerScreen screen, {required bool visible}) => visible
-      ? AdMobBanner(key: ValueKey(screen), view: this)
+      ? AdMobBanner(key: ValueKey(screen), view: this, screen: screen)
       : const SizedBox.shrink();
 }
 
 /// One loaded-on-mount AdMob banner of [view].
 class AdMobBanner extends StatefulWidget {
   /// Creates the banner.
-  const AdMobBanner({required this.view, super.key});
+  const AdMobBanner({
+    required this.view,
+    this.screen = BannerScreen.home,
+    super.key,
+  });
 
   /// Configuration.
   final AdMobBannerSlotView view;
+
+  /// The `kBannerAllowList` screen it is on (the analytics `screen_id`).
+  final BannerScreen screen;
 
   @override
   State<AdMobBanner> createState() => _AdMobBannerState();
@@ -116,9 +127,18 @@ class _AdMobBannerState extends State<AdMobBanner> {
         adUnitId: view.adUnitId,
         request: adRequestFor(nonPersonalized: view.nonPersonalizedAds()),
         listener: gma.BannerAdListener(
-          onAdLoaded: (_) => _update(() => _loaded = true),
+          onAdLoaded: (_) {
+            _update(() => _loaded = true);
+            _log(AdBannerImpressionEvent(screenId: widget.screen));
+          },
           onAdFailedToLoad: (ad, error) {
             view.logger.info('banner no fill: ${error.code}');
+            _log(
+              AdBannerFailedEvent(
+                screenId: widget.screen,
+                errorCode: error.code,
+              ),
+            );
             _collapse();
           },
         ),
@@ -127,8 +147,14 @@ class _AdMobBannerState extends State<AdMobBanner> {
       await ad.load();
     } on Object catch (error, stack) {
       view.logger.warning('banner load failed', error: error, stack: stack);
+      _log(AdBannerFailedEvent(screenId: widget.screen));
       _collapse();
     }
+  }
+
+  void _log(TaroAnalyticsEvent event) {
+    final analytics = widget.view.analytics;
+    if (analytics != null && !_disposed) unawaited(analytics.log(event));
   }
 
   void _collapse() {

@@ -46,6 +46,16 @@ void main() {
       );
       expect(find.text('Best value'), findsOneWidget);
       expect(find.text(r'$0.33 per reading'), findsOneWidget);
+      final box = tester.widget<Container>(
+        find
+            .descendant(
+              of: find.byType(ProductOfferTile),
+              matching: find.byType(Container),
+            )
+            .first,
+      );
+      final border = (box.decoration! as BoxDecoration).border! as Border;
+      expect(border.top.width, TaroStrokes.control);
       await tester.tap(find.byType(TaroButton));
       expect(buys, 1);
       expect(

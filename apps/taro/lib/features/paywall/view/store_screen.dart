@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/common/balance_chip.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/di/providers.dart';
+import 'package:taro/features/paywall/controller/paywall_catalog.dart';
 import 'package:taro/features/paywall/controller/store_controller.dart';
 import 'package:taro/features/paywall/view/paywall_parts.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -21,6 +23,10 @@ StoreSource storeSourceOf(String? name) =>
 /// S11 Store / paywall (04 §11): every pack is its own buy button (no
 /// preselection), with close, Restore purchases, Terms, Privacy and the
 /// non-restorable consumable line always visible.
+///
+/// A grant shows the "+N readings" toast; opened from S10 (over S07) the
+/// store then closes, so S07 shows **Begin** enabled with the same question
+/// and the kept draw, and nothing auto-starts (RC58, 01 §9.4).
 class StoreScreen extends ConsumerWidget {
   /// Creates the store opened from [source].
   const StoreScreen({required this.source, super.key});
@@ -33,10 +39,25 @@ class StoreScreen extends ConsumerWidget {
     final provider = storeControllerProvider(source);
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);
+    final l10n = TaroLocalizations.of(context);
     ref.listen(provider, (_, next) {
-      // A cancelled store sheet is a silent return (04 §11).
-      if (next case StoreReady(phase: StorePhaseCancelled())) {
-        controller.acknowledge();
+      switch (next) {
+        // A cancelled store sheet is a silent return (04 §11).
+        case StoreReady(phase: StorePhaseCancelled()):
+          controller.acknowledge();
+        case StoreReady(phase: StorePhaseGranted(:final credits)):
+          TaroToast.show(
+            context,
+            message: credits > 0
+                ? l10n.storeGranted(credits)
+                : l10n.storeRemoveAdsOwned,
+          );
+          controller.acknowledge();
+          if (credits > 0 && source == StoreSource.outOfReadings) {
+            unawaited(Navigator.of(context).maybePop());
+          }
+        default:
+          break;
       }
     });
     return PopScope(
@@ -45,16 +66,13 @@ class StoreScreen extends ConsumerWidget {
       },
       child: StoreLayout(
         state: state,
+        balance: const BalanceChip(),
         now: ref.read(clockProvider).now(),
         onClose: () => Navigator.of(context).maybePop(),
         onBuy: (id) => unawaited(controller.buy(id)),
         onRestore: () => unawaited(controller.restore()),
         onRetry: () => unawaited(controller.retry()),
         onAcknowledge: controller.acknowledge,
-        onContinue: () {
-          controller.acknowledge();
-          unawaited(Navigator.of(context).maybePop());
-        },
         onRewarded: () async {
           if (await controller.tapRewarded() && context.mounted) {
             await TaroModals.rewarded<void>(context);
@@ -69,7 +87,10 @@ class StoreScreen extends ConsumerWidget {
   }
 }
 
-/// The S11 skeleton for one [state] (Phase 13.5; restyled in Phase 16).
+/// The S11 view for one [state] (`Store.dc.html`, `StoreLoading.dc.html`).
+/// The header, close, Restore · Terms · Privacy, the consumable disclosure
+/// and `disclaimerShort` render in every state. No banner (RC18), no
+/// timers or attention-seeking motion (05 §9.5).
 class StoreLayout extends StatelessWidget {
   /// Creates the view.
   const StoreLayout({
@@ -80,16 +101,19 @@ class StoreLayout extends StatelessWidget {
     required this.onRestore,
     required this.onRetry,
     required this.onAcknowledge,
-    required this.onContinue,
     required this.onRewarded,
     required this.onContactSupport,
     required this.onTerms,
     required this.onPrivacy,
+    this.balance,
     super.key,
   });
 
   /// The controller state.
   final StoreState state;
+
+  /// The balance chip at the end of the top bar (`BalanceChip`).
+  final Widget? balance;
 
   /// The clock time (for the rewarded cooldown).
   final DateTime now;
@@ -109,9 +133,6 @@ class StoreLayout extends StatelessWidget {
   /// Clears a failed purchase notice.
   final VoidCallback onAcknowledge;
 
-  /// "Continue" after a grant (back to S07; nothing auto-starts, RC58).
-  final VoidCallback onContinue;
-
   /// The rewarded row.
   final VoidCallback onRewarded;
 
@@ -128,19 +149,20 @@ class StoreLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
+    final c = tokens.color;
     final body = switch (state) {
       StoreLoading() => <Widget>[
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < 4; i++)
           ProductOfferTile.loading(loadingSemanticsLabel: l10n.commonLoading),
       ],
       StoreUnavailable() => <Widget>[
-        TaroEmptyView(
+        TaroInlineNotice(
+          kind: TaroNoticeKind.warning,
           title: l10n.storeUnavailable,
-          largeTitle: false,
-          action: TaroButton.secondary(
-            label: l10n.commonRetry,
-            onPressed: onRetry,
-          ),
+          liveRegion: true,
+          actions: [
+            TaroButton.tertiary(label: l10n.commonRetry, onPressed: onRetry),
+          ],
         ),
       ],
       StoreProductsFailed(:final kind) => <Widget>[
@@ -148,6 +170,7 @@ class StoreLayout extends StatelessWidget {
           kind: TaroNoticeKind.warning,
           title: l10n.storePricesUnavailable,
           body: FailureMessage.body(l10n, kind),
+          liveRegion: true,
           actions: [
             TaroButton.tertiary(label: l10n.commonRetry, onPressed: onRetry),
           ],
@@ -155,22 +178,86 @@ class StoreLayout extends StatelessWidget {
       ],
       StoreReady(:final view, :final phase) => _ready(context, view, phase),
     };
-    return TaroScaffold(
-      appBar: TaroAppBar(
-        leading: TaroAppBarLeading.close,
-        leadingLabel: l10n.commonClose,
-        onLeading: onClose,
-        title: l10n.storeTitle,
-      ),
-      body: ListView(
-        padding: EdgeInsetsDirectional.symmetric(vertical: tokens.space.s5),
+    // The close stays visible outside the scroll view (rule 11).
+    final topBar = Padding(
+      padding: EdgeInsetsDirectional.only(top: tokens.space.s3),
+      child: Row(
         children: [
-          Text(l10n.storeBody, style: tokens.typography.body),
-          SizedBox(height: tokens.space.s5),
-          ...body,
-          SizedBox(height: tokens.space.s5),
-          TaroButton.tertiary(label: l10n.storeRestore, onPressed: onRestore),
-          PaywallLegalFooter(onTerms: onTerms, onPrivacy: onPrivacy),
+          TaroIconButton(
+            icon: Icons.close_rounded,
+            semanticsLabel: l10n.commonClose,
+            onPressed: onClose,
+          ),
+          const Spacer(),
+          ?balance,
+        ],
+      ),
+    );
+    final header = <Widget>[
+      Semantics(
+        header: true,
+        child: Text(
+          l10n.storeTitle,
+          style: tokens.typography.headline.copyWith(color: c.text.primary),
+        ),
+      ),
+      SizedBox(height: tokens.space.s3),
+      Text(
+        l10n.storeBody,
+        style: tokens.typography.label.copyWith(color: c.text.secondary),
+      ),
+    ];
+    final footer = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        PaywallLinks(
+          links: [
+            (l10n.storeRestore, onRestore),
+            (l10n.commonTerms, onTerms),
+            (l10n.commonPrivacy, onPrivacy),
+          ],
+        ),
+        SizedBox(height: tokens.space.s3),
+        PaywallCaption(l10n.storeConsumableDisclosure),
+        SizedBox(height: tokens.space.s2),
+        PaywallCaption(l10n.disclaimerShort),
+        SizedBox(height: tokens.space.s5),
+      ],
+    );
+    return TaroScaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          topBar,
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: EdgeInsetsDirectional.only(top: tokens.space.s5),
+                  sliver: SliverList.list(
+                    children: [
+                      ...header,
+                      for (final child in body) ...[
+                        SizedBox(height: tokens.space.s5),
+                        child,
+                      ],
+                      SizedBox(height: tokens.space.s8),
+                    ],
+                  ),
+                ),
+                // The footer sits at the bottom of a short page and follows the
+                // content on a long one (200 % text).
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: footer,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -200,6 +287,7 @@ class StoreLayout extends StatelessWidget {
         ),
       ?_phaseNotice(l10n, phase),
       if (blocked != null)
+        // Pack buttons hidden; free, rewarded and restore stay (RC66).
         TaroInlineNotice(
           kind: TaroNoticeKind.info,
           title: PaywallText.blocked(l10n, blocked),
@@ -226,22 +314,29 @@ class StoreLayout extends StatelessWidget {
               null => null,
             },
             bestValueLabel: catalog.bestValue == offer.productId
-                ? l10n.storeLowestPerReading
+                ? l10n.storeBestValue
                 : null,
-            purchaseSemanticsLabel: l10n.storePackSemantics(
-              offer.credits,
-              offer.price,
-              PaywallText.perReading(l10n, offer) ?? offer.price,
+            purchaseSemanticsLabel: PaywallText.packSemantics(
+              l10n,
+              offer,
+              bestValue: catalog.bestValue == offer.productId,
             ),
             state: tileState(offer.productId),
             statusLabel: l10n.storePending,
             onBuy: () => onBuy(offer.productId),
           ),
       ],
+      if (view.rewarded is! RewardedOptionHidden)
+        RewardedOfferRow(option: view.rewarded, now: now, onTap: onRewarded),
       if (view.removeAdsOwned)
-        TaroInlineNotice(
-          kind: TaroNoticeKind.success,
-          title: l10n.storeRemoveAdsOwned,
+        ProductOfferTile(
+          key: const ValueKey('removeAdsOwned'),
+          title: l10n.storeRemoveAdsTitle,
+          price: '',
+          purchaseSemanticsLabel: l10n.storeRemoveAdsOwned,
+          onBuy: null,
+          state: ProductOfferState.owned,
+          statusLabel: l10n.storeRemoveAdsOwned,
         )
       else if (removeAds != null)
         ProductOfferTile(
@@ -249,12 +344,12 @@ class StoreLayout extends StatelessWidget {
           title: l10n.storeRemoveAdsTitle,
           body: l10n.storeRemoveAdsBody,
           price: removeAds.price,
+          outlined: true,
           purchaseSemanticsLabel: l10n.storeBuyPack(removeAds.price),
           state: tileState(removeAds.productId),
           statusLabel: l10n.storePending,
           onBuy: () => onBuy(removeAds.productId),
         ),
-      RewardedOfferRow(option: view.rewarded, now: now, onTap: onRewarded),
     ];
   }
 
@@ -263,7 +358,9 @@ class StoreLayout extends StatelessWidget {
         StorePhaseIdle() ||
         StorePhasePurchasing() ||
         StorePhasePending() ||
-        StorePhaseCancelled() => null,
+        StorePhaseCancelled() ||
+        // The toast announces it (StoreScreen).
+        StorePhaseGranted() => null,
         StorePhaseVerifying() => TaroInlineNotice(
           kind: TaroNoticeKind.info,
           title: l10n.storeVerifying,
@@ -273,19 +370,6 @@ class StoreLayout extends StatelessWidget {
           kind: TaroNoticeKind.info,
           title: l10n.storeVerificationDelayed,
           liveRegion: true,
-        ),
-        StorePhaseGranted(:final credits) => TaroInlineNotice(
-          kind: TaroNoticeKind.success,
-          title: credits > 0
-              ? l10n.storeGranted(credits)
-              : l10n.storeRemoveAdsOwned,
-          liveRegion: true,
-          actions: [
-            TaroButton.primary(
-              label: l10n.commonContinue,
-              onPressed: onContinue,
-            ),
-          ],
         ),
         StorePhaseFailed(:final reason, :final transferEligible) =>
           TaroInlineNotice(

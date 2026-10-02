@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/common/checklist_panel.dart';
 import 'package:taro/common/failure_message.dart';
+import 'package:taro/common/settings_page.dart';
 import 'package:taro/features/settings/controller/delete_data_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
@@ -31,7 +33,9 @@ class DeleteDataScreen extends ConsumerWidget {
   }
 }
 
-/// The S26 skeleton for one [state] (Phase 13.5; restyled in Phase 16).
+/// The S26 layout for one [state] (`docs/design/screens/S26`): what is
+/// erased, what is kept (RC37), the typed confirmation (`confirm1` →
+/// `confirm2`), then the wipe and its result.
 class DeleteDataLayout extends StatelessWidget {
   /// Creates the view.
   const DeleteDataLayout({
@@ -63,15 +67,23 @@ class DeleteDataLayout extends StatelessWidget {
   /// "Done" after the wipe (→ Home).
   final VoidCallback onDone;
 
-  /// Back (disabled while deleting).
+  /// Back / Cancel (disabled while deleting).
   final VoidCallback onBack;
 
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
-    final deleting = state is DeleteDataDeleting;
-    final done = TaroButton.primary(label: l10n.commonDone, onPressed: onDone);
-    final body = switch (state) {
+    final tokens = context.tokens;
+    final done = TaroButton.primary(
+      label: l10n.commonDone,
+      expand: true,
+      onPressed: onDone,
+    );
+    Widget result(Widget child) => TaroScaffold(
+      appBar: TaroAppBar(leadingLabel: l10n.commonBack, onLeading: onBack),
+      body: child,
+    );
+    return switch (state) {
       DeleteDataConfirm1(:final summary) => _confirm(
         context,
         summary,
@@ -82,90 +94,118 @@ class DeleteDataLayout extends StatelessWidget {
         summary,
         enabled: true,
       ),
-      DeleteDataDeleting() => TaroLoadingView(
-        semanticsLabel: l10n.commonLoading,
-        layout: TaroLoadingLayout.text,
-        itemCount: 1,
+      DeleteDataDeleting() => _confirm(context, null, enabled: false),
+      DeleteDataDone() => result(
+        TaroEmptyView(
+          title: l10n.deleteDoneTitle,
+          body: l10n.deleteDoneBody,
+          action: done,
+        ),
       ),
-      DeleteDataDone() => TaroEmptyView(
-        title: l10n.deleteDoneTitle,
-        body: l10n.deleteDoneBody,
-        action: done,
+      DeleteDataPartial() => result(
+        ListView(
+          padding: EdgeInsetsDirectional.only(top: tokens.space.s7),
+          children: [
+            TaroEmptyView(
+              title: l10n.deleteDoneTitle,
+              body: l10n.deleteDoneBody,
+              action: done,
+            ),
+            SizedBox(height: tokens.space.s5),
+            TaroInlineNotice(
+              kind: TaroNoticeKind.warning,
+              title: l10n.deletePartial,
+              liveRegion: true,
+            ),
+          ],
+        ),
       ),
-      DeleteDataPartial() => TaroEmptyView(
-        title: l10n.deleteDoneTitle,
-        body: '${l10n.deletePartial}\n${l10n.deleteDoneBody}',
-        action: done,
-      ),
-      DeleteDataFailed(:final kind) => TaroErrorView(
-        kind: FailureMessage.visual(kind),
-        title: l10n.deleteFailed,
-        body: FailureMessage.body(l10n, kind),
-        onRetry: onRetry,
-        retryLabel: l10n.commonRetry,
+      DeleteDataFailed(:final kind) => result(
+        TaroErrorView(
+          kind: FailureMessage.visual(kind),
+          title: l10n.deleteFailed,
+          body: FailureMessage.body(l10n, kind),
+          onRetry: onRetry,
+          retryLabel: l10n.commonRetry,
+        ),
       ),
     };
-    return PopScope(
-      canPop: !deleting,
-      child: TaroScaffold(
-        appBar: TaroAppBar(
-          leading: deleting ? TaroAppBarLeading.none : TaroAppBarLeading.back,
-          leadingLabel: l10n.commonBack,
-          onLeading: onBack,
-          title: l10n.deleteTitle,
-        ),
-        body: body,
-      ),
-    );
   }
 
+  /// The page; [summary] is `null` while deleting (the panels stay as they
+  /// were drawn, so the last summary is not needed for the busy frame).
   Widget _confirm(
     BuildContext context,
-    DeleteDataSummary summary, {
+    DeleteDataSummary? summary, {
     required bool enabled,
   }) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    return ListView(
+    final deleting = summary == null;
+    return SettingsPage(
+      title: l10n.deleteTitle,
+      lead: l10n.deleteBody,
+      onBack: onBack,
+      busy: deleting,
+      footer: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: tokens.space.s3,
+        children: [
+          TaroButton.destructive(
+            label: l10n.deleteButton,
+            expand: true,
+            loading: deleting,
+            onPressed: enabled ? onDelete : null,
+          ),
+          TaroButton.secondary(
+            label: l10n.commonCancel,
+            expand: true,
+            onPressed: deleting ? null : onBack,
+          ),
+        ],
+      ),
       children: [
-        Text(l10n.deleteBody, style: tokens.typography.body),
-        TaroButton.tertiary(label: l10n.deleteExportFirst, onPressed: onExport),
-        SizedBox(height: tokens.space.s5),
-        Semantics(
-          header: true,
-          child: Text(
-            l10n.deleteErasedHeading,
-            style: tokens.typography.titleSmall,
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TaroButton.tertiary(
+            label: l10n.deleteExportFirst,
+            expand: false,
+            onPressed: deleting ? null : onExport,
           ),
         ),
-        Text(l10n.deleteErasedJournal(summary.journalEntries)),
-        Text(l10n.deleteErasedNotes),
-        Text(l10n.deleteErasedSettings),
-        Text(l10n.deleteErasedServer),
-        SizedBox(height: tokens.space.s5),
-        Semantics(
-          header: true,
-          child: Text(
-            l10n.deleteKeptHeading,
-            style: tokens.typography.titleSmall,
+        if (summary != null) ...[
+          ChecklistPanel(
+            title: l10n.deleteErasedHeading,
+            included: false,
+            items: [
+              ChecklistItem(l10n.deleteErasedJournal(summary.journalEntries)),
+              ChecklistItem(l10n.deleteErasedNotes),
+              ChecklistItem(l10n.deleteErasedSettings),
+              ChecklistItem(l10n.deleteErasedServer),
+            ],
           ),
-        ),
-        Text(
-          l10n.deleteKeptBalance(l10n.balanceReadings(summary.readingsKept)),
-        ),
-        if (summary.removeAdsKept) Text(l10n.deleteKeptRemoveAds),
-        Text(l10n.deleteKeptCaption, style: tokens.typography.caption),
-        SizedBox(height: tokens.space.s5),
-        TaroTextField(
-          label: l10n.deleteConfirmLabel(l10n.deleteConfirmWord),
-          textCapitalization: TextCapitalization.characters,
-          onChanged: onTyped,
-        ),
-        SizedBox(height: tokens.space.s5),
-        TaroButton.destructive(
-          label: l10n.deleteButton,
-          onPressed: enabled ? onDelete : null,
-        ),
+          ChecklistPanel(
+            title: l10n.deleteKeptHeading,
+            included: true,
+            accent: true,
+            footer: l10n.deleteKeptCaption,
+            items: [
+              ChecklistItem(
+                l10n.deleteKeptBalance(
+                  l10n.balanceReadings(summary.readingsKept),
+                ),
+              ),
+              if (summary.removeAdsKept)
+                ChecklistItem(l10n.deleteKeptRemoveAds),
+            ],
+          ),
+          TaroTextField(
+            label: l10n.deleteConfirmLabel(l10n.deleteConfirmWord),
+            textCapitalization: TextCapitalization.characters,
+            onChanged: onTyped,
+          ),
+        ],
       ],
     );
   }

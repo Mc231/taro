@@ -3,6 +3,7 @@ import 'package:taro_ui/src/components/actions/taro_button.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
 import 'package:taro_ui/src/components/state/taro_shimmer.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
+import 'package:taro_ui/src/tokens/taro_strokes.dart';
 
 /// The index of the offer with the lowest per-reading price, or null when
 /// there are fewer than two offers or the lowest price is shared (the
@@ -46,7 +47,8 @@ enum ProductOfferState {
 /// 04 §11): title, optional body, per-reading price, a computed "Best
 /// value" badge and the full localised store price as its own buy button.
 ///
-/// No pre-selection, strikethrough or timer. The buy button's
+/// The best-value row gets a `color.accent.primary` outline next to its
+/// badge. No pre-selection, strikethrough or timer. The buy button's
 /// [purchaseSemanticsLabel] is the full sentence ("10 readings for 4.99 US
 /// dollars, 50 cents per reading"). A hidden offer (`purchasesBlocked`,
 /// `store.enabled = false`) is simply not built.
@@ -228,6 +230,14 @@ class ProductOfferTile extends StatelessWidget {
         color: c.bg.surface,
         borderRadius: BorderRadius.circular(tokens.radius.lg),
         boxShadow: tokens.elevation.e1.shadow,
+        // The honest badge's row is outlined (S11 `Store.dc.html`); the
+        // outline is a highlight, never a pre-selection.
+        border: bestValueLabel == null || _loading
+            ? null
+            : Border.all(
+                color: c.accent.primary,
+                width: TaroStrokes.control,
+              ),
       ),
       child: content,
     );

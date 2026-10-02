@@ -80,6 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `tools/store_copy/banned_phrases.yaml` (en) allows the span "best value" (04 MO18 / §14: the computed S11 pack badge); `src/generated/safety_lexicons.json` regenerated, so the L3 lexicon no longer flags that exact span. "best" on its own stays banned.
 - `ai.consentVersion` default 1 → 2 (`config/remote_config.default.json`, contract fixtures): the consent copy now names only OpenAI (2026-10-01, RC97), so holds and readings with `X-Taro-AI-Consent: 1` get `412 AI_CONSENT_REQUIRED` until the user re-consents. Push the new value with the app release that ships the copy.
 - AI routing defaults are OpenAI-only (00_DECISIONS RC97 amendment, 2026-10-01): `ai.provider.paid` / `.free` / `.freeFallback` = `openai`, `ai.model.*` = `gpt-6.1-sol` on every tier (was Anthropic `claude-opus-5` / `claude-sonnet-5`), `ai.disclosedProviders` = `["openai"]` (Anthropic routing is rejected by `config-push` until disclosed again), `ai.timeoutMs` 50000 (was 40000; sol timed out at 40 s on a long Korean reading). `ai.moderation.provider` stays `openai`, `ai.effort` stays `low`. The Anthropic adapter and its tests are unchanged; routing tests that need a cross-provider fallback set Anthropic explicitly.
 

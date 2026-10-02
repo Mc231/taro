@@ -314,14 +314,6 @@ Future<List<Override>> buildAppOverrides(GraphInputs inputs) async {
           loadTimeout: () => config.current.rewardedLoadTimeout,
           nonPersonalizedAds: nonPersonalizedAds,
         );
-  final banners = ads is AdMobAdsService
-      ? AdMobBannerSlotView(
-          adUnitId: adIds.banner,
-          ready: () => ads.whenInitialized,
-          nonPersonalizedAds: nonPersonalizedAds,
-          logger: logger.child('banner'),
-        )
-      : const NoOpBannerSlotView();
 
   final backends = <TaroAnalyticsBackend>[
     if (inputs.firebaseReady) inputs.sdks.firebaseAnalytics(logger: logger),
@@ -336,6 +328,15 @@ Future<List<Override>> buildAppOverrides(GraphInputs inputs) async {
     whenResolved: tap.resolved,
     logger: logger,
   );
+  final banners = ads is AdMobAdsService
+      ? AdMobBannerSlotView(
+          adUnitId: adIds.banner,
+          ready: () => ads.whenInitialized,
+          nonPersonalizedAds: nonPersonalizedAds,
+          logger: logger.child('banner'),
+          analytics: analytics,
+        )
+      : const NoOpBannerSlotView();
   final ump = UmpConsentService(
     logger: logger.child('ump'),
     allowDebugGeography: !isProd,
@@ -468,7 +469,9 @@ Future<List<Override>> buildAppOverrides(GraphInputs inputs) async {
         logger: logger,
       ),
     ),
-    urlLauncherProvider.overrideWithValue(PlatformUrlLauncher(logger: logger)),
+    urlLauncherProvider.overrideWithValue(
+      PlatformUrlLauncher(logger: logger, isIos: isIos),
+    ),
     backupExclusionProvider.overrideWithValue(
       isIos ? const PlatformBackupExclusion() : const NoOpBackupExclusion(),
     ),

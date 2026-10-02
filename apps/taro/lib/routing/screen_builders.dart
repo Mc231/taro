@@ -96,11 +96,14 @@ final Map<ScreenId, ScreenBuilder> screenBuilders = {
       const RewardedScreen(key: ValueKey(ScreenId.s12)),
   ScreenId.s13: (context, args) =>
       const DailyCardScreen(key: ValueKey(ScreenId.s13)),
-  ScreenId.s14: (context, args) =>
-      const JournalListScreen(key: ValueKey(ScreenId.s14)),
+  ScreenId.s14: (context, args) => JournalListScreen(
+    key: const ValueKey(ScreenId.s14),
+    cardId: args.query['card'],
+  ),
   ScreenId.s15: (context, args) => JournalEntryScreen(
     key: const ValueKey(ScreenId.s15),
     id: args.path['id'] ?? '',
+    prompt: args.query['prompt'],
   ),
   ScreenId.s16: (context, args) =>
       const DeckBrowserScreen(key: ValueKey(ScreenId.s16)),

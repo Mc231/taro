@@ -31,16 +31,6 @@ abstract final class JournalLabels {
         JournalDailyCardItem() => l10n.commonDailyCard,
       };
 
-  /// "12 Sep 2026 · Three cards" (the date alone for a daily card).
-  static String meta(TaroLocalizations l10n, JournalItem item) =>
-      switch (item) {
-        JournalReadingItem(:final reading) => l10n.commonItemSeparator(
-          date(l10n, reading.localDate),
-          SpreadText.name(l10n, reading.spreadId),
-        ),
-        JournalDailyCardItem(:final card) => date(l10n, card.localDate),
-      };
-
   /// The tile status of [item].
   static JournalEntryTileStatus status(JournalItem item) => switch (item) {
     JournalDailyCardItem() => JournalEntryTileStatus.dailyCard,
@@ -64,10 +54,6 @@ abstract final class JournalLabels {
     JournalEntryTileStatus.pending => l10n.journalPending,
     JournalEntryTileStatus.failed => l10n.journalFailedLabel,
   };
-
-  /// A local date (`YYYY-MM-DD`) in the app locale ("12 Sep 2026").
-  static String date(TaroLocalizations l10n, String localDate) =>
-      DateFormat.yMMMd(l10n.localeName).format(DateTime.parse(localDate));
 
   /// A month group header (`YYYY-MM` → "September 2026").
   static String month(TaroLocalizations l10n, String yearMonth) =>

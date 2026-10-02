@@ -1307,6 +1307,10 @@
   "@outOfReadingsBody": {
     "x-translate": true
   },
+  "outOfReadingsSemantics": "Out of readings",
+  "@outOfReadingsSemantics": {
+    "x-translate": true
+  },
   "rewardedOfferTitle": "{count, plural, other{Watch an ad for {count} readings}}",
   "@rewardedOfferTitle": {
     "x-translate": true
@@ -1359,12 +1363,16 @@
   "@storePerReading": {
     "x-translate": true
   },
-  "storeLowestPerReading": "Lowest price per reading",
-  "@storeLowestPerReading": {
+  "storeBestValue": "Best value",
+  "@storeBestValue": {
     "x-translate": true
   },
   "storePackSemantics": "{count, plural, other{{count} readings for {price}, {perReading} per reading}}",
   "@storePackSemantics": {
+    "x-translate": true
+  },
+  "storePackSemanticsBestValue": "{label}, best value",
+  "@storePackSemanticsBestValue": {
     "x-translate": true
   },
   "storeBuyPack": "Buy for {price}",
@@ -1617,6 +1625,10 @@
   },
   "journalPatternsLegendItem": "{name} {count}",
   "@journalPatternsLegendItem": {
+    "x-translate": true
+  },
+  "journalPatternsCardsDrawn": "{count, plural, other{{count} cards drawn}}",
+  "@journalPatternsCardsDrawn": {
     "x-translate": true
   },
   "journalPending": "Pending",
@@ -1963,6 +1975,14 @@
   "@settingsTransferFailed": {
     "x-translate": true
   },
+  "settingsTransferEmail": "Email support",
+  "@settingsTransferEmail": {
+    "x-translate": true
+  },
+  "settingsTransferEmailLine": "Transfer code: {code}",
+  "@settingsTransferEmailLine": {
+    "x-translate": true
+  },
   "settingsLegal": "Legal",
   "@settingsLegal": {
     "x-translate": true
@@ -1985,6 +2005,10 @@
   },
   "settingsCopyId": "Copy ID",
   "@settingsCopyId": {
+    "x-translate": true
+  },
+  "settingsCopyIdSemantics": "Copy Support ID {id}",
+  "@settingsCopyIdSemantics": {
     "x-translate": true
   },
   "settingsSupportIdCaption": "Share the Support ID if you contact us. It doesn’t identify you.",
@@ -2303,6 +2327,50 @@
   "@importInvalidTooLarge": {
     "x-translate": true
   },
+  "importInvalidNotTaroBody": "It may be a different kind of file, or it was damaged while it was being copied.",
+  "@importInvalidNotTaroBody": {
+    "x-translate": true
+  },
+  "importInvalidNewerVersionBody": "This backup was made by a newer version of Taro. Update the app, then import it again.",
+  "@importInvalidNewerVersionBody": {
+    "x-translate": true
+  },
+  "importInvalidCorruptBody": "Part of the file is missing or was changed after it was exported.",
+  "@importInvalidCorruptBody": {
+    "x-translate": true
+  },
+  "importInvalidTooLargeBody": "Taro can import backups up to 20 MB.",
+  "@importInvalidTooLargeBody": {
+    "x-translate": true
+  },
+  "importChosenFile": "The chosen file",
+  "@importChosenFile": {
+    "x-translate": true
+  },
+  "importTryHeading": "What you can try",
+  "@importTryHeading": {
+    "x-translate": true
+  },
+  "importTry1": "Choose the file whose name starts with taro-backup- and ends in .json.",
+  "@importTry1": {
+    "x-translate": true
+  },
+  "importTry2": "If it came by email or chat, save it to Files first, then choose it again.",
+  "@importTry2": {
+    "x-translate": true
+  },
+  "importTry3": "Still stuck? Make a fresh backup in Settings, Export backup, on the phone that has your journal.",
+  "@importTry3": {
+    "x-translate": true
+  },
+  "importNothingChanged": "Nothing was changed in your journal.",
+  "@importNothingChanged": {
+    "x-translate": true
+  },
+  "importBackToSettings": "Back to Settings",
+  "@importBackToSettings": {
+    "x-translate": true
+  },
   "importConfirmReplaceTitle": "Replace your journal?",
   "@importConfirmReplaceTitle": {
     "x-translate": true
@@ -2495,6 +2563,10 @@
   "@helpEmail": {
     "x-translate": true
   },
+  "helpSupportIdLabel": "Support ID",
+  "@helpSupportIdLabel": {
+    "x-translate": true
+  },
   "helpEmailSupport": "Email support",
   "@helpEmailSupport": {
     "x-translate": true
@@ -2537,6 +2609,26 @@
   },
   "legalOpenInBrowser": "Open in browser",
   "@legalOpenInBrowser": {
+    "x-translate": true
+  },
+  "legalReadOnline": "Read online",
+  "@legalReadOnline": {
+    "x-translate": true
+  },
+  "legalWebBody": "Opens in a browser window inside Taro.",
+  "@legalWebBody": {
+    "x-translate": true
+  },
+  "legalViewLicences": "View licences",
+  "@legalViewLicences": {
+    "x-translate": true
+  },
+  "legalLicencesBody": "Taro is built with open-source software. Each package and its licence is listed here.",
+  "@legalLicencesBody": {
+    "x-translate": true
+  },
+  "legalSupportLine": "Find a support line",
+  "@legalSupportLine": {
     "x-translate": true
   },
   "legalDisclaimerBody": "Taro does not predict the future. The cards are prompts for your own reflection, and what a card means for you is your decision. If you are going through something difficult, please talk to someone you trust or a support line.",
@@ -2685,6 +2777,22 @@
   },
   "dailyBackToToday": "Back to Today",
   "@dailyBackToToday": {
+    "x-translate": true
+  },
+  "learnCardTileSemantics": "{name}, {section}, card {index} of {total}",
+  "@learnCardTileSemantics": {
+    "x-translate": true
+  },
+  "cardMeaningUpright": "Upright meaning",
+  "@cardMeaningUpright": {
+    "x-translate": true
+  },
+  "cardMeaningReversed": "Reversed meaning",
+  "@cardMeaningReversed": {
+    "x-translate": true
+  },
+  "spreadGuideDiagramSemantics": "{name} layout, {cards}. The positions are listed below in order.",
+  "@spreadGuideDiagramSemantics": {
     "x-translate": true
   }
 }

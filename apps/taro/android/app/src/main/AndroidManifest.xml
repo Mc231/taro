@@ -114,7 +114,7 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
-        <!-- UrlLauncher (S27 crisis lines, help and store links). -->
+        <!-- UrlLauncher (S27 crisis lines, S28 mail, help, legal and store links). -->
         <intent>
             <action android:name="android.intent.action.DIAL"/>
             <data android:scheme="tel"/>
@@ -122,6 +122,14 @@
         <intent>
             <action android:name="android.intent.action.SENDTO"/>
             <data android:scheme="sms"/>
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <data android:scheme="mailto"/>
+        </intent>
+        <!-- UrlLauncher.openInApp (S29 terms and privacy in Custom Tabs). -->
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService"/>
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW"/>

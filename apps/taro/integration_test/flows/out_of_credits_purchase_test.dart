@@ -38,7 +38,7 @@ void main() {
     expect(fakes.readings.holds, hasLength(1));
     expect(fakes.readings.submitted, isEmpty);
 
-    await app.tapButton(l.outOfReadingsGetMore);
+    await app.tapText(l.outOfReadingsGetMore);
     await app.waitForScreen(ScreenId.s11);
     await app.tapFinder(
       find.descendant(
@@ -60,7 +60,7 @@ void main() {
     );
     expect(fakes.balance.cached?.paid, 3);
 
-    await app.tapButton(l.commonContinue);
+    // Opened from S10, the store closes after the grant toast (RC58).
     await app.waitForScreen(ScreenId.s07);
     // Nothing auto-starts (RC58): still one hold, no draw screen.
     await app.settle();

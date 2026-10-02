@@ -45,6 +45,8 @@ void main() {
     // Wipe (S26): the journal goes, the credits stay (RC37).
     await app.tapText(l.settingsDeleteAll);
     await app.waitForScreen(ScreenId.s26);
+    // The field sits under the panels: scroll it in on short phones.
+    await app.$(TextField).scrollTo();
     await app.$(TextField).enterText(l.deleteConfirmWord);
     await app.tapButton(l.deleteButton);
     await app.waitFor(find.text(l.deleteDoneTitle));

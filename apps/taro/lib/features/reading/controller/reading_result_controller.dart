@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show NotifierProviderFamily;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:taro/common/share_reading_use_case.dart';
 import 'package:taro/di/providers.dart';
-import 'package:taro/features/reading/share/share_reading_use_case.dart';
 import 'package:taro_core/taro_core.dart';
 
 part 'reading_result_controller.freezed.dart';

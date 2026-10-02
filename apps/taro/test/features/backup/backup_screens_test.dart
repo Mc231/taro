@@ -33,28 +33,35 @@ void main() {
         tester,
         ExportLayout(
           state: state,
+          fileName: 'taro-backup-2026-09-27.json',
           onExport: () => exports++,
           onBack: () => back++,
         ),
         size: const Size(430, 1400),
       );
+      TaroButton button() => tester.widget<TaroButton>(
+        find.widgetWithText(TaroButton, l10n.exportButton).first,
+      );
       await pump(const ExportState.idle());
       expect(find.text(l10n.exportBalance), findsOneWidget);
       expect(find.text(l10n.exportConsent), findsOneWidget);
-      await tapText(tester, l10n.exportButton);
+      expect(find.textContaining('taro-backup-2026-09-27.json'), findsOne);
+      await tester.tap(find.widgetWithText(TaroButton, l10n.exportButton));
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await pump(const ExportState.preparing());
       expect(
-        tester.widget<TaroButton>(find.byType(TaroButton)).onPressed,
+        tester
+            .widget<TaroButton>(
+              find.widgetWithText(TaroButton, l10n.exportPreparing),
+            )
+            .onPressed,
         isNull,
       );
       await pump(const ExportState.shareSheetOpen());
-      expect(
-        tester.widget<TaroButton>(find.byType(TaroButton)).onPressed,
-        isNull,
-      );
+      expect(button().onPressed, isNull);
       await pump(const ExportState.done(entries: 2));
       expect(find.text(l10n.exportDoneTitle), findsOneWidget);
+      expect(find.text(l10n.exportJournalCount(2)), findsOneWidget);
       await pump(const ExportState.failed(ErrorKind.storage));
       expect(find.text(l10n.exportFailed), findsOneWidget);
       await tapText(tester, l10n.commonRetry);
@@ -65,45 +72,73 @@ void main() {
   group('S25 import view', () {
     testWidgets('every state', (tester) async {
       final calls = <String>[];
-      Future<void> pump(ImportState state) => pumpTaroWidget(
-        tester,
-        ImportLayout(
-          state: state,
-          onPick: () => calls.add('pick'),
-          onReset: () => calls.add('reset'),
-          onMode: (m) => calls.add('mode:${m.name}'),
-          onConfirm: () => calls.add('confirm'),
-          onConfirmReplace: () => calls.add('replace'),
-          onCancelReplace: () => calls.add('cancel'),
-          onOpenJournal: () => calls.add('journal'),
-          onBack: () => calls.add('back'),
-        ),
-        size: const Size(430, 1400),
-      );
+      Future<void> pump(ImportState state, {bool update = true}) =>
+          pumpTaroWidget(
+            tester,
+            ImportLayout(
+              state: state,
+              onPick: () => calls.add('pick'),
+              onReset: () => calls.add('reset'),
+              onMode: (m) => calls.add('mode:${m.name}'),
+              onConfirm: () => calls.add('confirm'),
+              onOpenJournal: () => calls.add('journal'),
+              onBack: () => calls.add('back'),
+              onUpdateApp: update ? () => calls.add('update') : null,
+            ),
+            size: const Size(430, 1600),
+          );
       await pump(const ImportState.picking());
       await tapText(tester, l10n.importChooseFile);
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await pump(const ImportState.validating());
-      expect(find.bySemanticsLabel(l10n.importValidating), findsWidgets);
-      for (final (reason, text) in [
-        (ImportInvalidReason.notTaro, l10n.importInvalidNotTaro),
-        (ImportInvalidReason.newerVersion, l10n.importInvalidNewerVersion),
-        (ImportInvalidReason.corrupt, l10n.importInvalidCorrupt),
-        (ImportInvalidReason.tooLarge, l10n.importInvalidTooLarge),
+      expect(find.text(l10n.importValidating), findsOneWidget);
+      for (final (reason, text, body) in [
+        (
+          ImportInvalidReason.notTaro,
+          l10n.importInvalidNotTaro,
+          l10n.importInvalidNotTaroBody,
+        ),
+        (
+          ImportInvalidReason.newerVersion,
+          l10n.importInvalidNewerVersion,
+          l10n.importInvalidNewerVersionBody,
+        ),
+        (
+          ImportInvalidReason.corrupt,
+          l10n.importInvalidCorrupt,
+          l10n.importInvalidCorruptBody,
+        ),
+        (
+          ImportInvalidReason.tooLarge,
+          l10n.importInvalidTooLarge,
+          l10n.importInvalidTooLargeBody,
+        ),
       ]) {
         await pump(ImportState.invalid(reason));
         expect(find.text(text), findsOneWidget);
+        expect(find.text(body), findsOneWidget);
+        expect(find.text(l10n.importNothingChanged), findsOneWidget);
+        expect(
+          find.text(l10n.updateButton),
+          reason == ImportInvalidReason.newerVersion
+              ? findsOneWidget
+              : findsNothing,
+        );
+        if (reason == ImportInvalidReason.newerVersion) {
+          await tapText(tester, l10n.updateButton);
+        }
       }
       await tapText(tester, l10n.importChooseAnother);
+      await tapText(tester, l10n.importBackToSettings);
       await pump(ImportState.preview(_preview));
       expect(find.text(l10n.importSummary(1, 1)), findsOneWidget);
       expect(find.text(l10n.importBalanceNote), findsOneWidget);
+      expect(find.text(l10n.importChecked), findsOneWidget);
       await tapText(tester, l10n.importReplace);
-      await tapText(tester, l10n.importButton);
+      await tapText(tester, l10n.importChooseAnother);
+      await tester.tap(find.widgetWithText(TaroButton, l10n.importButton));
       await pump(ImportState.confirmReplace(_preview, localEntries: 4));
-      expect(find.text(l10n.importConfirmReplaceBody(4)), findsOneWidget);
-      await tapText(tester, l10n.commonCancel);
-      await tapText(tester, l10n.importConfirmReplaceAction);
+      expect(find.text(l10n.importReplace), findsOneWidget);
       await pump(const ImportState.importing(progress: 0.5));
       expect(find.byType(LinearProgressIndicator), findsOneWidget);
       expect(find.bySemanticsLabel(l10n.commonBack), findsNothing);
@@ -118,14 +153,20 @@ void main() {
       await pump(const ImportState.failed(ErrorKind.storage));
       expect(find.text(l10n.importFailed), findsOneWidget);
       await tapText(tester, l10n.commonRetry);
+      await pump(
+        const ImportState.invalid(ImportInvalidReason.newerVersion),
+        update: false,
+      );
+      expect(find.text(l10n.updateButton), findsNothing);
       expect(calls, [
         'pick',
         'back',
-        'reset',
+        'update',
+        'pick',
+        'back',
         'mode:replace',
+        'pick',
         'confirm',
-        'cancel',
-        'replace',
         'journal',
         'reset',
       ]);
@@ -148,7 +189,8 @@ void main() {
         pushed: true,
         size: const Size(430, 1400),
       );
-      await tapText(tester, l10n.exportButton);
+      await tester.tap(find.widgetWithText(TaroButton, l10n.exportButton));
+      await tester.pumpAndSettle();
       expect(find.text(l10n.exportDoneTitle), findsOneWidget);
       expect(fakes.files.shared, hasLength(1));
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
@@ -177,6 +219,7 @@ void main() {
       await tapText(tester, l10n.importChooseFile);
       await tapText(tester, l10n.importReplace);
       await tapText(tester, l10n.importButton);
+      expect(find.text(l10n.importConfirmReplaceBody(1)), findsOneWidget);
       await tapText(tester, l10n.commonCancel);
       await tapText(tester, l10n.importButton);
       await tapText(tester, l10n.importConfirmReplaceAction);

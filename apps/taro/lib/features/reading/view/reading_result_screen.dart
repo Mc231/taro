@@ -6,10 +6,11 @@ import 'package:go_router/go_router.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/common/failure_message.dart';
+import 'package:taro/common/reading_mini_spread.dart';
+import 'package:taro/common/reading_share_sheet.dart';
+import 'package:taro/common/share_reading_use_case.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/reading/controller/reading_result_controller.dart';
-import 'package:taro/features/reading/share/share_reading_use_case.dart';
-import 'package:taro/features/reading/view/reading_mini_spread.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
@@ -64,7 +65,9 @@ class ReadingResultScreen extends ConsumerWidget {
       onAddNote: openNote,
       onWriteAbout: (prompt) {
         unawaited(controller.useReflectionPrompt());
-        openNote();
+        unawaited(
+          context.push(RoutePaths.journalEntry(args.id.value, prompt: prompt)),
+        );
       },
       onShare: (view, {required includeQuestion}) => unawaited(
         controller.share(
@@ -407,52 +410,12 @@ class ReadingResultLayout extends StatelessWidget {
   }
 
   Future<void> _openShare(BuildContext context, ReadingResultView view) async {
-    final includeQuestion = await TaroSheet.show<bool>(
+    final includeQuestion = await ReadingShareSheet.show(
       context,
-      builder: (sheet) =>
-          _ShareSheet(hasQuestion: view.reading.question != null),
+      hasQuestion: view.reading.question != null,
     );
     if (includeQuestion != null) {
       onShare(view, includeQuestion: includeQuestion);
     }
-  }
-}
-
-/// The share options: "Include my question" is off by default (PR19).
-class _ShareSheet extends StatefulWidget {
-  const _ShareSheet({required this.hasQuestion});
-
-  final bool hasQuestion;
-
-  @override
-  State<_ShareSheet> createState() => _ShareSheetState();
-}
-
-class _ShareSheetState extends State<_ShareSheet> {
-  bool _includeQuestion = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = TaroLocalizations.of(context);
-    return TaroSheet(
-      title: l10n.shareTitle,
-      actions: [
-        TaroButton.primary(
-          label: l10n.commonShare,
-          expand: true,
-          onPressed: () => Navigator.of(context).pop(_includeQuestion),
-        ),
-      ],
-      child: widget.hasQuestion
-          ? Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: TaroChip.filter(
-                label: l10n.shareIncludeQuestion,
-                selected: _includeQuestion,
-                onSelected: (on) => setState(() => _includeQuestion = on),
-              ),
-            )
-          : const SizedBox.shrink(),
-    );
   }
 }

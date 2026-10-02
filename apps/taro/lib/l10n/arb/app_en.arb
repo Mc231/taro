@@ -1747,6 +1747,10 @@
   "@outOfReadingsBody": {
     "description": "S10 body."
   },
+  "outOfReadingsSemantics": "Out of readings",
+  "@outOfReadingsSemantics": {
+    "description": "S10 sheet dialog label for screen readers."
+  },
   "rewardedOfferTitle": "{count, plural, one{Watch an ad for 1 reading} other{Watch an ad for {count} readings}}",
   "@rewardedOfferTitle": {
     "description": "Rewarded option title; says it is an ad (04 §9.1).",
@@ -1832,9 +1836,9 @@
       }
     }
   },
-  "storeLowestPerReading": "Lowest price per reading",
-  "@storeLowestPerReading": {
-    "description": "S11 honest badge on the pack with the lowest computed per-reading price (04 §11)."
+  "storeBestValue": "Best value",
+  "@storeBestValue": {
+    "description": "S11 honest badge on the pack with the lowest computed per-reading price (04 §11, MO18)."
   },
   "storePackSemantics": "{count, plural, one{1 reading for {price}, {perReading} per reading} other{{count} readings for {price}, {perReading} per reading}}",
   "@storePackSemantics": {
@@ -1847,6 +1851,15 @@
         "type": "String"
       },
       "perReading": {
+        "type": "String"
+      }
+    }
+  },
+  "storePackSemanticsBestValue": "{label}, best value",
+  "@storePackSemanticsBestValue": {
+    "description": "S11 pack screen-reader label with the honest badge appended (04 §11 accessibility).",
+    "placeholders": {
+      "label": {
         "type": "String"
       }
     }
@@ -2171,6 +2184,15 @@
       "name": {
         "type": "String"
       },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "journalPatternsCardsDrawn": "{count, plural, one{1 card drawn} other{{count} cards drawn}}",
+  "@journalPatternsCardsDrawn": {
+    "description": "S14 patterns header trailing count, e.g. '28 cards drawn'.",
+    "placeholders": {
       "count": {
         "type": "int"
       }
@@ -2637,6 +2659,19 @@
   "@settingsTransferFailed": {
     "description": "Move readings: failed."
   },
+  "settingsTransferEmail": "Email support",
+  "@settingsTransferEmail": {
+    "description": "S20 transfer code notice: opens a support e-mail with the code."
+  },
+  "settingsTransferEmailLine": "Transfer code: {code}",
+  "@settingsTransferEmailLine": {
+    "description": "S20 support e-mail line carrying the RC84 transfer code.",
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
   "settingsLegal": "Legal",
   "@settingsLegal": {
     "description": "S20 row → S29."
@@ -2673,6 +2708,15 @@
   "settingsCopyId": "Copy ID",
   "@settingsCopyId": {
     "description": "Copies the Support ID."
+  },
+  "settingsCopyIdSemantics": "Copy Support ID {id}",
+  "@settingsCopyIdSemantics": {
+    "description": "S20/S28 Copy ID pill, screen-reader label.",
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
   },
   "settingsSupportIdCaption": "Share the Support ID if you contact us. It doesn’t identify you.",
   "@settingsSupportIdCaption": {
@@ -3018,6 +3062,50 @@
   "@importInvalidTooLarge": {
     "description": "S25 invalid(tooLarge)."
   },
+  "importInvalidNotTaroBody": "It may be a different kind of file, or it was damaged while it was being copied.",
+  "@importInvalidNotTaroBody": {
+    "description": "S25 invalid(notTaro) explanation."
+  },
+  "importInvalidNewerVersionBody": "This backup was made by a newer version of Taro. Update the app, then import it again.",
+  "@importInvalidNewerVersionBody": {
+    "description": "S25 invalid(newerVersion) explanation."
+  },
+  "importInvalidCorruptBody": "Part of the file is missing or was changed after it was exported.",
+  "@importInvalidCorruptBody": {
+    "description": "S25 invalid(corrupt) explanation."
+  },
+  "importInvalidTooLargeBody": "Taro can import backups up to 20 MB.",
+  "@importInvalidTooLargeBody": {
+    "description": "S25 invalid(tooLarge) explanation."
+  },
+  "importChosenFile": "The chosen file",
+  "@importChosenFile": {
+    "description": "S25 invalid file card title (the file could not be read)."
+  },
+  "importTryHeading": "What you can try",
+  "@importTryHeading": {
+    "description": "S25 invalid: tips heading."
+  },
+  "importTry1": "Choose the file whose name starts with taro-backup- and ends in .json.",
+  "@importTry1": {
+    "description": "S25 invalid: tip 1."
+  },
+  "importTry2": "If it came by email or chat, save it to Files first, then choose it again.",
+  "@importTry2": {
+    "description": "S25 invalid: tip 2."
+  },
+  "importTry3": "Still stuck? Make a fresh backup in Settings, Export backup, on the phone that has your journal.",
+  "@importTry3": {
+    "description": "S25 invalid: tip 3."
+  },
+  "importNothingChanged": "Nothing was changed in your journal.",
+  "@importNothingChanged": {
+    "description": "S25 invalid: reassurance."
+  },
+  "importBackToSettings": "Back to Settings",
+  "@importBackToSettings": {
+    "description": "S25 invalid: secondary action."
+  },
   "importConfirmReplaceTitle": "Replace your journal?",
   "@importConfirmReplaceTitle": {
     "description": "S25 confirmReplace dialog title."
@@ -3300,6 +3388,10 @@
   "@helpEmail": {
     "description": "S28 contact card label."
   },
+  "helpSupportIdLabel": "Support ID",
+  "@helpSupportIdLabel": {
+    "description": "S28 Contact support card: Support ID label (RC43)."
+  },
   "helpEmailSupport": "Email support",
   "@helpEmailSupport": {
     "description": "S28 primary button (mailto with version, OS, locale, Support ID)."
@@ -3370,6 +3462,26 @@
   "legalOpenInBrowser": "Open in browser",
   "@legalOpenInBrowser": {
     "description": "S29 offline fallback link."
+  },
+  "legalReadOnline": "Read online",
+  "@legalReadOnline": {
+    "description": "S29 Terms / Privacy tab: opens the hosted page in the in-app browser."
+  },
+  "legalWebBody": "Opens in a browser window inside Taro.",
+  "@legalWebBody": {
+    "description": "S29 Terms / Privacy tab body."
+  },
+  "legalViewLicences": "View licences",
+  "@legalViewLicences": {
+    "description": "S29 licences tab: opens the licence list."
+  },
+  "legalLicencesBody": "Taro is built with open-source software. Each package and its licence is listed here.",
+  "@legalLicencesBody": {
+    "description": "S29 licences tab body."
+  },
+  "legalSupportLine": "Find a support line",
+  "@legalSupportLine": {
+    "description": "S29 disclaimer: link to S27 support lines."
   },
   "legalDisclaimerBody": "Taro does not predict the future. The cards are prompts for your own reflection, and what a card means for you is your decision. If you are going through something difficult, please talk to someone you trust or a support line.",
   "@legalDisclaimerBody": {
@@ -3578,5 +3690,43 @@
   "dailyBackToToday": "Back to Today",
   "@dailyBackToToday": {
     "description": "S13 notDrawn secondary button → S05."
+  },
+  "learnCardTileSemantics": "{name}, {section}, card {index} of {total}",
+  "@learnCardTileSemantics": {
+    "description": "S16 grid tile screen-reader label (\"The Fool, Major Arcana, card 1 of 22\").",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "section": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "cardMeaningUpright": "Upright meaning",
+  "@cardMeaningUpright": {
+    "description": "S17 meaning heading, Upright selected."
+  },
+  "cardMeaningReversed": "Reversed meaning",
+  "@cardMeaningReversed": {
+    "description": "S17 meaning heading, Reversed selected."
+  },
+  "spreadGuideDiagramSemantics": "{name} layout, {cards}. The positions are listed below in order.",
+  "@spreadGuideDiagramSemantics": {
+    "description": "S18 layout diagram screen-reader label; {cards} is spreadCardCount.",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "cards": {
+        "type": "String"
+      }
+    }
   }
 }

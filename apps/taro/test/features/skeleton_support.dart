@@ -29,6 +29,8 @@ Future<TaroLocalizations> enL10n() =>
 /// `route:<location>`).
 const List<String> kLandingRoutes = [
   '/home',
+  '/daily',
+  '/learn',
   '/store',
   '/help',
   '/help/crisis',
@@ -42,6 +44,7 @@ const List<String> kLandingRoutes = [
   '/learn/card/:cardId',
   '/learn/spreads',
   '/learn/about',
+  '/settings',
   '/settings/:sub',
   '/consent/ai',
 ];

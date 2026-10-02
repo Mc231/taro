@@ -130,11 +130,10 @@ List<RouteBase> taroRoutes(TaroNavigatorKeys keys) => [
 abstract final class TaroModals {
   /// S10 Out-of-readings sheet; [source] is the
   /// `out_of_readings_viewed.source` wire value (query `source`).
+  /// It is a `TaroSheet`; swipe-down, a scrim tap and back close it.
   static Future<T?> outOfReadings<T>(BuildContext context, {String? source}) =>
-      showModalBottomSheet<T>(
-        context: context,
-        isScrollControlled: true,
-        useSafeArea: true,
+      TaroSheet.show<T>(
+        context,
         builder: (sheet) => buildScreen(
           sheet,
           ScreenId.s10,
@@ -142,11 +141,10 @@ abstract final class TaroModals {
         ),
       );
 
-  /// S12 Rewarded flow overlay (not dismissible by a barrier tap).
-  static Future<T?> rewarded<T>(BuildContext context) => showDialog<T>(
-    context: context,
-    barrierDismissible: false,
-    useSafeArea: false,
+  /// S12 Rewarded flow overlay: a `TaroDialog`-styled modal, not
+  /// dismissible by a barrier tap (Cancel / Continue close it).
+  static Future<T?> rewarded<T>(BuildContext context) => TaroDialog.show<T>(
+    context,
     builder: (dialog) => buildScreen(dialog, ScreenId.s12),
   );
 

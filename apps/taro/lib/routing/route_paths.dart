@@ -107,9 +107,17 @@ abstract final class RoutePaths {
     queryParameters: classic ? {'mode': classicMode} : null,
   ).toString();
 
-  /// S15 for the journal entry [id].
-  static String journalEntry(String id) =>
-      '$journal/${Uri.encodeComponent(id)}';
+  /// S15 for the journal entry [id]; [prompt] (query `prompt`) is the S09
+  /// reflection prompt that "Write about this" pre-fills into the note.
+  static String journalEntry(String id, {String? prompt}) => Uri(
+    path: '$journal/${Uri.encodeComponent(id)}',
+    queryParameters: prompt == null ? null : {'prompt': prompt},
+  ).toString();
+
+  /// S14 filtered to the entries containing [cardId] (query `card`; the S17
+  /// "In your journal: drawn N times" link).
+  static String journalWithCard(String cardId) =>
+      Uri(path: journal, queryParameters: {'card': cardId}).toString();
 
   /// S17 for [cardId].
   static String learnCard(String cardId) =>

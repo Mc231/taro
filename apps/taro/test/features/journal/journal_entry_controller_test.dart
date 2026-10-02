@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/common/share_reading_use_case.dart';
 import 'package:taro/features/journal/controller/journal_entry_controller.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -250,5 +251,58 @@ void main() {
     final (_, _, read) = open(const JournalEntryKey.reading(ReadingId('c')));
     await pumpEventQueue();
     expect(read(), isA<JournalEntryContent>());
+  });
+
+  test(
+    'writeAbout adds the prompt as a heading, once, and autosaves',
+    () async {
+      final (_, controller, read) = open();
+      await pumpEventQueue();
+      controller.writeAbout('  What helps?  ');
+      expect(viewOf(read()).note, 'first\n\nWhat helps?\n\n');
+      expect(viewOf(read()).noteStatus, NoteStatus.editing);
+      controller
+        ..writeAbout('What helps?')
+        ..writeAbout('   ');
+      expect(viewOf(read()).note, 'first\n\nWhat helps?\n\n');
+      await controller.flushNote();
+      expect(fakes.journal.readings[_id]!.note, 'first\n\nWhat helps?\n\n');
+
+      final (_, daily, readDaily) = open(_dailyKey);
+      await pumpEventQueue();
+      daily.writeAbout('Why now?');
+      expect(viewOf(readDaily()).note, 'Why now?\n\n');
+    },
+  );
+
+  test('share: a reading as text, the question only when asked', () async {
+    const copy = ShareCopy(
+      disclaimerLine: 'For reflection only.',
+      questionLabel: 'My question',
+      reversedLabel: 'Reversed',
+      fallbackTitle: 'Three cards',
+    );
+    final (_, controller, _) = open();
+    await pumpEventQueue();
+    expect((await controller.share(copy, includeQuestion: false)).isOk, isTrue);
+    expect(fakes.files.shared, hasLength(1));
+    expect(
+      fakes.analytics.events
+          .whereType<ReadingSharedEvent>()
+          .single
+          .includeQuestion,
+      isFalse,
+    );
+    fakes.files.failNext(const Failure.storage(), on: 'share');
+    expect((await controller.share(copy, includeQuestion: true)).isOk, isFalse);
+    expect(
+      fakes.analytics.events.whereType<ReadingSharedEvent>(),
+      hasLength(1),
+    );
+
+    final (_, daily, _) = open(_dailyKey);
+    await pumpEventQueue();
+    expect((await daily.share(copy, includeQuestion: false)).isOk, isTrue);
+    expect(fakes.files.shared, hasLength(1));
   });
 }

@@ -17,6 +17,8 @@ class ReadingMiniSpread extends StatelessWidget {
     required this.names,
     this.positions,
     this.artSet = CardArt.defaultArtSet,
+    this.cardSize = TaroCardSize.md,
+    this.faceDown = false,
     super.key,
   });
 
@@ -36,11 +38,18 @@ class ReadingMiniSpread extends StatelessWidget {
   /// The bundled art set.
   final String artSet;
 
+  /// The card size (`md` on S09 / S32, `sm` on the S15 journal entry).
+  final TaroCardSize cardSize;
+
+  /// Shows the backs only (a pending reading's cards are not revealed yet,
+  /// RC50); each slot keeps its position label.
+  final bool faceDown;
+
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     return SpreadCanvas(
-      cardSize: TaroCardSize.md,
+      cardSize: cardSize,
       semanticsLabel: SpreadText.name(l10n, spreadId),
       slots: [
         for (final (index, card) in cards.indexed) _slot(l10n, card, index),
@@ -64,16 +73,19 @@ class ReadingMiniSpread extends StatelessWidget {
             ),
       label: label,
       number: index + 1,
-      card: TaroCardFace(
-        image: CardArt.face(card.cardId, artSet: artSet),
-        semanticsLabel: l10n.drawCardSemantics(
-          name,
-          card.reversed ? l10n.commonReversed : l10n.commonUpright,
-          label,
-        ),
-        reversed: card.reversed,
-        reversedLabel: l10n.commonReversed,
-      ),
+      card: faceDown
+          ? TaroCardBack(size: cardSize, semanticsLabel: label)
+          : TaroCardFace(
+              image: CardArt.face(card.cardId, artSet: artSet),
+              semanticsLabel: l10n.drawCardSemantics(
+                name,
+                card.reversed ? l10n.commonReversed : l10n.commonUpright,
+                label,
+              ),
+              reversed: card.reversed,
+              size: cardSize,
+              reversedLabel: l10n.commonReversed,
+            ),
     );
   }
 }

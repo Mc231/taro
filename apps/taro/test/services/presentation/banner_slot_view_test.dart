@@ -17,11 +17,13 @@ void main() {
   late CapturingLogger logger;
   late Completer<void> ready;
   late bool npa;
+  late FakeAnalyticsService analytics;
 
   setUp(() {
     platform = FakeAdsPlatform();
     logger = CapturingLogger();
     npa = false;
+    analytics = FakeAnalyticsService();
   });
   tearDown(() => platform.uninstall());
 
@@ -38,6 +40,7 @@ void main() {
     ready: () => ready.future,
     nonPersonalizedAds: () => npa,
     logger: logger,
+    analytics: analytics,
     anchoredSize: size ?? gma.AdSize.getLargeAnchoredAdaptiveBannerAdSize,
     adWidget: (_) => const SizedBox.expand(key: _adKey),
   );
@@ -94,6 +97,10 @@ void main() {
     expect((load['request']! as gma.AdRequest).nonPersonalizedAds, isNull);
     expect(slotSize(tester), const Size(800, 60));
     expect(find.byKey(_adKey), findsOneWidget);
+    expect(
+      analytics.events.whereType<AdBannerImpressionEvent>().single.screenId,
+      BannerScreen.home,
+    );
 
     await tester.pumpWidget(const SizedBox());
     expect(platform.methods.last, 'disposeAd');
@@ -119,6 +126,8 @@ void main() {
     expect(slotSize(tester), Size.zero);
     expect(platform.methods, contains('disposeAd'));
     expect(logger.logged('banner no fill: 3'), isTrue);
+    final failed = analytics.events.whereType<AdBannerFailedEvent>().single;
+    expect(failed.parameters, {'screen_id': 'home', 'error_code': 3});
   });
 
   bannerTest('a failing load collapses to zero', (tester) async {
@@ -128,6 +137,10 @@ void main() {
     await tester.pump();
     expect(slotSize(tester), Size.zero);
     expect(logger.logged('banner load failed'), isTrue);
+    expect(
+      analytics.events.whereType<AdBannerFailedEvent>().single.errorCode,
+      isNull,
+    );
   });
 
   bannerTest('no adaptive size → no request', (tester) async {

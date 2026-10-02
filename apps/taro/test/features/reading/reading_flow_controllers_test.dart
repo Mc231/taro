@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/common/share_reading_use_case.dart';
 import 'package:taro/features/reading/controller/classic_reading_controller.dart';
 import 'package:taro/features/reading/controller/reading_result_controller.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
 import 'package:taro/features/reading/controller/report_reading_controller.dart';
 import 'package:taro/features/reading/controller/spread_picker_controller.dart';
-import 'package:taro/features/reading/share/share_reading_use_case.dart';
 import 'package:taro_core/taro_core.dart';
 
 import '../feature_test_support.dart';

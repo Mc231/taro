@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Element;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/di/providers.dart'
     show Article, ArticleEntry, ArticleSection;
@@ -56,6 +56,26 @@ void main() {
     }
     expect(LearnLabels.originOf('search'), LearnCardOrigin.search);
     expect(LearnLabels.originOf(null), LearnCardOrigin.deck);
+    expect(LearnLabels.roman(0), '0');
+    expect(LearnLabels.roman(19), 'XIX');
+    expect(LearnLabels.roman(14), 'XIV');
+    final major = _card(const CardId('major_17'));
+    final pip = _card(_cups3);
+    final court = _card(const CardId('cups_13'));
+    expect(LearnLabels.numeral(major), 'XVII');
+    expect(LearnLabels.numeral(pip), '3');
+    expect(LearnLabels.numeral(court), isNull);
+    expect(LearnLabels.tileNumeral(pip), 'III');
+    expect(LearnLabels.tileNumeral(court), isNull);
+    expect(LearnLabels.arcanaLine(l10n, major), l10n.learnSectionMajor);
+    expect(LearnLabels.suitOfCard(major), TaroSuit.major);
+    for (final kind in DeckSectionKind.values) {
+      expect(LearnLabels.suitOf(kind).name, isNotEmpty);
+    }
+    expect(
+      {for (final e in Element.values) LearnLabels.element(l10n, e)},
+      {l10n.elementFire, l10n.elementWater, l10n.elementAir, l10n.elementEarth},
+    );
   });
 
   group('S16 deck browser view', () {
@@ -86,13 +106,33 @@ void main() {
         DeckBrowserState.content(
           sections: [
             DeckSection(
+              kind: DeckSectionKind.majorArcana,
+              tiles: [
+                DeckTile(card: _card(const CardId('major_00')), name: 'Fool'),
+              ],
+            ),
+            DeckSection(
               kind: DeckSectionKind.cups,
-              tiles: [DeckTile(card: _card(_cups3), name: 'Three of Cups')],
+              tiles: [
+                DeckTile(card: _card(_cups3), name: 'Three of Cups'),
+                DeckTile(card: _card(const CardId('cups_12')), name: 'Knight'),
+              ],
             ),
           ],
         ),
       );
-      expect(find.text(l10n.suitCups), findsOneWidget);
+      // The section anchors and the headings both name the section.
+      expect(find.text(l10n.suitCups), findsNWidgets(2));
+      expect(find.text('0'), findsOneWidget);
+      expect(find.text('III'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel(
+          l10n.learnCardTileSemantics('Three of Cups', l10n.suitCups, 1, 2),
+        ),
+        findsOneWidget,
+      );
+      await tester.tap(find.byKey(const ValueKey('anchor-cups')));
+      await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField), 'cups');
       await tapText(tester, l10n.learnSpreadsGuide);
       await tapText(tester, l10n.learnAbout);
@@ -139,23 +179,54 @@ void main() {
       expect(find.text(text.name), findsOneWidget);
       expect(find.text(l10n.cardPosition(l10n.suitCups, 3, 14)), findsOne);
       expect(find.text(text.meaningUpright), findsOneWidget);
+      expect(find.text(l10n.cardMeaningUpright), findsOneWidget);
+      expect(find.text(l10n.cardElementValue(l10n.elementWater)), findsOne);
+      expect(find.text(l10n.cardNumberValue('3')), findsOneWidget);
+      expect(
+        find.text(l10n.commonItemSeparator(l10n.arcanaMinor, l10n.suitCups)),
+        findsOneWidget,
+      );
+      for (final question in text.reflectionQuestions) {
+        expect(find.text(question), findsOneWidget);
+      }
       await tapText(tester, l10n.commonReversed);
-      await tapText(tester, l10n.cardZoomOpen);
+      await tester.ensureVisible(find.byType(TaroCardFace));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(TaroCardFace));
+      await tester.pumpAndSettle();
       await tapText(tester, l10n.cardDrawnTimes(2));
-      await tapText(tester, l10n.cardPreviousAction);
-      await tapText(tester, l10n.cardNextAction);
+      await tester.tap(find.bySemanticsLabel(l10n.cardPreviousAction));
+      await tester.tap(find.bySemanticsLabel(l10n.cardNextAction));
+      // A swipe towards the start edge shows the next card.
+      await tester.fling(
+        find.text(text.meaningUpright),
+        const Offset(-300, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
 
       await pump(CardDetailState.reversed(_detail(drawn: 0)));
       expect(find.text(text.meaningReversed), findsOneWidget);
-      expect(find.text(l10n.cardPreviousAction), findsNothing);
+      expect(find.text(l10n.cardMeaningReversed), findsOneWidget);
+      // N = 0: not tappable; no neighbours: disabled paging.
+      await tester.tap(find.text(l10n.cardDrawnTimes(0)));
+      await tester.tap(find.bySemanticsLabel(l10n.cardNextAction));
+      await tester.fling(
+        find.text(text.meaningReversed),
+        const Offset(300, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
 
       await pump(CardDetailState.zoomed(_detail(), reversed: true));
       expect(find.bySemanticsLabel(l10n.cardZoomSemantics), findsWidgets);
-      await tapText(tester, l10n.commonClose);
+      expect(find.byType(InteractiveViewer), findsOneWidget);
+      await tester.tap(find.bySemanticsLabel(l10n.commonClose));
+      await tester.pumpAndSettle();
 
       expect(reversed, [true]);
-      expect(opened, [const CardId('cups_02'), _cups3]);
+      expect(opened, [const CardId('cups_02'), _cups3, _cups3]);
       expect((zoom, closeZoom, journal, back, retry), (1, 1, 1, 1, 1));
     });
   });
@@ -193,8 +264,27 @@ void main() {
         ),
       );
       expect(find.text(l10n.spread_three_ppf_whenToUse), findsOneWidget);
-      expect(find.text(l10n.spread_three_ppf_pos_past_name), findsOneWidget);
+      expect(
+        find.textContaining(
+          '${l10n.spread_three_ppf_pos_past_name} · ',
+          findRichText: true,
+        ),
+        findsOneWidget,
+      );
+      final index = spreads.indexWhere((e) => e.spread.id.value == 'three_ppf');
+      expect(
+        find.text(l10n.spreadGuidePager(index + 1, spreads.length)),
+        findsOneWidget,
+      );
       await tapText(tester, l10n.spreadGuideStart);
+      await tester.tap(find.bySemanticsLabel(l10n.spreadGuidePrevious));
+      await tester.tap(find.bySemanticsLabel(l10n.spreadGuideNext));
+      await tester.fling(
+        find.text(l10n.spread_three_ppf_whenToUse),
+        const Offset(-300, 0),
+        1000,
+      );
+      await tester.pumpAndSettle();
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await pump(
         SpreadGuideState.content(
@@ -203,7 +293,12 @@ void main() {
         ),
       );
       expect(find.text(l10n.spreadGuideStart), findsNothing);
-      expect(selected, [const SpreadId('three_ppf')]);
+      expect(selected, [
+        const SpreadId('three_ppf'),
+        spreads[index - 1].spread.id,
+        spreads[index + 1].spread.id,
+        spreads[index + 1].spread.id,
+      ]);
       expect(started, [const SpreadId('three_ppf')]);
       expect((back, retry), (1, 1));
     });
@@ -213,11 +308,13 @@ void main() {
     testWidgets('every state ends with the disclaimer', (tester) async {
       var back = 0;
       var retry = 0;
+      var support = 0;
       Future<void> pump(AboutState state) => pumpTaroWidget(
         tester,
         AboutLayout(
           state: state,
           onBack: () => back++,
+          onSupport: () => support++,
           onRetry: () => retry++,
         ),
       );
@@ -229,8 +326,14 @@ void main() {
       expect(find.text('History'), findsOneWidget);
       expect(find.text('Is it free?'), findsOneWidget);
       expect(find.text(l10n.disclaimerShort), findsOneWidget);
+      await tapText(tester, l10n.aboutSupportLines);
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
-      expect((back, retry), (1, 1));
+      // An untitled article falls back to "About tarot & Taro".
+      await pump(
+        const AboutState.content(Article(title: '', sections: [])),
+      );
+      expect(find.text(l10n.learnAbout), findsOneWidget);
+      expect((back, retry, support), (1, 1, 1));
     });
   });
 
@@ -293,9 +396,14 @@ void main() {
         find.text(aCardText(const CardId('major_01')).meaningReversed),
         findsOneWidget,
       );
-      await tapText(tester, l10n.cardZoomOpen);
-      await tapText(tester, l10n.commonClose);
-      await tapText(tester, l10n.cardNextAction);
+      await tester.ensureVisible(find.byType(TaroCardFace));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(TaroCardFace));
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsLabel(l10n.commonClose));
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsLabel(l10n.cardNextAction));
+      await tester.pumpAndSettle();
       expectRoute('/learn/card/major_02');
       router.pop();
       await tester.pumpAndSettle();
@@ -317,7 +425,7 @@ void main() {
         findsOneWidget,
       );
       await tapText(tester, l10n.cardDrawnTimes(1));
-      expectRoute('/journal');
+      expectRoute('/journal?card=major_00');
     });
 
     testWidgets('S18: detail, back to list, start, retry', (tester) async {
@@ -359,12 +467,20 @@ void main() {
         }
         return const Result.ok(_article);
       };
-      await pumpRouted(tester, const AboutScreen(), fakes: fakes, pushed: true);
+      final router = await pumpRouted(
+        tester,
+        const AboutScreen(),
+        fakes: fakes,
+        pushed: true,
+      );
       await tapText(tester, l10n.commonRetry);
       expect(find.text('History'), findsOneWidget);
+      await tapText(tester, l10n.aboutSupportLines);
+      expectRoute('/help/crisis');
+      router.pop();
+      await tester.pumpAndSettle();
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await tester.pumpAndSettle();
-      expectRoute('/');
     });
   });
 }

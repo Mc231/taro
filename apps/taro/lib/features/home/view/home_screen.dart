@@ -39,6 +39,7 @@ class HomeScreen extends ConsumerWidget {
     final state = ref.watch(homeControllerProvider);
     final controller = ref.read(homeControllerProvider.notifier);
     final clock = ref.watch(clockProvider);
+    final listing = ref.watch(storeLinksProvider).listing;
     return HomeLayout(
       state: state,
       now: clock.now,
@@ -57,6 +58,9 @@ class HomeScreen extends ConsumerWidget {
       onDismissFirstRun: () => unawaited(controller.dismissFirstRun()),
       onDismissUpdate: controller.dismissUpdateNotice,
       onRetryVerification: () => unawaited(controller.retryVerification()),
+      onUpdate: listing == null
+          ? null
+          : () => unawaited(ref.read(urlLauncherProvider).open(listing)),
       onFreeReset: () =>
           unawaited(ref.read(balanceProvider.notifier).refresh()),
     );

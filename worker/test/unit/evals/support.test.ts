@@ -80,6 +80,7 @@ describe('parseYaml', () => {
     expect(en?.['global']).toContain('limited time');
     expect(en?.['allowed_contexts']).toEqual([
       'not medical, legal, financial or psychological advice',
+      'best value',
     ]);
   });
 

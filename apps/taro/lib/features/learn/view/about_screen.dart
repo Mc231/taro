@@ -1,13 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/learn/controller/about_controller.dart';
+import 'package:taro/features/learn/view/learn_top_bar.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/routing/routes.dart';
 import 'package:taro_ui/taro_ui.dart';
 
-/// S19 About tarot & Taro (01 §7.9): the bundled article and the
-/// disclaimer.
+/// S19 About tarot & Taro (01 §7.9): the bundled article, the support
+/// lines link and the disclaimer.
 class AboutScreen extends ConsumerWidget {
   /// Creates the screen.
   const AboutScreen({super.key});
@@ -16,16 +21,18 @@ class AboutScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => AboutLayout(
     state: ref.watch(aboutControllerProvider),
     onBack: () => Navigator.of(context).maybePop(),
+    onSupport: () => unawaited(context.push<void>(RoutePaths.helpCrisis)),
     onRetry: () => ref.invalidate(aboutControllerProvider),
   );
 }
 
-/// The S19 skeleton for one [state] (Phase 13.5; restyled in Phase 16).
+/// The S19 view for one [state].
 class AboutLayout extends StatelessWidget {
   /// Creates the view.
   const AboutLayout({
     required this.state,
     required this.onBack,
+    required this.onSupport,
     required this.onRetry,
     super.key,
   });
@@ -36,12 +43,16 @@ class AboutLayout extends StatelessWidget {
   /// Back.
   final VoidCallback onBack;
 
+  /// "Support and crisis lines" (→ S27).
+  final VoidCallback onSupport;
+
   /// Retries after a storage error.
   final VoidCallback onRetry;
 
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
+    final tokens = context.tokens;
     final body = switch (state) {
       AboutLoading() => TaroLoadingView(
         semanticsLabel: l10n.commonLoading,
@@ -55,61 +66,102 @@ class AboutLayout extends StatelessWidget {
         retryLabel: l10n.commonRetry,
       ),
       AboutContent(:final article) => ListView(
+        padding: EdgeInsetsDirectional.only(
+          top: tokens.space.s3,
+          bottom: tokens.space.s7,
+        ),
         children: [
-          ArticleBody(article: article),
-          const DisclaimerFooter(),
+          Align(
+            alignment: AlignmentDirectional.topStart,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: tokens.layout.readingMaxWidth,
+              ),
+              child: ArticleBody(
+                article: article,
+                fallbackTitle: l10n.learnAbout,
+              ),
+            ),
+          ),
+          SizedBox(height: tokens.space.s6),
+          SettingsSection(
+            children: [
+              SettingsTile(
+                leading: Icon(
+                  Icons.favorite_border_rounded,
+                  size: tokens.size.icon.md,
+                  color: tokens.color.accent.primary,
+                ),
+                title: l10n.aboutSupportLines,
+                onTap: onSupport,
+              ),
+            ],
+          ),
+          const DisclaimerFooter(centered: true),
         ],
       ),
     };
     return TaroScaffold(
-      appBar: TaroAppBar(
-        leadingLabel: l10n.commonBack,
-        onLeading: onBack,
-        title: l10n.learnAbout,
-      ),
+      appBar: LearnTopBar(onBack: onBack, caption: l10n.learnTitle),
       body: body,
     );
   }
 }
 
-/// A bundled [Article] as plain text blocks (the inline Markdown is kept
-/// as authored until Phase 16 renders it).
+/// A bundled [Article]: the title (`type.headline`), then each section's
+/// heading (`type.titleSmall`, a header) and paragraphs (`type.bodyReading`).
 class ArticleBody extends StatelessWidget {
   /// Creates the body.
-  const ArticleBody({required this.article, super.key});
+  const ArticleBody({
+    required this.article,
+    this.fallbackTitle,
+    super.key,
+  });
 
   /// The article.
   final Article article;
 
+  /// The title when the article has none.
+  final String? fallbackTitle;
+
   @override
   Widget build(BuildContext context) {
     final tokens = context.tokens;
+    final c = tokens.color;
+    final title = article.title.isNotEmpty ? article.title : fallbackTitle;
+    final paragraph = tokens.typography.bodyReading.copyWith(
+      color: c.text.primary,
+    );
+    final heading = tokens.typography.titleSmall.copyWith(
+      color: c.text.primary,
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
       children: [
-        if (article.title.isNotEmpty)
-          Semantics(
-            header: true,
-            child: Text(article.title, style: tokens.typography.title),
-          ),
+        if (title != null) TaroLargeTitle(title),
         for (final section in article.sections) ...[
           if (section.heading.isNotEmpty)
             Padding(
-              padding: EdgeInsetsDirectional.only(top: tokens.space.s5),
+              padding: EdgeInsetsDirectional.only(top: tokens.space.s3),
               child: Semantics(
                 header: true,
-                child: Text(
-                  section.heading,
-                  style: tokens.typography.titleSmall,
+                child: Text(section.heading, style: heading),
+              ),
+            ),
+          for (final text in section.paragraphs) Text(text, style: paragraph),
+          for (final entry in section.entries) ...[
+            Semantics(
+              header: true,
+              child: Text(
+                entry.title,
+                style: tokens.typography.label.copyWith(
+                  color: c.text.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-          for (final paragraph in section.paragraphs)
-            Text(paragraph, style: tokens.typography.body),
-          for (final entry in section.entries) ...[
-            Text(entry.title, style: tokens.typography.label),
-            for (final paragraph in entry.paragraphs)
-              Text(paragraph, style: tokens.typography.body),
+            for (final text in entry.paragraphs) Text(text, style: paragraph),
           ],
         ],
       ],

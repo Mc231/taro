@@ -49,6 +49,13 @@ final class SupportInfo {
   /// The app locale code.
   final String locale;
 
+  /// The "Email support" link: [subject] and [body] are percent-encoded
+  /// (mail apps show a `+` literally).
+  Uri mailto({required String subject, required String body}) => Uri.parse(
+    'mailto:$email?subject=${Uri.encodeComponent(subject)}'
+    '&body=${Uri.encodeComponent(body)}',
+  );
+
   @override
   bool operator ==(Object other) =>
       other is SupportInfo &&

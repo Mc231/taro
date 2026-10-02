@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/app_state/balance_controller.dart';
 import 'package:taro/common/duration_text.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/paywall/controller/out_of_readings_controller.dart';
@@ -21,8 +22,9 @@ OutOfReadingsSource outOfReadingsSourceOf(String? wire) =>
 
 /// S10 Out-of-readings sheet (MO13, 04 §11), opened by
 /// `TaroModals.outOfReadings`. Pops `true` once a grant or purchase made a
-/// reading available (S07 then shows **Begin** enabled; nothing
-/// auto-starts, RC58) and `false` on "Not now" / close / back.
+/// reading available (S07 then shows **Begin** enabled with the same
+/// question and the kept draw; nothing auto-starts, RC58, 01 §9.4) and
+/// `false` on "Not now" / close / swipe / back.
 class OutOfReadingsScreen extends ConsumerWidget {
   /// Creates the sheet for [source].
   const OutOfReadingsScreen({required this.source, super.key});
@@ -35,6 +37,7 @@ class OutOfReadingsScreen extends ConsumerWidget {
     final provider = outOfReadingsControllerProvider(source);
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);
+    final clock = ref.read(clockProvider);
     // Resolved while S12 is still on top (the rewarded grant): S12 shows
     // "Reading added" first; S10 closes once S12 is dismissed.
     ref.listen(provider, (_, next) {
@@ -44,13 +47,19 @@ class OutOfReadingsScreen extends ConsumerWidget {
       }
     });
     void close() => Navigator.of(context).pop(false);
+    void leaveTo(String location) {
+      final router = GoRouter.of(context);
+      close();
+      router.go(location);
+    }
+
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) unawaited(controller.dismiss());
       },
       child: OutOfReadingsLayout(
         state: state,
-        now: ref.read(clockProvider).now(),
+        now: clock.now,
         onClose: close,
         onRewarded: () async {
           if (await controller.tapRewarded() && context.mounted) {
@@ -76,6 +85,10 @@ class OutOfReadingsScreen extends ConsumerWidget {
         },
         onRetryPacks: () => unawaited(controller.retryPacks()),
         onContactSupport: () => unawaited(context.push<void>(RoutePaths.help)),
+        onDailyCard: () => leaveTo(RoutePaths.daily),
+        onLearn: () => leaveTo(RoutePaths.learn),
+        onFreeReset: () =>
+            unawaited(ref.read(balanceProvider.notifier).refresh()),
         onTerms: () => unawaited(context.push<void>(RoutePaths.legal('terms'))),
         onPrivacy: () =>
             unawaited(context.push<void>(RoutePaths.legal('privacy'))),
@@ -84,7 +97,10 @@ class OutOfReadingsScreen extends ConsumerWidget {
   }
 }
 
-/// The S10 skeleton for one [state] (Phase 13.5; restyled in Phase 16).
+/// The S10 sheet for one [state] (`OutOfReadings.dc.html`): title, the free
+/// path countdown from server time, the rewarded and "Get more readings"
+/// option rows, the consumable disclosure, the daily card / Learn links,
+/// "Not now", Terms · Privacy and `disclaimerShort`. No banner (RC18).
 class OutOfReadingsLayout extends StatelessWidget {
   /// Creates the view.
   const OutOfReadingsLayout({
@@ -95,16 +111,19 @@ class OutOfReadingsLayout extends StatelessWidget {
     required this.onGetMore,
     required this.onRetryPacks,
     required this.onContactSupport,
+    required this.onDailyCard,
+    required this.onLearn,
     required this.onTerms,
     required this.onPrivacy,
+    this.onFreeReset,
     super.key,
   });
 
   /// The controller state.
   final OutOfReadingsState state;
 
-  /// The clock time (for the rewarded cooldown).
-  final DateTime now;
+  /// The clock (the `Clock` port), for the countdown and the cooldown.
+  final DateTime Function() now;
 
   /// Close / "Not now".
   final VoidCallback onClose;
@@ -121,6 +140,15 @@ class OutOfReadingsLayout extends StatelessWidget {
   /// "Contact support" under a purchase block.
   final VoidCallback onContactSupport;
 
+  /// "Until then:" daily card (S13).
+  final VoidCallback onDailyCard;
+
+  /// "Until then:" Learn (S16).
+  final VoidCallback onLearn;
+
+  /// The free reset has passed (re-sync the balance).
+  final VoidCallback? onFreeReset;
+
   /// Terms of Use.
   final VoidCallback onTerms;
 
@@ -129,79 +157,155 @@ class OutOfReadingsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = this.state;
+    if (state is! OutOfReadingsContent) return const SizedBox.shrink();
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
-    return switch (state) {
-      OutOfReadingsResolved() => const SizedBox.shrink(),
-      OutOfReadingsContent(
-        :final rewarded,
-        :final packs,
-        :final lowTrustLimited,
-        :final nextFreeIn,
-        :final nextFreeAt,
-      ) =>
-        Material(
-          color: tokens.color.bg.surfaceRaised,
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsetsDirectional.symmetric(
-              horizontal: tokens.layout.gutter,
-              vertical: tokens.space.s5,
+    final c = tokens.color;
+    final at = now();
+    final nextFreeIn = state.nextFreeIn;
+    final nextFreeAt = state.nextFreeAt;
+    final resetTime = nextFreeAt == null
+        ? null
+        : MaterialLocalizations.of(context).formatTimeOfDay(
+            TimeOfDay.fromDateTime(nextFreeAt),
+            alwaysUse24HourFormat: MediaQuery.alwaysUse24HourFormatOf(context),
+          );
+    final gap = SizedBox(height: tokens.space.s6);
+    return Semantics(
+      scopesRoute: true,
+      namesRoute: true,
+      explicitChildNodes: true,
+      label: l10n.outOfReadingsSemantics,
+      child: TaroSheet(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      state.lowTrustLimited
+                          ? l10n.outOfReadingsLowTrustTitle
+                          : l10n.outOfReadingsTitle,
+                      style: tokens.typography.cardName.copyWith(
+                        color: c.text.primary,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: tokens.space.s3),
+                TaroIconButton(
+                  icon: Icons.close_rounded,
+                  semanticsLabel: l10n.commonClose,
+                  onPressed: onClose,
+                ),
+              ],
             ),
-            children: [
-              TaroAppBar(
-                leading: TaroAppBarLeading.close,
-                leadingLabel: l10n.commonClose,
-                onLeading: onClose,
+            SizedBox(height: tokens.space.s3),
+            Text(
+              l10n.outOfReadingsBody,
+              style: tokens.typography.body.copyWith(color: c.text.secondary),
+            ),
+            SizedBox(height: tokens.space.s5),
+            // The free path is visible in every combination (04 §11).
+            Row(
+              children: [
+                ExcludeSemantics(
+                  child: Icon(
+                    Icons.schedule_outlined,
+                    size: tokens.size.icon.md,
+                    color: c.accent.primary,
+                  ),
+                ),
+                SizedBox(width: tokens.space.s4),
+                Expanded(
+                  child: CountdownText(
+                    target: nextFreeIn == null ? null : at.add(nextFreeIn),
+                    now: now,
+                    format: (left) {
+                      final duration = formatCountdown(l10n, left);
+                      return resetTime == null
+                          ? l10n.balanceNextFreeIn(duration)
+                          : l10n.balanceNextFreeInAt(duration, resetTime);
+                    },
+                    reachedText: l10n.balanceSyncing,
+                    unknownText: l10n.balanceNextFreeTomorrow,
+                    onReached: onFreeReset,
+                    style: tokens.typography.label.copyWith(
+                      color: c.text.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            gap,
+            RewardedOfferRow(
+              option: state.rewarded,
+              now: at,
+              onTap: onRewarded,
+            ),
+            if (state.rewarded is! RewardedOptionHidden)
+              SizedBox(height: tokens.space.s3),
+            _Packs(
+              packs: state.packs,
+              onGetMore: onGetMore,
+              onRetry: onRetryPacks,
+              onContactSupport: onContactSupport,
+            ),
+            SizedBox(height: tokens.space.s5),
+            Padding(
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: tokens.space.s2,
               ),
-              Semantics(
-                header: true,
-                child: Text(
-                  lowTrustLimited
-                      ? l10n.outOfReadingsLowTrustTitle
-                      : l10n.outOfReadingsTitle,
-                  style: tokens.typography.title,
+              child: Text(
+                l10n.storeConsumableDisclosure,
+                style: tokens.typography.caption.copyWith(
+                  color: c.text.tertiary,
                 ),
               ),
-              SizedBox(height: tokens.space.s3),
-              Text(l10n.outOfReadingsBody, style: tokens.typography.body),
-              SizedBox(height: tokens.space.s5),
-              Text(
-                _nextFree(context, l10n, nextFreeIn, nextFreeAt),
-                style: tokens.typography.titleSmall,
-              ),
-              SizedBox(height: tokens.space.s5),
-              Text(l10n.outOfReadingsUntilThen, style: tokens.typography.label),
-              RewardedOfferRow(option: rewarded, now: now, onTap: onRewarded),
-              SizedBox(height: tokens.space.s3),
-              _Packs(
-                packs: packs,
-                onGetMore: onGetMore,
-                onRetry: onRetryPacks,
-                onContactSupport: onContactSupport,
-              ),
-              TaroButton.tertiary(label: l10n.commonNotNow, onPressed: onClose),
-              PaywallLegalFooter(onTerms: onTerms, onPrivacy: onPrivacy),
-            ],
-          ),
+            ),
+            gap,
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: tokens.space.s4,
+              runSpacing: tokens.space.s3,
+              children: [
+                Text(
+                  l10n.outOfReadingsUntilThen,
+                  style: tokens.typography.body.copyWith(
+                    color: c.text.secondary,
+                  ),
+                ),
+                TaroChip.suggestion(
+                  label: l10n.commonDailyCard,
+                  onPressed: onDailyCard,
+                ),
+                TaroChip.suggestion(
+                  label: l10n.commonLearn,
+                  onPressed: onLearn,
+                ),
+              ],
+            ),
+            gap,
+            TaroButton.secondary(label: l10n.commonNotNow, onPressed: onClose),
+            SizedBox(height: tokens.space.s5),
+            PaywallLinks(
+              links: [
+                (l10n.commonTerms, onTerms),
+                (l10n.commonPrivacy, onPrivacy),
+              ],
+            ),
+            SizedBox(height: tokens.space.s3),
+            PaywallCaption(l10n.disclaimerShort),
+          ],
         ),
-    };
-  }
-
-  static String _nextFree(
-    BuildContext context,
-    TaroLocalizations l10n,
-    Duration? inDuration,
-    DateTime? at,
-  ) {
-    if (inDuration == null) return l10n.balanceNextFreeTomorrow;
-    final duration = formatCountdown(l10n, inDuration);
-    if (at == null) return l10n.balanceNextFreeIn(duration);
-    final time = MaterialLocalizations.of(context).formatTimeOfDay(
-      TimeOfDay.fromDateTime(at),
-      alwaysUse24HourFormat: MediaQuery.alwaysUse24HourFormatOf(context),
+      ),
     );
-    return l10n.balanceNextFreeInAt(duration, time);
   }
 }
 
@@ -221,31 +325,38 @@ class _Packs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
+    const leading = PaywallIconTile(Icons.style_outlined);
     return switch (packs) {
-      PaywallPacksLoading() => ProductOfferTile.loading(
-        loadingSemanticsLabel: l10n.commonLoading,
+      // Prices are still loading: S11 loads them itself.
+      PaywallPacksLoading() => TaroListTile(
+        leading: leading,
+        title: l10n.outOfReadingsGetMore,
+        subtitle: l10n.commonLoading,
+        onTap: onGetMore,
       ),
-      PaywallPacksLoaded(:final catalog) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (catalog.packs.firstOrNull case final cheapest?)
-            Text(
-              l10n.outOfReadingsFromPrice(cheapest.price, cheapest.credits),
-              style: context.tokens.typography.caption,
-            ),
-          TaroButton.secondary(
-            label: l10n.outOfReadingsGetMore,
-            onPressed: onGetMore,
+      PaywallPacksLoaded(:final catalog) => TaroListTile(
+        leading: leading,
+        title: l10n.outOfReadingsGetMore,
+        subtitle: switch (catalog.packs.firstOrNull) {
+          final cheapest? => l10n.outOfReadingsFromPrice(
+            cheapest.price,
+            cheapest.credits,
           ),
-        ],
+          null => null,
+        },
+        onTap: onGetMore,
       ),
-      PaywallPacksUnavailable() => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        title: l10n.storePricesUnavailable,
-        actions: [
-          TaroButton.tertiary(label: l10n.commonRetry, onPressed: onRetry),
-        ],
+      PaywallPacksUnavailable() => TaroListTile(
+        leading: leading,
+        title: l10n.outOfReadingsGetMore,
+        disabledReason: l10n.storePricesUnavailable,
+        trailing: TaroButton.tertiary(
+          label: l10n.commonRetry,
+          onPressed: onRetry,
+          expand: false,
+        ),
       ),
+      // Pack buttons hidden; free and rewarded stay (RC66).
       PaywallPacksBlocked(:final reason) => TaroInlineNotice(
         kind: TaroNoticeKind.info,
         title: PaywallText.blocked(l10n, reason),

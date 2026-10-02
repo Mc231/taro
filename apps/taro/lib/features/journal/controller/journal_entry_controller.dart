@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show NotifierProviderFamily;
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:taro/common/share_reading_use_case.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -173,6 +174,47 @@ final class JournalEntryController extends Notifier<JournalEntryState> {
     _autosave?.cancel();
     _autosave = Timer(kJournalNoteAutosaveDelay, () => unawaited(_saveNote()));
     _update();
+  }
+
+  /// "Write about this" (S09): adds the reflection [prompt] to the note as
+  /// a heading (01 §7.4) and autosaves it like typing. A prompt the note
+  /// already holds is not added twice.
+  void writeAbout(String prompt) {
+    final heading = prompt.trim();
+    final current = _draft ?? '';
+    if (heading.isEmpty || current.contains(heading)) return;
+    final body = current.trimRight();
+    editNote(body.isEmpty ? '$heading\n\n' : '$body\n\n$heading\n\n');
+  }
+
+  /// Shares a reading entry as text (`reading_shared`; the question only
+  /// when [includeQuestion], PR19). Daily cards have no share action.
+  Future<Result<void>> share(
+    ShareCopy copy, {
+    required bool includeQuestion,
+  }) async {
+    final item = _item;
+    if (item is! JournalReadingItem) return const Result.ok(null);
+    final reading = item.reading;
+    final shared =
+        await ShareReadingUseCase(
+          content: ref.read(contentRepositoryProvider),
+          share: ref.read(shareTextProvider),
+        )(
+          reading,
+          copy,
+          locale: ref.read(appLocaleProvider)(),
+          includeQuestion: includeQuestion,
+        );
+    if (shared.isOk) {
+      await _analytics.log(
+        ReadingSharedEvent(
+          spread: AnalyticsSpread.fromId(reading.spreadId),
+          includeQuestion: includeQuestion,
+        ),
+      );
+    }
+    return shared;
   }
 
   /// Saves a pending note edit now (the editor lost focus).

@@ -872,7 +872,8 @@
           }
         ],
         "allowedContexts": [
-          "not medical, legal, financial or psychological advice"
+          "not medical, legal, financial or psychological advice",
+          "best value"
         ],
         "nonClaimSpans": [
           "what will happen",

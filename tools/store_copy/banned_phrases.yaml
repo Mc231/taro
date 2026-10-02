@@ -86,6 +86,8 @@ locales:
       - free
     allowed_contexts:
       - "not medical, legal, financial or psychological advice"
+      # 04 MO18 / §14: the computed S11 pack badge, never a product claim
+      - "best value"
 
   de:
     global:

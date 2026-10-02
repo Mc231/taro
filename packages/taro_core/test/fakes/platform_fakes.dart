@@ -527,6 +527,38 @@ final class FakeUrlLauncher with FakeBehaviour implements UrlLauncher {
     opened.add(uri);
     return const Result.ok(null);
   }
+
+  /// Every URI opened in the in-app browser, oldest first.
+  final List<Uri> openedInApp = [];
+
+  /// How often the app's system settings page was opened.
+  int settingsOpened = 0;
+
+  @override
+  Future<Result<void>> openInApp(Uri uri) async {
+    record('openInApp');
+    final failure = takeFailure('openInApp');
+    if (failure != null) return Result.err(failure);
+    if (uri.scheme != 'https') {
+      return Result.err(
+        Failure.unexpected(
+          error: ArgumentError.value(uri.scheme, 'scheme'),
+          stack: StackTrace.empty,
+        ),
+      );
+    }
+    openedInApp.add(uri);
+    return const Result.ok(null);
+  }
+
+  @override
+  Future<Result<void>> openAppSettings() async {
+    record('openAppSettings');
+    final failure = takeFailure('openAppSettings');
+    if (failure != null) return Result.err(failure);
+    settingsOpened++;
+    return const Result.ok(null);
+  }
 }
 
 /// OS-backup exclusion: [excluded] keeps every path passed, in order.

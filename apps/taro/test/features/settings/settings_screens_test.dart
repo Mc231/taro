@@ -80,6 +80,8 @@ void main() {
           onMoveReadings: () => calls.add('move'),
           onAcknowledge: () => calls.add('ack'),
           onCopy: (v) => calls.add('copy:$v'),
+          onRate: () => calls.add('rate'),
+          onEmailTransfer: (v) => calls.add('email:$v'),
         ),
         size: const Size(430, 3200),
       );
@@ -119,6 +121,7 @@ void main() {
         l10n.settingsMoveReadings,
         l10n.settingsLanguage,
         l10n.settingsReminder,
+        l10n.settingsTheme,
         l10n.settingsThemeDark,
         l10n.settingsAiReadings,
         l10n.settingsPrivacyChoices,
@@ -128,6 +131,7 @@ void main() {
         l10n.settingsHelpFaq,
         l10n.settingsSupportLines,
         l10n.settingsLegal,
+        l10n.settingsRate,
         l10n.settingsCopyId,
       ]) {
         await tapText(tester, label);
@@ -152,6 +156,7 @@ void main() {
         '/help',
         '/help/crisis',
         '/legal/disclaimer',
+        'rate',
         'copy:abcd1234',
         'reversals:false',
         'haptics:false',
@@ -180,25 +185,14 @@ void main() {
       await tapText(tester, l10n.storeRestore);
       expect(calls, isEmpty);
 
-      calls = await pump(
+      // Success is a snackbar shown by the screen, not an inline notice.
+      await pump(
         tester,
         _settings(
           restore: const SettingsRestore.success(RestoreFinding.nothingFound),
         ),
       );
-      expect(find.text(l10n.restoreNothingFound), findsOneWidget);
-      await tapText(tester, l10n.commonDismiss);
-      expect(calls, ['ack']);
-
-      await pump(
-        tester,
-        _settings(
-          restore: const SettingsRestore.success(
-            RestoreFinding.removeAdsRestored,
-          ),
-        ),
-      );
-      expect(find.text(l10n.restoreRemoveAds), findsOneWidget);
+      expect(find.text(l10n.restoreNothingFound), findsNothing);
 
       calls = await pump(
         tester,
@@ -206,7 +200,8 @@ void main() {
       );
       expect(find.text(l10n.restoreFailed), findsOneWidget);
       await tapText(tester, l10n.commonRetry);
-      expect(calls, ['restore']);
+      await tapText(tester, l10n.commonDismiss);
+      expect(calls, ['restore', 'ack']);
     });
 
     testWidgets('transfer states', (tester) async {
@@ -225,7 +220,9 @@ void main() {
       expect(find.text(l10n.settingsTransferCodeTitle), findsOneWidget);
       expect(find.textContaining('T-123'), findsOneWidget);
       await tapText(tester, l10n.commonCopy);
-      expect(calls, ['copy:T-123']);
+      await tapText(tester, l10n.settingsTransferEmail);
+      await tapText(tester, l10n.commonDismiss);
+      expect(calls, ['copy:T-123', 'email:T-123', 'ack']);
 
       for (final (transfer, text) in [
         (const SettingsTransfer.nothingFound(), l10n.settingsTransferNothing),
@@ -296,14 +293,14 @@ void main() {
         ),
       );
       expect(find.text('9:05 PM'), findsWidgets);
-      await tapText(tester, l10n.reminderAt);
+      await tapText(tester, '9:05 PM');
       await tapText(tester, l10n.reminderToggle);
       await pump(
         const ReminderSettingsState.permissionDenied(ReminderSettings()),
       );
       expect(find.text(l10n.reminderPermissionDenied), findsOneWidget);
       await tapText(tester, l10n.commonOpenSettings);
-      await tapText(tester, l10n.reminderAt);
+      await tapText(tester, '9:00 AM');
       expect(enabled, [false]);
       expect(times, [const TimeOfDay(hour: 21, minute: 5)]);
       expect(settings, 1);
@@ -406,7 +403,7 @@ void main() {
         findsOneWidget,
       );
       expect(find.text(l10n.deleteKeptRemoveAds), findsOneWidget);
-      await tapText(tester, l10n.deleteButton);
+      await tapDeleteButton(tester);
       await tester.enterText(find.byType(TextField), 'DELETE');
       await tapText(tester, l10n.deleteExportFirst);
       await pump(
@@ -419,7 +416,7 @@ void main() {
         ),
       );
       expect(find.text(l10n.deleteKeptRemoveAds), findsNothing);
-      await tapText(tester, l10n.deleteButton);
+      await tapDeleteButton(tester);
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await pump(const DeleteDataState.deleting());
       expect(find.bySemanticsLabel(l10n.commonBack), findsNothing);
@@ -458,6 +455,7 @@ void main() {
       );
       await tapText(tester, l10n.settingsReversals);
       await tapText(tester, l10n.settingsHaptics);
+      await tapText(tester, l10n.settingsTheme);
       await tapText(tester, l10n.settingsThemeDark);
       expect(fakes.settings.current.themeMode, ThemeMode.dark);
       await tapText(tester, l10n.storeRestore);
@@ -475,6 +473,44 @@ void main() {
       await tester.pumpAndSettle();
       await tapText(tester, l10n.settingsGetMore);
       expectRoute('/store?source=settings');
+    });
+
+    testWidgets('S20: restore snackbar, Rate Taro, transfer code email', (
+      tester,
+    ) async {
+      fakes
+        ..appInfo = const FakeAppInfo(platform: AppPlatform.android)
+        ..iap.own(TaroProducts.removeAds.id)
+        ..iap.own(TaroProducts.readings10.id);
+      await pumpRouted(
+        tester,
+        const SettingsScreen(),
+        fakes: fakes,
+        size: const Size(430, 3200),
+        overrides: [
+          settingsStoreTimeoutsProvider.overrideWithValue((
+            restore: const Duration(seconds: 5),
+            transfer: const Duration(seconds: 5),
+          )),
+        ],
+      );
+      await tapText(tester, l10n.storeRestore);
+      expect(find.text(l10n.restoreRemoveAds), findsOneWidget);
+      await tapText(tester, l10n.settingsRate);
+      expect(fakes.links.opened.single.host, 'play.google.com');
+      fakes.verifier.failNext(
+        const Failure.purchaseAlreadyClaimed(
+          transferEligible: true,
+          transferToken: 'tt1.payload.mac',
+        ),
+        on: 'verify',
+      );
+      await tapText(tester, l10n.settingsMoveReadings);
+      expect(find.textContaining('tt1.payload.mac'), findsOneWidget);
+      await tapText(tester, l10n.settingsTransferEmail);
+      final mail = fakes.links.opened.last;
+      expect(mail.scheme, 'mailto');
+      expect(Uri.decodeComponent(mail.query), contains('tt1.payload.mac'));
     });
 
     testWidgets('S21: selecting a language saves the override', (
@@ -509,12 +545,37 @@ void main() {
       expect(find.text(l10n.reminderPermissionDenied), findsOneWidget);
       fakes.reminders.permission = true;
       await tapText(tester, l10n.commonOpenSettings);
+      expect(fakes.links.settingsOpened, 1);
+      // Back from the system settings: the permission is asked again.
+      tester.binding
+        ..handleAppLifecycleStateChanged(AppLifecycleState.inactive)
+        ..handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
       expect(find.text(l10n.reminderPermissionDenied), findsNothing);
-      await tapText(tester, l10n.reminderAt);
+      await tapText(tester, '9:00 AM');
       await tapText(tester, 'OK');
       await tester.tap(find.bySemanticsLabel(l10n.commonBack));
       await tester.pumpAndSettle();
       expectRoute('/');
+    });
+
+    testWidgets('S22: no settings page to open asks again at once', (
+      tester,
+    ) async {
+      await pumpRouted(
+        tester,
+        const ReminderSettingsScreen(),
+        fakes: fakes,
+        size: const Size(430, 1600),
+      );
+      fakes.reminders.permission = false;
+      await tapText(tester, l10n.reminderToggle);
+      fakes
+        ..reminders.permission = true
+        ..links.failNext(const Failure.storage(), on: 'openAppSettings');
+      await tapText(tester, l10n.commonOpenSettings);
+      expect(find.text(l10n.reminderPermissionDenied), findsNothing);
+      expect(fakes.settings.current.reminder.enabled, isTrue);
     });
 
     testWidgets('S23: withdraw (confirm + cancel), allow, analytics, UMP', (
@@ -540,10 +601,12 @@ void main() {
       await tapText(tester, l10n.privacyWithdrawConfirm);
       expect(find.text(l10n.privacyAiAllow), findsOneWidget);
       await tapText(tester, l10n.privacyAnalytics);
-      final tracking = find.text(l10n.privacyTracking);
-      if (tracking.evaluate().isNotEmpty) {
-        await tapText(tester, l10n.privacyTracking);
-      }
+      await tapText(tester, l10n.privacyTracking);
+      expect(fakes.links.settingsOpened, 1);
+      tester.binding
+        ..handleAppLifecycleStateChanged(AppLifecycleState.inactive)
+        ..handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
       await tapText(tester, l10n.privacyReadPolicy);
       expectRoute('/legal/privacy');
       router.pop();
@@ -594,7 +657,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField), l10n.deleteConfirmWord);
       await tester.pumpAndSettle();
-      await tapText(tester, l10n.deleteButton);
+      await tapDeleteButton(tester);
       expect(find.text(l10n.deleteDoneTitle), findsOneWidget);
       await tapText(tester, l10n.commonDone);
       expectRoute('/home');
@@ -614,7 +677,7 @@ void main() {
       );
       await tester.enterText(find.byType(TextField), l10n.deleteConfirmWord);
       await tester.pumpAndSettle();
-      await tapText(tester, l10n.deleteButton);
+      await tapDeleteButton(tester);
       if (find.text(l10n.deleteFailed).evaluate().isNotEmpty) {
         await tapText(tester, l10n.commonRetry);
       }
@@ -622,4 +685,13 @@ void main() {
       await tester.pumpAndSettle();
     });
   });
+}
+
+/// Taps the destructive "Delete all data" button (the title reads the same).
+Future<void> tapDeleteButton(WidgetTester tester) async {
+  await tester.tap(
+    find.widgetWithText(TaroButton, 'Delete all data').first,
+    warnIfMissed: false,
+  );
+  await tester.pumpAndSettle();
 }

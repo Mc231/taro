@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taro/common/settings_page.dart';
 import 'package:taro/features/settings/controller/language_controller.dart';
 import 'package:taro/features/settings/view/language_names.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -25,7 +26,9 @@ class LanguageScreen extends ConsumerWidget {
   );
 }
 
-/// The S21 skeleton for one [state] (Phase 13.5; restyled in Phase 16).
+/// The S21 layout (`docs/design/screens/S21`): "Use phone language", the
+/// 12 endonyms in one group (the "App language" radio group) and the note
+/// that past readings keep their language.
 class LanguageLayout extends StatelessWidget {
   /// Creates the view.
   const LanguageLayout({
@@ -51,42 +54,51 @@ class LanguageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
     final LanguageContent(:localeOverride, :locales) = state as LanguageContent;
-    return TaroScaffold(
-      appBar: TaroAppBar(
-        leadingLabel: l10n.commonBack,
-        onLeading: onBack,
-        title: l10n.languageTitle,
-      ),
-      body: ListView(
-        children: [
-          Text(l10n.languageBody, style: tokens.typography.body),
-          SizedBox(height: tokens.space.s5),
-          TaroRadioTile<String?>(
-            value: null,
-            groupValue: localeOverride,
-            onChanged: onSelect,
-            title: l10n.languageUsePhone,
-            subtitle: l10n.languageFromPhone(languageEndonym(phoneLanguage)),
+    return SettingsPage(
+      title: l10n.languageTitle,
+      lead: l10n.languageBody,
+      onBack: onBack,
+      children: [
+        Semantics(
+          label: l10n.languageLegend,
+          container: true,
+          explicitChildNodes: true,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: context.tokens.space.s5,
+            children: [
+              SettingsSection(
+                children: [
+                  TaroRadioTile<String?>(
+                    value: null,
+                    groupValue: localeOverride,
+                    onChanged: onSelect,
+                    title: l10n.languageUsePhone,
+                    subtitle: l10n.languageFromPhone(
+                      languageEndonym(phoneLanguage),
+                    ),
+                  ),
+                ],
+              ),
+              ExcludeSemantics(child: SettingsPageCaption(l10n.languageChoose)),
+              SettingsSection(
+                children: [
+                  for (final locale in locales)
+                    TaroRadioTile<String?>(
+                      key: ValueKey(locale),
+                      value: locale,
+                      groupValue: localeOverride,
+                      onChanged: onSelect,
+                      title: languageEndonym(locale),
+                    ),
+                ],
+              ),
+            ],
           ),
-          SizedBox(height: tokens.space.s5),
-          Semantics(
-            header: true,
-            child: Text(l10n.languageChoose, style: tokens.typography.label),
-          ),
-          for (final locale in locales)
-            TaroRadioTile<String?>(
-              key: ValueKey(locale),
-              value: locale,
-              groupValue: localeOverride,
-              onChanged: onSelect,
-              title: languageEndonym(locale),
-            ),
-          SizedBox(height: tokens.space.s5),
-          Text(l10n.languageNote, style: tokens.typography.caption),
-        ],
-      ),
+        ),
+        TaroInlineNotice(kind: TaroNoticeKind.info, title: l10n.languageNote),
+      ],
     );
   }
 }

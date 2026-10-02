@@ -12,11 +12,23 @@ void main() {
     expect((await launcher.open(Uri.parse('tel:1'))).isErr, isTrue);
     expectOk(await launcher.open(Uri.parse('tel:2')));
     expect(launcher.opened, [Uri.parse('tel:2')]);
+    launcher.failNext(const Failure.storage(), on: 'openInApp');
+    expect(
+      (await launcher.openInApp(Uri.parse('https://a.example'))).isErr,
+      isTrue,
+    );
+    launcher.failNext(const Failure.storage(), on: 'openAppSettings');
+    expect((await launcher.openAppSettings()).isErr, isTrue);
+    expectOk(await launcher.openAppSettings());
+    expect(launcher.settingsOpened, 1);
   });
 
   test('NoOpUrlLauncher reports success', () async {
     // A tear-off, so the constructor runs at test time (not as a const).
     const UrlLauncher Function() create = NoOpUrlLauncher.new;
-    expectOk(await create().open(Uri.parse('ftp://x')));
+    final launcher = create();
+    expectOk(await launcher.open(Uri.parse('ftp://x')));
+    expectOk(await launcher.openInApp(Uri.parse('ftp://x')));
+    expectOk(await launcher.openAppSettings());
   });
 }

@@ -314,7 +314,7 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 
 ### `ProductOfferTile` — Phase 15 (not in 02) (design system **PackRow**)
 - **Purpose:** one purchasable pack or Remove Banner Ads: title ("10 readings"), full localized store price as its own buy button, per-reading price, computed "Best value" badge; Semantics "10 readings for 4.99 US dollars, 50 cents per reading".
-- **Tokens:** `color.bg.surface`, `radius.lg`, `elevation.1`, `type.titleSmall`, `type.label` (price), `type.caption` + `color.text.tertiary` (per reading), `color.accent.primary` (buy button), `Badge` best value.
+- **Tokens:** `color.bg.surface`, `radius.lg`, `elevation.1`, `type.titleSmall`, `type.label` (price), `type.caption` + `color.text.tertiary` (per reading), `color.accent.primary` (buy button; also the `TaroStrokes.control` outline of the best-value row, Phase 17), `Badge` best value.
 - **States:** loading (skeleton), content, purchasing (this button spinner, others enabled), pending ("Waiting for approval"), owned (Remove ads: "Banner ads removed ✓"), hidden (`purchasesBlocked`, `store.enabled = false`). No pre-selection, no strikethrough, no timers.
 - **Screens:** S11; S20 ("Remove Banner Ads $3.99" row reuses the price style).
 - **Golden:** [`product_offer_tile/`](../../packages/taro_ui/test/golden/goldens/product_offer_tile/) ([`monetization_golden_test.dart`](../../packages/taro_ui/test/golden/monetization_golden_test.dart)).
@@ -330,7 +330,7 @@ Design-system names → class names: **Button** → `TaroButton`; **TarotCard** 
 - **Purpose:** suit-balance bars for the last 30 days, with counts and suit names (colour never the only signal), "Most drawn" line and the "Patterns in your draws, not predictions." caption; one semantics summary ("Suit balance: Major Arcana 9, Wands 4…").
 - **Tokens:** `color.chart.suit.*`, `SuitGlyph`, `type.caption`, `type.titleSmall`, `color.bg.sunken` (track), `radius.full`.
 - **States:** content, too few readings (empty copy), RTL (bars grow from the right).
-- **Screens:** S14.
+- **Screens:** S14. The S14 Patterns card (app-level, `features/journal/view/journal_list_screen.dart`) wraps the chart in one `color.bg.surface` / `radius.lg` card and adds the "Most drawn" link (→ S17, a separate focus stop, so it is not passed as `highlight`), the major/minor and reversed ratios, the 30/90-day `SegmentedChoice` and the caption.
 - **Golden:** [`patterns_chart/`](../../packages/taro_ui/test/golden/goldens/patterns_chart/) ([`monetization_golden_test.dart`](../../packages/taro_ui/test/golden/monetization_golden_test.dart)).
 
 ---
@@ -406,3 +406,8 @@ Designed after the first pass (2026-09-27), NEW → Phase 15:
 - `TaroToast` — snackbar with optional Undo action; S09 rated (`ReadingRated.dc.html`), S11 `success`, S15 `deleted`. Golden: [`taro_toast/`](../../packages/taro_ui/test/golden/goldens/taro_toast/) ([`containers_golden_test.dart`](../../packages/taro_ui/test/golden/containers_golden_test.dart)).
 - `ReadingRatingControl` — Helpful / Not helpful toggle buttons with aria-labels; S09 (`ReadingRated.dc.html`). Golden: [`reading_rating_classic_label/`](../../packages/taro_ui/test/golden/goldens/reading_rating_classic_label/) ([`reading_components_golden_test.dart`](../../packages/taro_ui/test/golden/reading_components_golden_test.dart)).
 - ATT pre-prompt is a screen layout (`AttPrompt.dc.html`) built from `TaroScaffold` + `IconBulletList` + `TaroButton`; no new component.
+
+### Phase 17.5 app-level pieces (S20–S30)
+- `SettingsPage` (`apps/taro/lib/common/settings_page.dart`): the sub-screen template of S21–S26, S28, S29 (Back, `type.headline` title, lead, `space.5` gaps, pinned footer, `busy`).
+- `ChecklistPanel` (`apps/taro/lib/common/checklist_panel.dart`): S24 Included / Not included and S26 erased / kept panels (check `color.status.success`, minus `color.text.tertiary`, `accent` fill).
+- `FileSummaryCard` (S25) and `TimeField` (S22) are private to their views (`import_screen.dart`, `reminder_settings_screen.dart`); `FaqItem` (S28) is `TaroAccordion` with an inline-Markdown answer (`faq_screen.dart`). Promote them to `taro_ui` if a second screen needs them.

@@ -245,11 +245,25 @@ void runAppInfoContract(AppInfo Function() create) {
 /// scheme is an `Err`, and nothing throws.
 void runUrlLauncherContract(UrlLauncher Function() create) {
   group('UrlLauncher contract', () {
-    test('opens tel:, sms: and https: links', () async {
+    test('opens tel:, sms:, mailto: and https: links', () async {
       final launcher = create();
       expectOk(await launcher.open(Uri.parse('tel:116123')));
       expectOk(await launcher.open(Uri.parse('sms:85258')));
+      expectOk(await launcher.open(Uri.parse('mailto:help@example.com')));
       expectOk(await launcher.open(Uri.parse('https://findahelpline.com')));
+    });
+
+    test('opens https: in the in-app browser, nothing else', () async {
+      final launcher = create();
+      expectOk(await launcher.openInApp(Uri.parse('https://example.com/t')));
+      expect(
+        (await launcher.openInApp(Uri.parse('tel:116123'))).isErr,
+        isTrue,
+      );
+    });
+
+    test('opens the app settings', () async {
+      expectOk(await create().openAppSettings());
     });
 
     test('rejects other schemes without throwing', () async {

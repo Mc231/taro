@@ -280,7 +280,8 @@ void main() {
       Navigator.of(tester.element(find.byType(ReportReadingSheet))).pop();
       await tester.pumpAndSettle();
       await tapFound(tester, find.text(l10n.readingWriteAboutThis));
-      expectRoute(RoutePaths.journalEntry('r-1'));
+      // The prompt rides along to pre-fill the S15 note.
+      expect(find.textContaining('route:/journal/r-1?prompt='), findsOne);
     });
 
     testWidgets('the 3rd thumbs-up asks the review prompter (01 §6.1)', (

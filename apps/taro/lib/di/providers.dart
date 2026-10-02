@@ -21,6 +21,8 @@ export 'package:taro/di/article_source.dart'
         ArticleLoader,
         ArticleSection,
         articleLoaderProvider;
+// The store listing and review links of S05, S20 and S30.
+export 'package:taro/di/store_links.dart' show StoreLinks, storeLinksProvider;
 // The Support ID and contact details of S20 / S28 (RC43).
 export 'package:taro/di/support_info.dart'
     show SupportInfo, loadSupportInfo, supportIdOf;
