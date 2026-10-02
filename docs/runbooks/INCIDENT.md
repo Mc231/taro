@@ -159,3 +159,10 @@ Blameless; within 3 days of a SEV1, or of a SEV2 longer than 1 h. Store under `d
 | Action | Type (test/check/runbook/config) | Due |
 |---|---|---|
 ```
+
+## Drill log
+
+| Date | Env | Switch | Result |
+|---|---|---|---|
+| 2026-10-02 | staging | `readings` (`tools/kill_switch_drill.py --switch readings --hold 150`) | Config v2 live; `tools/worker_smoke.sh staging` → balance `canRead false`, hold `503 READINGS_DISABLED`; restored as v3. |
+| 2026-10-02 | staging | `budget-hard` (`--switch budget-hard --hold 150`) | Config v4 live; hold `503 AI_BUDGET_EXHAUSTED (tier hard)`, no 402 paywall (RC47); restored as v5; the next smoke reading completed. |

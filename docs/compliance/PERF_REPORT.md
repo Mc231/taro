@@ -52,3 +52,11 @@ Where the numbers do exist, to read on staging (orchestrator or owner; read-only
 - The staging smoke (`npm run smoke -- --env staging`) prints one `single` reading's latency per run.
 
 If p95 is over 20 s for any spread, revisit the model and effort config (BE10) or the length budgets before Phase 21.
+
+## Staging reading latency (2026-10-02, `readings.latency_ms`, openai/gpt-6.1-sol, effort low)
+
+| Spread | n | min | avg | max |
+|---|---|---|---|---|
+| single | 7 | 10.8 s | 12.3 s | 13.6 s |
+
+Small sample (smoke readings only), but every single-card reading is above the 8 s p50 budget (p95 ≤ 20 s holds). Per the sprint, revisit model/effort (BE10) or the length budgets before launch; larger spreads have no staging data yet.
