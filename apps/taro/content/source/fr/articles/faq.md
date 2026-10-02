@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 6f8d4d0b8a483cac469608c108dcc0f4e4648d9612a7d5bec461a4eb1cbdbcb5
+sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
 ---
 # Questions fréquentes
 
@@ -39,7 +39,7 @@ Sur Android, désinstaller Taro ou effacer son stockage crée une nouvelle insta
 1. Installez Taro sur le nouvel appareil et connectez-vous au même compte App Store ou Google Play que celui utilisé pour les achats.
 2. Ouvrez **Réglages → Aide → Transférer des lectures depuis un autre appareil**. Taro vérifie vos achats passés auprès de la boutique.
 3. Si des lectures issues de ces achats appartiennent à votre ancienne installation, Taro affiche un code de transfert.
-4. Envoyez le code de transfert avec votre **ID d’assistance** (voir ci-dessous) par e-mail via **Réglages → Aide → Contacter l’assistance**.
+4. Envoyez le code de transfert avec votre **ID d’assistance** (voir ci-dessous) par e-mail via **Réglages → Aide → Aide et FAQ → Écrire à l’assistance**.
 5. L’assistance transfère vos lectures achetées non utilisées vers la nouvelle installation et vous répond une fois l’opération terminée.
 
 Un numéro de commande seul ne suffit pas pour transférer des lectures. Les lectures gagnées et les lectures gratuites ne peuvent pas être transférées.
@@ -76,11 +76,11 @@ Vos lectures restantes et Supprimer les bannières publicitaires sont conservés
 
 ### Que partage l’autorisation des lectures par IA ?
 
-Quand vous demandez une lecture par IA, Taro envoie votre question (s’il y en a une), le tirage, les cartes tirées et la langue de l’app à son serveur, qui demande à un modèle d’IA de l’un des fournisseurs d’IA de Taro (Claude d’Anthropic ou les modèles GPT d’OpenAI) de rédiger l’interprétation. Taro n’envoie jamais votre nom, votre adresse e-mail ni votre identifiant publicitaire. Votre question n’est pas conservée sur le serveur de Taro. La lecture est conservée chiffrée uniquement jusqu’à ce que votre téléphone l’ait reçue (7 jours au maximum), puis elle est supprimée. Les fournisseurs d’IA de Taro n’utilisent pas ces données pour entraîner leurs modèles. La politique de confidentialité, dans **Réglages → À propos**, donne tous les détails.
+Quand vous demandez une lecture par IA, Taro envoie votre question (s’il y en a une), le tirage, les cartes tirées et la langue de l’app à son serveur, qui demande aux modèles GPT d’OpenAI de rédiger l’interprétation. Taro n’envoie jamais votre nom, votre adresse e-mail ni votre identifiant publicitaire. Votre question n’est pas conservée sur le serveur de Taro. La lecture est conservée chiffrée uniquement jusqu’à ce que votre téléphone l’ait reçue (7 jours au maximum), puis elle est supprimée. OpenAI n’utilise pas ces données pour entraîner ses modèles. La politique de confidentialité, dans **Réglages → Aide → Mentions légales**, donne tous les détails.
 
 ### Puis-je changer d’avis sur le consentement à l’IA ?
 
-Oui, à tout moment, dans **Réglages → Choix de confidentialité → Lectures par IA**. Si vous le désactivez, plus rien n’est envoyé. La carte du jour, Apprendre et votre journal continuent de fonctionner, et vous pouvez choisir une **lecture classique** : le même tirage avec la signification rédigée de chaque carte selon sa position, créée sur votre téléphone sans IA et sans utiliser de lecture. Si Taro modifie ce qu’il partage, il vous redemande votre consentement avant la prochaine lecture par IA.
+Oui, à tout moment, dans **Réglages → Confidentialité et données → Lectures par IA**. Si vous le désactivez, plus rien n’est envoyé. La carte du jour, Apprendre et votre journal continuent de fonctionner, et vous pouvez choisir une **lecture classique** : le même tirage avec la signification rédigée de chaque carte selon sa position, créée sur votre téléphone sans IA et sans utiliser de lecture. Si Taro modifie ce qu’il partage, il vous redemande votre consentement avant la prochaine lecture par IA.
 
 ### Les lectures par IA ont-elles toujours raison ?
 
@@ -94,11 +94,11 @@ Si une lecture par IA vous semble nuisible, offensante ou inappropriée, ouvrez 
 
 ### Qu’est-ce que mon ID d’assistance ?
 
-Votre ID d’assistance est un court code de 8 caractères qui identifie cette installation de Taro sans rien révéler sur vous. Vous le trouverez dans **Réglages → À propos**. Il est ajouté automatiquement quand vous utilisez **Réglages → Aide → Contacter l’assistance**, avec la version de l’app, la version du système de votre appareil et la langue de l’app. L’assistance vous le demande quand vous avez besoin d’aide pour des achats ou un transfert de lectures. Il n’est pas inclus dans les sauvegardes.
+Votre ID d’assistance est un court code de 8 caractères qui identifie cette installation de Taro sans rien révéler sur vous. Vous le trouverez dans **Réglages → À propos**. Il est ajouté automatiquement quand vous utilisez **Réglages → Aide → Aide et FAQ → Écrire à l’assistance**, avec la version de l’app, la version du système de votre appareil et la langue de l’app. L’assistance vous le demande quand vous avez besoin d’aide pour des achats ou un transfert de lectures. Il n’est pas inclus dans les sauvegardes.
 
 ### Comment contacter l’assistance ?
 
-Utilisez **Réglages → Aide → Contacter l’assistance**. Cela ouvre un e-mail où votre ID d’assistance et les informations de l’app sont déjà remplis, pour que nous puissions vous aider plus vite. Merci de ne pas inclure d’informations personnelles sensibles dans votre message.
+Utilisez **Réglages → Aide → Aide et FAQ → Écrire à l’assistance**. Cela ouvre un e-mail où votre ID d’assistance et les informations de l’app sont déjà remplis, pour que nous puissions vous aider plus vite. Merci de ne pas inclure d’informations personnelles sensibles dans votre message.
 
 ### Où trouver de l’aide si je traverse un moment difficile ?
 

@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 6f8d4d0b8a483cac469608c108dcc0f4e4648d9612a7d5bec461a4eb1cbdbcb5
+sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
 ---
 # Sık sorulan sorular
 
@@ -22,7 +22,7 @@ Taro bir iç gözlem aracıdır; bu yüzden sağlık, hamilelik, ölüm, hukuki 
 
 ### Satın aldığım okumaları geri yükleyebilir miyim?
 
-Okumalar tüketilebilir satın alımlardır. Mağaza kuralları, bunların tek seferlik bir satın alma gibi geri yüklenmesine izin vermez; bu yüzden Taro’nun bu kurulumuna bağlıdırlar. **Satın alımları geri yükle** (**Ayarlar → Satın alımlar** bölümünde ve Mağaza’da) **Banner Reklamları Kaldır** satın alımını geri getirir ama okumaları geri getiremez.
+Okumalar tüketilebilir satın alımlardır. Mağaza kuralları, bunların tek seferlik bir satın alma gibi geri yüklenmesine izin vermez; bu yüzden Taro’nun bu kurulumuna bağlıdırlar. **Satın alımları geri yükle** (**Ayarlar → Okumalar** bölümünde ve Mağaza’da) **Banner Reklamları Kaldır** satın alımını geri getirir ama okumaları geri getiremez.
 
 Uygulamayı silmeden önce lütfen bunu göz önünde bulundur: Taro’yu silmek, kalan okumalarını o kurulumda kullanılamaz hâle getirebilir ve bir yedek dışa aktarmadıysan günlüğünü cihazdan her zaman kaldırır.
 
@@ -39,14 +39,14 @@ Android’de Taro’yu kaldırmak ya da depolama alanını temizlemek yeni bir k
 1. Taro’yu yeni cihaza yükle ve satın alımlar için kullandığın App Store ya da Google Play hesabıyla oturum aç.
 2. **Ayarlar → Yardım → Okumaları başka bir cihazdan taşı** bölümünü aç. Taro geçmiş satın alımlarını mağazayla kontrol eder.
 3. Bu satın alımlardan gelen okumalar eski kurulumuna aitse Taro bir aktarım kodu gösterir.
-4. Aktarım kodunu **Destek Kimliğinle** (aşağıya bak) birlikte **Ayarlar → Yardım → Destekle iletişime geç** üzerinden e-postayla gönder.
+4. Aktarım kodunu **Destek Kimliğinle** (aşağıya bak) birlikte **Ayarlar → Yardım → Yardım ve SSS → Desteğe e-posta gönder** üzerinden e-postayla gönder.
 5. Destek ekibi kullanılmamış satın alınmış okumalarını yeni kuruluma taşır ve işlem bitince yanıt verir.
 
 Okumaları taşımak için tek başına bir sipariş numarası yeterli değildir. Kazanılan okumalar ve ücretsiz okumalar taşınamaz.
 
 ### Banner Reklamları Kaldır satın alımını nasıl geri yüklerim?
 
-Aynı mağaza hesabıyla oturum açmışken **Ayarlar → Satın alımlar → Satın alımları geri yükle** bölümünü aç. Satın alma bulunur bulunmaz banner reklamlar kaybolur.
+Aynı mağaza hesabıyla oturum açmışken **Ayarlar → Okumalar → Satın alımları geri yükle** bölümünü aç. Satın alma bulunur bulunmaz banner reklamlar kaybolur.
 
 ## Günlüğün ve verilerin
 
@@ -56,8 +56,8 @@ Yalnızca cihazında. Taro’da hesap ve bulut senkronizasyonu yoktur; bu yüzde
 
 ### Günlüğümü nasıl dışa ve içe aktarırım?
 
-- **Dışa aktarma:** **Ayarlar → Verilerin → Yedeği dışa aktar** bölümünü aç. Taro `taro-backup-2026-09-28.json` gibi adlandırılmış bir dosya oluşturur ve paylaşım sayfasını açar; böylece dosyayı Dosyalar’a, bir bulut depolama alanına ya da e-postaya kaydedebilirsin. İnternet bağlantısı gerekmez.
-- **İçe aktarma:** **Ayarlar → Verilerin → Yedeği içe aktar** bölümünü aç ve dosyayı seç. Taro dosyayı kontrol eder ve içinde kaç okuma ve günün kartı olduğu gibi bir önizleme gösterir. Ardından seçimini yap:
+- **Dışa aktarma:** **Ayarlar → Gizlilik ve veriler → Yedeği dışa aktar** bölümünü aç. Taro `taro-backup-2026-09-28.json` gibi adlandırılmış bir dosya oluşturur ve paylaşım sayfasını açar; böylece dosyayı Dosyalar’a, bir bulut depolama alanına ya da e-postaya kaydedebilirsin. İnternet bağlantısı gerekmez.
+- **İçe aktarma:** **Ayarlar → Gizlilik ve veriler → Yedeği içe aktar** bölümünü aç ve dosyayı seç. Taro dosyayı kontrol eder ve içinde kaç okuma ve günün kartı olduğu gibi bir önizleme gösterir. Ardından seçimini yap:
   - **Birleştir**, yedeği bu cihazda zaten olanlara ekler. Aynı kayıt iki yerde de varsa daha yeni sürüm korunur.
   - **Yerine koy**, bu cihazdaki günlüğü kaldırır ve onun yerine yedeği kullanır. Taro önce onaylamanı ister.
 
@@ -65,7 +65,7 @@ Bir yedek okumalarını, günün kartlarını, notlarını, favorilerini ve ayar
 
 ### "Tüm verileri sil" ne yapar?
 
-**Ayarlar → Verilerin → Tüm verileri sil** seçeneği senden iki kez onay ister. Ardından:
+**Ayarlar → Gizlilik ve veriler → Tüm verileri sil** seçeneği senden iki kez onay ister. Ardından:
 
 - günlüğünü, notlarını, ayarlarını ve planlanmış hatırlatıcılarını bu cihazdan siler;
 - Taro’nun sunucusundan bu kuruluma bağlı okuma geçmişini, ödüllü reklam kayıtlarını ve bildirimleri silmesini ister.
@@ -76,11 +76,11 @@ Kalan okumaların ve Banner Reklamları Kaldır satın alımın birer satın alm
 
 ### Yapay zekâ okumalarına izin vermek neyin paylaşılması anlamına gelir?
 
-Bir yapay zekâ okuması istediğinde Taro; sorunu (varsa), açılımı, çektiğin kartları ve uygulama dilini sunucusuna gönderir. Sunucu da yorumu yazması için Taro’nun yapay zekâ sağlayıcısının bir modeline (OpenAI’ın GPT modelleri) başvurur. Taro adını, e-posta adresini veya reklam kimliğini asla göndermez. Sorun Taro’nun sunucusunda saklanmaz. Okuma yalnızca telefonun onu alana kadar (en fazla 7 gün) şifreli olarak tutulur, ardından silinir. Taro’nun yapay zekâ sağlayıcısı bu verileri modellerini eğitmek için kullanmaz. Ayrıntıların tamamı **Ayarlar → Hakkında** bölümündeki gizlilik politikasında yer alır.
+Bir yapay zekâ okuması istediğinde Taro; sorunu (varsa), açılımı, çektiğin kartları ve uygulama dilini sunucusuna gönderir. Sunucu da yorumu yazması için OpenAI’ın GPT modellerine başvurur. Taro adını, e-posta adresini veya reklam kimliğini asla göndermez. Sorun Taro’nun sunucusunda saklanmaz. Okuma yalnızca telefonun onu alana kadar (en fazla 7 gün) şifreli olarak tutulur, ardından silinir. OpenAI bu verileri modellerini eğitmek için kullanmaz. Ayrıntıların tamamı **Ayarlar → Yardım → Yasal** bölümündeki gizlilik politikasında yer alır.
 
 ### Yapay zekâ onayım hakkındaki kararımı değiştirebilir miyim?
 
-Evet, istediğin zaman **Ayarlar → Gizlilik tercihleri → Yapay zekâ okumaları** bölümünden. Kapatırsan artık hiçbir şey gönderilmez. Günün kartı, Öğren bölümü ve günlüğün çalışmaya devam eder ve **klasik okuma** seçebilirsin: aynı kart çekimi, her kartın kendi pozisyonundaki yazılı anlamıyla, yapay zekâ olmadan ve okuma kullanmadan telefonunda oluşturulur. Taro paylaştığı bilgileri değiştirirse bir sonraki yapay zekâ okumasından önce onayını yeniden ister.
+Evet, istediğin zaman **Ayarlar → Gizlilik ve veriler → Yapay zekâ okumaları** bölümünden. Kapatırsan artık hiçbir şey gönderilmez. Günün kartı, Öğren bölümü ve günlüğün çalışmaya devam eder ve **klasik okuma** seçebilirsin: aynı kart çekimi, her kartın kendi pozisyonundaki yazılı anlamıyla, yapay zekâ olmadan ve okuma kullanmadan telefonunda oluşturulur. Taro paylaştığı bilgileri değiştirirse bir sonraki yapay zekâ okumasından önce onayını yeniden ister.
 
 ### Yapay zekâ okumaları her zaman doğru mudur?
 
@@ -94,11 +94,11 @@ Bir yapay zekâ okuması zararlı, rahatsız edici ya da uygunsuz görünüyorsa
 
 ### Destek Kimliğim nedir?
 
-Destek Kimliğin, Taro’nun bu kurulumunu senin hakkında hiçbir şey açığa çıkarmadan tanımlayan 8 karakterlik kısa bir koddur. Onu **Ayarlar → Hakkında** bölümünde bulabilirsin. **Ayarlar → Yardım → Destekle iletişime geç** seçeneğini kullandığında uygulama sürümü, cihazının sistem sürümü ve uygulama dilinle birlikte otomatik olarak eklenir. Satın alımlar ya da okumaları taşıma konusunda yardıma ihtiyacın olduğunda destek ekibi bunu ister. Yedeklere dahil edilmez.
+Destek Kimliğin, Taro’nun bu kurulumunu senin hakkında hiçbir şey açığa çıkarmadan tanımlayan 8 karakterlik kısa bir koddur. Onu **Ayarlar → Hakkında** bölümünde bulabilirsin. **Ayarlar → Yardım → Yardım ve SSS → Desteğe e-posta gönder** seçeneğini kullandığında uygulama sürümü, cihazının sistem sürümü ve uygulama dilinle birlikte otomatik olarak eklenir. Satın alımlar ya da okumaları taşıma konusunda yardıma ihtiyacın olduğunda destek ekibi bunu ister. Yedeklere dahil edilmez.
 
 ### Destekle nasıl iletişime geçerim?
 
-**Ayarlar → Yardım → Destekle iletişime geç** seçeneğini kullan. Destek Kimliğin ve uygulama bilgilerin önceden doldurulmuş bir e-posta açılır; böylece sana daha hızlı yardım edebiliriz. Lütfen mesajına hassas kişisel bilgiler ekleme.
+**Ayarlar → Yardım → Yardım ve SSS → Desteğe e-posta gönder** seçeneğini kullan. Destek Kimliğin ve uygulama bilgilerin önceden doldurulmuş bir e-posta açılır; böylece sana daha hızlı yardım edebiliriz. Lütfen mesajına hassas kişisel bilgiler ekleme.
 
 ### Zor bir dönemden geçiyorsam nereden yardım alabilirim?
 

@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 10c77d9405ad6d45a8c25e5ce497b8d6a2fdb77c48f33b6a004c7c792914fdcd
+sourceHash: 3ff958fea41b282c6f97e628c2c4c423a06550264fbb91e56ebaa4cfaa4dd74c
 ---
 # Sobre el tarot y Taro
 
@@ -49,7 +49,7 @@ Aprender contiene el texto completo de las 78 cartas, al derecho e invertidas, c
 
 ## Cómo funcionan las lecturas con IA
 
-Cuando pides una lectura con IA, Taro envía cuatro cosas a su servidor: tu pregunta (si la escribiste), la tirada, las cartas que sacaste con su orientación y el idioma de la app. El servidor pide a un modelo de IA de uno de los proveedores de IA de Taro (Claude de Anthropic o los modelos GPT de OpenAI) que escriba una interpretación de toda la tirada. La IA recibe los nombres de las cartas, las palabras clave y los significados breves propios de Taro, junto con una descripción de cada posición, y tiene instrucciones de escribir con una voz reflexiva, referirse a las cartas que sacaste y evitar predicciones y consejos.
+Cuando pides una lectura con IA, Taro envía cuatro cosas a su servidor: tu pregunta (si la escribiste), la tirada, las cartas que sacaste con su orientación y el idioma de la app. El servidor pide a los modelos GPT de OpenAI que escriban una interpretación de toda la tirada. La IA recibe los nombres de las cartas, las palabras clave y los significados breves propios de Taro, junto con una descripción de cada posición, y tiene instrucciones de escribir con una voz reflexiva, referirse a las cartas que sacaste y evitar predicciones y consejos.
 
 Algunas cosas que conviene saber sobre la privacidad:
 
@@ -57,10 +57,10 @@ Algunas cosas que conviene saber sobre la privacidad:
 - Tu pregunta no se guarda en el servidor de Taro.
 - La lectura terminada se conserva cifrada en el servidor solo hasta que tu teléfono la recibe (como máximo 7 días), y después se elimina.
 - Si decides denunciar una lectura, tu pregunta y esa lectura se conservan durante 90 días para poder revisarlas.
-- Los proveedores de IA de Taro no usan estos datos para entrenar sus modelos.
+- OpenAI no usa estos datos para entrenar sus modelos.
 - Todo tu historial, tus preguntas y tus notas se quedan en tu dispositivo.
 
-Las lecturas con IA necesitan tu permiso. Puedes permitir o desactivar el envío de datos a la IA cuando quieras en **Ajustes → Privacidad**. Sin él, puedes seguir usando la carta del día, Aprender y tu diario, y puedes elegir una **Lectura clásica**: la misma tirada, con el significado escrito de cada carta en su posición, creada en tu teléfono sin IA.
+Las lecturas con IA necesitan tu permiso. Puedes permitir o desactivar el envío de datos a la IA cuando quieras en **Ajustes → Privacidad y datos → Lecturas con IA**. Sin él, puedes seguir usando la carta del día, Aprender y tu diario, y puedes elegir una **Lectura clásica**: la misma tirada, con el significado escrito de cada carta en su posición, creada en tu teléfono sin IA.
 
 ## Lo que no pueden hacer las lecturas con IA
 
@@ -70,7 +70,7 @@ Las lecturas con IA son texto generado. Pueden ser reflexivas y útiles, pero ti
 - **No te conocen.** La IA solo ve tu pregunta y las cartas. No recuerda tus lecturas anteriores ni sabe nada de tu vida.
 - **No pueden ver el futuro.** Ninguna lectura puede decirte lo que ocurrirá, y las lecturas de Taro nunca lo intentan.
 - **No responden a algunas preguntas.** Taro no hace lecturas sobre salud, embarazo, muerte, asuntos legales, decisiones de dinero ni apuestas. Cuando una pregunta entra en uno de estos temas, la app explica por qué y sugiere una forma de reformularla, y no se usa ninguna lectura. Para esos temas, habla con un profesional cualificado.
-- **No sustituyen al apoyo.** Si estás pasando por algo doloroso, hablar con alguien de confianza puede ayudar. Si estás pensando en hacerte daño o en hacer daño a otra persona, pide ayuda ahora: **Ajustes → Ayuda → Recursos de crisis** enumera las líneas de ayuda de tu región.
+- **No sustituyen al apoyo.** Si estás pasando por algo doloroso, hablar con alguien de confianza puede ayudar. Si estás pensando en hacerte daño o en hacer daño a otra persona, pide ayuda ahora: **Ajustes → Ayuda → Líneas de apoyo** enumera las líneas de ayuda de tu región.
 
 Si una lectura te parece dañina o inapropiada, usa **Denunciar esta lectura** en el menú de la lectura. Las denuncias ayudan a mejorar Taro.
 

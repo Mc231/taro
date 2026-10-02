@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 6f8d4d0b8a483cac469608c108dcc0f4e4648d9612a7d5bec461a4eb1cbdbcb5
+sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
 ---
 # Häufige Fragen
 
@@ -22,7 +22,7 @@ Taro ist ein Werkzeug zur Reflexion. Deshalb gibt es keine Deutungen zu Gesundhe
 
 ### Kann ich meine gekauften Deutungen wiederherstellen?
 
-Deutungen sind Verbrauchskäufe. Nach den Regeln der Stores lassen sie sich nicht wie ein einmaliger Kauf wiederherstellen, deshalb sind sie an diese Installation von Taro gebunden. **Käufe wiederherstellen** (unter **Einstellungen → Käufe** und im Store) bringt **Bannerwerbung entfernen** zurück, aber keine Deutungen.
+Deutungen sind Verbrauchskäufe. Nach den Regeln der Stores lassen sie sich nicht wie ein einmaliger Kauf wiederherstellen, deshalb sind sie an diese Installation von Taro gebunden. **Käufe wiederherstellen** (unter **Einstellungen → Deutungen** und im Store) bringt **Bannerwerbung entfernen** zurück, aber keine Deutungen.
 
 Bitte denk daran, bevor du die App löschst: Wenn du Taro löschst, können deine verbleibenden Deutungen auf dieser Installation nicht mehr verfügbar sein, und dein Journal wird immer vom Gerät entfernt, wenn du keine Sicherung exportiert hast.
 
@@ -39,14 +39,14 @@ Auf Android startet eine neue Installation, wenn du Taro deinstallierst oder sei
 1. Installiere Taro auf dem neuen Gerät und melde dich mit demselben App-Store- oder Google-Play-Konto an, das du für die Käufe verwendet hast.
 2. Öffne **Einstellungen → Hilfe → Deutungen von einem anderen Gerät übertragen**. Taro prüft deine bisherigen Käufe beim Store.
 3. Wenn Deutungen aus diesen Käufen zu deiner alten Installation gehören, zeigt Taro einen Übertragungscode an.
-4. Schick den Übertragungscode zusammen mit deiner **Support-ID** (siehe unten) per E-Mail über **Einstellungen → Hilfe → Support kontaktieren**.
+4. Schick den Übertragungscode zusammen mit deiner **Support-ID** (siehe unten) per E-Mail über **Einstellungen → Hilfe → Hilfe & FAQ → Support per E-Mail**.
 5. Der Support überträgt deine nicht genutzten gekauften Deutungen auf die neue Installation und antwortet, sobald das erledigt ist.
 
 Eine Bestellnummer allein reicht nicht aus, um Deutungen zu übertragen. Verdiente und kostenlose Deutungen können nicht übertragen werden.
 
 ### Wie stelle ich „Bannerwerbung entfernen“ wieder her?
 
-Öffne **Einstellungen → Käufe → Käufe wiederherstellen**, während du mit demselben Store-Konto angemeldet bist. Die Bannerwerbung verschwindet, sobald der Kauf gefunden wurde.
+Öffne **Einstellungen → Deutungen → Käufe wiederherstellen**, während du mit demselben Store-Konto angemeldet bist. Die Bannerwerbung verschwindet, sobald der Kauf gefunden wurde.
 
 ## Dein Journal und deine Daten
 
@@ -56,8 +56,8 @@ Nur auf deinem Gerät. Taro hat keine Konten und keine Cloud-Synchronisierung, d
 
 ### Wie exportiere und importiere ich mein Journal?
 
-- **Exportieren:** Öffne **Einstellungen → Deine Daten → Sicherung exportieren**. Taro erstellt eine Datei mit einem Namen wie `taro-backup-2026-09-28.json` und öffnet das Teilen-Menü, sodass du sie in Dateien, einem Cloud-Speicher oder per E-Mail sichern kannst. Dafür ist keine Internetverbindung nötig.
-- **Importieren:** Öffne **Einstellungen → Deine Daten → Sicherung importieren** und wähle die Datei aus. Taro prüft die Datei und zeigt eine Vorschau, etwa wie viele Deutungen und Tageskarten sie enthält. Wähle dann:
+- **Exportieren:** Öffne **Einstellungen → Datenschutz & Daten → Sicherung exportieren**. Taro erstellt eine Datei mit einem Namen wie `taro-backup-2026-09-28.json` und öffnet das Teilen-Menü, sodass du sie in Dateien, einem Cloud-Speicher oder per E-Mail sichern kannst. Dafür ist keine Internetverbindung nötig.
+- **Importieren:** Öffne **Einstellungen → Datenschutz & Daten → Sicherung importieren** und wähle die Datei aus. Taro prüft die Datei und zeigt eine Vorschau, etwa wie viele Deutungen und Tageskarten sie enthält. Wähle dann:
   - **Zusammenführen** fügt die Sicherung zu dem hinzu, was bereits auf diesem Gerät ist. Ist derselbe Eintrag in beiden vorhanden, wird die neuere Version behalten.
   - **Ersetzen** entfernt das Journal auf diesem Gerät und verwendet stattdessen die Sicherung. Taro bittet dich vorher um eine Bestätigung.
 
@@ -65,7 +65,7 @@ Eine Sicherung enthält deine Deutungen, Tageskarten, Notizen, Favoriten und Ein
 
 ### Was bewirkt „Alle Daten löschen“?
 
-**Einstellungen → Deine Daten → Alle Daten löschen** bittet dich zweimal um eine Bestätigung. Danach:
+**Einstellungen → Datenschutz & Daten → Alle Daten löschen** bittet dich zweimal um eine Bestätigung. Danach:
 
 - werden dein Journal, deine Notizen, Einstellungen und geplanten Erinnerungen von diesem Gerät gelöscht;
 - wird der Server von Taro gebeten, den Deutungsverlauf, die Aufzeichnungen zu Werbung mit Belohnung und die Meldungen zu löschen, die mit dieser Installation verknüpft sind.
@@ -76,11 +76,11 @@ Deine verbleibenden Deutungen und „Bannerwerbung entfernen“ bleiben erhalten
 
 ### Was wird geteilt, wenn ich KI-Deutungen erlaube?
 
-Wenn du eine KI-Deutung anforderst, sendet Taro deine Frage (falls vorhanden), die Legung, die gezogenen Karten und deine App-Sprache an seinen Server. Dieser lässt ein KI-Modell eines der KI-Anbieter von Taro (Claude von Anthropic oder die GPT-Modelle von OpenAI) die Interpretation schreiben. Taro sendet niemals deinen Namen, deine E-Mail-Adresse oder deine Werbe-ID. Deine Frage wird nicht auf dem Server von Taro gespeichert. Die Deutung wird nur so lange verschlüsselt aufbewahrt, bis dein Handy sie empfangen hat (höchstens 7 Tage), und dann gelöscht. Die KI-Anbieter von Taro verwenden diese Daten nicht, um ihre Modelle zu trainieren. Alle Einzelheiten findest du in der Datenschutzerklärung unter **Einstellungen → Über**.
+Wenn du eine KI-Deutung anforderst, sendet Taro deine Frage (falls vorhanden), die Legung, die gezogenen Karten und deine App-Sprache an seinen Server. Dieser lässt GPT-Modelle von OpenAI die Interpretation schreiben. Taro sendet niemals deinen Namen, deine E-Mail-Adresse oder deine Werbe-ID. Deine Frage wird nicht auf dem Server von Taro gespeichert. Die Deutung wird nur so lange verschlüsselt aufbewahrt, bis dein Handy sie empfangen hat (höchstens 7 Tage), und dann gelöscht. OpenAI verwendet diese Daten nicht, um seine Modelle zu trainieren. Alle Einzelheiten findest du in der Datenschutzerklärung unter **Einstellungen → Hilfe → Rechtliches**.
 
 ### Kann ich meine Einwilligung zur KI ändern?
 
-Ja, jederzeit unter **Einstellungen → Datenschutz → Datenweitergabe für KI**. Wenn du sie ausschaltest, wird nichts mehr gesendet. Die Tageskarte, Lernen und dein Journal funktionieren weiter, und du kannst eine **Klassische Deutung** wählen: dieselbe Ziehung mit der verfassten Bedeutung jeder Karte an ihrer Position, erstellt auf deinem Handy, ohne KI und ohne dass eine Deutung verbraucht wird. Wenn Taro ändert, was geteilt wird, bittet es dich vor der nächsten KI-Deutung erneut um deine Einwilligung.
+Ja, jederzeit unter **Einstellungen → Datenschutz & Daten → KI-Deutungen**. Wenn du sie ausschaltest, wird nichts mehr gesendet. Die Tageskarte, Lernen und dein Journal funktionieren weiter, und du kannst eine **Klassische Deutung** wählen: dieselbe Ziehung mit der verfassten Bedeutung jeder Karte an ihrer Position, erstellt auf deinem Handy, ohne KI und ohne dass eine Deutung verbraucht wird. Wenn Taro ändert, was geteilt wird, bittet es dich vor der nächsten KI-Deutung erneut um deine Einwilligung.
 
 ### Sind KI-Deutungen immer richtig?
 
@@ -94,11 +94,11 @@ Wenn dir eine KI-Deutung schädlich, beleidigend oder unangemessen vorkommt, öf
 
 ### Was ist meine Support-ID?
 
-Deine Support-ID ist ein kurzer Code aus 8 Zeichen, der diese Installation von Taro kennzeichnet, ohne etwas über dich preiszugeben. Du findest sie unter **Einstellungen → Über**. Sie wird automatisch hinzugefügt, wenn du **Einstellungen → Hilfe → Support kontaktieren** nutzt, zusammen mit der App-Version, der Systemversion deines Geräts und deiner App-Sprache. Der Support fragt danach, wenn du Hilfe bei Käufen oder beim Übertragen von Deutungen brauchst. Sie ist nicht in Sicherungen enthalten.
+Deine Support-ID ist ein kurzer Code aus 8 Zeichen, der diese Installation von Taro kennzeichnet, ohne etwas über dich preiszugeben. Du findest sie unter **Einstellungen → Über**. Sie wird automatisch hinzugefügt, wenn du **Einstellungen → Hilfe → Hilfe & FAQ → Support per E-Mail** nutzt, zusammen mit der App-Version, der Systemversion deines Geräts und deiner App-Sprache. Der Support fragt danach, wenn du Hilfe bei Käufen oder beim Übertragen von Deutungen brauchst. Sie ist nicht in Sicherungen enthalten.
 
 ### Wie kontaktiere ich den Support?
 
-Nutze **Einstellungen → Hilfe → Support kontaktieren**. Dadurch öffnet sich eine E-Mail, in der deine Support-ID und die App-Details schon eingetragen sind, damit wir dir schneller helfen können. Bitte schreib keine sensiblen persönlichen Daten in deine Nachricht.
+Nutze **Einstellungen → Hilfe → Hilfe & FAQ → Support per E-Mail**. Dadurch öffnet sich eine E-Mail, in der deine Support-ID und die App-Details schon eingetragen sind, damit wir dir schneller helfen können. Bitte schreib keine sensiblen persönlichen Daten in deine Nachricht.
 
 ### Wo finde ich Hilfe, wenn es mir schlecht geht?
 

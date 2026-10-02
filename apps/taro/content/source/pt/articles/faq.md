@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 6f8d4d0b8a483cac469608c108dcc0f4e4648d9612a7d5bec461a4eb1cbdbcb5
+sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
 ---
 # Perguntas frequentes
 
@@ -22,7 +22,7 @@ O Taro é uma ferramenta de reflexão, então ele não faz leituras sobre saúde
 
 ### Posso restaurar as leituras que comprei?
 
-As leituras são compras consumíveis. As regras das lojas não permitem restaurá-las como acontece com uma compra única, então elas ficam ligadas a esta instalação do Taro. **Restaurar compras** (em **Ajustes → Compras** e na Loja) traz de volta **Remover anúncios em banner**, mas não consegue trazer de volta as leituras.
+As leituras são compras consumíveis. As regras das lojas não permitem restaurá-las como acontece com uma compra única, então elas ficam ligadas a esta instalação do Taro. **Restaurar compras** (em **Ajustes → Leituras** e na Loja) traz de volta **Remover anúncios em banner**, mas não consegue trazer de volta as leituras.
 
 Tenha isso em mente antes de apagar o app: apagar o Taro pode deixar as suas leituras restantes indisponíveis nessa instalação, e sempre remove o seu diário do dispositivo, a menos que você tenha exportado um backup.
 
@@ -39,14 +39,14 @@ No Android, desinstalar o Taro ou limpar o armazenamento dele começa uma nova i
 1. Instale o Taro no novo dispositivo e entre na mesma conta da App Store ou do Google Play que você usou nas compras.
 2. Abra **Ajustes → Ajuda → Transferir leituras de outro dispositivo**. O Taro verifica as suas compras anteriores com a loja.
 3. Se as leituras dessas compras pertencerem à sua instalação antiga, o Taro mostra um código de transferência.
-4. Envie por e-mail o código de transferência junto com o seu **ID de suporte** (veja abaixo) usando **Ajustes → Ajuda → Falar com o suporte**.
+4. Envie por e-mail o código de transferência junto com o seu **ID de suporte** (veja abaixo) usando **Ajustes → Ajuda → Ajuda e perguntas frequentes → Enviar e-mail ao suporte**.
 5. O suporte transfere as suas leituras compradas não usadas para a nova instalação e responde quando terminar.
 
 Só o número do pedido não basta para transferir leituras. As leituras ganhas e as leituras grátis não podem ser transferidas.
 
 ### Como restauro Remover anúncios em banner?
 
-Abra **Ajustes → Compras → Restaurar compras** com a mesma conta da loja conectada. Os anúncios em banner somem assim que a compra é encontrada.
+Abra **Ajustes → Leituras → Restaurar compras** com a mesma conta da loja conectada. Os anúncios em banner somem assim que a compra é encontrada.
 
 ## O seu diário e os seus dados
 
@@ -56,8 +56,8 @@ Só no seu dispositivo. O Taro não tem contas nem sincronização na nuvem, ent
 
 ### Como exporto e importo o meu diário?
 
-- **Exportar:** abra **Ajustes → Seus dados → Exportar backup**. O Taro cria um arquivo com um nome como `taro-backup-2026-09-28.json` e abre a janela de compartilhamento, para você salvar em Arquivos, em um drive na nuvem ou por e-mail. Não é necessário ter conexão com a internet.
-- **Importar:** abra **Ajustes → Seus dados → Importar backup** e escolha o arquivo. O Taro verifica o arquivo e mostra uma prévia, como quantas leituras e cartas do dia ele contém. Depois escolha:
+- **Exportar:** abra **Ajustes → Privacidade e dados → Exportar backup**. O Taro cria um arquivo com um nome como `taro-backup-2026-09-28.json` e abre a janela de compartilhamento, para você salvar em Arquivos, em um drive na nuvem ou por e-mail. Não é necessário ter conexão com a internet.
+- **Importar:** abra **Ajustes → Privacidade e dados → Importar backup** e escolha o arquivo. O Taro verifica o arquivo e mostra uma prévia, como quantas leituras e cartas do dia ele contém. Depois escolha:
   - **Juntar** adiciona o backup ao que já está neste dispositivo. Quando o mesmo registro existe nos dois, fica a versão mais recente.
   - **Substituir** remove o diário deste dispositivo e usa o backup no lugar dele. O Taro pede que você confirme antes.
 
@@ -65,7 +65,7 @@ Um backup contém as suas leituras, cartas do dia, notas, favoritos e ajustes. E
 
 ### O que faz "Apagar todos os dados"?
 
-**Ajustes → Seus dados → Apagar todos os dados** pede que você confirme duas vezes. Depois:
+**Ajustes → Privacidade e dados → Apagar todos os dados** pede que você confirme duas vezes. Depois:
 
 - apaga o seu diário, as notas, os ajustes e os lembretes programados deste dispositivo;
 - pede ao servidor do Taro que apague o histórico de leituras, os registros de anúncios com recompensa e as denúncias ligados a esta instalação.
@@ -76,11 +76,11 @@ As suas leituras restantes e Remover anúncios em banner são mantidos, porque s
 
 ### O que é compartilhado quando permito as leituras com IA?
 
-Quando você pede uma leitura com IA, o Taro envia a sua pergunta (se houver), a tiragem, as cartas que você tirou e o idioma do app para o seu servidor, que pede a um modelo de IA de um dos provedores de IA do Taro (o Claude, da Anthropic, ou os modelos GPT, da OpenAI) que escreva a interpretação. O Taro nunca envia o seu nome, endereço de e-mail ou ID de publicidade. A sua pergunta não fica armazenada no servidor do Taro. A leitura fica guardada com criptografia só até o seu celular recebê-la (no máximo 7 dias), e depois é apagada. Os provedores de IA do Taro não usam esses dados para treinar os seus modelos. A política de privacidade em **Ajustes → Sobre** traz todos os detalhes.
+Quando você pede uma leitura com IA, o Taro envia a sua pergunta (se houver), a tiragem, as cartas que você tirou e o idioma do app para o seu servidor, que pede aos modelos GPT da OpenAI que escrevam a interpretação. O Taro nunca envia o seu nome, endereço de e-mail ou ID de publicidade. A sua pergunta não fica armazenada no servidor do Taro. A leitura fica guardada com criptografia só até o seu celular recebê-la (no máximo 7 dias), e depois é apagada. A OpenAI não usa esses dados para treinar os seus modelos. A política de privacidade em **Ajustes → Ajuda → Informações legais** traz todos os detalhes.
 
 ### Posso mudar de ideia sobre o consentimento de IA?
 
-Sim, a qualquer momento, em **Ajustes → Privacidade → Compartilhamento de dados com a IA**. Se você desativar, nada mais é enviado. A carta do dia, o Aprender e o seu diário continuam funcionando, e você pode escolher uma **Leitura clássica**: a mesma tiragem com o significado escrito de cada carta na sua posição, criada no seu celular sem IA e sem usar uma leitura. Se o Taro mudar o que compartilha, ele pede o seu consentimento de novo antes da próxima leitura com IA.
+Sim, a qualquer momento, em **Ajustes → Privacidade e dados → Leituras com IA**. Se você desativar, nada mais é enviado. A carta do dia, o Aprender e o seu diário continuam funcionando, e você pode escolher uma **Leitura clássica**: a mesma tiragem com o significado escrito de cada carta na sua posição, criada no seu celular sem IA e sem usar uma leitura. Se o Taro mudar o que compartilha, ele pede o seu consentimento de novo antes da próxima leitura com IA.
 
 ### As leituras com IA estão sempre certas?
 
@@ -94,11 +94,11 @@ Se uma leitura com IA parecer prejudicial, ofensiva ou inadequada, abra a leitur
 
 ### O que é o meu ID de suporte?
 
-O seu ID de suporte é um código curto de 8 caracteres que identifica esta instalação do Taro sem revelar nada sobre você. Ele fica em **Ajustes → Sobre**. Ele é adicionado automaticamente quando você usa **Ajustes → Ajuda → Falar com o suporte**, junto com a versão do app, a versão do sistema do seu dispositivo e o idioma do app. O suporte pede esse ID quando você quer ajuda com compras ou com a transferência de leituras. Ele não é incluído nos backups.
+O seu ID de suporte é um código curto de 8 caracteres que identifica esta instalação do Taro sem revelar nada sobre você. Ele fica em **Ajustes → Sobre**. Ele é adicionado automaticamente quando você usa **Ajustes → Ajuda → Ajuda e perguntas frequentes → Enviar e-mail ao suporte**, junto com a versão do app, a versão do sistema do seu dispositivo e o idioma do app. O suporte pede esse ID quando você quer ajuda com compras ou com a transferência de leituras. Ele não é incluído nos backups.
 
 ### Como falo com o suporte?
 
-Use **Ajustes → Ajuda → Falar com o suporte**. Isso abre um e-mail com o seu ID de suporte e os dados do app já preenchidos, para que possamos ajudar você mais rápido. Não inclua dados pessoais sensíveis na sua mensagem.
+Use **Ajustes → Ajuda → Ajuda e perguntas frequentes → Enviar e-mail ao suporte**. Isso abre um e-mail com o seu ID de suporte e os dados do app já preenchidos, para que possamos ajudar você mais rápido. Não inclua dados pessoais sensíveis na sua mensagem.
 
 ### Onde encontro ajuda se estou passando por um momento difícil?
 

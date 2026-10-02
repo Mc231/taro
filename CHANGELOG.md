@@ -78,6 +78,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- About and FAQ articles (en + 11 locales) now name OpenAI as the only AI processor, matching `aiConsentBody` (OpenAI-only at launch), and their menu paths match the real Settings groups (Readings, Privacy & data, Help → Help & FAQ / Support lines / Legal); translations re-synced to the new en `sourceHash` (`reviewStatus: machine`), including tr.
 - The S07 balance chip moves from the app bar into the body when its label does not fit on one line (uk and fr at 130 % text overflowed the bar), and the S11 chip wraps instead of overflowing (01 §12).
 - `uk` `questionChargeCredits`/`drawPickTitle` and `ar` `balanceReadings`/`cardDrawnTimes`/`deleteErasedJournal` no longer carry a plural branch that gen-l10n silently overrode.
 - `tools/phase_state.py`: status emoji now win over status words, so "🟡 In progress — code complete" and "🚧 … drafts complete" read as in progress instead of done. The `check_glossary` fixtures carry the RC97 `ai.provider.*`, `ai.outageFallback.*`, `ai.moderation.provider` and `ai.disclosedProviders` keys, and `verify.sh` runs the Worker's `safety:lexicons:check`.

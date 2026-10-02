@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 6f8d4d0b8a483cac469608c108dcc0f4e4648d9612a7d5bec461a4eb1cbdbcb5
+sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
 ---
 # Veelgestelde vragen
 
@@ -22,7 +22,7 @@ Taro is een hulpmiddel voor reflectie, dus geeft de app geen lezingen over gezon
 
 ### Kan ik mijn gekochte lezingen herstellen?
 
-Lezingen zijn verbruiksaankopen. De regels van de winkel staan niet toe dat ze worden hersteld zoals een eenmalige aankoop, dus horen ze bij deze installatie van Taro. **Aankopen herstellen** (in **Instellingen → Aankopen** en in de winkel) brengt **Banneradvertenties verwijderen** terug, maar kan geen lezingen terugbrengen.
+Lezingen zijn verbruiksaankopen. De regels van de winkel staan niet toe dat ze worden hersteld zoals een eenmalige aankoop, dus horen ze bij deze installatie van Taro. **Aankopen herstellen** (in **Instellingen → Lezingen** en in de winkel) brengt **Banneradvertenties verwijderen** terug, maar kan geen lezingen terugbrengen.
 
 Houd hier rekening mee voordat je de app verwijdert: Taro verwijderen kan je resterende lezingen onbeschikbaar maken op die installatie, en verwijdert altijd je dagboek van het apparaat, tenzij je een back-up hebt geëxporteerd.
 
@@ -39,14 +39,14 @@ Op Android start het verwijderen van Taro of het wissen van de opslag een nieuwe
 1. Installeer Taro op het nieuwe apparaat en log in met hetzelfde App Store- of Google Play-account dat je voor de aankopen hebt gebruikt.
 2. Open **Instellingen → Hulp → Lezingen van een ander apparaat overzetten**. Taro controleert je eerdere aankopen bij de winkel.
 3. Als lezingen uit die aankopen bij je oude installatie horen, toont Taro een overzetcode.
-4. Mail de overzetcode samen met je **support-ID** (zie hieronder) via **Instellingen → Hulp → Contact opnemen met support**.
+4. Mail de overzetcode samen met je **support-ID** (zie hieronder) via **Instellingen → Hulp → Hulp en veelgestelde vragen → Support mailen**.
 5. Support zet je ongebruikte gekochte lezingen over naar de nieuwe installatie en antwoordt als dat is gebeurd.
 
 Alleen een ordernummer is niet genoeg om lezingen over te zetten. Verdiende lezingen en gratis lezingen kunnen niet worden overgezet.
 
 ### Hoe herstel ik Banneradvertenties verwijderen?
 
-Open **Instellingen → Aankopen → Aankopen herstellen** terwijl je bent ingelogd met hetzelfde winkelaccount. Banneradvertenties verdwijnen zodra de aankoop is gevonden.
+Open **Instellingen → Lezingen → Aankopen herstellen** terwijl je bent ingelogd met hetzelfde winkelaccount. Banneradvertenties verdwijnen zodra de aankoop is gevonden.
 
 ## Je dagboek en je gegevens
 
@@ -56,8 +56,8 @@ Alleen op je apparaat. Taro heeft geen accounts en geen synchronisatie via de cl
 
 ### Hoe exporteer en importeer ik mijn dagboek?
 
-- **Exporteren:** open **Instellingen → Je gegevens → Back-up exporteren**. Taro maakt een bestand met een naam zoals `taro-backup-2026-09-28.json` en opent het deelmenu, zodat je het kunt opslaan in Bestanden, een clouddrive of e-mail. Er is geen internetverbinding nodig.
-- **Importeren:** open **Instellingen → Je gegevens → Back-up importeren** en kies het bestand. Taro controleert het bestand en toont een voorbeeld, zoals hoeveel lezingen en dagkaarten erin staan. Kies dan:
+- **Exporteren:** open **Instellingen → Privacy en gegevens → Back-up exporteren**. Taro maakt een bestand met een naam zoals `taro-backup-2026-09-28.json` en opent het deelmenu, zodat je het kunt opslaan in Bestanden, een clouddrive of e-mail. Er is geen internetverbinding nodig.
+- **Importeren:** open **Instellingen → Privacy en gegevens → Back-up importeren** en kies het bestand. Taro controleert het bestand en toont een voorbeeld, zoals hoeveel lezingen en dagkaarten erin staan. Kies dan:
   - **Samenvoegen** voegt de back-up toe aan wat er al op dit apparaat staat. Als hetzelfde item in beide staat, wordt de nieuwste versie bewaard.
   - **Vervangen** verwijdert het dagboek op dit apparaat en gebruikt de back-up. Taro vraagt je eerst om te bevestigen.
 
@@ -65,7 +65,7 @@ Een back-up bevat je lezingen, dagkaarten, notities, favorieten en instellingen.
 
 ### Wat doet "Alle gegevens verwijderen"?
 
-**Instellingen → Je gegevens → Alle gegevens verwijderen** vraagt je twee keer om te bevestigen. Daarna:
+**Instellingen → Privacy en gegevens → Alle gegevens verwijderen** vraagt je twee keer om te bevestigen. Daarna:
 
 - worden je dagboek, notities, instellingen en geplande herinneringen van dit apparaat gewist;
 - vraagt de app de server van Taro om de lezinggeschiedenis, gegevens over beloningsadvertenties en meldingen die aan deze installatie zijn gekoppeld te wissen.
@@ -76,11 +76,11 @@ Je resterende lezingen en Banneradvertenties verwijderen blijven behouden, omdat
 
 ### Wat wordt er gedeeld als ik AI-lezingen toesta?
 
-Als je om een AI-lezing vraagt, stuurt Taro je vraag (als je er een hebt), de legging, de kaarten die je hebt getrokken en de taal van je app naar zijn server, die een AI-model van een van de AI-aanbieders van Taro (Claude van Anthropic of de GPT-modellen van OpenAI) vraagt de interpretatie te schrijven. Taro stuurt nooit je naam, e-mailadres of advertentie-ID mee. Je vraag wordt niet op de server van Taro bewaard. De lezing wordt alleen versleuteld bewaard tot je telefoon haar heeft ontvangen (maximaal 7 dagen), en daarna verwijderd. De AI-aanbieders van Taro gebruiken deze gegevens niet om hun modellen te trainen. Het privacybeleid in **Instellingen → Over** bevat alle details.
+Als je om een AI-lezing vraagt, stuurt Taro je vraag (als je er een hebt), de legging, de kaarten die je hebt getrokken en de taal van je app naar zijn server, die de GPT-modellen van OpenAI vraagt de interpretatie te schrijven. Taro stuurt nooit je naam, e-mailadres of advertentie-ID mee. Je vraag wordt niet op de server van Taro bewaard. De lezing wordt alleen versleuteld bewaard tot je telefoon haar heeft ontvangen (maximaal 7 dagen), en daarna verwijderd. OpenAI gebruikt deze gegevens niet om zijn modellen te trainen. Het privacybeleid in **Instellingen → Hulp → Juridisch** bevat alle details.
 
 ### Kan ik mijn toestemming voor AI later wijzigen?
 
-Ja, altijd, in **Instellingen → Privacy → Gegevens delen met AI**. Als je het uitzet, wordt er niets meer verstuurd. De dagkaart, Leren en je dagboek blijven werken, en je kunt kiezen voor een **klassieke lezing**: dezelfde trekking met de geschreven betekenis van elke kaart op haar positie, gemaakt op je telefoon zonder AI en zonder een lezing te gebruiken. Als Taro wijzigt wat er wordt gedeeld, vraagt de app opnieuw om je toestemming voor de volgende AI-lezing.
+Ja, altijd, in **Instellingen → Privacy en gegevens → AI-lezingen**. Als je het uitzet, wordt er niets meer verstuurd. De dagkaart, Leren en je dagboek blijven werken, en je kunt kiezen voor een **klassieke lezing**: dezelfde trekking met de geschreven betekenis van elke kaart op haar positie, gemaakt op je telefoon zonder AI en zonder een lezing te gebruiken. Als Taro wijzigt wat er wordt gedeeld, vraagt de app opnieuw om je toestemming voor de volgende AI-lezing.
 
 ### Kloppen AI-lezingen altijd?
 
@@ -94,11 +94,11 @@ Als een AI-lezing schadelijk, beledigend of ongepast lijkt, open je de lezing, t
 
 ### Wat is mijn support-ID?
 
-Je support-ID is een korte code van 8 tekens die deze installatie van Taro herkent zonder iets over jou te onthullen. Je vindt hem in **Instellingen → Over**. Hij wordt automatisch toegevoegd als je **Instellingen → Hulp → Contact opnemen met support** gebruikt, samen met de app-versie, de systeemversie van je apparaat en de taal van je app. Support vraagt erom als je hulp nodig hebt bij aankopen of het overzetten van lezingen. Hij zit niet in back-ups.
+Je support-ID is een korte code van 8 tekens die deze installatie van Taro herkent zonder iets over jou te onthullen. Je vindt hem in **Instellingen → Over**. Hij wordt automatisch toegevoegd als je **Instellingen → Hulp → Hulp en veelgestelde vragen → Support mailen** gebruikt, samen met de app-versie, de systeemversie van je apparaat en de taal van je app. Support vraagt erom als je hulp nodig hebt bij aankopen of het overzetten van lezingen. Hij zit niet in back-ups.
 
 ### Hoe neem ik contact op met support?
 
-Gebruik **Instellingen → Hulp → Contact opnemen met support**. Daarmee open je een e-mail waarin je support-ID en app-gegevens al zijn ingevuld, zodat we je sneller kunnen helpen. Zet geen gevoelige persoonlijke gegevens in je bericht.
+Gebruik **Instellingen → Hulp → Hulp en veelgestelde vragen → Support mailen**. Daarmee open je een e-mail waarin je support-ID en app-gegevens al zijn ingevuld, zodat we je sneller kunnen helpen. Zet geen gevoelige persoonlijke gegevens in je bericht.
 
 ### Waar vind ik hulp als ik het moeilijk heb?
 
