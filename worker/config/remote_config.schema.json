@@ -348,6 +348,13 @@
             "high"
           ]
         },
+        "ai.serviceTier": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "fast"
+          ]
+        },
         "ai.promptVersion": {
           "type": "string",
           "pattern": "^v\\d+$"
@@ -579,6 +586,7 @@
         "ai.moderation.provider",
         "ai.disclosedProviders",
         "ai.effort",
+        "ai.serviceTier",
         "ai.promptVersion",
         "ai.maxTokensBySpread",
         "ai.blockedCountries",

@@ -4,6 +4,7 @@ import type {
   AiCall,
   AiEffort,
   AiGenerateRequest,
+  AiServiceTier,
   AiResult,
   AiUsage,
 } from '../../ports/AiProvider';
@@ -49,6 +50,7 @@ export interface AiAttemptRequest {
   readonly prompt: ReadingPromptInput;
   readonly maxTokens: number;
   readonly effort: AiEffort;
+  readonly serviceTier?: AiServiceTier;
   readonly refusalFallbacks: boolean;
   readonly timeoutMs: number;
 }
@@ -57,6 +59,8 @@ interface Answered {
   /** The serving model, without the provider prefix. */
   readonly model: string;
   readonly usage: AiUsage;
+  /** The call was served at the vendor's fast tier (priced 2x). */
+  readonly fast?: boolean;
 }
 
 /** The outcome of one upstream call, before the policy. */
@@ -102,6 +106,7 @@ export async function runWithPolicy(
       prompt: request.prompt,
       maxTokens,
       effort: request.effort,
+      ...(request.serviceTier === undefined ? {} : { serviceTier: request.serviceTier }),
       refusalFallbacks: request.refusalFallbacks,
       timeoutMs: Math.min(request.timeoutMs, remaining),
     });
@@ -110,7 +115,12 @@ export async function runWithPolicy(
       case 'refused':
       case 'truncated':
       case 'invalid_output': {
-        calls.push({ provider, model: outcome.model, usage: outcome.usage });
+        calls.push({
+          provider,
+          model: outcome.model,
+          usage: outcome.usage,
+          ...(outcome.fast === true ? { fast: true } : {}),
+        });
         const model = modelKey(provider, outcome.model);
         if (outcome.kind === 'ok') {
           return { kind: 'ok', output: outcome.output, model, calls };

@@ -5,8 +5,23 @@ import { normalize } from './text';
  * by the Worker's L3 lexicon (03 §9.4) and the offline graders: NFKC + lower
  * case, tokens on word boundaries, a trailing `*` makes a stem, and
  * `match: substring` locales (ja) match anywhere.
+ *
+ * Arabic attaches clitics to the next word, so a phrase starting with an
+ * Arabic letter also matches after the proclitics و / ف (and), then
+ * ب / ل / ك (with, for, as): "وحتما", "فبالتأكيد". A leading "ال" also
+ * matches its "لل" form after ل ("للتنبؤ"). Suffixes are not added: a
+ * pronoun suffix changes the word, so stems stay explicit (`*`).
  */
 export const WORD = String.raw`[\p{L}\p{N}\p{M}_]`;
+
+const ARABIC_START = /^\p{Script=Arabic}/u;
+
+/** The left part of an Arabic phrase's first token, clitics included. */
+function arabicHead(token: string): string {
+  return token.startsWith('ال')
+    ? `(?:[وف]?[بك]?ال|[وف]?لل)${token.slice(2)}`
+    : `[وف]?[بلك]?${token}`;
+}
 
 /** Regex for one phrase (`*` = stem; word boundaries unless `substring`). */
 export function phraseRegex(phrase: string, substring: boolean): RegExp {
@@ -23,13 +38,21 @@ export function phraseRegex(phrase: string, substring: boolean): RegExp {
   const parts = tokens.map(
     (t) => escape(t.replace(/\*$/u, '')) + (t.endsWith('*') ? `${WORD}*` : ''),
   );
+  if (ARABIC_START.test(parts[0] ?? '')) {
+    parts[0] = arabicHead(parts[0] ?? '');
+  }
   const tail = tokens.at(-1)?.endsWith('*') === true ? '' : `(?!${WORD})`;
   return new RegExp(`(?<!${WORD})${parts.join(String.raw`\s+`)}${tail}`, 'u');
 }
 
-/** A non-claim span source (`NON_CLAIM_SPANS`), compiled on word boundaries. */
-export function nonClaimRegex(source: string): RegExp {
-  return new RegExp(`(?<!${WORD})(?:${source})(?!${WORD})`, 'gu');
+/**
+ * A non-claim span source (`NON_CLAIM_SPANS`), compiled on word boundaries,
+ * or anywhere in a `match: substring` locale (ja: no spaces between words).
+ */
+export function nonClaimRegex(source: string, substring = false): RegExp {
+  return substring
+    ? new RegExp(`(?:${source})`, 'gu')
+    : new RegExp(`(?<!${WORD})(?:${source})(?!${WORD})`, 'gu');
 }
 
 export interface MatchRule {

@@ -223,6 +223,6 @@
   "l3": {
     "certainty": ["間違いなく", "絶対に", "確実に"],
     "forbiddenClaims": ["死ぬでしょう", "診断", "抗うつ薬", "株を買", "投資しなさい"],
-    "nonClaimSpans": []
+    "nonClaimSpans": ["必ずしも", "不確実"]
   }
 }

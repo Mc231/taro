@@ -71,6 +71,7 @@
     "ai.provider.freeFallback": 1,
     "ai.provider.paid": 1,
     "ai.refusalFallbacks": 1,
+    "ai.serviceTier": 1,
     "ai.timeoutMs": 1,
     "alerts.error5xxRatePct": 1,
     "alerts.readingFailedRatePct": 1,

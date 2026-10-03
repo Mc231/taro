@@ -84,10 +84,26 @@ _NAME_FIELDS = {"name", "subtitle", "title"}
 _DESCRIPTION_FIELDS = {"description", "full_description"}
 
 
+_ARABIC_MARKS = re.compile("[\u064b-\u065f\u0670\u0640]")
+_ARABIC_ALEFS = re.compile("[\u0623\u0625\u0622\u0671]")
+_ARABIC_START = re.compile("^[\u0600-\u06ff]")
+
+
 def normalize(text: str) -> str:
-    """NFKC, case-folded, curly apostrophes as ``'``."""
+    """NFKC, case-folded, curly apostrophes as ``'``, Arabic harakat and tatweel dropped, alef forms unified.
+
+    Mirrors the Worker's ``normalize`` (``worker/src/safety/text.ts``).
+    """
     text = unicodedata.normalize("NFKC", text)
-    return text.replace("’", "'").replace("‘", "'").casefold()
+    text = text.replace("’", "'").replace("‘", "'").casefold()
+    return _ARABIC_ALEFS.sub("\u0627", _ARABIC_MARKS.sub("", text))
+
+
+def _arabic_head(token: str) -> str:
+    """First token of an Arabic phrase with its proclitics (و/ف, then ب/ل/ك; "ال" also as "لل")."""
+    if token.startswith("ال"):
+        return "(?:[وف]?[بك]?ال|[وف]?لل)" + token[2:]
+    return "[وف]?[بلك]?" + token
 
 
 def phrase_regex(phrase: str, substring: bool) -> re.Pattern[str]:
@@ -98,6 +114,8 @@ def phrase_regex(phrase: str, substring: bool) -> re.Pattern[str]:
     if substring:
         return re.compile(r"\s*".join(re.escape(t.rstrip("*")) for t in tokens))
     parts = [re.escape(t.rstrip("*")) + (r"\w*" if t.endswith("*") else "") for t in tokens]
+    if _ARABIC_START.match(parts[0]):
+        parts[0] = _arabic_head(parts[0])
     tail = "" if tokens[-1].endswith("*") else r"(?!\w)"
     return re.compile(r"(?<!\w)" + r"\s+".join(parts) + tail)
 

@@ -18,12 +18,19 @@ import { parseModelText, stripSchemaKeywords } from '../ai/output';
  * decision: no SDK, non-streaming, `store: false`). The static prefix goes
  * first as the developer message, so OpenAI's automatic prefix caching
  * (>= 1024 tokens) can reuse it; no explicit breakpoint exists or is needed.
+ * `ai.serviceTier: "fast"` sends `service_tier: "fast"` (Fast mode, formerly
+ * Priority processing: about 40 % lower latency at 2x the price, measured
+ * 2026-10-03); the response's `service_tier` says what was served, since
+ * OpenAI may downgrade to `default` (billed at standard rates) under load.
  * Never sent: `user`, `safety_identifier`, `temperature`, `prompt_cache_key`.
  * `ai.refusalFallbacks` is ignored.
  */
 export const OPENAI_BASE_URL = 'https://api.openai.com/v1';
 export const OPENAI_SCHEMA_NAME = 'tarot_reading';
 export const OPENAI_MODERATION_MODEL = 'omni-moderation-latest';
+
+/** `service_tier` values billed at the Fast price (`priority` is the pre-rename name). */
+const FAST_SERVICE_TIERS: readonly string[] = ['fast', 'priority'];
 
 /** Models with a `reasoning.effort` parameter (GPT-5+ and the o-series). */
 const REASONING_MODEL = /^(gpt-(?:[5-9]|\d{2,})|o\d)/;
@@ -54,6 +61,7 @@ export function openAiBody(request: AiAttemptRequest): Record<string, unknown> {
     },
     ...(REASONING_MODEL.test(request.model) ? { reasoning: { effort: request.effort } } : {}),
     max_output_tokens: request.maxTokens,
+    ...(request.serviceTier === 'fast' ? { service_tier: 'fast' } : {}),
     store: false,
   };
 }
@@ -63,6 +71,7 @@ const count = z.int().min(0);
 const responseSchema = z.object({
   status: z.string(),
   model: z.string(),
+  service_tier: z.string().nullish(),
   output: z
     .array(
       z.object({
@@ -107,11 +116,16 @@ export function mapOpenAiResponse(body: unknown, request: AiAttemptRequest): AiA
   const response = parsed.data;
   const usage = usageOf(response);
   const model = response.model;
+  const served = {
+    model,
+    usage,
+    ...(FAST_SERVICE_TIERS.includes(response.service_tier ?? '') ? { fast: true } : {}),
+  };
   const content = response.output
     .filter((item) => item.type === 'message')
     .flatMap((item) => item.content ?? []);
   if (content.some((part) => part.type === 'refusal')) {
-    return { kind: 'refused', category: null, model, usage };
+    return { kind: 'refused', category: null, ...served };
   }
   if (response.status === 'completed') {
     const text = content
@@ -120,16 +134,16 @@ export function mapOpenAiResponse(body: unknown, request: AiAttemptRequest): AiA
       .join('');
     const result = parseModelText(text, request.prompt.expected);
     return result.ok
-      ? { kind: 'ok', output: result.output, model, usage }
-      : { kind: 'invalid_output', issues: result.issues, model, usage };
+      ? { kind: 'ok', output: result.output, ...served }
+      : { kind: 'invalid_output', issues: result.issues, ...served };
   }
   if (response.status === 'incomplete') {
     const reason = response.incomplete_details?.reason;
     if (reason === 'max_output_tokens') {
-      return { kind: 'truncated', model, usage };
+      return { kind: 'truncated', ...served };
     }
     if (reason === 'content_filter') {
-      return { kind: 'refused', category: null, model, usage };
+      return { kind: 'refused', category: null, ...served };
     }
     return { kind: 'upstream', retryable: false, detail: `incomplete:${String(reason)}` };
   }

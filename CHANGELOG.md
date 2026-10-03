@@ -85,6 +85,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- `tools/store_copy/check_store_copy.py` now mirrors the Worker's Arabic L3 matching. Harakat, tatweel and alef forms are normalised, and Arabic phrases match after the proclitics و/ف and ب/ل/ك, so "حتماً" and "وحتما" are flagged and "الاحتمال" is not. Every `certainty_exemptions.yaml` span is still needed, so none was removed.
 - Large text (01 §12): `JournalEntryTile` (S05 Recent, S14) stacks its card thumbs and indicators above the title above 1.5× text and no longer cuts the title ("A season of rebuilding" was clipped at 200 %); the `TaroCardFace` "Reversed" badge shrinks to fit the card instead of being cut to "Rev…" (S09, S13, S32). Goldens `journal_entry_tile` x2, `s09_reading_content` and `s32_classic_content` x2 regenerated.
 - About and FAQ articles (en + 11 locales) now name OpenAI as the only AI processor, matching `aiConsentBody` (OpenAI-only at launch), and their menu paths match the real Settings groups (Readings, Privacy & data, Help → Help & FAQ / Support lines / Legal); translations re-synced to the new en `sourceHash` (`reviewStatus: machine`), including tr.
 - The S07 balance chip moves from the app bar into the body when its label does not fit on one line (uk and fr at 130 % text overflowed the bar), and the S11 chip wraps instead of overflowing (01 §12).

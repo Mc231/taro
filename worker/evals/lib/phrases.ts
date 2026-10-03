@@ -237,7 +237,7 @@ export function buildPhraseBook(
       substring,
       rules,
       allowedContexts: asStrings(block['allowed_contexts']).map(normalize),
-      nonClaims: sources[locale].l3.nonClaimSpans.map(nonClaimRegex),
+      nonClaims: sources[locale].l3.nonClaimSpans.map((source) => nonClaimRegex(source, substring)),
     };
   }
   return book;

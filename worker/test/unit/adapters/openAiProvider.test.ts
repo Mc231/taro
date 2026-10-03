@@ -90,6 +90,49 @@ describe('OpenAiProvider request shape (Sprint 8.1 API notes)', () => {
     }
   });
 
+  it('ai.serviceTier fast sends service_tier "fast"; standard or absent sends none', () => {
+    expect(openAiBody({ ...request, serviceTier: 'fast' })).toMatchObject({ service_tier: 'fast' });
+    expect(openAiBody({ ...request, serviceTier: 'standard' })).not.toHaveProperty('service_tier');
+    expect(openAiBody(request)).not.toHaveProperty('service_tier');
+  });
+
+  it('marks a call served at fast or priority as fast; default or absent is standard', async () => {
+    for (const tier of ['fast', 'priority']) {
+      for (const shape of [
+        body({ service_tier: tier }),
+        body({
+          service_tier: tier,
+          status: 'incomplete',
+          incomplete_details: { reason: 'max_output_tokens' },
+        }),
+        body({ service_tier: tier, output: [{ type: 'message', content: [{ type: 'refusal' }] }] }),
+        body({
+          service_tier: tier,
+          output: [{ type: 'message', content: [{ type: 'output_text', text: '{' }] }],
+        }),
+      ]) {
+        expect(mapOpenAiResponse(shape, request)).toMatchObject({ fast: true });
+      }
+    }
+    expect(mapOpenAiResponse(body({ service_tier: 'default' }), request)).not.toHaveProperty(
+      'fast',
+    );
+    expect(mapOpenAiResponse(body({ service_tier: null }), request)).not.toHaveProperty('fast');
+    expect(mapOpenAiResponse(body({}), request)).not.toHaveProperty('fast');
+
+    const runtime = testRuntime();
+    const provider = new OpenAiProvider({
+      apiKey: TEST_KEY,
+      runtime,
+      fetch: () => Promise.resolve(Response.json(body({ service_tier: 'fast' }))),
+    });
+    const result = await provider.generate({
+      ...contractRequest(runtime, 'gpt-6-luna'),
+      serviceTier: 'fast',
+    });
+    expect(result.calls).toEqual([expect.objectContaining({ provider: 'openai', fast: true })]);
+  });
+
   it('omits reasoning for a model without it and keeps minItems/maxItems in the schema', () => {
     expect(openAiBody(attempt('gpt-4.1-mini'))).not.toHaveProperty('reasoning');
     expect(openAiBody(attempt('o4-mini'))).toHaveProperty('reasoning');

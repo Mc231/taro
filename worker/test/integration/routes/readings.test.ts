@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, it } from 'vitest';
+import { afterAll, describe, expect, it, vi } from 'vitest';
 import type { AiAttemptOutcome, AiAttemptRequest } from '../../../src/adapters/ai/callPolicy';
 import type { BalanceDto } from '../../../src/domain/allowance';
 import type { RuntimeConfig } from '../../../src/config/schema';
@@ -7,6 +7,7 @@ import type { ErrorEnvelope } from '../../../src/http/errors';
 import { IdempotencyRepo } from '../../../src/repos/IdempotencyRepo';
 import { ReadingRepo } from '../../../src/repos/ReadingRepo';
 import { SpendRepo } from '../../../src/repos/SpendRepo';
+import { BudgetService } from '../../../src/services/BudgetService';
 import { READINGS_ROUTE, type ReadingResponse } from '../../../src/services/ReadingService';
 import { CRON, runScheduled } from '../../../src/scheduled';
 import type { CapturingLogger } from '../../fakes/CapturingLogger';
@@ -363,8 +364,17 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
     const readingId = crid();
     const body = await json<ReadingResponse>(await postReading(h, id, readingId));
     expect(body.safety?.category).toBe('self_harm');
-    expect(h.ai.openai.requests).toHaveLength(0);
-    expect((await readings.findByClientId(id, readingId))?.safetyLayer).toBe('L2');
+    expect(body.reading).toBeUndefined();
+    // The model call ran alongside the moderation: its answer is discarded,
+    // the reading is never charged, and the model spend is still recorded.
+    expect(h.ai.openai.requests).toHaveLength(1);
+    expect(h.ai.openai.moderated).toEqual([QUESTION]);
+    expect(await freeUsed(id)).toBe(0);
+    expect(await readings.findByClientId(id, readingId)).toMatchObject({
+      status: 'declined',
+      safetyLayer: 'L2',
+      costMicroUsd: callCost('openai', 'gpt-6.1-sol', FAKE_USAGE, h.logger).microUsd,
+    });
 
     h.ai.openai.moderation({ kind: 'error' });
     const other = await install();
@@ -386,6 +396,61 @@ describe('declined readings: 200, never charged (03 §9.1, §9.4; MO6, RC27, RC7
     );
     expect(failed.status).toBe(503);
     expect(await freeUsed(third)).toBe(0);
+  });
+
+  it('question moderation runs alongside the first model call, once per reading', async () => {
+    const h = setup();
+    h.config.set({ 'ai.moderation.provider': 'openai' });
+    let modelCallsSeen = -1;
+    const texts: string[] = [];
+    h.ai.openai.moderate = async (text) => {
+      texts.push(text);
+      if (text === QUESTION) {
+        // Sequential code would never start the model call while this waits.
+        for (let i = 0; i < 50 && h.ai.openai.requests.length === 0; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 1));
+        }
+        modelCallsSeen = h.ai.openai.requests.length;
+      }
+      return { kind: 'ok', flagged: false, categories: [] };
+    };
+    // An L3 violation regenerates; the question is still moderated only once.
+    h.ai.openai.script(answer({ synthesis: 'Visit https://example.com for more.' }));
+    const id = await install();
+    const res = await postReading(h, id, crid());
+    expect(res.status).toBe(200);
+    expect(modelCallsSeen).toBe(1);
+    expect(h.ai.openai.requests).toHaveLength(2);
+    expect(texts.filter((text) => text === QUESTION)).toHaveLength(1);
+    expect(texts).toHaveLength(2);
+  });
+
+  it('a flagged question wins over the model outcome; a throwing moderation never blocks', async () => {
+    const h = setup();
+    h.config.set({ 'ai.moderation.provider': 'openai' });
+    h.ai.openai.moderation({ kind: 'ok', flagged: true, categories: ['violence'] });
+    h.ai.openai.script({ kind: 'timeout' });
+    const id = await install();
+    const readingId = crid();
+    const res = await postReading(h, id, readingId);
+    expect(res.status).toBe(200);
+    expect((await json<ReadingResponse>(res)).status).toBe('declined');
+    expect(await readings.findByClientId(id, readingId)).toMatchObject({
+      status: 'declined',
+      safetyLayer: 'L2',
+      chargeSource: 'none',
+    });
+    expect(await freeUsed(id)).toBe(0);
+
+    h.ai.openai.moderate = (text) =>
+      text === QUESTION ? Promise.reject(new Error('boom')) : Promise.resolve({ kind: 'error' });
+    const other = await install();
+    const ok = await postReading(h, other, crid());
+    expect(ok.status).toBe(200);
+    expect((await json<ReadingResponse>(ok)).status).toBe('completed');
+    expect(h.logger.find('ai_moderation_failed')).toEqual([
+      { level: 'warn', event: 'ai_moderation_failed', fields: { stage: 'question' } },
+    ]);
   });
 });
 
@@ -976,18 +1041,32 @@ describe('replay bodies and edge paths (RC51, RC52)', () => {
       'ai.promptVersion': 'v9',
       'ai.budget.dailyHardUsd': 1,
     });
-    h.ai.openai.moderate = async () => {
-      await db
-        .prepare(
-          `INSERT INTO ai_spend_daily (date_utc, readings, cost_micro_usd) VALUES (?1, 1, ?2)`,
-        )
-        .bind('2027-03-01', 2_000_000)
-        .run();
-      return { kind: 'ok', flagged: false, categories: [] };
-    };
+    // Spend lands after the request's gate and hold, before the model-call gate.
+    const proto = BudgetService.prototype;
+    type Gate = (
+      this: BudgetService,
+      ...args: Parameters<BudgetService['assertHoldAllowed']>
+    ) => ReturnType<BudgetService['assertHoldAllowed']>;
+    const real = Object.getOwnPropertyDescriptor(proto, 'assertHoldAllowed')?.value as Gate;
+    const original = (self: BudgetService, ...args: Parameters<Gate>) => real.apply(self, args);
+    const gate = vi
+      .spyOn(proto, 'assertHoldAllowed')
+      .mockImplementationOnce(function (this: BudgetService, config, now) {
+        return original(this, config, now);
+      })
+      .mockImplementationOnce(async function (this: BudgetService, config, now) {
+        await db
+          .prepare(
+            `INSERT INTO ai_spend_daily (date_utc, readings, cost_micro_usd) VALUES (?1, 1, ?2)`,
+          )
+          .bind('2027-03-01', 2_000_000)
+          .run();
+        return original(this, config, now);
+      });
     const id = await install();
     const readingId = crid();
     const res = await postReading(h, id, readingId);
+    gate.mockRestore();
     expect(await errorBody(res)).toMatchObject({
       code: 'AI_BUDGET_EXHAUSTED',
       details: { tier: 'hard' },
@@ -999,5 +1078,6 @@ describe('replay bodies and edge paths (RC51, RC52)', () => {
       promptVersion: 'v1',
     });
     expect(h.ai.openai.requests).toHaveLength(0);
+    expect(h.ai.openai.moderated).toEqual([]);
   });
 });

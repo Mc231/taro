@@ -13,7 +13,7 @@ import {
   type AnsweredReading,
   type Violation,
 } from '../domain/outputValidator';
-import { callCost } from '../domain/pricing';
+import { aiCallCost } from '../domain/pricing';
 import {
   declinedLimitReached,
   declinedSafety,
@@ -53,7 +53,7 @@ import {
   type ReadingRow,
   type ReadingStatus,
 } from '../repos/ReadingRepo';
-import { aiTierFor, AiRouter, type RoutedAiResult } from './AiRouter';
+import { aiTierFor, AiRouter, type RoutedAiResult, type RoutedModerationResult } from './AiRouter';
 import {
   BalanceService,
   installTimezone,
@@ -67,8 +67,9 @@ import { BudgetService, isolateDauCache } from './BudgetService';
  *
  * - `hold`: the pre-draw hold `POST /v1/readings/holds`.
  * - `create`: the pipeline of `POST /v1/readings` (gates → row state
- *   machine → L1 → moderation → provider call → L2/L3 with one
- *   regeneration → commit, or refund + `failed`).
+ *   machine → L1 → budget gate → question moderation in parallel with the
+ *   provider call → L2/L3 with one regeneration → commit, or refund +
+ *   `failed`).
  * - `status` / `ack`: `GET /v1/readings/{clientReadingId}` and its delivery
  *   acknowledgement (RC51).
  *
@@ -552,17 +553,6 @@ export class ReadingService {
       });
       return this.decline(attempt, l1.category, 'L1', log);
     }
-    if (request.question !== '') {
-      const moderated = await this.router.moderate(
-        request.question,
-        config,
-        config['ai.timeoutMs'],
-      );
-      const category = moderated.kind === 'skipped' ? null : moderationInputCategory(moderated);
-      if (category !== null) {
-        return this.decline(attempt, category, 'L2', log);
-      }
-    }
 
     let budgetTier: BudgetTier;
     try {
@@ -573,6 +563,11 @@ export class ReadingService {
       throw err;
     }
     const tier = aiTierFor(attempt.source, budgetTier);
+    // The question's moderation runs alongside the first model call (03 §9.4):
+    // it is checked before that call's answer is used, so a flagged question
+    // is still declined and its answer discarded, uncharged.
+    let questionCheck: Promise<RoutedModerationResult> | null =
+      request.question === '' ? null : this.moderateQuestion(request.question, config);
 
     let note: string | undefined;
     for (let round = 0; ; round++) {
@@ -590,15 +585,22 @@ export class ReadingService {
       if (!built.ok) {
         return this.fail(attempt, 'prompt', log);
       }
-      const result: RoutedAiResult = await this.router.generate(
-        tier,
-        config,
-        built.input,
-        attempt.startedAt,
-      );
+      const [moderated, result]: [RoutedModerationResult | null, RoutedAiResult] =
+        await Promise.all([
+          questionCheck,
+          this.router.generate(tier, config, built.input, attempt.startedAt),
+        ]);
+      questionCheck = null;
       log.calls.push(...result.calls);
       if ('model' in result) {
         log.model = result.model;
+      }
+      const flagged =
+        moderated === null || moderated.kind === 'skipped'
+          ? null
+          : moderationInputCategory(moderated);
+      if (flagged !== null) {
+        return this.decline(attempt, flagged, 'L2', log);
       }
       const outcome = await this.judge(attempt, result, built.input.expected);
       if (outcome.kind === 'answered') {
@@ -621,6 +623,22 @@ export class ReadingService {
         violations: outcome.violations.map((v) => v.kind).join(','),
       });
       note = regenerationNote(outcome.violations);
+    }
+  }
+
+  /**
+   * Question moderation; an error or a throw never blocks the reading
+   * (03 §9.4), so a rejected promise maps to `error`.
+   */
+  private async moderateQuestion(
+    question: string,
+    config: RuntimeConfig,
+  ): Promise<RoutedModerationResult> {
+    try {
+      return await this.router.moderate(question, config, config['ai.timeoutMs']);
+    } catch {
+      this.deps.logger.log('warn', 'ai_moderation_failed', { stage: 'question' });
+      return { kind: 'error' };
     }
   }
 
@@ -844,11 +862,7 @@ export class ReadingService {
   }
 
   private cost(log: CallLog): number {
-    return log.calls.reduce(
-      (sum, call) =>
-        sum + callCost(call.provider, call.model, call.usage, this.deps.logger).microUsd,
-      0,
-    );
+    return log.calls.reduce((sum, call) => sum + aiCallCost(call, this.deps.logger), 0);
   }
 
   private latency(attempt: Attempt): number {

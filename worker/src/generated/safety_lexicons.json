@@ -879,7 +879,8 @@
           "what will happen",
           "(?:not|never|nothing|no|nor|without|rather than|instead of)(?:\\s+[^\\s.,;:!?]+){0,3}?\\s+(?:guaranteed?|will happen)",
           "invest(?:ing)?(?: (?:time|energy|care|effort|attention))? in (?:yourself|your (?:own )?(?:growth|relationships?|skills|learning|wellbeing|well-being|self-care|creativity|connections|friendships|home|craft|future))"
-        ]
+        ],
+        "substring": false
       }
     },
     "ar": {
@@ -1226,101 +1227,102 @@
             "phrase": "دقيق*",
             "kind": "accuracy",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])دقيق[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?دقيق[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "مضمون*",
             "kind": "guarantee",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])مضمون[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?مضمون[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "عراف*",
             "kind": "supernatural",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])عراف[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?عراف[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "وسيط روحاني",
             "kind": "supernatural",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])وسيط\\s+روحاني(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?وسيط\\s+روحاني(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "التنبؤ بالمستقبل",
             "kind": "prediction",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])التنبؤ\\s+بالمستقبل(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])(?:[وف]?[بك]?ال|[وف]?لل)تنبؤ\\s+بالمستقبل(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "علاج*",
             "kind": "other",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])علاج[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?علاج[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "سحر*",
             "kind": "other",
             "source": "banned_phrases",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])سحر[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?سحر[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "بالتأكيد",
             "kind": "guarantee",
             "source": "certainty_patterns",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])بالتأكيد(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?بالتاكيد(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "بلا شك",
             "kind": "guarantee",
             "source": "certainty_patterns",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])بلا\\s+شك(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?بلا\\s+شك(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "حتما",
             "kind": "guarantee",
             "source": "certainty_patterns",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])حتما(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?حتما(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "من المؤكد",
             "kind": "guarantee",
             "source": "certainty_patterns",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])من\\s+المؤكد(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?من\\s+المؤكد(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "ستموت",
             "kind": "claim",
             "source": "forbidden_claims",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])ستموت(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?ستموت(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "تشخيص*",
             "kind": "claim",
             "source": "forbidden_claims",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])تشخيص[\\p{L}\\p{N}\\p{M}_]*"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?تشخيص[\\p{L}\\p{N}\\p{M}_]*"
           },
           {
             "phrase": "مضاد* الاكتئاب",
             "kind": "claim",
             "source": "forbidden_claims",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])مضاد[\\p{L}\\p{N}\\p{M}_]*\\s+الاكتئاب(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?مضاد[\\p{L}\\p{N}\\p{M}_]*\\s+الاكتئاب(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "اشتر* الأسهم",
             "kind": "claim",
             "source": "forbidden_claims",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])اشتر[\\p{L}\\p{N}\\p{M}_]*\\s+الأسهم(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?اشتر[\\p{L}\\p{N}\\p{M}_]*\\s+الاسهم(?![\\p{L}\\p{N}\\p{M}_])"
           },
           {
             "phrase": "استثمر في العملات",
             "kind": "claim",
             "source": "forbidden_claims",
-            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])استثمر\\s+في\\s+العملات(?![\\p{L}\\p{N}\\p{M}_])"
+            "pattern": "(?<![\\p{L}\\p{N}\\p{M}_])[وف]?[بلك]?استثمر\\s+في\\s+العملات(?![\\p{L}\\p{N}\\p{M}_])"
           }
         ],
         "allowedContexts": [],
-        "nonClaimSpans": []
+        "nonClaimSpans": [],
+        "substring": false
       }
     },
     "de": {
@@ -1917,7 +1919,8 @@
         "allowedContexts": [],
         "nonClaimSpans": [
           "genau (?:diese[rsnm]?|das|dies|so|dann|hier|dort|jetzt|da|darin|darum|deshalb|deswegen|wie)"
-        ]
+        ],
+        "substring": false
       }
     },
     "es": {
@@ -2488,7 +2491,8 @@
         "nonClaimSpans": [
           "precisamente",
           "precisar"
-        ]
+        ],
+        "substring": false
       }
     },
     "fr": {
@@ -3065,7 +3069,8 @@
           "(?:questions?|demandes?) précises?",
           "(?:plans?(?: d'action)?|moments?|instants?|endroits?|lieux|lieu|détails?|gestes?|objectifs?|buts?|pas|mots?|choix|sens|jours?|dates?) précis(?:e|es)?",
           "(?:pas|jamais)(?:\\s+[^\\s.,;:!?]+){0,3}?\\s+garanti(?:e|s|es)?"
-        ]
+        ],
+        "substring": false
       }
     },
     "it": {
@@ -3626,7 +3631,8 @@
           "precisamente",
           "precisare",
           "domand[ae] precis[ae]"
-        ]
+        ],
+        "substring": false
       }
     },
     "ja": {
@@ -4083,7 +4089,11 @@
           }
         ],
         "allowedContexts": [],
-        "nonClaimSpans": []
+        "nonClaimSpans": [
+          "必ずしも",
+          "不確実"
+        ],
+        "substring": true
       }
     },
     "ko": {
@@ -4552,7 +4562,10 @@
           }
         ],
         "allowedContexts": [],
-        "nonClaimSpans": []
+        "nonClaimSpans": [
+          "반드시(?= [^.!?\\n]{0,24}?(?:않|아니))"
+        ],
+        "substring": false
       }
     },
     "nl": {
@@ -5107,7 +5120,8 @@
         "allowedContexts": [],
         "nonClaimSpans": [
           "met zekerheid te maken"
-        ]
+        ],
+        "substring": false
       }
     },
     "pt": {
@@ -5654,7 +5668,8 @@
           "precisa [^\\s.,;:!?]+(?:ar|er|ir|or)",
           "(?:você|voce|ele|ela|isso|isto|algo|tudo|nada|quem|ainda|só|so|também|tambem) precisa",
           "(?:não|nem|sem)(?:\\s+[^\\s.,;:!?]+){0,4}?\\s+com certeza"
-        ]
+        ],
+        "substring": false
       }
     },
     "tr": {
@@ -6216,7 +6231,8 @@
         "allowedContexts": [],
         "nonClaimSpans": [
           "(?:mutlaka|kesin)(?:\\s+[^\\s.,;:!?]+){0,5}?\\s+değil"
-        ]
+        ],
+        "substring": false
       }
     },
     "uk": {
@@ -6762,7 +6778,8 @@
           }
         ],
         "allowedContexts": [],
-        "nonClaimSpans": []
+        "nonClaimSpans": [],
+        "substring": false
       }
     }
   }

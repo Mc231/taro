@@ -1,7 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_SERVER_CONFIG } from '../../../src/config/defaults';
 import {
+  aiCallCost,
   callCost,
+  FAST_PRICE_FACTOR,
+  fastPrice,
   costMicroUsd,
   maxKnownPrice,
   modelKey,
@@ -140,5 +143,24 @@ describe('priceFor / maxKnownPrice / callCost', () => {
     expect(logger.find('pricing_unknown')).toEqual([
       { level: 'warn', event: 'pricing_unknown', fields: { model: 'openai/gpt-7-new' } },
     ]);
+  });
+
+  it('prices a fast-tier call at 2x every component (aiCallCost, fastPrice)', () => {
+    const logger = new CapturingLogger();
+    const u = usage({ inputTokens: 1000, outputTokens: 1000, cacheReadTokens: 3000 });
+    const standard = callCost('openai', 'gpt-6.1-sol', u, logger).microUsd;
+    expect(aiCallCost({ provider: 'openai', model: 'gpt-6.1-sol', usage: u }, logger)).toBe(
+      standard,
+    );
+    expect(
+      aiCallCost({ provider: 'openai', model: 'gpt-6.1-sol', usage: u, fast: true }, logger),
+    ).toBe(standard * FAST_PRICE_FACTOR);
+    expect(FAST_PRICE_FACTOR).toBe(2);
+    expect(fastPrice({ input: 2, output: 10, cacheRead: 0.1, cacheWrite: 2.5 })).toEqual({
+      input: 4,
+      output: 20,
+      cacheRead: 0.2,
+      cacheWrite: 5,
+    });
   });
 });

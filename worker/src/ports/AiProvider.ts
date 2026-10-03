@@ -1,4 +1,4 @@
-import type { AI_EFFORTS, AiProviderId } from '../config/schema';
+import type { AI_EFFORTS, AI_SERVICE_TIERS, AiProviderId } from '../config/schema';
 import type { ReadingPromptInput } from '../prompts/build';
 import type { ReadingOutput } from '../prompts/templates';
 
@@ -30,6 +30,7 @@ export const ZERO_USAGE: AiUsage = {
 };
 
 export type AiEffort = (typeof AI_EFFORTS)[number];
+export type AiServiceTier = (typeof AI_SERVICE_TIERS)[number];
 
 /** One billed upstream call: the provider, the model that served it and its usage. */
 export interface AiCall {
@@ -37,6 +38,8 @@ export interface AiCall {
   /** The serving model (may differ from the requested one after a server-side fallback). */
   readonly model: string;
   readonly usage: AiUsage;
+  /** True when the vendor served the call at its fast (priority) tier, priced 2x (`domain/pricing.ts`). */
+  readonly fast?: boolean;
 }
 
 /** One reading generation, with the time budget of the whole handler (RC52). */
@@ -46,6 +49,8 @@ export interface AiGenerateRequest {
   /** `ai.maxTokensBySpread[spread]`; the truncation retry uses 1.5x. */
   readonly maxTokens: number;
   readonly effort: AiEffort;
+  /** `ai.serviceTier` (a hint: the OpenAI adapter maps `fast` to Fast mode; others ignore it). Absent = standard. */
+  readonly serviceTier?: AiServiceTier;
   /** `ai.refusalFallbacks` (Anthropic Opus only; other adapters ignore it). */
   readonly refusalFallbacks: boolean;
   /** `ai.timeoutMs`: the cap of one upstream call. */

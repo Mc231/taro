@@ -119,7 +119,7 @@ describe('prefilter', () => {
     const empty = {
       reviewed: true,
       l1: [],
-      l3: { rules: [], allowedContexts: [], nonClaimSpans: [] },
+      l3: { rules: [], allowedContexts: [], nonClaimSpans: [], substring: false },
     };
     const data = {
       version: 1,

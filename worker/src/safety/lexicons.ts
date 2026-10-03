@@ -37,6 +37,8 @@ export interface GeneratedLexicon {
     readonly rules: readonly GeneratedL3Rule[];
     readonly allowedContexts: readonly string[];
     readonly nonClaimSpans: readonly string[];
+    /** `match: substring` (ja): non-claim spans match anywhere. */
+    readonly substring: boolean;
   };
 }
 
@@ -92,7 +94,9 @@ export function loadSafetyLexicons(data: GeneratedLexicons): SafetyLexicons {
           pattern: new RegExp(rule.pattern, 'u'),
         })),
         allowedContexts: lexicon.l3.allowedContexts,
-        nonClaims: lexicon.l3.nonClaimSpans.map(nonClaimRegex),
+        nonClaims: lexicon.l3.nonClaimSpans.map((source) =>
+          nonClaimRegex(source, lexicon.l3.substring),
+        ),
       },
     };
   }

@@ -1,6 +1,6 @@
 import type { AiProviderId } from '../config/schema';
 import type { Logger } from '../ports/Logger';
-import type { AiUsage } from '../ports/AiProvider';
+import type { AiCall, AiUsage } from '../ports/AiProvider';
 
 /**
  * AI price table per `provider/model` (03 §9.6, RC32, RC97) and the cost of
@@ -21,12 +21,19 @@ import type { AiUsage } from '../ports/AiProvider';
  *   refusals under `fallbacks: "default"`). A model outside it is priced at
  *   the component-wise maximum of the table and logs `pricing_unknown`.
  *
+ * - A call served at the vendor's fast tier (`AiCall.fast`, OpenAI Fast mode,
+ *   `ai.serviceTier`) costs {@link FAST_PRICE_FACTOR}x every component
+ *   (gpt-6.1-sol Fast: 4 / 20, cached 0.20, checked 2026-10-03).
+ *
  * `AiUsage` is normalised by the adapters: `inputTokens` are the uncached
  * input tokens only (Anthropic `input_tokens`; OpenAI `input_tokens` minus
  * `cached_tokens` and `cache_write_tokens`), and `outputTokens` include
  * thinking / reasoning tokens.
  */
 export const PRICES_CHECKED_ON = '2026-09-30';
+
+/** Fast mode (formerly Priority processing) multiplies every token price. */
+export const FAST_PRICE_FACTOR = 2;
 
 export interface ModelPrice {
   /** USD per million uncached input tokens. */
@@ -132,4 +139,24 @@ export function callCost(
     logger.log('warn', 'pricing_unknown', { model: key });
   }
   return { model: key, microUsd: costMicroUsd(usage, price), known };
+}
+
+/** A price at the fast tier ({@link FAST_PRICE_FACTOR}x each component). */
+export function fastPrice(price: ModelPrice): ModelPrice {
+  return {
+    input: price.input * FAST_PRICE_FACTOR,
+    output: price.output * FAST_PRICE_FACTOR,
+    cacheRead: price.cacheRead * FAST_PRICE_FACTOR,
+    cacheWrite: price.cacheWrite * FAST_PRICE_FACTOR,
+  };
+}
+
+/** Cost of one billed `AiCall` in micro-USD: {@link callCost}, times 2 at the fast tier. */
+export function aiCallCost(
+  call: AiCall,
+  logger: Logger,
+  table: Readonly<Record<string, ModelPrice>> = PRICE_TABLE,
+): number {
+  const { microUsd } = callCost(call.provider, call.model, call.usage, logger, table);
+  return call.fast === true ? microUsd * FAST_PRICE_FACTOR : microUsd;
 }

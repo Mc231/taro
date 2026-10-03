@@ -262,6 +262,11 @@ def test_1_1_6_no_arb_or_deck_text_states_certainty() -> None:
         ("en", "This will definitely work out.", "will definitely"),
         ("fr", "Cela arrivera a coup sur.", "à coup sûr"),
         ("ja", "願いは絶対に叶います", "絶対に"),
+        ("ar", "حتما", "حتما"),
+        ("ar", "سيتحقق حتماً", "حتما"),
+        ("ar", "وحتما سيتحقق", "حتما"),
+        ("ar", "فحتمًا", "حتما"),
+        ("ar", "وبالتاكيد", "بالتأكيد"),
     ],
 )
 def test_certainty_hits(locale: str, text: str, hit: str) -> None:
@@ -274,6 +279,11 @@ def test_certainty_hits(locale: str, text: str, hit: str) -> None:
         ("en", "Write down what you know for certain and what you assume."),
         ("en", "Nothing here is guaranteed; notice what will happen if you rest."),
         ("ar", "أسوأ الاحتمالات"),
+        ("ar", "الاحتمال"),
+        ("ar", "احتمالات"),
+        ("ar", "أسهل احتمالًا"),
+        ("ja", "必ずしもそうとは限りません"),
+        ("ja", "不確実に感じる"),
         ("ja", "が"),
     ],
 )
@@ -284,6 +294,17 @@ def test_certainty_non_claims_are_exempt(locale: str, text: str) -> None:
 def test_certainty_without_exemptions_flags_the_reviewed_span() -> None:
     rules = _certainty({})
     assert rules["en"].hits("what you know for certain") == ["for certain"]
+
+
+def test_normalize_drops_arabic_harakat_and_unifies_alef() -> None:
+    assert csc.normalize("حتماً بالتأكيد ـ") == "حتما بالتاكيد "
+
+
+def test_arabic_phrases_take_proclitics() -> None:
+    assert csc.phrase_regex("سحر*", False).search("بسحر")
+    assert csc.phrase_regex("التنبؤ بالمستقبل", False).search("للتنبؤ بالمستقبل")
+    assert csc.phrase_regex("التنبؤ بالمستقبل", False).search("وبالتنبؤ بالمستقبل")
+    assert not csc.phrase_regex("حتما", False).search("الاحتمال")
 
 
 def test_fold_keeps_non_latin_marks() -> None:

@@ -63,6 +63,7 @@
     "ai.moderation.provider": "openai",
     "ai.disclosedProviders": ["openai"],
     "ai.effort": "low",
+    "ai.serviceTier": "fast",
     "ai.promptVersion": "v1",
     "ai.maxTokensBySpread": {
       "single": 2500,

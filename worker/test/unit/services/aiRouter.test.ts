@@ -114,6 +114,7 @@ describe('AiRouter (RC97)', () => {
           model,
           maxTokens: cfg['ai.maxTokensBySpread'].single,
           effort: cfg['ai.effort'],
+          serviceTier: cfg['ai.serviceTier'],
           refusalFallbacks: cfg['ai.refusalFallbacks'],
           timeoutMs: cfg['ai.timeoutMs'],
           maxRetries: cfg['ai.maxRetries'],

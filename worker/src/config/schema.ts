@@ -35,6 +35,12 @@ export const BANNER_ALLOW_LIST = ['home', 'journal_list', 'learn_library'] as co
 /** `ai.effort` values accepted by the model API. */
 export const AI_EFFORTS = ['low', 'medium', 'high'] as const;
 
+/**
+ * `ai.serviceTier` values: `standard`, or `fast` (OpenAI Fast mode, formerly
+ * Priority processing: about 40 % lower latency at 2x the token price, 03 §9.3).
+ */
+export const AI_SERVICE_TIERS = ['standard', 'fast'] as const;
+
 /** Routable AI providers (RC97): `ai.provider.*`, `ai.outageFallback.provider`, `ai.disclosedProviders`. */
 export const AI_PROVIDER_IDS = ['anthropic', 'openai'] as const;
 export type AiProviderId = (typeof AI_PROVIDER_IDS)[number];
@@ -132,6 +138,7 @@ const serverShape = {
   'ai.moderation.provider': z.enum(AI_MODERATION_PROVIDERS),
   'ai.disclosedProviders': z.array(aiProvider).min(1).max(AI_PROVIDER_IDS.length),
   'ai.effort': z.enum(AI_EFFORTS),
+  'ai.serviceTier': z.enum(AI_SERVICE_TIERS),
   'ai.promptVersion': z.string().regex(/^v\d+$/, 'expected v<n>'),
   'ai.maxTokensBySpread': MaxTokensBySpreadSchema,
   'ai.blockedCountries': z.array(z.string().regex(/^[A-Z]{2}$/, 'expected ISO 3166-1 alpha-2')),

@@ -101,6 +101,7 @@ export function compileSafetyLexicons(
         rules,
         allowedContexts: phrases.allowedContexts,
         nonClaimSpans: source.l3.nonClaimSpans,
+        substring: phrases.substring,
       },
     };
   }

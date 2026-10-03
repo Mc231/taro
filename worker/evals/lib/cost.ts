@@ -1,5 +1,5 @@
 import type { AiProviderId } from '../../src/config/schema';
-import { callCost, priceFor, type ModelPrice } from '../../src/domain/pricing';
+import { aiCallCost, fastPrice, priceFor, type ModelPrice } from '../../src/domain/pricing';
 import type { AiCall } from '../../src/ports/AiProvider';
 import type { Logger } from '../../src/ports/Logger';
 
@@ -48,17 +48,15 @@ export function typicalUsd(
   );
 }
 
-/** Price of a `provider/model`; an unknown model is priced at the table maximum. */
-export function evalPrice(provider: AiProviderId, model: string): ModelPrice {
-  return priceFor(provider, model).price;
+/** Price of a `provider/model` (2x at the fast tier); an unknown model is priced at the table maximum. */
+export function evalPrice(provider: AiProviderId, model: string, fast = false): ModelPrice {
+  const { price } = priceFor(provider, model);
+  return fast ? fastPrice(price) : price;
 }
 
 /** Real cost of a result's calls in USD (logs `pricing_unknown` like the Worker). */
 export function callsUsd(calls: readonly AiCall[], logger: Logger): number {
-  const micro = calls.reduce(
-    (sum, call) => sum + callCost(call.provider, call.model, call.usage, logger).microUsd,
-    0,
-  );
+  const micro = calls.reduce((sum, call) => sum + aiCallCost(call, logger), 0);
   return micro / 1_000_000;
 }
 

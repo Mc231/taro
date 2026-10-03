@@ -56,6 +56,28 @@ describe('AI call policy (03 §9.3, RC52)', () => {
     expect(seen).toEqual([12_345, 40_000]);
   });
 
+  it('passes ai.serviceTier to the attempt and keeps fast on the billed call', async () => {
+    const runtime = testRuntime();
+    const usage = { inputTokens: 1, outputTokens: 2, cacheReadTokens: 0, cacheWriteTokens: 0 };
+    const tiers: (string | undefined)[] = [];
+    const fast = await runWithPolicy(
+      'openai',
+      { ...contractRequest(runtime, 'm'), serviceTier: 'fast' },
+      runtime,
+      (a) => {
+        tiers.push(a.serviceTier);
+        return Promise.resolve({ kind: 'refused', category: null, model: 'm', usage, fast: true });
+      },
+    );
+    expect(fast.calls).toEqual([{ provider: 'openai', model: 'm', usage, fast: true }]);
+    const standard = await runWithPolicy('openai', contractRequest(runtime, 'm'), runtime, (a) => {
+      tiers.push(a.serviceTier);
+      return Promise.resolve({ kind: 'refused', category: null, model: 'm', usage });
+    });
+    expect(standard.calls).toEqual([{ provider: 'openai', model: 'm', usage }]);
+    expect(tiers).toEqual(['fast', undefined]);
+  });
+
   it('timerSleep waits on a real timer', async () => {
     await expect(timerSleep(1)).resolves.toBeUndefined();
   });

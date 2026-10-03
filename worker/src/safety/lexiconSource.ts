@@ -51,7 +51,7 @@ export const lexiconSourceSchema = z.strictObject({
   locale: z.enum(LOCALES),
   /** `false` until a native speaker has reviewed the file (Phase 18.4). */
   reviewed: z.boolean(),
-  /** Wrap patterns in letter/number boundaries (off for ar, ja, ko: particles attach to words). */
+  /** Wrap L1 patterns in letter/number boundaries (off for ar, ja, ko: particles attach to words). L3 phrases use `phraseRegex` (Arabic clitics, ja substring). */
   wordBoundaries: z.boolean(),
   l1: z.array(l1RuleSchema),
   l3: z.strictObject({

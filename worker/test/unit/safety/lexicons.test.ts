@@ -73,6 +73,32 @@ describe('L3 forbidden claims', () => {
     expect(claims('Bu kesin bir sonuç değil.', 'tr')).toEqual([]);
   });
 
+  it('Arabic: clitics and harakat still match, words that only contain the letters do not', () => {
+    for (const text of ['حتما', 'حتماً', 'حتمًا سيتحقق', 'وحتما', 'فحتما', 'سيحدث حتما.']) {
+      expect(claims(text, 'ar'), text).toEqual(['حتما']);
+    }
+    for (const text of ['الاحتمال', 'احتمالات', 'أسوأ الاحتمالات', 'باحتمال فقط', 'احتمالًا']) {
+      expect(claims(text, 'ar'), text).toEqual([]);
+    }
+    expect(claims('وبالتأكيد', 'ar')).toEqual(['بالتأكيد']);
+    expect(claims('بالتاكيد', 'ar')).toEqual(['بالتأكيد']);
+    expect(claims('ومن المؤكد', 'ar')).toEqual(['من المؤكد']);
+    expect(claims('وبلا شكّ', 'ar')).toEqual(['بلا شك']);
+    expect(claims('للتنبؤ بالمستقبل', 'ar')).toEqual(['التنبؤ بالمستقبل']);
+    expect(claims('بسحر', 'ar')).toEqual(['سحر*']);
+  });
+
+  it('ja / ko: negated certainty is not a claim, a plain one still is', () => {
+    expect(claims('必ずしもそうとは限りません。', 'ja')).toEqual([]);
+    expect(claims('不確実に感じるときもあります。', 'ja')).toEqual([]);
+    expect(claims('必ずしも悪くないが、必ず叶う。', 'ja')).toEqual(['必ず']);
+    expect(claims('確実にうまくいきます。', 'ja')).toEqual(['確実に']);
+    expect(claims('반드시 그렇지는 않아요.', 'ko')).toEqual([]);
+    expect(claims('반드시 나쁜 것은 아니에요.', 'ko')).toEqual([]);
+    expect(claims('반드시 이루어질 거예요.', 'ko')).toEqual(['반드시']);
+    expect(claims('반드시 잘될 거예요. 걱정하지 않아도 돼요.', 'ko')).toEqual(['반드시']);
+  });
+
   it('reports the kind and source of each hit', () => {
     expect(findForbiddenClaims('A real psychic knows.', LEX.en)).toEqual(
       expect.arrayContaining([

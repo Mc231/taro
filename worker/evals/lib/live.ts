@@ -491,7 +491,11 @@ export async function main(
       selected = selected.slice(0, options.limit);
     }
     const { ctx, schemaSource } = await loadGraderContext(deps, options.prompt, options.banned);
-    const price = evalPrice(options.provider, options.model);
+    const price = evalPrice(
+      options.provider,
+      options.model,
+      options.provider === 'openai' && config['ai.serviceTier'] === 'fast',
+    );
     const judgePrice =
       options.judgeModel === null ? null : evalPrice(options.provider, options.judgeModel);
     const fallback =
@@ -673,6 +677,7 @@ export async function main(
           prompt: p.prompt,
           maxTokens: p.maxTokens,
           effort: config['ai.effort'],
+          serviceTier: config['ai.serviceTier'],
           refusalFallbacks: config['ai.refusalFallbacks'],
           timeoutMs: config['ai.timeoutMs'],
           maxRetries: config['ai.maxRetries'],

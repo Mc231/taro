@@ -3,9 +3,18 @@
  * eval graders (`evals/lib`, RC61), so both match the same way.
  */
 
-/** NFKC, lower-cased, curly apostrophes as `'` (mirrors `check_store_copy.normalize`). */
+/**
+ * NFKC, lower-cased, curly apostrophes as `'`, Arabic harakat, superscript
+ * alef and tatweel removed and hamza alef forms unified (so "حتماً" is
+ * "حتما"); mirrors `check_store_copy.normalize`.
+ */
 export function normalize(text: string): string {
-  return text.normalize('NFKC').replace(/[‘’]/gu, "'").toLowerCase();
+  return text
+    .normalize('NFKC')
+    .replace(/[‘’]/gu, "'")
+    .toLowerCase()
+    .replace(/[\u064B-\u065F\u0670\u0640]/gu, '')
+    .replace(/[أإآٱ]/gu, 'ا');
 }
 
 /** Letter tokens (Unicode letters, marks and apostrophes) of the normalised text. */

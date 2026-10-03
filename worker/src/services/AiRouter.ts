@@ -138,6 +138,7 @@ export class AiRouter {
       prompt,
       maxTokens: maxTokensFor(config, prompt.spreadId),
       effort: config['ai.effort'],
+      serviceTier: config['ai.serviceTier'],
       refusalFallbacks: config['ai.refusalFallbacks'],
       timeoutMs: config['ai.timeoutMs'],
       maxRetries: config['ai.maxRetries'],

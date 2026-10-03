@@ -37,6 +37,12 @@ describe('cost', () => {
     expect(typicalUsd(3000, 1000, 4000, PRICE)).toBeCloseTo(0.0186);
     expect(evalPrice('anthropic', 'claude-sonnet-5')).toEqual(PRICE);
     expect(evalPrice('openai', 'unknown').output).toBeGreaterThanOrEqual(25);
+    expect(evalPrice('anthropic', 'claude-sonnet-5', true)).toEqual({
+      input: 4,
+      output: 20,
+      cacheRead: 0.4,
+      cacheWrite: 5,
+    });
     expect(usd(0.5)).toBe('$0.5000');
     expect(usd(12.345)).toBe('$12.35');
   });
@@ -53,6 +59,9 @@ describe('cost', () => {
     expect(
       callsUsd([{ provider: 'anthropic', model: 'claude-sonnet-5', usage }], logger),
     ).toBeCloseTo(0.012);
+    expect(
+      callsUsd([{ provider: 'anthropic', model: 'claude-sonnet-5', usage, fast: true }], logger),
+    ).toBeCloseTo(0.024);
     callsUsd([{ provider: 'openai', model: 'nope', usage }], logger);
     expect(logged).toEqual(['pricing_unknown']);
   });
