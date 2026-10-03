@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "590814614130",
+    "project_id": "taro-app-dev",
+    "storage_bucket": "taro-app-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590814614130:android:601b68675e68e98a1c28eb",
+        "android_client_info": {
+          "package_name": "com.vshyrochuk.taro.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6hHpM09JXJg5Ro8SzMBi_FKaLss12WJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

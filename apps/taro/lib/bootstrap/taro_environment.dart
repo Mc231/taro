@@ -60,8 +60,9 @@ final class PlatformHooks {
     this.debugAttestationToken = BuildDefines.debugAttestationToken,
   });
 
-  /// `Firebase.initializeApp`.
-  final Future<void> Function() initializeFirebase;
+  /// `Firebase.initializeApp` with the flavor's options (`null`: the
+  /// native config file).
+  final Future<void> Function(FirebaseOptions? options) initializeFirebase;
 
   /// Opens both databases.
   final Future<TaroDatabases> Function() openDatabases;
@@ -84,7 +85,8 @@ final class PlatformHooks {
   /// The dev/staging debug attestation token.
   final String debugAttestationToken;
 
-  static Future<void> _initializeFirebase() => Firebase.initializeApp();
+  static Future<void> _initializeFirebase(FirebaseOptions? options) =>
+      Firebase.initializeApp(options: options);
   static Future<AppInfo> _loadAppInfo() => PackageInfoAppInfo.load();
   static TargetPlatform _platform() => defaultTargetPlatform;
   static List<Locale> _deviceLocales() => PlatformDispatcher.instance.locales;
@@ -107,6 +109,7 @@ final class ProductionEnvironment implements TaroEnvironment {
   ProductionEnvironment(
     Flavor flavor, {
     this.hooks = const PlatformHooks(),
+    this.firebaseOptions,
     Map<String, String> defines = FlavorConfig.dartDefines,
   }) : flavor = FlavorConfig.fromDefines(flavor, defines: defines);
 
@@ -115,6 +118,12 @@ final class ProductionEnvironment implements TaroEnvironment {
 
   /// The SDK entry points.
   final PlatformHooks hooks;
+
+  /// The flavor's `DefaultFirebaseOptions.currentPlatform` from
+  /// `lib/firebase_options_<flavor>.dart` (Phase 10 Sprint 10.2, RC36);
+  /// `null` falls back to the native config file. Read inside
+  /// [initFirebase], so an unsupported platform only leaves Firebase off.
+  final FirebaseOptions Function()? firebaseOptions;
 
   bool _firebaseReady = false;
 
@@ -126,7 +135,7 @@ final class ProductionEnvironment implements TaroEnvironment {
   @override
   Future<void> initFirebase() async {
     try {
-      await hooks.initializeFirebase();
+      await hooks.initializeFirebase(firebaseOptions?.call());
       _firebaseReady = true;
     } on Object {
       // No Firebase project for this build: analytics and crash are NoOp.

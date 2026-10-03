@@ -712,7 +712,7 @@ Owner: 03 §1. `hono`, `@hono/zod-openapi`, `zod`, `jose`, `@anthropic-ai/sdk`, 
 |---|---|---|
 | Bundle / applicationId | prod + `prodStaging` `com.vshyrochuk.taro`; staging `com.vshyrochuk.taro.stg`; dev `com.vshyrochuk.taro.dev` | 02 §15 (RC78) |
 | Flavors / build configs | `dev`, `staging`, `prod`, `prodStaging` (config files `apps/taro/config/{dev,staging,prod,prod_staging}.json`) | 02 AR17 |
-| Firebase projects | `taro-dev` (dev, staging, prodStaging), `taro-prod` | 02 AR17 (RC36) |
+| Firebase projects | `taro-app-dev` (dev, staging, prodStaging), `taro-app-prod` | 02 AR17 (RC36, renamed 2026-10-03) |
 | Web host | `taro.vshyrochuk.com` (`/privacy`, `/terms`, `/support`, `/.well-known/*`) | 05 CS10 (RC92) |
 | API hosts | `api.taro.vshyrochuk.com` (prod), `api-staging.taro.vshyrochuk.com` (staging) | 03 §2.1 (BE Q5) |
 | Store name | "Taro: Tarot Card Reading"; on-device name "Taro" | 05 CS2 |

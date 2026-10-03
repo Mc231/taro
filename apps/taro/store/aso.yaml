@@ -241,8 +241,8 @@ admob:                                    # OWNER (M1): filled after manual AdMo
   android_rewarded_id: ca-app-pub-XXXX/4
   ssv_callback_url: https://api.taro.vshyrochuk.com/v1/ads/admob/ssv   # doc only; GET /v1/ads/admob/ssv (RC4, RC56)
 
-firebase:                                 # RC36: taro-dev (dev + staging), taro-prod (prod)
-  project_id: taro-prod
+firebase:                                 # RC36: taro-app-dev (dev + staging), taro-app-prod (prod)
+  project_id: taro-app-prod
   project_name: Taro
   ios_bundle_id: com.vshyrochuk.taro
   android_package_name: com.vshyrochuk.taro

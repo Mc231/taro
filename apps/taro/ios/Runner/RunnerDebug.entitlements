@@ -8,10 +8,10 @@
 	<array>
 		<string>applinks:taro.vshyrochuk.com</string>
 	</array>
-	<!-- App Attest (03 §3.3, AR9), Release-* and Profile-* configurations.
-	     Debug-* signs with RunnerDebug.entitlements ("development"). The App ID
-	     needs the App Attest capability; this entitlement is all the app needs. -->
+	<!-- App Attest (03 §3.3, AR9), Debug-* configurations. Release-* and
+	     Profile-* sign with Runner.entitlements ("production"). Keep both
+	     files in sync apart from this value. -->
 	<key>com.apple.developer.devicecheck.appattest-environment</key>
-	<string>production</string>
+	<string>development</string>
 </dict>
 </plist>

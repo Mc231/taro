@@ -41,7 +41,7 @@ Nothing is submitted for review yet; that happens in Phase 22.
   - `age_rating` from 05 §6.1 with `override: THIRTEEN_PLUS`;
   - `capabilities: [IN_APP_PURCHASE, APP_ATTEST]`;
   - `availability.excluded_territories` (CS16 fixed list + the union of the supported-countries snapshots of every routable AI provider, v1 Anthropic and OpenAI; RC97);
-  - `firebase.project_id: taro-prod` (RC36);
+  - `firebase.project_id: taro-app-prod` (RC36);
   - `admob:` real IDs;
   - `terms_url`;
   - the review notes from 05 §7, updated with the RC20 Classic reading and the RC3 pack sizes; every quoted button label matches `app_en.arb` (`review_notes_labels_exist`, RC79).

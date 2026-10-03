@@ -41,8 +41,8 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
 ## Sprint 10.2: Firebase *(scripted + MANUAL)*
 
 **Tasks:**
-- [ ] Create the Firebase projects `taro-dev` (used by dev and staging) and `taro-prod` (RC36). Enable Analytics and Crashlytics only; no Remote Config, FCM or App Check (AR19). Link GA4.
-- [ ] `flutterfire configure` per flavor → `apps/taro/lib/firebase_options_{dev,staging,prod}.dart` (excluded per RC16), `ios/config/<flavor>/GoogleService-Info.plist`, `android/app/src/<flavor>/google-services.json`.
+- [ ] Create the Firebase projects `taro-app-dev` (used by dev and staging) and `taro-app-prod` (RC36). Enable Analytics and Crashlytics only; no Remote Config, FCM or App Check (AR19). Link GA4. _(2026-10-03: projects created (the originally planned IDs were taken globally; RC36 owner override), apps registered for `com.vshyrochuk.taro.dev`, `.stg` (taro-app-dev) and `com.vshyrochuk.taro` (taro-app-prod) on iOS and Android; no Remote Config, FCM or App Check configured, the app links only `firebase_analytics` + `firebase_crashlytics`. Open, **MANUAL**: link GA4 in each project (Project settings → Integrations → Google Analytics; `analyticsDetails` returns 404 = not linked, the CLI cannot do it without an Analytics account).)_
+- [x] `flutterfire configure` per flavor → `apps/taro/lib/firebase_options_{dev,staging,prod}.dart` (excluded per RC16), `ios/config/<flavor>/GoogleService-Info.plist`, `android/app/src/<flavor>/google-services.json`. _(Done 2026-10-03: `apps/taro/lib/firebase_options_{dev,staging,prod}.dart`, `apps/taro/ios/Config/{dev,staging,prod}/GoogleService-Info.plist`, `apps/taro/android/app/src/{dev,staging,prod}/google-services.json`, `apps/taro/firebase.json`. Wiring: `main_<flavor>.dart` → `ProductionEnvironment(firebaseOptions:)`; iOS build phase "Copy GoogleService-Info.plist" (`FIREBASE_CONFIG_FLAVOR` in `Config/{Dev,Staging,Prod}.xcconfig`); Gradle plugin `com.google.gms.google-services` 4.4.4. Coverage exclusion `**/firebase_options_*.dart` already in `tools/coverage_exclusions.txt`, `sonar-project.properties`, 06 §5.3; gitleaks path allowlist in `.gitleaks.toml`. Tests: `test/bootstrap/firebase_options_test.dart`, `taro_environment_test.dart` "initFirebase passes the flavor options (Sprint 10.2)". `flutter build ios --simulator` and `flutter build apk --debug` green for dev, staging, prod.)_
 - [ ] Add the SHA-1 and SHA-256 fingerprints of the upload key and the Play App Signing key to the Android apps *(MANUAL; after Sprint 10.4)*.
 
 ---
@@ -56,7 +56,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
   - app record "Taro: Tarot Card Reading", Lifestyle + Entertainment (ASA-1);
   - SKU `com.vshyrochuk.taro`;
   - fallback name option C if the name is taken (05 §9.2).
-- [ ] Register the dev and staging bundle IDs `com.vshyrochuk.taro.dev` / `.stg` (App Attest capability) for local and ad-hoc testing of the non-prod flavors.
+- [x] Register the dev and staging bundle IDs `com.vshyrochuk.taro.dev` / `.stg` (App Attest capability) for local and ad-hoc testing of the non-prod flavors. _(App side done 2026-10-03: there is no separate App Attest capability flag in the app; it needs only `com.apple.developer.devicecheck.appattest-environment`, now in `ios/Runner/Runner.entitlements` (`production`, Release/Profile) and `ios/Runner/RunnerDebug.entitlements` (`development`, Debug). The App ID registrations stay open.)_ *(2026-10-03: registered via asa: com.vshyrochuk.taro (prod), .dev (7PXM43WGQX), .stg (4FBT4YG35K), IN_APP_PURCHASE; App Attest is entitlement-only — no portal capability exists.)*
 - [ ] **`prodStaging` build configuration** (02 §15, RC78) for sandbox IAP testing against the staging Worker:
   - iOS: scheme `ProdStaging` + `Config/ProdStaging.xcconfig` (prod bundle ID, `API_BASE_URL` = staging host, Google test AdMob IDs);
   - Android: build type `prodStaging` on the `prod` flavor (prod `applicationId`);
@@ -64,6 +64,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
   - fastlane lanes `ios beta_internal` (internal TestFlight group only, never a public link, RC63) and `android internal_staging` (internal track);
   - staging Worker config: `attest.allowedAppIds` includes `{TEAM}.com.vshyrochuk.taro`, `com.vshyrochuk.taro` and the `.stg` IDs; `purchases.allowedBundleIds` includes `com.vshyrochuk.taro`;
   - test: `test/config/prod_staging_config_test.dart` asserts the prod bundle + staging URL + test ad IDs.
+  - _(2026-10-03: deferred, not built; the steps, including the `flutter build` limit on custom Android build types, are in `docs/runbooks/RELEASE.md` § `prodStaging` build configuration.)_
 - [ ] IAP products (MO §4, RC3; Remove Ads display name "Remove Banner Ads", RC80): `asa ios create-iap` ×4, `set-all-iap-prices` (tiers per the Phase 1 owner decision), `set-all-iap-availability`, and `localize-all-iaps` (EN now; 12 locales in Phase 20). Remove Ads: **Family Sharing on** (MO17, irreversible; owner confirms). Review screenshots are attached in Phase 20 (M10).
 - [ ] App Store Connect *(MANUAL, M8/M9)*:
   - Paid Apps agreement, tax and banking;
@@ -73,7 +74,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
   - App Store Server Notifications V2 URLs: production → `https://api.taro.vshyrochuk.com/v1/webhooks/appstore`, sandbox → the staging host (RC4);
   - EU DSA trader status and export compliance.
 - [ ] Signing: distribution certificate (shared), App Store provisioning profiles for the prod, stg and dev bundles → `~/pet/secure/taro/` and the secrets bundle (quiz_apps Phase 3 pattern).
-- [ ] `apps/taro/ios/Taro.storekit` StoreKit Configuration file with the 4 products for local testing (04 §15, 06).
+- [x] `apps/taro/ios/Taro.storekit` StoreKit Configuration file with the 4 products for local testing (04 §15, 06). _(Done 2026-10-03: `apps/taro/ios/Taro.storekit`, `readings_3|10|30` consumables at $1.99/$4.99/$9.99 and `remove_ads` non-consumable at $3.99, family shareable (MO17), en_US names/descriptions from `aso.yaml`; Run StoreKit configuration of the `dev` scheme.)_
 
 ---
 
@@ -100,7 +101,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
 - [ ] Rewarded units: SSV callback URL `https://api.taro.vshyrochuk.com/v1/ads/admob/ssv` (staging units → the staging host). Reward item `reading`, amount 1 (the Worker ignores the amount, MO10). Use the "Verify URL" test.
 - [ ] Privacy & messaging: GDPR message (EEA/UK/CH), US state regulations message, and the **IDFA explainer disabled** (own pre-prompt, RC19). Publish.
 - [ ] Blocking controls: max ad content rating **T**; block the categories Gambling & Betting, Dating, Get-Rich-Quick, Astrology & Esoteric, Sexual & Reproductive Health and Politics (05 §6.3). `tagForChildDirectedTreatment` false.
-- [ ] Publish `app-ads.txt` at `https://vshyrochuk.com/app-ads.txt` (M4). Link AdMob to Firebase `taro-prod`.
+- [ ] Publish `app-ads.txt` at `https://vshyrochuk.com/app-ads.txt` (M4). Link AdMob to Firebase `taro-app-prod`.
 - [ ] SKAdNetwork list: copy Google's current list into `tools/skadnetwork_ids.txt` and `ios/Runner/Info.plist`; `check_skadnetwork.py` is green.
 
 ---

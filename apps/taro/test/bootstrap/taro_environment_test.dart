@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:drift/native.dart';
+import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -135,7 +136,7 @@ void main() {
       Flavor.dev,
       defines: _defines(Flavor.dev),
       hooks: PlatformHooks(
-        initializeFirebase: () async => throw StateError('no project'),
+        initializeFirebase: (_) async => throw StateError('no project'),
         openDatabases: () async => _memoryDbs(),
         loadAppInfo: () async =>
             const FakeAppInfo(platform: AppPlatform.android),
@@ -184,7 +185,7 @@ void main() {
       Flavor.prod,
       defines: _defines(Flavor.prod),
       hooks: PlatformHooks(
-        initializeFirebase: () async {},
+        initializeFirebase: (_) async {},
         openDatabases: () async => _memoryDbs(),
         loadAppInfo: () async => const FakeAppInfo(),
         platform: () => TargetPlatform.iOS,
@@ -277,6 +278,32 @@ void main() {
     expect(crash.errors, isEmpty);
   });
 
+  test('initFirebase passes the flavor options (Sprint 10.2)', () async {
+    const options = FirebaseOptions(
+      apiKey: 'key',
+      appId: '1:1:ios:1',
+      messagingSenderId: '1',
+      projectId: 'taro-app-dev',
+    );
+    final received = <FirebaseOptions?>[];
+    ProductionEnvironment env(FirebaseOptions Function()? firebaseOptions) =>
+        ProductionEnvironment(
+          Flavor.dev,
+          defines: _defines(Flavor.dev),
+          firebaseOptions: firebaseOptions,
+          hooks: PlatformHooks(
+            initializeFirebase: (o) async => received.add(o),
+          ),
+        );
+    await env(() => options).initFirebase();
+    await env(null).initFirebase();
+    expect(received, [same(options), isNull]);
+
+    // An unsupported platform throws from `currentPlatform`: Firebase off.
+    await env(() => throw UnsupportedError('web')).initFirebase();
+    expect(received, hasLength(2));
+  });
+
   test('a config of another flavor fails fast', () {
     expect(
       () => ProductionEnvironment(Flavor.dev, defines: _defines(Flavor.prod)),
@@ -300,7 +327,7 @@ void main() {
     await dbs.journal.close();
     await dbs.device.close();
     await setUpFirebaseFakes();
-    await hooks.initializeFirebase();
+    await hooks.initializeFirebase(null);
   });
 
   test('NoOpAdsService when ads are disabled', () {

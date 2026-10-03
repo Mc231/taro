@@ -237,7 +237,7 @@ _Reconciled by 00_DECISIONS.md RC13, RC15, RC16, RC25, RC26, RC36, RC40, RC61, R
 | `**/*.freezed.dart` | `freezed` output (02 AR6) | Generated (RC13, RC16) |
 | `**/*.gen.dart` | output of Taro's own Dart generators in `tools/` | Generated; the generator itself is covered under `tools` |
 | `**/generated_plugin_registrant.dart`, `**/GeneratedPluginRegistrant.*` | Flutter tooling | Generated |
-| `**/firebase_options_*.dart` | `flutterfire configure` output per flavor (Firebase projects `taro-dev`, `taro-prod`; RC36) | Generated (RC16) |
+| `**/firebase_options_*.dart` | `flutterfire configure` output per flavor (Firebase projects `taro-app-dev`, `taro-app-prod`; RC36) | Generated (RC16) |
 | `apps/taro/lib/main_*.dart` | three-line flavor entrypoints `void main() => bootstrap(ProductionEnvironment(Flavor.x))` | No logic; `bootstrap()` is covered (RC16, RC76) |
 | `worker/src/generated/**` | build-time bundles from `tools/content build` and the safety/prompt builders (deck, crisis resources, prompts, lexicons) | Generated (RC25, RC26) |
 | `**/*.d.ts`, `worker/worker-configuration.d.ts` | type declarations | No executable lines |

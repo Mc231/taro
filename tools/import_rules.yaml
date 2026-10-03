@@ -45,13 +45,15 @@ sdk_packages:
     allowed: [apps/taro/lib/services/consent/**]
   # AnalyticsService -> FirebaseAnalyticsService; CrashReporter ->
   # FirebaseCrashReporter. firebase_core is also allowed in bootstrap/, the
-  # composition root that calls Firebase.initializeApp (02 §9.1).
+  # composition root that calls Firebase.initializeApp (02 §9.1),
+  # and in the generated flutterfire options per flavor (RC16, RC36).
   - package: firebase_core
     ports: [AnalyticsService, CrashReporter]
     allowed:
       - apps/taro/lib/services/analytics/**
       - apps/taro/lib/services/crash/**
       - apps/taro/lib/bootstrap/**
+      - apps/taro/lib/firebase_options_*.dart
   - package: firebase_analytics
     ports: [AnalyticsService]
     allowed: [apps/taro/lib/services/analytics/**]

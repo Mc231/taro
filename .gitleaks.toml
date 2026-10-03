@@ -54,6 +54,12 @@ paths = [
   # The redactor's sensitive-value corpus: made-up tokens that the tests assert
   # never survive redaction. They are not real credentials.
   '''^apps/taro/test/services/logging/redactor_test\.dart$''',
+  # flutterfire configure output (Phase 10 Sprint 10.2, RC36): Firebase client
+  # API keys are public identifiers shipped in every app binary, not secrets;
+  # access is enforced by Firebase security rules and API key restrictions.
+  '''^apps/taro/lib/firebase_options_(dev|staging|prod)\.dart$''',
+  '''^apps/taro/android/app/src/(dev|staging|prod)/google-services\.json$''',
+  '''^apps/taro/ios/Config/(dev|staging|prod)/GoogleService-Info\.plist$''',
   # Lockfiles hold integrity hashes, not secrets.
   '''(^|/)pubspec\.lock$''',
   '''(^|/)package-lock\.json$''',

@@ -1,0 +1,79 @@
+{
+  "identifier": "7A1E0C3B",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "1.99",
+      "familyShareable": false,
+      "internalID": "6760000001",
+      "localizations": [
+        {
+          "description": "Adds 3 AI tarot readings.",
+          "displayName": "3 Readings",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.vshyrochuk.taro.readings_3",
+      "referenceName": "Readings 3",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "4.99",
+      "familyShareable": false,
+      "internalID": "6760000002",
+      "localizations": [
+        {
+          "description": "Adds 10 AI tarot readings.",
+          "displayName": "10 Readings",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.vshyrochuk.taro.readings_10",
+      "referenceName": "Readings 10",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "9.99",
+      "familyShareable": false,
+      "internalID": "6760000003",
+      "localizations": [
+        {
+          "description": "Adds 30 AI tarot readings.",
+          "displayName": "30 Readings",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.vshyrochuk.taro.readings_30",
+      "referenceName": "Readings 30",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "3.99",
+      "familyShareable": true,
+      "internalID": "6760000004",
+      "localizations": [
+        {
+          "description": "Optional reward videos stay.",
+          "displayName": "Remove Banner Ads",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.vshyrochuk.taro.remove_ads",
+      "referenceName": "Remove Banner Ads",
+      "type": "NonConsumable"
+    }
+  ],
+  "settings": {
+    "_applicationInternalID": "",
+    "_developerTeamID": "9QX258UF65",
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 4,
+    "minor": 0
+  }
+}
