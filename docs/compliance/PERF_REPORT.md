@@ -147,3 +147,7 @@ p95 ≤ 20 s holds for single and three-card readings in both states. Re-measure
 - **Specs:** an amendment to BE9, RC31 and RC51 (00_DECISIONS), plus new contract fixtures.
 
 A cheaper alternative is to show a "writing your reading" progress state; the client already shows one. The owner could also accept the 8 s p50 for `single` only and a 12 s p50 for three-card readings.
+
+## Staging re-measure after the fast tier + parallel moderation (2026-10-03, Worker caee95cf)
+
+Five `tools/worker_smoke.sh staging` single-card readings: 6.10, 5.48, 6.18, 5.52, 7.05 s (median 6.1 s, max 7.0 s) — within the 8 s p50 budget (was 12.3 s). Three-card spreads still estimated ≈ 10 s (not yet measured on staging).
