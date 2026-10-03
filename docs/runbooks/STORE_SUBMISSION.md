@@ -74,3 +74,5 @@ Notes:
 - Upload key `~/pet/secure/taro/taro_upload.jks` (alias `upload`; bundle `taro.android_*`): SHA-1 `C4:C2:3D:76:1C:2F:5F:39:72:F2:F8:F4:90:8E:7E:6D:76:13:5B:64`, SHA-256 `11:CF:E3:62:DA:9C:FF:F7:E7:A2:D9:06:88:19:BE:3B:A5:E5:56:D4:54:EF:17:86:8C:F6:C5:D9:70:FB:65:DF`.
 - First AAB `0.1.0+1` (prod) uploaded by hand to Internal testing → Play App Signing enabled. App signing key: SHA-1 `7C:E9:37:2A:49:6F:CF:7E:27:AC:56:F1:AA:A2:EB:D6:AE:82:79:F7`, SHA-256 `D2:87:8B:46:F7:1B:80:01:B2:36:9E:2F:75:6B:62:70:E2:0C:AD:0F:26:6B:99:83:28:5B:1F:50:86:02:40:4E`.
 - Both keys' SHA-1/SHA-256 added to the Firebase `taro-app-prod` Android app; `web/.well-known/assetlinks.json` carries the app signing SHA-256.
+- `asa android setup-iap`: 4 one-time products created with 12-locale listings and activated (remove_ads $3.99, readings_3 $1.99, readings_10 $4.99, readings_30 $9.99 — check the per-country prices in the console, asa known issue).
+- `asa android push-localizations`: 12 Play listings in one edit (01579234249443737213).
