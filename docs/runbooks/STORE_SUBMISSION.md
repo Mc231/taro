@@ -81,3 +81,8 @@ Notes:
 - Publisher `pub-5769204800499735`. iOS app `ca-app-pub-5769204800499735~4008802776` (banner `/3457129271`, rewarded `/4059850229`); Android app `~4087770387` (banner `/4730768217`, rewarded `/6195807406`). Wired into `apps/taro/config/prod.json`, `ios/Config/Prod.xcconfig` and the Android `prod` flavor; dev/staging keep Google's test IDs.
 - Owner configured SSV (staging URL), privacy messages and blocking controls in the AdMob UI.
 - `web/app-ads.txt` prepared. Like the quiz apps, it is served from the app's own site (`https://taro.vshyrochuk.com/app-ads.txt`, the store "developer website"), published with the site deploy (Phase 20) — not from vshyrochuk.com.
+
+### 2026-10-03 — Google Cloud for the Worker (Phase 10.4)
+- GCP project `taro-app-prod` (number 207843881010): Play Integrity, Android Publisher, Pub/Sub, IAM APIs enabled. `playCloudProjectNumber` = 207843881010 in `apps/taro/config/{dev,staging,prod}.json`.
+- Service account `taro-worker@taro-app-prod.iam.gserviceaccount.com` (Play Developer API); key in `~/pet/secure/taro/taro-worker-sa.json` + bundle `worker.play_service_account_base64`; staging secret `GOOGLE_SERVICE_ACCOUNT_JSON` set.
+- Pub/Sub topic `projects/taro-app-prod/topics/play-rtdn` (publisher: google-play-developer-notifications@system.gserviceaccount.com); push subscriptions `play-rtdn-staging` → api-staging…/v1/webhooks/googleplay and `play-rtdn-prod` → api…/v1/webhooks/googleplay, OIDC via `taro-pubsub-push@taro-app-prod.iam.gserviceaccount.com` (audience = endpoint URL); staging secrets `GOOGLE_PUBSUB_AUDIENCE` / `GOOGLE_PUBSUB_SA` set.
