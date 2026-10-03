@@ -187,6 +187,30 @@ jobs:
           git log --oneline --no-merges -n 50 "$range"
           echo "range=$range" >> "$GITHUB_OUTPUT"
 
+      # Phase 9 (05 §8.1, ASA-6): store metadata limits and locale coverage
+      # via the asa CLI installed on the runner (its own venv, not a taro
+      # dependency). Runs only when the pushed range touches
+      # apps/taro/store/**; skipped with a warning where asa is not installed.
+      - name: asa validate (apps/taro/store/aso.yaml)
+        env:
+          RANGE: ${{ steps.range.outputs.range }}
+          ASA_BIN: ${{ vars.ASA_BIN || '' }}
+        run: |
+          case "$RANGE" in
+            *..*) changed=$(git diff --name-only "$RANGE" -- apps/taro/store/) ;;
+            *) changed=$(git show --name-only --format= "$RANGE" -- apps/taro/store/) ;;
+          esac
+          if [ -z "$changed" ]; then
+            echo "apps/taro/store/** unchanged in $RANGE; skipped."
+            exit 0
+          fi
+          asa="${ASA_BIN:-$HOME/pet/app-store-automation/.venv/bin/asa}"
+          if [ ! -x "$asa" ]; then
+            echo "::warning::asa not installed at $asa (set the ASA_BIN variable); asa validate skipped"
+            exit 0
+          fi
+          "$asa" validate -c apps/taro/store/aso.yaml
+
       - name: Commit messages of the pushed range (QA12)
         env:
           RANGE: ${{ steps.range.outputs.range }}

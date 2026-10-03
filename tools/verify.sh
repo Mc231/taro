@@ -55,6 +55,8 @@ DART="${TARO_DART:-dart}"
 NPM="${TARO_NPM:-npm}"
 GIT="${TARO_GIT:-git}"
 GITLEAKS="${TARO_GITLEAKS:-gitleaks}"
+# The asa CLI (app-store-automation) lives in its own venv, outside the repo.
+ASA="${TARO_ASA:-${HOME:-}/pet/app-store-automation/.venv/bin/asa}"
 if [[ -n "${TARO_PYTHON:-}" ]]; then
   PYTHON="$TARO_PYTHON"
 elif [[ -x "$ROOT/tools/.venv/bin/python" ]]; then
@@ -237,6 +239,19 @@ token_checks() {
   step "tokens: generate --check" "$DART" run tools/tokens/generate.dart --check
 }
 
+# Phase 9 (05 §8.1, ASA-6), as in reusable-static.yml: store metadata limits
+# and locale coverage. Skipped without the store yaml or the asa CLI.
+ASO_YAML=apps/taro/store/aso.yaml
+asa_validate() {
+  if [[ ! -f "$ASO_YAML" ]]; then
+    skip "asa validate" "no $ASO_YAML"
+  elif ! in_path_or_file "$ASA"; then
+    skip "asa validate" "asa not installed (set TARO_ASA; CI runs it)"
+  else
+    step "asa validate" "$ASA" validate -c "$ASO_YAML"
+  fi
+}
+
 secrets_scan() {
   if ! in_path_or_file "$GITLEAKS"; then
     skip "gitleaks" "gitleaks not installed (CI runs it)"
@@ -287,6 +302,7 @@ step "analyze" "$MELOS" run analyze
 repo_checks
 content_checks
 token_checks
+asa_validate
 secrets_scan
 lint_ci_files
 

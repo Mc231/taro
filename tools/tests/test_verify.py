@@ -56,11 +56,13 @@ def repo(tmp_path: Path) -> Path:
 
 
 def _run(repo: Path, *args: str, fail: str = "", has_base: bool = False,
-         gitleaks: bool = True, gitleaks_toml: bool = False) -> tuple[int, str, list[str]]:
+         gitleaks: bool = True, gitleaks_toml: bool = False,
+         asa: bool = False) -> tuple[int, str, list[str]]:
     bin_dir = repo.parent / "bin"
     log = repo.parent / "calls.log"
     log.unlink(missing_ok=True)
     names = ["melos", "python", "dart", "npm", "git"] + (["gitleaks"] if gitleaks else [])
+    names += ["asa"] if asa else []
     for name in names:
         _executable(bin_dir / name, STUB.format(name=name))
     if gitleaks_toml:
@@ -77,6 +79,7 @@ def _run(repo: Path, *args: str, fail: str = "", has_base: bool = False,
         "TARO_NPM": str(bin_dir / "npm"),
         "TARO_GIT": str(bin_dir / "git"),
         "TARO_GITLEAKS": str(bin_dir / "gitleaks"),
+        "TARO_ASA": str(bin_dir / "asa"),
     }
     proc = subprocess.run(
         ["bash", str(repo / "tools" / "verify.sh"), *args],
@@ -185,6 +188,30 @@ def test_a_failing_content_check_fails_the_run(repo: Path) -> None:
     assert "FAIL  content: sync_check" in out
     assert "ok    content: placeholder_art --check" in out
     assert "ok    content: import_art --check" in out
+
+
+def test_asa_validate_runs_on_the_store_yaml(repo: Path) -> None:
+    (repo / "apps/taro/store").mkdir(parents=True)
+    (repo / "apps/taro/store/aso.yaml").write_text("")
+    code, out, calls = _run(repo, "--fast", asa=True)
+    assert code == 0, out
+    assert "asa repo validate -c apps/taro/store/aso.yaml" in calls
+    code, out, _ = _run(repo, "--fast", asa=True, fail="validate")
+    assert code == 1
+    assert "FAIL  asa validate" in out
+
+
+def test_asa_validate_is_skipped_without_yaml_or_cli(repo: Path) -> None:
+    code, out, calls = _run(repo, "--fast", asa=True)
+    assert code == 0, out
+    assert "skip  asa validate (no apps/taro/store/aso.yaml)" in out
+    (repo / "apps/taro/store").mkdir(parents=True)
+    (repo / "apps/taro/store/aso.yaml").write_text("")
+    (repo.parent / "bin" / "asa").unlink()
+    code, out, calls = _run(repo, "--fast")
+    assert code == 0, out
+    assert "skip  asa validate (asa not installed" in out
+    assert not any(c.startswith("asa") for c in calls)
 
 
 def test_help_and_bad_arguments(repo: Path) -> None:
