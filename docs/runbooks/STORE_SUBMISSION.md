@@ -68,3 +68,9 @@ Notes:
 - Age rating declaration set from config, `ageRatingOverrideV2 = THIRTEEN_PLUS` accepted.
 - App availability: 154 territories, excluded AFG AIA ARE BHR BLR BMU CHN CYM HKG KWT MAC MMR MSR OMN QAT RUS SAU TCA VEN VGB YEM.
 - Firebase: `taro-app-dev` (dev + stg apps), `taro-app-prod` (prod app); Analytics linked by the owner in the console.
+
+### 2026-10-03 — Google Play (Phase 10.4)
+- App "Taro: Tarot Card Reading" created by the owner (free app, Lifestyle).
+- Upload key `~/pet/secure/taro/taro_upload.jks` (alias `upload`; bundle `taro.android_*`): SHA-1 `C4:C2:3D:76:1C:2F:5F:39:72:F2:F8:F4:90:8E:7E:6D:76:13:5B:64`, SHA-256 `11:CF:E3:62:DA:9C:FF:F7:E7:A2:D9:06:88:19:BE:3B:A5:E5:56:D4:54:EF:17:86:8C:F6:C5:D9:70:FB:65:DF`.
+- First AAB `0.1.0+1` (prod) uploaded by hand to Internal testing → Play App Signing enabled. App signing key: SHA-1 `7C:E9:37:2A:49:6F:CF:7E:27:AC:56:F1:AA:A2:EB:D6:AE:82:79:F7`, SHA-256 `D2:87:8B:46:F7:1B:80:01:B2:36:9E:2F:75:6B:62:70:E2:0C:AD:0F:26:6B:99:83:28:5B:1F:50:86:02:40:4E`.
+- Both keys' SHA-1/SHA-256 added to the Firebase `taro-app-prod` Android app; `web/.well-known/assetlinks.json` carries the app signing SHA-256.

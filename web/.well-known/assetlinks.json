@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.vshyrochuk.taro",
-      "sha256_cert_fingerprints": ["PLAY_APP_SIGNING_SHA256_FROM_PLAY_CONSOLE"]
+      "sha256_cert_fingerprints": ["D2:87:8B:46:F7:1B:80:01:B2:36:9E:2F:75:6B:62:70:E2:0C:AD:0F:26:6B:99:83:28:5B:1F:50:86:02:40:4E"]
     }
   }
 ]
