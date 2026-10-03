@@ -103,3 +103,12 @@ __pycache__/
 !tools/dart_tools/test/fixtures/**/lib/src/generated/
 !tools/dart_tools/test/fixtures/**/lib/l10n/generated/
 !tools/tests/fixtures/**/lib/l10n/generated/
+
+# fastlane (apps/taro/fastlane): generated files
+apps/taro/fastlane/README.md
+apps/taro/fastlane/report.xml
+apps/taro/fastlane/Preview.html
+apps/taro/fastlane/test_output/
+apps/taro/fastlane/.bundle/
+apps/taro/fastlane/vendor/
+apps/taro/.crashlytics/

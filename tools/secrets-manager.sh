@@ -42,7 +42,7 @@ NC='\033[0m'
 # `validate` reports gaps; it never fails on them, because the bundle fills
 # up phase by phase (Phase 6 Worker, Phase 10 stores, Phase 21 release).
 SHARED_KEYS="apple_team_id apple_distribution_cert_base64 apple_distribution_cert_password app_store_connect_api_key_id app_store_connect_api_issuer_id app_store_connect_api_key_base64 google_play_service_account_base64"
-TARO_KEYS="ios_bundle_id android_package_name ios_provisioning_profile_base64 android_keystore_base64 android_keystore_password android_key_alias android_key_password"
+TARO_KEYS="ios_bundle_id android_package_name ios_provisioning_profile_base64 ios_provisioning_profile_stg_base64 ios_provisioning_profile_dev_base64 android_keystore_base64 android_keystore_password android_key_alias android_key_password"
 WORKER_KEYS="cloudflare_account_id cloudflare_api_token anthropic_api_key openai_api_key app_store_server_api_key_id app_store_server_api_issuer_id app_store_server_api_key_base64 play_service_account_base64"
 
 die() {

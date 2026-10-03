@@ -1,0 +1,231 @@
+# Taro release lanes (06 §8, Phase 10 Sprint 10.6). Ported from the shared
+# quiz_apps Fastfile; Taro builds through `flutter build` (flavor prod, obfuscated)
+# and lets fastlane handle build numbers, upload and symbols.
+#
+#   bundle exec fastlane ios beta        # TestFlight, internal groups only (RC63)
+#   bundle exec fastlane ios release     # App Store binary (submit with SUBMIT_FOR_REVIEW=true)
+#   bundle exec fastlane android deploy track:internal release_status:draft
+#   bundle exec fastlane android deploy upload:false   # build the AAB only
+#   bundle exec fastlane android deploy validate_only:true
+#
+# Environment (CI writes these from the secrets bundle; locally the asa key
+# from ~/.zshrc works):
+#   APP_STORE_CONNECT_API_KEY_ID, APP_STORE_CONNECT_API_ISSUER_ID and
+#   APP_STORE_CONNECT_API_KEY_BASE64 (CI) or APP_STORE_CONNECT_API_KEY_PATH (.p8, local)
+#   GOOGLE_PLAY_JSON_PATH        Play service account with release permission
+#   TARO_KEY_PROPERTIES          upload keystore properties (android/key.properties otherwise)
+#   BUILD_NUMBER                 optional explicit build number (must exceed the store's)
+#   FIREBASE_TOKEN / GOOGLE_APPLICATION_CREDENTIALS  optional, for Dart symbol upload
+#
+# Never prints a secret: keys are passed by path or env, and `sh` runs with
+# log: false wherever a command line could hold one.
+
+require "json"
+
+default_platform(:ios)
+
+APP_ROOT = File.expand_path("..", __dir__)
+IOS_BUNDLE_ID = "com.vshyrochuk.taro"
+ANDROID_PACKAGE = "com.vshyrochuk.taro"
+ENTRYPOINT = "lib/main_prod.dart"
+DART_DEFINES = "config/prod.json"
+SYMBOLS_DIR = "build/symbols"
+IOS_EXPORT_OPTIONS = "ios/ExportOptions/prod.plist"
+IOS_GSP = "ios/Config/prod/GoogleService-Info.plist"
+ANDROID_GSJ = "android/app/src/prod/google-services.json"
+PLAY_TRACKS = %w[internal alpha beta production].freeze
+
+# "0.1.0+3" in pubspec.yaml → ["0.1.0", 3].
+def pubspec_version
+  line = File.readlines(File.join(APP_ROOT, "pubspec.yaml")).find { |l| l.start_with?("version:") }
+  UI.user_error!("pubspec.yaml has no version") unless line
+  name, build = line.split(":", 2).last.strip.split("+")
+  [name, (build || "1").to_i]
+end
+
+# The next build number: BUILD_NUMBER when set, else max(store + 1, pubspec).
+# Fails when it does not exceed the last uploaded build (06 §8 Rules).
+def next_build_number(latest_uploaded)
+  _, pubspec_build = pubspec_version
+  requested = ENV["BUILD_NUMBER"].to_s.strip
+  number = requested.empty? ? [latest_uploaded + 1, pubspec_build].max : Integer(requested, 10)
+  if number <= latest_uploaded
+    UI.user_error!("Build number #{number} must exceed the last uploaded build #{latest_uploaded}")
+  end
+  UI.message("Build #{pubspec_version.first} (#{number}); last uploaded: #{latest_uploaded}")
+  number
+end
+
+def flutter_build(kind, extra_args)
+  name, = pubspec_version
+  args = [
+    "flutter", "build", kind, "--release",
+    "--flavor", "prod", "-t", ENTRYPOINT,
+    "--dart-define-from-file=#{DART_DEFINES}",
+    "--obfuscate", "--split-debug-info=#{SYMBOLS_DIR}",
+    "--build-name=#{name}"
+  ] + extra_args
+  Dir.chdir(APP_ROOT) { sh(*args) }
+end
+
+# Flutter obfuscation symbols → Crashlytics (02 §13). Optional: skipped
+# without the firebase CLI, never fails the deploy.
+def upload_dart_symbols(firebase_app_id)
+  unless system("command -v firebase >/dev/null 2>&1")
+    UI.important("firebase CLI not found - Dart symbols not uploaded")
+    return
+  end
+  Dir.chdir(APP_ROOT) do
+    sh("firebase", "crashlytics:symbols:upload", "--app=#{firebase_app_id}", SYMBOLS_DIR)
+  end
+rescue StandardError => e
+  UI.important("Crashlytics Dart symbol upload failed (the build still ships): #{e.message}")
+end
+
+platform :ios do
+  def asc_api_key
+    key_id = ENV["APP_STORE_CONNECT_API_KEY_ID"].to_s
+    issuer = ENV["APP_STORE_CONNECT_API_ISSUER_ID"].to_s
+    UI.user_error!("APP_STORE_CONNECT_API_KEY_ID / _ISSUER_ID are required") if key_id.empty? || issuer.empty?
+    b64 = ENV["APP_STORE_CONNECT_API_KEY_BASE64"].to_s
+    if !b64.empty?
+      app_store_connect_api_key(key_id: key_id, issuer_id: issuer, key_content: b64,
+                                is_key_content_base64: true, in_house: false)
+    elsif !ENV["APP_STORE_CONNECT_API_KEY_PATH"].to_s.empty?
+      app_store_connect_api_key(key_id: key_id, issuer_id: issuer,
+                                key_filepath: ENV["APP_STORE_CONNECT_API_KEY_PATH"], in_house: false)
+    else
+      UI.user_error!("APP_STORE_CONNECT_API_KEY_BASE64 or APP_STORE_CONNECT_API_KEY_PATH is required")
+    end
+  end
+
+  # Builds the signed prod IPA and uploads the dSYMs and Dart symbols.
+  def build_prod_ipa(api_key)
+    latest = latest_testflight_build_number(api_key: api_key, app_identifier: IOS_BUNDLE_ID,
+                                            initial_build_number: 0)
+    number = next_build_number(latest.to_i)
+    flutter_build("ipa", ["--build-number=#{number}", "--export-options-plist=#{IOS_EXPORT_OPTIONS}"])
+
+    ipa = Dir.glob(File.join(APP_ROOT, "build/ios/ipa/*.ipa")).first
+    UI.user_error!("No IPA in build/ios/ipa") unless ipa
+
+    upload_dsyms
+    upload_dart_symbols(firebase_ios_app_id)
+    ipa
+  end
+
+  def firebase_ios_app_id
+    sh("plutil", "-extract", "GOOGLE_APP_ID", "raw", File.join(APP_ROOT, IOS_GSP), log: false).strip
+  end
+
+  def upload_dsyms
+    tool = File.join(APP_ROOT, "ios/Pods/FirebaseCrashlytics/upload-symbols")
+    dsyms = File.join(APP_ROOT, "build/ios/archive/Runner.xcarchive/dSYMs")
+    unless File.exist?(tool) && File.directory?(dsyms)
+      UI.important("Crashlytics upload-symbols or dSYMs missing - dSYMs not uploaded")
+      return
+    end
+    sh(tool, "-gsp", File.join(APP_ROOT, IOS_GSP), "-p", "ios", dsyms)
+  rescue StandardError => e
+    UI.important("Crashlytics dSYM upload failed (the build still ships): #{e.message}")
+  end
+
+  desc "Prod build to TestFlight (internal groups only, no public link; RC63)"
+  lane :beta do
+    api_key = asc_api_key
+    ipa = build_prod_ipa(api_key)
+    upload_to_testflight(
+      api_key: api_key,
+      ipa: ipa,
+      app_identifier: IOS_BUNDLE_ID,
+      skip_waiting_for_build_processing: true,
+      skip_submission: true,
+      distribute_external: false
+    )
+  end
+
+  desc "Prod build to App Store Connect; submits for review only with SUBMIT_FOR_REVIEW=true"
+  lane :release do
+    api_key = asc_api_key
+    ipa = build_prod_ipa(api_key)
+    upload_to_app_store(
+      api_key: api_key,
+      ipa: ipa,
+      app_identifier: IOS_BUNDLE_ID,
+      # Store metadata and screenshots are owned by asa (apps/taro/store/aso.yaml).
+      skip_metadata: true,
+      skip_screenshots: true,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      submit_for_review: ENV["SUBMIT_FOR_REVIEW"] == "true",
+      automatic_release: false,
+      force: true
+    )
+  end
+end
+
+platform :android do
+  def play_json_key
+    path = ENV["GOOGLE_PLAY_JSON_PATH"].to_s
+    path.empty? || !File.exist?(path) ? nil : path
+  end
+
+  def latest_play_version_code(json_key)
+    return 0 unless json_key
+
+    PLAY_TRACKS.flat_map do |track|
+      google_play_track_version_codes(track: track, json_key: json_key, package_name: ANDROID_PACKAGE)
+    rescue StandardError
+      [] # a track without releases
+    end.map(&:to_i).max || 0
+  end
+
+  def firebase_android_app_id
+    data = JSON.parse(File.read(File.join(APP_ROOT, ANDROID_GSJ)))
+    client = data["client"].find do |c|
+      c.dig("client_info", "android_client_info", "package_name") == ANDROID_PACKAGE
+    end
+    client&.dig("client_info", "mobilesdk_app_id")
+  end
+
+  desc "Prod AAB → Google Play. Options: track, release_status, upload (default true), validate_only"
+  lane :deploy do |options|
+    track = (options[:track] || ENV["TRACK"] || "internal").to_s
+    release_status = (options[:release_status] || ENV["RELEASE_STATUS"] || "draft").to_s
+    upload = options.fetch(:upload, true).to_s != "false"
+    validate_only = options[:validate_only].to_s == "true"
+
+    key_props = ENV["TARO_KEY_PROPERTIES"].to_s
+    key_props = File.join(APP_ROOT, "android/key.properties") if key_props.empty?
+    UI.user_error!("Upload keystore properties not found (TARO_KEY_PROPERTIES)") unless File.exist?(key_props)
+
+    json_key = play_json_key
+    UI.user_error!("GOOGLE_PLAY_JSON_PATH is required to upload") if (upload || validate_only) && json_key.nil?
+
+    number = next_build_number(latest_play_version_code(json_key))
+    flutter_build("appbundle", ["--build-number=#{number}"])
+
+    aab = File.join(APP_ROOT, "build/app/outputs/bundle/prodRelease/app-prod-release.aab")
+    UI.user_error!("AAB not found at #{aab}") unless File.exist?(aab)
+    app_id = firebase_android_app_id
+    upload_dart_symbols(app_id) if app_id
+
+    unless upload || validate_only
+      UI.success("AAB built (not uploaded): #{aab}")
+      next
+    end
+
+    upload_to_play_store(
+      package_name: ANDROID_PACKAGE,
+      json_key: json_key,
+      aab: aab,
+      track: track,
+      release_status: release_status,
+      validate_only: validate_only,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+end

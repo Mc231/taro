@@ -1,0 +1,194 @@
+name: Deploy Android
+
+# 06 §8, Phase 10 Sprint 10.6. Manual: builds the prod-flavor AAB (phones +
+# tablets) with fastlane `android deploy`, signed with the upload key from the
+# secrets bundle (TARO_KEY_PROPERTIES), and uploads it to a Play track.
+#   upload=false        → build only (artifact: the AAB)
+#   validate_only=true  → Play validates the edit without committing it
+# internal_staging (prodStaging, RC78) waits for that build configuration
+# (docs/runbooks/RELEASE.md § prodStaging). Play App Signing was enabled by the
+# owner's manual first upload (Sprint 10.4).
+#
+# Gates: `CI / coverage-gate` green on this SHA, the CHANGELOG check
+# (production: a `## [X.Y.Z]` section), and a version code above every Play
+# track's (the Fastfile). Secrets: $RUNNER_TEMP, masked, removed in always().
+
+on:
+  workflow_dispatch:
+    inputs:
+      track:
+        description: 'Play track'
+        required: true
+        type: choice
+        options:
+          - internal
+          - closed
+          - production
+        default: internal
+      release_status:
+        description: 'Play release status'
+        required: true
+        type: choice
+        options:
+          - draft
+          - completed
+        default: draft
+      upload:
+        description: 'upload to Play (false: build the AAB only)'
+        required: false
+        type: boolean
+        default: true
+      validate_only:
+        description: 'validate the Play edit without committing it'
+        required: false
+        type: boolean
+        default: false
+      build_number:
+        description: 'optional version code (default: max(highest Play version code + 1, pubspec))'
+        required: false
+        type: string
+        default: ''
+
+concurrency:
+  group: deploy-android
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: fastlane android deploy (${{ inputs.track }})
+    runs-on: macos
+    timeout-minutes: 60
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require CI green on this SHA
+        env:
+          API: ${{ github.server_url }}/api/v1/repos/${{ github.repository }}
+          SHA: ${{ github.sha }}
+          TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state=$(curl -fsS -H "Authorization: token $TOKEN" "$API/commits/$SHA/statuses?limit=50" \
+            | jq -r '[.[] | select(.context | startswith("CI / coverage-gate"))][0].status // "missing"')
+          echo "CI / coverage-gate on $SHA: $state"
+          if [ "$state" != "success" ]; then
+            echo "::error::CI is not green on $SHA ($state); deploys need a green ci run (06 §8)"
+            exit 1
+          fi
+
+      - name: Set up tools venv
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3.12 -m venv tools/.venv
+          tools/.venv/bin/python -m pip install --quiet -e './tools[dev]'
+
+      - name: Check CHANGELOG
+        env:
+          TRACK: ${{ inputs.track }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          version=$(sed -n 's/^version: *\([0-9.]*\).*/\1/p' apps/taro/pubspec.yaml)
+          if [ "$TRACK" = "production" ]; then
+            tools/.venv/bin/python tools/check_changelog.py --version "$version"
+          else
+            tools/.venv/bin/python tools/check_changelog.py
+          fi
+
+      - name: Decrypt secrets
+        env:
+          SECRETS_PASSPHRASE: ${{ secrets.SECRETS_PASSPHRASE }}
+          UPLOAD: ${{ inputs.upload }}
+          VALIDATE_ONLY: ${{ inputs.validate_only }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tools/secrets-manager.sh decrypt-to "$RUNNER_TEMP/secrets.json" 2>/dev/null
+          s="$RUNNER_TEMP/secrets.json"
+          need="taro.android_keystore_base64 taro.android_keystore_password taro.android_key_alias taro.android_key_password"
+          if [ "$UPLOAD" = "true" ] || [ "$VALIDATE_ONLY" = "true" ]; then
+            need="$need shared.google_play_service_account_base64"
+          fi
+          for path in $need; do
+            if [ -z "$(jq -r ".$path // empty" "$s")" ]; then
+              echo "::error::secrets bundle: $path is empty (docs/runbooks/RELEASE.md § Google Play)"
+              exit 1
+            fi
+          done
+          store_pw=$(jq -r '.taro.android_keystore_password' "$s")
+          key_pw=$(jq -r '.taro.android_key_password' "$s")
+          echo "::add-mask::$store_pw"
+          echo "::add-mask::$key_pw"
+          jq -r '.taro.android_keystore_base64' "$s" | base64 --decode > "$RUNNER_TEMP/taro_upload.jks"
+          umask 077
+          {
+            echo "storeFile=$RUNNER_TEMP/taro_upload.jks"
+            echo "storePassword=$store_pw"
+            echo "keyAlias=$(jq -r '.taro.android_key_alias' "$s")"
+            echo "keyPassword=$key_pw"
+          } > "$RUNNER_TEMP/key.properties"
+          unset store_pw key_pw
+          if [ -n "$(jq -r '.shared.google_play_service_account_base64 // empty' "$s")" ]; then
+            jq -r '.shared.google_play_service_account_base64' "$s" | base64 --decode > "$RUNNER_TEMP/play.json"
+          fi
+          chmod 600 "$RUNNER_TEMP"/taro_upload.jks "$RUNNER_TEMP"/key.properties
+          echo "TARO_KEY_PROPERTIES=$RUNNER_TEMP/key.properties" >> "$GITHUB_ENV"
+          echo "GOOGLE_PLAY_JSON_PATH=$RUNNER_TEMP/play.json" >> "$GITHUB_ENV"
+
+      - name: Bootstrap workspace
+        shell: bash
+        run: |
+          set -euo pipefail
+          dart pub global activate melos >/dev/null
+          melos bootstrap
+
+      - name: Install fastlane
+        working-directory: apps/taro/fastlane
+        shell: bash
+        run: |
+          set -euo pipefail
+          bundle config set --local path "$HOME/.gem/taro-bundle"
+          bundle install --quiet
+
+      - name: fastlane android deploy
+        working-directory: apps/taro/fastlane
+        env:
+          TRACK: ${{ inputs.track }}
+          RELEASE_STATUS: ${{ inputs.release_status }}
+          UPLOAD: ${{ inputs.upload }}
+          VALIDATE_ONLY: ${{ inputs.validate_only }}
+          BUILD_NUMBER: ${{ inputs.build_number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The runner shares ~/.gradle with Android Studio (quiz_apps lesson).
+          export GRADLE_USER_HOME="$HOME/.gradle-ci"
+          # Play's API calls the closed testing track "alpha".
+          play_track=$TRACK
+          [ "$TRACK" = "closed" ] && play_track=alpha
+          bundle exec fastlane android deploy track:"$play_track" release_status:"$RELEASE_STATUS" \
+            upload:"$UPLOAD" validate_only:"$VALIDATE_ONLY"
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v3
+        with:
+          name: taro-prod-aab
+          path: apps/taro/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+          if-no-files-found: ignore
+
+      - name: Clean up secrets
+        if: always()
+        shell: bash
+        run: |
+          for f in secrets.json key.properties taro_upload.jks play.json; do
+            [ -f "$RUNNER_TEMP/$f" ] && rm -P "$RUNNER_TEMP/$f"
+          done
+          true

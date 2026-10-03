@@ -2,3 +2,12 @@
 #include "../Flutter/Generated.xcconfig"
 #include "Dev.xcconfig"
 #include "Common.xcconfig"
+
+// App Store signing (Phase 10 Sprint 10.3): Release builds are signed manually
+// with the shared Apple Distribution certificate and the asa-created App Store
+// profile below (~/pet/secure/taro/, secrets bundle). Debug and Profile keep
+// automatic signing. docs/runbooks/RELEASE.md § Signing.
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = Apple Distribution
+CODE_SIGN_IDENTITY[sdk=iphoneos*] = Apple Distribution
+PROVISIONING_PROFILE_SPECIFIER = Taro Dev iOS Distribution

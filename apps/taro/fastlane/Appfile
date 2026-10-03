@@ -1,0 +1,10 @@
+# Taro identifiers (non-secret). Keys and service accounts come from the
+# environment (see Fastfile header).
+for_platform :ios do
+  app_identifier("com.vshyrochuk.taro")
+  team_id("M3FHKUJ7Z3")
+end
+
+for_platform :android do
+  package_name("com.vshyrochuk.taro")
+end

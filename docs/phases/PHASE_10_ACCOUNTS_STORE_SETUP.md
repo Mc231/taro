@@ -73,7 +73,7 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
   - DeviceCheck key (`.p8`) → `APPLE_DEVICECHECK_KEY_ID`, `APPLE_DEVICECHECK_PRIVATE_KEY` (03 §3.7, RC53);
   - App Store Server Notifications V2 URLs: production → `https://api.taro.vshyrochuk.com/v1/webhooks/appstore`, sandbox → the staging host (RC4);
   - EU DSA trader status and export compliance.
-- [ ] Signing: distribution certificate (shared), App Store provisioning profiles for the prod, stg and dev bundles → `~/pet/secure/taro/` and the secrets bundle (quiz_apps Phase 3 pattern).
+- [ ] Signing: distribution certificate (shared), App Store provisioning profiles for the prod, stg and dev bundles → `~/pet/secure/taro/` and the secrets bundle (quiz_apps Phase 3 pattern). _(2026-10-03, partial: certificate `7D3BS8PXCS` valid to 2027-01-16 (team `M3FHKUJ7Z3`, now also the repo's team ID); asa created `Taro [Stg |Dev ]iOS Distribution` in `~/pet/secure/taro/`; Release xcconfigs sign manually with them. Open (owner): the prod profile is bound to `.stg` (asa prefix-match bug, fixed) and none carries Associated Domains — enable it on the 3 App IDs, recreate the profiles, fill the bundle's empty `shared.apple_*` / `app_store_connect_*` keys and `taro.ios_provisioning_profile*_base64`. `docs/runbooks/RELEASE.md` § Signing, Evidence log.)_
 - [x] `apps/taro/ios/Taro.storekit` StoreKit Configuration file with the 4 products for local testing (04 §15, 06). _(Done 2026-10-03: `apps/taro/ios/Taro.storekit`, `readings_3|10|30` consumables at $1.99/$4.99/$9.99 and `remove_ads` non-consumable at $3.99, family shareable (MO17), en_US names/descriptions from `aso.yaml`; Run StoreKit configuration of the `dev` scheme.)_
 
 ---
@@ -109,12 +109,12 @@ It follows the quiz_apps phase pattern (Phases 3, 5, 6, 8, 10) but with Taro's d
 ## Sprint 10.6: Deploy workflows & first builds
 
 **Tasks:**
-- [ ] `apps/taro/fastlane/` (shared-fastlane approach from quiz_apps): lanes `ios beta`, `ios release`, `android deploy` (track, release_status). Build with `--dart-define-from-file=config/prod.json --obfuscate --split-debug-info=build/symbols`, and upload the Crashlytics symbols (02 §13).
-- [ ] `.gitea/workflows/deploy-ios.yml` and `deploy-android.yml` (06 §8):
+- [x] `apps/taro/fastlane/` (shared-fastlane approach from quiz_apps): lanes `ios beta`, `ios release`, `android deploy` (track, release_status). Build with `--dart-define-from-file=config/prod.json --obfuscate --split-debug-info=build/symbols`, and upload the Crashlytics symbols (02 §13). _(2026-10-03: `apps/taro/fastlane/{Fastfile,Appfile,Gemfile,Gemfile.lock}`; `android deploy upload:false` built the signed prod AAB locally, RELEASE.md Evidence log.)_
+- [x] `.gitea/workflows/deploy-ios.yml` and `deploy-android.yml` (06 §8): _(2026-10-03; actionlint + shellcheck clean; `beta_internal` / `internal_staging` wait for `prodStaging`.)_
   - require `ci` green on the SHA, `check_changelog`, and a build number greater than the last uploaded one (the Sonar gate is advisory and not queried, RC88);
   - decrypt secrets to `$RUNNER_TEMP` and shred them in an `always()` step.
 - [ ] First TestFlight build via `deploy-ios.yml` lane `beta` (placeholder UI). The first Android AAB was uploaded manually in Sprint 10.4; subsequent Android builds go through the workflow.
-- [ ] `docs/runbooks/RELEASE.md`: record the accounts, IDs table (non-secret), and first-build steps.
+- [x] `docs/runbooks/RELEASE.md`: record the accounts, IDs table (non-secret), and first-build steps. _(2026-10-03: § Accounts and IDs, § Signing, § Deploy workflows, Evidence log.)_
 
 ---
 
