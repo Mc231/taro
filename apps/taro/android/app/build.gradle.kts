@@ -60,6 +60,7 @@ android {
         create("prod") {
             dimension = "env"
             manifestPlaceholders["appName"] = "Taro"
+            manifestPlaceholders["admobAppId"] = "ca-app-pub-5769204800499735~4087770387"
         }
     }
 

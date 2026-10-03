@@ -4,7 +4,7 @@ APP_DISPLAY_NAME = Taro
 // AdMob app ID for Info.plist GADApplicationIdentifier. Google's sample app ID
 // until Phase 10 creates the real AdMob app (prod only); ad unit IDs come from
 // config/prod.json.
-ADMOB_APP_ID = ca-app-pub-3940256099942544~1458002511
+ADMOB_APP_ID = ca-app-pub-5769204800499735~4008802776
 // Firebase config folder Config/<flavor>/GoogleService-Info.plist, copied into
 // the app by the "Copy GoogleService-Info.plist" build phase (Phase 10, RC36).
 FIREBASE_CONFIG_FLAVOR = prod
