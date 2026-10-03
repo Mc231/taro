@@ -59,3 +59,12 @@ Notes:
 ## Rejection response plan
 
 ## Evidence log
+
+### 2026-10-03 — App Store Connect via asa (Phase 10.3)
+- App record `6818775977` created by the owner in the ASC UI (the API no longer allows app creation); `bootstrap-app` set LIFESTYLE / ENTERTAINMENT.
+- Bundle IDs: `com.vshyrochuk.taro`, `.dev` (7PXM43WGQX), `.stg` (4FBT4YG35K), IN_APP_PURCHASE. App Attest = entitlement only.
+- IAPs created: `remove_ads` (non-consumable, tier 4), `readings_3` (tier 2), `readings_10` (tier 5), `readings_30` (tier 10); prices set; availability 175 territories; 48 localizations (4 × 12).
+- `push-localizations`: 12 locales pushed (whats_new skipped on the first version).
+- Age rating declaration set from config, `ageRatingOverrideV2 = THIRTEEN_PLUS` accepted.
+- App availability: 154 territories, excluded AFG AIA ARE BHR BLR BMU CHN CYM HKG KWT MAC MMR MSR OMN QAT RUS SAU TCA VEN VGB YEM.
+- Firebase: `taro-app-dev` (dev + stg apps), `taro-app-prod` (prod app); Analytics linked by the owner in the console.
