@@ -1,3 +1,14 @@
+import java.util.Properties
+
+// Release signing (Phase 10.4): android/key.properties (gitignored) or the file
+// named by TARO_KEY_PROPERTIES (CI writes it from the secrets bundle). Without
+// one, release builds fall back to the debug key so `flutter run --release` works.
+val keyPropertiesFile = (System.getenv("TARO_KEY_PROPERTIES")?.let { file(it) })
+    ?: rootProject.file("key.properties")
+val keyProperties = Properties().apply {
+    if (keyPropertiesFile.exists()) keyPropertiesFile.inputStream().use { load(it) }
+}
+
 plugins {
     id("com.android.application")
     // Reads src/<flavor>/google-services.json (flutterfire configure, RC36).
@@ -52,11 +63,24 @@ android {
         }
     }
 
+    signingConfigs {
+        if (keyProperties.isNotEmpty()) {
+            create("upload") {
+                storeFile = file(keyProperties.getProperty("storeFile"))
+                storePassword = keyProperties.getProperty("storePassword")
+                keyAlias = keyProperties.getProperty("keyAlias")
+                keyPassword = keyProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (keyProperties.isNotEmpty()) {
+                signingConfigs.getByName("upload")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
