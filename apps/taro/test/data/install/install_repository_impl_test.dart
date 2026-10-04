@@ -366,6 +366,165 @@ void main() {
         expect(r.adapter.to(kRegister), hasLength(2));
       });
 
+      group('upgraded to App Attest, then its key cannot sign (S07 '
+          '"couldn\'t verify this device")', () {
+        Map<String, dynamic> lastAttestation(InstallHarness x) =>
+            _body(x.adapter.to(kRegister).last)['attestation']
+                as Map<String, dynamic>;
+
+        test('same launch: the repair registers low trust without a new key '
+            'and drops the stored key', () async {
+          await registerLow(h);
+          final upgraded = expectOk(await h.repo.ensureRegistered());
+          expect(upgraded.attestationKeyId, 'key-2');
+          h.adapter.routes[kRegister] = (_) => InstallHarness.ok({
+            ...fixture('installs.register.response'),
+            'trust': 'low',
+          });
+          final attests = h.attestation.calls.where((c) => c == 'attest');
+          final before = attests.length;
+
+          final repaired = expectOk(await h.repo.repairRegistration());
+
+          expect(attests.length, before, reason: 'no new platform key');
+          expect(lastAttestation(h)['type'], 'none');
+          expect(repaired.isRegistered, isTrue);
+          expect(repaired.trust, Trust.low);
+          expect(repaired.attestationKeyId, isNull);
+          expect(h.secure.values.containsKey(SecureKeys.attestKeyId), isFalse);
+          expect(
+            expectOk(await h.repo.getOrCreate()).installId,
+            upgraded.installId,
+          );
+        });
+
+        test('next launch: the first repair uses a new platform key, a second '
+            'one goes low trust', () async {
+          await registerLow(h);
+          expectOk(await h.repo.ensureRegistered());
+          final next = InstallHarness(secure: h.secure, device: h.device);
+          final loaded = expectOk(await next.repo.getOrCreate());
+          expect(loaded.attestationKeyId, 'key-2');
+          expect(loaded.trust, Trust.high);
+
+          final first = expectOk(await next.repo.repairRegistration());
+          expect(lastAttestation(next)['type'], 'app_attest');
+          expect(first.attestationKeyId, 'key-1');
+          expect(next.secure.values[SecureKeys.attestKeyId], 'key-1');
+
+          next.adapter.routes[kRegister] = (_) => InstallHarness.ok({
+            ...fixture('installs.register.response'),
+            'trust': 'low',
+          });
+          final second = expectOk(await next.repo.repairRegistration());
+          expect(lastAttestation(next)['type'], 'none');
+          expect(second.attestationKeyId, isNull);
+        });
+
+        test(
+          'a repair whose new key cannot be attested falls back to none',
+          () async {
+            await registerLow(h);
+            expectOk(await h.repo.ensureRegistered());
+            final next = InstallHarness(secure: h.secure, device: h.device);
+            next.attestation.failNext(
+              const Failure.attestation(
+                kind: AttestationFailureKind.keyInvalidated,
+              ),
+              on: 'attest',
+            );
+            final repaired = expectOk(await next.repo.repairRegistration());
+            expect(lastAttestation(next)['type'], 'none');
+            expect(repaired.attestationKeyId, isNull);
+            expect(
+              next.logger.logged('keyInvalidated', level: LogLevel.severe),
+              isTrue,
+            );
+          },
+        );
+
+        test('after a low-trust repair the upgrade pauses for 7 days, then '
+            'runs again', () async {
+          await registerLow(h);
+          expectOk(await h.repo.ensureRegistered());
+          h.adapter.routes[kRegister] = (_) => InstallHarness.ok({
+            ...fixture('installs.register.response'),
+            'trust': 'low',
+          });
+          expectOk(await h.repo.repairRegistration());
+
+          final soon = InstallHarness(
+            secure: h.secure,
+            device: h.device,
+            clock: FakeClock.utc(kInstallNow.add(const Duration(days: 6))),
+          );
+          expectOk(await soon.repo.ensureRegistered());
+          expect(soon.adapter.requests, isEmpty);
+
+          final later = InstallHarness(
+            secure: h.secure,
+            device: h.device,
+            clock: FakeClock.utc(kInstallNow.add(const Duration(days: 8))),
+          );
+          later.adapter.routes[kRegister] = (_) =>
+              InstallHarness.ok(fixture('installs.register.response'));
+          final upgraded = expectOk(await later.repo.ensureRegistered());
+          expect(lastAttestation(later)['type'], 'app_attest');
+          expect(upgraded.trust, Trust.high);
+        });
+
+        test('the call after the upgrade signs with the new stored key '
+            '(no local refusal)', () async {
+          await registerLow(h);
+          expectOk(await h.repo.ensureRegistered());
+          expectOk(await h.repo.refreshToken());
+          expect(h.attestation.assertionKeyIds.last, 'key-2');
+          final header = h.adapter
+              .to(kToken)
+              .last
+              .options
+              .headers['X-Taro-Attestation'];
+          expect(header, isNot('none'));
+        });
+
+        test('a reinstall (Keychain kept, marker gone) registers with a new '
+            'key and the next call signs with it', () async {
+          expectOk(await h.repo.ensureRegistered());
+          final reinstalled = InstallHarness(secure: h.secure);
+          addTearDown(reinstalled.close);
+          expect(
+            expectOk(await reinstalled.repo.getOrCreate()).isRegistered,
+            isFalse,
+          );
+          final registered = expectOk(
+            await reinstalled.repo.ensureRegistered(),
+          );
+          expectOk(await reinstalled.repo.refreshToken());
+          expect(
+            reinstalled.attestation.assertionKeyIds.last,
+            registered.attestationKeyId,
+          );
+        });
+
+        test('a refused repair keeps the registration and the key', () async {
+          await registerLow(h);
+          final upgraded = expectOk(await h.repo.ensureRegistered());
+          h.adapter.routes[kRegister] = (_) =>
+              InstallHarness.error(429, 'RATE_LIMITED');
+          expectErr(await h.repo.repairRegistration());
+          final current = expectOk(await h.repo.getOrCreate());
+          expect(current, upgraded);
+          expect(h.secure.values[SecureKeys.attestKeyId], 'key-2');
+          expect(
+            h.logger.logged(
+              'registration repair failed',
+              level: LogLevel.severe,
+            ),
+            isTrue,
+          );
+        });
+      });
+
       test('Android never upgrades this way', () async {
         final a = InstallHarness(
           attestationKind: AttestationType.playIntegrity,
@@ -549,6 +708,29 @@ void main() {
       expect(expectOk(await h.repo.getOrCreate()).trust, Trust.low);
       final restarted = InstallHarness(secure: h.secure, device: h.device);
       expect(expectOk(await restarted.repo.getOrCreate()).trust, Trust.low);
+    });
+
+    test('keyInvalidated whose new key cannot be attested re-registers low '
+        'trust instead of leaving the install unregistered', () async {
+      expectOk(await h.repo.ensureRegistered());
+      h.attestation
+        ..failNext(
+          const Failure.attestation(
+            kind: AttestationFailureKind.keyInvalidated,
+          ),
+          on: 'assert',
+        )
+        ..failNext(
+          const Failure.attestation(kind: AttestationFailureKind.rejected),
+          on: 'attest',
+        );
+      expectOk(await h.repo.refreshToken());
+      final attestation =
+          _body(h.adapter.to(kRegister).last)['attestation'] as Map;
+      expect(attestation['type'], 'none');
+      final after = expectOk(await h.repo.getOrCreate());
+      expect(after.isRegistered, isTrue);
+      expect(after.attestationKeyId, isNull);
     });
 
     test('keyInvalidated re-registers with the same ID and secret', () async {

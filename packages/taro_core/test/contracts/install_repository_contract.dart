@@ -51,6 +51,26 @@ void runInstallRepositoryContract(InstallRepositoryHarness Function() create) {
       expect(expectOk(await install.getOrCreate()).isRegistered, isFalse);
     });
 
+    test(
+      'repairRegistration keeps the install ID and the registration',
+      () async {
+        final registered = expectOk(await install.ensureRegistered());
+        final repaired = expectOk(await install.repairRegistration());
+        expect(repaired.installId, registered.installId);
+        expect(repaired.isRegistered, isTrue);
+        expect(expectOk(await install.getOrCreate()).isRegistered, isTrue);
+      },
+    );
+
+    test('a failed repair keeps the current registration', () async {
+      final registered = expectOk(await install.ensureRegistered());
+      harness.serverFailsNext(const Failure.network());
+      expectErr(await install.repairRegistration());
+      final current = expectOk(await install.getOrCreate());
+      expect(current.isRegistered, isTrue);
+      expect(current.installId, registered.installId);
+    });
+
     test('refreshToken succeeds for a registered install', () async {
       await install.ensureRegistered();
       expectOk(await install.refreshToken());

@@ -17,6 +17,15 @@ abstract interface class InstallRepository {
   /// registered, and returns the updated identity.
   Future<Result<InstallIdentity>> ensureRegistered();
 
+  /// Repairs a registration whose attested calls fail on this device
+  /// (`AttestationFailure` of any kind, or `SessionExpiredFailure`): registers
+  /// again with the same install ID and secret (02 §6.4). The first repair
+  /// of a launch uses a new platform key unless one was already attested in
+  /// this launch; a later one registers without platform attestation (low
+  /// trust), so the install can still read when the platform cannot sign.
+  /// A failed repair keeps the current registration.
+  Future<Result<InstallIdentity>> repairRegistration();
+
   /// Refreshes the session token (`POST /v1/installs/token`).
   Future<Result<void>> refreshToken();
 

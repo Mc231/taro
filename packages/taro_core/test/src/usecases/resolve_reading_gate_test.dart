@@ -95,9 +95,33 @@ void main() {
     expect(expectOk(await gate(spread)), const GateDecision.needsAiConsent());
   });
 
-  test('an unregistered install is unverified', () async {
+  test('an unregistered install registers first, then reads', () async {
+    install.identity = anInstallIdentity(registered: false);
+    expect(
+      expectOk(await gate(spread)),
+      const GateDecision.allowed(ChargeSource.paid),
+    );
+    expect(install.calls, ['getOrCreate', 'ensureRegistered']);
+  });
+
+  test('an unregistered install whose registration fails is unverified, '
+      'and Begin tries again', () async {
+    install
+      ..identity = anInstallIdentity(registered: false)
+      ..failNext(const Failure.network(), on: 'ensureRegistered');
+    expect(expectOk(await gate(spread)), const GateDecision.deviceUnverified());
+    expect(
+      expectOk(await gate(spread)),
+      const GateDecision.allowed(ChargeSource.paid),
+    );
+  });
+
+  test('offline, an unregistered install stays unverified without a '
+      'registration call', () async {
+    connectivity.setOnline(online: false);
     install.identity = anInstallIdentity(registered: false);
     expect(expectOk(await gate(spread)), const GateDecision.deviceUnverified());
+    expect(install.calls, ['getOrCreate']);
   });
 
   test('an unreadable identity is a failure (S01 storageError)', () async {

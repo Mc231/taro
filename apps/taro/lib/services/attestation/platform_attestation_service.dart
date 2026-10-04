@@ -233,8 +233,13 @@ final class PlatformAttestationService implements AttestationService {
   static String _base64Url(List<int> bytes) =>
       base64Url.encode(bytes).replaceAll('=', '');
 
+  /// A failed [attest] or [assert_] blocks readings until a repair, so it is
+  /// logged at `severe` (a Crashlytics non-fatal in prod) with the operation
+  /// and kind, plus the native error domain and code (the plugin's message
+  /// never carries keys or tokens).
   Failure _failure(String operation, TaroAttestationException e) {
-    _log(operation, e);
+    final native = e.message == null ? '' : ' [${e.message}]';
+    _logger?.severe('attestation $operation failed: ${e.kind.name}$native');
     return Failure.attestation(kind: failureKindOf(e.kind));
   }
 

@@ -140,6 +140,36 @@ void main() {
         'SEVERE taro: failed | Bad state: boom',
       ]);
     });
+
+    test('prod: each SEVERE record is a redacted non-fatal', () async {
+      final crash = FakeCrashReporter();
+      PackageLoggingLogger.forBuild(
+          isProd: true,
+          crash: crash,
+        ).child('readings')
+        ..warning('only a breadcrumb')
+        ..severe('reading hold refused: ATTESTATION_FAILED(keyInvalidated)')
+        ..severe('token {"installToken":"abc"}');
+      await pumpEventQueue();
+      expect(crash.errors, hasLength(2));
+      final first = crash.errors.first;
+      expect(first.fatal, isFalse);
+      expect(first.error, isA<LoggedFailure>());
+      expect(
+        '${first.error}',
+        'SEVERE taro.readings: reading hold refused: '
+            'ATTESTATION_FAILED(keyInvalidated)',
+      );
+      expect(first.context, {'logger': 'taro.readings'});
+      expect('${crash.errors.last.error}', isNot(contains('abc')));
+    });
+  });
+
+  test('CrashNonFatalSink defaults to SEVERE', () {
+    expect(
+      CrashNonFatalSink(FakeCrashReporter()).minLevel,
+      logging.Level.SEVERE,
+    );
   });
 
   test('ConsoleLogSink defaults to FINE and debugPrint', () {

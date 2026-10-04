@@ -176,7 +176,13 @@ void main() {
           result.failureOrNull,
           _attestationFailure(PlatformAttestationService.failureKindOf(kind)),
         );
-        expect(logger.logged('attestation assert failed: ${kind.name}'), true);
+        expect(
+          logger.logged(
+            'attestation assert failed: ${kind.name}',
+            level: LogLevel.severe,
+          ),
+          true,
+        );
         expectCleanLogs();
       });
     }

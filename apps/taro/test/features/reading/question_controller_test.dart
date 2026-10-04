@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/app_state/sync_coordinator.dart';
 import 'package:taro/features/reading/controller/question_controller.dart';
 import 'package:taro/features/reading/controller/question_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
@@ -168,7 +169,7 @@ void main() {
     test('deviceUnverified', () async {
       fakes.install = FakeInstallRepository(
         identity: anInstallIdentity(registered: false),
-      );
+      )..failNext(const Failure.network(), on: 'ensureRegistered');
       final (_, log, controller) = await open();
       await controller.begin();
       expect(log.last, isA<QuestionDeviceUnverified>());
@@ -176,6 +177,20 @@ void main() {
         eventsOf<DeviceUnverifiedShownEvent>(fakes).single.origin,
         AppNoticeOrigin.readingGate,
       );
+    });
+
+    test('deviceUnverified heals: Retry registers and the reading '
+        'starts', () async {
+      fakes.install = FakeInstallRepository(
+        identity: anInstallIdentity(registered: false),
+      )..failNext(const Failure.network(), on: 'ensureRegistered');
+      final (_, log, controller) = await open();
+      await controller.begin();
+      expect(log.last, isA<QuestionDeviceUnverified>());
+      controller.dismissNotice();
+      await controller.begin();
+      expect(log.last, isA<QuestionReady>());
+      expect(fakes.readings.holds, hasLength(1));
     });
 
     test('readingsPaused (kill switch) is never a paywall', () async {
@@ -348,11 +363,48 @@ void main() {
       expect(await holdFails(const Failure.network()), isA<QuestionOffline>());
     });
 
-    test('attestation → deviceUnverified', () async {
-      final state = await holdFails(
-        const Failure.attestation(kind: AttestationFailureKind.rejected),
+    test('attestation that a repair cannot fix → deviceUnverified', () async {
+      const refused = Failure.attestation(
+        kind: AttestationFailureKind.rejected,
       );
+      fakes.readings.failNextWorkerCall(refused);
+      final state = await holdFails(refused);
       expect(state, isA<QuestionDeviceUnverified>());
+      expect(fakes.install.calls, contains('repairRegistration'));
+    });
+
+    test('an install upgraded to App Attest whose key cannot sign '
+        '(keyInvalidated before any request) repairs and starts the '
+        'reading', () async {
+      final state = await holdFails(
+        const Failure.attestation(kind: AttestationFailureKind.keyInvalidated),
+      );
+      expect(state, isA<QuestionReady>());
+      expect(fakes.install.calls, contains('repairRegistration'));
+      expect(fakes.readings.holds, hasLength(2));
+    });
+
+    test('a session revoked by the upgrade re-registration repairs and '
+        'starts the reading', () async {
+      final state = await holdFails(const Failure.sessionExpired());
+      expect(state, isA<QuestionReady>());
+    });
+
+    test('deviceUnverified returns to editing after a successful sync '
+        '(launch or resume)', () async {
+      const refused = Failure.attestation(
+        kind: AttestationFailureKind.rejected,
+      );
+      fakes.readings
+        ..failNextWorkerCall(refused)
+        ..failNextWorkerCall(refused);
+      final (container, log, controller) = await open();
+      await controller.begin();
+      expect(log.last, isA<QuestionDeviceUnverified>());
+      await container.read(syncCoordinatorProvider).run(SyncReason.resume);
+      await pumpEventQueue();
+      expect(log.last, isA<QuestionEditing>());
+      expect(log.last.draft.canBegin, isTrue);
     });
 
     test('a server error → failed', () async {

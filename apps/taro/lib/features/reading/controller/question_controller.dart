@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show NotifierProviderFamily;
 import 'package:taro/app_state/connectivity_controller.dart';
 import 'package:taro/app_state/consent_controller.dart';
+import 'package:taro/app_state/sync_coordinator.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/reading/controller/question_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
@@ -42,6 +43,16 @@ final class QuestionController extends Notifier<QuestionState> {
       })
       ..listen<bool>(connectivityProvider, (previous, online) {
         if (online && state is QuestionOffline) {
+          state = QuestionState.editing(_current);
+        }
+      })
+      // Self-healing: a sync pass that succeeded (launch, resume,
+      // connectivity) may have repaired the registration, so the
+      // "couldn't verify this device" notice gives Begin back (it re-checks).
+      ..listen<SyncStatus>(syncStatusProvider, (previous, status) {
+        if (status is SyncStatusSynced &&
+            previous != status &&
+            state is QuestionDeviceUnverified) {
           state = QuestionState.editing(_current);
         }
       })

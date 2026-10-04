@@ -10,6 +10,7 @@ void main() {
   late FakeReadingRepository readings;
   late SequentialIdGenerator ids;
   late CapturingLogger logger;
+  late FakeInstallRepository install;
 
   final spread = aSpread().build();
 
@@ -21,6 +22,7 @@ void main() {
     readings = FakeReadingRepository(clock: clock);
     ids = SequentialIdGenerator();
     logger = CapturingLogger();
+    install = FakeInstallRepository();
   });
 
   group('RequestReading', () {
@@ -30,6 +32,7 @@ void main() {
       request = RequestReading(
         readings: readings,
         balance: balance,
+        install: install,
         ids: ids,
         clock: clock,
         logger: logger,
@@ -37,6 +40,79 @@ void main() {
     });
 
     group('hold', () {
+      for (final failure in [
+        const Failure.attestation(kind: AttestationFailureKind.keyInvalidated),
+        const Failure.attestation(kind: AttestationFailureKind.rejected),
+        const Failure.attestation(kind: AttestationFailureKind.transient),
+        const Failure.sessionExpired(),
+      ]) {
+        test('a hold refused for the device (${failure.code}) repairs the '
+            'registration and is tried once more with the same ID', () async {
+          readings.failNextWorkerCall(failure);
+          final hold = expectOk(await request.hold(spread, locale: 'en'));
+          expect(install.calls, ['repairRegistration']);
+          expect(readings.holds, hasLength(2));
+          expect(readings.holds.first.$1, hold.readingId);
+          expect(readings.holds.last.$1, hold.readingId);
+          expect(balance.applied, hasLength(1));
+          expect(
+            logger.logged('reading hold refused: ', level: LogLevel.severe),
+            isTrue,
+          );
+        });
+      }
+
+      test('the logged failure names the attestation kind only', () async {
+        readings.failNextWorkerCall(
+          const Failure.attestation(
+            kind: AttestationFailureKind.keyInvalidated,
+          ),
+        );
+        await request.hold(spread, locale: 'en');
+        expect(
+          logger.logged('ATTESTATION_FAILED(keyInvalidated)'),
+          isTrue,
+          reason: logger.records.map((r) => r.message).join('\n'),
+        );
+      });
+
+      test('a failed repair returns the original failure without a second '
+          'hold', () async {
+        readings.failNextWorkerCall(
+          const Failure.attestation(kind: AttestationFailureKind.rejected),
+        );
+        install.failNext(const Failure.network(), on: 'repairRegistration');
+        expect(
+          expectErr(await request.hold(spread, locale: 'en')),
+          isA<AttestationFailure>(),
+        );
+        expect(readings.holds, hasLength(1));
+        expect(balance.applied, isEmpty);
+      });
+
+      test('a hold still refused after the repair is returned and logged '
+          '(no loop)', () async {
+        const refused = Failure.attestation(
+          kind: AttestationFailureKind.rejected,
+        );
+        readings
+          ..failNextWorkerCall(refused)
+          ..failNextWorkerCall(refused);
+        expect(
+          expectErr(await request.hold(spread, locale: 'en')),
+          isA<AttestationFailure>(),
+        );
+        expect(install.calls, ['repairRegistration']);
+        expect(readings.holds, hasLength(2));
+        expect(logger.logged('reading hold refused after repair'), isTrue);
+      });
+
+      test('other failures never repair the registration', () async {
+        readings.failNextWorkerCall(const Failure.network());
+        expectErr(await request.hold(spread, locale: 'en'));
+        expect(install.calls, isEmpty);
+      });
+
       test('a new reading gets a fresh ID and applies the balance', () async {
         readings.holdBalance = aCreditBalance()
             .withFreeRemaining(0)

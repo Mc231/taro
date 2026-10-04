@@ -144,6 +144,23 @@ final class FakeInstallRepository
     return Result.ok(identity!);
   }
 
+  /// The identity [repairRegistration] stores (default: the current one,
+  /// registered).
+  InstallIdentity? repairedIdentity;
+
+  @override
+  Future<Result<InstallIdentity>> repairRegistration() async {
+    record('repairRegistration');
+    final failure = takeFailure('repairRegistration');
+    if (failure != null) return Result.err(failure);
+    identity =
+        repairedIdentity ??
+        anInstallIdentity().copyWith(
+          installId: identity?.installId ?? kTestInstallId,
+        );
+    return Result.ok(identity!);
+  }
+
   @override
   Future<Result<void>> refreshToken() async {
     record('refreshToken');

@@ -5,8 +5,10 @@ import 'package:taro_core/src/model/spread.dart';
 import 'package:taro_core/src/ports/balance_repository.dart';
 import 'package:taro_core/src/ports/clock.dart';
 import 'package:taro_core/src/ports/id_generator.dart';
+import 'package:taro_core/src/ports/install_repository.dart';
 import 'package:taro_core/src/ports/logger.dart';
 import 'package:taro_core/src/ports/reading_repository.dart';
+import 'package:taro_core/src/result/failure.dart';
 import 'package:taro_core/src/result/ids.dart';
 import 'package:taro_core/src/result/result.dart';
 import 'package:taro_core/src/usecases/delivery_ack.dart';
@@ -25,17 +27,20 @@ final class RequestReading {
   RequestReading({
     required ReadingRepository readings,
     required BalanceRepository balance,
+    required InstallRepository install,
     required IdGenerator ids,
     required Clock clock,
     required Logger logger,
   }) : _readings = readings,
        _balance = balance,
+       _install = install,
        _ids = ids,
        _clock = clock,
        _logger = logger;
 
   final ReadingRepository _readings;
   final BalanceRepository _balance;
+  final InstallRepository _install;
   final IdGenerator _ids;
   final Clock _clock;
   final Logger _logger;
@@ -43,16 +48,46 @@ final class RequestReading {
   /// Takes (or renews, with the same [readingId]) the pre-draw hold and
   /// applies the balance that came with it. A new reading gets a fresh
   /// UUIDv4 (= `clientReadingId` = `Idempotency-Key`).
+  ///
+  /// A hold refused for the device (an [AttestationFailure], locally when
+  /// the platform cannot sign or from the Worker, or a
+  /// [SessionExpiredFailure]) repairs the registration and is tried once
+  /// more, so S07 is never stuck on "couldn't verify this device" while a
+  /// re-registration can fix it (02 §6.4). The failure kind is logged at
+  /// `severe` (a Crashlytics non-fatal in prod; no IDs or keys).
   Future<Result<ReadingHold>> hold(
     SpreadDefinition spread, {
     required String locale,
     ReadingId? readingId,
   }) async {
     final id = readingId ?? ReadingId(_ids.uuidV4());
-    final result = await _readings.hold(id, spread, locale: locale);
+    var result = await _readings.hold(id, spread, locale: locale);
+    if (result case Err(:final failure) when _repairable(failure)) {
+      _logger.severe('reading hold refused: ${describeDeviceFailure(failure)}');
+      final repaired = await _install.repairRegistration();
+      if (repaired case Ok()) {
+        result = await _readings.hold(id, spread, locale: locale);
+        if (result case Err(:final failure) when _repairable(failure)) {
+          _logger.severe(
+            'reading hold refused after repair: '
+            '${describeDeviceFailure(failure)}',
+          );
+        }
+      }
+    }
     if (result case Ok(:final value)) await _balance.apply(value.balance);
     return result;
   }
+
+  static bool _repairable(Failure failure) =>
+      failure is AttestationFailure || failure is SessionExpiredFailure;
+
+  /// A log-safe description of a device-verification failure: its code and,
+  /// for an [AttestationFailure], the kind.
+  static String describeDeviceFailure(Failure failure) => switch (failure) {
+    AttestationFailure(:final kind) => '${failure.code}(${kind.name})',
+    _ => failure.code,
+  };
 
   /// Returns [current] while it has at least `ReadingHold.minRevealLeft`
   /// left by server time; otherwise renews it (a `402` here means S10 with

@@ -38,14 +38,23 @@ final class ResolveReadingGate {
   final ConnectivityMonitor _connectivity;
   final Clock _clock;
 
-  /// Evaluates the gate for [spread]. Fails only when the install identity
-  /// cannot be read (S01 `storageError`).
+  /// Evaluates the gate for [spread]; an unregistered install registers
+  /// first when online. Fails only when the install identity cannot be read
+  /// (S01 `storageError`).
   Future<Result<GateDecision>> call(SpreadDefinition spread) async {
     final install = await _install.getOrCreate();
     if (install case Err(:final failure)) return Result.err(failure);
-    final identity = install.valueOrNull!;
+    var identity = install.valueOrNull!;
     final config = _config.current;
     var online = await _connectivity.isOnline();
+    // Self-healing (02 §6.4): an install that is not registered (a failed
+    // or interrupted registration, a repair the Worker refused) registers
+    // now instead of showing "couldn't verify this device" until the next
+    // sync pass.
+    if (!identity.isRegistered && online) {
+      final registered = await _install.ensureRegistered();
+      if (registered case Ok(:final value)) identity = value;
+    }
     var balance = _balance.cached;
     final now = _clock.now();
     if (online &&

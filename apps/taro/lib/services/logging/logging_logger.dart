@@ -20,7 +20,8 @@ final class PackageLoggingLogger implements Logger {
   }) => _LogHub(sinks, redactor ?? Redactor()).logger(name);
 
   /// The sinks of 02 §13 for a build: the debug console (FINE) in dev and
-  /// staging, Crashlytics breadcrumbs (INFO+) in prod.
+  /// staging; in prod, Crashlytics breadcrumbs (INFO+) and a non-fatal for
+  /// each SEVERE record.
   factory PackageLoggingLogger.forBuild({
     required bool isProd,
     required CrashReporter crash,
@@ -29,7 +30,7 @@ final class PackageLoggingLogger implements Logger {
   }) => PackageLoggingLogger.root(
     redactor: redactor,
     sinks: isProd
-        ? [CrashBreadcrumbSink(crash)]
+        ? [CrashBreadcrumbSink(crash), CrashNonFatalSink(crash)]
         : [ConsoleLogSink(writeLine: writeLine)],
   );
 

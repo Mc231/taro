@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:taro/data/api/interceptors/attestation_interceptor.dart';
 import 'package:taro/data/api/worker_client.dart';
 import 'package:taro/data/db/device/device_database.dart';
 import 'package:taro/data/install/install_repository_impl.dart';
@@ -104,6 +105,8 @@ final class InstallHarness {
       logger: logger,
       adapter: adapter,
       sleep: (d) async => this.clock.advance(d),
+      // As in the app graph: each assertion names the stored key.
+      attestationKeyId: AttestationInterceptor.storedKeyId(this.secure),
     );
     repo = InstallRepositoryImpl(
       client: client,

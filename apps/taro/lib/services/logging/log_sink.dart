@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
 import 'package:taro_core/taro_core.dart';
@@ -81,4 +83,41 @@ final class CrashBreadcrumbSink implements LogSink {
 
   @override
   void write(RedactedLogRecord record) => _crash.log(record.line);
+}
+
+/// Crashlytics non-fatals for `severe` records (prod; 02 §13): a failure
+/// that needs attention (for example an attestation failure that blocks
+/// readings) is reported with its redacted line, so it can be found without
+/// a crash to carry the breadcrumbs. The reporter drops it while collection
+/// is off.
+final class CrashNonFatalSink implements LogSink {
+  /// Creates a sink over the `crash` reporter.
+  CrashNonFatalSink(this._crash, {this.minLevel = logging.Level.SEVERE});
+
+  final CrashReporter _crash;
+
+  @override
+  final logging.Level minLevel;
+
+  @override
+  void write(RedactedLogRecord record) => unawaited(
+    _crash.recordError(
+      LoggedFailure(record.line),
+      record.stack ?? StackTrace.current,
+      context: {'logger': record.loggerName},
+    ),
+  );
+}
+
+/// The error reported by [CrashNonFatalSink]: the redacted log line.
+@immutable
+final class LoggedFailure implements Exception {
+  /// Creates the error.
+  const LoggedFailure(this.line);
+
+  /// The redacted log line.
+  final String line;
+
+  @override
+  String toString() => line;
 }

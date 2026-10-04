@@ -397,6 +397,7 @@ final requestReadingProvider = Provider<RequestReading>(
   (ref) => RequestReading(
     readings: ref.watch(readingRepositoryProvider),
     balance: ref.watch(balanceRepositoryProvider),
+    install: ref.watch(installRepositoryProvider),
     ids: ref.watch(idGeneratorProvider),
     clock: ref.watch(clockProvider),
     logger: ref.watch(loggerProvider).child('readings'),

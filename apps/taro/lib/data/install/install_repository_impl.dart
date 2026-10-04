@@ -61,6 +61,11 @@ final class InstallRepositoryImpl implements InstallRepository {
   /// The `sync_state` key of the registration marker.
   static const String registrationKey = 'install_registration';
 
+  /// How long an install repaired to low trust (its platform key could not
+  /// sign) skips the App Attest upgrade, so a device whose App Attest keeps
+  /// failing does not spend its daily re-registrations on every launch.
+  static const Duration upgradePauseAfterRepair = Duration(days: 7);
+
   final WorkerClient _client;
   final WorkerClientConfig _config;
   final SecureStore _secure;
@@ -78,6 +83,15 @@ final class InstallRepositoryImpl implements InstallRepository {
   Future<Result<_Install>>? _loading;
   Future<Result<InstallIdentity>>? _registering;
   bool _upgradeTried = false;
+
+  /// Whether a platform key was attested in this launch (a repair then
+  /// goes straight to low trust: a fresh key that cannot sign is not lost,
+  /// the platform is failing).
+  bool _attestedThisLaunch = false;
+
+  /// Whether a repair with a new platform key was already tried in this
+  /// launch.
+  bool _platformRepairTried = false;
 
   @override
   Future<Result<InstallIdentity>> getOrCreate() async =>
@@ -101,7 +115,13 @@ final class InstallRepositoryImpl implements InstallRepository {
       !_upgradeTried &&
       _config.platform == AppPlatform.ios &&
       identity.trust == Trust.low &&
-      identity.attestationKeyId == null;
+      identity.attestationKeyId == null &&
+      !_upgradePaused;
+
+  bool get _upgradePaused {
+    final until = _install?.upgradeAfter;
+    return until != null && _clock.now().isBefore(until);
+  }
 
   /// The upgrade of [_canUpgrade]. It reaches the Worker only with a
   /// platform attestation; otherwise, or on any failure, the low-trust
@@ -109,7 +129,7 @@ final class InstallRepositoryImpl implements InstallRepository {
   Future<Result<InstallIdentity>> _upgrade(InstallIdentity identity) async {
     _upgradeTried = true;
     final upgraded = await (_registering ??= _register(
-      platformOnly: true,
+      mode: _AttestMode.platformOnly,
     ).whenComplete(() => _registering = null));
     if (upgraded case Err(:final failure)) {
       _logger.info('low-trust install kept: ${failure.code}');
@@ -130,8 +150,49 @@ final class InstallRepositoryImpl implements InstallRepository {
       _logger.info('re-registering the install');
       final cleared = await _clearRegistration(install);
       if (cleared case Err(:final failure)) return Result.err(failure);
-      return _registerOnce();
+      // A platform that cannot attest now falls back to low trust instead of
+      // leaving the install unregistered.
+      return _registering ??= _register(
+        mode: _AttestMode.repair,
+      ).whenComplete(() => _registering = null);
     });
+  }
+
+  @override
+  Future<Result<InstallIdentity>> repairRegistration() async {
+    final loaded = await _load();
+    return loaded.then((install) async {
+      if (_registering case final running?) return running;
+      final withPlatform =
+          _config.platform == AppPlatform.ios &&
+          !_attestedThisLaunch &&
+          !_platformRepairTried;
+      if (withPlatform) _platformRepairTried = true;
+      final mode = withPlatform ? _AttestMode.repair : _AttestMode.noneOnly;
+      _logger.info('repairing the registration (${mode.name})');
+      final repaired = await (_registering ??= _register(
+        mode: mode,
+      ).whenComplete(() => _registering = null));
+      switch (repaired) {
+        case Ok(:final value) when value.attestationKeyId == null:
+          await _pauseUpgrade();
+        case Ok():
+          break;
+        case Err(:final failure):
+          _logger.severe('registration repair failed: ${failure.code}');
+      }
+      return repaired;
+    });
+  }
+
+  /// Pauses the App Attest upgrade for [upgradePauseAfterRepair].
+  Future<void> _pauseUpgrade() async {
+    final install = _install;
+    if (install == null) return;
+    _install = install.copyWith(
+      upgradeAfter: _clock.now().add(upgradePauseAfterRepair),
+    );
+    await _updateMarker((marker) => marker);
   }
 
   @override
@@ -210,6 +271,7 @@ final class InstallRepositoryImpl implements InstallRepository {
       );
       final install = _Install(
         secret: secret,
+        upgradeAfter: marker?.upgradeAfter,
         identity: InstallIdentity(
           installId: InstallId(installId),
           registeredAt: marker?.registeredAt,
@@ -233,10 +295,10 @@ final class InstallRepositoryImpl implements InstallRepository {
   Future<Result<InstallIdentity>> _registerOnce() =>
       _registering ??= _register().whenComplete(() => _registering = null);
 
-  /// One registration attempt. With [platformOnly] (an upgrade), no
-  /// `type: none` fallback is sent: a missing platform attestation fails
-  /// with [AttestationFailure] before `POST /v1/installs`.
-  Future<Result<InstallIdentity>> _register({bool platformOnly = false}) async {
+  /// One registration attempt in [mode] (see [_AttestMode]).
+  Future<Result<InstallIdentity>> _register({
+    _AttestMode mode = _AttestMode.standard,
+  }) async {
     final install = _install!;
     final installId = install.identity.installId.value;
 
@@ -251,12 +313,7 @@ final class InstallRepositoryImpl implements InstallRepository {
     final signal = await _attestation.deviceSignal();
     final RegistrationAttestationDto attestation;
     final String? keyId;
-    switch (await _attest(
-      dto,
-      installId,
-      signal,
-      platformOnly: platformOnly,
-    )) {
+    switch (await _attest(dto, installId, signal, mode: mode)) {
       case Ok(value: (final body, final id)):
         (attestation, keyId) = (body, id);
       case Err(:final failure):
@@ -304,14 +361,17 @@ final class InstallRepositoryImpl implements InstallRepository {
     ChallengeDto dto,
     String installId,
     DeviceSignal signal, {
-    required bool platformOnly,
+    required _AttestMode mode,
   }) async {
+    if (mode == _AttestMode.noneOnly) {
+      return Result.ok(await _none(dto, installId, 'error'));
+    }
     final result = await _attestation.attest(
       challenge: dto.challenge,
       installId: installId,
       signal: signal,
     );
-    if (platformOnly) {
+    if (mode == _AttestMode.platformOnly) {
       return switch (result) {
         Ok(:final value) when value.type != AttestationType.none => Result.ok((
           RegistrationAttestationDto.fromBlob(value),
@@ -342,6 +402,13 @@ final class InstallRepositoryImpl implements InstallRepository {
         ),
       ):
         _logger.warning('platform attestation unavailable; low trust');
+        return Result.ok(await _none(dto, installId, 'error'));
+      case Err(:final AttestationFailure failure)
+          when mode == _AttestMode.repair:
+        _logger.severe(
+          'platform attestation failed in a repair: ${failure.kind.name}; '
+          'low trust',
+        );
         return Result.ok(await _none(dto, installId, 'error'));
       case Err(:final failure):
         return Result.err(failure);
@@ -382,6 +449,7 @@ final class InstallRepositoryImpl implements InstallRepository {
       registeredAt: _clock.now(),
       trust: registration.trust,
       timezone: timezone,
+      upgradeAfter: install.upgradeAfter,
     );
     try {
       _value(
@@ -390,9 +458,13 @@ final class InstallRepositoryImpl implements InstallRepository {
           _encodeBinding(registration.purchaseBinding),
         ),
       );
-      if (keyId != null) {
-        _value(await _secure.write(SecureKeys.attestKeyId, keyId));
-      }
+      // A registration without a key replaces the Worker's stored key
+      // (03 §3.3), so a stale local key ID must not sign later calls.
+      _value(
+        keyId != null
+            ? await _secure.write(SecureKeys.attestKeyId, keyId)
+            : await _secure.delete(SecureKeys.attestKeyId),
+      );
       await _cache.putSyncValue(registrationKey, marker.encode());
     } on _StorageError {
       return const Result.err(Failure.storage());
@@ -405,8 +477,9 @@ final class InstallRepositoryImpl implements InstallRepository {
       registeredTimezone: timezone,
       trust: registration.trust,
       purchaseBinding: registration.purchaseBinding,
-      attestationKeyId: keyId ?? install.identity.attestationKeyId,
+      attestationKeyId: keyId,
     );
+    if (keyId != null) _attestedThisLaunch = true;
     _install = install.copyWith(identity: identity);
     return Result.ok(identity);
   }
@@ -441,6 +514,7 @@ final class InstallRepositoryImpl implements InstallRepository {
         registeredAt: identity.registeredAt!,
         trust: identity.trust!,
         timezone: identity.registeredTimezone!,
+        upgradeAfter: install.upgradeAfter,
       ),
     );
     _install = install.copyWith(
@@ -501,13 +575,40 @@ final class _StorageError implements Exception {
 
 /// The loaded identity plus the secret (kept out of [InstallIdentity]).
 final class _Install {
-  const _Install({required this.secret, required this.identity});
+  const _Install({
+    required this.secret,
+    required this.identity,
+    this.upgradeAfter,
+  });
 
   final String secret;
   final InstallIdentity identity;
 
-  _Install copyWith({required InstallIdentity identity}) =>
-      _Install(secret: secret, identity: identity);
+  /// No App Attest upgrade before this instant (after a low-trust repair).
+  final DateTime? upgradeAfter;
+
+  _Install copyWith({InstallIdentity? identity, DateTime? upgradeAfter}) =>
+      _Install(
+        secret: secret,
+        identity: identity ?? this.identity,
+        upgradeAfter: upgradeAfter ?? this.upgradeAfter,
+      );
+}
+
+/// How a registration attests (03 §3.3).
+enum _AttestMode {
+  /// The platform attestation, else `type: none` when the platform has none
+  /// or is unavailable (a first registration).
+  standard,
+
+  /// The platform attestation only (the low → high upgrade).
+  platformOnly,
+
+  /// A new platform key, else `type: none` on any attestation failure.
+  repair,
+
+  /// `type: none` only (the platform cannot sign on this device now).
+  noneOnly,
 }
 
 /// The `install_registration` `sync_state` marker.
@@ -517,12 +618,14 @@ final class _RegistrationMarker {
     required this.registeredAt,
     required this.trust,
     required this.timezone,
+    this.upgradeAfter,
   });
 
   final String installId;
   final DateTime registeredAt;
   final Trust trust;
   final String timezone;
+  final DateTime? upgradeAfter;
 
   _RegistrationMarker copyWith({Trust? trust, String? timezone}) =>
       _RegistrationMarker(
@@ -530,6 +633,7 @@ final class _RegistrationMarker {
         registeredAt: registeredAt,
         trust: trust ?? this.trust,
         timezone: timezone ?? this.timezone,
+        upgradeAfter: upgradeAfter,
       );
 
   String encode() => jsonEncode({
@@ -537,6 +641,7 @@ final class _RegistrationMarker {
     'registeredAt': registeredAt.toUtc().toIso8601String(),
     'trust': trust.name,
     'timezone': timezone,
+    'upgradeAfter': ?upgradeAfter?.toUtc().toIso8601String(),
   });
 
   /// The marker in [raw] when it belongs to [installId]; a marker of
@@ -551,6 +656,10 @@ final class _RegistrationMarker {
         registeredAt: DateTime.parse(json['registeredAt'] as String).toUtc(),
         trust: Trust.values.byName(json['trust'] as String),
         timezone: json['timezone'] as String,
+        upgradeAfter: switch (json['upgradeAfter']) {
+          final String at => DateTime.parse(at).toUtc(),
+          _ => null,
+        },
       );
     } on Object {
       return null;
