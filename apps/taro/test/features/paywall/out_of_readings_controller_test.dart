@@ -251,6 +251,34 @@ void main() {
     expect((read() as OutOfReadingsContent).packs, isA<PaywallPacksLoaded>());
   });
 
+  test('before the Worker config has loaded, packs are unavailable (never '
+      '"for 0"); Retry refreshes the config and lists them (BUG-02)', () async {
+    fakes.config
+      ..current = RemoteConfig.defaults
+      ..failNext(const Failure.network(), on: 'refresh');
+    final (container, read) = open();
+    await pumpEventQueue();
+    expect(
+      (read() as OutOfReadingsContent).packs,
+      const PaywallPacks.unavailable(),
+    );
+    fakes.config.server = aRemoteConfig()
+        .withPacks(_packsWithCredits())
+        .build();
+    await container
+        .read(
+          outOfReadingsControllerProvider(
+            OutOfReadingsSource.questionGate,
+          ).notifier,
+        )
+        .retryPacks();
+    final packs = (read() as OutOfReadingsContent).packs;
+    expect(
+      (packs as PaywallPacksLoaded).catalog.packs.map((p) => p.credits),
+      [3, 10, 30],
+    );
+  });
+
   test('an empty listing is unavailable', () async {
     fakes.iap.catalog.clear();
     final (_, read) = open();

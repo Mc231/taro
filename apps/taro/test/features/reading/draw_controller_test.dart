@@ -501,10 +501,11 @@ void main() {
         ),
       );
       expect(log.last, isA<DrawReturnedToQuestion>());
-      expect(
-        container.read(readingHandoffProvider),
-        isA<ReadingHandoffDeclined>(),
-      );
+      // The Worker's declined response has no `chargeSource`: S07 says
+      // "Not charged" from it.
+      final handoff = container.read(readingHandoffProvider);
+      expect(handoff, isA<ReadingHandoffDeclined>());
+      expect((handoff! as ReadingHandoffDeclined).notCharged, isTrue);
     });
 
     test('a decline without details is refused(other)', () async {

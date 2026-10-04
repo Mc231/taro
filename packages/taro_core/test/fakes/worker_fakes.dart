@@ -256,6 +256,8 @@ final class FakeReadingRepository
     (p) => p.copyWith(
       status: ReadingStatus.refused(safety: safety),
       content: null,
+      // As the repository: a declined reading carries no `chargeSource`.
+      chargeSource: null,
     ),
   );
 

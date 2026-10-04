@@ -266,7 +266,9 @@ class ReadingResultLayout extends StatelessWidget {
     final prompts = content?.reflectionPrompts ?? const <String>[];
     return ReadingTextView(
       reveal: reveal,
-      question: question == null ? null : l10n.readingQuestionQuoted(question),
+      question: question == null
+          ? null
+          : l10n.readingQuestionQuoted(firstStrongIsolate(question)),
       sourceLabel: AiGeneratedLabel(label: l10n.aiLabel),
       title: content?.title,
       sections: [

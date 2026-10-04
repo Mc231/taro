@@ -9,8 +9,9 @@ import 'package:taro/features/reading/controller/spread_picker_controller.dart';
 import 'package:taro/features/reading/view/draw_screen.dart';
 import 'package:taro/features/reading/view/question_screen.dart';
 import 'package:taro/features/reading/view/spread_picker_screen.dart';
-import 'package:taro_core/taro_core.dart';
+import 'package:taro_core/taro_core.dart' hide ThemeMode;
 
+import '../../../../packages/taro_ui/test/helpers/golden/golden_sizes.dart';
 import 'golden_app_support.dart';
 
 /// Sprint 16.3 goldens: S06 `content`, S07 `editing` and
@@ -27,6 +28,23 @@ QuestionDraft _draft(String text) => QuestionDraft(
   text: text,
 );
 
+/// The declined question per golden locale.
+const Map<String, String> _declinedQuestions = {
+  'en': 'Will the kids get sick this winter?',
+  'ar': 'هل سيمرض الأطفال هذا الشتاء؟',
+  'uk': 'Чи захворіють діти цієї зими?',
+};
+
+QuestionState _declinedHealth(Locale locale) => QuestionState.rephrase(
+  _draft(_declinedQuestions[locale.languageCode]!),
+  safety: const SafetyInfo(
+    category: RefusalCategory.health,
+    messageKey: 'safetyDeclinedHealth',
+    canRephrase: true,
+  ),
+  draw: aDraw(),
+);
+
 Widget _question(QuestionState state) => QuestionLayout(
   state: state,
   text: TextEditingController(text: state.draft.text),
@@ -37,6 +55,8 @@ Widget _question(QuestionState state) => QuestionLayout(
   onDismiss: () {},
   onClassic: () {},
   onReflectWithoutQuestion: () {},
+  onRephrase: () {},
+  onAskDifferent: () {},
   onOpenConsent: () {},
   onOpenOptions: () {},
   onBack: () {},
@@ -98,24 +118,30 @@ void main() {
     pump: pump,
   );
 
+  // The refusal state (S07 refusal spec): a declined `health` question
+  // with a rewording hint, after the draw (the real-world case).
   goldenMatrix(
     's07_question_refused_health',
-    (_) => _question(
-      QuestionState.refused(
-        _draft('How can I look after myself while I wait for my results?'),
-        category: RefusalCategory.health,
-        safety: const SafetyInfo(
-          category: RefusalCategory.health,
-          messageKey: 'safetyDeclinedHealth',
-          canRephrase: false,
-        ),
-        draw: aDraw(),
-      ),
-    ),
+    (variant) => _question(_declinedHealth(variant.locale)),
     keyScreen: true,
     accessibility: true,
+    largeText: true,
+    extraLocales: const [Locale('uk')],
     pump: pump,
   );
+  // uk dark (the matrix covers uk light only).
+  const ukDark = GoldenVariant(
+    size: kPhoneLarge,
+    themeMode: ThemeMode.dark,
+    locale: Locale('uk'),
+  );
+  testWidgets('s07_question_refused_health ${ukDark.name}', (tester) async {
+    await pump(tester, _question(_declinedHealth(ukDark.locale)), ukDark);
+    await expectLater(
+      find.byType(WidgetsApp),
+      matchesGoldenFile(goldenPath('s07_question_refused_health', ukDark)),
+    );
+  }, tags: const ['golden']);
 
   goldenMatrix(
     's08_draw_shuffling',
@@ -130,6 +156,19 @@ void main() {
     (_) => _draw(DrawState.picking(_view(placed: 2))),
     keyScreen: true,
     accessibility: true,
+    // BUG-03: at 200 % the deck fan scrolls after the slots.
+    largeText: true,
+    pump: pump,
+  );
+
+  // BUG-03, BUG-06, BUG-08: "Reveal all" scrolls at 200 %; "Tap to reveal"
+  // and "Vergangenheit" stay whole in long locales.
+  goldenMatrix(
+    's08_draw_revealing',
+    (_) => _draw(DrawState.revealing(_view(placed: 3))),
+    keyScreen: true,
+    largeText: true,
+    extraLocales: const [Locale('de'), Locale('ja')],
     pump: pump,
   );
 

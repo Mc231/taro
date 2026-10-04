@@ -236,7 +236,8 @@ void main() {
       );
       expect(find.text(l10n.drawTapToReveal), findsOneWidget);
       expect(find.text(l10n.drawRevealedProgress(0, 3)), findsOneWidget);
-      expect(find.text('How do I grow?'), findsOneWidget);
+      // BUG-11: the question keeps its own direction in an RTL UI.
+      expect(find.text(firstStrongIsolate('How do I grow?')), findsOneWidget);
       // The parent flips the first card.
       await pumpLayout(
         tester,

@@ -179,17 +179,30 @@ IapLoadResult _loadResult(int listed, int requested) {
 /// `store.removeAdsEnabled`) and builds the [PaywallCatalog]; logs
 /// `iap_products_loaded`. Credits per pack come from the Worker-injected
 /// `store.packs[].credits` only (RC3): the client never hard-codes them.
+/// When a pack has no credits yet (the compiled defaults, before the first
+/// `GET /v1/config`), the config is refreshed once; a pack still without
+/// credits is left out, so no surface ever shows "0 readings" (BUG-02).
 Future<Result<PaywallCatalog>> loadPaywallCatalog(Ref ref) async {
-  final config = ref.read(remoteConfigRepositoryProvider).current;
+  final repository = ref.read(remoteConfigRepositoryProvider);
   final clock = ref.read(clockProvider);
   final analytics = ref.read(analyticsServiceProvider);
-  final packs = config.enabledPacks;
+  final iap = ref.read(iapServiceProvider);
+  var config = repository.current;
+  if (config.enabledPacks.any((p) => p.credits == null)) {
+    // Offline or failed: the stale config stands and creditless packs drop.
+    await repository.refresh();
+    config = repository.current;
+  }
+  final packs = [
+    for (final pack in config.enabledPacks)
+      if ((pack.credits ?? 0) > 0) pack,
+  ];
   final ids = <ProductId>{
     for (final pack in packs) pack.productId,
     if (config.storeRemoveAdsEnabled) TaroProducts.removeAds.id,
   };
   final started = clock.now();
-  final listed = await ref.read(iapServiceProvider).products(ids);
+  final listed = await iap.products(ids);
   final ms = clock.now().difference(started).inMilliseconds;
   switch (listed) {
     case Err(:final failure):
@@ -214,7 +227,7 @@ Future<Result<PaywallCatalog>> loadPaywallCatalog(Ref ref) async {
               price: product.price,
               rawPrice: product.rawPrice,
               currencyCode: product.currencyCode,
-              credits: pack.credits ?? 0,
+              credits: pack.credits!,
               sortOrder: pack.sortOrder,
             ),
       ]);

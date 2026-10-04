@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/features/help/controller/crisis_resources_controller.dart';
 import 'package:taro/features/help/view/crisis_resources_screen.dart';
@@ -32,6 +33,38 @@ void main() {
     );
     return opened;
   }
+
+  // BUG-18: in ja the title broke as "…ありませ / ん"; it may break only
+  // between the phrases "あなたは" and "ひとりではありません".
+  testWidgets('ja title breaks only between phrases', (tester) async {
+    const ja = Locale('ja');
+    final title = lookupTaroLocalizations(ja).crisisTitle;
+    final directory = aCrisisDirectory();
+    for (final width in const <double>[320, 360, 375, 393, 411, 430]) {
+      await pumpTaroWidget(
+        tester,
+        CrisisResourcesLayout(
+          state: CrisisResourcesState.content(
+            country: 'DE',
+            resources: directory.select(country: 'DE'),
+            hasLocalLines: true,
+            countries: const ['DE'],
+          ),
+          onClose: noop,
+          onRetry: noop,
+          onChooseCountry: noop1,
+          onOpen: (_) {},
+        ),
+        locale: ja,
+        size: Size(width, 800),
+      );
+      final paragraph = tester.renderObject<RenderParagraph>(find.text(title));
+      final lastLine = paragraph.getPositionForOffset(
+        Offset(0, paragraph.size.height - 1),
+      );
+      expect(lastLine.offset, isIn([0, title.indexOf('ひ')]), reason: '$width');
+    }
+  });
 
   testWidgets('loading', (tester) async {
     await pumpLayout(tester, const CrisisResourcesState.loading());

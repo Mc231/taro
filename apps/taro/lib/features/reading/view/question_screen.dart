@@ -11,6 +11,7 @@ import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/reading/controller/question_controller.dart';
 import 'package:taro/features/reading/controller/question_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
+import 'package:taro/features/reading/view/question_refusal_view.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
@@ -56,6 +57,7 @@ class QuestionScreen extends ConsumerStatefulWidget {
 
 class _QuestionScreenState extends ConsumerState<QuestionScreen> {
   final TextEditingController _text = TextEditingController();
+  final FocusNode _focus = FocusNode();
   bool _precached = false;
 
   @override
@@ -80,6 +82,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
   @override
   void dispose() {
     _text.dispose();
+    _focus.dispose();
     super.dispose();
   }
 
@@ -94,6 +97,7 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
     return QuestionLayout(
       state: state,
       text: _text,
+      focusNode: _focus,
       onChanged: _controller.updateText,
       onSuggestion: (text) {
         _text.text = text;
@@ -108,6 +112,11 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
       onClassic: () => unawaited(_controller.startClassic()),
       onReflectWithoutQuestion: () =>
           unawaited(_controller.reflectWithoutQuestion()),
+      onRephrase: _rephrase,
+      onAskDifferent: () {
+        _controller.rephrase(clear: true);
+        _focus.requestFocus();
+      },
       onOpenConsent: _openConsent,
       onOpenOptions: () => unawaited(_openOptions(state)),
       onBack: () =>
@@ -135,6 +144,17 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
       default:
         break;
     }
+  }
+
+  /// "Rephrase my question": back to the editor with the declined question
+  /// selected, so typing replaces it.
+  void _rephrase() {
+    _controller.rephrase();
+    _text.selection = TextSelection(
+      baseOffset: 0,
+      extentOffset: _text.text.length,
+    );
+    _focus.requestFocus();
   }
 
   Future<void> _openDraw() async {
@@ -183,6 +203,8 @@ class QuestionLayout extends ConsumerWidget {
     required this.onDismiss,
     required this.onClassic,
     required this.onReflectWithoutQuestion,
+    required this.onRephrase,
+    required this.onAskDifferent,
     required this.onOpenConsent,
     required this.onOpenOptions,
     required this.onBack,
@@ -191,6 +213,7 @@ class QuestionLayout extends ConsumerWidget {
     required this.onChooseSpread,
     this.onJournal,
     this.onHome,
+    this.focusNode,
     super.key,
   });
 
@@ -220,6 +243,17 @@ class QuestionLayout extends ConsumerWidget {
 
   /// "Reflect on the cards without a question".
   final VoidCallback onReflectWithoutQuestion;
+
+  /// "Rephrase my question" (refusal state): the editor with the question
+  /// selected.
+  final VoidCallback onRephrase;
+
+  /// "Ask a different question" (refusal state, `sexual_minors`): the
+  /// editor, emptied.
+  final VoidCallback onAskDifferent;
+
+  /// The question field's focus (the refusal state's Rephrase focuses it).
+  final FocusNode? focusNode;
 
   /// Opens S04 (reading-gate re-entry).
   final VoidCallback onOpenConsent;
@@ -263,11 +297,31 @@ class QuestionLayout extends ConsumerWidget {
   /// Whether "Reflect on the cards without a question" is offered: a
   /// declined draw exists and the category allows it.
   bool get _canReflect => switch (state) {
-    QuestionRephrase() => true,
+    QuestionRephrase(:final safety) => RefusalCopy.of(
+      safety.category,
+    ).canReflect,
     QuestionRefused(:final draw, :final category) =>
-      draw != null && !category.isModerationBlocked,
+      draw != null && RefusalCopy.of(category).canReflect,
     _ => false,
   };
+
+  /// The S07 refusal body, or `null` outside `rephrase` / `refused`.
+  Widget? _refusal() {
+    final category = refusalCategoryOf(state);
+    if (category == null) return null;
+    final notCharged = switch (state) {
+      QuestionRephrase(:final notCharged) ||
+      QuestionRefused(:final notCharged) => notCharged,
+      _ => false,
+    };
+    return QuestionRefusalView(
+      category: category,
+      question: state.draft.text,
+      notCharged: notCharged,
+      cardsKept: _canReflect,
+      onIdea: onSuggestion,
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -304,12 +358,22 @@ class QuestionLayout extends ConsumerWidget {
               ),
               SizedBox(height: tokens.space.s5),
             ],
-            ..._header(context),
-            SizedBox(height: tokens.space.s6),
-            _field(context),
-            if (status != null) ...[SizedBox(height: tokens.space.s6), status],
-            if (notice != null) ...[SizedBox(height: tokens.space.s6), notice],
-            ..._ideas(context),
+            if (_refusal() case final refusal?)
+              refusal
+            else ...[
+              ..._header(context),
+              SizedBox(height: tokens.space.s6),
+              _field(context),
+              if (status != null) ...[
+                SizedBox(height: tokens.space.s6),
+                status,
+              ],
+              if (notice != null) ...[
+                SizedBox(height: tokens.space.s6),
+                notice,
+              ],
+              ..._ideas(context),
+            ],
           ],
         ),
       ),
@@ -321,29 +385,6 @@ class QuestionLayout extends ConsumerWidget {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
     final spread = state.draft.spread;
-    if (state case QuestionRefused(:final category)) {
-      final advice =
-          !category.isModerationBlocked && category != RefusalCategory.other;
-      return [
-        Semantics(
-          header: true,
-          child: Text(
-            l10n.questionRefusedHeadline,
-            style: tokens.typography.headline,
-          ),
-        ),
-        SizedBox(height: tokens.space.s6),
-        _StatusCard(
-          icon: Icons.info_outline_rounded,
-          title: l10n.questionRefusedTitle,
-          body: [
-            FailureMessage.refusal(l10n, category),
-            if (advice) l10n.questionRefusedProfessional,
-          ].join('\n'),
-          footer: _NoReadingUsed(label: l10n.questionNoReadingUsed),
-        ),
-      ];
-    }
     return [
       if (spread != null)
         Text(
@@ -380,6 +421,7 @@ class QuestionLayout extends ConsumerWidget {
           helperText: draft.check.personalDetailsWarning
               ? l10n.questionPersonalDetails
               : null,
+          focusNode: focusNode,
           enabled: _editable || _checking,
           readOnly: _checking,
           onChanged: onChanged,
@@ -395,20 +437,12 @@ class QuestionLayout extends ConsumerWidget {
     );
   }
 
-  /// Suggestion chips, or the example rewordings after a decline.
+  /// The spread's suggestion chips (the refusal state has its own).
   List<Widget> _ideas(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
     final tokens = context.tokens;
     final spread = state.draft.spread;
     final (String caption, List<String> ideas) = switch (state) {
-      QuestionRefused(:final category) when category.isModerationBlocked => (
-        '',
-        const <String>[],
-      ),
-      QuestionRephrase() || QuestionRefused() => (
-        l10n.questionRephraseTry,
-        [l10n.questionRephraseExample1, l10n.questionRephraseExample2],
-      ),
       _ when spread != null && (_editable || _checking) => (
         l10n.questionIdeas,
         [
@@ -514,12 +548,6 @@ class QuestionLayout extends ConsumerWidget {
         body: l10n.outOfReadingsBody,
         actions: [action(l10n.outOfReadingsGetMore, onOpenOptions)],
       ),
-      QuestionRephrase(:final safety) => TaroInlineNotice(
-        kind: TaroNoticeKind.info,
-        title: l10n.questionRephraseTitle,
-        body: FailureMessage.forKey(l10n, safety.messageKey),
-        liveRegion: true,
-      ),
       QuestionRateLimited() => TaroInlineNotice(
         kind: TaroNoticeKind.warning,
         title: l10n.questionRateLimited,
@@ -569,6 +597,25 @@ class QuestionLayout extends ConsumerWidget {
         home,
       ],
       QuestionDailyLimitReached() => [home],
+      QuestionRephrase() || QuestionRefused() => [
+        if (RefusalCopy.of(refusalCategoryOf(state)!).canRephrase)
+          TaroButton.primary(
+            label: l10n.questionRefusalRephrase,
+            expand: true,
+            onPressed: onRephrase,
+          )
+        else
+          TaroButton.primary(
+            label: l10n.questionRefusalAskDifferent,
+            expand: true,
+            onPressed: onAskDifferent,
+          ),
+        if (_canReflect)
+          TaroButton.tertiary(
+            label: l10n.questionReflectWithoutQuestion,
+            onPressed: onReflectWithoutQuestion,
+          ),
+      ],
       _ => [
         if (state is QuestionOffline)
           TaroInlineNotice(
@@ -583,13 +630,7 @@ class QuestionLayout extends ConsumerWidget {
           loadingSemanticsHint: l10n.commonLoading,
           onPressed: _beginEnabled ? onBegin : null,
         ),
-        if (_canReflect)
-          TaroButton.tertiary(
-            label: l10n.questionReflectWithoutQuestion,
-            onPressed: onReflectWithoutQuestion,
-          )
-        else if (_chargeLine(l10n, chip) case final line?)
-          caption(line),
+        if (_chargeLine(l10n, chip) case final line?) caption(line),
       ],
     };
     return Column(
@@ -603,10 +644,7 @@ class QuestionLayout extends ConsumerWidget {
   bool get _beginEnabled =>
       state.draft.canBegin &&
       switch (state) {
-        QuestionEditing() ||
-        QuestionRephrase() ||
-        QuestionRefused() ||
-        QuestionRateLimited() => true,
+        QuestionEditing() || QuestionRateLimited() => true,
         _ => false,
       };
 
@@ -620,23 +658,20 @@ class QuestionLayout extends ConsumerWidget {
   }
 }
 
-/// The S31-style card (`ReadingsPaused.dc.html`, `QuestionRefused.dc.html`):
-/// icon tile, serif title, body, optional link chips and footer. Announced
-/// politely when it appears.
+/// The S31-style card (`ReadingsPaused.dc.html`): icon tile, serif title,
+/// body and optional link chips. Announced politely when it appears.
 class _StatusCard extends StatelessWidget {
   const _StatusCard({
     required this.icon,
     required this.title,
     required this.body,
     this.links = const [],
-    this.footer,
   });
 
   final IconData icon;
   final String title;
   final String body;
   final List<Widget> links;
-  final Widget? footer;
 
   @override
   Widget build(BuildContext context) {
@@ -698,38 +733,9 @@ class _StatusCard extends StatelessWidget {
                 children: links,
               ),
             ],
-            if (footer case final footer?) ...[
-              SizedBox(height: tokens.space.s5),
-              footer,
-            ],
           ],
         ),
       ),
-    );
-  }
-}
-
-/// "✓ No reading was used" under the refusal card.
-class _NoReadingUsed extends StatelessWidget {
-  const _NoReadingUsed({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.tokens;
-    final color = tokens.color.status.info;
-    return Row(
-      spacing: tokens.space.s3,
-      children: [
-        Icon(Icons.check_rounded, size: tokens.size.icon.md, color: color),
-        Expanded(
-          child: Text(
-            label,
-            style: tokens.typography.label.copyWith(color: color),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -1,0 +1,18 @@
+classic_reading_test rc=0 secs=82
+consent_denied_test rc=0 secs=65
+daily_reset_resume_test rc=0 secs=51
+export_import_test rc=0 secs=94
+first_launch_free_reading_test rc=1 secs=60
+hold_lost_test rc=1 secs=24
+kill_switch_test rc=1 secs=22
+os_restore_test rc=0 secs=24
+out_of_credits_purchase_test rc=0 secs=289
+reading_failure_refund_test rc=0 secs=53
+reinstall_same_install_id_test rc=0 secs=34
+remove_ads_restore_test rc=0 secs=56
+report_reading_test rc=0 secs=52
+review_guidelines_test rc=0 secs=83
+rewarded_ad_test rc=0 secs=27
+rtl_locale_test rc=0 secs=32
+timezone_change_test rc=1 secs=890
+DONE

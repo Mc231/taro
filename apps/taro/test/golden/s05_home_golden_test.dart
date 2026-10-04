@@ -109,6 +109,8 @@ void main() {
     (_) => _layout(
       _view(free, HomeBalanceVariant.freeAvailable, firstRun: true),
     ),
+    // BUG-13: at 200 % the target is scrolled into view.
+    largeText: true,
     pump: _pump(free, withReading: false),
   );
 }

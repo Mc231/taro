@@ -3,9 +3,11 @@
 library;
 
 export 'src/a11y/taro_a11y_scope.dart';
+export 'src/a11y/taro_bidi.dart';
 export 'src/a11y/taro_haptics.dart';
 export 'src/components/actions/taro_button.dart';
 export 'src/components/brand/taro_brand_mark.dart';
+export 'src/components/common/taro_edge_fade.dart';
 export 'src/components/containers/icon_bullet_list.dart';
 export 'src/components/containers/journal_entry_tile.dart';
 export 'src/components/containers/notification_preview.dart';

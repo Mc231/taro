@@ -70,6 +70,32 @@ class UpdateRequiredLayout extends StatelessWidget {
         installedVersion,
       ),
     };
+    final actions = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s3,
+      children: [
+        TaroButton.primary(
+          label: l10n.updateButton,
+          expand: true,
+          onPressed: onOpenStore,
+        ),
+        Text(
+          switch (platform) {
+            AppPlatform.ios => l10n.updateCaptionIos(installedVersion),
+            AppPlatform.android => l10n.updateCaptionAndroid(
+              installedVersion,
+            ),
+          },
+          textAlign: TextAlign.center,
+          style: tokens.typography.caption.copyWith(color: c.text.secondary),
+        ),
+      ],
+    );
+    // Above 1.5× text the actions scroll after the panel: pinned, they
+    // would hide it (BUG-14).
+    final flow =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
     return TaroScaffold(
       body: ListView(
         padding: EdgeInsetsDirectional.only(
@@ -138,32 +164,10 @@ class UpdateRequiredLayout extends StatelessWidget {
               ),
             ),
           ),
+          if (flow) ...[SizedBox(height: tokens.space.s8), actions],
         ],
       ),
-      bottom: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: tokens.space.s3,
-        children: [
-          TaroButton.primary(
-            label: l10n.updateButton,
-            expand: true,
-            onPressed: onOpenStore,
-          ),
-          Text(
-            switch (platform) {
-              AppPlatform.ios => l10n.updateCaptionIos(installedVersion),
-              AppPlatform.android => l10n.updateCaptionAndroid(
-                installedVersion,
-              ),
-            },
-            textAlign: TextAlign.center,
-            style: tokens.typography.caption.copyWith(
-              color: c.text.secondary,
-            ),
-          ),
-        ],
-      ),
+      bottom: flow ? null : actions,
     );
   }
 }

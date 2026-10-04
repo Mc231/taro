@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:taro_ui/src/components/common/taro_word_fit.dart';
 import 'package:taro_ui/src/components/deck/spread_layout.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
@@ -138,15 +139,28 @@ class _SlotCanvas extends StatelessWidget {
     );
     final labelStyle = _labelStyle(context);
     final scaler = MediaQuery.textScalerOf(context);
+    final labelWidth = first.cardSize.width + gap;
+    // A label wraps only between words: a word wider than its slot shrinks
+    // (BUG-05, BUG-08).
+    final labelScalers = [
+      for (final slot in slots)
+        taroWordFitScaler(
+          text: slot.label,
+          style: labelStyle,
+          scaler: scaler,
+          maxWidth: labelWidth,
+          direction: direction,
+        ),
+    ];
     var labelHeight = 0.0;
     for (var i = 0; i < slots.length; i++) {
       if (layouts[i].isCrossing) continue;
       final painter = TextPainter(
         text: TextSpan(text: slots[i].label, style: labelStyle),
         textDirection: direction,
-        textScaler: scaler,
+        textScaler: labelScalers[i] ?? scaler,
         textAlign: TextAlign.center,
-      )..layout(maxWidth: first.cardSize.width + gap);
+      )..layout(maxWidth: labelWidth);
       labelHeight = math.max(labelHeight, painter.height);
       painter.dispose();
     }
@@ -181,7 +195,11 @@ class _SlotCanvas extends StatelessWidget {
                       ),
                       if (!layouts[i].isCrossing && labelExtent > 0) ...[
                         SizedBox(height: tokens.space.s3),
-                        _SlotLabel(slot: slots[i], style: labelStyle),
+                        _SlotLabel(
+                          slot: slots[i],
+                          style: labelStyle,
+                          textScaler: labelScalers[i],
+                        ),
                       ],
                     ],
                   ),
@@ -264,17 +282,25 @@ class _SlotCard extends StatelessWidget {
 }
 
 class _SlotLabel extends StatelessWidget {
-  const _SlotLabel({required this.slot, required this.style});
+  const _SlotLabel({required this.slot, required this.style, this.textScaler});
 
   final SpreadCanvasSlot slot;
   final TextStyle style;
+
+  /// The shrunk scaler of a label with a word wider than its slot.
+  final TextScaler? textScaler;
 
   @override
   Widget build(BuildContext context) {
     // A filled card names its position itself; an empty slot's label is
     // already in its outline's semantics.
     return ExcludeSemantics(
-      child: Text(slot.label, textAlign: TextAlign.center, style: style),
+      child: Text(
+        slot.label,
+        textAlign: TextAlign.center,
+        style: style,
+        textScaler: textScaler,
+      ),
     );
   }
 }

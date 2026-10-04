@@ -793,7 +793,7 @@ return failed(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( QuestionDraft draft)?  editing,TResult Function( QuestionDraft draft)?  checking,TResult Function( QuestionDraft draft)?  ready,TResult Function( QuestionDraft draft)?  offline,TResult Function( QuestionDraft draft)?  consentRequired,TResult Function( QuestionDraft draft)?  deviceUnverified,TResult Function( QuestionDraft draft,  bool freePaused)?  readingsPaused,TResult Function( QuestionDraft draft)?  aiUnavailableRegion,TResult Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)?  outOfReadings,TResult Function( QuestionDraft draft)?  dailyLimitReached,TResult Function( QuestionDraft draft,  PaywallOptions options)?  lowTrustLimited,TResult Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw)?  rephrase,TResult Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw)?  refused,TResult Function( QuestionDraft draft,  Duration? retryAfter)?  rateLimited,TResult Function( QuestionDraft draft)?  spreadDisabled,TResult Function( QuestionDraft draft,  Failure failure)?  failed,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( QuestionDraft draft)?  editing,TResult Function( QuestionDraft draft)?  checking,TResult Function( QuestionDraft draft)?  ready,TResult Function( QuestionDraft draft)?  offline,TResult Function( QuestionDraft draft)?  consentRequired,TResult Function( QuestionDraft draft)?  deviceUnverified,TResult Function( QuestionDraft draft,  bool freePaused)?  readingsPaused,TResult Function( QuestionDraft draft)?  aiUnavailableRegion,TResult Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)?  outOfReadings,TResult Function( QuestionDraft draft)?  dailyLimitReached,TResult Function( QuestionDraft draft,  PaywallOptions options)?  lowTrustLimited,TResult Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw,  bool notCharged)?  rephrase,TResult Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw,  bool notCharged)?  refused,TResult Function( QuestionDraft draft,  Duration? retryAfter)?  rateLimited,TResult Function( QuestionDraft draft)?  spreadDisabled,TResult Function( QuestionDraft draft,  Failure failure)?  failed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case QuestionEditing() when editing != null:
 return editing(_that.draft);case QuestionChecking() when checking != null:
@@ -807,8 +807,8 @@ return aiUnavailableRegion(_that.draft);case QuestionOutOfReadings() when outOfR
 return outOfReadings(_that.draft,_that.options,_that.source);case QuestionDailyLimitReached() when dailyLimitReached != null:
 return dailyLimitReached(_that.draft);case QuestionLowTrustLimited() when lowTrustLimited != null:
 return lowTrustLimited(_that.draft,_that.options);case QuestionRephrase() when rephrase != null:
-return rephrase(_that.draft,_that.safety,_that.draw);case QuestionRefused() when refused != null:
-return refused(_that.draft,_that.category,_that.safety,_that.draw);case QuestionRateLimited() when rateLimited != null:
+return rephrase(_that.draft,_that.safety,_that.draw,_that.notCharged);case QuestionRefused() when refused != null:
+return refused(_that.draft,_that.category,_that.safety,_that.draw,_that.notCharged);case QuestionRateLimited() when rateLimited != null:
 return rateLimited(_that.draft,_that.retryAfter);case QuestionSpreadDisabled() when spreadDisabled != null:
 return spreadDisabled(_that.draft);case QuestionFailed() when failed != null:
 return failed(_that.draft,_that.failure);case _:
@@ -829,7 +829,7 @@ return failed(_that.draft,_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( QuestionDraft draft)  editing,required TResult Function( QuestionDraft draft)  checking,required TResult Function( QuestionDraft draft)  ready,required TResult Function( QuestionDraft draft)  offline,required TResult Function( QuestionDraft draft)  consentRequired,required TResult Function( QuestionDraft draft)  deviceUnverified,required TResult Function( QuestionDraft draft,  bool freePaused)  readingsPaused,required TResult Function( QuestionDraft draft)  aiUnavailableRegion,required TResult Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)  outOfReadings,required TResult Function( QuestionDraft draft)  dailyLimitReached,required TResult Function( QuestionDraft draft,  PaywallOptions options)  lowTrustLimited,required TResult Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw)  rephrase,required TResult Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw)  refused,required TResult Function( QuestionDraft draft,  Duration? retryAfter)  rateLimited,required TResult Function( QuestionDraft draft)  spreadDisabled,required TResult Function( QuestionDraft draft,  Failure failure)  failed,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( QuestionDraft draft)  editing,required TResult Function( QuestionDraft draft)  checking,required TResult Function( QuestionDraft draft)  ready,required TResult Function( QuestionDraft draft)  offline,required TResult Function( QuestionDraft draft)  consentRequired,required TResult Function( QuestionDraft draft)  deviceUnverified,required TResult Function( QuestionDraft draft,  bool freePaused)  readingsPaused,required TResult Function( QuestionDraft draft)  aiUnavailableRegion,required TResult Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)  outOfReadings,required TResult Function( QuestionDraft draft)  dailyLimitReached,required TResult Function( QuestionDraft draft,  PaywallOptions options)  lowTrustLimited,required TResult Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw,  bool notCharged)  rephrase,required TResult Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw,  bool notCharged)  refused,required TResult Function( QuestionDraft draft,  Duration? retryAfter)  rateLimited,required TResult Function( QuestionDraft draft)  spreadDisabled,required TResult Function( QuestionDraft draft,  Failure failure)  failed,}) {final _that = this;
 switch (_that) {
 case QuestionEditing():
 return editing(_that.draft);case QuestionChecking():
@@ -843,8 +843,8 @@ return aiUnavailableRegion(_that.draft);case QuestionOutOfReadings():
 return outOfReadings(_that.draft,_that.options,_that.source);case QuestionDailyLimitReached():
 return dailyLimitReached(_that.draft);case QuestionLowTrustLimited():
 return lowTrustLimited(_that.draft,_that.options);case QuestionRephrase():
-return rephrase(_that.draft,_that.safety,_that.draw);case QuestionRefused():
-return refused(_that.draft,_that.category,_that.safety,_that.draw);case QuestionRateLimited():
+return rephrase(_that.draft,_that.safety,_that.draw,_that.notCharged);case QuestionRefused():
+return refused(_that.draft,_that.category,_that.safety,_that.draw,_that.notCharged);case QuestionRateLimited():
 return rateLimited(_that.draft,_that.retryAfter);case QuestionSpreadDisabled():
 return spreadDisabled(_that.draft);case QuestionFailed():
 return failed(_that.draft,_that.failure);}
@@ -861,7 +861,7 @@ return failed(_that.draft,_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( QuestionDraft draft)?  editing,TResult? Function( QuestionDraft draft)?  checking,TResult? Function( QuestionDraft draft)?  ready,TResult? Function( QuestionDraft draft)?  offline,TResult? Function( QuestionDraft draft)?  consentRequired,TResult? Function( QuestionDraft draft)?  deviceUnverified,TResult? Function( QuestionDraft draft,  bool freePaused)?  readingsPaused,TResult? Function( QuestionDraft draft)?  aiUnavailableRegion,TResult? Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)?  outOfReadings,TResult? Function( QuestionDraft draft)?  dailyLimitReached,TResult? Function( QuestionDraft draft,  PaywallOptions options)?  lowTrustLimited,TResult? Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw)?  rephrase,TResult? Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw)?  refused,TResult? Function( QuestionDraft draft,  Duration? retryAfter)?  rateLimited,TResult? Function( QuestionDraft draft)?  spreadDisabled,TResult? Function( QuestionDraft draft,  Failure failure)?  failed,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( QuestionDraft draft)?  editing,TResult? Function( QuestionDraft draft)?  checking,TResult? Function( QuestionDraft draft)?  ready,TResult? Function( QuestionDraft draft)?  offline,TResult? Function( QuestionDraft draft)?  consentRequired,TResult? Function( QuestionDraft draft)?  deviceUnverified,TResult? Function( QuestionDraft draft,  bool freePaused)?  readingsPaused,TResult? Function( QuestionDraft draft)?  aiUnavailableRegion,TResult? Function( QuestionDraft draft,  PaywallOptions options,  OutOfReadingsSource source)?  outOfReadings,TResult? Function( QuestionDraft draft)?  dailyLimitReached,TResult? Function( QuestionDraft draft,  PaywallOptions options)?  lowTrustLimited,TResult? Function( QuestionDraft draft,  SafetyInfo safety,  Draw draw,  bool notCharged)?  rephrase,TResult? Function( QuestionDraft draft,  RefusalCategory category,  SafetyInfo safety,  Draw? draw,  bool notCharged)?  refused,TResult? Function( QuestionDraft draft,  Duration? retryAfter)?  rateLimited,TResult? Function( QuestionDraft draft)?  spreadDisabled,TResult? Function( QuestionDraft draft,  Failure failure)?  failed,}) {final _that = this;
 switch (_that) {
 case QuestionEditing() when editing != null:
 return editing(_that.draft);case QuestionChecking() when checking != null:
@@ -875,8 +875,8 @@ return aiUnavailableRegion(_that.draft);case QuestionOutOfReadings() when outOfR
 return outOfReadings(_that.draft,_that.options,_that.source);case QuestionDailyLimitReached() when dailyLimitReached != null:
 return dailyLimitReached(_that.draft);case QuestionLowTrustLimited() when lowTrustLimited != null:
 return lowTrustLimited(_that.draft,_that.options);case QuestionRephrase() when rephrase != null:
-return rephrase(_that.draft,_that.safety,_that.draw);case QuestionRefused() when refused != null:
-return refused(_that.draft,_that.category,_that.safety,_that.draw);case QuestionRateLimited() when rateLimited != null:
+return rephrase(_that.draft,_that.safety,_that.draw,_that.notCharged);case QuestionRefused() when refused != null:
+return refused(_that.draft,_that.category,_that.safety,_that.draw,_that.notCharged);case QuestionRateLimited() when rateLimited != null:
 return rateLimited(_that.draft,_that.retryAfter);case QuestionSpreadDisabled() when spreadDisabled != null:
 return spreadDisabled(_that.draft);case QuestionFailed() when failed != null:
 return failed(_that.draft,_that.failure);case _:
@@ -1742,12 +1742,13 @@ $PaywallOptionsCopyWith<$Res> get options {
 
 
 class QuestionRephrase extends QuestionState {
-  const QuestionRephrase(this.draft, {required this.safety, required this.draw}): super._();
+  const QuestionRephrase(this.draft, {required this.safety, required this.draw, this.notCharged = true}): super._();
   
 
 @override final  QuestionDraft draft;
  final  SafetyInfo safety;
  final  Draw draw;
+@JsonKey() final  bool notCharged;
 
 /// Create a copy of QuestionState
 /// with the given fields replaced by the non-null parameter values.
@@ -1759,16 +1760,16 @@ $QuestionRephraseCopyWith<QuestionRephrase> get copyWith => _$QuestionRephraseCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRephrase&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRephrase&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,safety,draw);
+int get hashCode => Object.hash(runtimeType,draft,safety,draw,notCharged);
 
 @override
 String toString() {
-  return 'QuestionState.rephrase(draft: $draft, safety: $safety, draw: $draw)';
+  return 'QuestionState.rephrase(draft: $draft, safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -1779,7 +1780,7 @@ abstract mixin class $QuestionRephraseCopyWith<$Res> implements $QuestionStateCo
   factory $QuestionRephraseCopyWith(QuestionRephrase value, $Res Function(QuestionRephrase) _then) = _$QuestionRephraseCopyWithImpl;
 @override @useResult
 $Res call({
- QuestionDraft draft, SafetyInfo safety, Draw draw
+ QuestionDraft draft, SafetyInfo safety, Draw draw, bool notCharged
 });
 
 
@@ -1796,12 +1797,13 @@ class _$QuestionRephraseCopyWithImpl<$Res>
 
 /// Create a copy of QuestionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? draft = null,Object? safety = null,Object? draw = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? draft = null,Object? safety = null,Object? draw = null,Object? notCharged = null,}) {
   return _then(QuestionRephrase(
 null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as QuestionDraft,safety: null == safety ? _self.safety : safety // ignore: cast_nullable_to_non_nullable
 as SafetyInfo,draw: null == draw ? _self.draw : draw // ignore: cast_nullable_to_non_nullable
-as Draw,
+as Draw,notCharged: null == notCharged ? _self.notCharged : notCharged // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -1839,13 +1841,14 @@ $DrawCopyWith<$Res> get draw {
 
 
 class QuestionRefused extends QuestionState {
-  const QuestionRefused(this.draft, {required this.category, required this.safety, this.draw}): super._();
+  const QuestionRefused(this.draft, {required this.category, required this.safety, this.draw, this.notCharged = true}): super._();
   
 
 @override final  QuestionDraft draft;
  final  RefusalCategory category;
  final  SafetyInfo safety;
  final  Draw? draw;
+@JsonKey() final  bool notCharged;
 
 /// Create a copy of QuestionState
 /// with the given fields replaced by the non-null parameter values.
@@ -1857,16 +1860,16 @@ $QuestionRefusedCopyWith<QuestionRefused> get copyWith => _$QuestionRefusedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRefused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.category, category) || other.category == category)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRefused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.category, category) || other.category == category)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,category,safety,draw);
+int get hashCode => Object.hash(runtimeType,draft,category,safety,draw,notCharged);
 
 @override
 String toString() {
-  return 'QuestionState.refused(draft: $draft, category: $category, safety: $safety, draw: $draw)';
+  return 'QuestionState.refused(draft: $draft, category: $category, safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -1877,7 +1880,7 @@ abstract mixin class $QuestionRefusedCopyWith<$Res> implements $QuestionStateCop
   factory $QuestionRefusedCopyWith(QuestionRefused value, $Res Function(QuestionRefused) _then) = _$QuestionRefusedCopyWithImpl;
 @override @useResult
 $Res call({
- QuestionDraft draft, RefusalCategory category, SafetyInfo safety, Draw? draw
+ QuestionDraft draft, RefusalCategory category, SafetyInfo safety, Draw? draw, bool notCharged
 });
 
 
@@ -1894,13 +1897,14 @@ class _$QuestionRefusedCopyWithImpl<$Res>
 
 /// Create a copy of QuestionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? draft = null,Object? category = null,Object? safety = null,Object? draw = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? draft = null,Object? category = null,Object? safety = null,Object? draw = freezed,Object? notCharged = null,}) {
   return _then(QuestionRefused(
 null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as QuestionDraft,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as RefusalCategory,safety: null == safety ? _self.safety : safety // ignore: cast_nullable_to_non_nullable
 as SafetyInfo,draw: freezed == draw ? _self.draw : draw // ignore: cast_nullable_to_non_nullable
-as Draw?,
+as Draw?,notCharged: null == notCharged ? _self.notCharged : notCharged // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

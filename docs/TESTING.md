@@ -127,6 +127,7 @@ It runs `flutter test integration_test --flavor dev --dart-define-from-file=conf
 | `integration_test/flows/` | the 14 fake-backed flows of 06 §4 / Phase 13.6 (F1–F8, rewarded, Remove Ads, daily reset, RTL, reinstall, OS restore, time zone) | `TARO_ENV=test` (a flow fails fast without it) |
 | `integration_test/perf/` | `cold_start_test.dart` (the real `dev` composition root) and `draw_screen_perf_test.dart` (frame timings of the S08 ritual); both print `PERF <name> {json}` and fill `reportData` | the `dev` flavor |
 | `integration_test/staging/smoke_test.dart` | the staging Worker: register, balance, one free reading | manual dispatch only: `--flavor staging --dart-define-from-file=config/staging.json --dart-define=TARO_STAGING_SMOKE=1 --dart-define=TARO_DEBUG_ATTESTATION_TOKEN=…` (skipped otherwise) |
+| `integration_test/qa/` | the release QA suite: `staging_e2e_test.dart` (method B, staging Worker, `run_staging_e2e.sh`) and `screenshot_tour_test.dart` (method C, S01–S33 screenshots per mode); see [qa/README.md](qa/README.md) | skipped unless `TARO_STAGING_SMOKE` + token (B) or `QA_MODE` (C) is set |
 | `integration_test/*_test.dart` | spikes (RC91 FTS5) | — |
 
 **The flow harness** (`integration_test/support/flow_harness.dart`):

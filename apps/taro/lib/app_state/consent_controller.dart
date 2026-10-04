@@ -25,18 +25,15 @@ final class ConsentController extends Notifier<ConsentState> {
       _setAi(AiConsentDecision.declined);
 
   /// Persists the onboarding [step] (resumed there after a kill, 01 §7.12).
-  Future<Result<ConsentState>> setOnboardingStep(OnboardingStep step) => ref
-      .read(consentStoreProvider)
-      .update((s) => s.copyWith(onboardingStep: step));
+  Future<Result<ConsentState>> setOnboardingStep(OnboardingStep step) =>
+      _write((s) => s.copyWith(onboardingStep: step));
 
   /// The analytics toggle (S23): stored, and applied to analytics and crash
   /// collection at once.
   Future<Result<ConsentState>> setAnalyticsEnabled({
     required bool enabled,
   }) async {
-    final saved = await ref
-        .read(consentStoreProvider)
-        .update((s) => s.copyWith(analyticsEnabled: enabled));
+    final saved = await _write((s) => s.copyWith(analyticsEnabled: enabled));
     await ref
         .read(analyticsServiceProvider)
         .setCollectionEnabled(enabled: enabled);
@@ -58,17 +55,26 @@ final class ConsentController extends Notifier<ConsentState> {
   Future<Result<ConsentState>> _setAi(AiConsentDecision decision) {
     final version = ref.read(remoteConfigRepositoryProvider).current;
     final now = ref.read(clockProvider).now();
-    return ref
-        .read(consentStoreProvider)
-        .update(
-          (s) => s.copyWith(
-            ai: AiConsent(
-              decision: decision,
-              version: version.aiConsentVersion,
-              at: now,
-            ),
-          ),
-        );
+    return _write(
+      (s) => s.copyWith(
+        ai: AiConsent(
+          decision: decision,
+          version: version.aiConsentVersion,
+          at: now,
+        ),
+      ),
+    );
+  }
+
+  /// Writes through the store and applies the saved state at once: the
+  /// store's stream may trail the write (drift), and the router's guards
+  /// read this state right after a write (BUG-01).
+  Future<Result<ConsentState>> _write(
+    ConsentState Function(ConsentState current) change,
+  ) async {
+    final saved = await ref.read(consentStoreProvider).update(change);
+    if (saved case Ok(:final value) when ref.mounted) state = value;
+    return saved;
   }
 }
 

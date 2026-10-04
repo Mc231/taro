@@ -72,7 +72,11 @@ void main() {
     expect(find.text(l10n.aiLabel), findsOneWidget);
     expect(faces, reading.cards.length);
     expect(find.text(reading.content!.title), findsOneWidget);
-    expect(find.text(l10n.readingQuestionQuoted('What now?')), findsOneWidget);
+    // BUG-11: the question keeps its own direction in an RTL UI.
+    expect(
+      find.text(l10n.readingQuestionQuoted(firstStrongIsolate('What now?'))),
+      findsOneWidget,
+    );
     await tester.tap(find.text(l10n.commonAddNote));
     await tester.tap(find.byTooltip(l10n.readingDone));
     await tapFound(tester, find.text(l10n.readingFullDisclaimer));

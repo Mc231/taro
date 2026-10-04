@@ -102,7 +102,8 @@ final class FaqController extends Notifier<FaqState> {
                   case final entries when entries.isNotEmpty)
                 ArticleSection(heading: section.heading, entries: entries),
           ];
-    state = sections.isEmpty
+    // Only a query can match nothing; with none every entry shows (BUG-15).
+    state = sections.isEmpty && needle.isNotEmpty
         ? FaqState.searchEmpty(query: _query, support: _support)
         : FaqState.content(
             sections: sections,

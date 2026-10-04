@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/deck/numeral_style.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 import 'package:taro_ui/src/tokens/taro_strokes.dart';
@@ -56,7 +57,10 @@ class _CardGridTileState extends State<CardGridTile> {
             Text(
               widget.numeral!,
               textAlign: TextAlign.center,
-              style: tokens.typography.numeral.copyWith(color: c.text.primary),
+              style: numeralStyle(
+                tokens.typography,
+                widget.numeral!,
+              ).copyWith(color: c.text.primary),
             ),
           SizedBox(height: tokens.space.s2),
           Expanded(

@@ -51,9 +51,10 @@ void main() {
     await app.drawAndRevealAll();
 
     await app.waitForScreen(ScreenId.s09);
-    // The footer closes the (lazy) reading list.
-    await app.$(DisclaimerFooter).scrollTo();
-    expect(find.byType(DisclaimerFooter), findsWidgets);
+    // The footer closes the (lazy) reading list. Scroll to its link: the
+    // footer's own centre is padding, never hit-testable (BUG-07).
+    await app.$(DisclaimerFooter).$(l.readingFullDisclaimer).scrollTo();
+    expect(find.byType(DisclaimerFooter), findsOneWidget);
     await app.waitUntil(
       () => fakes.readings.acked.isNotEmpty,
       reason: 'delivery acknowledged',

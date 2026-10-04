@@ -7,10 +7,11 @@ import 'package:taro_ui/taro_ui.dart';
 /// [gap] between them, then the [footer] (buttons, step indicator,
 /// footnote) pinned at the bottom.
 ///
-/// When the content is taller than the space above the footer (text scale
-/// 200 %, small phones) it scrolls, so nothing clips and the actions stay
-/// reachable. On tablets the column is `layout.maxContentWidth` wide and
-/// centred (`TaroScaffold`).
+/// When the content is taller than the space above the footer (small
+/// phones) it scrolls, so nothing clips and the actions stay reachable.
+/// Above 1.5× text the footer scrolls after the content instead. On
+/// tablets the column is `layout.maxContentWidth` wide and centred
+/// (`TaroScaffold`).
 class OnboardingPage extends StatelessWidget {
   /// Creates the page.
   const OnboardingPage({
@@ -38,38 +39,44 @@ class OnboardingPage extends StatelessWidget {
     final tokens = context.tokens;
     final space = tokens.space;
     final gutter = space.s7;
+    final top = Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(
+        gutter,
+        appBar == null ? space.s12 : space.s5,
+        gutter,
+        space.s7,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: gap ?? space.s8,
+        children: content,
+      ),
+    );
+    final bottom = Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(gutter, 0, gutter, space.s9),
+      child: footer,
+    );
+    // Above 1.5× text the footer scrolls after the content: pinned, it
+    // would cover most of the screen (S02 at 200 %, BUG-04).
+    final flow =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
     return TaroScaffold(
       appBar: appBar,
       padded: false,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsetsDirectional.fromSTEB(
-                gutter,
-                appBar == null ? space.s12 : space.s5,
-                gutter,
-                space.s7,
-              ),
+      body: flow
+          ? SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: gap ?? space.s8,
-                children: content,
+                children: [top, bottom],
               ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: SingleChildScrollView(child: top)),
+                bottom,
+              ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(
-              gutter,
-              0,
-              gutter,
-              space.s9,
-            ),
-            child: footer,
-          ),
-        ],
-      ),
     );
   }
 }

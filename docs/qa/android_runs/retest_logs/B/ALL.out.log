@@ -1,0 +1,351 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart
+Running Gradle task 'assembleStagingDebug'...                   
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): firebase_analytics, firebase_core, firebase_crashlytics, flutter_timezone, in_app_review, patrol
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing 
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Running Gradle task 'assembleStagingDebug'...                      17.7s
+✓ Built build/app/outputs/flutter-apk/app-staging-debug.apk
+Installing build/app/outputs/flutter-apk/app-staging-debug.apk...        477ms
+00:00 +0: B1 onboarding and registration
+INFO taro.install: install identity created
+QA: wait ScreenId.s02
+QA: tap A finder that searches for widgets with text "Get started".
+QA: wait ScreenId.s03
+QA: tap A finder that searches for widgets with text "I understand".
+QA: wait ScreenId.s04
+QA: tap A finder that searches for widgets with text "Allow AI readings".
+QA: wait ScreenId.s05
+INFO taro.install: install registered (trust: high)
+QA: TIMING register+balance=478ms
+FINE taro.analytics: consent resolved: flushed 7, overflowed 0
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: balance: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 08:20:01.000Z, syncedAt: 2026-10-04 08:20:01.745483Z)
+QA: S05: Sunday, October 4 | Good morning | Free reading used | Next free reading in 12 h 39 min | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card
+QA: TIMINGS {"register+balance":478}
+QA: BUGS []
+00:04 +1: B2 paywall and rewarded ad
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 08:20:01.000Z, syncedAt: 2026-10-04 08:20:01.745483Z)
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+00:05 +1: B1 onboarding and registration
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:05 +1: B2 paywall and rewarded ad
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:05 +1: B1 onboarding and registration
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following UnmountedRefException was thrown running a test (but after the test had completed):
+Cannot use the Ref of NotifierProvider<ConsentController, ConsentState>#2d1be after it has been
+disposed. This typically happens if:
+- A provider rebuilt, but the previous "build" was still pending and is still performing operations.
+  You should therefore either use `ref.onDispose` to cancel pending work, or
+  check `ref.mounted` after async gaps or anything that could invalidate the provider.
+- You tried to use Ref inside `onDispose` or other life-cycles.
+  This is not supported, as the provider is already being disposed.
+
+When the exception was thrown, this was the stack:
+#0      Ref._throwIfInvalidUsage (package:riverpod/src/core/ref.dart:240:7)
+#1      Ref.read (package:riverpod/src/core/ref.dart:607:5)
+#2      ConsentController._write (package:taro/app_state/consent_controller.dart:75:29)
+#3      ConsentController.setOnboardingStep (package:taro/app_state/consent_controller.dart:29:7)
+#4      OnboardingCompletion.finish (package:taro/features/onboarding/controller/ai_consent_controller.dart:174:20)
+<asynchronous suspension>
+#5      AiConsentController.decide (package:taro/features/onboarding/controller/ai_consent_controller.dart:113:5)
+<asynchronous suspension>
+════════════════════════════════════════════════════════════════════════════════════════════════════
+00:05 +0 -1: B2 paywall and rewarded ad
+00:05 +0 -1: B1 onboarding and registration [E]
+  Test failed. See exception logs above.
+  The test description was: B1 onboarding and registration
+  
+  This test failed after it had already completed.
+  Make sure to use a matching library which informs the test runner
+  of pending async work.
+  
+00:05 +0 -1: B2 paywall and rewarded ad
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Single card".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s10
+QA: TIMING paywall (Begin→S10)=120ms
+QA: S10: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 12 h 39 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Loading… | Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases. | Until then: | Daily card | Learn | Not now | Terms | Privacy | For entertainment and self-reflection. Not professional advice. | Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. |  | You’ve used today’s free reading
+QA: tap A finder that searches for widgets with text containing Watch an ad for 1 reading (ignoring all but first).
+QA: wait ScreenId.s12
+QA_HOST: closead
+00:22 +0 -1: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+00:42 +0 -1: B2 paywall and rewarded ad
+QA: TIMING rewarded outcome=26340ms
+QA: S12 outcome: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | Your reading will appear shortly | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 12 h 39 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Prices unavailable — retry | Try again | Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases. | Until then:
+QA: balance after rewarded: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 1, serverTime: 2026-10-04 08:20:41.000Z, syncedAt: 2026-10-04 08:20:41.099424Z)
+QA: TIMINGS {"register+balance":0,"paywall (Begin→S10)":119,"rewarded outcome":26340}
+QA: BUGS []
+00:43 +1 -1: B3 safety: rephrase and crisis
+QA: already onboarded
+QA: TIMING register+balance=4ms
+QA_HOST: grant eb43509c
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: balance after grant: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 4, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 3, serverTime: 2026-10-04 08:20:46.000Z, syncedAt: 2026-10-04 08:20:46.784986Z)
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 4, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 3, serverTime: 2026-10-04 08:20:46.000Z, syncedAt: 2026-10-04 08:20:46.784986Z)
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Past, Present, Future".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=117ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: TIMING refusal shown (since Draw for me)=4584ms
+QA: S07 after refusal: We can’t read this question | Tarot can’t predict bets, games or numbers. | Your question | Will I win the lottery next week? | Not charged. Your reading is still available. | You could ask instead | What am I hoping will change? | What does chance mean to me right now? | Where could I find more excitement in everyday life? | Reflecting without a question keeps the cards you drew. A new question draws new cards. | Rephrase my question | Reflect on the cards without a question | Free reading used · 4 readings |  | We can’t read this question | Tarot can’t predict bets, games or numbers. | Your question | Will I win the lottery next week? |  | Not charged. Your reading is still available. | You could ask instead | What am I hoping will change? | What does chance mean to me right now? | Where could I find more excitement in everyday life? | Reflecting without a question keeps the cards you drew. A new question draws new cards. | Rephrase my question | Reflect on the cards without a question |  | Free reading used · 4 readings
+QA: wait ScreenId.s05
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Past, Present, Future".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=112ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: wait ScreenId.s27
+QA: TIMING crisis S27 (since Draw for me)=1203ms
+QA: S27: You’re not alone | If you are thinking about harming yourself, please reach out now. Talking to someone can help. | Lifeline Ukraine | ⁦7333⁩ · 24/7 | Call | Find a helpline in another country | findahelpline.​com | Free, confidential support lines worldwide | Open | Show resources for another country | Last checked January 1970 | You’re not alone | If you are thinking about harming yourself, please reach out now. Talking to someone can help. | Lifeline Ukraine | ⁦7333⁩ · 24/7 |  | Call | Find a helpline in another country | findahelpline.​com | Free, confidential support lines worldwide |  | Open | Show resources for another country | Last checked January 1970 | 
+QA: TIMINGS {"register+balance":4,"hold (Begin→S08)":112,"refusal shown (since Draw for me)":4584,"crisis S27 (since Draw for me)":1203}
+QA: BUGS []
+01:03 +2 -1: B4 single reading en and journal
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Single card".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=117ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: TIMING reading single en (since Draw for me)=25721ms
+QA: wait ScreenId.s09
+QA: S09 footer:  | Add note |  | Full disclaimer | For entertainment and self-reflection. Not professional advice. | 
+QA: tap A finder that searches for widgets with widget matching predicate.
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with text "Journal".
+QA: wait ScreenId.s14
+QA: TIMINGS {"register+balance":0,"hold (Begin→S08)":117,"reading single en (since Draw for me)":25721}
+QA: BUGS []
+01:36 +3 -1: B5 ar: three_ppf reading and report
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: tap A finder that searches for widgets with text "Settings".
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Language".
+QA: wait ScreenId.s21
+QA: tap A finder that searches for widgets with key [<'ar'>].
+QA: tap A finder that searches for widgets with a semantics label named "رجوع".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "اليوم".
+QA: wait ScreenId.s05
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+Expected: a value less than <205.71428571428572>
+  Actual: <265.4053170340402>
+   Which: is not a value less than <205.71428571428572>
+chip mirrored in RTL
+
+When the exception was thrown, this was the stack:
+#4      main.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:573:5)
+<asynchronous suspension>
+#5      _case.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:387:7)
+<asynchronous suspension>
+#6      patrolWidgetTest.<anonymous closure> (package:patrol_finders/src/common.dart:47:7)
+<asynchronous suspension>
+#7      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#8      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+This was caught by the test expectation on the following line:
+  file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart line 573
+The test description was:
+  B5 ar: three_ppf reading and report
+════════════════════════════════════════════════════════════════════════════════════════════════════
+01:40 +3 -2: B5 ar: three_ppf reading and report [E]
+  Test failed. See exception logs above.
+  The test description was: B5 ar: three_ppf reading and report
+  
+01:40 +3 -2: B6 de: three_ppf reading
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: tap A finder that searches for widgets with text "Settings".
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following WaitUntilVisibleTimeoutException was thrown running a test:
+TimeoutException after 0:00:05.000000: Finder "Found 0 widgets with text "Settings" (considering
+only hit-testable widgets with a RenderBox): []" did not find any visible (i.e. hit-testable)
+widgets
+
+When the exception was thrown, this was the stack:
+#0      PatrolTester.dragUntilVisible.<anonymous closure>.<anonymous closure> (package:patrol_finders/src/custom_finders/patrol_tester.dart:800:13)
+<asynchronous suspension>
+#1      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#2      PatrolTester.scrollUntilVisible.<anonymous closure>.<anonymous closure> (package:patrol_finders/src/custom_finders/patrol_tester.dart:943:34)
+<asynchronous suspension>
+#3      TestAsyncUtils.guard.<anonymous closure> (package:flutter_test/src/test_async_utils.dart:130:27)
+<asynchronous suspension>
+#4      _App.tap (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:158:46)
+<asynchronous suspension>
+#5      _App.switchLanguage (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:348:5)
+<asynchronous suspension>
+#6      main.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:619:5)
+<asynchronous suspension>
+#7      _case.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart:387:7)
+<asynchronous suspension>
+#8      patrolWidgetTest.<anonymous closure> (package:patrol_finders/src/common.dart:47:7)
+<asynchronous suspension>
+#9      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#10     TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  B6 de: three_ppf reading
+════════════════════════════════════════════════════════════════════════════════════════════════════
+02:02 +3 -3: B6 de: three_ppf reading [E]
+  Test failed. See exception logs above.
+  The test description was: B6 de: three_ppf reading
+  
+02:02 +3 -3: B7 offline, export, delete, import
+QA: already onboarded
+QA: TIMING register+balance=0ms
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+QA: wait ScreenId.s05
+QA_HOST: offline
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: TIMING offline banner shown=2851ms
+QA_HOST: online
+QA: TIMING offline banner hidden=644ms
+02:08 +3 -3: B1 onboarding and registration
+FINE taro.sync: sync skipped (connectivityRegained)
+02:08 +3 -3: B7 offline, export, delete, import
+QA: journal before: 3 readings
+QA_HOST: back
+02:15 +3 -3: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+02:15 +3 -3: B7 offline, export, delete, import
+QA: tap A finder that searches for widgets with text "Settings".
+02:16 +3 -3: B1 onboarding and registration
+FINE taro.sync: sync skipped (connectivityRegained)
+02:16 +3 -3: B7 offline, export, delete, import
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Delete all data".
+QA: wait ScreenId.s26
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Delete all data".
+QA: TIMING delete all=1915ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Done".
+QA: after delete: Sunday, October 4 | Good morning | Free reading used · 3 readings | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card | Ask the cards a question | Choose a spread, write a question if you like, and get a thoughtful AI interpretation. | Start a reading | Today | Journal | Learn | Settings | Sunday, October 4 | Good morning | Free reading used · 3 readings | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI.
+QA: balance before delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 3, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 9, serverTime: 2026-10-04 08:22:02.000Z, syncedAt: 2026-10-04 08:22:02.636770Z)
+QA: balance after delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 3, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 10, serverTime: 2026-10-04 08:22:19.000Z, syncedAt: 2026-10-04 08:22:19.411965Z)
+QA: TIMINGS {"register+balance":0,"offline banner shown":2851,"offline banner hidden":644,"delete all":1915}
+QA: BUGS []
+02:21 +4 -3: (tearDownAll)
+02:21 +4 -3: Some tests failed.
+
+Failing tests:
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart: B1 onboarding and registration
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart: B5 ar: three_ppf reading and report
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart: B6 de: three_ppf reading
+rc=1 wall=165s

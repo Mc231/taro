@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/deck/numeral_style.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
@@ -126,7 +127,10 @@ class TaroCardFace extends StatelessWidget {
         Text(
           numeral!,
           textAlign: TextAlign.center,
-          style: tokens.typography.numeral.copyWith(color: c.text.secondary),
+          style: numeralStyle(
+            tokens.typography,
+            numeral!,
+          ).copyWith(color: c.text.secondary),
         ),
       if (name != null)
         Text(

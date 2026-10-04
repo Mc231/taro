@@ -161,7 +161,9 @@ class ClassicReadingLayout extends StatelessWidget {
     final reading = view.reading;
     final question = reading.question;
     return ReadingTextView(
-      question: question == null ? null : l10n.readingQuestionQuoted(question),
+      question: question == null
+          ? null
+          : l10n.readingQuestionQuoted(firstStrongIsolate(question)),
       sourceLabel: AiGeneratedLabel.classic(
         label: l10n.classicLabel,
         explanation: l10n.classicCaption,

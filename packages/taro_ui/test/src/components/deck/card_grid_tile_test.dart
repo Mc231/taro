@@ -11,6 +11,35 @@ Widget _cell(Widget child) =>
     Center(child: SizedBox(width: 110, height: 120, child: child));
 
 void main() {
+  // BUG-20: IM Fell English SC (type.numeral) only has an old-style zero,
+  // a small circle that read as "○" for The Fool. Digit numerals use the
+  // lining figures of type.cardName; Roman numerals keep type.numeral.
+  testWidgets("The Fool's 0 renders with lining figures", (tester) async {
+    for (final numeral in ['0', 'XVII']) {
+      await pumpTaroUiWidget(
+        tester,
+        _cell(
+          CardGridTile(
+            image: const PlaceholderArt(glyph: TaroIcons.majorStar),
+            numeral: numeral,
+            name: 'Card',
+            semanticsLabel: 'Card',
+            onTap: () {},
+          ),
+        ),
+      );
+      final context = tester.element(find.byType(CardGridTile));
+      final typography = context.tokens.typography;
+      final family = tester.widget<Text>(find.text(numeral)).style!.fontFamily;
+      expect(
+        family,
+        numeral == '0'
+            ? typography.cardName.fontFamily
+            : typography.numeral.fontFamily,
+      );
+    }
+  });
+
   testWidgets('numeral, art, name; one button node; tap and focus', (
     tester,
   ) async {

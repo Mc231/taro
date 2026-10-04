@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/a11y/taro_bidi.dart';
 import 'package:taro_ui/src/components/inputs/taro_icon_button.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 import 'package:taro_ui/src/tokens/taro_strokes.dart';
@@ -192,6 +193,8 @@ class _TaroTextFieldState extends State<TaroTextField> {
     final multi = widget.style == TaroTextFieldStyle.multiLine;
     final field = TextField(
       controller: _controller,
+      // BUG-11: typed text follows its own first strong direction.
+      textDirection: firstStrongDirection(text),
       focusNode: widget.focusNode,
       enabled: widget.enabled,
       readOnly: widget.readOnly,

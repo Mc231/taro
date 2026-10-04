@@ -99,11 +99,14 @@ sealed class QuestionState with _$QuestionState {
     required PaywallOptions options,
   }) = QuestionLowTrustLimited;
 
-  /// Declined with `canRephrase: true`: hint + example rewordings.
+  /// Declined with `canRephrase: true`: the refusal state ("We can't read
+  /// this question", S07 refusal spec) with category rewordings. [notCharged]
+  /// is from the Worker response (no `chargeSource` on a declined reading).
   const factory QuestionState.rephrase(
     QuestionDraft draft, {
     required SafetyInfo safety,
     required Draw draw,
+    @Default(true) bool notCharged,
   }) = QuestionRephrase;
 
   /// Declined without a rewording hint (03 §9.4 categories, RC27). [draw]
@@ -114,6 +117,7 @@ sealed class QuestionState with _$QuestionState {
     required RefusalCategory category,
     required SafetyInfo safety,
     Draw? draw,
+    @Default(true) bool notCharged,
   }) = QuestionRefused;
 
   /// `429 RATE_LIMITED` with `details.reason = burst`.
@@ -131,6 +135,9 @@ sealed class QuestionState with _$QuestionState {
     QuestionDraft draft, {
     required Failure failure,
   }) = QuestionFailed;
+
+  /// Whether this is the refusal state (`rephrase` or `refused`).
+  bool get isRefusal => this is QuestionRephrase || this is QuestionRefused;
 
   /// Whether the Classic reading is offered here (F8: `consentRequired`
   /// after "Not now", `aiUnavailableRegion`, `readingsPaused`).

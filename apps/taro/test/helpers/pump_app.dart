@@ -143,6 +143,10 @@ final class TaroFakes {
   /// Consent state.
   late FakeConsentStore consentStore;
 
+  /// Replaces [consentStore] as the port (e.g. a decorator over it that
+  /// delays its stream like drift does).
+  ConsentStore? consentStorePort;
+
   /// Purchase verification.
   FakePurchaseVerifier verifier = FakePurchaseVerifier();
 
@@ -266,7 +270,7 @@ final class TaroFakes {
     crisisResourcesRepositoryProvider.overrideWithValue(crisis),
     remoteConfigRepositoryProvider.overrideWithValue(config),
     settingsRepositoryProvider.overrideWithValue(settings),
-    consentStoreProvider.overrideWithValue(consentStore),
+    consentStoreProvider.overrideWithValue(consentStorePort ?? consentStore),
     purchaseVerifierProvider.overrideWithValue(verifier),
     purchaseOutboxProvider.overrideWithValue(outbox),
     entitlementCacheProvider.overrideWithValue(entitlements),

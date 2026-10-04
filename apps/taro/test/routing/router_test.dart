@@ -35,6 +35,55 @@ Future<void> _go(
   await tester.pumpAndSettle();
 }
 
+/// A consent store whose stream trails its writes by [_latency] (drift).
+final class _LaggingConsentStore implements core.ConsentStore {
+  _LaggingConsentStore(this._inner);
+
+  static const Duration _latency = Duration(milliseconds: 50);
+
+  final core.ConsentStore _inner;
+
+  @override
+  core.ConsentState get current => _inner.current;
+
+  @override
+  Stream<core.ConsentState> watch() => _inner.watch().asyncMap(
+    (s) => Future<core.ConsentState>.delayed(_latency, () => s),
+  );
+
+  @override
+  Future<core.Result<core.ConsentState>> update(
+    core.ConsentState Function(core.ConsentState current) change,
+  ) => _inner.update(change);
+}
+
+/// Analytics whose calls complete after [_latency] (Firebase on a device).
+final class _SlowAnalytics implements core.AnalyticsService {
+  _SlowAnalytics(this._inner);
+
+  static const Duration _latency = Duration(milliseconds: 50);
+
+  final core.AnalyticsService _inner;
+
+  Future<void> _later(Future<void> Function() call) =>
+      Future<void>.delayed(_latency).then((_) => call());
+
+  @override
+  Future<void> log(core.TaroAnalyticsEvent event) =>
+      _later(() => _inner.log(event));
+
+  @override
+  Future<void> screen(String screenId) => _later(() => _inner.screen(screenId));
+
+  @override
+  Future<void> setCollectionEnabled({required bool enabled}) =>
+      _later(() => _inner.setCollectionEnabled(enabled: enabled));
+
+  @override
+  Future<void> setConsent(core.AnalyticsConsent consent) =>
+      _later(() => _inner.setConsent(consent));
+}
+
 /// The screen with the S-ID [wire] (`buildScreen` keys every screen).
 Finder _screen(String wire) => find.byKey(
   ValueKey(core.ScreenId.values.firstWhere((s) => s.wire == wire)),
@@ -126,6 +175,45 @@ void main() {
     await tester.pumpAndSettle();
     expect(_screen('S13'), findsOneWidget);
   });
+
+  // BUG-01: "Allow AI readings" left the app on S04 when S04 navigated
+  // Home before the onboarding step left `aiConsent` (the guard sent it
+  // back to S04, which stays reachable once onboarded).
+  for (final allow in [true, false]) {
+    testWidgets('S04 from onboarding reaches Home (allow: $allow)', (
+      tester,
+    ) async {
+      final fakes = TaroFakes(
+        consent: const core.ConsentState(
+          onboardingStep: core.OnboardingStep.aiConsent,
+        ),
+      );
+      // On a device analytics and drift take real time: the step lands
+      // after S04 has asked to leave, and drift's stream trails its write.
+      fakes
+        ..analyticsPort = _SlowAnalytics(fakes.analytics)
+        ..consentStorePort = _LaggingConsentStore(fakes.consentStore);
+      final (_, container) = await _boot(tester, fakes: fakes);
+      expect(_screen('S04'), findsOneWidget);
+      final l10n = TaroLocalizations.of(tester.element(_screen('S04')));
+
+      await tester.tap(
+        find.text(allow ? l10n.aiConsentAccept : l10n.aiConsentDecline),
+      );
+      await tester.pumpAndSettle();
+
+      expect(_screen('S04'), findsNothing);
+      expect(_screen('S05'), findsOneWidget);
+      expect(
+        container.read(routerProvider).state.uri.path,
+        RoutePaths.home,
+      );
+      expect(
+        fakes.consentStore.current.onboardingStep,
+        core.OnboardingStep.done,
+      );
+    });
+  }
 
   testWidgets('an outdated app is held on S30', (tester) async {
     final fakes = TaroFakes();

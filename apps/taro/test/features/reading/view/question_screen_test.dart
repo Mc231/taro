@@ -5,6 +5,7 @@ import 'package:taro/common/balance_chip.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/reading/controller/question_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
+import 'package:taro/features/reading/view/question_refusal_view.dart';
 import 'package:taro/features/reading/view/question_screen.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/routes.dart';
@@ -59,6 +60,8 @@ void main() {
         onDismiss: () => calls.add('dismiss'),
         onClassic: () => calls.add('classic'),
         onReflectWithoutQuestion: () => calls.add('reflect'),
+        onRephrase: () => calls.add('rephrase'),
+        onAskDifferent: () => calls.add('askDifferent'),
         onOpenConsent: () => calls.add('consent'),
         onOpenOptions: () => calls.add('options'),
         onBack: () => calls.add('back'),
@@ -228,80 +231,239 @@ void main() {
     expect(find.text(l10n.commonBackToToday), findsOneWidget);
   });
 
-  testWidgets('rephrase: hint, examples, reflect without a question', (
-    tester,
-  ) async {
-    final calls = await pumpLayout(
-      tester,
-      QuestionState.rephrase(
-        _draft('Am I ill?'),
-        safety: _safety,
-        draw: aDraw(),
-      ),
+  group('refusal state', () {
+    QuestionState refused(
+      RefusalCategory category, {
+      String text = 'Will the kids get sick?',
+      Draw? draw,
+      bool notCharged = true,
+    }) => QuestionState.refused(
+      _draft(text),
+      category: category,
+      safety: _safety.copyWith(category: category, canRephrase: false),
+      draw: draw ?? aDraw(),
+      notCharged: notCharged,
     );
-    expect(find.text(l10n.questionRephraseTitle), findsOneWidget);
-    expect(find.textContaining(l10n.questionRephraseExample1), findsOneWidget);
-    await tapFound(tester, find.text(l10n.questionReflectWithoutQuestion));
-    expect(calls, ['reflect']);
-  });
 
-  testWidgets('refused(category): the refusal card, rewordings, reflect', (
-    tester,
-  ) async {
-    final calls = await pumpLayout(
-      tester,
-      QuestionState.refused(
-        _draft('Q'),
-        category: RefusalCategory.legal,
-        safety: _safety.copyWith(category: RefusalCategory.legal),
-        draw: aDraw(),
+    // category → (reason, rewording count, Rephrase vs Ask different,
+    // reflect offered).
+    final cases = <RefusalCategory, (String Function(), int, bool, bool)>{
+      RefusalCategory.health: (
+        () => l10n.questionRefusalReasonHealth,
+        3,
+        true,
+        true,
       ),
-    );
-    expect(find.text(l10n.questionRefusedHeadline), findsOneWidget);
-    expect(find.text(l10n.questionRefusedTitle), findsOneWidget);
-    expect(find.textContaining(l10n.safetyDeclinedLegal), findsOneWidget);
-    expect(
-      find.textContaining(l10n.questionRefusedProfessional),
-      findsOneWidget,
-    );
-    expect(find.text(l10n.questionNoReadingUsed), findsOneWidget);
-    expect(find.text(l10n.questionRephraseTry), findsOneWidget);
-    expect(begin(tester).onPressed, isNotNull);
-    await tapFound(tester, find.text(l10n.questionRephraseExample2));
-    await tapFound(tester, find.text(l10n.questionReflectWithoutQuestion));
-    expect(calls, ['suggestion', 'reflect']);
-  });
+      RefusalCategory.pregnancy: (
+        () => l10n.questionRefusalReasonPregnancy,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.death: (
+        () => l10n.questionRefusalReasonDeath,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.legal: (
+        () => l10n.questionRefusalReasonLegal,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.financial: (
+        () => l10n.questionRefusalReasonFinancial,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.gambling: (
+        () => l10n.questionRefusalReasonGambling,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.other: (
+        () => l10n.questionRefusalReasonOther,
+        3,
+        true,
+        true,
+      ),
+      RefusalCategory.hateOrHarassment: (
+        () => l10n.questionRefusalReasonHate,
+        0,
+        true,
+        false,
+      ),
+      RefusalCategory.sexualMinors: (
+        () => l10n.safetyDeclinedSexualMinors,
+        0,
+        false,
+        false,
+      ),
+      RefusalCategory.harmToOthers: (
+        () => l10n.safetyDeclinedHarmToOthers,
+        0,
+        false,
+        false,
+      ),
+      RefusalCategory.selfHarm: (
+        () => l10n.safetyDeclinedSelfHarm,
+        0,
+        false,
+        false,
+      ),
+    };
+    for (final MapEntry(key: category, value: expected) in cases.entries) {
+      final (reason, ideas, rephrase, reflect) = expected;
+      testWidgets('${category.wire}: copy and actions', (tester) async {
+        final calls = await pumpLayout(tester, refused(category));
+        expect(find.text(l10n.questionRefusalTitle), findsOneWidget);
+        expect(find.text(reason()), findsOneWidget);
+        expect(find.text('Will the kids get sick?'), findsOneWidget);
+        expect(find.text(l10n.questionRefusalNotCharged), findsOneWidget);
+        // Not the editor: no field, no Begin, no charge line.
+        expect(find.byType(TextField), findsNothing);
+        expect(find.text(l10n.questionBegin), findsNothing);
+        expect(find.text(l10n.questionChargeFree), findsNothing);
+        final chips = RefusalCopy.of(category).ideas(l10n);
+        expect(chips, hasLength(ideas));
+        expect(
+          find.text(l10n.questionRefusalIdeasCaption),
+          ideas > 0 ? findsOneWidget : findsNothing,
+        );
+        for (final idea in chips) {
+          expect(find.text(idea), findsOneWidget);
+        }
+        expect(
+          find.text(l10n.questionReflectWithoutQuestion),
+          reflect ? findsOneWidget : findsNothing,
+        );
+        expect(
+          find.text(l10n.questionRefusalCardsKept),
+          reflect ? findsOneWidget : findsNothing,
+        );
+        await tapFound(
+          tester,
+          find.text(
+            rephrase
+                ? l10n.questionRefusalRephrase
+                : l10n.questionRefusalAskDifferent,
+          ),
+        );
+        expect(calls, [if (rephrase) 'rephrase' else 'askDifferent']);
+      });
+    }
 
-  testWidgets('refused(sexual_minors): the neutral message only', (
-    tester,
-  ) async {
-    await pumpLayout(
+    testWidgets('rephrase (canRephrase): chips fill, reflect reuses cards', (
       tester,
-      QuestionState.refused(
-        _draft('Q'),
-        category: RefusalCategory.sexualMinors,
-        safety: _safety.copyWith(category: RefusalCategory.sexualMinors),
-        draw: aDraw(),
-      ),
-    );
-    expect(find.text(l10n.safetyDeclinedSexualMinors), findsOneWidget);
-    expect(find.textContaining(l10n.questionRefusedProfessional), findsNothing);
-    expect(find.text(l10n.questionRephraseTry), findsNothing);
-    expect(find.text(l10n.questionReflectWithoutQuestion), findsNothing);
-  });
+    ) async {
+      final calls = await pumpLayout(
+        tester,
+        QuestionState.rephrase(
+          _draft('Am I ill?'),
+          safety: _safety,
+          draw: aDraw(),
+        ),
+      );
+      expect(find.text(l10n.questionRefusalTitle), findsOneWidget);
+      expect(find.text(l10n.questionRefusalReasonHealth), findsOneWidget);
+      await tapFound(tester, find.text(l10n.questionRefusalIdeaHealth2));
+      await tapFound(tester, find.text(l10n.questionReflectWithoutQuestion));
+      await tapFound(tester, find.text(l10n.questionRefusalRephrase));
+      expect(calls, ['suggestion', 'reflect', 'rephrase']);
+    });
 
-  testWidgets('refused without a draw: no reflect link', (tester) async {
-    await pumpLayout(
+    testWidgets('no not-charged line unless the Worker says so', (
       tester,
-      QuestionState.refused(
-        _draft('Q'),
-        category: RefusalCategory.other,
-        safety: _safety.copyWith(category: RefusalCategory.other),
-      ),
-    );
-    expect(find.text(l10n.refusalGeneric), findsOneWidget);
-    expect(find.text(l10n.questionReflectWithoutQuestion), findsNothing);
-    expect(find.text(l10n.questionChargeFree), findsOneWidget);
+    ) async {
+      await pumpLayout(
+        tester,
+        refused(RefusalCategory.health, notCharged: false),
+      );
+      expect(find.text(l10n.questionRefusalNotCharged), findsNothing);
+    });
+
+    testWidgets('an empty question: no "Your question" block', (tester) async {
+      await pumpLayout(tester, refused(RefusalCategory.other, text: ''));
+      expect(find.text(l10n.questionRefusalYourQuestion), findsNothing);
+      expect(find.text(l10n.questionRefusalNotCharged), findsOneWidget);
+    });
+
+    testWidgets('refused without a draw: no reflect link', (tester) async {
+      await pumpLayout(
+        tester,
+        QuestionState.refused(
+          _draft('Q'),
+          category: RefusalCategory.other,
+          safety: _safety.copyWith(category: RefusalCategory.other),
+        ),
+      );
+      expect(find.text(l10n.questionReflectWithoutQuestion), findsNothing);
+      expect(find.text(l10n.questionRefusalCardsKept), findsNothing);
+    });
+
+    testWidgets('semantics: the headline is a header, chips are labelled', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      await pumpLayout(tester, refused(RefusalCategory.health));
+      expect(
+        tester.getSemantics(find.text(l10n.questionRefusalTitle)),
+        // One polite live region announces the headline with its reason.
+        isSemantics(
+          label:
+              '${l10n.questionRefusalTitle}\n'
+              '${l10n.questionRefusalReasonHealth}',
+          isHeader: true,
+          isLiveRegion: true,
+        ),
+      );
+      expect(
+        find.bySemanticsLabel(
+          l10n.questionSuggestionSemantics(l10n.questionRefusalIdeaHealth1),
+        ),
+        findsOneWidget,
+      );
+      handle.dispose();
+    });
+
+    testWidgets('RTL and text scale 2.0 lay out without overflow', (
+      tester,
+    ) async {
+      await pumpTaro(
+        tester,
+        QuestionLayout(
+          state: refused(RefusalCategory.health),
+          text: TextEditingController(),
+          onChanged: (_) {},
+          onSuggestion: (_) {},
+          onBegin: () {},
+          onRetry: () {},
+          onDismiss: () {},
+          onClassic: () {},
+          onReflectWithoutQuestion: () {},
+          onRephrase: () {},
+          onAskDifferent: () {},
+          onOpenConsent: () {},
+          onOpenOptions: () {},
+          onBack: () {},
+          onDailyCard: () {},
+          onLearn: () {},
+          onChooseSpread: () {},
+        ),
+        fakes: aiReadyFakes(),
+        locale: const Locale('ar'),
+        textScale: 2,
+      );
+      await tester.pumpAndSettle();
+      expect(tester.takeException(), isNull);
+      expect(
+        Directionality.of(tester.element(find.byType(QuestionRefusalView))),
+        TextDirection.rtl,
+      );
+    });
   });
 
   testWidgets('rateLimited: notice', (tester) async {
@@ -474,12 +636,37 @@ void main() {
           .read(readingHandoffProvider.notifier)
           .post(ReadingHandoff.declined(safety: _safety, draw: aDraw()));
       await tester.pumpAndSettle();
-      expect(find.text(l10n.questionRephraseTitle), findsOneWidget);
+      expect(find.text(l10n.questionRefusalTitle), findsOneWidget);
       await tapFound(tester, find.text(l10n.questionReflectWithoutQuestion));
       expectRoute(RoutePaths.readingDraw);
     });
 
-    testWidgets('refused: a rewording returns to editing', (tester) async {
+    testWidgets('Rephrase: the editor with the question selected and focused', (
+      tester,
+    ) async {
+      await pumpQuestion(tester, aiReadyFakes());
+      const question = 'Will the kids get sick this winter?';
+      await tester.enterText(find.byType(TextField), question);
+      await tester.pump();
+      final container = await containerOf(tester);
+      container
+          .read(readingHandoffProvider.notifier)
+          .post(ReadingHandoff.declined(safety: _safety, draw: aDraw()));
+      await tester.pumpAndSettle();
+      expect(find.text(l10n.questionRefusalTitle), findsOneWidget);
+      await tapFound(tester, find.text(l10n.questionRefusalRephrase));
+      expect(find.text(l10n.questionRefusalTitle), findsNothing);
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.controller!.text, question);
+      expect(
+        field.controller!.selection,
+        const TextSelection(baseOffset: 0, extentOffset: question.length),
+      );
+      expect(field.focusNode!.hasFocus, isTrue);
+      expect(find.text(l10n.questionBegin), findsOneWidget);
+    });
+
+    testWidgets('a rewording chip fills the editor', (tester) async {
       await pumpQuestion(tester, aiReadyFakes());
       final container = await containerOf(tester);
       container
@@ -491,13 +678,39 @@ void main() {
             ),
           );
       await tester.pumpAndSettle();
-      expect(find.text(l10n.questionRefusedTitle), findsOneWidget);
-      await tapFound(tester, find.text(l10n.questionRephraseExample1));
-      expect(find.text(l10n.questionRefusedTitle), findsNothing);
+      expect(find.text(l10n.questionRefusalTitle), findsOneWidget);
+      await tapFound(tester, find.text(l10n.questionRefusalIdeaHealth2));
+      expect(find.text(l10n.questionRefusalTitle), findsNothing);
       expect(
-        find.widgetWithText(TextField, l10n.questionRephraseExample1),
+        find.widgetWithText(TextField, l10n.questionRefusalIdeaHealth2),
         findsOneWidget,
       );
+    });
+
+    testWidgets('sexual_minors: Ask a different question empties the field', (
+      tester,
+    ) async {
+      await pumpQuestion(tester, aiReadyFakes());
+      await tester.enterText(find.byType(TextField), 'blocked');
+      await tester.pump();
+      final container = await containerOf(tester);
+      container
+          .read(readingHandoffProvider.notifier)
+          .post(
+            ReadingHandoff.declined(
+              safety: const SafetyInfo(
+                category: RefusalCategory.sexualMinors,
+                messageKey: 'safetyDeclinedSexualMinors',
+                canRephrase: false,
+              ),
+              draw: aDraw(),
+            ),
+          );
+      await tester.pumpAndSettle();
+      expect(find.text(l10n.questionRefusalRephrase), findsNothing);
+      await tapFound(tester, find.text(l10n.questionRefusalAskDifferent));
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.controller!.text, isEmpty);
     });
 
     testWidgets('consent handoff: the notice reopens S04', (tester) async {

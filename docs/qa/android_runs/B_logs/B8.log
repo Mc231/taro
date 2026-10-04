@@ -1,0 +1,23 @@
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart
+00:00 +0: B8 unverified: no attestation token
+INFO taro.install: install identity created
+QA: wait ScreenId.s02
+QA: tap A finder that searches for widgets with text "Get started".
+QA: wait ScreenId.s03
+QA: tap A finder that searches for widgets with text "I understand".
+QA: wait ScreenId.s04
+QA: tap A finder that searches for widgets with text "Allow AI readings".
+QA: wait ScreenId.s05
+QA: TIMING unverified chip=7ms
+QA: S05 unverified: Sunday, October 4 | Good morning | Readings unavailable on this device | Taro couldn’t verify this device. Your journal, daily card and Learn still work. | Try again | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card | Ask the cards a question | Choose a spread, write a question if you like, and get a thoughtful AI interpretation. | Start a reading | Start a reading | Start here: choose a spread and ask a question. | Got it | Today | Journal | Learn | Settings | Sunday, October 4 | Good morning | 󰊠 | Readings unavailable on this devic
+QA: tap A finder that searches for widgets with text "Learn".
+WARNING taro.api: E04 failed: ATTESTATION_FAILED (status 403, request 5cdddaba-53a4-415d-ae5e-a952120e804c)
+WARNING taro.sync: sync step register failed: ATTESTATION_FAILED
+FINE taro.analytics: consent resolved: flushed 7, overflowed 0
+WARNING taro.sync: sync step balance failed: UNAUTHENTICATED
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: TIMINGS {"unverified chip":6}
+QA: BUGS []
+00:04 +1: (tearDownAll)
+00:04 +1: All tests passed!
+rc=0 wall=29s

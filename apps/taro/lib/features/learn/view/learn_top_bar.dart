@@ -57,13 +57,24 @@ class LearnTopBar extends StatelessWidget implements PreferredSizeWidget {
                 Expanded(
                   child: caption == null
                       ? const SizedBox.shrink()
-                      : Text(
-                          caption,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: tokens.typography.caption.copyWith(
-                            color: c.text.secondary,
+                      // Up to two lines at the bar's width; when large
+                      // text makes them taller than the bar they shrink
+                      // to fit instead of running out of it (BUG-12).
+                      : LayoutBuilder(
+                          builder: (context, box) => FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: SizedBox(
+                              width: box.maxWidth,
+                              child: Text(
+                                caption,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: tokens.typography.caption.copyWith(
+                                  color: c.text.secondary,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                 ),

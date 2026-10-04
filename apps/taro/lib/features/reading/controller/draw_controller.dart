@@ -324,7 +324,11 @@ final class DrawController extends Notifier<DrawState> {
           case ReadingStatusComplete():
             await _generated(view, reading);
           case ReadingStatusRefused(:final safety):
-            await _declined(view, safety);
+            await _declined(
+              view,
+              safety,
+              notCharged: reading.chargeSource == null,
+            );
           case ReadingStatusFailed(:final failure):
             await _fail(view, failure);
           case ReadingStatusPending() || ReadingStatusClassic():
@@ -360,7 +364,11 @@ final class DrawController extends Notifier<DrawState> {
   static int _promptVersion(String? version) =>
       int.tryParse(version?.replaceAll(RegExp(r'\D'), '') ?? '') ?? 0;
 
-  Future<void> _declined(DrawView view, SafetyInfo? given) async {
+  Future<void> _declined(
+    DrawView view,
+    SafetyInfo? given, {
+    required bool notCharged,
+  }) async {
     final safety =
         given ??
         SafetyInfo(
@@ -373,7 +381,13 @@ final class DrawController extends Notifier<DrawState> {
     } else {
       ref
           .read(readingHandoffProvider.notifier)
-          .post(ReadingHandoff.declined(safety: safety, draw: view.draw));
+          .post(
+            ReadingHandoff.declined(
+              safety: safety,
+              draw: view.draw,
+              notCharged: notCharged,
+            ),
+          );
       state = DrawState.returnedToQuestion(view);
     }
     await ref

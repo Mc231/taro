@@ -14,6 +14,13 @@ const ConsentState _adsAllowed = ConsentState(
 final ProductId _pack3 = TaroProducts.readings3.id;
 final ProductId _removeAds = TaroProducts.removeAds.id;
 
+/// `store.packs` as the Worker injects them: with `credits` (RC3).
+List<StorePack> _workerPacks() => [
+  StorePack(productId: _pack3, sortOrder: 0, credits: 3),
+  StorePack(productId: TaroProducts.readings10.id, sortOrder: 1, credits: 10),
+  StorePack(productId: TaroProducts.readings30.id, sortOrder: 2, credits: 30),
+];
+
 void main() {
   late TaroFakes fakes;
 
@@ -25,6 +32,7 @@ void main() {
           .withRewarded(available: true)
           .build(),
     );
+    fakes.config.current = aRemoteConfig().withPacks(_workerPacks()).build();
   });
 
   (ProviderContainer, StoreController, StoreState Function()) open([
@@ -81,6 +89,44 @@ void main() {
     expect(read(), const StoreState.loading());
     await retry;
     expect(read(), isA<StoreReady>());
+  });
+
+  group('before the Worker config has loaded (BUG-02)', () {
+    setUp(() => fakes.config.current = RemoteConfig.defaults);
+
+    test('refreshes the config once, then lists packs with the Worker '
+        'credits', () async {
+      fakes.config.server = aRemoteConfig().withPacks(_workerPacks()).build();
+      final (_, _, read) = open();
+      await pumpEventQueue();
+      final packs = (read() as StoreReady).view.catalog.packs;
+      expect(packs.map((p) => p.credits), [3, 10, 30]);
+      expect(fakes.config.calls, ['refresh']);
+    });
+
+    test('never lists a pack without credits ("0 readings")', () async {
+      fakes.config.failNext(const Failure.network(), on: 'refresh');
+      final (_, _, read) = open();
+      await pumpEventQueue();
+      final view = (read() as StoreReady).view;
+      expect(view.catalog.packs, isEmpty);
+      expect(view.catalog.removeAds?.productId, _removeAds);
+    });
+
+    test('storeUnavailable when no pack has credits and Remove Banner Ads '
+        'is off', () async {
+      fakes.config.current = aRemoteConfig()
+          .withRemoveAdsEnabled(false)
+          .build();
+      final (_, _, read) = open();
+      await pumpEventQueue();
+      expect(read(), const StoreState.storeUnavailable());
+    });
+  });
+
+  test('a loaded config is not refreshed again', () async {
+    await ready();
+    expect(fakes.config.calls, isEmpty);
   });
 
   test('storeUnavailable when nothing is listed', () async {

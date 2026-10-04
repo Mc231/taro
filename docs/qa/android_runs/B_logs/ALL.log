@@ -1,0 +1,144 @@
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart
+00:00 +0: B1 onboarding and registration
+INFO taro.install: install identity created
+QA: wait ScreenId.s02
+QA: tap A finder that searches for widgets with text "Get started".
+QA: wait ScreenId.s03
+QA: tap A finder that searches for widgets with text "I understand".
+QA: wait ScreenId.s04
+QA: tap A finder that searches for widgets with text "Allow AI readings".
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 7, overflowed 0
+INFO taro.install: install registered (trust: high)
+QA: TIMING register+balance=1219ms
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: balance: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 06:49:31.000Z, syncedAt: 2026-10-04 06:49:31.251498Z)
+QA: S05: Sunday, October 4 | Good morning | Free reading used | Next free reading in 14 h 10 min | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card
+QA: TIMINGS {"register+balance":1219}
+QA: BUGS []
+00:04 +1: B2 paywall and rewarded ad
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 06:49:31.000Z, syncedAt: 2026-10-04 06:49:31.251498Z)
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Single card".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s10
+QA: TIMING paywall (Begin→S10)=121ms
+QA: S10: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 14 h 10 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Loading… | Readings don’t expire and are kept for this app installation. They can’t be restored with Resto
+QA: tap A finder that searches for widgets with text containing Watch an ad for 1 reading (ignoring all but first).
+QA: wait ScreenId.s12
+QA_HOST: closead
+00:31 +1: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+00:52 +1: B2 paywall and rewarded ad
+QA: TIMING rewarded outcome=35972ms
+QA: S12 outcome: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | Your reading will appear shortly | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 14 h 10 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Prices unavailable — retry | Try again | Readings don’t expire 
+QA: balance after rewarded: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 1, serverTime: 2026-10-04 06:50:19.000Z, syncedAt: 2026-10-04 06:50:19.719673Z)
+QA: TIMINGS {"register+balance":0,"paywall (Begin→S10)":120,"rewarded outcome":35972}
+QA: BUGS []
+00:52 +2: B3 safety: rephrase and crisis
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 1, serverTime: 2026-10-04 06:50:19.000Z, syncedAt: 2026-10-04 06:50:19.719673Z)
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+Expected: true
+  Actual: <false>
+needs one reading available
+00:53 +2 -1: B3 safety: rephrase and crisis [E]
+00:53 +2 -1: B4 single reading en and journal
+00:53 +2 -1: B3 safety: rephrase and crisis
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:53 +2 -1: B4 single reading en and journal
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+Expected: true
+  Actual: <false>
+needs one reading available
+00:53 +2 -2: B4 single reading en and journal [E]
+00:53 +2 -2: B5 ar: three_ppf reading and report
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+Expected: true
+  Actual: <false>
+needs one reading available
+00:53 +2 -3: B5 ar: three_ppf reading and report [E]
+00:53 +2 -3: B6 de: three_ppf reading
+00:53 +2 -3: B4 single reading en and journal
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:53 +2 -3: B6 de: three_ppf reading
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+Expected: true
+  Actual: <false>
+needs one reading
+00:53 +2 -4: B6 de: three_ppf reading [E]
+00:53 +2 -4: B7 offline, export, delete, import
+00:53 +2 -4: B5 ar: three_ppf reading and report
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:53 +2 -4: B6 de: three_ppf reading
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+00:54 +2 -4: B7 offline, export, delete, import
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: wait ScreenId.s05
+00:54 +2 -4: B3 safety: rephrase and crisis
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+00:54 +2 -4: B7 offline, export, delete, import
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+QA_HOST: offline
+00:54 +2 -4: B4 single reading en and journal
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+00:54 +2 -4: B6 de: three_ppf reading
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+00:54 +2 -4: B5 ar: three_ppf reading and report
+WARNING taro.attestation: attestation prepareStandard failed: quota
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+00:54 +2 -4: B7 offline, export, delete, import
+WARNING taro.attestation: attestation prepareStandard failed: quota
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: TIMING offline banner shown=1086ms
+QA_HOST: online
+00:57 +2 -4: B1 onboarding and registration
+FINE taro.sync: sync skipped (connectivityRegained)
+00:57 +2 -4: B7 offline, export, delete, import
+QA: TIMING offline banner hidden=2340ms
+QA: journal before: 0 readings
+QA_HOST: back
+01:02 +2 -4: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+01:02 +2 -4: B7 offline, export, delete, import
+QA: tap A finder that searches for widgets with text "Settings".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Delete all data".
+QA: wait ScreenId.s26
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Delete all data".
+QA: TIMING delete all=1747ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Done".
+QA: after delete: Sunday, October 4 | Good morning | Free reading used | Next free reading in 14 h 9 min | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card | Ask the cards a question | Choose a spread, write a question if you like, and get a thoughtful AI interpretation. | Start a reading | Today | Journal | Learn | Settings | Sunday, October 4 | Good morning | Free reading used | Next free reading in 14 h 9 min | YOUR DAILY CARD
+QA: balance before delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 1, serverTime: 2026-10-04 06:50:21.000Z, syncedAt: 2026-10-04 06:50:21.028256Z)
+QA: balance after delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 2, serverTime: 2026-10-04 06:50:35.000Z, syncedAt: 2026-10-04 06:50:35.659248Z)
+QA: TIMINGS {"register+balance":0,"offline banner shown":1086,"offline banner hidden":2340,"delete all":1747}
+QA: BUGS []
+01:08 +3 -4: (tearDownAll)
+01:09 +3 -4: Some tests failed.
+rc=1 wall=93s

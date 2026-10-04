@@ -339,6 +339,24 @@ void main() {
     );
   });
 
+  testWidgets('BUG-13: 200% first run: the coachmark target is on screen', (
+    tester,
+  ) async {
+    await pumpWith(tester, _view(firstRun: true), textScale: 2);
+    final layer = tester.widget<TaroCoachmarkLayer>(
+      find.byType(TaroCoachmarkLayer),
+    );
+    final screen = tester.getRect(find.byType(TaroCoachmarkLayer));
+    final target = tester.getRect(find.byKey(layer.targetKey));
+    expect(target.top, greaterThanOrEqualTo(screen.top));
+    expect(target.bottom, lessThanOrEqualTo(screen.bottom));
+    final bubble = tester.getRect(find.byType(TaroCoachmark));
+    expect(bubble.top, greaterThanOrEqualTo(screen.top));
+    expect(bubble.bottom, lessThanOrEqualTo(target.top));
+    expect(find.text(l10n.homeCoachmarkDismiss), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('200% text: the tile stacks and the CTA stretches', (
     tester,
   ) async {

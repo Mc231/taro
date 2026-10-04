@@ -180,6 +180,7 @@ class _HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<_HomeContent> {
   final GlobalKey _ctaKey = GlobalKey();
+  final GlobalKey _ctaButtonKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +265,7 @@ class _HomeContentState extends State<_HomeContent> {
         gap,
         _ReadingCta(
           key: _ctaKey,
+          buttonKey: _ctaButtonKey,
           highlighted: view.firstRun,
           onStart: widget.onStartReading,
         ),
@@ -300,7 +302,9 @@ class _HomeContentState extends State<_HomeContent> {
     // both `space.adGap` spacers so they collapse with it (RC18, RC59).
     return TaroCoachmarkLayer(
       visible: view.firstRun,
-      targetKey: _ctaKey,
+      // With large text the card is most of the screen: the coachmark
+      // points at its button so the bubble has room above it (BUG-13).
+      targetKey: _largeText(context) ? _ctaButtonKey : _ctaKey,
       coachmark: TaroCoachmark(
         title: view.variant == HomeBalanceVariant.freeAvailable
             ? l10n.homeCoachmarkTitle
@@ -496,11 +500,15 @@ class _ReadingCta extends StatelessWidget {
   const _ReadingCta({
     required this.highlighted,
     required this.onStart,
+    required this.buttonKey,
     super.key,
   });
 
   final bool highlighted;
   final VoidCallback onStart;
+
+  /// The key of "Start a reading" (the large-text coachmark target).
+  final GlobalKey buttonKey;
 
   @override
   Widget build(BuildContext context) {
@@ -532,10 +540,13 @@ class _ReadingCta extends StatelessWidget {
             l10n.homeReadingBody,
             style: tokens.typography.body.copyWith(color: c.text.secondary),
           ),
-          TaroButton.primary(
-            label: l10n.homeStartReading,
-            expand: stretch,
-            onPressed: onStart,
+          KeyedSubtree(
+            key: buttonKey,
+            child: TaroButton.primary(
+              label: l10n.homeStartReading,
+              expand: stretch,
+              onPressed: onStart,
+            ),
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui' show SemanticsRole;
 
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/common/taro_edge_fade.dart';
 import 'package:taro_ui/src/components/common/taro_pressable.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
@@ -13,7 +14,8 @@ import 'package:taro_ui/src/tokens/taro_strokes.dart';
 /// Unlike `SegmentedChoice` the labels are long and the strip scrolls; the
 /// order mirrors in RTL. Screen readers get a `tabBar` of `tab` nodes with
 /// the selected state. The selected tab has a `color.accent.primary`
-/// underline and is scrolled into view when it changes.
+/// underline and is scrolled into view when it changes. An edge with more
+/// tabs past it fades out ([TaroEdgeFade]) so the strip reads as scrollable.
 class TaroTabStrip extends StatefulWidget {
   /// Creates the strip.
   const TaroTabStrip({
@@ -38,6 +40,26 @@ class TaroTabStrip extends StatefulWidget {
 
 class _TaroTabStripState extends State<TaroTabStrip> {
   final List<GlobalKey> _keys = [];
+  bool _fadeStart = false;
+  bool _fadeEnd = false;
+
+  bool _onMetrics(ScrollMetricsNotification n) => _fade(n.metrics);
+
+  bool _onScroll(ScrollNotification n) => _fade(n.metrics);
+
+  /// Fades the side(s) with content past them; scroll offsets run from the
+  /// leading edge in both directions.
+  bool _fade(ScrollMetrics m) {
+    final start = m.pixels > m.minScrollExtent;
+    final end = m.pixels < m.maxScrollExtent;
+    if (start != _fadeStart || end != _fadeEnd) {
+      setState(() {
+        _fadeStart = start;
+        _fadeEnd = end;
+      });
+    }
+    return false;
+  }
 
   @override
   void didUpdateWidget(TaroTabStrip oldWidget) {
@@ -77,24 +99,34 @@ class _TaroTabStripState extends State<TaroTabStrip> {
           ),
         ),
       ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsetsDirectional.symmetric(
-          horizontal: tokens.space.s3,
-        ),
-        child: Semantics(
-          container: true,
-          role: SemanticsRole.tabBar,
-          child: Row(
-            children: [
-              for (var i = 0; i < widget.labels.length; i++)
-                _Tab(
-                  key: _keys[i],
-                  label: widget.labels[i],
-                  selected: i == widget.selectedIndex,
-                  onTap: () => widget.onSelected(i),
+      child: NotificationListener<ScrollMetricsNotification>(
+        onNotification: _onMetrics,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: _onScroll,
+          child: TaroEdgeFade(
+            start: _fadeStart,
+            end: _fadeEnd,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsetsDirectional.symmetric(
+                horizontal: tokens.space.s3,
+              ),
+              child: Semantics(
+                container: true,
+                role: SemanticsRole.tabBar,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < widget.labels.length; i++)
+                      _Tab(
+                        key: _keys[i],
+                        label: widget.labels[i],
+                        selected: i == widget.selectedIndex,
+                        onTap: () => widget.onSelected(i),
+                      ),
+                  ],
                 ),
-            ],
+              ),
+            ),
           ),
         ),
       ),

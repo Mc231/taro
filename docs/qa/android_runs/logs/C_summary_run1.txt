@@ -1,0 +1,7 @@
+en_light rc=0 secs=35 shots=       5
+en_dark rc=0 secs=193 shots=      68
+ar rc=0 secs=128 shots=      68
+de rc=0 secs=114 shots=      68
+ja rc=0 secs=136 shots=      68
+en_text200 rc=0 secs=138 shots=      21
+DONE

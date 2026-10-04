@@ -96,7 +96,7 @@ const List<ScreenSpec> kScreens = [
   ScreenSpec(
     'S07',
     unions: ['QuestionState'],
-    starred: {'editing', 'refused'},
+    starred: {'editing', 'rephrase', 'refused'},
   ),
   ScreenSpec(
     'S08',

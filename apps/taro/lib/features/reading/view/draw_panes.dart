@@ -16,12 +16,19 @@ import 'package:taro_ui/taro_ui.dart';
 bool _reflow(BuildContext context) =>
     MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
 
-/// The ritual frame: a scrolling top part and the pinned [bottom].
+/// The ritual frame: a scrolling top part, the pinned [bottom] and the
+/// full-bleed [bleed] (the deck fan) under it. Above 1.5× text both scroll
+/// after the content instead, so the pinned part never covers it (BUG-03).
 class _RitualFrame extends StatelessWidget {
-  const _RitualFrame({required this.content, this.bottom = const []});
+  const _RitualFrame({
+    required this.content,
+    this.bottom = const [],
+    this.bleed,
+  });
 
   final List<Widget> content;
   final List<Widget> bottom;
+  final Widget? bleed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,34 +36,49 @@ class _RitualFrame extends StatelessWidget {
     final gutter = EdgeInsetsDirectional.symmetric(
       horizontal: tokens.layout.gutter,
     );
+    final top = Padding(
+      padding: gutter.add(
+        EdgeInsetsDirectional.only(
+          top: tokens.space.s5,
+          bottom: tokens.space.s5,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: content,
+      ),
+    );
+    final pinned = [
+      if (bottom.isNotEmpty)
+        Padding(
+          padding: gutter.add(
+            EdgeInsetsDirectional.only(bottom: tokens.space.s5),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: tokens.space.s3,
+            children: bottom,
+          ),
+        ),
+      if (bleed case final bleed?)
+        Padding(
+          padding: EdgeInsetsDirectional.only(bottom: tokens.space.s5),
+          child: bleed,
+        ),
+    ];
+    if (_reflow(context)) {
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [top, ...pinned],
+        ),
+      );
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            padding: gutter.add(
-              EdgeInsetsDirectional.only(
-                top: tokens.space.s5,
-                bottom: tokens.space.s5,
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: content,
-            ),
-          ),
-        ),
-        if (bottom.isNotEmpty)
-          Padding(
-            padding: gutter.add(
-              EdgeInsetsDirectional.only(bottom: tokens.space.s5),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: tokens.space.s3,
-              children: bottom,
-            ),
-          ),
+        Expanded(child: SingleChildScrollView(child: top)),
+        ...pinned,
       ],
     );
   }
@@ -359,48 +381,36 @@ class _PickPaneState extends State<PickPane> {
     final remaining = view.cardCount - view.placed;
     final deckLeft = Deck.size - view.placed;
     final focus = math.min(_focus ?? deckLeft ~/ 2, deckLeft - 1);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          child: _RitualFrame(
-            content: [
-              _Heading(
-                title: open
-                    ? l10n.drawPickTitle(remaining)
-                    : l10n.drawRevealTitle,
-                subtitle: l10n.drawPickSubtitle,
-              ),
-              SizedBox(height: tokens.space.s7),
-              _canvas(context),
-            ],
-          ),
+    return _RitualFrame(
+      content: [
+        _Heading(
+          title: open ? l10n.drawPickTitle(remaining) : l10n.drawRevealTitle,
+          subtitle: l10n.drawPickSubtitle,
         ),
-        Padding(
-          padding: EdgeInsetsDirectional.only(bottom: tokens.space.s5),
-          child: RepaintBoundary(
-            child: CardFan(
-              cardCount: deckLeft,
-              semanticsLabel: l10n.drawDeckSemantics(deckLeft),
-              cardSemanticsLabel: (_) => l10n.drawCardBackSemantics(
-                view.placed + 1,
-                view.cardCount,
-              ),
-              drawForMeLabel: l10n.drawForMe,
-              onDrawForMe: open ? _drawForMe : null,
-              focusedIndex: focus,
-              onFocus: open
-                  ? (index) {
-                      setState(() => _focus = index);
-                      widget.onPick();
-                    }
-                  : null,
-              confirmLabel: l10n.drawPickThis,
-              onConfirm: open ? _pick : null,
-            ),
-          ),
-        ),
+        SizedBox(height: tokens.space.s7),
+        _canvas(context),
       ],
+      bleed: RepaintBoundary(
+        child: CardFan(
+          cardCount: deckLeft,
+          semanticsLabel: l10n.drawDeckSemantics(deckLeft),
+          cardSemanticsLabel: (_) => l10n.drawCardBackSemantics(
+            view.placed + 1,
+            view.cardCount,
+          ),
+          drawForMeLabel: l10n.drawForMe,
+          onDrawForMe: open ? _drawForMe : null,
+          focusedIndex: focus,
+          onFocus: open
+              ? (index) {
+                  setState(() => _focus = index);
+                  widget.onPick();
+                }
+              : null,
+          confirmLabel: l10n.drawPickThis,
+          onConfirm: open ? _pick : null,
+        ),
+      ),
     );
   }
 
@@ -633,7 +643,7 @@ class ResultPane extends StatelessWidget {
         if (revealing && question != null && question.isNotEmpty) ...[
           SizedBox(height: tokens.space.s7),
           Text(
-            question,
+            firstStrongIsolate(question),
             textAlign: TextAlign.center,
             style: tokens.typography.body.copyWith(
               color: tokens.color.text.secondary,
@@ -719,11 +729,16 @@ class ResultPane extends StatelessWidget {
             name,
           ),
         ),
+        // The hint wraps between words and stays inside the card (BUG-06).
         PositionedDirectional(
           bottom: tokens.space.s4,
           child: IgnorePointer(
             child: ExcludeSemantics(
-              child: TaroBadge(label: l10n.drawTapToReveal),
+              child: TaroBadge(
+                label: l10n.drawTapToReveal,
+                maxWidth: TaroCardSize.sm.widthIn(context) - tokens.space.s2,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),

@@ -462,7 +462,7 @@ class JournalEntryLayout extends StatelessWidget {
       ],
       if (question != null && question.isNotEmpty) ...[
         Text(
-          l10n.readingQuestionQuoted(question),
+          l10n.readingQuestionQuoted(firstStrongIsolate(question)),
           style: tokens.typography.caption.copyWith(color: c.text.tertiary),
         ),
         SizedBox(height: tokens.space.s3),

@@ -35,7 +35,8 @@ class DeleteDataScreen extends ConsumerWidget {
 
 /// The S26 layout for one [state] (`docs/design/screens/S26`): what is
 /// erased, what is kept (RC37), the typed confirmation (`confirm1` →
-/// `confirm2`), then the wipe and its result.
+/// `confirm2`, pinned above the buttons it unlocks), then the wipe and its
+/// result.
 class DeleteDataLayout extends StatelessWidget {
   /// Creates the view.
   const DeleteDataLayout({
@@ -152,6 +153,15 @@ class DeleteDataLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: tokens.space.s3,
         children: [
+          // BUG-09: the typed confirmation is pinned with the buttons it
+          // unlocks, so it is never below the fold or behind them, and the
+          // scaffold lifts it above the keyboard.
+          if (summary != null)
+            TaroTextField(
+              label: l10n.deleteConfirmLabel(l10n.deleteConfirmWord),
+              textCapitalization: TextCapitalization.characters,
+              onChanged: onTyped,
+            ),
           TaroButton.destructive(
             label: l10n.deleteButton,
             expand: true,
@@ -199,11 +209,6 @@ class DeleteDataLayout extends StatelessWidget {
               if (summary.removeAdsKept)
                 ChecklistItem(l10n.deleteKeptRemoveAds),
             ],
-          ),
-          TaroTextField(
-            label: l10n.deleteConfirmLabel(l10n.deleteConfirmWord),
-            textCapitalization: TextCapitalization.characters,
-            onChanged: onTyped,
           ),
         ],
       ],

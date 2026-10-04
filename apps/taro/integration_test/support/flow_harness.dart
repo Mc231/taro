@@ -89,6 +89,18 @@ TaroFakes flowFakes({ConsentState? consent, FakeClock? clock}) {
     clock: clock,
     consent: state,
   )..tracking = FakeTrackingAuthorization(current: TrackingStatus.authorized);
+  // The config as `GET /v1/config` serves it: packs carry the
+  // Worker-injected credits (RC3), which the compiled defaults lack.
+  fakes.config.current = RemoteConfig.defaults.copyWith(
+    storePacks: [
+      for (final (i, (product, credits)) in [
+        (TaroProducts.readings3, 3),
+        (TaroProducts.readings10, 10),
+        (TaroProducts.readings30, 30),
+      ].indexed)
+        StorePack(productId: product.id, sortOrder: i, credits: credits),
+    ],
+  );
   fakes.sessionTokens.token = SessionToken(
     token: 'flow-session-token',
     expiresAt: kTestNow.add(const Duration(days: 7)),

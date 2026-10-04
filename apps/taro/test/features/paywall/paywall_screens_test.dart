@@ -690,6 +690,15 @@ void main() {
             .withRewarded(available: true)
             .build(),
       );
+      // `store.packs` with the Worker-injected credits (RC3).
+      fakes.config.current = aRemoteConfig().withPacks([
+        for (final (i, (product, credits)) in [
+          (TaroProducts.readings3, 3),
+          (TaroProducts.readings10, 10),
+          (TaroProducts.readings30, 30),
+        ].indexed)
+          StorePack(productId: product.id, sortOrder: i, credits: credits),
+      ]).build();
     });
 
     Widget host(Future<Object?> Function(BuildContext) open) => Builder(

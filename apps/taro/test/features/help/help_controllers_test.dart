@@ -186,6 +186,21 @@ void main() {
       },
     );
 
+    // BUG-15: an article with no entries and no query showed
+    // 'No answers match “”'; only a non-empty query can match nothing.
+    test('no query is never searchEmpty', () async {
+      final container = open(
+        const Result.ok(Article(title: 'FAQ', sections: [])),
+      );
+      await pumpEventQueue();
+      final controller = container.read(faqControllerProvider.notifier);
+      expect(container.read(faqControllerProvider), isA<FaqContent>());
+      controller.search('   ');
+      expect(container.read(faqControllerProvider), isA<FaqContent>());
+      controller.search('zzz');
+      expect(container.read(faqControllerProvider), isA<FaqSearchEmpty>());
+    });
+
     test('a missing article is a storage error', () async {
       final container = open(const Result.err(Failure.storage()));
       await pumpEventQueue();

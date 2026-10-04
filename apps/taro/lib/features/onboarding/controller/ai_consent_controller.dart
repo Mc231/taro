@@ -101,12 +101,16 @@ final class AiConsentController extends Notifier<AiConsentState> {
           ),
         );
     }
+    // The step leaves `aiConsent` before S04 is told to leave: S04 goes
+    // Home on `granted` / `declined`, and the guard would send it back to
+    // S04 while the step still reads `aiConsent` (BUG-01).
+    await completion?.leaveConsentStep();
     if (ref.mounted) {
       state = granted
           ? AiConsentState.granted(origin: origin)
           : AiConsentState.declined(origin: origin);
     }
-    await completion?.run(aiConsent: granted);
+    await completion?.finish(aiConsent: granted);
     return const Result.ok(null);
   }
 }
@@ -153,12 +157,17 @@ final class OnboardingCompletion {
   final Clock _clock;
   final DateTime? _startedAt;
 
-  /// Runs the rest of onboarding; [aiConsent] is the S04 decision.
-  Future<void> run({required bool aiConsent}) async {
+  /// Moves the step to `ump`: from here the router leaves onboarding.
+  Future<void> leaveConsentStep() async {
     await _analytics.log(
       const OnboardingStepViewedEvent(step: AnalyticsOnboardingStep.ump),
     );
     await _consent.setOnboardingStep(OnboardingStep.ump);
+  }
+
+  /// UMP → ATT → Mobile Ads, then the step is `done`; [aiConsent] is the
+  /// S04 decision.
+  Future<void> finish({required bool aiConsent}) async {
     final trackingBefore = _store.current.tracking;
     final outcome = await _consent.runAdsConsent();
     if (outcome != null) await _logConsent(outcome, trackingBefore);

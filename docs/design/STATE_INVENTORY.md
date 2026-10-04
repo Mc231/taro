@@ -14,7 +14,7 @@
 | S04 AI consent (onboarding + re-entry) | `/consent/ai` | `undecided`★, `granted`, `declined`, `AttPrePromptState.hidden`, `AttPrePromptState.visible` | `undecided` | — |
 | S05 Home ("Today" tab 1) | `/home` | `loading`, `content`★ | `content`, content variants: freeAvailable / freeUsedWithCredits / zeroReadings | ✅ `home` |
 | S06 Spread picker | `/reading/spreads` | `loading`, `content`★, `failed` | `content` | — |
-| S07 Question input + Begin | `/reading/question?spread=` | `editing`★, `checking`, `ready`, `offline`, `consentRequired`, `deviceUnverified`, `readingsPaused`, `aiUnavailableRegion`, `outOfReadings`, `dailyLimitReached`, `lowTrustLimited`, `rephrase`, `refused`★, `rateLimited`, `spreadDisabled`, `failed` | `editing`, `refused` | — |
+| S07 Question input + Begin | `/reading/question?spread=` | `editing`★, `checking`, `ready`, `offline`, `consentRequired`, `deviceUnverified`, `readingsPaused`, `aiUnavailableRegion`, `outOfReadings`, `dailyLimitReached`, `lowTrustLimited`, `rephrase`★, `refused`★, `rateLimited`, `spreadDisabled`, `failed` | `editing`, `rephrase`, `refused` | — |
 | S08 Draw ritual | `/reading/draw` | `unavailable`, `preparing`, `shuffling`★, `picking`★, `revealing`, `awaitingReading`★, `slowReading`, `timeoutPolling`, `generationFailed`, `holdLost`, `deliveryExpired`, `crisis`, `returnedToQuestion`, `completed`, `failed` | `shuffling`, `picking`, `awaitingReading`, reducedMotion variant | — |
 | S09 Reading result | `/reading/:id` | `loadingFromStorage`, `content`★, `ratingGiven`, `sharing`, `notFound`, `failed` | `content` | — |
 | S10 Out-of-readings sheet | modal | `content`★, `resolved`, `PaywallPacks.loading`, `PaywallPacks.loaded`, `PaywallPacks.unavailable`, `PaywallPacks.purchasesBlocked`, `RewardedOption.available`, `RewardedOption.coolingDown`, `RewardedOption.capped`, `RewardedOption.noFill`, `RewardedOption.hidden` | `content` | — |
@@ -127,7 +127,7 @@ Route `/reading/question?spread=` · Banner none · Unions: `QuestionState` (`ap
 | `outOfReadings` |  | `QuestionState` | S10 before anything is drawn; [source] is `out_of_readings_viewed`'s. |
 | `dailyLimitReached` |  | `QuestionState` | "You've reached today's reading limit"; no paywall (RC74). |
 | `lowTrustLimited` |  | `QuestionState` | S10 with "Free readings aren't available on this device right now"; purchase and rewarded stay available (RC74). |
-| `rephrase` |  | `QuestionState` | Declined with `canRephrase: true`: hint + example rewordings. |
+| `rephrase` | ★ | `QuestionState` | Declined with `canRephrase: true`: the refusal state ("We can't read this question", S07 refusal spec) with category rewordings. [notCharged] is from the Worker response (no `chargeSource` on a declined reading). |
 | `refused` | ★ | `QuestionState` | Declined without a rewording hint (03 §9.4 categories, RC27). [draw] is the declined draw, when there is one ("Reflect on the cards without a question"; never offered for moderation-blocked categories). |
 | `rateLimited` |  | `QuestionState` | `429 RATE_LIMITED` with `details.reason = burst`. |
 | `spreadDisabled` |  | `QuestionState` | The spread is not in `spreads.enabled` (a stale link or config flip). |

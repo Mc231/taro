@@ -127,7 +127,10 @@ void main() {
       expect(find.text(l10n.aiLabel), findsOneWidget);
       expect(find.text(_complete.content!.title), findsOneWidget);
       expect(
-        find.text(l10n.readingQuestionQuoted(kTestQuestion)),
+        // BUG-11: the question keeps its own direction in an RTL UI.
+        find.text(
+          l10n.readingQuestionQuoted(firstStrongIsolate(kTestQuestion)),
+        ),
         findsOneWidget,
       );
       await tester.tap(find.bySemanticsLabel(l10n.commonFavourite));

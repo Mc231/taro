@@ -376,6 +376,45 @@ void main() {
   });
 
   group('S26 delete data view', () {
+    // BUG-09: the typed confirmation sat at the end of the scrolling list,
+    // below the fold and behind the pinned buttons. It is pinned with them.
+    for (final locale in const [Locale('en'), Locale('ja')]) {
+      testWidgets('the confirmation field is on screen without scrolling '
+          '(${locale.languageCode})', (tester) async {
+        await pumpTaroWidget(
+          tester,
+          DeleteDataLayout(
+            state: const DeleteDataState.confirm1(
+              DeleteDataSummary(
+                journalEntries: 128,
+                readingsKept: 3,
+                removeAdsKept: true,
+              ),
+            ),
+            onTyped: (_) {},
+            onDelete: () {},
+            onRetry: () {},
+            onExport: () {},
+            onDone: () {},
+            onBack: () {},
+          ),
+          locale: locale,
+        );
+        await tester.pumpAndSettle();
+        expect(find.byType(TextField).hitTestable(), findsOneWidget);
+        final field = tester.getRect(find.byType(TextField));
+        final delete = tester.getRect(
+          find
+              .widgetWithText(
+                TaroButton,
+                lookupTaroLocalizations(locale).deleteButton,
+              )
+              .last,
+        );
+        expect(field.bottom, lessThanOrEqualTo(delete.top));
+      });
+    }
+
     testWidgets('every state', (tester) async {
       final calls = <String>[];
       Future<void> pump(DeleteDataState state) => pumpTaroWidget(

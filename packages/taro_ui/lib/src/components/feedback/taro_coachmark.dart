@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class TaroCoachmark extends StatelessWidget {
     required this.onDismiss,
     this.arrow = TaroCoachmarkArrow.none,
     this.arrowOffset,
+    this.maxHeight,
     super.key,
   });
 
@@ -57,24 +59,61 @@ class TaroCoachmark extends StatelessWidget {
   /// `space.9`).
   final double? arrowOffset;
 
-  /// Returns a copy pointing [arrow] at [arrowOffset].
-  TaroCoachmark pointing(TaroCoachmarkArrow arrow, double arrowOffset) =>
-      TaroCoachmark(
-        title: title,
-        body: body,
-        dismissLabel: dismissLabel,
-        onDismiss: onDismiss,
-        arrow: arrow,
-        arrowOffset: arrowOffset,
-        key: key,
-      );
+  /// The tallest the bubble (with its arrow) may be; a title and body
+  /// taller than that shrink above "Got it" (large text, BUG-13).
+  final double? maxHeight;
+
+  /// Returns a copy pointing [arrow] at [arrowOffset], at most [maxHeight]
+  /// tall.
+  TaroCoachmark pointing(
+    TaroCoachmarkArrow arrow,
+    double arrowOffset, {
+    double? maxHeight,
+  }) => TaroCoachmark(
+    title: title,
+    body: body,
+    dismissLabel: dismissLabel,
+    onDismiss: onDismiss,
+    arrow: arrow,
+    arrowOffset: arrowOffset,
+    maxHeight: maxHeight,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.tokens;
     final c = tokens.color;
     final arrowSize = tokens.space.s5;
+    final maxHeight = this.maxHeight;
+    final text = Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Semantics(
+          liveRegion: true,
+          child: Text(
+            title,
+            style: tokens.typography.cardName.copyWith(color: c.text.primary),
+          ),
+        ),
+        SizedBox(height: tokens.space.s2),
+        Text(
+          body,
+          style: tokens.typography.body.copyWith(color: c.text.secondary),
+        ),
+      ],
+    );
     final bubble = Container(
+      constraints: maxHeight == null
+          ? null
+          : BoxConstraints(
+              maxHeight: math.max(
+                0,
+                maxHeight -
+                    (arrow == TaroCoachmarkArrow.none ? 0 : arrowSize / 2),
+              ),
+            ),
       padding: EdgeInsetsDirectional.all(tokens.space.s5),
       decoration: BoxDecoration(
         color: c.bg.surfaceRaised,
@@ -88,20 +127,20 @@ class TaroCoachmark extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Semantics(
-            liveRegion: true,
-            child: Text(
-              title,
-              style: tokens.typography.cardName.copyWith(
-                color: c.text.primary,
+          if (maxHeight == null)
+            text
+          else
+            // Text taller than the room shrinks to fit, so the whole
+            // message and "Got it" stay on screen.
+            Flexible(
+              child: LayoutBuilder(
+                builder: (context, box) => FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.topStart,
+                  child: SizedBox(width: box.maxWidth, child: text),
+                ),
               ),
             ),
-          ),
-          SizedBox(height: tokens.space.s2),
-          Text(
-            body,
-            style: tokens.typography.body.copyWith(color: c.text.secondary),
-          ),
           SizedBox(height: tokens.space.s4),
           Align(
             alignment: AlignmentDirectional.centerEnd,
@@ -221,16 +260,34 @@ class TaroCoachmarkLayer extends StatefulWidget {
 class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
   final GlobalKey _layerKey = GlobalKey();
   Rect? _target;
+  bool _scrolledIntoView = false;
 
   void _measure() {
     if (!mounted) return;
     final layer = _layerKey.currentContext?.findRenderObject() as RenderBox?;
-    final target =
-        widget.targetKey.currentContext?.findRenderObject() as RenderBox?;
+    final targetContext = widget.targetKey.currentContext;
+    final target = targetContext?.findRenderObject() as RenderBox?;
     Rect? rect;
     if (layer != null && target != null && target.attached) {
       final origin = target.localToGlobal(Offset.zero, ancestor: layer);
       rect = origin & target.size;
+      // A target past the fold (large text, small phones) is scrolled into
+      // view once, so the bubble never points off screen (BUG-13).
+      final outside = rect.top < 0 || rect.bottom > layer.size.height;
+      if (outside && !_scrolledIntoView) {
+        _scrolledIntoView = true;
+        unawaited(
+          Scrollable.ensureVisible(
+            targetContext!,
+            alignmentPolicy: rect.top < 0
+                ? ScrollPositionAlignmentPolicy.keepVisibleAtStart
+                : ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
+          ),
+        );
+        WidgetsBinding.instance.addPostFrameCallback((_) => _measure());
+        setState(() {});
+        return;
+      }
     }
     if (rect != _target) setState(() => _target = rect);
   }
@@ -268,6 +325,9 @@ class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
                 final bubble = widget.coachmark.pointing(
                   below ? TaroCoachmarkArrow.up : TaroCoachmarkArrow.down,
                   startX.clamp(tokens.space.s7, width),
+                  maxHeight: below
+                      ? layer.height - hole.bottom - 2 * gap
+                      : hole.top - 2 * gap,
                 );
                 return TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0, end: 1),

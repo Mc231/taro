@@ -1,0 +1,7 @@
+en_text200 rc=0 shots=      68 failed=1
+de first attempt: hung on native splash after install (tool/VM-service flake), killed, re-run
+de rc=0 shots=      68 failed=0
+ja rc=0 shots=      68 failed=0
+ar rc=0 shots=      68 failed=0
+en_dark rc=0 shots=      68 failed=0
+DONE

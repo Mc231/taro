@@ -574,6 +574,88 @@ void main() {
       await controller.reflectWithoutQuestion();
       expect(log.last, isA<QuestionEditing>());
     });
+
+    void decline(
+      ProviderContainer container, {
+      RefusalCategory category = RefusalCategory.health,
+      bool canRephrase = true,
+      bool notCharged = true,
+    }) => container
+        .read(readingHandoffProvider.notifier)
+        .post(
+          ReadingHandoff.declined(
+            safety: SafetyInfo(
+              category: category,
+              messageKey: category.messageKey,
+              canRephrase: canRephrase,
+            ),
+            draw: draw,
+            notCharged: notCharged,
+          ),
+        );
+
+    test('the not-charged flag comes from the Worker response', () async {
+      final (container, log, _) = await open();
+      decline(container);
+      await pumpEventQueue();
+      expect((log.last as QuestionRephrase).notCharged, isTrue);
+      decline(container, canRephrase: false, notCharged: false);
+      await pumpEventQueue();
+      expect((log.last as QuestionRefused).notCharged, isFalse);
+    });
+
+    test('rephrase: back to editing with the declined question kept, '
+        'no hold and no draw until Begin', () async {
+      final (container, log, controller) = await open();
+      controller.updateText('Will the kids get sick?');
+      decline(container);
+      await pumpEventQueue();
+      expect(log.last.isRefusal, isTrue);
+      controller.rephrase();
+      final editing = log.last as QuestionEditing;
+      expect(editing.draft.text, 'Will the kids get sick?');
+      expect(editing.isRefusal, isFalse);
+      expect(fakes.readings.holds, isEmpty);
+      expect(container.read(readingSessionProvider), isNull);
+    });
+
+    test(
+      'rephrase(clear): "Ask a different question" empties the field',
+      () async {
+        final (container, log, controller) = await open();
+        controller.updateText('Something blocked');
+        decline(
+          container,
+          category: RefusalCategory.sexualMinors,
+          canRephrase: false,
+        );
+        await pumpEventQueue();
+        controller.rephrase(clear: true);
+        final editing = log.last as QuestionEditing;
+        expect(editing.draft.text, isEmpty);
+        expect(editing.draft.canBegin, isTrue);
+      },
+    );
+
+    test('a rewording chip fills the editor and returns to editing', () async {
+      final (container, log, controller) = await open();
+      controller.updateText('Will the kids get sick?');
+      decline(container);
+      await pumpEventQueue();
+      controller.useSuggestion('How can I support the people I love?');
+      final editing = log.last as QuestionEditing;
+      expect(editing.draft.text, 'How can I support the people I love?');
+      expect(editing.draft.usedSuggestion, isTrue);
+    });
+
+    test('rephrase is ignored outside the refusal state', () async {
+      final (_, log, controller) = await open();
+      controller.updateText('Q');
+      final before = log.states.length;
+      controller.rephrase();
+      expect(log.states.length, before);
+      expect(log.last, isA<QuestionEditing>());
+    });
   });
 
   test(

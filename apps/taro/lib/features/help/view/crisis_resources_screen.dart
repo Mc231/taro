@@ -229,6 +229,11 @@ class _CrisisResourceRow extends StatelessWidget {
   /// RTL text.
   static String _ltr(String text) => '\u2066$text\u2069';
 
+  /// [host] with a zero-width space after each dot, so a narrow line
+  /// breaks it between labels ("findahelpline. / com"), never inside one
+  /// (BUG-17).
+  static String _breakableHost(String host) => host.replaceAll('.', '.\u200B');
+
   @override
   Widget build(BuildContext context) {
     final l10n = TaroLocalizations.of(context);
@@ -243,7 +248,7 @@ class _CrisisResourceRow extends StatelessWidget {
     final contact = switch ((phone, sms)) {
       (final String p, _) => _ltr(p),
       (null, final String s) => _ltr(s),
-      _ => host ?? '',
+      _ => host == null ? '' : _breakableHost(host),
     };
     final hours = resource.hours;
     final (label, icon, semantics, uri) = switch ((phone, sms, url)) {
@@ -267,6 +272,45 @@ class _CrisisResourceRow extends StatelessWidget {
       ),
       _ => (null, null, null, null),
     };
+    final text = MergeSemantics(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: tokens.space.s1,
+        children: [
+          Text(
+            name,
+            style: tokens.typography.body.copyWith(
+              color: c.text.primary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            hours == null ? contact : l10n.crisisHours(contact, hours),
+            style: tokens.typography.label.copyWith(
+              color: c.text.secondary,
+            ),
+          ),
+          if (international)
+            Text(
+              l10n.crisisInternationalBody,
+              style: tokens.typography.caption.copyWith(
+                color: c.text.tertiary,
+              ),
+            ),
+        ],
+      ),
+    );
+    final button = label == null
+        ? null
+        : TaroButton.primary(
+            label: label,
+            icon: icon,
+            expand: false,
+            semanticsLabel: semantics,
+            onPressed: () => onOpen(uri!),
+          );
+    final stacked =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
     return DecoratedBox(
       decoration: BoxDecoration(
         color: c.bg.surfaceRaised,
@@ -279,51 +323,21 @@ class _CrisisResourceRow extends StatelessWidget {
           tokens.space.s4,
           tokens.space.s4,
         ),
-        child: Row(
-          spacing: tokens.space.s4,
-          children: [
-            Expanded(
-              child: MergeSemantics(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: tokens.space.s1,
-                  children: [
-                    Text(
-                      name,
-                      style: tokens.typography.body.copyWith(
-                        color: c.text.primary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      hours == null
-                          ? contact
-                          : l10n.crisisHours(contact, hours),
-                      style: tokens.typography.label.copyWith(
-                        color: c.text.secondary,
-                      ),
-                    ),
-                    if (international)
-                      Text(
-                        l10n.crisisInternationalBody,
-                        style: tokens.typography.caption.copyWith(
-                          color: c.text.tertiary,
-                        ),
-                      ),
-                  ],
-                ),
+        // Above 1.5× text the button goes under the text, which keeps the
+        // full width (BUG-17).
+        child: stacked
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: tokens.space.s4,
+                children: [text, ?button],
+              )
+            : Row(
+                spacing: tokens.space.s4,
+                children: [
+                  Expanded(child: text),
+                  ?button,
+                ],
               ),
-            ),
-            if (label != null)
-              TaroButton.primary(
-                label: label,
-                icon: icon,
-                expand: false,
-                semanticsLabel: semantics,
-                onPressed: () => onOpen(uri!),
-              ),
-          ],
-        ),
       ),
     );
   }

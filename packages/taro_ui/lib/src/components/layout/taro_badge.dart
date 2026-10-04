@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taro_ui/src/components/common/taro_word_fit.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 
 /// The variants of a [TaroBadge] (design system **Badge**).
@@ -27,6 +28,8 @@ class TaroBadge extends StatelessWidget {
   const TaroBadge({
     required this.label,
     this.variant = TaroBadgeVariant.status,
+    this.maxWidth,
+    this.textAlign,
     super.key,
   });
 
@@ -35,6 +38,14 @@ class TaroBadge extends StatelessWidget {
 
   /// The variant.
   final TaroBadgeVariant variant;
+
+  /// The widest the badge may be (a hint inside a card, BUG-06). The label
+  /// then wraps between words, and a word wider than the badge shrinks;
+  /// null keeps one unconstrained line.
+  final double? maxWidth;
+
+  /// The label alignment when it wraps (directional).
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -72,18 +83,35 @@ class TaroBadge extends StatelessWidget {
       TaroBadgeVariant.bestValue => tokens.typography.label,
       _ => tokens.typography.caption,
     };
+    final horizontal = variant == TaroBadgeVariant.keyword
+        ? tokens.space.s4
+        : tokens.space.s3;
+    final textStyle = style.copyWith(color: text);
+    final maxWidth = this.maxWidth;
     return Container(
+      constraints: maxWidth == null ? null : BoxConstraints(maxWidth: maxWidth),
       padding: EdgeInsetsDirectional.symmetric(
-        horizontal: variant == TaroBadgeVariant.keyword
-            ? tokens.space.s4
-            : tokens.space.s3,
+        horizontal: horizontal,
         vertical: tokens.space.s1,
       ),
       decoration: BoxDecoration(
         color: fill,
         borderRadius: BorderRadius.circular(radius),
       ),
-      child: Text(label, style: style.copyWith(color: text)),
+      child: Text(
+        label,
+        style: textStyle,
+        textAlign: textAlign,
+        textScaler: maxWidth == null
+            ? null
+            : taroWordFitScaler(
+                text: label,
+                style: textStyle,
+                scaler: MediaQuery.textScalerOf(context),
+                maxWidth: maxWidth - 2 * horizontal,
+                direction: Directionality.of(context),
+              ),
+      ),
     );
   }
 }

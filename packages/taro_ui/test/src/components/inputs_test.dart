@@ -463,6 +463,55 @@ void main() {
       handle.dispose();
     });
 
+    // BUG-10: the outer tabs were cut ("Ope", "Privac") with no sign that
+    // the strip scrolls; the edge with more tabs now fades out.
+    testWidgets('fades the edge that has more tabs', (tester) async {
+      for (final rtl in [false, true]) {
+        await pumpTaroUiWidget(
+          tester,
+          Directionality(
+            textDirection: rtl ? TextDirection.rtl : TextDirection.ltr,
+            child: TaroTabStrip(
+              key: ValueKey(rtl),
+              labels: labels,
+              selectedIndex: 0,
+              onSelected: (_) {},
+            ),
+          ),
+        );
+        await tester.pumpAndSettle();
+        TaroEdgeFade fade() => tester.widget(find.byType(TaroEdgeFade));
+        expect((fade().start, fade().end), (false, true));
+        await tester.drag(
+          find.byType(SingleChildScrollView),
+          Offset(rtl ? 1000 : -1000, 0),
+        );
+        await tester.pumpAndSettle();
+        expect((fade().start, fade().end), (true, false));
+        await tester.drag(
+          find.byType(SingleChildScrollView),
+          Offset(rtl ? -60 : 60, 0),
+        );
+        await tester.pumpAndSettle();
+        expect((fade().start, fade().end), (true, true));
+      }
+    });
+
+    testWidgets('no fade when every tab fits', (tester) async {
+      await pumpTaroUiWidget(
+        tester,
+        TaroTabStrip(
+          labels: const ['A', 'B'],
+          selectedIndex: 0,
+          onSelected: (_) {},
+        ),
+      );
+      await tester.pumpAndSettle();
+      final fade = tester.widget<TaroEdgeFade>(find.byType(TaroEdgeFade));
+      expect((fade.start, fade.end), (false, false));
+      expect(find.byType(ShaderMask), findsNothing);
+    });
+
     testWidgets('an out-of-range update does not scroll', (tester) async {
       var index = 0;
       late StateSetter set;

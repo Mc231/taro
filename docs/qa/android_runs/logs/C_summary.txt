@@ -1,0 +1,2 @@
+en_text200 rc=0 secs=160 shots=      68
+DONE

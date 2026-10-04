@@ -460,6 +460,20 @@ final class QuestionController extends Notifier<QuestionState> {
         );
   }
 
+  /// "Rephrase my question" from the refusal state: back to `editing` with
+  /// the declined question kept (the view selects it and focuses the
+  /// field). [clear] empties the field instead ("Ask a different question",
+  /// `sexual_minors`). A rephrased question takes a new hold and a new draw
+  /// (only "Reflect on the cards without a question" reuses the cards).
+  void rephrase({bool clear = false}) {
+    if (!state.isRefusal) return;
+    if (clear) {
+      _edit('', usedSuggestion: false);
+      return;
+    }
+    state = QuestionState.editing(_current);
+  }
+
   /// "Reflect on the cards without a question" (01 §7.5): the question is
   /// removed and the declined cards are reused, then Begin runs again (a new
   /// hold; no credit was used by the decline).
@@ -496,15 +510,21 @@ final class QuestionController extends Notifier<QuestionState> {
     );
     if (taken is ReadingHandoffRegion) _regionBlocked = true;
     state = switch (taken) {
-      ReadingHandoffDeclined(:final safety, :final draw)
+      ReadingHandoffDeclined(:final safety, :final draw, :final notCharged)
           when safety.canRephrase =>
-        QuestionState.rephrase(draft, safety: safety, draw: draw),
-      ReadingHandoffDeclined(:final safety, :final draw) =>
+        QuestionState.rephrase(
+          draft,
+          safety: safety,
+          draw: draw,
+          notCharged: notCharged,
+        ),
+      ReadingHandoffDeclined(:final safety, :final draw, :final notCharged) =>
         QuestionState.refused(
           draft,
           category: safety.category,
           safety: safety,
           draw: draw,
+          notCharged: notCharged,
         ),
       ReadingHandoffPaused(:final freePaused) => QuestionState.readingsPaused(
         draft,

@@ -20,6 +20,28 @@ void main() {
     expect(kTaroCounterVisibleFrom, 250);
   });
 
+  // BUG-11: an English question typed in the Arabic UI kept the RTL base
+  // direction, so "?" landed on the wrong side.
+  testWidgets('follows the direction of the typed text', (tester) async {
+    await pumpTaroUiWidget(
+      tester,
+      _pad(const TaroTextField(label: 'سؤالك')),
+      locale: const Locale('ar'),
+    );
+    TextDirection? direction() =>
+        tester.widget<TextField>(find.byType(TextField)).textDirection;
+    expect(direction(), isNull);
+    await tester.enterText(find.byType(TextField), 'What now?');
+    await tester.pump();
+    expect(direction(), TextDirection.ltr);
+    await tester.enterText(find.byType(TextField), 'ماذا الآن؟');
+    await tester.pump();
+    expect(direction(), TextDirection.rtl);
+    await tester.enterText(find.byType(TextField), '42');
+    await tester.pump();
+    expect(direction(), isNull);
+  });
+
   testWidgets('label names the field; typing reports changes', (
     tester,
   ) async {

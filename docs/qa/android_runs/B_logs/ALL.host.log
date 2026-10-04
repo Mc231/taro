@@ -1,0 +1,8 @@
+[host] top:     topResumedActivity=ActivityRecord{145907694 u0 com.vshyrochuk.taro.stg/com.google.android.gms.ads.AdActivity t80}
+[host] top:     topResumedActivity=ActivityRecord{145907694 u0 com.vshyrochuk.taro.stg/com.google.android.gms.ads.AdActivity t80}
+[host] tap close bounds="[984,28][1050,97]"
+[host] top:     topResumedActivity=ActivityRecord{254149298 u0 com.vshyrochuk.taro.stg/com.vshyrochuk.taro.MainActivity t80}
+[host] ad gone
+[host] airplane on
+[host] airplane off
+[host] BACK(share)

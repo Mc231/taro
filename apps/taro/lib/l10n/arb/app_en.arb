@@ -270,7 +270,7 @@
   },
   "crisisTitle": "You’re not alone",
   "@crisisTitle": {
-    "description": "05 §3 compliance string. S27 crisis resources title."
+    "description": "05 §3 compliance string. S27 crisis resources title. ja joins the phrase ひとりではありません with U+2060 word joiners so the line breaks only between phrases (BUG-18)."
   },
   "crisisBody": "If you are thinking about harming yourself, please reach out now. Talking to someone can help.",
   "@crisisBody": {
@@ -1318,14 +1318,6 @@
   "@questionRateLimited": {
     "description": "S07 rateLimited (burst) notice."
   },
-  "questionRephraseTitle": "Try asking it another way",
-  "@questionRephraseTitle": {
-    "description": "S07 rephrase notice title (declined, canRephrase)."
-  },
-  "questionRephraseExamples": "For example:",
-  "@questionRephraseExamples": {
-    "description": "S07 rephrase notice label above the example rewordings."
-  },
   "questionRephraseExample1": "What can I learn from this situation?",
   "@questionRephraseExample1": {
     "description": "S07 rephrase example rewording 1."
@@ -1338,14 +1330,6 @@
   "@questionReflectWithoutQuestion": {
     "description": "S07 rephrase/refused action: same cards, question removed."
   },
-  "questionRefusedTitle": "Taro can’t help with this kind of question",
-  "@questionRefusedTitle": {
-    "description": "S07 refused(category) card title."
-  },
-  "questionRefusedProfessional": "A qualified professional can help with this.",
-  "@questionRefusedProfessional": {
-    "description": "S07 refused card extra line for the advice categories."
-  },
   "questionSpreadDisabled": "This spread isn’t available right now. Please choose another one.",
   "@questionSpreadDisabled": {
     "description": "S07 when the chosen spread was disabled by remote config."
@@ -1353,18 +1337,6 @@
   "questionTryClassic": "Try a classic reading",
   "@questionTryClassic": {
     "description": "S07/S31 button that starts a Classic reading (F8)."
-  },
-  "questionRefusedHeadline": "Let’s look at this another way",
-  "@questionRefusedHeadline": {
-    "description": "S07 refused(category) screen title (QuestionRefused.dc.html)."
-  },
-  "questionNoReadingUsed": "No reading was used",
-  "@questionNoReadingUsed": {
-    "description": "S07 refused(category) card: nothing was charged."
-  },
-  "questionRephraseTry": "Try asking about how you feel, or what you can do",
-  "@questionRephraseTry": {
-    "description": "S07 refused/rephrase: caption above the example rewordings."
   },
   "questionClassicCaption": "Uses the card meanings for each position. Free, no AI, works offline.",
   "@questionClassicCaption": {
@@ -3728,5 +3700,141 @@
         "type": "String"
       }
     }
+  },
+  "questionRefusalTitle": "We can’t read this question",
+  "@questionRefusalTitle": {
+    "description": "S07 refusal state headline (declined question; not an error)."
+  },
+  "questionRefusalReasonHealth": "Tarot can’t tell how someone’s health will turn out. A doctor is the right person to ask.",
+  "@questionRefusalReasonHealth": {
+    "description": "S07 refusal reason for category health (one line, no advice)."
+  },
+  "questionRefusalReasonPregnancy": "Tarot can’t predict pregnancy. A doctor or midwife is the right person to ask.",
+  "@questionRefusalReasonPregnancy": {
+    "description": "S07 refusal reason for category pregnancy."
+  },
+  "questionRefusalReasonDeath": "Tarot doesn’t answer questions about whether or when someone will die.",
+  "@questionRefusalReasonDeath": {
+    "description": "S07 refusal reason for category death; gentle tone."
+  },
+  "questionRefusalReasonLegal": "Tarot can’t predict how a legal matter will end. A lawyer is the right person to ask.",
+  "@questionRefusalReasonLegal": {
+    "description": "S07 refusal reason for category legal."
+  },
+  "questionRefusalReasonFinancial": "Tarot can’t give money or investment advice. A financial adviser is the right person to ask.",
+  "@questionRefusalReasonFinancial": {
+    "description": "S07 refusal reason for category financial."
+  },
+  "questionRefusalReasonGambling": "Tarot can’t predict bets, games or numbers.",
+  "@questionRefusalReasonGambling": {
+    "description": "S07 refusal reason for category gambling."
+  },
+  "questionRefusalReasonHate": "Taro doesn’t read questions aimed at a person or a group.",
+  "@questionRefusalReasonHate": {
+    "description": "S07 refusal reason for category hate_or_harassment; neutral, no judgement."
+  },
+  "questionRefusalReasonOther": "This question is outside what Taro can read. Questions about you and your choices work well.",
+  "@questionRefusalReasonOther": {
+    "description": "S07 refusal reason for a model refusal or an unknown category (other)."
+  },
+  "questionRefusalNotCharged": "Not charged. Your reading is still available.",
+  "@questionRefusalNotCharged": {
+    "description": "S07 refusal state: the declined reading was refunded by the Worker (no chargeSource)."
+  },
+  "questionRefusalYourQuestion": "Your question",
+  "@questionRefusalYourQuestion": {
+    "description": "S07 refusal state: label above the declined question."
+  },
+  "questionRefusalIdeasCaption": "You could ask instead",
+  "@questionRefusalIdeasCaption": {
+    "description": "S07 refusal state: caption above the category rewording chips."
+  },
+  "questionRefusalRephrase": "Rephrase my question",
+  "@questionRefusalRephrase": {
+    "description": "S07 refusal state primary button: back to the editor with the question selected."
+  },
+  "questionRefusalAskDifferent": "Ask a different question",
+  "@questionRefusalAskDifferent": {
+    "description": "S07 refusal state primary button for sexual_minors: clears the question."
+  },
+  "questionRefusalCardsKept": "Reflecting without a question keeps the cards you drew. A new question draws new cards.",
+  "@questionRefusalCardsKept": {
+    "description": "S07 refusal state: the drawn cards are kept only by Reflect without a question."
+  },
+  "questionRefusalIdeaHealth1": "How can I care for myself right now?",
+  "@questionRefusalIdeaHealth1": {
+    "description": "S07 refusal rewording chip (health); fills the question field."
+  },
+  "questionRefusalIdeaHealth2": "How can I support the people I love?",
+  "@questionRefusalIdeaHealth2": {
+    "description": "S07 refusal rewording chip (health); fills the question field."
+  },
+  "questionRefusalIdeaHealth3": "What would help me feel calmer while I wait?",
+  "@questionRefusalIdeaHealth3": {
+    "description": "S07 refusal rewording chip (health); fills the question field."
+  },
+  "questionRefusalIdeaPregnancy1": "How can I take care of myself right now?",
+  "@questionRefusalIdeaPregnancy1": {
+    "description": "S07 refusal rewording chip (pregnancy); fills the question field."
+  },
+  "questionRefusalIdeaPregnancy2": "What do I need to feel ready for what comes next?",
+  "@questionRefusalIdeaPregnancy2": {
+    "description": "S07 refusal rewording chip (pregnancy); fills the question field."
+  },
+  "questionRefusalIdeaPregnancy3": "How can I find calm while I wait?",
+  "@questionRefusalIdeaPregnancy3": {
+    "description": "S07 refusal rewording chip (pregnancy); fills the question field."
+  },
+  "questionRefusalIdeaDeath1": "What support do I need right now?",
+  "@questionRefusalIdeaDeath1": {
+    "description": "S07 refusal rewording chip (death); fills the question field."
+  },
+  "questionRefusalIdeaDeath2": "How can I honour what this person means to me?",
+  "@questionRefusalIdeaDeath2": {
+    "description": "S07 refusal rewording chip (death); fills the question field."
+  },
+  "questionRefusalIdeaDeath3": "How can I be present with the people I love?",
+  "@questionRefusalIdeaDeath3": {
+    "description": "S07 refusal rewording chip (death); fills the question field."
+  },
+  "questionRefusalIdeaLegal1": "How can I stay steady while this is decided?",
+  "@questionRefusalIdeaLegal1": {
+    "description": "S07 refusal rewording chip (legal); fills the question field."
+  },
+  "questionRefusalIdeaLegal2": "What strengths can I rely on right now?",
+  "@questionRefusalIdeaLegal2": {
+    "description": "S07 refusal rewording chip (legal); fills the question field."
+  },
+  "questionRefusalIdeaLegal3": "What is in my control in this situation?",
+  "@questionRefusalIdeaLegal3": {
+    "description": "S07 refusal rewording chip (legal); fills the question field."
+  },
+  "questionRefusalIdeaFinancial1": "What matters most to me in this decision?",
+  "@questionRefusalIdeaFinancial1": {
+    "description": "S07 refusal rewording chip (financial); fills the question field."
+  },
+  "questionRefusalIdeaFinancial2": "What would help me feel more secure?",
+  "@questionRefusalIdeaFinancial2": {
+    "description": "S07 refusal rewording chip (financial); fills the question field."
+  },
+  "questionRefusalIdeaFinancial3": "What is my relationship with money teaching me?",
+  "@questionRefusalIdeaFinancial3": {
+    "description": "S07 refusal rewording chip (financial); fills the question field."
+  },
+  "questionRefusalIdeaGambling1": "What am I hoping will change?",
+  "@questionRefusalIdeaGambling1": {
+    "description": "S07 refusal rewording chip (gambling); fills the question field."
+  },
+  "questionRefusalIdeaGambling2": "What does chance mean to me right now?",
+  "@questionRefusalIdeaGambling2": {
+    "description": "S07 refusal rewording chip (gambling); fills the question field."
+  },
+  "questionRefusalIdeaGambling3": "Where could I find more excitement in everyday life?",
+  "@questionRefusalIdeaGambling3": {
+    "description": "S07 refusal rewording chip (gambling); fills the question field."
+  },
+  "questionRefusalIdeaOther3": "What am I not seeing right now?",
+  "@questionRefusalIdeaOther3": {
+    "description": "S07 refusal rewording chip for other / hate_or_harassment."
   }
 }

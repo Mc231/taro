@@ -1,0 +1,9 @@
+first_launch_free_reading_test waited=100 busy_after=       0
+first_launch_free_reading_test rc=1 secs=41
+hold_lost_test waited=0 busy_after=       0
+hold_lost_test rc=0 secs=31
+kill_switch_test waited=0 busy_after=       0
+kill_switch_test rc=0 secs=51
+timezone_change_test waited=0 busy_after=       0
+timezone_change_test rc=1 secs=45
+DONE

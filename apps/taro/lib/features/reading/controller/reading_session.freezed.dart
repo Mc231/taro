@@ -711,10 +711,10 @@ return aiUnavailableRegion(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( SafetyInfo safety,  Draw draw)?  declined,TResult Function( bool freePaused)?  paused,TResult Function()?  consentRequired,TResult Function()?  aiUnavailableRegion,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( SafetyInfo safety,  Draw draw,  bool notCharged)?  declined,TResult Function( bool freePaused)?  paused,TResult Function()?  consentRequired,TResult Function()?  aiUnavailableRegion,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case ReadingHandoffDeclined() when declined != null:
-return declined(_that.safety,_that.draw);case ReadingHandoffPaused() when paused != null:
+return declined(_that.safety,_that.draw,_that.notCharged);case ReadingHandoffPaused() when paused != null:
 return paused(_that.freePaused);case ReadingHandoffConsent() when consentRequired != null:
 return consentRequired();case ReadingHandoffRegion() when aiUnavailableRegion != null:
 return aiUnavailableRegion();case _:
@@ -735,10 +735,10 @@ return aiUnavailableRegion();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( SafetyInfo safety,  Draw draw)  declined,required TResult Function( bool freePaused)  paused,required TResult Function()  consentRequired,required TResult Function()  aiUnavailableRegion,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( SafetyInfo safety,  Draw draw,  bool notCharged)  declined,required TResult Function( bool freePaused)  paused,required TResult Function()  consentRequired,required TResult Function()  aiUnavailableRegion,}) {final _that = this;
 switch (_that) {
 case ReadingHandoffDeclined():
-return declined(_that.safety,_that.draw);case ReadingHandoffPaused():
+return declined(_that.safety,_that.draw,_that.notCharged);case ReadingHandoffPaused():
 return paused(_that.freePaused);case ReadingHandoffConsent():
 return consentRequired();case ReadingHandoffRegion():
 return aiUnavailableRegion();}
@@ -755,10 +755,10 @@ return aiUnavailableRegion();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( SafetyInfo safety,  Draw draw)?  declined,TResult? Function( bool freePaused)?  paused,TResult? Function()?  consentRequired,TResult? Function()?  aiUnavailableRegion,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( SafetyInfo safety,  Draw draw,  bool notCharged)?  declined,TResult? Function( bool freePaused)?  paused,TResult? Function()?  consentRequired,TResult? Function()?  aiUnavailableRegion,}) {final _that = this;
 switch (_that) {
 case ReadingHandoffDeclined() when declined != null:
-return declined(_that.safety,_that.draw);case ReadingHandoffPaused() when paused != null:
+return declined(_that.safety,_that.draw,_that.notCharged);case ReadingHandoffPaused() when paused != null:
 return paused(_that.freePaused);case ReadingHandoffConsent() when consentRequired != null:
 return consentRequired();case ReadingHandoffRegion() when aiUnavailableRegion != null:
 return aiUnavailableRegion();case _:
@@ -773,11 +773,12 @@ return aiUnavailableRegion();case _:
 
 
 class ReadingHandoffDeclined implements ReadingHandoff {
-  const ReadingHandoffDeclined({required this.safety, required this.draw});
+  const ReadingHandoffDeclined({required this.safety, required this.draw, this.notCharged = true});
   
 
  final  SafetyInfo safety;
  final  Draw draw;
+@JsonKey() final  bool notCharged;
 
 /// Create a copy of ReadingHandoff
 /// with the given fields replaced by the non-null parameter values.
@@ -789,16 +790,16 @@ $ReadingHandoffDeclinedCopyWith<ReadingHandoffDeclined> get copyWith => _$Readin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffDeclined&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffDeclined&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,safety,draw);
+int get hashCode => Object.hash(runtimeType,safety,draw,notCharged);
 
 @override
 String toString() {
-  return 'ReadingHandoff.declined(safety: $safety, draw: $draw)';
+  return 'ReadingHandoff.declined(safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -809,7 +810,7 @@ abstract mixin class $ReadingHandoffDeclinedCopyWith<$Res> implements $ReadingHa
   factory $ReadingHandoffDeclinedCopyWith(ReadingHandoffDeclined value, $Res Function(ReadingHandoffDeclined) _then) = _$ReadingHandoffDeclinedCopyWithImpl;
 @useResult
 $Res call({
- SafetyInfo safety, Draw draw
+ SafetyInfo safety, Draw draw, bool notCharged
 });
 
 
@@ -826,11 +827,12 @@ class _$ReadingHandoffDeclinedCopyWithImpl<$Res>
 
 /// Create a copy of ReadingHandoff
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? safety = null,Object? draw = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? safety = null,Object? draw = null,Object? notCharged = null,}) {
   return _then(ReadingHandoffDeclined(
 safety: null == safety ? _self.safety : safety // ignore: cast_nullable_to_non_nullable
 as SafetyInfo,draw: null == draw ? _self.draw : draw // ignore: cast_nullable_to_non_nullable
-as Draw,
+as Draw,notCharged: null == notCharged ? _self.notCharged : notCharged // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

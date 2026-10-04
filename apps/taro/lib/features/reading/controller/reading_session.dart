@@ -107,10 +107,12 @@ final readingSessionProvider =
 sealed class ReadingHandoff with _$ReadingHandoff {
   /// Declined (`status: declined`, not a crisis category): `rephrase` or
   /// `refused(category)`. [draw] is the declined draw ("Reflect on the
-  /// cards without a question").
+  /// cards without a question"). [notCharged] is true when the Worker's
+  /// declined response carries no `chargeSource` (nothing was used).
   const factory ReadingHandoff.declined({
     required SafetyInfo safety,
     required Draw draw,
+    @Default(true) bool notCharged,
   }) = ReadingHandoffDeclined;
 
   /// `503 READINGS_DISABLED` / `AI_BUDGET_EXHAUSTED` → S31 (RC47).

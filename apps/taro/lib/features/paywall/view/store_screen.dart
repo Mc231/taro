@@ -67,6 +67,11 @@ class StoreScreen extends ConsumerWidget {
       child: StoreLayout(
         state: state,
         balance: const BalanceChip(),
+        // A chip that would wrap beside the close moves under it (01 §12).
+        balanceInBody: !BalanceChip.fitsAppBar(
+          context,
+          ref.watch(balanceChipProvider),
+        ),
         now: ref.read(clockProvider).now(),
         onClose: () => Navigator.of(context).maybePop(),
         onBuy: (id) => unawaited(controller.buy(id)),
@@ -106,6 +111,7 @@ class StoreLayout extends StatelessWidget {
     required this.onTerms,
     required this.onPrivacy,
     this.balance,
+    this.balanceInBody = false,
     super.key,
   });
 
@@ -114,6 +120,10 @@ class StoreLayout extends StatelessWidget {
 
   /// The balance chip at the end of the top bar (`BalanceChip`).
   final Widget? balance;
+
+  /// Whether [balance] sits at the start of the body instead of the top
+  /// bar: a long translation or large text would wrap it next to the close.
+  final bool balanceInBody;
 
   /// The clock time (for the rewarded cooldown).
   final DateTime now;
@@ -193,13 +203,17 @@ class StoreLayout extends StatelessWidget {
           Expanded(
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
-              child: balance,
+              child: balanceInBody ? null : balance,
             ),
           ),
         ],
       ),
     );
     final header = <Widget>[
+      if (balanceInBody && balance != null) ...[
+        Align(alignment: AlignmentDirectional.centerStart, child: balance),
+        SizedBox(height: tokens.space.s5),
+      ],
       Semantics(
         header: true,
         child: Text(

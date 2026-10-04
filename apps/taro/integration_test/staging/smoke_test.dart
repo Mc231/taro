@@ -7,8 +7,7 @@ import 'package:taro/bootstrap/taro_environment.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro_core/taro_core.dart';
 
-/// `TARO_STAGING_SMOKE=1`: the manual-dispatch switch of this smoke.
-const bool _enabled = bool.fromEnvironment('TARO_STAGING_SMOKE');
+import '../support/staging_gate.dart';
 
 /// Staging smoke (06 §4, Phase 13 Sprint 13.6): the real composition root
 /// of the `staging` flavor against the staging Worker. It registers the
@@ -26,12 +25,20 @@ const bool _enabled = bool.fromEnvironment('TARO_STAGING_SMOKE');
 ///   --dart-define=TARO_DEBUG_ATTESTATION_TOKEN="$TOKEN"
 /// ```
 ///
-/// Without both defines every test is skipped, so a plain
-/// `flutter test integration_test` never calls staging.
+/// Without `TARO_STAGING_SMOKE` every test is skipped, so a plain
+/// `flutter test integration_test` never calls staging. An unknown value
+/// (not 1/true/yes/0/false/no) or a missing token fails at once
+/// ([stagingSmokeEnabled]).
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   // Manual dispatch: TARO_STAGING_SMOKE=1 and the debug token are needed.
-  final skip = !_enabled || BuildDefines.debugAttestationToken.isEmpty;
+  final enabled = stagingSmokeEnabled;
+  if (enabled && BuildDefines.debugAttestationToken.isEmpty) {
+    throw StateError(
+      'TARO_STAGING_SMOKE is on but TARO_DEBUG_ATTESTATION_TOKEN is empty',
+    );
+  }
+  final skip = !enabled;
 
   testWidgets('staging: register, balance, one free reading', skip: skip, (
     tester,
