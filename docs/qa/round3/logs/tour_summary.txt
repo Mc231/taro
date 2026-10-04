@@ -1,0 +1,10 @@
+en_light rc=0 shots=      72 failed=0 02:06 +7: All tests passed!
+en_dark rc=0 shots=      72 failed=0 02:02 +7: All tests passed!
+ar rc=0 shots=      72 failed=0 02:10 +7: All tests passed!
+de rc=0 shots=      72 failed=0 02:12 +7: All tests passed!
+ja rc=0 shots=      72 failed=0 02:01 +7: All tests passed!
+uk rc=0 shots=      72 failed=0 02:01 +7: All tests passed!
+en_text200 rc=0 shots=      72 failed=1 03:12 +7: All tests passed!
+ALLDONE
+tablet_en_light rc=0 shots=      72 failed=0 01:59 +7: All tests passed!
+tablet_ar rc=0 shots=      72 failed=0 02:14 +7: All tests passed!

@@ -1,0 +1,15 @@
+[host] shot E0_home_en
+[host] shot E1a_en_spreads
+[host] shot E1a_result_en
+[host] shot E1b_home_after_swipe
+[host] shot E1c_S15
+[host] shot E1c_S09_from_S15
+[host] shot E1c_S15_after_done
+[host] shot E1c_S15_after_swipe
+[host] shot E1c_S14_after_swipe
+[host] shot E1_language_picker
+[host] shot E1_settings_uk
+[host] shot E1_home_uk
+[host] openurl taro://learn/card/major_00
+87:98: execution error: Not authorised to send Apple events to System Events. (-1743)
+[host] shot FAIL_E6

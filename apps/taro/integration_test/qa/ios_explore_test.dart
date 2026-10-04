@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show OffsetLayer;
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -29,6 +33,9 @@ const PatrolTesterConfig _config = PatrolTesterConfig(
   visibleTimeout: Duration(seconds: 45),
   settleTimeout: Duration(seconds: 5),
 );
+
+/// Comma-separated step prefixes to run (e.g. `E0`); empty runs all.
+const String _only = String.fromEnvironment('QA_ONLY');
 
 void _log(String m) => debugPrint('QA: $m');
 void _host(String a) => debugPrint('QA_HOST: $a');
@@ -96,6 +103,22 @@ void main() {
           Duration(milliseconds: ms),
         )
         .catchError((Object _) => 0);
+    // iOS-R2-01: Home must never say "unavailable" while a reading is free.
+    final flashes = <String>[];
+    final bad = {
+      for (final c in ['en', 'uk']) ...[
+        l10n(c).balanceUnavailable,
+        l10n(c).errorDeviceUnverifiedTitle,
+        l10n(c).questionDeviceUnverified,
+      ],
+    };
+    void checkFlash() {
+      final hit = texts().where(bad.contains).toList();
+      if (hit.isEmpty) return;
+      if (flashes.isEmpty) _host('shot FLASH_unavailable');
+      flashes.add('${DateTime.timestamp().toIso8601String()} $hit');
+    }
+
     Future<void> until(
       bool Function() c,
       String why, {
@@ -108,6 +131,7 @@ void main() {
             'timed out: $why; screen: ${texts().take(30).join(' | ')}',
           );
         }
+        checkFlash();
         await t.pump(const Duration(milliseconds: 100));
       }
       await settle();
@@ -120,15 +144,72 @@ void main() {
       for (var i = 0; i < 50 && !t.any(f); i++) {
         await t.pump(const Duration(milliseconds: 100));
       }
+      if (!t.any(f.hitTestable())) {
+        try {
+          await t.ensureVisible(f.first);
+          await settle(500);
+        } on Object catch (_) {}
+      }
       if (!t.any(f.hitTestable())) await $(f).scrollTo();
       await $(f).tap();
       await settle();
     }
 
     Future<void> tapText(String s) => tap(find.text(s));
+    // The Flutter layer only (no native overlays such as the UMP form or
+    // the "Open in" prompt), pulled by run_ios_explore.sh from tmp/.
+    Future<void> flutterShot(String name) async {
+      try {
+        final view = t.binding.renderViews.first;
+        final layer = view.debugLayer! as OffsetLayer;
+        final size = view.flutterView.physicalSize;
+        final image = await t.binding.runAsync(
+          () => layer.toImage(Offset.zero & size, pixelRatio: 0.5),
+        );
+        final bytes = await t.binding.runAsync(
+          () => image!.toByteData(format: ui.ImageByteFormat.png),
+        );
+        final dir = Directory('${Directory.systemTemp.path}/qa_shots/explore')
+          ..createSync(recursive: true);
+        File('${dir.path}/$name.png').writeAsBytesSync(
+          bytes!.buffer.asUint8List(),
+        );
+      } on Object catch (e) {
+        _log('flutter shot $name failed: $e');
+      }
+    }
+
     Future<void> shot(String name) async {
       _host('shot $name');
+      await flutterShot(name);
       await t.pump(const Duration(milliseconds: 2500));
+    }
+
+    // A link as the engine delivers it (`pushRouteInformation`), for when
+    // the host cannot accept iOS's "Open in" prompt.
+    Future<void> injectLink(String url) async {
+      _log('inject link $url');
+      await t.binding.defaultBinaryMessenger.handlePlatformMessage(
+        SystemChannels.navigation.name,
+        SystemChannels.navigation.codec.encodeMethodCall(
+          MethodCall('pushRouteInformation', {'location': url, 'state': null}),
+        ),
+        (_) {},
+      );
+      await settle();
+    }
+
+    Future<void> openLink(String url, ScreenId expect) async {
+      _host('openurl $url');
+      final end = DateTime.timestamp().add(const Duration(seconds: 10));
+      while (!on(expect) && DateTime.timestamp().isBefore(end)) {
+        await t.pump(const Duration(milliseconds: 200));
+      }
+      if (on(expect)) {
+        _log('native link $url opened');
+      } else {
+        await injectLink(url);
+      }
     }
 
     final router = container.read(routerProvider);
@@ -138,6 +219,8 @@ void main() {
     }
 
     Future<void> step(String name, Future<void> Function() body) async {
+      final id = name.split(' ').first;
+      if (_only.isNotEmpty && !_only.split(',').contains(id)) return;
       _log('STEP $name');
       try {
         await body();
@@ -174,6 +257,122 @@ void main() {
       await until(() => bal() != null, 'balance', s: 90);
       _log('balance: ${bal()}');
       await shot('E0_home_en');
+      for (var i = 0; i < 150; i++) {
+        checkFlash();
+        await t.pump(const Duration(milliseconds: 100));
+      }
+      _log('E0 flashes: $flashes');
+      expect(flashes, isEmpty, reason: 'Home said "unavailable" (iOS-R2-01)');
+      expect(bal()!.canRead, isTrue, reason: 'fresh install has a reading');
+    });
+
+    Future<void> ensureCredit() async {
+      if (bal()?.canRead ?? false) return;
+      final id = await container.read(installRepositoryProvider).getOrCreate();
+      _host('grant ${supportIdOf(id.valueOrNull!.installId)}');
+      final repo = container.read(balanceRepositoryProvider);
+      for (var i = 0; i < 30 && !(bal()?.canRead ?? false); i++) {
+        await t.pump(const Duration(seconds: 4));
+        await repo.sync(reason: SyncReason.manual);
+      }
+    }
+
+    // A three-card reading from Home; returns on S09.
+    Future<Reading> doReading(String question, String tag) async {
+      await ensureCredit();
+      _log('balance before $tag reading: ${bal()}');
+      final l = l10n();
+      await tap(find.widgetWithText(TaroButton, l.homeStartReading));
+      await wait(ScreenId.s06);
+      await shot('${tag}_spreads');
+      await tapText(l.spread_three_ppf_name);
+      await wait(ScreenId.s07);
+      await $(TextField).enterText(question);
+      await settle();
+      await tap(find.widgetWithText(TaroButton, l.questionBegin));
+      await wait(ScreenId.s08);
+      await tap(find.widgetWithText(TaroButton, l.drawShuffleButton));
+      await tap(find.widgetWithText(TaroButton, l.drawShuffleReady));
+      final sw = Stopwatch()..start();
+      await tap(find.widgetWithText(TaroButton, l.drawForMe));
+      if (t.any(find.widgetWithText(TaroButton, l.drawRevealAll))) {
+        await tap(find.widgetWithText(TaroButton, l.drawRevealAll));
+      }
+      Reading? done;
+      while (done == null && sw.elapsed.inSeconds < 120) {
+        final c = (await readings()).where(
+          (r) => r.status is ReadingStatusComplete && r.question == question,
+        );
+        if (c.isNotEmpty) done = c.first;
+        await t.pump(const Duration(milliseconds: 250));
+      }
+      if (done == null) {
+        throw TestFailure('no completed $tag reading: ${texts().take(30)}');
+      }
+      _log('TIMING $tag reading=${sw.elapsedMilliseconds}ms');
+      await wait(ScreenId.s09);
+      return done;
+    }
+
+    // iOS edge swipe back (Cupertino back gesture) from the left edge.
+    Future<void> edgeSwipe() async {
+      final size = t.view.physicalSize / t.view.devicePixelRatio;
+      _log('edge swipe on ${router.routerDelegate.currentConfiguration.uri}');
+      await t.timedDragFrom(
+        Offset(4, size.height / 2),
+        Offset(size.width * 0.7, 0),
+        const Duration(milliseconds: 350),
+      );
+      await settle();
+    }
+
+    String curLoc() =>
+        router.routerDelegate.currentConfiguration.uri.toString();
+
+    // E1a/b/c reading in en, swipe back S09 → Home, S15 → S09 → back.
+    const qEn = 'What should I focus on this week?';
+    await step('E1a reading en', () async {
+      final r = await doReading(qEn, 'E1a_en');
+      expect(r.contentLocale, 'en');
+      await shot('E1a_result_en');
+    });
+    await step('E1b S09 swipe back home', () async {
+      expect(on(ScreenId.s09), isTrue, reason: 'on S09 after E1a');
+      await edgeSwipe();
+      await wait(ScreenId.s05, s: 10);
+      _log('after S09 swipe: ${curLoc()}');
+      expect(on(ScreenId.s09), isFalse);
+      expect(on(ScreenId.s08), isFalse, reason: 'never back into the draw');
+      await shot('E1b_home_after_swipe');
+    });
+    await step('E1c journal S15 S09 back', () async {
+      final l = l10n();
+      await tapText(l.tabJournal);
+      await wait(ScreenId.s14);
+      await until(() => t.any(find.textContaining(qEn)), 'en reading listed');
+      await tap(find.textContaining(qEn).first);
+      await wait(ScreenId.s15);
+      await shot('E1c_S15');
+      await tapText(l.entryFullReading);
+      await wait(ScreenId.s09);
+      await shot('E1c_S09_from_S15');
+      await tap(find.byTooltip(l.readingDone));
+      await wait(ScreenId.s15, s: 10);
+      expect(on(ScreenId.s09), isFalse);
+      _log('S09 Done -> ${curLoc()}');
+      await shot('E1c_S15_after_done');
+      await tapText(l.entryFullReading);
+      await wait(ScreenId.s09);
+      await edgeSwipe();
+      await wait(ScreenId.s15, s: 10);
+      expect(on(ScreenId.s09), isFalse);
+      _log('S09 swipe -> ${curLoc()}');
+      await shot('E1c_S15_after_swipe');
+      await edgeSwipe();
+      await wait(ScreenId.s14, s: 10);
+      _log('S15 swipe -> ${curLoc()}');
+      await shot('E1c_S14_after_swipe');
+      await home();
     });
 
     // E1 language → uk, then a reading in uk.
@@ -197,47 +396,8 @@ void main() {
 
     const q = 'На чому мені варто зосередитися цього тижня?';
     await step('E2 reading uk', () async {
-      if (!(bal()?.canRead ?? false)) {
-        final id = await container
-            .read(installRepositoryProvider)
-            .getOrCreate();
-        _host('grant ${supportIdOf(id.valueOrNull!.installId)}');
-        final repo = container.read(balanceRepositoryProvider);
-        for (var i = 0; i < 30 && !(bal()?.canRead ?? false); i++) {
-          await t.pump(const Duration(seconds: 4));
-          await repo.sync(reason: SyncReason.manual);
-        }
-      }
-      _log('balance before uk reading: ${bal()}');
       final l = l10n();
-      await tap(find.widgetWithText(TaroButton, l.homeStartReading));
-      await wait(ScreenId.s06);
-      await shot('E2_spreads_uk');
-      await tapText(l.spread_three_ppf_name);
-      await wait(ScreenId.s07);
-      await $(TextField).enterText(q);
-      await settle();
-      await tap(find.widgetWithText(TaroButton, l.questionBegin));
-      await wait(ScreenId.s08);
-      await tap(find.widgetWithText(TaroButton, l.drawShuffleButton));
-      await tap(find.widgetWithText(TaroButton, l.drawShuffleReady));
-      final sw = Stopwatch()..start();
-      await tap(find.widgetWithText(TaroButton, l.drawForMe));
-      if (t.any(find.widgetWithText(TaroButton, l.drawRevealAll))) {
-        await tap(find.widgetWithText(TaroButton, l.drawRevealAll));
-      }
-      Reading? done;
-      while (done == null && sw.elapsed.inSeconds < 120) {
-        final c = (await readings()).where(
-          (r) => r.status is ReadingStatusComplete && r.question == q,
-        );
-        if (c.isNotEmpty) done = c.first;
-        await t.pump(const Duration(milliseconds: 250));
-      }
-      if (done == null) {
-        throw TestFailure('no completed uk reading: ${texts().take(30)}');
-      }
-      _log('TIMING uk reading=${sw.elapsedMilliseconds}ms');
+      final done = await doReading(q, 'E2_uk');
       expect(done.contentLocale, 'uk');
       expect(done.cards, hasLength(3));
       await wait(ScreenId.s09);
@@ -374,16 +534,17 @@ void main() {
 
     // E6 deep links (host openurl) while running.
     await step('E6 deep link learn card', () async {
-      _host('openurl taro://learn/card/major_00');
+      await home();
+      await openLink('taro://learn/card/major_00', ScreenId.s17);
       await wait(ScreenId.s17, s: 30);
       _log('deep link at ${router.routerDelegate.currentConfiguration.uri}');
       await shot('E6_deeplink_major_00');
-      _host('openurl taro://learn/card/major_99');
+      await openLink('taro://learn/card/major_99', ScreenId.s05);
       await wait(ScreenId.s05, s: 30);
       _log('bad link at ${router.routerDelegate.currentConfiguration.uri}');
       await shot('E6_deeplink_bad');
-      _host('openurl taro://journal/2020-01-01');
-      await t.pump(const Duration(seconds: 6));
+      await openLink('taro://journal/2020-01-01', ScreenId.s15);
+      await t.pump(const Duration(seconds: 2));
       await settle();
       _log('journal link at ${router.routerDelegate.currentConfiguration.uri}');
       await shot('E6_deeplink_journal_missing');
@@ -426,6 +587,7 @@ void main() {
       _log('export after: ${texts().take(15).join(' | ')}');
     });
 
+    _log('FLASHES ${jsonEncode(flashes)}');
     _log('FAILS ${jsonEncode(fails)}');
     await t.pump(const Duration(seconds: 3));
     expect(fails, isEmpty);

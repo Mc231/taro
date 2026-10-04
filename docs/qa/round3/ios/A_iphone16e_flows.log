@@ -1,0 +1,591 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reinstall_same_install_id_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.8s
+00:00 +0: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reinstall_same_install_id_test.dart: reinstall: same install ID, no second free reading
+FLOW: wait ScreenId.s02
+FLOW: tap "Get started"
+FLOW: tap "I understand"
+FLOW: tap button "Allow AI readings"
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+FLOW: wait ScreenId.s02
+FLOW: tap "Get started"
+FLOW: tap "I understand"
+FLOW: tap button "Allow AI readings"
+FLOW: wait ScreenId.s05
+FLOW: wait A finder that searches for widgets with text "Free reading used".
+FLOW: tap "Journal"
+FLOW: wait A finder that searches for widgets with text "Your readings will live here".
+00:13 +1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reinstall_same_install_id_test.dart: (tearDownAll)
+00:14 +1: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/export_import_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.2s
+00:41 +1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/export_import_test.dart: export, wipe, import (replace): entries back
+FLOW: wait ScreenId.s05
+FLOW: tap "Journal"
+FLOW: wait ScreenId.s14
+FLOW: wait A finder that searches for widgets with text "Where is my focus?".
+FLOW: wait A finder that searches for widgets with text "What should I let go of?".
+FLOW: tap "Settings"
+FLOW: wait ScreenId.s20
+FLOW: tap "Export backup"
+FLOW: wait ScreenId.s24
+FLOW: tap button "Export backup"
+FLOW: tap A finder that searches for widgets with a semantics label named "Back".
+FLOW: wait ScreenId.s20
+FLOW: tap "Delete all data"
+FLOW: wait ScreenId.s26
+FLOW: tap button "Delete all data"
+FLOW: wait A finder that searches for widgets with text "Your data is deleted".
+FLOW: tap button "Done"
+FLOW: wait ScreenId.s05
+FLOW: tap "Settings"
+FLOW: tap "Settings"
+FLOW: wait ScreenId.s20
+FLOW: tap "Import backup"
+FLOW: wait ScreenId.s25
+FLOW: tap button "Choose a file"
+FLOW: wait A finder that searches for widgets with text "File checked. Everything looks right.".
+FLOW: tap "Replace my journal"
+FLOW: tap button "Import"
+FLOW: tap button "Replace"
+FLOW: wait A finder that searches for widgets with text "Imported 2 readings and 0 daily cards".
+FLOW: tap button "Open Journal"
+FLOW: wait ScreenId.s14
+FLOW: wait A finder that searches for widgets with text "Where is my focus?".
+FLOW: wait A finder that searches for widgets with text "What should I let go of?".
+00:57 +2: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/export_import_test.dart: (tearDownAll)
+00:57 +2: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/consent_denied_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.4s
+01:25 +2: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/consent_denied_test.dart: AI declined + UMP denied: no ATT, a Classic reading
+FLOW: wait ScreenId.s02
+FLOW: tap "Get started"
+FLOW: wait ScreenId.s03
+FLOW: tap "I understand"
+FLOW: wait ScreenId.s04
+FLOW: tap button "Not now"
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s04
+FLOW: tap button "Back"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Try a classic reading"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s32
+01:36 +3: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/consent_denied_test.dart: UMP granted, ATT denied: usable, non-personalized ads
+FLOW: wait ScreenId.s05
+FLOW: wait A finder that searches for widgets with text "About ad tracking".
+FLOW: tap "Continue"
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+01:43 +4: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/consent_denied_test.dart: (tearDownAll)
+01:43 +4: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/os_restore_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.6s
+02:12 +4: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/os_restore_test.dart: OS restore: journal kept, new install, consent re-asked
+FLOW: wait ScreenId.s02
+FLOW: tap "Get started"
+FLOW: tap "I understand"
+FLOW: wait ScreenId.s04
+FLOW: tap button "Allow AI readings"
+FLOW: wait ScreenId.s05
+FLOW: tap "Journal"
+FLOW: wait ScreenId.s14
+FLOW: wait A finder that searches for widgets with text "Restored question one".
+FLOW: wait A finder that searches for widgets with text "Restored question two".
+02:16 +5: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/os_restore_test.dart: (tearDownAll)
+02:16 +5: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/review_guidelines_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.5s
+02:44 +5: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/review_guidelines_test.dart: 3.2.2: the free reading never shows an ad
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+02:51 +6: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/review_guidelines_test.dart: 5.1.2(i): no reading request before AI consent
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s04
+FLOW: tap button "Allow"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+02:59 +7: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/review_guidelines_test.dart: 5.1.1(iv): UMP denied alone, the AI reading still works
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+03:06 +8: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/review_guidelines_test.dart: (tearDownAll)
+03:06 +8: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/hold_lost_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.4s
+03:34 +8: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/hold_lost_test.dart: hold lost: S10 face-down, grant, the same cards
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: wait ScreenId.s10
+FLOW: tap "Watch an ad for 1 reading"
+FLOW: wait ScreenId.s12
+FLOW: wait A finder that searches for widgets with text "Reading added".
+FLOW: tap button "Continue"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+03:42 +9: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/hold_lost_test.dart: (tearDownAll)
+03:43 +9: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rtl_locale_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.0s
+04:11 +9: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rtl_locale_test.dart: Arabic: mirrored layout, the reading flow completes
+FLOW: wait ScreenId.s05
+FLOW: tap "Settings"
+FLOW: wait ScreenId.s20
+FLOW: tap "Language"
+FLOW: wait ScreenId.s21
+FLOW: tap A finder that searches for widgets with key [<'ar'>].
+FLOW: tap A finder that searches for widgets with a semantics label named "رجوع".
+FLOW: wait ScreenId.s20
+FLOW: tap "اليوم"
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s08
+FLOW: tap button "خلط"
+FLOW: tap button "لنبدأ — السحب"
+FLOW: tap button "السحب نيابةً عني"
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s09
+04:22 +10: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rtl_locale_test.dart: (tearDownAll)
+04:22 +10: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/classic_reading_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.8s
+04:50 +10: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/classic_reading_test.dart: AI declined: a Classic reading, no Worker call
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s04
+FLOW: tap button "Back"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Try a classic reading"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s32
+FLOW: wait A finder that searches for widgets with text "Classic reading".
+FLOW: tap A finder that searches for widgets with widget matching predicate.
+FLOW: wait ScreenId.s05
+FLOW: tap "Journal"
+FLOW: wait A finder that searches for widgets with text "What should I focus on this week?".
+05:00 +11: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/classic_reading_test.dart: (tearDownAll)
+05:00 +11: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/remove_ads_restore_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.7s
+05:29 +11: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/remove_ads_restore_test.dart: Remove Ads: purchase, fresh install, restore
+FLOW: wait ScreenId.s05
+FLOW: tap A finder that searches for widgets with type "BalanceChip".
+FLOW: wait ScreenId.s11
+FLOW: tap A finder that searches for widgets with type "TaroButton" descending from widgets with key [<'com.vshyrochuk.taro.remove_ads'>].
+FLOW: wait A finder that searches for widgets with text "Banner ads removed ✓".
+FLOW: tap A finder that searches for widgets with a semantics label named "Close".
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap "Settings"
+FLOW: wait ScreenId.s20
+FLOW: tap "Restore purchases"
+FLOW: wait A finder that searches for widgets with text "Remove Banner Ads restored".
+FLOW: tap "Today"
+FLOW: wait ScreenId.s05
+05:34 +12: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/remove_ads_restore_test.dart: (tearDownAll)
+05:34 +12: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/out_of_credits_purchase_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.7s
+06:02 +12: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/out_of_credits_purchase_test.dart: out of readings: purchase, then Begin again
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s10
+FLOW: tap "Get more readings"
+FLOW: wait ScreenId.s11
+FLOW: tap A finder that searches for widgets with type "TaroButton" descending from widgets with key [<'com.vshyrochuk.taro.readings_3'>].
+FLOW: wait A finder that searches for widgets with text "+3 readings".
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+06:15 +13: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/out_of_credits_purchase_test.dart: (tearDownAll)
+06:15 +13: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/report_reading_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.7s
+06:43 +13: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/report_reading_test.dart: report a reading end to end
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+FLOW: tap A finder that searches for widgets with a semantics label named "More options".
+FLOW: tap "Report this reading"
+FLOW: wait ScreenId.s33
+FLOW: tap "Harmful advice"
+FLOW: tap "Send report"
+FLOW: wait A finder that searches for widgets with text "Thanks. We’ll review this reading.".
+FLOW: wait ScreenId.s09
+FLOW: tap A finder that searches for widgets with a semantics label named "More options".
+FLOW: wait A finder that searches for widgets with text "Reported".
+06:53 +14: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/report_reading_test.dart: (tearDownAll)
+06:53 +14: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/timezone_change_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.9s
+07:22 +14: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/timezone_change_test.dart: time zone change: one PUT, then a 409 keeps the boundary
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+07:30 +15: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/timezone_change_test.dart: (tearDownAll)
+07:30 +15: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/first_launch_free_reading_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.8s
+07:58 +15: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/first_launch_free_reading_test.dart: first launch: onboarding, then the free reading
+FLOW: wait ScreenId.s02
+FLOW: tap "Get started"
+FLOW: wait ScreenId.s03
+FLOW: tap "I understand"
+FLOW: wait ScreenId.s04
+FLOW: tap "Allow AI readings"
+FLOW: wait ScreenId.s05
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+FLOW: tap A finder that searches for widgets with widget matching predicate.
+FLOW: wait ScreenId.s05
+FLOW: tap "Journal"
+FLOW: wait ScreenId.s14
+FLOW: wait A finder that searches for widgets with text "What should I focus on this week?".
+08:14 +16: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/first_launch_free_reading_test.dart: (tearDownAll)
+08:14 +16: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/daily_reset_resume_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.8s
+08:42 +16: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/daily_reset_resume_test.dart: resume after midnight: the free reading is back, once
+FLOW: wait ScreenId.s05
+FLOW: wait A finder that searches for widgets with text "Free reading used".
+FLOW: wait A finder that searches for widgets with text "1 free reading".
+08:43 +17: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/daily_reset_resume_test.dart: (tearDownAll)
+08:44 +17: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rewarded_ad_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.8s
+09:12 +17: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rewarded_ad_test.dart: rewarded ad: grant, cooldown, then the daily cap
+FLOW: wait ScreenId.s05
+FLOW: tap A finder that searches for widgets with type "BalanceChip".
+FLOW: wait ScreenId.s11
+FLOW: tap A finder that searches for widgets with a semantics label named "Close".
+FLOW: wait ScreenId.s05
+FLOW: tap A finder that searches for widgets with type "BalanceChip".
+FLOW: wait ScreenId.s11
+FLOW: tap "Watch an ad for 1 reading"
+FLOW: wait ScreenId.s12
+FLOW: wait A finder that searches for widgets with text "Reading added".
+FLOW: tap button "Continue"
+FLOW: wait ScreenId.s11
+FLOW: wait A finder that searches for widgets with text containing Another ad reward is available in.
+FLOW: wait A finder that searches for widgets with text "You’ve used today’s ad rewards".
+09:17 +18: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/rewarded_ad_test.dart: (tearDownAll)
+09:17 +18: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/kill_switch_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.0s
+09:45 +18: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/kill_switch_test.dart: readings.enabled=false: S31 + Classic offer, no paywall
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait A finder that searches for widgets with text "Readings are resting for a moment".
+FLOW: tap button "Try a classic reading"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s32
+09:52 +19: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/kill_switch_test.dart: budget hard stop with no credits: S31, never the paywall
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait A finder that searches for widgets with text "Readings are resting for a moment".
+09:55 +20: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/kill_switch_test.dart: budget hard stop at the hold (503 tier=hard): S31, no draw
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait A finder that searches for widgets with text "Readings are resting for a moment".
+09:58 +21: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/kill_switch_test.dart: (tearDownAll)
+09:58 +21: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reading_failure_refund_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.0s
+10:27 +21: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reading_failure_refund_test.dart: AI unavailable: cards kept, refunded, retry works
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait A finder that searches for widgets with text "We couldn’t create your reading".
+FLOW: tap button "Try again"
+FLOW: wait ScreenId.s09
+10:34 +22: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/flows/reading_failure_refund_test.dart: (tearDownAll)
+10:34 +22: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.9s
+11:03 +22: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: draw screen: frame timing summary
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following TestFailure was thrown running a test:
+timed out waiting: condition
+
+When the exception was thrown, this was the stack:
+#0      fail (package:matcher/src/expect/expect.dart:187:31)
+#1      FlowApp.waitUntil (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/support/flow_harness.dart:263:9)
+<asynchronous suspension>
+#2      main.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart:33:5)
+<asynchronous suspension>
+#3      taroFlow.<anonymous closure> (file:///Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/support/flow_harness.dart:60:5)
+<asynchronous suspension>
+#4      patrolWidgetTest.<anonymous closure> (package:patrol_finders/src/common.dart:47:7)
+<asynchronous suspension>
+#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1952:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  draw screen: frame timing summary
+════════════════════════════════════════════════════════════════════════════════════════════════════
+11:22 +22 -1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: draw screen: frame timing summary [E]
+  Test failed. See exception logs above.
+  The test description was: draw screen: frame timing summary
+  
+11:22 +22 -1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: (tearDownAll)
+11:22 +22 -1: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.6s
+11:50 +22 -1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: cold start: bootstrap → first frame → first screen
+FINE taro.analytics.console: consent analytics=false ad=false ad_user_data=false ad_personalization=false
+INFO taro.install: install identity created
+WARNING taro.api: E03 failed: INTERNAL (status 404, request aea88384-f99b-4aa4-82ca-3046e62ce579)
+WARNING taro.install: install registration failed: INTERNAL
+WARNING taro.sync: sync step register failed: INTERNAL
+WARNING taro.api: E02 failed: INTERNAL (status 404, request 1bd7a379-6570-416f-9e0b-d440845a94f4)
+FINE taro: config refresh failed: INTERNAL
+WARNING taro.sync: sync step config failed: INTERNAL
+FINE taro: balance sync (launch) failed: UNAUTHENTICATED
+WARNING taro.sync: sync step balance failed: UNAUTHENTICATED
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+22:10 +22 -1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: cold start: bootstrap → first frame → first screen - did not complete [E]
+22:10 +22 -1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: (tearDownAll) - did not complete [E]
+22:10 +22 -1: Some tests failed.
+
+Failing tests:
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: (tearDownAll) (did not complete)
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: cold start: bootstrap → first frame → first screen (did not complete)
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: draw screen: frame timing summary
+unhandled error during finalization of test:
+/Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart
+PathNotFoundException: Deletion failed, path = '/var/folders/yw/6538gcvx0dl9yms3y34052j00000gn/T/flutter_tools.o39wGE/flutter_test_listener.v6tiNz' (OS Error: No such file or directory, errno = 2)
+#0      _Directory._deleteSync (dart:io/directory_impl.dart:216:7)
+#1      FileSystemEntity.deleteSync (dart:io/file_system_entity.dart:425:7)
+#2      ForwardingFileSystemEntity.deleteSync (package:file/src/forwarding/forwarding_file_system_entity.dart:70:16)
+#3      ErrorHandlingDirectory.deleteSync.<anonymous closure> (package:flutter_tools/src/base/error_handling_io.dart:715:22)
+#4      _runSync (package:flutter_tools/src/base/error_handling_io.dart:1116:16)
+#5      ErrorHandlingDirectory.deleteSync (package:flutter_tools/src/base/error_handling_io.dart:714:12)
+#6      FlutterPlatform._createListenerDart.<anonymous closure> (package:flutter_tools/src/test/flutter_platform.dart:787:15)
+#7      FlutterPlatform._startTest.finalize (package:flutter_tools/src/test/flutter_platform.dart:592:26)
+<asynchronous suspension>
+#8      asyncGuard.<anonymous closure> (package:flutter_tools/src/base/async_guard.dart:108:24)
+<asynchronous suspension>
+
+flutter test integration_test/flows integration_test/perf --flavor dev   -d   131.36s user 50.38s system 13% cpu 22:42.08 total
+rc=1

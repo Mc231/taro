@@ -1,0 +1,83 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.5s
+00:00 +0: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: draw screen: frame timing summary
+FLOW: wait ScreenId.s05
+FLOW: tap button "Start a reading"
+FLOW: wait ScreenId.s06
+FLOW: tap "Past, Present, Future"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Begin"
+FLOW: wait ScreenId.s08
+FLOW: wait ScreenId.s08
+FLOW: tap button "Shuffle"
+FLOW: tap button "I’m ready — draw"
+FLOW: tap button "Draw for me"
+FLOW: tap button "Reveal all"
+FLOW: wait ScreenId.s09
+PERF draw_screen {"mode":"debug","platform":"iOS","average_frame_build_time_millis":5.85,"90th_percentile_frame_build_time_millis":14.268,"99th_percentile_frame_build_time_millis":37.523,"worst_frame_build_time_millis":37.523,"missed_frame_build_budget_count":4,"average_frame_rasterizer_time_millis":1.609,"90th_percentile_frame_rasterizer_time_millis":3.515,"99th_percentile_frame_rasterizer_time_millis":4.815,"worst_frame_rasterizer_time_millis":4.815,"average_layer_cache_count":0.0,"90th_percentile_layer_cache_count":0,"99th_percentile_layer_cache_count":0,"worst_layer_cache_count":0,"average_layer_cache_memory":0.0,"90th_percentile_layer_cache_memory":0.0,"99th_percentile_layer_cache_memory":0.0,"worst_layer_cache_memory":0.0,"average_picture_cache_count":0.0,"90th_percentile_picture_cache_count":0,"99th_percentile_picture_cache_count":0,"worst_picture_cache_count":0,"average_picture_cache_memory":0.0,"90th_percentile_picture_cache_memory":0.0,"99th_percentile_picture_cache_memory":0.0,"worst_picture_cache_memory":0.0,"missed_frame_rasterizer_budget_count":0,"frame_count":41,"frame_build_times":[881,4985,1989,1477,4311,5923,879,1051,1523,3780,5258,4369,2394,4412,14268,913,37523,706,591,163,199,18992,1072,244,151,317,25569,35399,3036,1756,2530,8713,7437,14236,5174,5396,4587,4167,3001,260,224],"frame_rasterizer_times":[2902,667,657,598,1729,2370,662,759,980,1251,1991,1418,1004,1509,1000,1757,1317,630,658,684,1024,1019,435,509,565,702,549,817,1481,1227,2915,4815,4197,4184,3515,3085,3187,3619,2053,645,907],"new_gen_gc_count":-1,"old_gen_gc_count":-1}
+00:11 +1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/draw_screen_perf_test.dart: (tearDownAll)
+00:11 +1: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           20.8s
+00:40 +1: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: cold start: bootstrap → first frame → first screen
+FINE taro.analytics.console: consent analytics=false ad=false ad_user_data=false ad_personalization=false
+PERF cold_start {"mode":"debug","platform":"iOS","bootstrap_ms":254,"first_frame_ms":499,"first_screen_ms":502}
+00:40 +2: /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/perf/cold_start_test.dart: (tearDownAll)
+00:41 +2: All tests passed!
+rc=0

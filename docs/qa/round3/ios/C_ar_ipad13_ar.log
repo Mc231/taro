@@ -1,0 +1,234 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/screenshot_tour_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           21.3s
+00:00 +0: QA screenshot tour [ar] [ar] onboarding S01–S05
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S01_launch.png
+FLOW: wait ScreenId.s02
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S02_welcome_1.png
+FLOW: tap "البدء"
+FLOW: wait ScreenId.s03
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S03_disclaimer.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S03_disclaimer_end.png
+FLOW: tap "فهمت"
+FLOW: wait ScreenId.s04
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S04_ai_consent.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S04_ai_consent_end.png
+FLOW: tap "السماح بقراءات الذكاء الاصطناعي"
+FLOW: wait ScreenId.s05
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S05_home_first_run_coachmark.png
+00:07 +1: QA screenshot tour [ar] [ar] main tour S05–S29, S33
+FLOW: wait ScreenId.s05
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S05_home_empty.png
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S06_spreads.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S06_spreads_end.png
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_question_empty.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_question_filled.png
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s08
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S08_shuffle.png
+FLOW: tap button "خلط"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S08_shuffling.png
+FLOW: tap button "لنبدأ — السحب"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S08_pick.png
+FLOW: tap button "السحب نيابةً عني"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S08_picked.png
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s09
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S09_result_top.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S09_result_mid.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S09_result_footer.png
+FLOW: tap A finder that searches for widgets with a semantics label named "مزيد من الخيارات".
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S09_menu.png
+FLOW: tap "الإبلاغ عن هذه القراءة"
+FLOW: wait ScreenId.s33
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S33_report.png
+FLOW: tap "نصيحة ضارة"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S33_report_selected.png
+FLOW: wait ScreenId.s05
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S05_home_with_reading.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S13_daily.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S13_daily_revealed.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S13_daily_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S14_journal.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S15_entry.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S15_entry_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S16_learn.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S16_learn_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S17_card.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S17_card_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S18_spreads_guide.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S18_spread_celtic.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S18_spread_celtic_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S19_about.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S19_about_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S20_settings.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S20_settings_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S21_language.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S22_reminder.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S23_privacy.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S23_privacy_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S24_export.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S25_import.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S26_delete.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S27_crisis.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S27_crisis_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S28_help.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S28_help_end.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S29_legal_disclaimer.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S29_legal_privacy.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S29_legal_terms.png
+01:03 +2: QA screenshot tour [ar] [ar] paywall S10–S12
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s10
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S10_out_of_readings.png
+FLOW: tap "الحصول على مزيد من القراءات"
+FLOW: wait ScreenId.s11
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S11_store.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S11_store_end.png
+FLOW: tap "مشاهدة إعلان مقابل قراءة واحدة"
+FLOW: wait ScreenId.s12
+FLOW: wait A finder that searches for widgets with text "أُضيفت القراءة".
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S12_rewarded.png
+FLOW: wait ScreenId.s05
+FLOW: tap A finder that searches for widgets with type "BalanceChip".
+FLOW: wait ScreenId.s11
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S11_store_balance_chip.png
+01:12 +3: QA screenshot tour [ar] [ar] paused S31 + classic S32
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+FLOW: tap button "بدء"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S31_paused.png
+FLOW: tap button "تجربة قراءة كلاسيكية"
+FLOW: wait ScreenId.s08
+FLOW: tap button "خلط"
+FLOW: tap button "لنبدأ — السحب"
+FLOW: tap button "السحب نيابةً عني"
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s32
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S32_classic_top.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S32_classic_footer.png
+01:21 +4: QA screenshot tour [ar] [ar] AI declined re-entry S04 + celtic cross
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الصليب السلتي"
+FLOW: wait ScreenId.s07
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_celtic_question.png
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s04
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S04_reentry.png
+FLOW: tap button "رجوع"
+FLOW: wait ScreenId.s07
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_after_decline.png
+FLOW: tap button "تجربة قراءة كلاسيكية"
+FLOW: wait ScreenId.s08
+FLOW: tap button "خلط"
+FLOW: tap button "لنبدأ — السحب"
+FLOW: tap button "السحب نيابةً عني"
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S08_celtic_picked.png
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s32
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S32_celtic_top.png
+01:29 +5: QA screenshot tour [ar] [ar] refusal S07 (rephrase + refused)
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s08
+FLOW: tap button "خلط"
+FLOW: tap button "لنبدأ — السحب"
+FLOW: tap button "السحب نيابةً عني"
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s07
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_refusal_rephrase.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_refusal_rephrase_end.png
+FLOW: wait ScreenId.s05
+FLOW: tap button "بدء قراءة"
+FLOW: wait ScreenId.s06
+FLOW: tap "الماضي والحاضر والمستقبل"
+FLOW: wait ScreenId.s07
+FLOW: tap button "بدء"
+FLOW: wait ScreenId.s08
+FLOW: tap button "خلط"
+FLOW: tap button "لنبدأ — السحب"
+FLOW: tap button "السحب نيابةً عني"
+FLOW: tap button "كشف الكل"
+FLOW: wait ScreenId.s07
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_refusal_refused.png
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S07_refusal_refused_end.png
+01:46 +6: QA screenshot tour [ar] [ar] update required S30
+FLOW: wait ScreenId.s30
+QA_SHOT: /Users/volodymyrshyrochuk/Library/Developer/CoreSimulator/Devices/DAB71298-AA3E-4B59-8219-04114498FF73/data/Containers/Data/Application/C11BD4E7-491B-4BFB-8EA8-2399D6BAC4F9/tmp/qa_shots/ar/S30_update_required.png
+01:46 +7: QA screenshot tour [ar] (tearDownAll)
+02:06 +7: (tearDownAll)
+02:06 +7: All tests passed!
+rc=0

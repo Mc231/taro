@@ -1,0 +1,40 @@
+[host] shot E0_home_en
+[host] shot E1_language_picker
+[host] shot E1_settings_uk
+[host] shot E1_home_uk
+[host] shot E1a_en_spreads
+[host] shot FAIL_E1a
+[host] shot FAIL_E1b
+[host] shot E1c_S15
+[host] shot E1c_S09_from_S15
+[host] shot E1c_S15_after_done
+[host] shot E1c_S15_after_swipe
+[host] shot E1c_S14_after_swipe
+[host] grant 4 bonus to 6cad159a
+applied (staging, remote): ticket qa-ios-6cad159a: bonus +4 on 32fdfbc1
+32fdfbc1: status active, paid 0, bonus 4
+[host] shot E2_uk_spreads
+[host] shot E2_result_uk_top
+[host] shot E2_result_uk_bottom
+[host] shot E3_journal_uk
+[host] shot E3_search_hit
+[host] shot E3_search_empty
+[host] shot E3_filter_daily
+[host] shot E3_filter_fav
+[host] shot E3_filter_more_sheet
+[host] shot E3_entry_uk
+[host] shot E4_learn_uk
+[host] shot E4_learn_search_empty
+[host] shot E4_card_detail
+[host] shot E4_card_reversed
+[host] shot E4_card_zoomed
+[host] shot E4_card_next
+[host] shot E5_faq
+[host] shot E5_faq_search_hit
+[host] shot E5_faq_search_empty
+[host] shot E5_legal_terms
+[host] shot E5_legal_privacy
+[host] shot E5_legal_licences
+[host] shot E5_legal_disclaimer
+[host] openurl taro://learn/card/major_00
+[host] shot FAIL_E6

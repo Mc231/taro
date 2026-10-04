@@ -1,0 +1,312 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/staging_e2e_test.dart
+Running Gradle task 'assembleStagingDebug'...                   
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): firebase_analytics, firebase_core, firebase_crashlytics, flutter_timezone, in_app_review, patrol
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing 
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Running Gradle task 'assembleStagingDebug'...                      18.4s
+✓ Built build/app/outputs/flutter-apk/app-staging-debug.apk
+Installing build/app/outputs/flutter-apk/app-staging-debug.apk...        382ms
+00:00 +0: B1 onboarding and registration
+INFO taro.install: install identity created
+QA: wait ScreenId.s02
+QA: tap A finder that searches for widgets with text "Get started".
+QA: wait ScreenId.s03
+QA: tap A finder that searches for widgets with text "I understand".
+QA: wait ScreenId.s04
+INFO taro.install: install registered (trust: high)
+QA: tap A finder that searches for widgets with text "Allow AI readings".
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+FINE taro.analytics: consent resolved: flushed 6, overflowed 0
+QA: wait ScreenId.s05
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+QA: TIMING register+balance=0ms
+QA: balance: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 15:52:14.000Z, syncedAt: 2026-10-04 15:52:14.551025Z)
+QA: S05: Sunday, October 4 | Good afternoon | Free reading used | Next free reading in 5 h 7 min | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card
+QA: TIMINGS {"register+balance":0}
+QA: BUGS []
+00:06 +1: B2 paywall and rewarded ad
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 15:52:14.000Z, syncedAt: 2026-10-04 15:52:14.551025Z)
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Single card".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s10
+QA: TIMING paywall (Begin→S10)=116ms
+QA: S10: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 5 h 7 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Loading… | Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases. | Until then: | Daily card | Learn | Not now | Terms | Privacy | For entertainment and self-reflection. Not professional advice. | Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. |  | You’ve used today’s free reading
+QA: tap A finder that searches for widgets with text containing Watch an ad for 1 reading (ignoring all but first).
+QA: wait ScreenId.s12
+QA_HOST: closead
+00:33 +1: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+00:54 +1: B2 paywall and rewarded ad
+QA: TIMING rewarded outcome=36086ms
+QA: S12 outcome: Single card | What would you like to reflect on? | Your question (optional) | Open questions work well. Taro can’t answer health, legal, money or pregnancy questions. | You’ve used today’s free reading | Your question and spread are saved. | Get more readings | Begin | Free reading used | Your reading will appear shortly | You’ve used today’s free reading | Your question and spread are saved. | Next free reading in 5 h 7 min (at 9:00 PM) | Watch an ad for 1 reading | Optional · 3 left today | Get more readings | Prices unavailable — retry | Try again | Readings don’t expire and are kept for this app installation. They can’t be restored with Restore Purchases. | Until then:
+QA: balance after rewarded: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: false, canReadReason: CanReadReason.noCredits, nextSource: null, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 1, serverTime: 2026-10-04 15:53:06.000Z, syncedAt: 2026-10-04 15:53:06.691840Z)
+QA: TIMINGS {"register+balance":0,"paywall (Begin→S10)":116,"rewarded outcome":36086}
+QA: BUGS []
+00:55 +2: B3 safety: rephrase and crisis
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA_HOST: grant 2ea9fe92
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: balance after grant: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 4, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 2, serverTime: 2026-10-04 15:53:13.000Z, syncedAt: 2026-10-04 15:53:13.140374Z)
+QA: balance before: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 4, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 2, serverTime: 2026-10-04 15:53:13.000Z, syncedAt: 2026-10-04 15:53:13.140374Z)
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Past, Present, Future".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=117ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: TIMING refusal shown (since Draw for me)=4955ms
+QA: S07 after refusal: We can’t read this question | Tarot can’t predict bets, games or numbers. | Your question | Will I win the lottery next week? | Not charged. Your reading is still available. | You could ask instead | What am I hoping will change? | What does chance mean to me right now? | Where could I find more excitement in everyday life? | Reflecting without a question keeps the cards you drew. A new question draws new cards. | Rephrase my question | Reflect on the cards without a question | Free reading used · 4 readings |  | We can’t read this question | Tarot can’t predict bets, games or numbers. | Your question | Will I win the lottery next week? |  | Not charged. Your reading is still available. | You could ask instead | What am I hoping will change? | What does chance mean to me right now? | Where could I find more excitement in everyday life? | Reflecting without a question keeps the cards you drew. A new question draws new cards. | Rephrase my question | Reflect on the cards without a question |  | Free reading used · 4 readings
+QA: wait ScreenId.s05
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Past, Present, Future".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=116ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: wait ScreenId.s27
+QA: TIMING crisis S27 (since Draw for me)=1717ms
+QA: S27: You’re not alone | If you are thinking about harming yourself, please reach out now. Talking to someone can help. | ⁨Lifeline Ukraine⁩ | ⁦7333⁩ · 24/7 | Call | Find a helpline in another country | findahelpline.​com | Free, confidential support lines worldwide | Open | Show resources for another country | You’re not alone | If you are thinking about harming yourself, please reach out now. Talking to someone can help. | ⁨Lifeline Ukraine⁩ | ⁦7333⁩ · 24/7 |  | Call | Find a helpline in another country | findahelpline.​com | Free, confidential support lines worldwide |  | Open | Show resources for another country | 
+QA: TIMINGS {"register+balance":0,"hold (Begin→S08)":116,"refusal shown (since Draw for me)":4955,"crisis S27 (since Draw for me)":1717}
+QA: BUGS []
+01:20 +3: B4 single reading en and journal
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: wait ScreenId.s05
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Start a reading".
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Single card".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Begin".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=117ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Shuffle".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "I’m ready — draw".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Draw for me".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Reveal all".
+QA: TIMING reading single en (since Draw for me)=8474ms
+QA: wait ScreenId.s09
+QA: S09 footer:  | Add note |  | Full disclaimer | For entertainment and self-reflection. Not professional advice. | 
+QA: tap A finder that searches for widgets with widget matching predicate.
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with text "Journal".
+QA: wait ScreenId.s14
+QA: TIMINGS {"register+balance":0,"hold (Begin→S08)":117,"reading single en (since Draw for me)":8474}
+QA: BUGS []
+01:37 +4: B5 ar: three_ppf reading and report
+QA: already onboarded
+QA: TIMING register+balance=0ms
+QA: tap A finder that searches for widgets with text "Settings".
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Language".
+QA: wait ScreenId.s21
+QA: tap A finder that searches for widgets with key [<'ar'>].
+QA: tap A finder that searches for widgets with a semantics label named "رجوع".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "اليوم".
+QA: wait ScreenId.s05
+QA: S05 ar chip: Rect.fromLTRB(135.4, 132.0, 395.4, 180.0)
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "بدء قراءة".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "الماضي والحاضر والمستقبل".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "بدء".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=115ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "خلط".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "لنبدأ — السحب".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "السحب نيابةً عني".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "كشف الكل".
+QA: TIMING reading three_ppf ar (since Draw for me)=14442ms
+QA: wait ScreenId.s09
+QA: S09 ar: الماضي والحاضر والمستقبل · الأحد، 4 أكتوبر | الماضي | معكوسة | الحاضر | معكوسة | المستقبل | «⁨ما الذي يجب أن أركز عليه هذا الأسبوع؟⁩» | من إنشاء الذكاء الاصطناعي | بين التأمل وتبادل الكؤوس | قد يكون التركيز هذا الأسبوع على ما يستحق انتباهك، وكيف تنسجم اختياراتك معه، مدخلًا مفيدًا لقراءة هذه البطاقات. يدعو أربعة من الكؤوس إلى مراجعة ما تلتفت إليه، بينما يفتح العشاق مساحة لفهم قيمك وما قد يطلب منك اختيارًا أوضح. | الماضي · أربعة من الكؤوس | أربعة من الكؤوس قد يشير إلى تأمل سابق يمكنك مراجعة أثره في تركيزك هذا الأسبوع. الشخصية تحت الشجرة تضم ذراعيها، بينما تمتد إليها كأس رابعة، وقد تعكس هذه الصورة انتباهًا يستقر على المألوف. إذا وجدت صدى لذلك في تجربتك، يمكنك ملاحظة ما يستحق نظرة جديدة. وقد يساعدك التأمل في التمييز بين حاجتك إلى مساحة هادئة ورغبتك في المشاركة. | الحاضر · العشاق، معكوسة | العشاق، في وضعها المعكوس، قد يدعو إلى جعل الانسجام مع قيمك محور التركيز هذا الأسبوع. الشجرتان المختلفتان خلف الشخصيتين في الحديقة قد تمنحان صورة لاختلاف الدوافع داخل اختيار واحد. إذا كان هناك قرار يشغل انتباهك، يمكنك تسمية ما يهمك فيه. وقد تجد أن إعطاء كل دافع مساحة واضحة يساعدك على فهم موضع التوافق أو التردد. | المستقبل · اثنان من الكؤوس، معكوسة | اثنان من الكؤوس، في وضعها المعكوس، قد يفتح اتجاهًا لمراجعة التوازن في التواصل إذا اخترت التركيز عليه هذا الأسبوع. تبادل الكأسين بين الشخصيتين يدعو إلى التفكير فيما تمنحه وما تحتاجه في أي حوار. يمكنك استكشاف مدى وضوح التعبير عن رغباتك وحدودك. وقد تصبح العناية بعلاقتك مع نفسك نقطة انطلاق لتبادل أكثر وضوحًا، إن كان ذلك مناسبًا لك. | كيف تترابط البطاقات | يمكن أن يجمع تركيزك هذا الأسبوع بين تأمل أربعة من الكؤوس ومراجعة القيم التي يدعو إليها العشاق. وقد يصل هذا التأمل إلى اثنين من الكؤوس عبر سؤال عن كيفية التعبير عما يهمك في التواصل. تكرار الكؤوس يمنح مساحة للاحتياجات والتبادل، بينما يضيف العشاق جانب الاختيار. كخطوة صغيرة، يمكنك كتابة جملة واحدة عن قيمة ترغب في منحها انتباهك هذا الأسبوع. | أسئلة للتأمل | ما الذي قد يستحق نظرة جديدة هذا الأسبوع، عند تأمل الكأس الرابعة؟ | الكتابة عن هذا | أيّ قيمة ترغب في استكشاف صلتها باختياراتك هذا الأسبوع مع العشاق؟ | الكتابة عن هذا | كيف تصف التوازن الذي يهمك في تبادل الكلام أو الاهتمام، إن وجد؟ | الكتابة عن هذا
+QA: S09 footer:  | إضافة ملاحظة |  | إخلاء المسؤولية كاملًا | للترفيه والتأمل الذاتي. ليست نصيحة مهنية. | 
+QA: tap A finder that searches for widgets with a semantics label named "مزيد من الخيارات".
+QA: tap A finder that searches for widgets with text "الإبلاغ عن هذه القراءة".
+QA: wait ScreenId.s33
+QA: tap A finder that searches for widgets with text "نصيحة ضارة".
+QA: tap A finder that searches for widgets with text "إرسال البلاغ".
+QA: TIMING report=3311ms
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with text "المذكرات".
+QA: wait ScreenId.s14
+QA: TIMINGS {"register+balance":0,"hold (Begin→S08)":115,"reading three_ppf ar (since Draw for me)":14442,"report":3311}
+QA: BUGS []
+02:09 +5: B6 de: three_ppf reading
+QA: already onboarded
+QA: tap A finder that searches for widgets with text "الإعدادات".
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "اللغة".
+QA: wait ScreenId.s21
+QA: tap A finder that searches for widgets with key [<'en'>].
+QA: tap A finder that searches for widgets with a semantics label named "Back".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Today".
+QA: wait ScreenId.s05
+QA: TIMING register+balance=0ms
+QA: tap A finder that searches for widgets with text "Settings".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Language".
+QA: wait ScreenId.s21
+QA: tap A finder that searches for widgets with key [<'de'>].
+QA: tap A finder that searches for widgets with a semantics label named "Zurück".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Heute".
+QA: wait ScreenId.s05
+QA: wait ScreenId.s05
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Deutung beginnen".
+QA: wait ScreenId.s06
+QA: tap A finder that searches for widgets with text "Vergangenheit, Gegenwart, Zukunft".
+QA: wait ScreenId.s07
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Beginnen".
+QA: wait ScreenId.s08
+QA: TIMING hold (Begin→S08)=118ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Mischen".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Ich bin bereit – ziehen".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Für mich ziehen".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Alle aufdecken".
+QA: TIMING reading three_ppf de (since Draw for me)=10479ms
+QA: wait ScreenId.s09
+QA: S09 de: Vergangenheit, Gegenwart, Zukunft · So., 4. Okt. | Umgekehrt | Vergangenheit | Umgekehrt | Gegenwart | Zukunft | „⁨Worauf sollte ich mich diese Woche konzentrieren?⁩“ | KI-generiert | Vom offenen Kreis zur Klarheit | Für deinen Fokus diese Woche können offene Enden, greifbare Wünsche und klare Gedanken hilfreiche Anhaltspunkte sein. Die umgekehrte Welt lädt zum Prüfen eines möglichen Abschlusses ein; das Ass der Schwerter regt dazu an, eine Frage klar zu formulieren. | Vergangenheit · Die Welt, umgekehrt | Die Welt kann umgekehrt auf einen früheren Abschluss hinweisen, der für dich noch Fragen offenlässt. Die tanzende Figur im ovalen Kranz lädt dazu ein, den eigenen Blick auf Vollständigkeit zu prüfen. Vielleicht beeinflusst ein unerledigter Schritt, worauf du dich diese Woche konzentrieren möchtest. Du könntest erkunden, welcher Abschluss für dich stimmig wäre und was dafür noch fehlt. | Gegenwart · Ritter der Kelche, umgekehrt | Der Ritter der Kelche lädt umgekehrt dazu ein, deine Wünsche für diese Woche auf ihre greifbare Form zu prüfen. Sein langsam gehendes weißes Pferd kann ein behutsames Tempo für dieses Nachdenken verkörpern. Vielleicht beansprucht ein Ideal gerade mehr Aufmerksamkeit, als du ihm geben möchtest. Als gegenwärtiger Fokus bietet sich an, einen Wunsch in einen überschaubaren Versuch zu übersetzen. | Zukunft · Ass der Schwerter | Das Ass der Schwerter kann aufrecht eine mögliche Richtung für deinen Fokus diese Woche anregen: einen Gedanken klar auszusprechen. Das einzelne Schwert über den kahlen Bergen steht als Bild für eine schlichte, tragfähige Aussage. Wenn du eine offene Frage eingrenzt, könnte eine neue Sichtweise Raum bekommen. Du könntest erkunden, welche Worte deine eigene Position verständlich machen. | Wie die Karten zusammenhängen | Die Welt und der Ritter der Kelche verbinden die Frage nach einem Abschluss mit der Frage, wie greifbar ein Wunsch ist. Das Ass der Schwerter ergänzt beide um die Möglichkeit, etwas klar zu benennen. Für deinen Fokus diese Woche könnte daraus eine überschaubare Aufgabe entstehen. Schreibe einen Satz auf, der festhält, welcher offenen Frage du Aufmerksamkeit geben möchtest. | Fragen zum Nachdenken | Welche offenen Enden könnten für deinen Fokus diese Woche eine Rolle spielen? | Darüber schreiben | Wie könnte ein Wunsch diese Woche eine greifbare Form bekommen? | Darüber schreiben | Was möchtest du diese Woche für dich klarer formulieren? | Darüber schreiben
+QA: S09 footer:  | Notiz hinzufügen |  | Vollständiger Hinweis | Zur Unterhaltung und Selbstreflexion. Keine professionelle Beratung. | 
+QA: TIMINGS {"register+balance":0,"hold (Begin→S08)":118,"reading three_ppf de (since Draw for me)":10479}
+QA: BUGS []
+02:36 +6: B7 offline, export, delete, import
+QA: already onboarded
+QA: tap A finder that searches for widgets with text "Einstellungen".
+FINE taro.analytics: consent resolved: flushed 0, overflowed 0
+INFO taro.consent: consent: notRequired ads=true att=notSupported init=true
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Sprache".
+QA: wait ScreenId.s21
+QA: tap A finder that searches for widgets with key [<'en'>].
+QA: tap A finder that searches for widgets with a semantics label named "Back".
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Today".
+QA: wait ScreenId.s05
+QA: TIMING register+balance=3ms
+QA: wait ScreenId.s05
+QA_HOST: offline
+QA: TIMING offline banner shown=1079ms
+QA_HOST: online
+02:44 +6: B1 onboarding and registration
+FINE taro.sync: sync skipped (connectivityRegained)
+02:44 +6: B7 offline, export, delete, import
+QA: TIMING offline banner hidden=1520ms
+QA: journal before: 5 readings
+QA_HOST: back
+QA: tap A finder that searches for widgets with text "Settings".
+02:50 +6: B1 onboarding and registration
+FINE taro.sync: sync skipped (resume)
+02:51 +6: B7 offline, export, delete, import
+QA: wait ScreenId.s20
+QA: tap A finder that searches for widgets with text "Delete all data".
+QA: wait ScreenId.s26
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Delete all data".
+QA: TIMING delete all=2103ms
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Done".
+QA: after delete: Sunday, October 4 | Good afternoon | Free reading used · 1 reading | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI. | Reveal card | Ask the cards a question | Choose a spread, write a question if you like, and get a thoughtful AI interpretation. | Start a reading | Today | Journal | Learn | Settings | Sunday, October 4 | Good afternoon | Free reading used · 1 reading | YOUR DAILY CARD | One card to sit with today | Free, works offline, no AI.
+QA: balance before delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 1, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 12, serverTime: 2026-10-04 15:54:49.000Z, syncedAt: 2026-10-04 15:54:48.882923Z)
+QA: balance after delete: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 0, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 1, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.bonus, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 13, serverTime: 2026-10-04 15:55:08.000Z, syncedAt: 2026-10-04 15:55:08.812765Z)
+QA: TIMINGS {"register+balance":3,"offline banner shown":1079,"offline banner hidden":1520,"delete all":2103}
+QA: BUGS []
+02:57 +7: (tearDownAll)
+adb uninstall failed: ProcessException: Process exited abnormally with exit code 1:
+Failure [DELETE_FAILED_INTERNAL_ERROR]
+  Command: /Users/volodymyrshyrochuk/Library/Android/sdk/platform-tools/adb -s emulator-5554 uninstall com.vshyrochuk.taro
+02:57 +7: All tests passed!
+rc=0 wall=201s

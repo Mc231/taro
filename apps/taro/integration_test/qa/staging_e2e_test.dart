@@ -696,16 +696,23 @@ void main() {
       'after Rephrase: field=${f2.controller?.text}; '
       '${app.texts().take(12).join(' | ')}',
     );
+    // Round 3: crisis as the 4th and the 6th quick question (R2-01).
+    await crisis('crisis 4th');
     await refusal(
       'gambling',
       'Which numbers will win the lottery this Saturday?',
       l.questionRefusalReasonGambling,
     );
 
-    await crisis('crisis after 3 refusals');
+    await crisis('crisis 6th');
 
     // Reflect without a question (charges a reading; logged, not asserted).
+    // Wait out the per-minute limit first when the questions were not paced.
     if (reflectUk) {
+      if (_paceSeconds < 60) {
+        _log('wait 65s for the per-minute limit before reflect');
+        await Future<void>.delayed(const Duration(seconds: 65));
+      }
       await app.goHome();
       await refusal(
         'health uk 2',
@@ -713,6 +720,14 @@ void main() {
         l.questionRefusalReasonHealth,
       );
       await app.tapButton(l.questionReflectWithoutQuestion);
+      // 01 §7.5: the question is removed and Begin runs again with the
+      // declined cards preset, so S08 comes first (a new hold), then S09.
+      await app.waitUntil(
+        () => app.onScreen(ScreenId.s08) || app.onScreen(ScreenId.s09),
+        reason: 'reflect → S08',
+      );
+      _log('reflect S08: ${app.texts().take(25).join(' | ')}');
+      if (app.onScreen(ScreenId.s08)) await app.drawAll();
       await app.waitUntil(
         () => app.onScreen(ScreenId.s09),
         timeout: const Duration(seconds: 120),

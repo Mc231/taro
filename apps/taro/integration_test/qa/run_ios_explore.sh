@@ -4,7 +4,7 @@
 # `QA_HOST:` steps: shot <name> (simctl screenshot), openurl <url>,
 # grant <supportId> (QA_GRANT=1; 4 staging bonus credits), esc (Escape key
 # to the Simulator, closes the share sheet).
-# usage: SIM=<udid> OUT=<dir> run_ios_explore.sh
+# usage: SIM=<udid> OUT=<dir> [QA_ONLY=E0,E6] run_ios_explore.sh
 # The debug attestation token and the Cloudflare credentials are read inside
 # the commands that use them and never printed.
 set -u
@@ -32,7 +32,12 @@ watch_host() {
       *"QA_HOST: shot "*) n=${line##*QA_HOST: shot }; n=${n//[^A-Za-z0-9_]/_}
         xcrun simctl io "$SIM" screenshot "$OUT/shots/$n.png" >/dev/null 2>&1 && echo "[host] shot $n";;
       *"QA_HOST: openurl "*) u=${line##*QA_HOST: openurl }; echo "[host] openurl $u"
-        xcrun simctl openurl "$SIM" "$u";;
+        xcrun simctl openurl "$SIM" "$u" &
+        # iOS asks "Open in <app>?" for simctl openurl; Return picks Open
+        # (needs Automation access to System Events; the test injects the
+        # link itself when the prompt stays up).
+        sleep 2; osascript -e 'tell application "Simulator" to activate' -e 'delay 0.5' \
+          -e 'tell application "System Events" to key code 36' 2>&1;;
       *"QA_HOST: grant "*) grant "${line##*QA_HOST: grant }" &;;
       *"QA_HOST: esc"*) echo "[host] esc"
         osascript -e 'tell application "Simulator" to activate' -e 'delay 0.5' \
@@ -44,14 +49,22 @@ watch_host() {
 : >"$LOG"
 watch_host >"$HOSTLOG" 2>&1 &
 HP=$!
+# Pull the in-app Flutter-layer shots (tmp/qa_shots/explore) while it runs.
+( while :; do
+    D=$(xcrun simctl get_app_container "$SIM" com.vshyrochuk.taro.stg data 2>/dev/null)
+    [ -n "$D" ] && [ -d "$D/tmp/qa_shots/explore" ] && rsync -a "$D/tmp/qa_shots/explore/" "$OUT/flutter_shots/"
+    sleep 3
+  done ) &
+PP=$!
 eval "$(grep -E '^export TARO_SECRETS=' ~/.zshrc)"
 TOKEN=$(cd "$ROOT" && SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh get worker staging_debug_attestation_token 2>/dev/null)
 cd "$ROOT/apps/taro" || exit 2
 START=$(date +%s)
 flutter test integration_test/qa/ios_explore_test.dart -d "$SIM" --flavor staging \
   --dart-define-from-file=config/staging.json --dart-define=TARO_STAGING_SMOKE=1 \
-  --dart-define=TARO_DEBUG_ATTESTATION_TOKEN="$TOKEN" >"$LOG" 2>&1
+  --dart-define=TARO_DEBUG_ATTESTATION_TOKEN="$TOKEN" \
+  ${QA_ONLY:+--dart-define=QA_ONLY=$QA_ONLY} >"$LOG" 2>&1
 RC=$?
 echo "rc=$RC wall=$(($(date +%s) - START))s" >>"$LOG"
-kill "$HP" 2>/dev/null; pkill -f "tail -n0 -F $LOG"
+kill "$HP" "$PP" 2>/dev/null; pkill -f "tail -n0 -F $LOG"
 exit $RC
