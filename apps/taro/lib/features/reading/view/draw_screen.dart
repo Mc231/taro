@@ -136,7 +136,10 @@ class DrawScreen extends ConsumerWidget {
             ),
           );
         }
-        context.go(RoutePaths.reading(reading.id.value, classic: classic));
+        ReadingResultBackScope.openFromDraw(
+          context,
+          RoutePaths.reading(reading.id.value, classic: classic),
+        );
       case DrawCrisis(:final safety):
         // S27 shows the Worker's country-aware entries (01 §8.3 S27).
         ref.read(crisisHandoffProvider.notifier).offer(safety.crisisResources);

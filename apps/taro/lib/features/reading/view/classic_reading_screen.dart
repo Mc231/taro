@@ -32,7 +32,7 @@ class ClassicReadingScreen extends ConsumerWidget {
     return ClassicReadingLayout(
       state: state,
       artSet: ref.watch(deckArtSetProvider).value ?? CardArt.defaultArtSet,
-      onDone: () => context.go(RoutePaths.home),
+      onDone: () => ReadingResultBackScope.close(context),
       onOpenDisclaimer: () => context.push(RoutePaths.legal('disclaimer')),
       onAddNote: () =>
           unawaited(context.push(RoutePaths.journalEntry(id.value))),

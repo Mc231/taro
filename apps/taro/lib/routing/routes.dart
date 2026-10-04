@@ -21,6 +21,23 @@ final class TaroNavigatorKeys {
   );
 }
 
+/// A platform page for [child]: the Cupertino transition and the iOS edge
+/// swipe back on iOS, the Material one on Android.
+///
+/// go_router 18 detects the app type through `material_ui`'s `MaterialApp`,
+/// not Flutter's, so its own `builder:` pages fall back to
+/// `NoTransitionPage` (no transition, no iOS back swipe on any screen).
+Page<void> _page(GoRouterState state, Widget child) => MaterialPage<void>(
+  key: state.pageKey,
+  name: state.name ?? state.path,
+  arguments: <String, String>{
+    ...state.pathParameters,
+    ...state.uri.queryParameters,
+  },
+  restorationId: state.pageKey.value,
+  child: child,
+);
+
 GoRoute _screen(
   String path,
   ScreenId screen, {
@@ -30,7 +47,8 @@ GoRoute _screen(
   path: path,
   parentNavigatorKey: parent,
   routes: routes,
-  builder: (context, state) => buildScreen(context, screen, _args(state)),
+  pageBuilder: (context, state) =>
+      _page(state, buildScreen(context, screen, _args(state))),
 );
 
 ScreenArgs _args(GoRouterState state) =>
@@ -49,7 +67,8 @@ List<RouteBase> taroRoutes(TaroNavigatorKeys keys) => [
   _screen(RoutePaths.onboardingDisclaimer, ScreenId.s03),
   _screen(RoutePaths.consentAi, ScreenId.s04),
   StatefulShellRoute.indexedStack(
-    builder: (context, state, shell) => TaroTabShell(navigationShell: shell),
+    pageBuilder: (context, state, shell) =>
+        _page(state, TaroTabShell(navigationShell: shell)),
     branches: [
       StatefulShellBranch(routes: [_screen(RoutePaths.home, ScreenId.s05)]),
       StatefulShellBranch(
@@ -102,14 +121,17 @@ List<RouteBase> taroRoutes(TaroNavigatorKeys keys) => [
   GoRoute(
     path: RoutePaths.readingPattern,
     parentNavigatorKey: keys.root,
-    builder: (context, state) {
+    pageBuilder: (context, state) {
       final classic =
           state.uri.queryParameters['mode'] == RoutePaths.classicMode;
-      return ReadingResultBackScope(
-        child: buildScreen(
-          context,
-          classic ? ScreenId.s32 : ScreenId.s09,
-          _args(state),
+      return _page(
+        state,
+        ReadingResultBackScope(
+          child: buildScreen(
+            context,
+            classic ? ScreenId.s32 : ScreenId.s09,
+            _args(state),
+          ),
         ),
       );
     },

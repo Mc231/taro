@@ -90,6 +90,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- S09/S32 back (TestFlight 0.1.0 (5)): every route now builds a `MaterialPage` (`routes.dart` `_page`); go_router 18 detects `material_ui`'s `MaterialApp`, not Flutter's, so it had fallen back to `NoTransitionPage` and iOS had no edge swipe back on any screen. S08 opens the result over Home (`ReadingResultBackScope.openFromDraw`), so Close, the iOS edge swipe and Android system back go Home; a result opened from S15 returns to S15 (`ReadingResultBackScope.close`; before, back and Close went Home). A result with nothing below (a cold link) still goes Home.
 - BUG-03, BUG-04, BUG-14 (200 % text): above 1.5× text the pinned actions of S08 ("Reveal all", the deck fan), S02 ("Get started", `OnboardingPage`) and S30 ("Update") scroll after the content instead of covering it. Tests: `apps/taro/test/a11y/e2e_layout_bugs_test.dart`; goldens `s08_draw_picking` (new ×2), `s02_welcome_content` ×2, `s30_update_required_content` ×2.
 - BUG-05, BUG-08: spread position labels (`SpreadCanvas`, S08/S09/S15/S32) wrap only between words; a word wider than its slot ("Environment", "Vergangenheit", "最近の過去") shrinks instead of breaking (`taroWordFitScaler`). Tests: `packages/taro_ui/test/src/components/text_fit_test.dart`; goldens `spread_canvas`, `s09_reading_content` de, new `s08_draw_revealing` (incl. de, ja, ×2).
 - BUG-06: "Tap to reveal" wraps inside the face-down card (`TaroBadge` gains `maxWidth` and `textAlign`).

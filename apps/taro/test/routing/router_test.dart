@@ -157,6 +157,87 @@ void main() {
     expect(_screen('S05'), findsOneWidget);
   });
 
+  final iOSOnly = TargetPlatformVariant.only(TargetPlatform.iOS);
+  // TestFlight 0.1.0 (5): back on S09 did nothing on an iPhone. Pages were
+  // go_router's `NoTransitionPage` (no iOS edge swipe), S08 replaced the
+  // flow with `go` (nothing below S09) and S09 opened from S15 went Home.
+  for (final classic in [false, true]) {
+    final id = classic ? 'S32' : 'S09';
+    Future<GoRouter> afterDraw(
+      WidgetTester tester,
+      ProviderContainer container,
+    ) async {
+      final router = container.read(routerProvider);
+      unawaited(router.push(RoutePaths.readingSpreads));
+      await tester.pumpAndSettle();
+      unawaited(router.push(RoutePaths.readingQuestion('three_card')));
+      await tester.pumpAndSettle();
+      unawaited(router.push(RoutePaths.readingDraw));
+      await tester.pump();
+      // What S08 does on `DrawCompleted`.
+      ReadingResultBackScope.openFromDraw(
+        tester.element(
+          find.byKey(const ValueKey(core.ScreenId.s08), skipOffstage: false),
+        ),
+        RoutePaths.reading('abc', classic: classic),
+      );
+      await tester.pumpAndSettle();
+      expect(_screen(id), findsOneWidget);
+      return router;
+    }
+
+    testWidgets('$id after a draw: Done goes Home', (tester) async {
+      final (_, container) = await _boot(tester);
+      await afterDraw(tester, container);
+      await tester.tap(find.bySemanticsLabel('Done').last);
+      await tester.pumpAndSettle();
+      expect(_screen('S05'), findsOneWidget);
+      expect(_screen(id), findsNothing);
+    }, variant: iOSOnly);
+
+    testWidgets('$id after a draw: system back goes Home', (tester) async {
+      final (_, container) = await _boot(tester);
+      await afterDraw(tester, container);
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(_screen('S05'), findsOneWidget);
+      expect(_screen(id), findsNothing);
+    });
+
+    testWidgets('$id after a draw: Home sits below it (edge swipe)', (
+      tester,
+    ) async {
+      final (_, container) = await _boot(tester);
+      final router = await afterDraw(tester, container);
+      expect(router.canPop(), isTrue);
+      await tester.dragFrom(const Offset(4, 300), const Offset(600, 0));
+      await tester.pumpAndSettle();
+      expect(_screen('S05'), findsOneWidget);
+      expect(_screen(id), findsNothing);
+    }, variant: iOSOnly);
+
+    testWidgets('$id from S15: back and Done return to S15', (tester) async {
+      final (_, container) = await _boot(tester);
+      final router = container.read(routerProvider);
+      await _go(tester, container, RoutePaths.journalEntry('abc'));
+      expect(_screen('S15'), findsOneWidget);
+      unawaited(router.push(RoutePaths.reading('abc', classic: classic)));
+      await tester.pumpAndSettle();
+      expect(_screen(id), findsOneWidget);
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(_screen('S15'), findsOneWidget);
+      expect(_screen(id), findsNothing);
+
+      unawaited(router.push(RoutePaths.reading('abc', classic: classic)));
+      await tester.pumpAndSettle();
+      await tester.tap(find.bySemanticsLabel('Done').last);
+      await tester.pumpAndSettle();
+      expect(_screen('S15'), findsOneWidget);
+      expect(_screen(id), findsNothing);
+    });
+  }
+
   testWidgets('onboarding resumes at the persisted step', (tester) async {
     final fakes = TaroFakes(
       consent: const core.ConsentState(

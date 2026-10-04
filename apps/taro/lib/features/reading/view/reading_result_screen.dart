@@ -54,7 +54,7 @@ class ReadingResultScreen extends ConsumerWidget {
       state: state,
       reveal: args.origin == ReadingViewOrigin.fresh,
       artSet: ref.watch(deckArtSetProvider).value ?? CardArt.defaultArtSet,
-      onDone: () => context.go(RoutePaths.home),
+      onDone: () => ReadingResultBackScope.close(context),
       onOpenDisclaimer: () => context.push(RoutePaths.legal('disclaimer')),
       onRate: (rating, reason) =>
           unawaited(controller.rate(rating, reason: reason)),
