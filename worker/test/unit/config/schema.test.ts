@@ -351,7 +351,7 @@ describe('RuntimeConfig', () => {
     expect(merged.version).toBe(7);
     expect(merged.serverVersion).toBe(3);
     expect(merged['rl.install.perMinute']).toBe(60);
-    expect(DEFAULT_RUNTIME_CONFIG['app.minVersion.ios']).toBe('1.0.0');
+    expect(DEFAULT_RUNTIME_CONFIG['app.minVersion.ios']).toBe('0.1.0');
   });
 
   it('projects the public document back out (no server key leaks)', () => {

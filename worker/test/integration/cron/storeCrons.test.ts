@@ -6,10 +6,10 @@ import { LedgerRepo } from '../../../src/repos/LedgerRepo';
 import { PENDING_ACK_PREFIX, PendingAckRepo } from '../../../src/repos/PendingAckRepo';
 import { PurchaseRepo, type PurchaseRow } from '../../../src/repos/PurchaseRepo';
 import {
-  CRON,
+  JOB_GROUP,
   DEFAULT_BATCH_LIMITS,
   retryPendingAcks,
-  runScheduled,
+  runJobs,
   voidedPurchasesBackstop,
 } from '../../../src/scheduled';
 import { PurchaseService, type VerifyGranted } from '../../../src/services/PurchaseService';
@@ -154,9 +154,9 @@ describe('voidedPurchasesBackstop (daily, 03 §6.4)', () => {
   it('a store failure fails the job (logged by runScheduled), nothing revoked', async () => {
     const h = harness();
     h.playDeveloper.failure = 'unavailable';
-    await runScheduled(h.deps, CRON.daily);
+    await runJobs(h.deps, JOB_GROUP.daily);
     expect(h.logger.find('cron_job_failed').map((e) => e.fields)).toEqual([
-      { cron: CRON.daily, job: 'voidedPurchasesBackstop', error: 'Error' },
+      { group: JOB_GROUP.daily, job: 'voidedPurchasesBackstop', error: 'Error' },
     ]);
   });
 });
@@ -177,7 +177,7 @@ describe('retryPendingAcks (hourly, RC10)', () => {
     ]);
 
     h.playDeveloper.ackFails = false;
-    await runScheduled(h.deps, CRON.hourly);
+    await runJobs(h.deps, JOB_GROUP.hourly);
     const job = h.logger
       .find('cron_job')
       .map((e) => e.fields)

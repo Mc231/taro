@@ -69,9 +69,10 @@ name = "RL_READINGS"
 namespace_id = "1002"
 simple = { limit = 6, period = 60 }
 
-# Cron triggers (03 §12; jobs in src/scheduled.ts CRON_JOBS).
+# One cron trigger (03 §12; Workers Free: 5 per account). Hourly and nightly
+# job groups ride on it by scheduledTime (src/scheduled.ts groupsDue).
 [env.dev.triggers]
-crons = ["*/15 * * * *", "7 * * * *", "30 3 * * *"]
+crons = ["*/15 * * * *"]
 
 # ---------------------------------------------------------------------------
 # staging — taro-api-staging (api-staging.taro.vshyrochuk.com)
@@ -117,9 +118,10 @@ name = "RL_READINGS"
 namespace_id = "2002"
 simple = { limit = 6, period = 60 }
 
-# Cron triggers (03 §12; jobs in src/scheduled.ts CRON_JOBS).
+# One cron trigger (03 §12; Workers Free: 5 per account). Hourly and nightly
+# job groups ride on it by scheduledTime (src/scheduled.ts groupsDue).
 [env.staging.triggers]
-crons = ["*/15 * * * *", "7 * * * *", "30 3 * * *"]
+crons = ["*/15 * * * *"]
 
 # ---------------------------------------------------------------------------
 # prod — taro-api (api.taro.vshyrochuk.com). NO test-only vars here (RC86).
@@ -163,6 +165,7 @@ name = "RL_READINGS"
 namespace_id = "3002"
 simple = { limit = 6, period = 60 }
 
-# Cron triggers (03 §12; jobs in src/scheduled.ts CRON_JOBS).
+# One cron trigger (03 §12; Workers Free: 5 per account). Hourly and nightly
+# job groups ride on it by scheduledTime (src/scheduled.ts groupsDue).
 [env.prod.triggers]
-crons = ["*/15 * * * *", "7 * * * *", "30 3 * * *"]
+crons = ["*/15 * * * *"]

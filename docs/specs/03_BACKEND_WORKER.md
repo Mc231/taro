@@ -136,7 +136,7 @@ worker/
 
 **Generated inputs (RC25, RC26, RC95).** The Worker never owns deck or crisis content. `tools/content build` (01 §11) compiles `apps/taro/content/source/**` YAML into the app assets (`apps/taro/assets/deck/`) and into `worker/src/generated/deck/{cards,spreads}.json`, `worker/src/generated/deck_prompt.{locale}.json` and `worker/src/generated/crisis_resources.json` (from `apps/taro/content/source/crisis/crisis_resources.yaml`). It is the only generator. `tools/sync_deck` is only a parity check that fails CI when the Worker copy differs from the app copy.
 
-`wrangler.toml` essentials: `compatibility_date` pinned (bumped deliberately), `compatibility_flags = ["nodejs_compat"]`, `[vars] ENVIRONMENT` (`dev|staging|prod`), and in `[env.dev]` / `[env.staging]` only: `ALLOW_DEBUG_ATTESTATION = "true"` and `AI_PROVIDER` (`fake` in dev forces `FakeAiProvider`; the staging value `anthropic` is dropped in Phase 8, when routing comes from `ai.provider.*`, RC97). `makeProdDeps(env)` throws at startup if either var is set while `ENVIRONMENT == "prod"` (BE20). Bindings `DB` (D1), `CONFIG_KV`, `RL_KV`, `CACHE_KV`, `METRICS` (Analytics Engine dataset `taro_api_events`), `RL_BURST` / `RL_READINGS` (Workers Rate Limiting bindings), cron triggers (§12).
+`wrangler.toml` essentials: `compatibility_date` pinned (bumped deliberately), `compatibility_flags = ["nodejs_compat"]`, `[vars] ENVIRONMENT` (`dev|staging|prod`), and in `[env.dev]` / `[env.staging]` only: `ALLOW_DEBUG_ATTESTATION = "true"` and `AI_PROVIDER` (`fake` in dev forces `FakeAiProvider`; the staging value `anthropic` is dropped in Phase 8, when routing comes from `ai.provider.*`, RC97). `makeProdDeps(env)` throws at startup if either var is set while `ENVIRONMENT == "prod"` (BE20). Bindings `DB` (D1), `CONFIG_KV`, `RL_KV`, `CACHE_KV`, `METRICS` (Analytics Engine dataset `taro_api_events`), `RL_BURST` / `RL_READINGS` (Workers Rate Limiting bindings), one cron trigger `*/15 * * * *` (§12).
 
 **Composition rule:** `routes → services → (domain, repos, ports)`. Routes never touch D1 or `fetch`. `buildApp(deps)` takes every port, so tests build the app with fakes and production uses `makeProdDeps(env)`. `buildApp`, `Deps` and the `AiProvider` port are the canonical composition names for every spec (RC38).
 
@@ -906,8 +906,8 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC29, RC45, RC62, RC64, RC73, RC82, RC9
 | `store.showPerReadingPrice` | `true` | per-reading price line on packs (04 §11) | client |
 | `ai.consentVersion` | `2` | integer; `X-Taro-AI-Consent` below it → `412 AI_CONSENT_REQUIRED` (RC21, RC28). 2 since 2026-10-01: the consent copy names only OpenAI (RC97 OpenAI-only at launch), so every user re-consents | Worker + client |
 | `ai.questionMaxChars` | `300` | 300 **grapheme clusters** after NFC + trim (RC45); the client counter mirrors it | Worker + client |
-| `app.minVersion.ios` / `.android` | `"1.0.0"` | `426 UPGRADE_REQUIRED` below | Worker + client |
-| `app.recommendedVersion.ios` / `.android` | `"1.0.0"` | dismissible S05 `updateAvailable` notice, once per version (RC73) | client |
+| `app.minVersion.ios` / `.android` | `"0.1.0"` (pre-1.0 beta) | `426 UPGRADE_REQUIRED` below. The client's built-in default is `"0.0.0"`: only a served config forces an update (Reconciled by 00_DECISIONS.md RC98) | Worker + client |
+| `app.recommendedVersion.ios` / `.android` | `"0.1.0"` (pre-1.0 beta; client built-in `"0.0.0"`, RC98) | dismissible S05 `updateAvailable` notice, once per version (RC73) | client |
 | `balance.staleAfterSec` | `300` | 30–3600; the client treats its cached balance as stale after this | client |
 | `balance.resumeSyncThrottleSec` | `30` | 0–600; the client skips a resume sync if the last success is newer than this, the local date is unchanged and `now < free.resetsAt` (02 §9.2, 04 §6.5) | client |
 | `review.promptAfterPositiveReadings` | `3` | 1–20; in-app review after the Nth positively rated AI reading (01) | client |
@@ -1317,12 +1317,15 @@ Rotation:
 
 ## 12. Cron triggers (`scheduled`)
 
-| Cron (UTC) | Job |
-|---|---|
-| `*/15 * * * *` | `BudgetService.check` → tier alerts; `releaseExpiredHolds` + `refundStaleHolds` (§9.1, RC52); expire `ad_rewards` past `expires_at`; `AlertService.check` (§14.1) |
-| `7 * * * *` | `refundUndeliveredReadings` (§9.1, RC51); purge `idempotency_keys` and `used_challenges` past expiry; retry pending Google acknowledgements |
-| `30 3 * * *` | Google Voided Purchases backstop; retention purge (§13, including `reading_reports` past `expires_at`); daily metrics summary to `ALERT_WEBHOOK_URL` |
+Each environment declares **one** cron trigger, `*/15 * * * *` (Workers Free allows 5 per account; owner decision 2026-10-04, 00_DECISIONS "Single cron trigger per environment"). The handler picks the job groups from `controller.scheduledTime` (UTC), so each group still runs at its own cadence:
 
+| Group | Runs when `scheduledTime` (UTC) is | Job |
+|---|---|---|
+| quarter-hourly | every run | `BudgetService.check` → tier alerts; `releaseExpiredHolds` + `refundStaleHolds` (§9.1, RC52); expire `ad_rewards` past `expires_at`; `AlertService.check` (§14.1) |
+| hourly | minute 0–14 of each hour (the :00 run) | `refundUndeliveredReadings` (§9.1, RC51); purge `idempotency_keys` and `used_challenges` past expiry; retry pending Google acknowledgements |
+| nightly | in [03:30, 03:45) (the 03:30 run) | Google Voided Purchases backstop; retention purge (§13, including `reading_reports` past `expires_at`); daily metrics summary to `ALERT_WEBHOOK_URL` |
+
+A run does the quarter-hourly jobs first, then the hourly or nightly ones.
 Every job is idempotent and bounded (batched `LIMIT 500` loops) to stay inside CPU limits.
 
 ---

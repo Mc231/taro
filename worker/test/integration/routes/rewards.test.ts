@@ -8,7 +8,7 @@ import { InstallRepo } from '../../../src/repos/InstallRepo';
 import { LedgerRepo } from '../../../src/repos/LedgerRepo';
 import { RewardRepo } from '../../../src/repos/RewardRepo';
 import { WebhookEventRepo } from '../../../src/repos/WebhookEventRepo';
-import { CRON, runScheduled } from '../../../src/scheduled';
+import { JOB_GROUP, runJobs } from '../../../src/scheduled';
 import type { RewardIntentDto } from '../../../src/services/RewardService';
 import { FakeAdmobKeyProvider } from '../../fakes/FakeAdmobKeyProvider';
 import { SeqIdGenerator } from '../../fakes/SeqIdGenerator';
@@ -621,7 +621,7 @@ describe('expireRewardIntents cron (03 §12)', () => {
     const intent = await intentOk(ctx, c);
     const version = await stateVersion(c.installId);
     ctx.h.clock.advance({ seconds: 901 });
-    await runScheduled(ctx.h.deps, CRON.quarterHourly);
+    await runJobs(ctx.h.deps, JOB_GROUP.quarterHourly);
     expect((await rewardRow(intent.intentId)).status).toBe('expired');
     expect(await stateVersion(c.installId)).toBe(version + 1);
     expect(ctx.h.logger.find('cron_job')).toContainEqual(

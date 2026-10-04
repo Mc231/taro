@@ -84,10 +84,10 @@ void main() {
       expect(d.storeShowPerReadingPrice, isTrue);
       expect(d.aiConsentVersion, 2);
       expect(d.aiQuestionMaxChars, 300);
-      expect(d.appMinVersionIos, '1.0.0');
-      expect(d.appMinVersionAndroid, '1.0.0');
-      expect(d.appRecommendedVersionIos, '1.0.0');
-      expect(d.appRecommendedVersionAndroid, '1.0.0');
+      expect(d.appMinVersionIos, '0.0.0');
+      expect(d.appMinVersionAndroid, '0.0.0');
+      expect(d.appRecommendedVersionIos, '0.0.0');
+      expect(d.appRecommendedVersionAndroid, '0.0.0');
       expect(d.balanceStaleAfterSec, 300);
       expect(d.balanceResumeSyncThrottleSec, 30);
       expect(d.reviewPromptAfterPositiveReadings, 3);

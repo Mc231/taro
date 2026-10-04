@@ -345,7 +345,7 @@ Owner: 03 §1, §2.4, §8.1, §11.
 | `staging` | `taro-api-staging` | `taro-staging` | Anthropic workspace + OpenAI project `taro-staging` | `api-staging.taro.vshyrochuk.com` |
 | `prod` | `taro-api` | `taro-prod` | Anthropic workspace + OpenAI project `taro-prod` | `api.taro.vshyrochuk.com` |
 
-Cron triggers (03 §12): `*/15 * * * *` (`BudgetService.check`, `releaseExpiredHolds`, `refundStaleHolds`, intent expiry, `AlertService.check`), `7 * * * *` (`refundUndeliveredReadings`, idempotency and challenge purges, pending Google acknowledgements), `30 3 * * *` (Voided Purchases backstop, retention purge, daily summary).
+Cron trigger (03 §12): one per environment, `*/15 * * * *` (`CRON_TRIGGER`); `groupsDue(scheduledTime)` picks the job groups (`JOB_GROUP`): `quarterHourly` every run (`BudgetService.check`, `releaseExpiredHolds`, `refundStaleHolds`, intent expiry, `AlertService.check`), `hourly` on the run in minute 0–14 UTC (`refundUndeliveredReadings`, idempotency and challenge purges, pending Google acknowledgements), `daily` on the run in [03:30, 03:45) UTC (Voided Purchases backstop, retention purge, daily summary).
 
 ## 7. drift tables (client)
 
@@ -409,8 +409,8 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `store.showPerReadingPrice` | bool | `true` | — | client |
 | `ai.consentVersion` | int | `2` | integer | Worker + client |
 | `ai.questionMaxChars` | int | `300` | grapheme clusters after NFC + trim (RC45) | Worker + client |
-| `app.minVersion.ios`, `app.minVersion.android` | string | `"1.0.0"` | below → `426 UPGRADE_REQUIRED` | Worker + client |
-| `app.recommendedVersion.ios`, `app.recommendedVersion.android` | string | `"1.0.0"` | S05 `updateAvailable` (RC73) | client |
+| `app.minVersion.ios`, `app.minVersion.android` | string | `"0.1.0"` (client built-in `"0.0.0"`, RC98) | below → `426 UPGRADE_REQUIRED` | Worker + client |
+| `app.recommendedVersion.ios`, `app.recommendedVersion.android` | string | `"0.1.0"` (client built-in `"0.0.0"`, RC98) | S05 `updateAvailable` (RC73) | client |
 | `balance.staleAfterSec` | int | `300` | 30–3600 | client |
 | `balance.resumeSyncThrottleSec` | int | `30` | 0–600 | client |
 | `review.promptAfterPositiveReadings` | int | `3` | 1–20 | client |

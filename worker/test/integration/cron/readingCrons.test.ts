@@ -6,7 +6,7 @@ import {
 import { describe, expect, it } from 'vitest';
 import worker from '../../../src/index';
 import { ReadingRepo } from '../../../src/repos/ReadingRepo';
-import { CRON } from '../../../src/scheduled';
+import { CRON_TRIGGER } from '../../../src/scheduled';
 import { bindings, createHarness } from '../../fakes/testDeps';
 import { db, seedInstall } from '../../helpers/db';
 import { ReadingDriver } from '../../helpers/readingDriver';
@@ -19,9 +19,13 @@ import { ReadingDriver } from '../../helpers/readingDriver';
  */
 const PAST = '2001-01-01T10:00:00.000Z';
 
-async function trigger(cron: string): Promise<void> {
+/** Scheduled instants of the single trigger: a :15 run (15-minute jobs only) and a :00 run (+ hourly). */
+const QUARTER_RUN = Date.UTC(2026, 0, 1, 10, 15);
+const HOURLY_RUN = Date.UTC(2026, 0, 1, 11, 0);
+
+async function trigger(scheduledTime: number): Promise<void> {
   const ctx = createExecutionContext();
-  worker.scheduled(createScheduledController({ cron, scheduledTime: Date.now() }), bindings, ctx);
+  worker.scheduled(createScheduledController({ cron: CRON_TRIGGER, scheduledTime }), bindings, ctx);
   await waitOnExecutionContext(ctx);
 }
 
@@ -41,7 +45,7 @@ describe('reading crons via scheduled()', () => {
     await driver.commit(undelivered.readingId);
     expect(await driver.balances(id)).toEqual({ paid: 1, bonus: 0 });
 
-    await trigger(CRON.quarterHourly);
+    await trigger(QUARTER_RUN);
     expect(await driver.reading(expired.readingId)).toMatchObject({
       status: 'expired_hold',
       holdState: 'refunded',
@@ -52,8 +56,8 @@ describe('reading crons via scheduled()', () => {
       errorCode: 'abandoned',
     });
 
-    await trigger(CRON.hourly);
-    await trigger(CRON.hourly);
+    await trigger(HOURLY_RUN);
+    await trigger(HOURLY_RUN);
     expect((await driver.reading(undelivered.readingId))?.status).toBe('expired_refunded');
     // Two holds refunded (the first took the free reading) and one undelivered, each once.
     expect(await driver.balances(id)).toEqual({ paid: 3, bonus: 0 });

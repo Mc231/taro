@@ -182,6 +182,31 @@ void main() {
       expect(c.read(updateAvailableProvider), isTrue);
     });
 
+    test(
+      'built-in defaults never require an update (regression: 0.1.0 beta)',
+      () {
+        for (final platform in AppPlatform.values) {
+          for (final version in ['0.0.1', '0.1.0', '0.1.0+1', '1.0.0']) {
+            fakes
+              ..appInfo = FakeAppInfo(version: version, platform: platform)
+              ..config.current = RemoteConfig.defaults;
+            final c = fakes.container();
+            addTearDown(c.dispose);
+            expect(
+              c.read(updateRequiredProvider),
+              isFalse,
+              reason: '$platform $version',
+            );
+            expect(
+              c.read(updateAvailableProvider),
+              isFalse,
+              reason: '$platform $version',
+            );
+          }
+        }
+      },
+    );
+
     test('compareVersions', () {
       expect(compareVersions('1.2.3', '1.2.3'), 0);
       expect(compareVersions('1.2.3+45', '1.2.3'), 0);

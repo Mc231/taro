@@ -88,6 +88,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- The TestFlight build 0.1.0 no longer shows S30 Update required while offline: the built-in `RemoteConfig` defaults for `app.minVersion.*` and `app.recommendedVersion.*` are now `0.0.0` (were `1.0.0`), so only a served config can force or suggest an update (RC98). Contract fixtures resynced.
 - Apple team ID: the app, `Taro.storekit` and the AASA file now use `M3FHKUJ7Z3`, the team that owns the Taro bundle IDs, the distribution certificate and the App Store Connect app (was `9QX258UF65`).
 - `tools/store_copy/check_store_copy.py` now mirrors the Worker's Arabic L3 matching. Harakat, tatweel and alef forms are normalised, and Arabic phrases match after the proclitics و/ف and ب/ل/ك, so "حتماً" and "وحتما" are flagged and "الاحتمال" is not. Every `certainty_exemptions.yaml` span is still needed, so none was removed.
 - Large text (01 §12): `JournalEntryTile` (S05 Recent, S14) stacks its card thumbs and indicators above the title above 1.5× text and no longer cuts the title ("A season of rebuilding" was clipped at 200 %); the `TaroCardFace` "Reversed" badge shrinks to fit the card instead of being cut to "Rev…" (S09, S13, S32). Goldens `journal_entry_tile` x2, `s09_reading_content` and `s32_classic_content` x2 regenerated.

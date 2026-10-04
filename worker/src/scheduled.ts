@@ -16,19 +16,52 @@ import { UNDELIVERED_AFTER_MS } from './services/ReadingService';
 import { WebhookService } from './services/WebhookService';
 
 /**
- * Cron triggers (03 §12, GLOSSARY §6.1). The expressions must equal
- * `[env.*.triggers] crons` in `wrangler.toml` (a test compares them).
+ * The one cron trigger (03 §12, GLOSSARY §6.1; Workers Free allows 5 crons per
+ * account, so each env declares a single 15-minute cron). It must equal
+ * `[env.*.triggers] crons` in `wrangler.toml` (a test compares them). The
+ * hourly and nightly job groups ride on it, chosen by `scheduledTime`
+ * (`groupsDue`).
  */
-export const CRON = {
-  /** Budget tiers, stale holds, intent expiry, `AlertService.check` (Phase 7/8). */
-  quarterHourly: '*/15 * * * *',
-  /** Undelivered-reading refunds (Phase 8), idempotency + challenge purge, Google acks (Phase 7). */
-  hourly: '7 * * * *',
-  /** Voided Purchases backstop (Phase 7), retention purge, daily summary (Phase 8). */
-  daily: '30 3 * * *',
+export const CRON_TRIGGER = '*/15 * * * *';
+
+/** Job groups of the single trigger (03 §12). */
+export const JOB_GROUP = {
+  /** Every run: budget tiers, stale holds, intent expiry, `AlertService.check` (Phase 7/8). */
+  quarterHourly: 'quarterHourly',
+  /** Run in minute 0–14 of each UTC hour: undelivered refunds, idempotency + challenge purge, Google acks. */
+  hourly: 'hourly',
+  /** Run in [03:30, 03:45) UTC: Voided Purchases backstop, retention purge, daily summary (Phase 8). */
+  daily: 'daily',
 } as const;
 
-export type CronExpression = (typeof CRON)[keyof typeof CRON];
+export type JobGroup = (typeof JOB_GROUP)[keyof typeof JOB_GROUP];
+
+const QUARTER_MINUTES = 15;
+const NIGHTLY_HOUR_UTC = 3;
+const NIGHTLY_MINUTE_UTC = 30;
+
+/**
+ * The groups due for a run scheduled at `scheduledTime` (epoch ms; Cloudflare
+ * passes the cron's scheduled instant, not the start time). Each 15-minute
+ * window holds exactly one run, so the hourly group runs once per hour (the
+ * :00 run) and the nightly group once per day (the 03:30 UTC run).
+ */
+export function groupsDue(scheduledTime: number): JobGroup[] {
+  const at = new Date(scheduledTime);
+  const minute = at.getUTCMinutes();
+  const groups: JobGroup[] = [JOB_GROUP.quarterHourly];
+  if (minute < QUARTER_MINUTES) {
+    groups.push(JOB_GROUP.hourly);
+  }
+  if (
+    at.getUTCHours() === NIGHTLY_HOUR_UTC &&
+    minute >= NIGHTLY_MINUTE_UTC &&
+    minute < NIGHTLY_MINUTE_UTC + QUARTER_MINUTES
+  ) {
+    groups.push(JOB_GROUP.daily);
+  }
+  return groups;
+}
 
 /** Rows per bounded batch and batches per job run (03 §12: `LIMIT 500` loops within CPU limits). */
 export interface BatchLimits {
@@ -269,55 +302,67 @@ export const RETENTION_JOBS: readonly CronJob[] = [
  * Phase 8 `BudgetService.check`, `AlertService.check`,
  * `refundUndeliveredReadings`, the retention purge and the daily summary.
  */
-export const CRON_JOBS: Readonly<Record<CronExpression, readonly CronJob[]>> = {
-  [CRON.quarterHourly]: [
+export const CRON_JOBS: Readonly<Record<JobGroup, readonly CronJob[]>> = {
+  [JOB_GROUP.quarterHourly]: [
     releaseExpiredHolds,
     refundStaleHolds,
     expireRewardIntents,
     budgetCheck,
     alertCheck,
   ],
-  [CRON.hourly]: [
+  [JOB_GROUP.hourly]: [
     refundUndeliveredReadings,
     purgeIdempotencyKeys,
     purgeUsedChallenges,
     retryPendingAcks,
   ],
-  [CRON.daily]: [voidedPurchasesBackstop, ...RETENTION_JOBS],
+  [JOB_GROUP.daily]: [voidedPurchasesBackstop, ...RETENTION_JOBS],
 };
 
-function isCron(cron: string): cron is CronExpression {
-  return Object.values<string>(CRON).includes(cron);
-}
-
 /**
- * `scheduled()` (03 §12): runs the jobs of `cron` one after another. A job
- * that throws is logged and does not stop the others; each job is
- * idempotent, so the next run retries it.
+ * `scheduled()` (03 §12): every group `groupsDue(scheduledTime)` names, in
+ * order quarter-hourly, hourly, nightly. Any other cron is logged and ignored.
  */
 export async function runScheduled(
   deps: Deps,
   cron: string,
-  jobs: Readonly<Record<CronExpression, readonly CronJob[]>> = CRON_JOBS,
+  scheduledTime: number,
+  jobs: Readonly<Record<JobGroup, readonly CronJob[]>> = CRON_JOBS,
   limits: BatchLimits = DEFAULT_BATCH_LIMITS,
 ): Promise<void> {
-  if (!isCron(cron)) {
+  if (cron !== CRON_TRIGGER) {
     deps.logger.log('warn', 'cron_unknown', { cron });
     return;
   }
-  for (const job of jobs[cron]) {
+  for (const group of groupsDue(scheduledTime)) {
+    await runJobs(deps, group, jobs, limits);
+  }
+}
+
+/**
+ * Runs the jobs of `group` one after another. A job that throws is logged
+ * and does not stop the others; each job is idempotent, so the next run
+ * retries it.
+ */
+export async function runJobs(
+  deps: Deps,
+  group: JobGroup,
+  jobs: Readonly<Record<JobGroup, readonly CronJob[]>> = CRON_JOBS,
+  limits: BatchLimits = DEFAULT_BATCH_LIMITS,
+): Promise<void> {
+  for (const job of jobs[group]) {
     const started = deps.clock.now();
     try {
       const count = await job.run(deps, started, limits);
       deps.logger.log('info', 'cron_job', {
-        cron,
+        group,
         job: job.name,
         count,
         latencyMs: deps.clock.now().getTime() - started.getTime(),
       });
     } catch (err) {
       deps.logger.log('error', 'cron_job_failed', {
-        cron,
+        group,
         job: job.name,
         error: err instanceof Error ? err.name : 'unknown',
       });

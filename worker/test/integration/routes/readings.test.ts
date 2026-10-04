@@ -9,7 +9,7 @@ import { ReadingRepo } from '../../../src/repos/ReadingRepo';
 import { SpendRepo } from '../../../src/repos/SpendRepo';
 import { BudgetService } from '../../../src/services/BudgetService';
 import { READINGS_ROUTE, type ReadingResponse } from '../../../src/services/ReadingService';
-import { CRON, runScheduled } from '../../../src/scheduled';
+import { JOB_GROUP, runJobs } from '../../../src/scheduled';
 import type { CapturingLogger } from '../../fakes/CapturingLogger';
 import { FAKE_USAGE, fakeReading } from '../../fakes/FakeAiProvider';
 import { db, seedInstall } from '../../helpers/db';
@@ -660,7 +660,7 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     const first = crid();
     expect((await postHold(h, id, first)).status).toBe(201);
     h.clock.advance({ minutes: 16 });
-    await runScheduled(h.deps, CRON.quarterHourly);
+    await runJobs(h.deps, JOB_GROUP.quarterHourly);
     expect((await readings.findByClientId(id, first))?.status).toBe('expired_hold');
     expect(h.metrics.points).toContainEqual(
       expect.objectContaining({ event: 'hold_abandoned', chargeSource: 'free' }),
@@ -724,8 +724,8 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     expect((await errorBody(hold)).code).toBe('REQUEST_IN_PROGRESS');
 
     h.clock.advance({ seconds: 121 });
-    await runScheduled(h.deps, CRON.quarterHourly);
-    await runScheduled(h.deps, CRON.quarterHourly);
+    await runJobs(h.deps, JOB_GROUP.quarterHourly);
+    await runJobs(h.deps, JOB_GROUP.quarterHourly);
     expect(await readings.findByClientId(id, readingId)).toMatchObject({
       status: 'failed',
       errorCode: 'abandoned',
@@ -747,7 +747,7 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     h.ai.openai.generate = async (request) => {
       const start = h.clock.now();
       h.clock.advance({ seconds: 200 });
-      await runScheduled(h.deps, CRON.quarterHourly);
+      await runJobs(h.deps, JOB_GROUP.quarterHourly);
       h.clock.set(start);
       return generate(request);
     };
@@ -781,7 +781,7 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
 
     const second = await json<{ status: string }>(await getReading(h, id, readingId));
     expect(second.status).toBe('expired_refunded');
-    await runScheduled(h.deps, CRON.hourly);
+    await runJobs(h.deps, JOB_GROUP.hourly);
     expect(await driver.balances(id)).toEqual({ paid: 1, bonus: 0 });
     const undelivered = (await driver.entries(id)).filter(
       (e) => e.reason === 'reading_undelivered',
@@ -804,8 +804,8 @@ describe('the row state machine (03 §9.1 step 2; RC49–RC52)', () => {
     expect((await postReading(h, id, lost)).status).toBe(200);
     expect((await ackReading(h, id, kept)).status).toBe(204);
     h.clock.advance({ days: 7, hours: 1 });
-    await runScheduled(h.deps, CRON.hourly);
-    await runScheduled(h.deps, CRON.hourly);
+    await runJobs(h.deps, JOB_GROUP.hourly);
+    await runJobs(h.deps, JOB_GROUP.hourly);
     expect((await readings.findByClientId(id, lost))?.status).toBe('expired_refunded');
     expect((await readings.findByClientId(id, kept))?.status).toBe('completed');
     expect(await driver.balances(id)).toEqual({ paid: 1, bonus: 0 });

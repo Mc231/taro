@@ -1,5 +1,7 @@
 import { exports } from 'cloudflare:workers';
 import { describe, expect, it } from 'vitest';
+import { DEFAULT_RUNTIME_CONFIG } from '../../../src/config/defaults';
+import { compareAppVersions, parseAppVersion } from '../../../src/domain/appVersion';
 import { ApiError } from '../../../src/http/errors';
 import { idempotency } from '../../../src/http/middleware/idempotency';
 import { rateLimit } from '../../../src/http/middleware/rateLimit';
@@ -93,8 +95,15 @@ describe('middleware pipeline', () => {
   });
 
   it('serves 426 before any route work through the Worker entrypoint', async () => {
+    // An app version explicitly below the configured iOS minimum.
+    const belowMinimum = '0.0.1';
+    const minimum = parseAppVersion(DEFAULT_RUNTIME_CONFIG['app.minVersion.ios']);
+    const current = parseAppVersion(belowMinimum);
+    if (minimum === undefined || current === undefined) throw new Error('unparsable version');
+    expect(compareAppVersions(current, minimum)).toBeLessThan(0);
+
     const res = await exports.default.fetch('http://localhost/v1/balance', {
-      headers: { ...APP_HEADERS, 'X-Taro-App-Version': '0.9.0+1' },
+      headers: { ...APP_HEADERS, 'X-Taro-App-Version': `${belowMinimum}+1` },
     });
 
     expect(res.status).toBe(426);

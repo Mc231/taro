@@ -220,8 +220,10 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
      I/O goes through the Node side). `npm run contract:update` rewrites them; in CI (`CI=true`) a missing
      or changed fixture fails. `openapi/` and `test/contract/fixtures/` are Prettier-ignored (their bytes
      are the contract). `melos run contract:sync` → `apps/taro/test/contract/fixtures/`.
-   - **Cron:** `src/scheduled.ts` (`CRON`, `CRON_JOBS`, bounded `drain` loops) and `[env.*.triggers]` in
-     `wrangler.toml`; a test keeps both in sync.
+   - **Cron:** one trigger per env, `*/15 * * * *` (Workers Free: 5 crons per account; 00_DECISIONS
+     2026-10-04). `src/scheduled.ts`: `CRON_TRIGGER`, `groupsDue(scheduledTime)` (hourly group on the
+     :00 run, nightly on the 03:30 UTC run), `CRON_JOBS` per `JOB_GROUP`, `runJobs`, bounded `drain`
+     loops; `[env.*.triggers]` in `wrangler.toml`, a test keeps both in sync.
    - **Deploy:** `.gitea/workflows/worker-deploy.yml` (see its header). It skips with a warning while
      `CLOUDFLARE_API_TOKEN` is absent or `wrangler.toml` still holds placeholder IDs, so it can live on
      `main` before Sprint 6.0. The staging smoke step reads `worker.staging_debug_attestation_token` from

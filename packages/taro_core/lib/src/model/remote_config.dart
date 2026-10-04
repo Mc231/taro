@@ -264,16 +264,16 @@ abstract class RemoteConfig with _$RemoteConfig {
     @Default(300) int aiQuestionMaxChars,
 
     /// `app.minVersion.ios`.
-    @Default('1.0.0') String appMinVersionIos,
+    @Default('0.0.0') String appMinVersionIos,
 
     /// `app.minVersion.android`.
-    @Default('1.0.0') String appMinVersionAndroid,
+    @Default('0.0.0') String appMinVersionAndroid,
 
     /// `app.recommendedVersion.ios`.
-    @Default('1.0.0') String appRecommendedVersionIos,
+    @Default('0.0.0') String appRecommendedVersionIos,
 
     /// `app.recommendedVersion.android`.
-    @Default('1.0.0') String appRecommendedVersionAndroid,
+    @Default('0.0.0') String appRecommendedVersionAndroid,
 
     /// `balance.staleAfterSec`, 30–3600.
     @Default(300) int balanceStaleAfterSec,

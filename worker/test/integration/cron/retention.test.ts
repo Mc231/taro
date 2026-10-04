@@ -9,7 +9,13 @@ import { InstallRepo } from '../../../src/repos/InstallRepo';
 import { LedgerRepo } from '../../../src/repos/LedgerRepo';
 import { ReportRepo } from '../../../src/repos/ReportRepo';
 import { RewardRepo } from '../../../src/repos/RewardRepo';
-import { CRON, CRON_JOBS, RETENTION_JOBS, runScheduled } from '../../../src/scheduled';
+import {
+  CRON_JOBS,
+  CRON_TRIGGER,
+  JOB_GROUP,
+  RETENTION_JOBS,
+  runJobs,
+} from '../../../src/scheduled';
 import { bindings, createHarness, uniqueId } from '../../fakes/testDeps';
 import { db, seedInstall, seedReading } from '../../helpers/db';
 import { ReadingDriver } from '../../helpers/readingDriver';
@@ -87,7 +93,7 @@ async function usageRows(installId: string): Promise<string[]> {
 
 describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)', () => {
   it('registers the retention jobs on the daily trigger, reports before readings', () => {
-    const names = CRON_JOBS[CRON.daily].map((job) => job.name);
+    const names = CRON_JOBS[JOB_GROUP.daily].map((job) => job.name);
     expect(names).toEqual(expect.arrayContaining(RETENTION_JOBS.map((job) => job.name)));
     expect(RETENTION_JOBS.map((job) => job.name)).toEqual([
       'purgeReadingReports',
@@ -97,7 +103,7 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
       'purgeDeviceUsage',
       'pseudonymiseInactiveInstalls',
     ]);
-    expect(CRON_JOBS[CRON.quarterHourly].map((job) => job.name)).toEqual(
+    expect(CRON_JOBS[JOB_GROUP.quarterHourly].map((job) => job.name)).toEqual(
       expect.arrayContaining(['budgetCheck', 'alertCheck']),
     );
   });
@@ -127,10 +133,10 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
     await seedUsage(id, '2026-07-01', `dk-${id}`);
     await seedUsage(id, '2026-07-02', `dk-${id}`);
 
-    await runScheduled(h.deps, CRON.daily, {
-      [CRON.quarterHourly]: [],
-      [CRON.hourly]: [],
-      [CRON.daily]: RETENTION_JOBS,
+    await runJobs(h.deps, JOB_GROUP.daily, {
+      [JOB_GROUP.quarterHourly]: [],
+      [JOB_GROUP.hourly]: [],
+      [JOB_GROUP.daily]: RETENTION_JOBS,
     });
 
     expect(await exists('reading_reports', 'id', expiredReport)).toBe(false);
@@ -184,10 +190,10 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
     await seedReading(withRecentReading, { createdAt: '2026-01-01T00:00:00.000Z' });
     const before = await repo.findById(idle);
 
-    await runScheduled(h.deps, CRON.daily, {
-      [CRON.quarterHourly]: [],
-      [CRON.hourly]: [],
-      [CRON.daily]: RETENTION_JOBS,
+    await runJobs(h.deps, JOB_GROUP.daily, {
+      [JOB_GROUP.quarterHourly]: [],
+      [JOB_GROUP.hourly]: [],
+      [JOB_GROUP.daily]: RETENTION_JOBS,
     });
 
     const after = await repo.findById(idle);
@@ -228,7 +234,10 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
     const expired = await seedReport(id, null, uniqueId('crid'), OLD);
     const ctx = createExecutionContext();
     worker.scheduled(
-      createScheduledController({ cron: CRON.daily, scheduledTime: Date.now() }),
+      createScheduledController({
+        cron: CRON_TRIGGER,
+        scheduledTime: Date.UTC(2026, 0, 1, 3, 30),
+      }),
       bindings,
       ctx,
     );
