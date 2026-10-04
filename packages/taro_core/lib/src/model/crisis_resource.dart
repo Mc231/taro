@@ -54,6 +54,16 @@ abstract class CrisisResource with _$CrisisResource {
     return resource;
   }
 
+  /// The `verifiedAt` of an entry the owner has not verified yet
+  /// (`verifiedAt: null` in the bundled source until Phase 18.4, BE Q3).
+  /// The epoch is older than any staleness window, so such entries count
+  /// as stale (03 §9.5 200-day rule); S27 shows no "Last checked" for them
+  /// (R2-03).
+  static final DateTime unverifiedAt = DateTime.utc(1970);
+
+  /// Whether a person has verified this entry (not [unverifiedAt]).
+  bool get isVerified => verifiedAt.isAfter(unverifiedAt);
+
   /// Whether a phone, SMS or URL channel is present.
   bool get hasContact => phone != null || sms != null || url != null;
 

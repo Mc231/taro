@@ -692,6 +692,7 @@
   "crisisEmergency": "Se você estiver em perigo imediato, ligue para {number}",
   "crisisCallNumber": "Ligar para {number}",
   "crisisSupportIn": "Apoio em: {country}",
+  "crisisCountryName": "{country, select, AU{Austrália} BR{Brasil} CA{Canadá} DE{Alemanha} ES{Espanha} FR{França} GB{Reino Unido} IE{Irlanda} IT{Itália} JP{Japão} KR{Coreia do Sul} NL{Países Baixos} PT{Portugal} TR{Turquia} UA{Ucrânia} US{Estados Unidos} other{{country}}}",
   "crisisCall": "Ligar",
   "crisisText": "Mensagem",
   "crisisOpen": "Abrir",

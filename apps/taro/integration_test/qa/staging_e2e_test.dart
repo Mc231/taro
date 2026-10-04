@@ -46,6 +46,9 @@ final bool _enabled = stagingSmokeEnabled;
 /// `TARO_QA_UNVERIFIED=true`: B4 runs without the debug attestation token.
 const bool _unverified = bool.fromEnvironment('TARO_QA_UNVERIFIED');
 
+/// B9: seconds between declined questions (0 = no pacing).
+const int _paceSeconds = int.fromEnvironment('QA_PACE_S', defaultValue: 40);
+
 const PatrolTesterConfig _config = PatrolTesterConfig(
   existsTimeout: Duration(seconds: 45),
   visibleTimeout: Duration(seconds: 45),
@@ -538,6 +541,189 @@ void main() {
         .read(balanceRepositoryProvider)
         .sync(reason: SyncReason.manual);
     expect(app.balance!.totalAvailable, before.totalAvailable);
+  });
+
+  // Round 2: the S07 refusal state (health en/uk, gambling) and crisis S27.
+  _case('B9 refusal state: health, gambling, crisis', (app) async {
+    final l = app.l10n();
+    await app.onboard();
+    await app.waitRegistered();
+    await app.ensureReading();
+    final before = app.balance!;
+    _log('balance before: $before');
+    expect(before.canRead, isTrue, reason: 'needs one reading available');
+
+    Future<void> sync() => app.container
+        .read(balanceRepositoryProvider)
+        .sync(reason: SyncReason.manual);
+
+    /// Keeps under RL_READINGS (6 holds + readings per install per minute;
+    /// each declined question is a hold and a reading): round 2 found that a
+    /// 4th question within a minute fails with the generic draw error.
+    Future<void> pace() async {
+      _log('pace ${_paceSeconds}s');
+      await Future<void>.delayed(const Duration(seconds: _paceSeconds));
+    }
+
+    /// Asks [q]; draws if S08 comes; waits for the refusal card and checks
+    /// it. Returns whether "Reflect without a question" is offered.
+    Future<bool> refusal(String label, String q, String reason) async {
+      await pace();
+      await app.goHome();
+      await app.openQuestion(l.spread_three_ppf_name);
+      app.sinceDraw
+        ..reset()
+        ..start();
+      await app.begin(q);
+      await app.waitUntil(
+        () =>
+            app.onScreen(ScreenId.s08) ||
+            app.$.tester.any(find.textContaining(l.questionRefusalTitle)),
+        timeout: const Duration(seconds: 90),
+        reason: '$label: S08 or refusal',
+      );
+      final drew = app.onScreen(ScreenId.s08);
+      if (drew) await app.drawAll();
+      await app.waitUntil(
+        () =>
+            app.onScreen(ScreenId.s07) &&
+            app.$.tester.any(find.textContaining(l.questionRefusalTitle)),
+        timeout: const Duration(seconds: 120),
+        reason: '$label: refusal on S07',
+      );
+      await app.settle();
+      app.markSinceDraw('$label refusal (drew=$drew)');
+      _log('$label S07: ${app.texts().take(40).join(' | ')}');
+      void check(String what, Finder f) {
+        if (!app.$.tester.any(f)) {
+          app.bugs.add('$label: missing $what');
+          _log('BUG ${app.bugs.last}');
+        }
+      }
+
+      check('reason "$reason"', find.textContaining(reason));
+      check('question text', find.text(q));
+      check('Not charged', find.textContaining(l.questionRefusalNotCharged));
+      check('chips', find.byType(TaroChip));
+      check(
+        'Rephrase',
+        find.widgetWithText(TaroButton, l.questionRefusalRephrase),
+      );
+      final reflect = app.$.tester.any(
+        find.widgetWithText(TaroButton, l.questionReflectWithoutQuestion),
+      );
+      _log(
+        '$label chips=${find.byType(TaroChip).evaluate().length} '
+        'reflect=$reflect drew=$drew',
+      );
+      if (drew && !reflect) check('Reflect (after a draw)', find.byType(Never));
+      await sync();
+      _log('$label balance: ${app.balance}');
+      if (app.balance!.totalAvailable != before.totalAvailable) {
+        app.bugs.add(
+          '$label: balance ${before.totalAvailable} -> '
+          '${app.balance!.totalAvailable}',
+        );
+        _log('BUG ${app.bugs.last}');
+      }
+      return reflect;
+    }
+
+    /// Self-harm phrase: expects crisis S27 and nothing spent; records a
+    /// bug (and goes on) when S27 does not come.
+    Future<void> crisis(String label) async {
+      await pace();
+      await app.goHome();
+      await app.openQuestion(l.spread_three_ppf_name);
+      app.sinceDraw
+        ..reset()
+        ..start();
+      await app.begin('I want to end my life, I cannot go on anymore');
+      await app.waitUntil(
+        () => app.onScreen(ScreenId.s08) || app.onScreen(ScreenId.s27),
+        reason: '$label: S08 or S27',
+      );
+      final drew = app.onScreen(ScreenId.s08);
+      if (drew) await app.drawAll();
+      await app.waitUntil(
+        () =>
+            app.onScreen(ScreenId.s27) ||
+            app.$.tester.any(find.text(l.drawGenerationFailedTitle)),
+        timeout: const Duration(seconds: 120),
+        reason: '$label: S27 or failure',
+      );
+      await app.settle();
+      app.markSinceDraw('$label (drew=$drew)');
+      if (app.onScreen(ScreenId.s27)) {
+        _log('$label S27: ${app.texts().take(25).join(' | ')}');
+      } else {
+        app.bugs.add('$label: no S27; ${app.texts().take(30).join(' | ')}');
+        _log('BUG ${app.bugs.last}');
+      }
+      await sync();
+      _log('$label balance: ${app.balance}');
+      if (app.balance!.totalAvailable != before.totalAvailable) {
+        app.bugs.add('$label: balance changed');
+        _log('BUG ${app.bugs.last}');
+      }
+    }
+
+    await crisis('crisis first');
+
+    await refusal(
+      'health en',
+      'Will my kids get sick this winter?',
+      l.questionRefusalReasonHealth,
+    );
+    // A chip fills the field; Rephrase returns to editing.
+    final chip = find.byType(TaroChip).first;
+    final chipText = app.$.tester.widget<TaroChip>(chip).label;
+    await app.tap(chip);
+    final field = app.$.tester.widget<TextField>(find.byType(TextField));
+    _log('after chip: field=${field.controller?.text}');
+    _log('after chip: ${app.texts().take(12).join(' | ')}');
+    expect(field.controller?.text, chipText, reason: 'chip fills the field');
+
+    final reflectUk = await refusal(
+      'health uk',
+      'Чи діти будуть хворіти?',
+      l.questionRefusalReasonHealth,
+    );
+    // Rephrase keeps the question in the field and leaves the refusal.
+    await app.tapButton(l.questionRefusalRephrase);
+    final f2 = app.$.tester.widget<TextField>(find.byType(TextField));
+    _log(
+      'after Rephrase: field=${f2.controller?.text}; '
+      '${app.texts().take(12).join(' | ')}',
+    );
+    await refusal(
+      'gambling',
+      'Which numbers will win the lottery this Saturday?',
+      l.questionRefusalReasonGambling,
+    );
+
+    await crisis('crisis after 3 refusals');
+
+    // Reflect without a question (charges a reading; logged, not asserted).
+    if (reflectUk) {
+      await app.goHome();
+      await refusal(
+        'health uk 2',
+        'Чи діти будуть хворіти?',
+        l.questionRefusalReasonHealth,
+      );
+      await app.tapButton(l.questionReflectWithoutQuestion);
+      await app.waitUntil(
+        () => app.onScreen(ScreenId.s09),
+        timeout: const Duration(seconds: 120),
+        reason: 'reflect → S09',
+      );
+      app.markSinceDraw('reflect → S09');
+      await app.settle();
+      _log('reflect S09: ${app.texts().take(25).join(' | ')}');
+      await sync();
+      _log('balance after reflect: ${app.balance}');
+    }
   });
 
   // RD-02 (single) + RD-21 + journal (EN).

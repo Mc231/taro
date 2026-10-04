@@ -54,6 +54,14 @@ Notes:
 
 ## AdMob and Firebase
 
+**UMP consent message language (iOS-R2-02).** The app can't choose the language of the Google consent form: the UMP SDK has no language parameter (`UmpConsentService` sends only the debug geography). The form uses the OS language for the app, and only the languages added to the message in AdMob. The in-app language picker doesn't change it. On iOS, users can pick a per-app language in Settings → Taro → Language, because `Info.plist` declares all 12 localizations. Owner steps, before release:
+1. AdMob → Privacy & messaging → GDPR message → Edit → **Languages**: add en, ar, de, es, fr, it, ja, ko, nl, pt, tr, uk. Set the default language to English. Publish.
+2. Do the same for the US state regulations message.
+3. Keep the IDFA explainer message **off** (RC19, 05 M3). The app shows its own neutral pre-prompt after UMP, then ATT.
+4. Check: set the device (not just the app) to Ukrainian, use the UMP debug geography EEA, then fresh-install. The form should be in Ukrainian.
+
+The form's text is Google's template, so the app can't change it. RC59 is the banner-gap rule (`space.adGap` ≥ 16 dp), not consent wording. The consent rules are RC18/RC19: UMP comes first, then the neutral pre-prompt, then ATT, and there is no IDFA explainer.
+
 ## Review notes
 
 ## Rejection response plan

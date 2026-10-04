@@ -692,6 +692,7 @@
   "crisisEmergency": "إذا كنت في خطر مباشر، يُرجى الاتصال بالرقم {number}",
   "crisisCallNumber": "الاتصال بالرقم {number}",
   "crisisSupportIn": "الدعم في {country}",
+  "crisisCountryName": "{country, select, AU{أستراليا} BR{البرازيل} CA{كندا} DE{ألمانيا} ES{إسبانيا} FR{فرنسا} GB{المملكة المتحدة} IE{أيرلندا} IT{إيطاليا} JP{اليابان} KR{كوريا الجنوبية} NL{هولندا} PT{البرتغال} TR{تركيا} UA{أوكرانيا} US{الولايات المتحدة} other{{country}}}",
   "crisisCall": "اتصال",
   "crisisText": "رسالة نصية",
   "crisisOpen": "فتح",

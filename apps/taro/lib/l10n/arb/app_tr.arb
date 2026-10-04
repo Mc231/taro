@@ -692,6 +692,7 @@
   "crisisEmergency": "Hemen tehlikedeysen şu numarayı ara: {number}",
   "crisisCallNumber": "Ara: {number}",
   "crisisSupportIn": "Destek: {country}",
+  "crisisCountryName": "{country, select, AU{Avustralya} BR{Brezilya} CA{Kanada} DE{Almanya} ES{İspanya} FR{Fransa} GB{Birleşik Krallık} IE{İrlanda} IT{İtalya} JP{Japonya} KR{Güney Kore} NL{Hollanda} PT{Portekiz} TR{Türkiye} UA{Ukrayna} US{Amerika Birleşik Devletleri} other{{country}}}",
   "crisisCall": "Ara",
   "crisisText": "Mesaj gönder",
   "crisisOpen": "Aç",

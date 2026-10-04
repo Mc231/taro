@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/features/help/controller/crisis_resources_controller.dart';
 import 'package:taro/features/help/view/crisis_resources_screen.dart';
@@ -66,6 +67,95 @@ void main() {
     }
   });
 
+  // R2-03: bundled entries carry `verifiedAt: null` until the owner checks
+  // them (Phase 18.4); S27 must not claim "Last checked January 1970".
+  testWidgets('unverified entries: no "Last checked" line', (tester) async {
+    await pumpLayout(
+      tester,
+      CrisisResourcesState.content(
+        country: 'US',
+        resources: [
+          aCrisisResource(name: '988 Lifeline', phone: '988'),
+          aCrisisResource(
+            name: 'Find A Helpline',
+            phone: null,
+          ).copyWith(
+            url: 'https://findahelpline.com',
+            verifiedAt: CrisisResource.unverifiedAt,
+          ),
+        ],
+        hasLocalLines: true,
+        countries: const ['US'],
+      ),
+    );
+    expect(find.textContaining('Last checked'), findsNothing);
+    expect(find.textContaining('1970'), findsNothing);
+  });
+
+  // V2-07: the heading and the picker name the country, not its ISO code.
+  testWidgets('country heading and picker use localized names', (
+    tester,
+  ) async {
+    final directory = aCrisisDirectory();
+    for (final (locale, heading) in const [
+      (Locale('en'), 'Support: United States'),
+      (Locale('de'), 'Hilfe: Vereinigte Staaten'),
+      (Locale('uk'), 'Підтримка: США'),
+      (Locale('ja'), 'アメリカ合衆国の相談窓口'),
+    ]) {
+      await pumpTaroWidget(
+        tester,
+        CrisisResourcesLayout(
+          state: CrisisResourcesState.content(
+            country: 'us',
+            resources: directory.select(country: 'US'),
+            hasLocalLines: true,
+            countries: const ['DE', 'US'],
+          ),
+          onClose: noop,
+          onRetry: noop,
+          onChooseCountry: noop1,
+          onOpen: (_) {},
+        ),
+        locale: locale,
+      );
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is Text && w.data?.replaceAll('\u2060', '') == heading,
+        ),
+        findsOneWidget,
+        reason: '$locale',
+      );
+      expect(find.textContaining(RegExp(r'\bUS\b')), findsNothing);
+    }
+    final ja = lookupTaroLocalizations(const Locale('ja'));
+    expect(ja.crisisCountryName('JP').replaceAll('\u2060', ''), '日本');
+    expect(l10n.crisisCountryName('GB'), 'United Kingdom');
+    expect(l10n.crisisCountryName('ZZ'), 'ZZ');
+  });
+
+  // V2-08: in ar, "988 Lifeline" rendered as "Lifeline 988"; the name is a
+  // first-strong isolate so a Latin name keeps its own order in RTL text.
+  testWidgets('ar: resource names are bidi-isolated', (tester) async {
+    await pumpTaroWidget(
+      tester,
+      CrisisResourcesLayout(
+        state: CrisisResourcesState.content(
+          country: 'US',
+          resources: aCrisisDirectory().select(country: 'US'),
+          hasLocalLines: true,
+          countries: const ['US'],
+        ),
+        onClose: noop,
+        onRetry: noop,
+        onChooseCountry: noop1,
+        onOpen: (_) {},
+      ),
+      locale: const Locale('ar'),
+    );
+    expect(find.text('\u2068988 Lifeline\u2069'), findsOneWidget);
+  });
+
   testWidgets('loading', (tester) async {
     await pumpLayout(tester, const CrisisResourcesState.loading());
     expect(find.byType(TaroLoadingView), findsOneWidget);
@@ -92,8 +182,8 @@ void main() {
     );
     expect(find.text(l10n.crisisTitle), findsOneWidget);
     expect(find.text(l10n.crisisBody), findsOneWidget);
-    expect(find.text(l10n.crisisSupportIn('DE')), findsOneWidget);
-    expect(find.text('Telefonseelsorge'), findsOneWidget);
+    expect(find.text('Support: Germany'), findsOneWidget);
+    expect(find.text('\u2068Telefonseelsorge\u2069'), findsOneWidget);
     expect(find.textContaining('0800 111 0 111'), findsOneWidget);
     expect(find.textContaining('Last checked'), findsOneWidget);
   });
@@ -165,7 +255,7 @@ void main() {
         countries: const [],
       ),
     );
-    expect(find.text(l10n.crisisSupportIn('FR')), findsNothing);
+    expect(find.text(l10n.crisisSupportIn('France')), findsNothing);
     expect(find.text(l10n.crisisInternationalName), findsOneWidget);
     expect(
       find.text(l10n.crisisHours('\u2066123\u2069', '24/7')),
@@ -205,11 +295,11 @@ void main() {
       fakes: fakes,
       overrides: [crisisRegionProvider.overrideWithValue('DE')],
     );
-    expect(find.text('Telefonseelsorge'), findsOneWidget);
+    expect(find.text('\u2068Telefonseelsorge\u2069'), findsOneWidget);
     await tapText(tester, l10n.crisisOtherCountry);
     expect(find.text(l10n.crisisCountryPicker), findsOneWidget);
-    await tapText(tester, 'US');
-    expect(find.text('988 Lifeline'), findsOneWidget);
+    await tapText(tester, 'United States');
+    expect(find.text('\u2068988 Lifeline\u2069'), findsOneWidget);
     await tester.tap(find.text(l10n.crisisCall).first);
     await tester.pumpAndSettle();
     expect(fakes.links.opened, [Uri.parse('tel:988')]);

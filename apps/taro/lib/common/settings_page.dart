@@ -51,6 +51,10 @@ class SettingsPage extends StatelessWidget {
     final tokens = context.tokens;
     final space = gap ?? tokens.space.s5;
     final lead = this.lead;
+    // At large text a pinned footer would leave almost no room for the
+    // page: it then scrolls after the content (V2-06).
+    final inlineFooter =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
     final header = <Widget>[
       TaroLargeTitle(title),
       if (lead != null) ...[
@@ -71,7 +75,7 @@ class SettingsPage extends StatelessWidget {
           leadingLabel: l10n.commonBack,
           onLeading: onBack,
         ),
-        bottom: footer,
+        bottom: inlineFooter ? null : footer,
         body: ListView(
           padding: EdgeInsetsDirectional.only(
             top: tokens.space.s3,
@@ -82,6 +86,10 @@ class SettingsPage extends StatelessWidget {
             for (final child in children) ...[
               SizedBox(height: space),
               child,
+            ],
+            if (footer case final footer? when inlineFooter) ...[
+              SizedBox(height: tokens.space.s7),
+              footer,
             ],
           ],
         ),

@@ -1,0 +1,153 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/ios_explore_test.dart
+Running Xcode build...                                          
+Xcode build done.                                           46.6s
+00:00 +0: E ios exploratory
+INFO taro.install: install identity created
+QA: STEP E0 onboarding
+QA: tap A finder that searches for widgets with text "Get started".
+WARNING taro.attestation: attestation deviceSignal failed: unsupported
+QA: tap A finder that searches for widgets with text "I understand".
+QA: tap A finder that searches for widgets with text "Allow AI readings".
+INFO taro.install: install registered (trust: high)
+QA: balance: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 1, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.free, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 09:58:05.000Z, syncedAt: 2026-10-04 09:58:06.075310Z)
+QA_HOST: shot E0_home_en
+INFO taro.entitlement: ownership query failed: PRODUCT_UNAVAILABLE
+QA: PASS E0 onboarding
+QA: STEP E1 language uk
+QA: tap A finder that searches for widgets with text "Settings".
+QA: tap A finder that searches for widgets with text "Language".
+QA_HOST: shot E1_language_picker
+QA: tap A finder that searches for widgets with key [<'uk'>].
+QA: tap A finder that searches for widgets with a semantics label named "Назад".
+QA_HOST: shot E1_settings_uk
+QA: tap A finder that searches for widgets with text "Сьогодні".
+QA_HOST: shot E1_home_uk
+QA: PASS E1 language uk
+QA: STEP E2 reading uk
+QA: balance before uk reading: CreditBalance(free: FreeAllowance(limit: 1, used: 0, remaining: 1, localDate: 2026-10-04, resetsAt: 2026-10-04 21:00:00.000Z, timezone: Europe/Kiev, paused: false), bonus: 0, paid: 0, canRead: true, canReadReason: null, nextSource: ChargeSource.free, rewarded: RewardedStatus(enabled: true, amount: 1, dailyCap: 3, grantedToday: 0, available: true, cooldownEndsAt: null), paidBlocked: false, purchasesAllowed: true, purchasesBlockedReason: null, ledgerVersion: 0, serverTime: 2026-10-04 09:58:06.000Z, syncedAt: 2026-10-04 09:58:06.330259Z)
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Почати тлумачення".
+QA_HOST: shot E2_spreads_uk
+QA: tap A finder that searches for widgets with text "Минуле, теперішнє, майбутнє".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Почати".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Перетасувати".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Готово, тягнемо карти".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Витягнути за мене".
+QA: tap A finder that searches for widgets with type "TaroButton" that are ancestors of widgets with text "Відкрити всі".
+QA: TIMING uk reading=15142ms
+QA_HOST: shot E2_result_uk_top
+QA: S09 uk: Минуле, теперішнє, майбутнє · нд, 4 жовт. | Минуле | Теперішнє | Перевернута | Майбутнє | «⁨На чому мені варто зосередитися цього тижня?⁩» | Створено ШІ | Від схрещених жезлів до простору | Цього тижня Вашою опорою може бути увага до того, куди спрямовувати зусилля: на зіткнення думок, практику чи перегляд власних обмежень. Вісімка Пентаклів запрошує обрати посильну справу для зосередженої роботи, а Вісімка Мечів — помічати простір для вільнішого вибору. | Минуле · П’ятірка Жезлів | П’ятірка Жезлів у прямому положенні може відгукуватися попереднім досвідом суперечок або зіткнення різних ідей. П’ять постатей, що розмахують жезлами, нагадують про зусилля, спрямовані водночас у кілька боків. Якщо Вам знайома така напруга, цього тижня варто помітити, які обговорення допомагають думати. Карта запрошує придивитися, де випробування власних сил має для Вас сенс. | Теперішнє · Вісімка Пентаклів | Вісімка Пентаклів у прямому положенні запрошує цього тижня зосередитися на навчанні через практику. Майстер за столом вирізьблює монети одну за одною, і ця деталь може стати образом послідовної уваги. Можливо, Вам підійде справа, у якій можна помічати окремі завершені кроки. Запитайте себе, яка невелика частина роботи заслуговує Вашої уважності саме зараз. | Майбутнє · Вісімка Мечів, перевернута | Вісімка Мечів у перевернутому положенні може запросити Вас до перегляду звичних обмежень. Слабкі пута й вільний простір поміж мечами створюють образ можливого руху, навіть коли очі зав’язані. Якщо цього тижня виникне думка про брак вибору, можна дослідити її підстави. Можливим напрямом стане пошук маленької свободи, яку Ви самі готові для себе визначити. | Як карти пов’язані між собою | Цього тижня П’ятірка Жезлів і Вісімка Пентаклів пропонують розглянути різницю між розпорошеними зусиллями та увагою до однієї справи. Дві Вісімки поєднують практику з переглядом меж: послідовна дія може допомогти дослідити власні можливості. Перевернута Вісімка Мечів додає питання про свободу всередині обраного заняття. Спробуйте записати одну невелику справу для уважної роботи й один спосіб виконати її на власних умовах. | Питання для роздумів | Які зіткнення думок, якщо такі є, заслуговують Вашої уваги цього тижня? | Написати про це | Що Вам хотілося б дослідити через повторення невеликої практичної дії? | Написати про це | Де цього тижня Ви могли б пошукати простір для вільнішого вибору? | Написати про це | Додати нотатку
+QA: S09 uk latin strings: []
+QA_HOST: shot E2_result_uk_bottom
+QA: tap A finder that searches for widgets with widget matching predicate.
+QA: PASS E2 reading uk
+QA: STEP E3 journal search filter
+QA: tap A finder that searches for widgets with text "Щоденник".
+QA_HOST: shot E3_journal_uk
+QA_HOST: shot E3_search_hit
+QA_HOST: shot E3_search_empty
+QA: tap A finder that searches for widgets with text "Карти дня".
+QA_HOST: shot E3_filter_daily
+QA: filter daily: Щоденник | Пошук у питаннях і нотатках | Усе | Тлумачення | Карти дня | Обране | Фільтр | Нічого не відповідає цьому фільтру | Скинути фільтр | Сьогодні | Щоденник | Навчання | Налаштування | Щоденник | Пошук у питаннях і нотатках | 󰄽 | Усе | Тлумачення | Карти дня | Обране
+QA: tap A finder that searches for widgets with text "Тлумачення".
+QA: tap A finder that searches for widgets with text "Обране".
+QA_HOST: shot E3_filter_fav
+QA: tap A finder that searches for widgets with text "Усе".
+QA: tap A finder that searches for widgets with text "Фільтр".
+QA: QA_FAIL E3 journal search filter: TimeoutException after 0:00:05.000000: Finder "Found 0 widgets with text "Фільтр" (considering only hit-testable widgets with a RenderBox): []" did not find any visible (i.e. hit-testable) widgets
+QA_HOST: shot FAIL_E3
+QA: STEP E4 learn card zoom
+QA: tap A finder that searches for widgets with text "Навчання".
+QA_HOST: shot E4_learn_uk
+QA_HOST: shot E4_learn_search_empty
+QA: tap A finder that searches for widgets with key [<'major_01'>].
+QA_HOST: shot E4_card_detail
+QA: tap A finder that searches for widgets with text "Перевернута".
+QA_HOST: shot E4_card_reversed
+QA: tap A finder that searches for widgets with type "TaroCardFace" (ignoring all but first).
+QA_HOST: shot E4_card_zoomed
+QA: tap A finder that searches for widgets with a semantics label named "Закрити".
+QA: tap A finder that searches for widgets with a semantics label named "Наступна карта".
+QA_HOST: shot E4_card_next
+QA: PASS E4 learn card zoom
+QA: STEP E5 faq legal
+QA: tap A finder that searches for widgets with text "Налаштування".
+QA: tap A finder that searches for widgets with text "Допомога й поширені питання".
+QA_HOST: shot E5_faq
+QA: faq search: Допомога й поширені питання | Пошук у довідці | Пошук у довідці | Поширені питання | Чи можна відновити куплені тлумачення? | Як відновити «Прибрати банерну рекламу»? | Що робить «Видалити всі дані»? | Чим я ділюся, коли дозволяю ШІ-тлумачення? | Допомога й поширені питання | Пошук у довідці | Пошук у довідці | 󰄽 |  | Поширені питання | Чи можна відновити куплені тлумачення? |  | Як відновити «Прибрати банерну рекламу»? |  | Що робить «Видалити всі дані»? | 
+QA_HOST: shot E5_faq_search_hit
+QA_HOST: shot E5_faq_search_empty
+QA: tap A finder that searches for widgets with text "Правова інформація".
+QA: tap A finder that searches for widgets with text "Умови використання" (ignoring all but first).
+QA_HOST: shot E5_legal_terms
+QA: legal terms: Правова інформація | Застереження | Умови використання | Політика конфіденційності | Ліцензії відкритого ПЗ | Умови використання | ⁦https://taro.vshyrochuk.com/terms⁩ | Відкривається у вікні браузера всередині Taro. | Читати онлайн | Умови та політика конфіденційності також доступні на taro.vshyrochuk.com | Правова інформація | Застереження
+QA: tap A finder that searches for widgets with text "Політика конфіденційності" (ignoring all but first).
+QA: QA_FAIL E5 faq legal: TimeoutException after 0:00:05.000000: Finder "Found 0 widgets with text "Політика конфіденційності" (ignoring all but first) (considering only hit-testable widgets with a RenderBox): []" did not find any visible (i.e. hit-testable) widgets
+QA_HOST: shot FAIL_E5
+QA: STEP E6 deep link learn card
+QA_HOST: openurl taro://learn/card/major_00
+QA: QA_FAIL E6 deep link learn card: timed out: ScreenId.s17; screen: неділя, 4 жовтня | Доброго ранку | Безкоштовне тлумачення використано | Наступне безкоштовне тлумачення через 10 год 59 хв | ВАША КАРТА ДНЯ | Одна карта, щоб побути з нею сьогодні | Безкоштовно, працює офлайн, без ШІ. | Відкрити карту | Поставте картам питання | Виберіть розклад, за бажання напишіть питання й отримайте вдумливе ШІ-тлумачення. | Почати тлумачення | Нещодавні | Від схрещених жезлів до простору | Минуле · Теперішнє · Майбутнє · Сьогодні | Сьогодні | Щоденник | Навчання | Налаштування | неділя, 4 жовтня | Доброго ранку | Безкоштовне тлумачення використано | Наступне безкоштовне тлумачення через 10 год 59 хв | ВАША КАРТА ДНЯ | Одна карта, щоб побути з нею сьогодні | Безкоштовно, працює офлайн, без ШІ. | Відкрити карту | Поставте картам питання | Виберіть розклад, за бажання напишіть питання й отримайте вдумливе ШІ-тлумачення. | Почати тлумачення | Нещодавні
+QA_HOST: shot FAIL_E6
+QA: STEP E7 import export
+22:38 +0: E ios exploratory - did not complete [E]
+22:38 +0: (tearDownAll) - did not complete [E]
+22:38 +0: Some tests failed.
+
+Failing tests:
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/ios_explore_test.dart: (tearDownAll) (did not complete)
+  /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/ios_explore_test.dart: E ios exploratory (did not complete)
+rc=1 wall=1419s

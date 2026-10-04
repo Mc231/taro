@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taro_ui/src/components/actions/taro_button.dart';
+import 'package:taro_ui/src/components/common/taro_reflow.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
 import 'package:taro_ui/src/components/state/taro_shimmer.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
@@ -155,20 +156,19 @@ class ProductOfferTile extends StatelessWidget {
     } else {
       final status = statusLabel;
       final Widget trailing;
+      var button = false;
       if ((state == ProductOfferState.pending ||
               state == ProductOfferState.owned) &&
           status != null) {
-        trailing = Flexible(
-          child: Semantics(
-            liveRegion: true,
-            child: Text(
-              status,
-              textAlign: TextAlign.end,
-              style: tokens.typography.label.copyWith(
-                color: state == ProductOfferState.owned
-                    ? c.status.success
-                    : c.text.secondary,
-              ),
+        trailing = Semantics(
+          liveRegion: true,
+          child: Text(
+            status,
+            textAlign: TextAlign.end,
+            style: tokens.typography.label.copyWith(
+              color: state == ProductOfferState.owned
+                  ? c.status.success
+                  : c.text.secondary,
             ),
           ),
         );
@@ -185,44 +185,55 @@ class ProductOfferTile extends StatelessWidget {
           onPressed: onBuy,
         );
         trailing = buy;
+        button = true;
       }
-      content = Row(
+      final text = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (bestValueLabel != null) ...[
-                  _BestValueBadge(label: bestValueLabel!),
-                  SizedBox(height: tokens.space.s2),
-                ],
-                Text(
-                  title,
-                  style: tokens.typography.titleSmall.copyWith(
-                    color: c.text.primary,
-                  ),
-                ),
-                if (perReadingPrice != null)
-                  Text(
-                    perReadingPrice!,
-                    style: tokens.typography.caption.copyWith(
-                      color: c.text.tertiary,
-                    ),
-                  ),
-                if (body != null)
-                  Text(
-                    body!,
-                    style: tokens.typography.body.copyWith(
-                      color: c.text.secondary,
-                    ),
-                  ),
-              ],
+          if (bestValueLabel != null) ...[
+            _BestValueBadge(label: bestValueLabel!),
+            SizedBox(height: tokens.space.s2),
+          ],
+          Text(
+            title,
+            style: tokens.typography.titleSmall.copyWith(
+              color: c.text.primary,
             ),
           ),
-          SizedBox(width: tokens.space.s4),
-          trailing,
+          if (perReadingPrice != null)
+            Text(
+              perReadingPrice!,
+              style: tokens.typography.caption.copyWith(
+                color: c.text.tertiary,
+              ),
+            ),
+          if (body != null)
+            Text(
+              body!,
+              style: tokens.typography.body.copyWith(
+                color: c.text.secondary,
+              ),
+            ),
         ],
       );
+      // At large text the price goes under the text instead of squeezing
+      // it into a narrow column (V2-04).
+      content = taroShouldReflow(context)
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: tokens.space.s4,
+              children: [
+                text,
+                trailing,
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: text),
+                SizedBox(width: tokens.space.s4),
+                if (button) trailing else Flexible(child: trailing),
+              ],
+            );
     }
     return Container(
       padding: EdgeInsetsDirectional.all(tokens.space.s5),

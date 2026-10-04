@@ -77,7 +77,6 @@ abstract class HomeFlags with _$HomeFlags {
   const factory HomeFlags({
     required bool firstRunDone,
     required String? updateNoticeVersion,
-    required bool registered,
   }) = _HomeFlags;
 }
 
@@ -104,12 +103,21 @@ final FutureProvider<HomeFlags> homeFlagsProvider = FutureProvider.autoDispose((
   final store = ref.watch(secureStoreProvider);
   final firstRun = await store.read(HomeNoticeKeys.firstRunDone);
   final notice = await store.read(HomeNoticeKeys.updateNoticeVersion);
-  final install = await ref.watch(installRepositoryProvider).getOrCreate();
   return HomeFlags(
     firstRunDone: firstRun.valueOrNull != null,
     updateNoticeVersion: notice.valueOrNull,
-    registered: install.valueOrNull?.isRegistered ?? false,
   );
+});
+
+/// Whether the install is registered (`homeRegisteredProvider`), re-read
+/// whenever the sync status changes: a launch pass registers a fresh install
+/// after S05's first frame (iOS-R2-01).
+final FutureProvider<bool> homeRegisteredProvider = FutureProvider.autoDispose((
+  ref,
+) async {
+  ref.watch(syncStatusProvider);
+  final install = await ref.watch(installRepositoryProvider).getOrCreate();
+  return install.valueOrNull?.isRegistered ?? false;
 });
 
 /// Today's daily card (`homeDailyCardProvider`).
@@ -140,6 +148,7 @@ final class HomeController extends Notifier<HomeState> {
   @override
   HomeState build() {
     final flagsValue = ref.watch(homeFlagsProvider);
+    final registeredValue = ref.watch(homeRegisteredProvider);
     final cardValue = ref.watch(homeDailyCardProvider);
     final recentValue = ref.watch(homeRecentReadingsProvider);
     final balance = ref.watch(balanceProvider);
@@ -157,11 +166,7 @@ final class HomeController extends Notifier<HomeState> {
     }
     final flags =
         flagsValue.value ??
-        const HomeFlags(
-          firstRunDone: true,
-          updateNoticeVersion: null,
-          registered: false,
-        );
+        const HomeFlags(firstRunDone: true, updateNoticeVersion: null);
     final recommended = switch (info.platform) {
       AppPlatform.ios => config.appRecommendedVersionIos,
       AppPlatform.android => config.appRecommendedVersionAndroid,
@@ -171,9 +176,10 @@ final class HomeController extends Notifier<HomeState> {
         !memo.updateDismissed &&
         (flags.updateNoticeVersion != recommended ||
             memo.logged.contains(_updateKey(recommended)));
-    final deviceUnverified =
-        sync is SyncStatusUnavailable ||
-        (!flags.registered && sync is! SyncStatusSynced);
+    final deviceUnverified = _deviceUnverified(
+      sync: sync,
+      registered: registeredValue.value,
+    );
     if (showUpdate && memo.logged.add(_updateKey(recommended))) {
       unawaited(_updateShown(analytics, store, recommended));
     }
@@ -197,6 +203,23 @@ final class HomeController extends Notifier<HomeState> {
         recentReadings: recentValue.value ?? const [],
       ),
     );
+  }
+
+  /// "Readings unavailable on this device" only once a pass has settled
+  /// without registering the install. Never while a pass runs (registration
+  /// and attestation are in flight), before the first pass of a fresh
+  /// install (`stale` without a sync time), while the registration is still
+  /// being read, or once it is registered (iOS-R2-01).
+  static bool _deviceUnverified({
+    required SyncStatus sync,
+    required bool? registered,
+  }) {
+    if (registered ?? true) return false;
+    return switch (sync) {
+      SyncStatusSyncing() || SyncStatusSynced() => false,
+      SyncStatusStale(:final lastSyncedAt) => lastSyncedAt != null,
+      SyncStatusUnavailable() => true,
+    };
   }
 
   static String _updateKey(String version) => 'update_available:$version';
@@ -241,7 +264,7 @@ final class HomeController extends Notifier<HomeState> {
   /// fresh registration check.
   Future<void> retryVerification() async {
     final balance = ref.read(balanceProvider.notifier);
-    ref.invalidate(homeFlagsProvider);
+    ref.invalidate(homeRegisteredProvider);
     await balance.refresh();
   }
 }

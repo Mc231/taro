@@ -186,7 +186,7 @@ final syncCoordinatorProvider = Provider<SyncCoordinator>((ref) {
 
 /// The balance chip's sync state (01 §7.1): [SyncCoordinator.current] at
 /// once, then every change.
-final class SyncStatusController extends Notifier<SyncStatus> {
+base class SyncStatusController extends Notifier<SyncStatus> {
   @override
   SyncStatus build() {
     final coordinator = ref.watch(syncCoordinatorProvider);

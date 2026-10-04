@@ -33,6 +33,7 @@ export 'src/components/inputs/taro_accordion.dart';
 export 'src/components/inputs/taro_chip.dart';
 export 'src/components/inputs/taro_icon_button.dart';
 export 'src/components/inputs/taro_radio_tile.dart';
+export 'src/components/inputs/taro_scroll_row.dart';
 export 'src/components/inputs/taro_tab_strip.dart';
 export 'src/components/inputs/taro_text_field.dart';
 export 'src/components/inputs/weekday_picker.dart';

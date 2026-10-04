@@ -44,6 +44,20 @@ void main() {
     expect(en['aiConsentBody'], contains('OpenAI’s GPT'));
   });
 
+  // V2-10: the app is "Taro" (Latin) in every locale; in uk, tarot is
+  // "карти таро", never a bare "Таро" that reads like the app's name.
+  test('uk never uses a bare "Таро" next to the app name "Taro"', () {
+    final uk = _arb('uk');
+    for (final MapEntry(:key, :value) in uk.entries) {
+      if (key.startsWith('@') || value is! String) continue;
+      expect(
+        value,
+        isNot(contains(RegExp('(^|[^А-Яа-яЇїІіЄєҐґ’])Таро'))),
+        reason: key,
+      );
+    }
+  });
+
   test('every spread, position and suggestion key of spreads.json exists', () {
     final spreads =
         (jsonDecode(File('assets/deck/spreads.json').readAsStringSync())

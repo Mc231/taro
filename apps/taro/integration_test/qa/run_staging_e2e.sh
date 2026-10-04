@@ -73,6 +73,9 @@ watch_host >"$HOSTLOG" 2>&1 &
 HP=$!
 
 EXTRA=(); TOKEN=""
+# QA_PACE_S: seconds between B9 questions (default 40 in the test; 0 repeats
+# the round-2 R2-01 burst).
+[ -n "${QA_PACE_S:-}" ] && EXTRA+=(--dart-define=QA_PACE_S="$QA_PACE_S")
 if [ "$MODE" = unverified ]; then
   EXTRA=(--dart-define=TARO_QA_UNVERIFIED=true)
 else

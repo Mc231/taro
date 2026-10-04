@@ -250,21 +250,19 @@ class _SectionAnchors extends StatelessWidget {
           color: tokens.color.bg.surface,
           borderRadius: BorderRadius.circular(tokens.radius.md),
         ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
+        // Fades where anchors run past the edge (V2-05).
+        child: TaroScrollRow(
           padding: EdgeInsetsDirectional.all(tokens.space.s1),
-          child: Row(
-            spacing: tokens.space.s1,
-            children: [
-              for (final kind in kinds)
-                TaroChip.filter(
-                  key: ValueKey('anchor-${kind.name}'),
-                  label: LearnLabels.section(l10n, kind),
-                  selected: kind == selected,
-                  onSelected: (_) => onSelected(kind),
-                ),
-            ],
-          ),
+          spacing: tokens.space.s1,
+          children: [
+            for (final kind in kinds)
+              TaroChip.filter(
+                key: ValueKey('anchor-${kind.name}'),
+                label: LearnLabels.section(l10n, kind),
+                selected: kind == selected,
+                onSelected: (_) => onSelected(kind),
+              ),
+          ],
         ),
       ),
     );

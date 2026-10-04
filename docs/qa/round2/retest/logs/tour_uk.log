@@ -1,0 +1,188 @@
+Resolving dependencies in `/Users/volodymyrshyrochuk/pet/taro`...
+Downloading packages...
+  _fe_analyzer_shared 96.0.0 (108.0.0 available)
+  analyzer 10.2.0 (14.4.0 available)
+  build 4.0.7 (4.0.11 available)
+  build_runner 2.15.1 (2.16.1 available)
+  built_collection 5.1.1 (5.1.2 available)
+! cli_util 0.5.2 (overridden) (0.6.0 available)
+  clock 1.1.2 (1.1.3 available)
+  code_assets 1.2.1 (2.1.0 available)
+  connectivity_plus 7.3.1 (7.3.2 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  cupertino_ui 1.0.2 (1.1.1 available)
+  dart_style 3.1.7 (3.1.13 available)
+  dbus 0.7.15 (0.8.0 available)
+  device_info_plus 13.2.0 (13.3.0 available)
+  drift 2.34.0 (2.35.1 available)
+  drift_dev 2.34.0 (2.35.1 available)
+  equatable 2.1.0 (3.0.0 available)
+  file_picker_linux 2.0.0 (2.0.1 available)
+  flutter_timezone 5.1.0 (5.1.1 available)
+  freezed 3.2.5 (4.0.2 available)
+  frontend_server_client 4.0.0 (4.1.0 available)
+  go_router 18.0.1 (18.0.2 available)
+  hooks 2.0.2 (2.2.0 available)
+  intl 0.20.2 (0.20.3 available)
+  jni 1.0.3 (1.1.0 available)
+  matcher 0.12.19 (0.12.20 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  material_ui 1.2.0 (1.5.0 available)
+  meta 1.18.0 (1.19.0 available)
+  native_toolchain_c 0.19.2 (0.19.5 available)
+  nm 0.5.0 (0.6.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  package_config 2.2.0 (3.0.0 available)
+  package_info_plus 10.2.1 (10.2.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  platform 3.1.6 (3.2.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  share_plus 13.3.0 (13.3.1 available)
+  source_gen 4.2.4 (4.3.0 available)
+  sqlite3 3.5.2 (3.7.0 available)
+  sqlparser 0.44.5 (0.45.0 available)
+  stack_trace 1.12.1 (1.12.2 available)
+  test 1.31.0 (1.32.0 available)
+  test_api 0.7.11 (0.7.14 available)
+  test_core 0.6.17 (0.6.20 available)
+  url_launcher 6.3.2 (6.3.3 available)
+  vector_math 2.2.0 (2.4.3 available)
+  very_good_analysis 10.3.0 (11.0.0 available)
+  webview_flutter_wkwebview 3.26.1 (3.27.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies in `/Users/volodymyrshyrochuk/pet/taro`!
+50 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /Users/volodymyrshyrochuk/pet/taro/apps/taro/integration_test/qa/screenshot_tour_test.dart
+Running Gradle task 'assembleDevDebug'...                       
+WARNING: Your app uses the following plugins that apply Kotlin Gradle Plugin (KGP): firebase_analytics, firebase_core, firebase_crashlytics, flutter_timezone, in_app_review, patrol
+Future versions of Flutter will fail to build if your app uses plugins that apply KGP.
+
+Please check the changelogs of these plugins and upgrade to a version that supports Built-in Kotlin.
+If no such version exists, report the issue to the plugin. If necessary, here is a guide on filing 
+an issue against a plugin: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-app-developers#report-incompatible-kotlin-gradle-plugin-usage-to-plugin-authors
+
+If you are a plugin author, please migrate your plugin to Built-in Kotlin using this guide: https://docs.flutter.dev/release/breaking-changes/migrate-to-built-in-kotlin/for-plugin-authors
+Running Gradle task 'assembleDevDebug'...                          14.0s
+✓ Built build/app/outputs/flutter-apk/app-dev-debug.apk
+Installing build/app/outputs/flutter-apk/app-dev-debug.apk...        394ms
+00:00 +0: QA screenshot tour [uk] [uk] main tour S05–S29, S33
+FLOW: wait ScreenId.s05
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S05_home_empty.png
+FLOW: tap button "Почати тлумачення"
+FLOW: wait ScreenId.s06
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S06_spreads.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S06_spreads_end.png
+FLOW: tap "Минуле, теперішнє, майбутнє"
+FLOW: wait ScreenId.s07
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_question_empty.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_question_filled.png
+FLOW: tap button "Почати"
+FLOW: wait ScreenId.s08
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S08_shuffle.png
+FLOW: tap button "Перетасувати"
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S08_shuffling.png
+FLOW: tap button "Готово, тягнемо карти"
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S08_pick.png
+FLOW: tap button "Витягнути за мене"
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S08_picked.png
+FLOW: tap button "Відкрити всі"
+FLOW: wait ScreenId.s09
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S09_result_top.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S09_result_mid.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S09_result_footer.png
+FLOW: tap A finder that searches for widgets with a semantics label named "Інші дії".
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S09_menu.png
+FLOW: tap "Поскаржитися на тлумачення"
+FLOW: wait ScreenId.s33
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S33_report.png
+FLOW: tap "Шкідлива порада"
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S33_report_selected.png
+FLOW: wait ScreenId.s05
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S05_home_with_reading.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S13_daily.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S13_daily_revealed.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S13_daily_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S14_journal.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S15_entry.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S15_entry_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S16_learn.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S16_learn_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S17_card.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S17_card_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S18_spreads_guide.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S18_spread_celtic.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S18_spread_celtic_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S19_about.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S19_about_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S20_settings.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S20_settings_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S21_language.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S22_reminder.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S23_privacy.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S23_privacy_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S24_export.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S25_import.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S26_delete.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S27_crisis.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S27_crisis_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S28_help.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S28_help_end.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S29_legal_disclaimer.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S29_legal_privacy.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S29_legal_terms.png
+00:51 +1: QA screenshot tour [uk] [uk] AI declined re-entry S04 + celtic cross
+FLOW: wait ScreenId.s05
+FLOW: tap button "Почати тлумачення"
+FLOW: wait ScreenId.s06
+FLOW: tap "Кельтський хрест"
+FLOW: wait ScreenId.s07
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_celtic_question.png
+FLOW: tap button "Почати"
+FLOW: wait ScreenId.s04
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S04_reentry.png
+FLOW: tap button "Назад"
+FLOW: wait ScreenId.s07
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_after_decline.png
+FLOW: tap button "Спробувати класичне тлумачення"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Перетасувати"
+FLOW: tap button "Готово, тягнемо карти"
+FLOW: tap button "Витягнути за мене"
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S08_celtic_picked.png
+FLOW: tap button "Відкрити всі"
+FLOW: wait ScreenId.s32
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S32_celtic_top.png
+00:59 +2: QA screenshot tour [uk] [uk] refusal S07 (rephrase + refused)
+FLOW: wait ScreenId.s05
+FLOW: tap button "Почати тлумачення"
+FLOW: wait ScreenId.s06
+FLOW: tap "Минуле, теперішнє, майбутнє"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Почати"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Перетасувати"
+FLOW: tap button "Готово, тягнемо карти"
+FLOW: tap button "Витягнути за мене"
+FLOW: tap button "Відкрити всі"
+FLOW: wait ScreenId.s07
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_refusal_rephrase.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_refusal_rephrase_end.png
+FLOW: wait ScreenId.s05
+FLOW: tap button "Почати тлумачення"
+FLOW: wait ScreenId.s06
+FLOW: tap "Минуле, теперішнє, майбутнє"
+FLOW: wait ScreenId.s07
+FLOW: tap button "Почати"
+FLOW: wait ScreenId.s08
+FLOW: tap button "Перетасувати"
+FLOW: tap button "Готово, тягнемо карти"
+FLOW: tap button "Витягнути за мене"
+FLOW: tap button "Відкрити всі"
+FLOW: wait ScreenId.s07
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_refusal_refused.png
+QA_SHOT: /data/user/0/com.vshyrochuk.taro.dev/code_cache/qa_shots/uk/S07_refusal_refused_end.png
+01:16 +3: QA screenshot tour [uk] (tearDownAll)
+01:36 +3: (tearDownAll)
+01:37 +3: All tests passed!
+rc=0

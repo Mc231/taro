@@ -31,7 +31,17 @@ String get _locale => switch (_mode) {
   'ar' => 'ar',
   'de' => 'de',
   'ja' => 'ja',
+  'uk' => 'uk',
   _ => 'en',
+};
+
+/// A question in the tour's locale (the UI language).
+String get _question => switch (_locale) {
+  'ar' => 'ما الذي يجب أن أنتبه إليه اليوم؟',
+  'de' => 'Was soll ich heute beachten?',
+  'ja' => '今日は何に気をつければいいですか？',
+  'uk' => 'На що мені варто звернути увагу сьогодні?',
+  _ => kTestQuestion,
 };
 
 ThemeMode get _theme => _mode == 'en_dark' ? ThemeMode.dark : ThemeMode.light;
@@ -210,9 +220,7 @@ void main() {
         await t.tapLabel(l.spread_three_ppf_name);
         await app.waitForScreen(ScreenId.s07);
         await t.shot('S07_question_empty');
-        await app.enterQuestion(
-          _locale == 'en' ? kTestQuestion : 'Was soll ich heute beachten?',
-        );
+        await app.enterQuestion(_question);
         await t.shot('S07_question_filled');
         await app.tapButton(l.questionBegin);
         await t.draw();
@@ -406,6 +414,46 @@ void main() {
         await app.tapButton(l.drawRevealAll);
         await app.waitForScreen(ScreenId.s32);
         await t.shot('S32_celtic_top');
+      });
+
+      taroFlow('[$_mode] refusal S07 (rephrase + refused)', ($) async {
+        final fakes = _fakes();
+        fakes.readings
+          ..refuseNext(
+            safety: const SafetyInfo(
+              category: RefusalCategory.gambling,
+              messageKey: 'safetyDeclinedGambling',
+              canRephrase: true,
+            ),
+          )
+          ..refuseNext(
+            safety: const SafetyInfo(
+              category: RefusalCategory.sexualMinors,
+              messageKey: 'safetyDeclinedSexualMinors',
+              canRephrase: false,
+            ),
+          );
+        final t = await _Tour.launch($, fakes);
+        final app = t.app;
+        final l = t.l;
+        await t.openQuestion(l.spread_three_ppf_name);
+        await app.enterQuestion(_question);
+        await app.tapButton(l.questionBegin);
+        await t.draw(shots: false);
+        await app.waitForScreen(ScreenId.s07);
+        await app.settle(const Duration(seconds: 3));
+        await t.shot('S07_refusal_rephrase');
+        await t.tryShot('S07_refusal_rephrase_end', t.scrollToEnd);
+
+        await t.go(RoutePaths.home);
+        await t.openQuestion(l.spread_three_ppf_name);
+        await app.enterQuestion(_question);
+        await app.tapButton(l.questionBegin);
+        await t.draw(shots: false);
+        await app.waitForScreen(ScreenId.s07);
+        await app.settle(const Duration(seconds: 3));
+        await t.shot('S07_refusal_refused');
+        await t.tryShot('S07_refusal_refused_end', t.scrollToEnd);
       });
 
       taroFlow('[$_mode] update required S30', ($) async {

@@ -420,50 +420,48 @@ class _Header extends StatelessWidget {
               textInputAction: TextInputAction.search,
               onChanged: onSearch,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                spacing: tokens.space.s3,
-                children: [
-                  for (final (type, label) in [
-                    (JournalTypeFilter.all, l10n.journalFilterAll),
-                    (JournalTypeFilter.readings, l10n.journalFilterReadings),
-                    (
-                      JournalTypeFilter.dailyCards,
-                      l10n.journalFilterDailyCards,
-                    ),
-                    (
-                      JournalTypeFilter.favourites,
-                      l10n.journalFilterFavourites,
-                    ),
-                  ])
-                    TaroChip.filter(
-                      label: label,
-                      selected: filters.type == type,
-                      onSelected: (_) => onType(type),
-                    ),
-                  if (spread != null)
-                    TaroChip.filter(
-                      label: SpreadText.name(l10n, spread),
-                      selected: true,
-                      onSelected: (_) => onSpread(null),
-                    ),
-                  if (card != null)
-                    TaroChip.filter(
-                      label: l10n.commonItemSeparator(
-                        l10n.journalFilterCard,
-                        cardNames[card] ?? l10n.journalFilterAnyCard,
-                      ),
-                      selected: true,
-                      onSelected: (_) => onClearCard(),
-                    ),
-                  TaroChip.suggestion(
-                    label: l10n.journalFilterMore,
-                    leading: Icon(Icons.tune, size: tokens.size.icon.sm),
-                    onPressed: () => unawaited(_openSheet(context)),
+            // Fades where chips run past the edge (V2-05).
+            TaroScrollRow(
+              spacing: tokens.space.s3,
+              children: [
+                for (final (type, label) in [
+                  (JournalTypeFilter.all, l10n.journalFilterAll),
+                  (JournalTypeFilter.readings, l10n.journalFilterReadings),
+                  (
+                    JournalTypeFilter.dailyCards,
+                    l10n.journalFilterDailyCards,
                   ),
-                ],
-              ),
+                  (
+                    JournalTypeFilter.favourites,
+                    l10n.journalFilterFavourites,
+                  ),
+                ])
+                  TaroChip.filter(
+                    label: label,
+                    selected: filters.type == type,
+                    onSelected: (_) => onType(type),
+                  ),
+                if (spread != null)
+                  TaroChip.filter(
+                    label: SpreadText.name(l10n, spread),
+                    selected: true,
+                    onSelected: (_) => onSpread(null),
+                  ),
+                if (card != null)
+                  TaroChip.filter(
+                    label: l10n.commonItemSeparator(
+                      l10n.journalFilterCard,
+                      cardNames[card] ?? l10n.journalFilterAnyCard,
+                    ),
+                    selected: true,
+                    onSelected: (_) => onClearCard(),
+                  ),
+                TaroChip.suggestion(
+                  label: l10n.journalFilterMore,
+                  leading: Icon(Icons.tune, size: tokens.size.icon.sm),
+                  onPressed: () => unawaited(_openSheet(context)),
+                ),
+              ],
             ),
           ],
         ],

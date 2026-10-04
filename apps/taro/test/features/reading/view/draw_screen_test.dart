@@ -168,6 +168,24 @@ void main() {
     expect(calls, ['retry', 'later']);
   });
 
+  testWidgets('R2-02 generationFailed by the per-minute limit: wait copy', (
+    tester,
+  ) async {
+    final calls = await pumpLayout(
+      tester,
+      DrawState.generationFailed(
+        _view(placed: 3, revealed: 3),
+        failure: const Failure.rateLimited(reason: RateLimitReason.burst),
+      ),
+    );
+    expect(find.text(l10n.drawGenerationFailedTitle), findsNothing);
+    expect(find.text(l10n.errorRateLimitedTitle), findsOneWidget);
+    expect(find.text(l10n.errorRateLimitedBody), findsOneWidget);
+    expect(faces(), findsNWidgets(3));
+    await tapFound(tester, find.text(l10n.commonRetry));
+    expect(calls, ['retry']);
+  });
+
   testWidgets('holdLost: every card face-down; reading options', (
     tester,
   ) async {

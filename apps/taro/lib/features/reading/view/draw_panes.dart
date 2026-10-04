@@ -589,6 +589,16 @@ class ResultPane extends StatelessWidget {
       _ => null,
     };
     final Widget? notice = switch (state) {
+      // R2-02: the per-minute limit is a wait, not a failure.
+      DrawGenerationFailed(
+        failure: RateLimitedFailure(reason: RateLimitReason.burst),
+      ) =>
+        TaroInlineNotice(
+          kind: TaroNoticeKind.info,
+          title: l10n.errorRateLimitedTitle,
+          body: l10n.errorRateLimitedBody,
+          liveRegion: true,
+        ),
       DrawGenerationFailed() => TaroInlineNotice(
         kind: TaroNoticeKind.error,
         title: l10n.drawGenerationFailedTitle,
@@ -707,42 +717,24 @@ class ResultPane extends StatelessWidget {
               label: name,
               number: i + 1,
               card: slot,
+              // Drawn by the canvas at a readable size, or left out where
+              // the card is too small for it (V2-12).
+              hint: revealing && i == view.revealed
+                  ? l10n.drawTapToReveal
+                  : null,
             );
           }(),
       ],
     );
   }
 
-  /// The next card to turn: tappable, with "Tap to reveal".
+  /// The next card to turn: tappable; the canvas adds "Tap to reveal".
   Widget _nextBack(BuildContext context, int i, String name) {
     final l10n = TaroLocalizations.of(context);
-    final tokens = context.tokens;
-    return Stack(
-      alignment: AlignmentDirectional.bottomCenter,
-      children: [
-        TaroCardBack(
-          picked: true,
-          onTap: onReveal,
-          semanticsLabel: l10n.drawSlotRevealSemantics(
-            i + 1,
-            view.cardCount,
-            name,
-          ),
-        ),
-        // The hint wraps between words and stays inside the card (BUG-06).
-        PositionedDirectional(
-          bottom: tokens.space.s4,
-          child: IgnorePointer(
-            child: ExcludeSemantics(
-              child: TaroBadge(
-                label: l10n.drawTapToReveal,
-                maxWidth: TaroCardSize.sm.widthIn(context) - tokens.space.s2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-      ],
+    return TaroCardBack(
+      picked: true,
+      onTap: onReveal,
+      semanticsLabel: l10n.drawSlotRevealSemantics(i + 1, view.cardCount, name),
     );
   }
 }

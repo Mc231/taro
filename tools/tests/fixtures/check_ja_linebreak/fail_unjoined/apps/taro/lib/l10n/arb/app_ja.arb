@@ -1,0 +1,6 @@
+{
+  "@@locale": "ja",
+  "drawRevealHint": "カードをめくってください。",
+  "plain": "Taro",
+  "count": "{count, plural, other{リーディング{count}回}}"
+}

@@ -1,0 +1,6 @@
+{
+  "@@locale": "ja",
+  "drawRevealHint": "カ\u2060ー\u2060ドをめくって\u2060く\u2060だ\u2060さ\u2060い\u2060。",
+  "plain": "Taro",
+  "count": "{count, plural, other{リ\u2060ー\u2060デ\u2060ィ\u2060ン\u2060グ{count}回}}"
+}

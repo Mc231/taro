@@ -159,15 +159,28 @@ void main() {
         );
         await tester.pumpAndSettle();
         final hint = find.text(de.drawTapToReveal);
-        final card = find.ancestor(of: hint, matching: find.byType(Stack));
-        final cardRect = tester.getRect(card.first);
-        final hintRect = tester.getRect(hint);
-        expect(
-          cardRect.inflate(0.5).contains(hintRect.topLeft) &&
-              cardRect.inflate(0.5).contains(hintRect.bottomRight),
-          isTrue,
-          reason: 'hint $hintRect inside card $cardRect',
-        );
+        final cards = [
+          for (final e in find.byType(TaroCardBack).evaluate())
+            tester.getRect(find.byWidget(e.widget)),
+        ];
+        if (scale > kSpreadReflowTextScale) {
+          // The list layout puts it beside the card, clear of every card.
+          expect(hint, findsOneWidget);
+          final hintRect = tester.getRect(hint);
+          expect(cards.any((c) => c.overlaps(hintRect)), isFalse);
+        } else if (hint.evaluate().isNotEmpty) {
+          // Over the card when it fits at a readable size (V2-12).
+          final hintRect = tester.getRect(hint);
+          expect(
+            cards.any(
+              (c) =>
+                  c.inflate(0.5).contains(hintRect.topLeft) &&
+                  c.inflate(0.5).contains(hintRect.bottomRight),
+            ),
+            isTrue,
+            reason: 'hint $hintRect inside a card',
+          );
+        }
         expect(_midWordBreaks(hint), isEmpty);
       });
     }

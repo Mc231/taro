@@ -300,7 +300,14 @@ export class ReadingService {
       }
       throw err;
     }
-    await this.perMinuteGate(ctx);
+    // R2-01: a reading under a live hold was counted at its hold, and an L1
+    // crisis decline (no model call) is never kept from its resources by the
+    // per-minute limiter; `RL_BURST` on the route still caps both.
+    const underHold = existing !== null && liveHold(existing, new Date(startedAt));
+    const crisis = prefilter(checked.reading.question, checked.reading.locale).kind === 'block';
+    if (!underHold && !crisis) {
+      await this.perMinuteGate(ctx);
+    }
 
     const replay = await this.replayIfSettled(ctx, existing);
     if (replay !== null) {

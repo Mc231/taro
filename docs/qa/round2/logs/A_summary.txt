@@ -1,0 +1,18 @@
+classic_reading_test rc=0 wall=45s +1: All tests passed
+consent_denied_test rc=1 wall=26s +0 -1: Some tests failed
+daily_reset_resume_test rc=1 wall=14s 
+export_import_test rc=0 wall=39s +1: All tests passed
+first_launch_free_reading_test rc=1 wall=115s +0 -1: Some tests failed
+hold_lost_test rc=0 wall=63s +1: All tests passed
+kill_switch_test rc=0 wall=56s +3: All tests passed
+os_restore_test rc=0 wall=30s +1: All tests passed
+out_of_credits_purchase_test rc=1 wall=35s +0 -1: Some tests failed
+reading_failure_refund_test rc=0 wall=34s +1: All tests passed
+reinstall_same_install_id_test rc=0 wall=35s +1: All tests passed
+remove_ads_restore_test rc=0 wall=52s +1: All tests passed
+report_reading_test rc=0 wall=46s +1: All tests passed
+review_guidelines_test rc=0 wall=63s +3: All tests passed
+rewarded_ad_test rc=0 wall=72s +1: All tests passed
+rtl_locale_test rc=1 wall=36s +0 -1: Some tests failed
+timezone_change_test rc=0 wall=35s +1: All tests passed
+DONE

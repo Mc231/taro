@@ -5,6 +5,18 @@ import 'model_fixtures.dart';
 
 void main() {
   group('CrisisResource', () {
+    // R2-03: `verifiedAt: null` in the bundled source maps to the epoch
+    // sentinel; such an entry is not verified and shows no "Last checked".
+    test('isVerified is false only for the unverified sentinel', () {
+      final r = helpline('Telefonseelsorge');
+      expect(r.isVerified, isTrue);
+      expect(
+        r.copyWith(verifiedAt: CrisisResource.unverifiedAt).isVerified,
+        isFalse,
+      );
+      expect(CrisisResource.unverifiedAt, DateTime.utc(1970));
+    });
+
     test('JSON round trip omits absent optional fields', () {
       final r = helpline('Telefonseelsorge');
       final json = r.toJson();

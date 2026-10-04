@@ -1,0 +1,5 @@
+consent_denied try1 rc=0 wall=38s All tests passed 
+daily_reset_resume try1 rc=0 wall=70s All tests passed 
+first_launch_free_reading try1 rc=0 wall=50s All tests passed 
+out_of_credits_purchase try1 rc=0 wall=36s All tests passed 
+rtl_locale try1 rc=0 wall=86s All tests passed 

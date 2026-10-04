@@ -1,0 +1,12 @@
+R2-01 burst against a local `wrangler dev --env dev` Worker (working-tree code, AI_PROVIDER=fake,
+throwaway dev keys), one debug-attested install, 7 self-harm questions back to back, each hold + POST /v1/readings:
+register 201 high
+#1 +0.0s reading 200 declined self_harm crisisResources=2
+#2 +0.0s reading 200 declined self_harm crisisResources=2
+#3 +0.1s reading 200 declined self_harm crisisResources=2
+#4 +0.1s reading 200 declined self_harm crisisResources=2
+#5 +0.1s reading 200 declined self_harm crisisResources=2
+#6 +0.1s reading 200 declined self_harm crisisResources=2
+#7 hold 429 RATE_LIMITED burst
+Before the fix each question counted twice against RL_READINGS (6/min), so #4 failed at POST /v1/readings.
+#7 is the known limit: the hold never sees the question (closing it needs an API change, spec 03).

@@ -204,7 +204,10 @@ void main() {
           ),
         ),
       );
-      expect(find.text('Challenge'), findsNothing);
+      // Numbered under the cards, named in the legend (V2-01): the
+      // crossing card gets its number under the card it crosses.
+      expect(find.text('1 · 2'), findsOneWidget);
+      expect(find.text('Challenge'), findsOneWidget);
       expect(find.text('Present'), findsOneWidget);
       final rotated = tester
           .widgetList<Transform>(find.byType(Transform))

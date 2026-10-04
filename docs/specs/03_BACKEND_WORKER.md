@@ -264,7 +264,7 @@ _Reconciled by 00_DECISIONS.md RC53, RC65, RC74._
 | Limiter | Mechanism | Default (config key) |
 |---|---|---|
 | Burst per install | Workers Rate Limiting binding `RL_BURST`, key `inst:{id}` | 60 req / 60 s (`rl.install.perMinute`) |
-| Holds + readings per install | binding `RL_READINGS`, key `inst:{id}` | 6 / 60 s (`rl.readings.perMinute`) |
+| Holds + readings per install | binding `RL_READINGS`, key `inst:{id}` | 6 / 60 s (`rl.readings.perMinute`); a reading under a live hold counts at its hold only, and an L1 crisis decline (§9.4, no model call) is never limited here, so crisis resources always reach the user (R2-01; `RL_BURST` still applies) |
 | Registrations/challenges per IP prefix | `RL_BURST`, key `ip:{prefix hash}` | 20 / 60 s |
 | Readings per install per local day (any source) | `daily_usage.readings_total` in D1 | 30 (`readings.maxPerInstallPerDay`); returns `429 RATE_LIMITED` `reason=dailyLimit`, **never** a 402 or paywall (RC74) |
 | Declined questions per install per day | `daily_usage.declined_count` (only `declined`; `failed` readings never count, RC74) | 10 (`safety.maxDeclinedPerDay`); then `429` `reason=declinedLimit` |

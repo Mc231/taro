@@ -961,6 +961,56 @@ describe('gates (03 §9.0 order; RC28, RC29, RC47, RC74, RC97)', () => {
     });
   });
 
+  it('R2-01: a reading under a live hold is counted at its hold, not again', async () => {
+    const h = setup();
+    const id = await install();
+    await new ReadingDriver(h).grant(id, 'paid', 10);
+    h.readings.limitPerKey = 4;
+    for (let i = 0; i < 4; i++) {
+      const readingId = crid();
+      expect((await postHold(h, id, readingId)).status).toBe(201);
+      expect((await postReading(h, id, readingId)).status).toBe(200);
+    }
+    // The fifth hold is over the per-minute limit.
+    expect(await errorBody(await postHold(h, id, crid()))).toMatchObject({
+      details: { reason: 'burst' },
+    });
+  });
+
+  it('R2-01: an L1 crisis question is answered with crisis resources past the per-minute limit', async () => {
+    const h = setup();
+    const id = await install();
+    const held = crid();
+    expect((await postHold(h, id, held)).status).toBe(201);
+    h.readings.limitPerKey = 0;
+    const crisis = await postReading(
+      h,
+      id,
+      held,
+      readingBody(held, { question: 'Should I end it all tonight?' }),
+    );
+    expect(crisis.status).toBe(200);
+    const body = await json<ReadingResponse>(crisis);
+    expect(body).toMatchObject({ status: 'declined', chargeSource: 'none' });
+    expect(body.safety?.category).toBe('self_harm');
+    expect(body.safety?.crisisResources.length).toBeGreaterThan(0);
+
+    // Without a live hold (a new attempt), the crisis decline still skips the limiter.
+    const inline = crid();
+    const direct = await postReading(
+      h,
+      id,
+      inline,
+      readingBody(inline, { question: 'Should I end it all tonight?' }),
+    );
+    expect(direct.status).toBe(200);
+    expect((await json<ReadingResponse>(direct)).safety?.category).toBe('self_harm');
+
+    // An ordinary question without a live hold is still limited.
+    const plain = await postReading(h, id, crid());
+    expect(await errorBody(plain)).toMatchObject({ details: { reason: 'burst' } });
+  });
+
   it('budget: hard stop → 503 tier=hard; free stop → 503 freeStop for free-only, bonus still reads; soft → free fallback model', async () => {
     const h = setup();
     const id = await install();

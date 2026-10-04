@@ -97,46 +97,56 @@ class TaroAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: SafeArea(
           bottom: false,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: height),
-            child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(
-                horizontal: tokens.space.s2,
-                vertical: tokens.space.s3,
+          // Over the centred content column on wide screens, so actions
+          // sit with the content, not at the screen edge (V2-09).
+          child: Align(
+            alignment: AlignmentDirectional.topCenter,
+            heightFactor: 1,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: height,
+                maxWidth:
+                    tokens.layout.maxContentWidth + 2 * tokens.layout.gutter,
               ),
-              child: Row(
-                children: [
-                  ?leadingButton,
-                  SizedBox(width: tokens.space.s2),
-                  Expanded(
-                    child: title == null
-                        ? const SizedBox.shrink()
-                        : Semantics(
-                            header: true,
-                            child: Text(
-                              title!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: tokens.typography.title.copyWith(
-                                color: c.text.primary,
+              child: Padding(
+                padding: EdgeInsetsDirectional.symmetric(
+                  horizontal: tokens.space.s2,
+                  vertical: tokens.space.s3,
+                ),
+                child: Row(
+                  children: [
+                    ?leadingButton,
+                    SizedBox(width: tokens.space.s2),
+                    Expanded(
+                      child: title == null
+                          ? const SizedBox.shrink()
+                          : Semantics(
+                              header: true,
+                              child: Text(
+                                title!,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: tokens.typography.title.copyWith(
+                                  color: c.text.primary,
+                                ),
                               ),
                             ),
+                    ),
+                    if (status != null) ...[
+                      Semantics(
+                        liveRegion: true,
+                        child: Text(
+                          status!,
+                          style: tokens.typography.label.copyWith(
+                            color: c.text.secondary,
                           ),
-                  ),
-                  if (status != null) ...[
-                    Semantics(
-                      liveRegion: true,
-                      child: Text(
-                        status!,
-                        style: tokens.typography.label.copyWith(
-                          color: c.text.secondary,
                         ),
                       ),
-                    ),
-                    SizedBox(width: tokens.space.s3),
+                      SizedBox(width: tokens.space.s3),
+                    ],
+                    ...actions,
                   ],
-                  ...actions,
-                ],
+                ),
               ),
             ),
           ),

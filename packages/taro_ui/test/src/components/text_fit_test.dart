@@ -57,7 +57,9 @@ Widget _canvas(
   List<SpreadSlotLayout> layouts,
   List<String> labels, {
   TaroCardSize size = TaroCardSize.sm,
-}) => Padding(
+}) => SingleChildScrollView(
+  // The Celtic Cross legend runs past a small screen (V2-01); it scrolls in
+  // the app.
   padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
   child: SpreadCanvas(
     cardSize: size,

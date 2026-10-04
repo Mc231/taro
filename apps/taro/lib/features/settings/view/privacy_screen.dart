@@ -130,6 +130,9 @@ class PrivacyLayout extends StatelessWidget {
     final PrivacyContent(:view) = state as PrivacyContent;
     final tracking = view.tracking;
     final granted = view.aiGranted;
+    final stacked =
+        MediaQuery.textScalerOf(context).scale(1) > kSpreadReflowTextScale;
+    Widget grow(Widget child) => stacked ? child : Expanded(child: child);
     return SettingsPage(
       title: l10n.privacyTitle,
       lead: l10n.privacyBody,
@@ -144,11 +147,17 @@ class PrivacyLayout extends StatelessWidget {
                 horizontal: tokens.space.s5,
                 vertical: tokens.space.s4,
               ),
-              child: Row(
+              // At large text "Withdraw" goes under the status instead of
+              // squeezing it into a narrow column (V2-04).
+              child: Flex(
+                direction: stacked ? Axis.vertical : Axis.horizontal,
+                crossAxisAlignment: stacked
+                    ? CrossAxisAlignment.start
+                    : CrossAxisAlignment.center,
                 spacing: tokens.space.s4,
                 children: [
-                  Expanded(
-                    child: MergeSemantics(
+                  grow(
+                    MergeSemantics(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         spacing: tokens.space.s1,

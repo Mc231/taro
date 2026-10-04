@@ -6,6 +6,7 @@ import 'package:flutter/semantics.dart';
 import 'package:taro_ui/src/components/common/taro_word_fit.dart';
 import 'package:taro_ui/src/components/deck/spread_layout.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';
+import 'package:taro_ui/src/components/layout/taro_badge.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 import 'package:taro_ui/src/tokens/taro_strokes.dart';
 
@@ -22,6 +23,7 @@ class SpreadCanvasSlot {
     required this.number,
     this.card,
     this.emptySemanticsLabel,
+    this.hint,
   });
 
   /// Where the slot sits (LTR; the canvas mirrors it in RTL).
@@ -41,6 +43,12 @@ class SpreadCanvasSlot {
   /// Localised label of the empty slot ("Position 3, Future, empty");
   /// defaults to [label].
   final String? emptySemanticsLabel;
+
+  /// A short localised hint over the card ("Tap to reveal"). It is drawn at
+  /// no less than `type.caption` and stays inside the card; a hint that
+  /// cannot fit at that size is left out (V2-12). Not read by screen
+  /// readers (the card's own label says what to do).
+  final String? hint;
 }
 
 /// How a [SpreadCanvas] arranges its slots.
@@ -122,6 +130,9 @@ class _SlotCanvas extends StatelessWidget {
   final TaroCardSize cardSize;
   final double width;
 
+  /// The most lines a position label may take under its card.
+  static const int _maxLabelLines = 2;
+
   @override
   Widget build(BuildContext context) {
     final tokens = context.tokens;
@@ -139,9 +150,10 @@ class _SlotCanvas extends StatelessWidget {
     );
     final labelStyle = _labelStyle(context);
     final scaler = MediaQuery.textScalerOf(context);
-    final labelWidth = first.cardSize.width + gap;
+    // Neighbouring labels keep at least `space.3` between them (V2-11).
+    final labelWidth = first.cardSize.width + gap - tokens.space.s3;
     // A label wraps only between words: a word wider than its slot shrinks
-    // (BUG-05, BUG-08).
+    // (BUG-05, BUG-08), but never below `type.caption` (V2-01).
     final labelScalers = [
       for (final slot in slots)
         taroWordFitScaler(
@@ -152,13 +164,39 @@ class _SlotCanvas extends StatelessWidget {
           direction: direction,
         ),
     ];
+    final minSize = scaler.scale(tokens.typography.caption.fontSize!);
+    final fontSize = labelStyle.fontSize!;
+    // A crossing card has no label of its own, and a label that would
+    // shrink below the minimum or wrap past two lines is unreadable under
+    // a small card: then every slot shows its number and the names move to
+    // a legend under the spread (V2-01).
+    var numbered = layouts.any((l) => l.isCrossing);
+    for (var i = 0; i < slots.length && !numbered; i++) {
+      final fit = labelScalers[i];
+      if (fit != null && fit.scale(fontSize) < minSize - 0.01) {
+        numbered = true;
+        break;
+      }
+      final painter = TextPainter(
+        text: TextSpan(text: slots[i].label, style: labelStyle),
+        textDirection: direction,
+        textScaler: fit ?? scaler,
+        textAlign: TextAlign.center,
+      )..layout(maxWidth: labelWidth);
+      numbered = painter.computeLineMetrics().length > _maxLabelLines;
+      painter.dispose();
+    }
+    final labels = [
+      for (var i = 0; i < slots.length; i++)
+        numbered ? _numbersAt(i, layouts) : slots[i].label,
+    ];
     var labelHeight = 0.0;
     for (var i = 0; i < slots.length; i++) {
       if (layouts[i].isCrossing) continue;
       final painter = TextPainter(
-        text: TextSpan(text: slots[i].label, style: labelStyle),
+        text: TextSpan(text: labels[i], style: labelStyle),
         textDirection: direction,
-        textScaler: labelScalers[i] ?? scaler,
+        textScaler: numbered ? scaler : labelScalers[i] ?? scaler,
         textAlign: TextAlign.center,
       )..layout(maxWidth: labelWidth);
       labelHeight = math.max(labelHeight, painter.height);
@@ -175,7 +213,7 @@ class _SlotCanvas extends StatelessWidget {
     );
     final card = geometry.cardSize;
     final box = Size(card.width + gap, card.height + labelExtent);
-    return SizedBox.fromSize(
+    final canvas = SizedBox.fromSize(
       size: geometry.size,
       child: CustomMultiChildLayout(
         delegate: _SlotDelegate(geometry.centers, box),
@@ -191,20 +229,107 @@ class _SlotCanvas extends StatelessWidget {
                     children: [
                       Transform.rotate(
                         angle: layouts[i].rotationDeg * math.pi / 180,
-                        child: _SlotCard(slot: slots[i], size: card),
+                        child: _SlotCard(
+                          slot: slots[i],
+                          size: card,
+                          showHint: !layouts[i].isCrossing,
+                        ),
                       ),
                       if (!layouts[i].isCrossing && labelExtent > 0) ...[
                         SizedBox(height: tokens.space.s3),
-                        _SlotLabel(
-                          slot: slots[i],
-                          style: labelStyle,
-                          textScaler: labelScalers[i],
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: labelWidth),
+                          child: _SlotLabel(
+                            label: labels[i],
+                            style: labelStyle,
+                            textScaler: numbered ? null : labelScalers[i],
+                          ),
                         ),
                       ],
                     ],
                   ),
                 ),
               ),
+            ),
+        ],
+      ),
+    );
+    if (!numbered) return canvas;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        canvas,
+        SizedBox(height: tokens.space.s5),
+        _Legend(slots: slots),
+      ],
+    );
+  }
+
+  /// The numbers under slot [i]: its own, then those of the crossing cards
+  /// lying on it ("1 · 2").
+  String _numbersAt(int i, List<SpreadSlotLayout> layouts) {
+    final here = layouts[i];
+    return [
+      slots[i].number,
+      for (var j = 0; j < slots.length; j++)
+        if (j != i &&
+            layouts[j].isCrossing &&
+            !here.isCrossing &&
+            layouts[j].x == here.x &&
+            layouts[j].y == here.y)
+          slots[j].number,
+    ].join(' · ');
+  }
+}
+
+/// The position names of a numbered [SpreadCanvas], each after its number
+/// badge (V2-01). Read in the cards' own labels, so not read again here.
+class _Legend extends StatelessWidget {
+  const _Legend({required this.slots});
+
+  final List<SpreadCanvasSlot> slots;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.tokens;
+    final c = tokens.color;
+    final badge = tokens.size.icon.lg;
+    final ordered = [...slots]..sort((a, b) => a.number.compareTo(b.number));
+    return ExcludeSemantics(
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: tokens.space.s5,
+        runSpacing: tokens.space.s3,
+        children: [
+          for (final slot in ordered)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  constraints: BoxConstraints(
+                    minWidth: badge,
+                    minHeight: badge,
+                  ),
+                  alignment: AlignmentDirectional.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: c.card.frame,
+                      width: TaroStrokes.control,
+                    ),
+                  ),
+                  child: Text(
+                    '${slot.number}',
+                    style: tokens.typography.caption.copyWith(
+                      color: c.text.primary,
+                    ),
+                  ),
+                ),
+                SizedBox(width: tokens.space.s3),
+                Flexible(
+                  child: Text(slot.label, style: _labelStyle(context)),
+                ),
+              ],
             ),
         ],
       ),
@@ -241,18 +366,51 @@ class _SlotDelegate extends MultiChildLayoutDelegate {
 }
 
 class _SlotCard extends StatelessWidget {
-  const _SlotCard({required this.slot, required this.size});
+  const _SlotCard({
+    required this.slot,
+    required this.size,
+    this.showHint = false,
+  });
 
   final SpreadCanvasSlot slot;
   final Size size;
+
+  /// Whether [SpreadCanvasSlot.hint] is drawn over the card.
+  final bool showHint;
 
   @override
   Widget build(BuildContext context) {
     final card = slot.card;
     if (card != null) {
-      return SizedBox.fromSize(
+      final sized = SizedBox.fromSize(
         size: size,
         child: FittedBox(child: card),
+      );
+      final hint = showHint ? slot.hint : null;
+      final tokens = context.tokens;
+      final maxWidth = size.width - tokens.space.s2;
+      // Drawn over the scaled card, not inside it, so it keeps its size
+      // (V2-12); it wraps between words and stays inside the card (BUG-06).
+      // The Stack stays when the hint goes, so the card keeps its state (a
+      // flip in progress).
+      return Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          sized,
+          if (hint != null && _hintFits(context, hint, maxWidth))
+            PositionedDirectional(
+              bottom: tokens.space.s4,
+              child: IgnorePointer(
+                child: ExcludeSemantics(
+                  child: TaroBadge(
+                    label: hint,
+                    maxWidth: maxWidth,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+        ],
       );
     }
     final tokens = context.tokens;
@@ -281,10 +439,39 @@ class _SlotCard extends StatelessWidget {
   }
 }
 
-class _SlotLabel extends StatelessWidget {
-  const _SlotLabel({required this.slot, required this.style, this.textScaler});
+/// Whether [hint] fits a `TaroBadge` of [maxWidth] (the badge wraps between
+/// words) at no less than `type.caption` (V2-12), and in at most three
+/// lines inside the card.
+bool _hintFits(BuildContext context, String hint, double maxWidth) {
+  final tokens = context.tokens;
+  final style = tokens.typography.caption;
+  final inner = maxWidth - 2 * tokens.space.s3;
+  if (inner <= 0) return false;
+  final scaler = MediaQuery.textScalerOf(context);
+  final direction = Directionality.of(context);
+  final fit = taroWordFitScaler(
+    text: hint,
+    style: style,
+    scaler: scaler,
+    maxWidth: inner,
+    direction: direction,
+  );
+  final size = style.fontSize!;
+  if (fit != null && fit.scale(size) < size - 0.01) return false;
+  final painter = TextPainter(
+    text: TextSpan(text: hint, style: style),
+    textDirection: direction,
+    textScaler: fit ?? scaler,
+  )..layout(maxWidth: inner);
+  final lines = painter.computeLineMetrics().length;
+  painter.dispose();
+  return lines <= 3;
+}
 
-  final SpreadCanvasSlot slot;
+class _SlotLabel extends StatelessWidget {
+  const _SlotLabel({required this.label, required this.style, this.textScaler});
+
+  final String label;
   final TextStyle style;
 
   /// The shrunk scaler of a label with a word wider than its slot.
@@ -296,7 +483,7 @@ class _SlotLabel extends StatelessWidget {
     // already in its outline's semantics.
     return ExcludeSemantics(
       child: Text(
-        slot.label,
+        label,
         textAlign: TextAlign.center,
         style: style,
         textScaler: textScaler,
@@ -326,7 +513,17 @@ class _SlotList extends StatelessWidget {
               SizedBox(width: tokens.space.s4),
               Expanded(
                 child: ExcludeSemantics(
-                  child: Text(slots[i].label, style: style),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(slots[i].label, style: style),
+                      // Beside the card at large text, where it has room.
+                      if (slots[i].card != null && slots[i].hint != null) ...[
+                        SizedBox(height: tokens.space.s2),
+                        TaroBadge(label: slots[i].hint!),
+                      ],
+                    ],
+                  ),
                 ),
               ),
             ],

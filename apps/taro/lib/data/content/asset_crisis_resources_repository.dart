@@ -4,10 +4,8 @@ import 'package:taro/data/content/content_manifest.dart';
 import 'package:taro_core/taro_core.dart';
 
 /// The `verifiedAt` given to a bundled entry the owner has not verified yet
-/// (`verifiedAt: null` in the source until Phase 18.4, BE Q3). The epoch is
-/// older than any staleness window, so such entries always count as stale
-/// (03 §9.5 200-day rule) while the directory still parses.
-final DateTime kUnverifiedCrisisResourceAt = DateTime.utc(1970);
+/// ([CrisisResource.unverifiedAt]).
+final DateTime kUnverifiedCrisisResourceAt = CrisisResource.unverifiedAt;
 
 /// The bundled crisis-line directory `assets/deck/crisis_resources.json`
 /// (RC25, RC81), used by S27 from Help and offline.

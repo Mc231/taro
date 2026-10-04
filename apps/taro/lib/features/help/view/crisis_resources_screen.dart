@@ -125,12 +125,17 @@ class CrisisResourcesLayout extends StatelessWidget {
     final tokens = context.tokens;
     final country = content.country;
     final secondary = tokens.color.text.secondary;
-    final checked = content.resources
-        .map((r) => r.verifiedAt)
-        .fold<DateTime?>(
-          null,
-          (oldest, at) => oldest == null || at.isBefore(oldest) ? at : oldest,
-        );
+    // No date while any shown entry is unverified (R2-03): the bundled
+    // source has `verifiedAt: null` until the owner checks it.
+    final checked = content.resources.any((r) => !r.isVerified)
+        ? null
+        : content.resources
+              .map((r) => r.verifiedAt)
+              .fold<DateTime?>(
+                null,
+                (oldest, at) =>
+                    oldest == null || at.isBefore(oldest) ? at : oldest,
+              );
     return ListView(
       padding: EdgeInsetsDirectional.only(
         top: tokens.space.s6,
@@ -156,7 +161,9 @@ class CrisisResourcesLayout extends StatelessWidget {
           Semantics(
             header: true,
             child: Text(
-              l10n.crisisSupportIn(country),
+              l10n.crisisSupportIn(
+                l10n.crisisCountryName(country.toUpperCase()),
+              ),
               style: tokens.typography.label.copyWith(color: secondary),
             ),
           ),
@@ -204,7 +211,7 @@ class CrisisResourcesLayout extends StatelessWidget {
           children: [
             for (final code in countries)
               TaroListTile(
-                title: code,
+                title: l10n.crisisCountryName(code),
                 onTap: () => Navigator.of(sheet).pop(code),
               ),
           ],
@@ -228,6 +235,10 @@ class _CrisisResourceRow extends StatelessWidget {
   /// Left-to-right isolate (U+2066 … U+2069): numbers keep their order in
   /// RTL text.
   static String _ltr(String text) => '\u2066$text\u2069';
+
+  /// First-strong isolate (U+2068 … U+2069): a Latin name that starts
+  /// with a digit ("988 Lifeline") keeps its order in RTL text (V2-08).
+  static String _isolate(String text) => '\u2068$text\u2069';
 
   /// [host] with a zero-width space after each dot, so a narrow line
   /// breaks it between labels ("findahelpline. / com"), never inside one
@@ -278,7 +289,7 @@ class _CrisisResourceRow extends StatelessWidget {
         spacing: tokens.space.s1,
         children: [
           Text(
-            name,
+            international ? name : _isolate(name),
             style: tokens.typography.body.copyWith(
               color: c.text.primary,
               fontWeight: FontWeight.w600,

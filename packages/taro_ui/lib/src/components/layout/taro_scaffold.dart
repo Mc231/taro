@@ -6,7 +6,9 @@ import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 /// wide screens (RC24). Optional slots: an app bar, a top banner
 /// (`TaroOfflineBanner`), a [bottom] slot for a sticky CTA outside the
 /// scroll view, a full-width [banner] slot separated by `space.adGap`
-/// (RC59), and a bottom navigation bar.
+/// (RC59), and a bottom navigation bar. Content that scrolls on under a
+/// [bottom] fades out at its lower edge, so a line is never cut flat by the
+/// pinned actions (V2-03).
 class TaroScaffold extends StatelessWidget {
   /// Creates the frame.
   const TaroScaffold({
@@ -80,7 +82,18 @@ class TaroScaffold extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ?topBanner,
-            Expanded(child: constrained(body, pad: padded, fill: true)),
+            Expanded(
+              child: constrained(
+                bottom == null
+                    ? body
+                    : _BottomFade(
+                        color: backgroundColor ?? tokens.color.bg.canvas,
+                        child: body,
+                      ),
+                pad: padded,
+                fill: true,
+              ),
+            ),
             if (bottom != null)
               Padding(
                 padding: EdgeInsetsDirectional.only(
@@ -93,6 +106,66 @@ class TaroScaffold extends StatelessWidget {
               Padding(
                 padding: EdgeInsetsDirectional.only(top: tokens.space.adGap),
                 child: banner,
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Fades the lower edge of the body's own vertical scroller into the page
+/// colour while content continues under the pinned bottom (V2-03). The
+/// fade is painted over the body, so the body itself is never rebuilt
+/// when it comes and goes.
+class _BottomFade extends StatefulWidget {
+  const _BottomFade({required this.color, required this.child});
+
+  final Color color;
+  final Widget child;
+
+  @override
+  State<_BottomFade> createState() => _BottomFadeState();
+}
+
+class _BottomFadeState extends State<_BottomFade> {
+  bool _more = false;
+
+  bool _update(ScrollMetrics m, int depth) {
+    if (depth != 0 || m.axis != Axis.vertical) return false;
+    final more = m.pixels < m.maxScrollExtent;
+    if (more != _more) setState(() => _more = more);
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final color = widget.color;
+    return NotificationListener<ScrollMetricsNotification>(
+      onNotification: (n) => _update(n.metrics, n.depth),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (n) => _update(n.metrics, n.depth),
+        child: Stack(
+          children: [
+            Positioned.fill(child: widget.child),
+            if (_more)
+              PositionedDirectional(
+                start: 0,
+                end: 0,
+                bottom: 0,
+                height: context.tokens.space.s7,
+                child: IgnorePointer(
+                  child: DecoratedBox(
+                    key: const ValueKey('taroScaffoldBottomFade'),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [color.withValues(alpha: 0), color],
+                      ),
+                    ),
+                  ),
+                ),
               ),
           ],
         ),

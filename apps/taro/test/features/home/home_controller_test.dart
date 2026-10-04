@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:taro/app_state/sync_coordinator.dart';
 import 'package:taro/features/home/controller/home_controller.dart';
 import 'package:taro_core/taro_core.dart';
 
@@ -78,6 +79,61 @@ void main() {
     expect(viewOf(log).deviceUnverified, isFalse);
   });
 
+  group('deviceUnverified never races registration (iOS-R2-01)', () {
+    late _ManualSync sync;
+
+    Future<(StateLog<HomeState>, _ManualSync)> openWith(
+      SyncStatus initial,
+    ) async {
+      sync = _ManualSync(initial);
+      final container = fakes.container(
+        extra: [syncStatusProvider.overrideWith(() => sync)],
+      );
+      final log = StateLog(container, homeControllerProvider);
+      await pumpEventQueue();
+      return (log, sync);
+    }
+
+    setUp(() {
+      fakes
+        ..install = FakeInstallRepository.firstLaunch()
+        ..balance = FakeBalanceRepository();
+    });
+
+    test('fresh install before the first pass: not unverified', () async {
+      final (log, _) = await openWith(const SyncStatus.stale());
+      expect(viewOf(log).deviceUnverified, isFalse);
+      expect(eventsOf<DeviceUnverifiedShownEvent>(fakes), isEmpty);
+    });
+
+    test('registration in flight (syncing) with a balance applied: '
+        'not unverified', () async {
+      final (log, sync) = await openWith(const SyncStatus.stale());
+      sync.status = const SyncStatus.syncing();
+      fakes.balance.seed(aCreditBalance().build());
+      await pumpEventQueue();
+      expect(viewOf(log).variant, HomeBalanceVariant.freeAvailable);
+      expect(viewOf(log).deviceUnverified, isFalse);
+    });
+
+    test('registered during the pass, balance sync failed: '
+        'not unverified', () async {
+      final (log, sync) = await openWith(const SyncStatus.syncing());
+      fakes.install.identity = anInstallIdentity();
+      sync.status = const SyncStatus.unavailable(failure: Failure.network());
+      await pumpEventQueue();
+      expect(viewOf(log).deviceUnverified, isFalse);
+    });
+
+    test('registration failed after the pass: unverified', () async {
+      final (log, sync) = await openWith(const SyncStatus.syncing());
+      expect(viewOf(log).deviceUnverified, isFalse);
+      sync.status = const SyncStatus.unavailable(failure: Failure.network());
+      await pumpEventQueue();
+      expect(viewOf(log).deviceUnverified, isTrue);
+    });
+  });
+
   test('updateAvailable once per version, dismissible', () async {
     fakes.config.current = RemoteConfig.defaults.copyWith(
       appRecommendedVersionIos: '2.0.0',
@@ -128,4 +184,17 @@ void main() {
     expect(view.recentReadings, hasLength(HomeController.recentCount));
     expect(view.adsRemoved, isTrue);
   });
+}
+
+final class _ManualSync extends SyncStatusController {
+  _ManualSync(this.initial);
+
+  final SyncStatus initial;
+
+  @override
+  SyncStatus build() => initial;
+
+  SyncStatus get status => state;
+
+  set status(SyncStatus value) => state = value;
 }

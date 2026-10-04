@@ -692,6 +692,7 @@
   "crisisEmergency": "지금 위험한 상황이라면 {number}에 전화하세요",
   "crisisCallNumber": "{number}에 전화",
   "crisisSupportIn": "{country}의 지원",
+  "crisisCountryName": "{country, select, AU{오스트레일리아} BR{브라질} CA{캐나다} DE{독일} ES{스페인} FR{프랑스} GB{영국} IE{아일랜드} IT{이탈리아} JP{일본} KR{대한민국} NL{네덜란드} PT{포르투갈} TR{튀르키예} UA{우크라이나} US{미국} other{{country}}}",
   "crisisCall": "전화",
   "crisisText": "문자",
   "crisisOpen": "열기",

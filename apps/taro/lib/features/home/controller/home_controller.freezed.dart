@@ -616,7 +616,7 @@ $HomeViewCopyWith<$Res> get view {
 /// @nodoc
 mixin _$HomeFlags {
 
- bool get firstRunDone; String? get updateNoticeVersion; bool get registered;
+ bool get firstRunDone; String? get updateNoticeVersion;
 /// Create a copy of HomeFlags
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -627,16 +627,16 @@ $HomeFlagsCopyWith<HomeFlags> get copyWith => _$HomeFlagsCopyWithImpl<HomeFlags>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion)&&(identical(other.registered, registered) || other.registered == registered));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion,registered);
+int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion);
 
 @override
 String toString() {
-  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion, registered: $registered)';
+  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion)';
 }
 
 
@@ -647,7 +647,7 @@ abstract mixin class $HomeFlagsCopyWith<$Res>  {
   factory $HomeFlagsCopyWith(HomeFlags value, $Res Function(HomeFlags) _then) = _$HomeFlagsCopyWithImpl;
 @useResult
 $Res call({
- bool firstRunDone, String? updateNoticeVersion, bool registered
+ bool firstRunDone, String? updateNoticeVersion
 });
 
 
@@ -664,12 +664,11 @@ class _$HomeFlagsCopyWithImpl<$Res>
 
 /// Create a copy of HomeFlags
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? firstRunDone = null,Object? updateNoticeVersion = freezed,Object? registered = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? firstRunDone = null,Object? updateNoticeVersion = freezed,}) {
   return _then(_self.copyWith(
 firstRunDone: null == firstRunDone ? _self.firstRunDone : firstRunDone // ignore: cast_nullable_to_non_nullable
 as bool,updateNoticeVersion: freezed == updateNoticeVersion ? _self.updateNoticeVersion : updateNoticeVersion // ignore: cast_nullable_to_non_nullable
-as String?,registered: null == registered ? _self.registered : registered // ignore: cast_nullable_to_non_nullable
-as bool,
+as String?,
   ));
 }
 
@@ -754,10 +753,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool firstRunDone,  String? updateNoticeVersion,  bool registered)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool firstRunDone,  String? updateNoticeVersion)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeFlags() when $default != null:
-return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);case _:
+return $default(_that.firstRunDone,_that.updateNoticeVersion);case _:
   return orElse();
 
 }
@@ -775,10 +774,10 @@ return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool firstRunDone,  String? updateNoticeVersion,  bool registered)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool firstRunDone,  String? updateNoticeVersion)  $default,) {final _that = this;
 switch (_that) {
 case _HomeFlags():
-return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);case _:
+return $default(_that.firstRunDone,_that.updateNoticeVersion);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -795,10 +794,10 @@ return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool firstRunDone,  String? updateNoticeVersion,  bool registered)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool firstRunDone,  String? updateNoticeVersion)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeFlags() when $default != null:
-return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);case _:
+return $default(_that.firstRunDone,_that.updateNoticeVersion);case _:
   return null;
 
 }
@@ -810,12 +809,11 @@ return $default(_that.firstRunDone,_that.updateNoticeVersion,_that.registered);c
 
 
 class _HomeFlags implements HomeFlags {
-  const _HomeFlags({required this.firstRunDone, required this.updateNoticeVersion, required this.registered});
+  const _HomeFlags({required this.firstRunDone, required this.updateNoticeVersion});
   
 
 @override final  bool firstRunDone;
 @override final  String? updateNoticeVersion;
-@override final  bool registered;
 
 /// Create a copy of HomeFlags
 /// with the given fields replaced by the non-null parameter values.
@@ -827,16 +825,16 @@ _$HomeFlagsCopyWith<_HomeFlags> get copyWith => __$HomeFlagsCopyWithImpl<_HomeFl
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion)&&(identical(other.registered, registered) || other.registered == registered));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion,registered);
+int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion);
 
 @override
 String toString() {
-  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion, registered: $registered)';
+  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion)';
 }
 
 
@@ -847,7 +845,7 @@ abstract mixin class _$HomeFlagsCopyWith<$Res> implements $HomeFlagsCopyWith<$Re
   factory _$HomeFlagsCopyWith(_HomeFlags value, $Res Function(_HomeFlags) _then) = __$HomeFlagsCopyWithImpl;
 @override @useResult
 $Res call({
- bool firstRunDone, String? updateNoticeVersion, bool registered
+ bool firstRunDone, String? updateNoticeVersion
 });
 
 
@@ -864,12 +862,11 @@ class __$HomeFlagsCopyWithImpl<$Res>
 
 /// Create a copy of HomeFlags
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? firstRunDone = null,Object? updateNoticeVersion = freezed,Object? registered = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? firstRunDone = null,Object? updateNoticeVersion = freezed,}) {
   return _then(_HomeFlags(
 firstRunDone: null == firstRunDone ? _self.firstRunDone : firstRunDone // ignore: cast_nullable_to_non_nullable
 as bool,updateNoticeVersion: freezed == updateNoticeVersion ? _self.updateNoticeVersion : updateNoticeVersion // ignore: cast_nullable_to_non_nullable
-as String?,registered: null == registered ? _self.registered : registered // ignore: cast_nullable_to_non_nullable
-as bool,
+as String?,
   ));
 }
 

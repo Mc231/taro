@@ -3236,9 +3236,18 @@
       }
     }
   },
-  "crisisSupportIn": "Support in {country}",
+  "crisisSupportIn": "Support: {country}",
   "@crisisSupportIn": {
     "description": "S27 section caption; the country name is localized.",
+    "placeholders": {
+      "country": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisCountryName": "{country, select, AU{Australia} BR{Brazil} CA{Canada} DE{Germany} ES{Spain} FR{France} GB{United Kingdom} IE{Ireland} IT{Italy} JP{Japan} KR{South Korea} NL{Netherlands} PT{Portugal} TR{Türkiye} UA{Ukraine} US{United States} other{{country}}}",
+  "@crisisCountryName": {
+    "description": "S27 country name for an ISO 3166-1 alpha-2 code (heading and country picker, V2-07); unknown codes show the code.",
     "placeholders": {
       "country": {
         "type": "String"
@@ -3535,7 +3544,7 @@
   },
   "drawTapToReveal": "Tap to reveal",
   "@drawTapToReveal": {
-    "description": "S08 revealing: label on the next face-down card."
+    "description": "S08 revealing: label on the next face-down card. Keep it to one or two short words: it must fit inside a 72 dp card at caption size, or it is left out (V2-12)."
   },
   "drawDeckSemantics": "{count, plural, one{Deck, 1 card} other{Deck, {count} cards}}",
   "@drawDeckSemantics": {
