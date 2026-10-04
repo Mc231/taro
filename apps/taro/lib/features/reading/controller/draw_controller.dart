@@ -9,7 +9,9 @@ import 'package:taro_core/taro_core.dart';
 /// S08 Draw ritual (01 §7.3 steps 2–6, 02 §9.3, F6, F8).
 ///
 /// The draw is made when S08 opens, under the session's pre-draw hold
-/// (RC50; none for Classic, RC20). When the last card is placed the hold is
+/// (RC50; none for Classic, RC20). Preset cards skip shuffle and pick
+/// (R3-03): the draw is committed at once and S08 opens on the
+/// reveal. When the last card is placed the hold is
 /// renewed if it has < 120 s left (`402`/`409` → [DrawHoldLost], cards
 /// face-down, RC48), then the reading is persisted `pending` and requested
 /// while the user reveals (the repository persists before the network call
@@ -60,16 +62,25 @@ final class DrawController extends Notifier<DrawState> {
       case Err(:final failure):
         state = DrawState.failed(failure: failure);
       case Ok(value: final draw):
-        state = DrawState.shuffling(
-          DrawView(
-            spread: session.spread,
-            draw: draw,
-            classic: session.isClassic,
-            reducedMotion: reducedMotion,
-            readingId: _hold?.readingId,
-            question: session.question,
-          ),
+        final view = DrawView(
+          spread: session.spread,
+          draw: draw,
+          classic: session.isClassic,
+          reducedMotion: reducedMotion,
+          readingId: _hold?.readingId,
+          question: session.question,
         );
+        if (_presetDraw(session) == null) {
+          state = DrawState.shuffling(view);
+          return;
+        }
+        // R3-03: preset cards (the declined draw reused by "Reflect on the
+        // cards without a question", or the daily card) are already chosen,
+        // so S08 skips shuffle and pick and goes straight to the reveal.
+        _pickStartedAt = ref.read(clockProvider).now();
+        final placed = view.copyWith(placed: view.cardCount);
+        state = DrawState.picking(placed);
+        await _commit(placed);
     }
   }
 

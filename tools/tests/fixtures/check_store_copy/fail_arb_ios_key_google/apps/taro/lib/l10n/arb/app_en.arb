@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "appTitle": "Taro",
+  "aiConsentAccept": "Allow AI readings",
+  "aiConsentDecline": "Not now",
+  "homeStartReading": "Start a reading",
+  "questionBegin": "Begin",
+  "settingsRemoveAds": "Remove Banner Ads",
+  "settingsRestore": "Restore purchases",
+  "disclaimerOnboardingBody": "Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice.",
+  "updateCaptionIos": "Opens Google Play",
+  "updateCaptionAndroid": "Opens Google Play",
+  "exportButtonCaption": "Opens the share sheet: Files, email and more."
+}

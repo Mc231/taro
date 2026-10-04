@@ -58,6 +58,12 @@ EXPECTED: dict[str, set[str]] = {
     "fail_certainty_ja": {"certainty_phrase"},
     "fail_certainty_content": {"certainty_phrase"},
     "fail_subscription": {"no_subscriptions"},
+    # rule 19: in-app text shown on both platforms names neither store's products
+    "fail_arb_shared_drive": {"apple_fields_no_android"},
+    "fail_arb_shared_disk_uk": {"apple_fields_no_android"},
+    "fail_arb_shared_icloud": {"play_fields_no_apple"},
+    "fail_arb_ios_key_google": {"apple_fields_no_android"},
+    "fail_arb_android_key_apple": {"play_fields_no_apple"},
 }
 MALFORMED = {
     "fail_malformed_banned",
@@ -169,6 +175,58 @@ def test_every_locale_has_seed_phrases() -> None:
     assert seed <= en
     apple = {p for p, _ in banned["en"].lists["apple_only"].phrases}
     assert {"android", "google play", "play store"} <= apple
+
+
+def test_platform_keys_of_the_real_arb_exist() -> None:
+    keys = csc.parse_arb_platform_keys(load_yaml(REPO / csc.BANNED_PATH))
+    en = set(json.loads((REPO / "apps/taro/lib/l10n/arb/app_en.arb").read_text()))
+    assert keys["apple"] and keys["play"]
+    assert (keys["apple"] | keys["play"]) <= en
+    assert not keys["apple"] & keys["play"]
+
+
+@pytest.mark.parametrize(
+    ("locale", "text", "hit"),
+    [
+        ("en", "Files, Drive, email and more.", "drive"),
+        ("ar", "الملفات، وDrive، والبريد", "drive"),
+        ("ja", "フ\u2060ァ\u2060イ\u2060ル\u2060、ド\u2060ラ\u2060イ\u2060ブ", "ドライブ"),
+        ("ko", "파일, 드라이브, 이메일", "드라이브"),
+        ("uk", "Файли, Диск, пошта", "диск"),
+    ],
+)
+def test_matcher_finds_google_drive_for_apple(locale: str, text: str, hit: str) -> None:
+    assert hit in {phrase for _, phrase in _matcher().hits(text, locale, ["apple_only"])}
+
+
+@pytest.mark.parametrize(("locale", "text"), [("en", "Back up to iCloud"), ("de", "Apple-Konto")])
+def test_matcher_finds_apple_for_play(locale: str, text: str) -> None:
+    assert _matcher().hits(text, locale, ["play_only"])
+
+
+def test_arb_lists_by_platform() -> None:
+    keys = {"apple": frozenset({"ios"}), "play": frozenset({"droid"})}
+    assert csc.arb_lists("ios", keys) == ["global", "apple_only"]
+    assert csc.arb_lists("droid", keys) == ["global", "play_only"]
+    assert csc.arb_lists("shared", keys) == ["global", "apple_only", "play_only"]
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        {"arb_platform_keys": []},
+        {"arb_platform_keys": {"web": ["a"]}},
+        {"arb_platform_keys": {"apple": [""]}},
+        {"arb_platform_keys": {"apple": ["a"], "play": ["a"]}},
+    ],
+)
+def test_parse_arb_platform_keys_rejects_bad_shapes(data: object) -> None:
+    with pytest.raises(InputError, match="arb_platform_keys"):
+        csc.parse_arb_platform_keys(data)
+
+
+def test_parse_arb_platform_keys_defaults_to_empty() -> None:
+    assert csc.parse_arb_platform_keys({}) == {"apple": frozenset(), "play": frozenset()}
 
 
 @pytest.mark.parametrize(

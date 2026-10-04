@@ -231,9 +231,14 @@ void main() {
       const preset = [PresetCard(cardId: CardId('major_17'), reversed: true)];
       final (_, log, _) = openWith(aiSession(spread: 'single', preset: preset));
       await pumpEventQueue();
-      final card = (log.last as DrawShuffling).view.draw.cards.single;
+      // R3-03: preset cards skip shuffle and pick; S08 opens on the reveal.
+      expect(log.states.whereType<DrawShuffling>(), isEmpty);
+      final revealing = log.last as DrawRevealing;
+      expect(revealing.view.allPlaced, isTrue);
+      final card = revealing.view.draw.cards.single;
       expect(card.cardId, const CardId('major_17'));
       expect(card.reversed, isTrue);
+      expect(eventsOf<DrawCompletedEvent>(fakes).single.autoDraw, isFalse);
     });
 
     test('a preset that does not fit the spread is ignored', () async {
@@ -565,8 +570,9 @@ void main() {
       );
       final (_, log, _) = openWith(session);
       await pumpEventQueue();
+      expect(log.states.whereType<DrawShuffling>(), isEmpty);
       expect(
-        (log.last as DrawShuffling).view.draw.cards.single.cardId,
+        (log.last as DrawRevealing).view.draw.cards.single.cardId,
         const CardId('cups_03'),
       );
     });

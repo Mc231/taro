@@ -384,7 +384,12 @@ class _PickPaneState extends State<PickPane> {
     return _RitualFrame(
       content: [
         _Heading(
-          title: open ? l10n.drawPickTitle(remaining) : l10n.drawRevealTitle,
+          title: !open
+              ? l10n.drawRevealTitle
+              // R3-01: "more" only once picking has started.
+              : view.placed == 0
+              ? l10n.drawPickTitle(view.cardCount)
+              : l10n.drawPickMoreTitle(remaining),
           subtitle: l10n.drawPickSubtitle,
         ),
         SizedBox(height: tokens.space.s7),

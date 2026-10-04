@@ -94,6 +94,27 @@ void main() {
     }
   });
 
+  test('R3-01: the first pick title never says "more"; the remaining one '
+      'differs from it in every locale', () async {
+    for (final locale in TaroLocalizations.supportedLocales) {
+      final l10n = await TaroLocalizations.delegate.load(locale);
+      for (var n = 1; n <= 10; n++) {
+        expect(
+          l10n.drawPickTitle(n),
+          isNot(l10n.drawPickMoreTitle(n)),
+          reason: '$locale $n',
+        );
+      }
+    }
+    final uk = await TaroLocalizations.delegate.load(const Locale('uk'));
+    expect(uk.drawPickTitle(3), 'Виберіть 3 карти');
+    expect(uk.drawPickTitle(10), 'Виберіть 10 карт');
+    expect(uk.drawPickMoreTitle(2), 'Виберіть ще 2 карти');
+    for (var n = 1; n <= 10; n++) {
+      expect(uk.drawPickTitle(n), isNot(contains('ще')));
+    }
+  });
+
   test('plurals and placeholders (en)', () async {
     final l10n = await TaroLocalizations.delegate.load(const Locale('en'));
     expect(l10n.balanceReadings(0), '0 readings');
@@ -103,8 +124,10 @@ void main() {
     expect(l10n.cardDrawnTimes(0), 'Not in your journal yet');
     expect(l10n.cardDrawnTimes(1), 'In your journal: drawn once');
     expect(l10n.cardDrawnTimes(4), 'In your journal: drawn 4 times');
-    expect(l10n.drawPickTitle(1), 'Pick one more card');
+    expect(l10n.drawPickTitle(1), 'Pick a card');
     expect(l10n.drawPickTitle(3), 'Pick 3 cards');
+    expect(l10n.drawPickMoreTitle(1), 'Pick one more card');
+    expect(l10n.drawPickMoreTitle(2), 'Pick 2 more cards');
     expect(
       l10n.importSummary(96, 40),
       '96 readings · 40 daily cards',

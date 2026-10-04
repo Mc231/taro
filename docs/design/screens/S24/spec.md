@@ -15,7 +15,7 @@ Padding `space.10` / `layout.gutter` / 28; gap `space.5`.
 4. File name chip (`color.bg.sunken`, `radius.md`, min 52, file icon): "taro-backup-2026-09-27.json" (`taro-backup-YYYY-MM-DD.json`).
 5. Flexible spacer.
 6. Status notice (`role=status`, `color.bg.surface`, `radius.md`): "**Backup saved.** Keep it somewhere private: it holds your questions and notes." (`done` only).
-7. `TaroButton.primary` "Export backup" + caption "Opens the share sheet: Files, Drive, email and more."
+7. `TaroButton.primary` "Export backup" + caption "Opens the share sheet: Files, email and more."
 
 ## Components
 Include/exclude list panel (**new**: `ChecklistPanel`, shared with S26), `TaroButton` (loading), `TaroInlineNotice`.

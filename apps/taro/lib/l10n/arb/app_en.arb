@@ -1378,9 +1378,18 @@
   "@drawShuffleHint": {
     "description": "S08 shuffling subtitle."
   },
-  "drawPickTitle": "{remaining, plural, one{Pick one more card} other{Pick {remaining} cards}}",
+  "drawPickTitle": "{count, plural, one{Pick a card} other{Pick {count} cards}}",
   "@drawPickTitle": {
-    "description": "S08 picking title.",
+    "description": "S08 picking title before the first pick (R3-01: never \"more\").",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "drawPickMoreTitle": "{remaining, plural, one{Pick one more card} other{Pick {remaining} more cards}}",
+  "@drawPickMoreTitle": {
+    "description": "S08 picking title once at least one card is picked: the cards still to pick.",
     "placeholders": {
       "remaining": {
         "type": "int"
@@ -1646,6 +1655,10 @@
   "readingNotFound": "This reading isn’t on this device anymore.",
   "@readingNotFound": {
     "description": "S09/S32/S15 when the entry no longer exists."
+  },
+  "dailyCardNotFound": "There’s no daily card for this day on this device.",
+  "@dailyCardNotFound": {
+    "description": "S15 empty state: a journal link to a local date with no daily card (iOS-R3-02)."
   },
   "reportBody": "Tell us what felt wrong so we can look into it.",
   "@reportBody": {
@@ -2929,7 +2942,7 @@
   "@exportPreparing": {
     "description": "S24 preparing button label."
   },
-  "exportButtonCaption": "Opens the share sheet: Files, Drive, email and more.",
+  "exportButtonCaption": "Opens the share sheet: Files, email and more.",
   "@exportButtonCaption": {
     "description": "S24 caption under the button."
   },

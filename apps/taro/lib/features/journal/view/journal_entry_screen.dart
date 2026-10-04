@@ -76,6 +76,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen> {
     final l10n = TaroLocalizations.of(context);
     return JournalEntryLayout(
       state: state,
+      dailyCard: JournalLabels.keyOf(widget.id) is JournalDailyCardKey,
       cardTexts: {
         for (final id in cards) id: ?ref.watch(cardTextProvider(id)).value,
       },
@@ -179,11 +180,16 @@ class JournalEntryLayout extends StatelessWidget {
     this.onShare,
     this.onReport,
     this.onOpenDisclaimer,
+    this.dailyCard = false,
     super.key,
   });
 
   /// The controller state.
   final JournalEntryState state;
+
+  /// The route names a daily card's local date (the not-found copy then
+  /// talks about a daily card, not a reading).
+  final bool dailyCard;
 
   /// The card texts of the entry (names, a daily card's meaning).
   final Map<CardId, CardText> cardTexts;
@@ -282,7 +288,7 @@ class JournalEntryLayout extends StatelessWidget {
         ),
         JournalEntryNotFound() => framed(
           TaroEmptyView(
-            title: l10n.readingNotFound,
+            title: dailyCard ? l10n.dailyCardNotFound : l10n.readingNotFound,
             largeTitle: false,
             action: TaroButton.secondary(
               label: l10n.commonBack,

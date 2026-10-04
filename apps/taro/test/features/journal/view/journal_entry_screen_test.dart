@@ -374,6 +374,15 @@ void main() {
       );
       expect(find.text(l10n.readingNotFound), findsOneWidget);
 
+      // iOS-R3-02: a date with no daily card says so, not "this reading".
+      await pumpRouted(
+        tester,
+        const JournalEntryScreen(id: '2020-01-01'),
+        fakes: fakes,
+      );
+      expect(find.text(l10n.dailyCardNotFound), findsOneWidget);
+      expect(find.text(l10n.readingNotFound), findsNothing);
+
       fakes.readings.failNext(const Failure.storage(), on: 'setFavourite');
       await pumpRouted(
         tester,

@@ -9,7 +9,10 @@
   (``apps/taro/content/source/**``) or the Worker's user-visible prompt
   templates (``worker/prompts/**/templates/**``);
 * ``apple_fields_no_android`` / ``play_fields_no_apple`` — a platform list hit
-  in a field shown by the other store;
+  in a field shown by the other store. ARB messages are in-app text shown on
+  both platforms (rule 19), so they get both lists, except the keys listed under
+  ``arb_platform_keys`` in ``banned_phrases.yaml``: an ``apple`` key (shown on
+  iOS only) gets ``apple_only``, a ``play`` key (Android only) ``play_only``;
 * ``name_subtitle_banned`` — e.g. "free" in the name, subtitle or Play title;
 * ``description_has_disclaimer`` — a long description lacks the locale's
   ``required_sentences.yaml`` sentence in its first 3 lines;
@@ -87,14 +90,17 @@ _DESCRIPTION_FIELDS = {"description", "full_description"}
 _ARABIC_MARKS = re.compile("[\u064b-\u065f\u0670\u0640]")
 _ARABIC_ALEFS = re.compile("[\u0623\u0625\u0622\u0671]")
 _ARABIC_START = re.compile("^[\u0600-\u06ff]")
+_INVISIBLE = re.compile("[\u200b\u2060\ufeff]")
 
 
 def normalize(text: str) -> str:
     """NFKC, case-folded, curly apostrophes as ``'``, Arabic harakat and tatweel dropped, alef forms unified.
 
-    Mirrors the Worker's ``normalize`` (``worker/src/safety/text.ts``).
+    Mirrors the Worker's ``normalize`` (``worker/src/safety/text.ts``), and also
+    drops zero-width spaces and word joiners (the ja ARB line-break hints), so
+    they cannot hide a phrase.
     """
-    text = unicodedata.normalize("NFKC", text)
+    text = _INVISIBLE.sub("", unicodedata.normalize("NFKC", text))
     text = text.replace("’", "'").replace("‘", "'").casefold()
     return _ARABIC_ALEFS.sub("\u0627", _ARABIC_MARKS.sub("", text))
 
@@ -117,7 +123,9 @@ def phrase_regex(phrase: str, substring: bool) -> re.Pattern[str]:
     if _ARABIC_START.match(parts[0]):
         parts[0] = _arabic_head(parts[0])
     tail = "" if tokens[-1].endswith("*") else r"(?!\w)"
-    return re.compile(r"(?<!\w)" + r"\s+".join(parts) + tail)
+    # An Arabic letter glued to a Latin word ("وDrive") is a boundary too.
+    head = r"(?<!\w)" if _ARABIC_START.match(tokens[0]) else r"(?<![^\W\u0600-\u06ff])"
+    return re.compile(head + r"\s+".join(parts) + tail)
 
 
 @dataclass(frozen=True)
@@ -189,6 +197,36 @@ def parse_banned(data: Any) -> dict[str, LocaleRules]:
         contexts = _str_list(block.get("allowed_contexts"), f"locales.{locale}.allowed_contexts")
         rules[locale] = LocaleRules(lists, tuple(normalize(c) for c in contexts), match == "substring")
     return rules
+
+
+_PLATFORMS = ("apple", "play")
+
+
+def parse_arb_platform_keys(data: Any) -> dict[str, frozenset[str]]:
+    """``arb_platform_keys`` of ``banned_phrases.yaml``: ARB keys shown on one platform only."""
+    block = data.get("arb_platform_keys", {}) if isinstance(data, dict) else {}
+    block = {} if block is None else block
+    if not isinstance(block, dict):
+        raise InputError(BANNED_PATH, "arb_platform_keys must be a mapping")
+    unknown = sorted(set(map(str, block)) - set(_PLATFORMS))
+    if unknown:
+        raise InputError(BANNED_PATH, f"arb_platform_keys: unknown platforms {', '.join(unknown)}")
+    keys = {
+        name: frozenset(_str_list(block.get(name), f"arb_platform_keys.{name}")) for name in _PLATFORMS
+    }
+    both = sorted(keys["apple"] & keys["play"])
+    if both:
+        raise InputError(BANNED_PATH, f"arb_platform_keys: keys on both platforms: {', '.join(both)}")
+    return keys
+
+
+def arb_lists(key: str, platform_keys: Mapping[str, frozenset[str]]) -> list[str]:
+    """Phrase lists for one ARB key: a key shown on both platforms names neither's products."""
+    if key in platform_keys["apple"]:
+        return ["global", "apple_only"]
+    if key in platform_keys["play"]:
+        return ["global", "play_only"]
+    return ["global", "apple_only", "play_only"]
 
 
 def parse_required(data: Any) -> dict[str, str]:
@@ -591,12 +629,14 @@ def arb_findings(
     matcher: Matcher,
     arbs: Mapping[str, Mapping[str, Any]],
     certainty: Mapping[str, CertaintyRules] | None = None,
+    platform_keys: Mapping[str, frozenset[str]] | None = None,
 ) -> list[Finding]:
-    """Banned phrases and certainty wording in ARB message values (in-app text: global lists)."""
+    """Banned phrases and certainty wording in ARB message values (in-app text, rule 19 per platform)."""
+    keys = platform_keys or {"apple": frozenset(), "play": frozenset()}
     findings: list[Finding] = []
     for locale, arb in arbs.items():
         for key, value in arb_messages(arb).items():
-            findings += text_findings(matcher, arb_path(locale), key, value, locale, ["global"])
+            findings += text_findings(matcher, arb_path(locale), key, value, locale, arb_lists(key, keys))
             if certainty is not None:
                 findings += certainty_findings(certainty, arb_path(locale), key, value, locale)
     return findings
@@ -608,7 +648,9 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
         if not (root / label).is_file():
             raise InputError(label, "missing (the check cannot run without it)")
     required = parse_required(load_yaml(root / REQUIRED_PATH, REQUIRED_PATH))
-    banned = parse_banned(load_yaml(root / BANNED_PATH, BANNED_PATH))
+    banned_data = load_yaml(root / BANNED_PATH, BANNED_PATH)
+    banned = parse_banned(banned_data)
+    platform_keys = parse_arb_platform_keys(banned_data)
     matcher = Matcher(banned, required)
     findings: list[Finding] = []
     notices: list[str] = []
@@ -622,7 +664,7 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
             path = root / arb_path(locale)
             if path.is_file():
                 arbs[locale] = load_arb(path, arb_path(locale))
-        findings += arb_findings(matcher, arbs, certainty)
+        findings += arb_findings(matcher, arbs, certainty, platform_keys)
     else:
         notices.append(f"{ARB_DIR} not present yet; ARB copy not checked")
 

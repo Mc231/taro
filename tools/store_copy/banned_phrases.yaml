@@ -25,6 +25,11 @@
 #                  The locale's required disclaimer sentence
 #                  (required_sentences.yaml) is always removed as well.
 # `common` applies to every locale in addition to its own block.
+#
+# In-app text (ARB messages) is shown on both platforms, so it gets both
+# apple_only and play_only (rule 19), except the keys listed under
+# arb_platform_keys: `apple` keys are shown on iOS only (apple_only applies),
+# `play` keys on Android only (play_only applies).
 
 version: 1
 
@@ -39,11 +44,31 @@ common:
     - google play
     - play store
     - google
+    - drive               # Google Drive, R3-02
+    - gmail
   play_only:
     - iphone
     - ipad
     - app store
     - ios
+    - apple
+    - icloud
+
+arb_platform_keys:
+  apple:
+    - attPrepromptTitle
+    - attPrepromptBody
+    - attPrepromptFootnote
+    - nsUserTrackingUsageDescription
+    - privacyTracking
+    - privacyTrackingAllowed
+    - privacyTrackingNotAllowed
+    - privacyTrackingNotAsked
+    - updateCaptionIos
+  play:
+    - reminderChannelName
+    - reminderChannelDescription
+    - updateCaptionAndroid
 
 locales:
   en:
@@ -189,6 +214,8 @@ locales:
       - gratis
 
   ja:
+    apple_only:
+      - ドライブ              # Google Drive, R3-02
     match: substring
     global:
       - 当たる
@@ -206,6 +233,8 @@ locales:
       - 無料
 
   ko:
+    apple_only:
+      - 드라이브              # Google Drive, R3-02
     global:
       - 정확*
       - 적중*
@@ -250,6 +279,8 @@ locales:
       - bedava
 
   uk:
+    apple_only:
+      - диск              # Google Drive, R3-02
     global:
       - точн*
       - гарант*

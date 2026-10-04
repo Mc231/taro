@@ -19,6 +19,7 @@ Padding `space.10` / `layout.gutter` / `space.8`; gap `space.7`.
 
 `shuffling` (DrawShuffle): a stacked deck in the middle, the title "Shuffle the deck", a hold-or-tap "Shuffle" button (the button alternative to the hold gesture), then "Continue" once `motion.ritual.shuffle` has run at least once.
 `revealing` (DrawReveal): the fan is gone; the slots grow to `size.card.md`. Tap each card in position order, or tap "Reveal all". Under each revealed card: its name (`type.cardName`), orientation text ("Reversed" + 180° art rotation + `color.card.reversedBadge`) and 3 keywords (`type.caption`).
+**Preset cards** (the declined draw reused by "Reflect on the cards without a question", 01 §7.5, or the daily card's "Reflect deeper", 01 §7.6): the cards are already chosen, so S08 skips `shuffling` and `picking` and opens on `revealing` with those cards face-down (R3-03).
 `awaitingReading` (DrawAwaiting): position titles + keywords per card as a list, with a calm progress line ("Writing your reading…"). No percentage and no fake progress.
 
 ## Components

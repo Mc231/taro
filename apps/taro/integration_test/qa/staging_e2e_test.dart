@@ -721,13 +721,25 @@ void main() {
       );
       await app.tapButton(l.questionReflectWithoutQuestion);
       // 01 §7.5: the question is removed and Begin runs again with the
-      // declined cards preset, so S08 comes first (a new hold), then S09.
+      // declined cards preset (a new hold). R3-03: S08 skips shuffle and
+      // pick and opens on the reveal of those cards, then S09.
       await app.waitUntil(
         () => app.onScreen(ScreenId.s08) || app.onScreen(ScreenId.s09),
         reason: 'reflect → S08',
       );
       _log('reflect S08: ${app.texts().take(25).join(' | ')}');
-      if (app.onScreen(ScreenId.s08)) await app.drawAll();
+      if (app.onScreen(ScreenId.s08)) {
+        expect(
+          app.texts(),
+          isNot(contains(l.drawShuffleTitle)),
+          reason: 'R3-03: no new shuffle after Reflect',
+        );
+        if (app.$.tester.any(
+          find.widgetWithText(TaroButton, l.drawRevealAll),
+        )) {
+          await app.tapButton(l.drawRevealAll);
+        }
+      }
       await app.waitUntil(
         () => app.onScreen(ScreenId.s09),
         timeout: const Duration(seconds: 120),

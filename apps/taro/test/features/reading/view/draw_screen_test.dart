@@ -104,7 +104,7 @@ void main() {
       tester,
       DrawState.picking(_view(placed: 1)),
     );
-    expect(find.text(l10n.drawPickTitle(2)), findsOneWidget);
+    expect(find.text(l10n.drawPickMoreTitle(2)), findsOneWidget);
     expect(find.text(l10n.drawPickedProgress(1, 3)), findsOneWidget);
     expect(faces(), findsNothing);
     await tester.tap(find.byType(TaroCardBack).last);

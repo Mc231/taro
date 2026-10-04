@@ -235,7 +235,7 @@ Crisis hotline data has **one source** (RC25): `apps/taro/content/source/crisis/
 
 ### 7.11 Export / import
 
-- **Export** creates `taro-backup-YYYY-MM-DD.json` and opens the share sheet (Files, Drive, email…). Schema v1 is **frozen** and published as JSON Schema in `docs/specs/backup_schema_v1.json` (RC70). The same file is copied to `apps/taro/lib/data/backup/backup_schema_v1.json`, and a test asserts the two are byte-identical. The import validator and the round-trip tests both use it. Example:
+- **Export** creates `taro-backup-YYYY-MM-DD.json` and opens the share sheet (Files, email…; the caption names no platform product, rule 19). Schema v1 is **frozen** and published as JSON Schema in `docs/specs/backup_schema_v1.json` (RC70). The same file is copied to `apps/taro/lib/data/backup/backup_schema_v1.json`, and a test asserts the two are byte-identical. The import validator and the round-trip tests both use it. Example:
 
 ```json
 {

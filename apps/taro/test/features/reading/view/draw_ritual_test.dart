@@ -359,6 +359,29 @@ void main() {
       await tapFound(tester, find.text(l10n.drawShuffleReady));
     }
 
+    testWidgets('R3-03: preset cards open on the reveal (no shuffle, no '
+        'pick); Reveal all reads those cards', (tester) async {
+      final fakes = aiReadyFakes();
+      final spread = aSpread().build();
+      final preset = [
+        for (final (i, _) in spread.positionsInOrder.indexed)
+          PresetCard(cardId: CardId('major_0$i'), reversed: i.isOdd),
+      ];
+      await open(tester, fakes, ai().copyWith(presetCards: preset));
+      expect(find.text(l10n.drawShuffleButton), findsNothing);
+      expect(find.text(l10n.drawForMe), findsNothing);
+      expect(find.text(l10n.drawRevealTitle), findsOneWidget);
+      await tapFound(tester, find.text(l10n.drawRevealAll));
+      final reading = fakes.journal.readings.values.single;
+      expect(
+        [for (final c in reading.cards) c.cardId],
+        [
+          for (final p in preset) p.cardId,
+        ],
+      );
+      expectRoute(RoutePaths.reading(reading.id.value));
+    });
+
     testWidgets('the whole ritual by buttons alone (screen-reader path); '
         'haptic.ready when the reading arrives', (tester) async {
       final fakes = aiReadyFakes();
@@ -384,7 +407,7 @@ void main() {
       await tester.tap(find.text(l10n.drawLeaveStay));
       await tester.pumpAndSettle();
       expect(find.text(l10n.drawLeaveTitle), findsNothing);
-      expect(find.text(l10n.drawPickTitle(2)), findsOneWidget);
+      expect(find.text(l10n.drawPickMoreTitle(2)), findsOneWidget);
     });
 
     testWidgets('Close once every card is placed: saved copy; Leave goes '

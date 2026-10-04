@@ -7,5 +7,8 @@
   "questionBegin": "Begin",
   "settingsRemoveAds": "Remove Banner Ads",
   "settingsRestore": "Restore purchases",
-  "disclaimerOnboardingBody": "Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice."
+  "disclaimerOnboardingBody": "Taro uses tarot symbolism to help you reflect. Readings are for entertainment and are not predictions. They are not medical, legal, financial or psychological advice.",
+  "updateCaptionIos": "Opens the App Store",
+  "updateCaptionAndroid": "Opens Google Play",
+  "exportButtonCaption": "Opens the share sheet: Files, email and more."
 }
