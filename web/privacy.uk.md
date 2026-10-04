@@ -2,7 +2,7 @@
 title: Політика конфіденційності
 locale: uk
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Політика конфіденційності Taro
 
-Версія 1.0 · Чинна з 2 жовтня 2026 року
+Версія 1.0 · Чинна з 4 жовтня 2026 року
 
 ## Хто ми
 
-Taro — застосунок-щоденник таро, створений Володимиром Широчуком, індивідуальним розробником і торговцем у розумінні Акта ЄС про цифрові послуги («ми»). Контакт: volodymyr.shyrochuk@gmail.com. Адреса й телефон торговця: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro — застосунок-щоденник таро, створений Володимиром Широчуком, індивідуальним розробником і торговцем у розумінні Акта ЄС про цифрові послуги («ми»). Контакт: volodymyr.shyrochuk@gmail.com. Адреса й телефон торговця: вул. Skrypnuka, 278, м. Львів, 79049, Україна; телефон: +380 93 815 0581.
 
 ## Коротко
 

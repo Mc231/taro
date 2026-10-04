@@ -2,7 +2,7 @@
 title: Datenschutzerklärung
 locale: de
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Taro Datenschutzerklärung
 
-Version 1.0 · Gültig ab 2. Oktober 2026
+Version 1.0 · Gültig ab 4. Oktober 2026
 
 ## Wer wir sind
 
-Taro ist eine Tarot-Tagebuch-App von Volodymyr Shyrochuk, einem einzelnen Entwickler und Unternehmer im Sinne des EU-Gesetzes über digitale Dienste („wir“, „uns“). Kontakt: volodymyr.shyrochuk@gmail.com. Anschrift und Telefon: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro ist eine Tarot-Tagebuch-App von Volodymyr Shyrochuk, einem einzelnen Entwickler und Unternehmer im Sinne des EU-Gesetzes über digitale Dienste („wir“, „uns“). Kontakt: volodymyr.shyrochuk@gmail.com. Anschrift und Telefon: Skrypnuka-Straße 278, 79049 Lwiw, Ukraine; Telefon: +380 93 815 0581.
 
 ## Zusammenfassung
 

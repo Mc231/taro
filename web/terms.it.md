@@ -2,7 +2,7 @@
 title: Termini di utilizzo
 locale: it
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Termini di utilizzo di Taro
 
-Versione 1.0 · In vigore dal 2 ottobre 2026
+Versione 1.0 · In vigore dal 4 ottobre 2026
 
 Questi termini si applicano all’app Taro, creata da Volodymyr Shyrochuk («noi»). Usando Taro li accetti. Su iOS si applica anche il contratto di licenza per l’utente finale standard di Apple (Licensed Application EULA).
 
@@ -56,7 +56,7 @@ Puoi smettere di usare Taro in qualsiasi momento ed eliminarne i dati in Imposta
 
 ## Legge applicabile
 
-Questi termini sono regolati dalla legge di [OWNER: country of establishment], senza privarti della tutela delle norme imperative a tutela dei consumatori del Paese in cui vivi.
+Questi termini sono regolati dalla legge ucraina, senza privarti della tutela delle norme imperative a tutela dei consumatori del Paese in cui vivi.
 
 ## Modifiche
 

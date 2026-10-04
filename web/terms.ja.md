@@ -2,7 +2,7 @@
 title: 利用規約
 locale: ja
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Taro 利用規約
 
-バージョン 1.0 · 2026年10月2日発効
+バージョン 1.0 · 2026年10月4日発効
 
 本規約は、Volodymyr Shyrochuk（以下「当方」）が提供するアプリ Taro に適用されます。Taro を利用することで本規約に同意したものとみなされます。iOS では Apple の標準エンドユーザー使用許諾契約（Licensed Application EULA）も適用されます。
 
@@ -56,7 +56,7 @@ AI リーディングは AI モデルによって自動的に生成されます�
 
 ## 準拠法
 
-本規約は [OWNER: country of establishment] の法律に準拠します。ただし、お住まいの国の強行的な消費者保護法による保護を妨げるものではありません。
+本規約はウクライナの法律に準拠します。ただし、お住まいの国の強行的な消費者保護法による保護を妨げるものではありません。
 
 ## 変更
 

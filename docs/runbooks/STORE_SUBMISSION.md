@@ -38,15 +38,17 @@ asa android upload-screenshots -p $BUNDLE --screenshots-dir build/screenshots/an
 asa android upload-feature-graphic -p $BUNDLE -i build/store/feature_graphic.png
 
 # Web (taro.vshyrochuk.com): web.content_dir in aso.yaml points at web/
-asa web generate -c $ASO -o build/web                                   # ASA-7: privacy/terms in 12 locales, ?hl=
-asa web deploy -d build/web/taro                                        # ASA-10: refuses a hosting config that breaks .well-known
+asa web generate -c $ASO -o build/web --firebase-project taro-app-prod  # ASA-7: index/privacy/terms/support in 12 locales, ?hl=
+cp web/app-ads.txt build/web/taro/                                      # asa does not copy app-ads.txt
+sed -i '' 's/🎮/🌙/g' build/web/taro/*.html                            # asa has no favicon option (quiz default)
+asa web deploy -d build/web/taro                                        # ASA-10: refuses a hosting config that breaks .well-known; site taro-app-prod
 asa web check-well-known -u https://taro.vshyrochuk.com                 # 200, no redirect, application/json
 ```
 
 Notes:
 - `apps/taro/store/aso.yaml` is checked by `asa validate` and by `tools/store_copy/check_store_copy.py`, `check_pack_sizes.py`, `check_iap_ids.py`, `check_l10n.py` and `check_urls.py`.
 - `app_store.availability.excluded_territories` is an owner decision (CS16 + the App Store storefronts in `ai.blockedCountries`); confirm it before `set-app-availability` in Phase 10.
-- `index` and `support` pages have no taro Markdown yet, so `asa web generate` uses its built-in template for them (quiz wording) until `web/{index,support}.<locale>.md` exist (Phase 20).
+- All four pages come from `web/{index,privacy,terms,support}.<locale>.md` (12 locales); the generator warns about the 11 machine-translated locales of each page (native review in Phase 20).
 
 ## App Store Connect
 
@@ -99,3 +101,11 @@ The form's text is Google's template, so the app can't change it. RC59 is the ba
 - Owner enabled Associated Domains + App Attest on the 3 App IDs; asa recreated the 3 App Store profiles (prod/stg/dev, both entitlements present), installed locally and stored in the bundle (`taro.ios_provisioning_profile{,_stg,_dev}_base64`).
 - Shared store credentials copied from the quiz_apps bundle into `shared.*` at the owner's request (ASC API key, distribution cert, team ID M3FHKUJ7Z3, Play upload SA).
 - `fastlane ios beta` (local): build 0.1.0 (1), prod flavor, uploaded to TestFlight (app 6818775977). The Crashlytics Dart-symbol step logged a java error (non-fatal; dSYMs/symbols to be rechecked in CI).
+
+### 2026-10-04 — Website taro.vshyrochuk.com (ASA-7, ASA-10)
+- Owner approved publishing. `[OWNER: …]` placeholders filled in `web/privacy.*.md` (trader: Volodymyr Shyrochuk, individual developer, Skrypnuka St 278, Lviv 79049, Ukraine, +380 93 815 0581, volodymyr.shyrochuk@gmail.com) and `web/terms.*.md` (governing law: Ukraine, mandatory consumer protection kept); `effective` 2026-10-04, version 1.0. New `web/index.<locale>.md` and `web/support.<locale>.md` (12 locales). `check_retention.py` OK, `check_store_copy.py` OK; banned-phrase scan of `web/*.md` with the store-copy matcher: index/support clean except the support address `gmail` (an email address, not a platform claim).
+- `asa web generate` → `build/web/taro` (48 pages: 4 pages × 12 locales, `?hl=` redirect script on every page, `.well-known/` byte for byte, `firebase.json` with `cleanUrls` and `application/json` headers); `app-ads.txt` copied in by hand. `asa web deploy` → Firebase Hosting default site `taro-app-prod` (55 files) → https://taro-app-prod.web.app.
+- Verified on taro-app-prod.web.app: `/`, `/privacy`, `/terms`, `/support`, `/privacy.uk`, `/support.ar` 200 `text/html`; `/privacy?hl=uk` → client-side `location.replace` to `privacy.uk.html`; `/app-ads.txt` 200 `text/plain` = `google.com, pub-5769204800499735, DIRECT, f08c47fec0942fa0`; `/.well-known/apple-app-site-association` and `/.well-known/assetlinks.json` 200 `application/json`, no redirect.
+- Custom domain `taro.vshyrochuk.com` added to site `taro-app-prod` through the Firebase Hosting REST API (`customDomains`); Cloudflare zone `vshyrochuk.com`: `CNAME taro → taro-app-prod.web.app` (DNS only) and `TXT _acme-challenge.taro` (Firebase cert challenge) created via the API.
+
+- SSL issued about 25 min after the DNS records (Firebase state `HOST_ACTIVE` / `OWNERSHIP_ACTIVE`). On https://taro.vshyrochuk.com: `/`, `/privacy`, `/terms`, `/support`, `/privacy?hl=uk` 200 `text/html`; `/app-ads.txt` 200 `text/plain` (pub-5769204800499735 line); both `.well-known` files 200 `application/json`, no redirect; `asa web check-well-known -u https://taro.vshyrochuk.com` "served correctly"; `tools/check_urls.py` (online) OK.

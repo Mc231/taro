@@ -3,7 +3,7 @@ title: سياسة الخصوصية
 locale: ar
 dir: rtl
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -11,11 +11,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # سياسة الخصوصية لتطبيق Taro
 
-الإصدار 1.0 · سارية اعتبارًا من 2 أكتوبر 2026
+الإصدار 1.0 · سارية اعتبارًا من 4 أكتوبر 2026
 
 ## من نحن
 
-Taro تطبيق يوميات تاروت من تطوير Volodymyr Shyrochuk، وهو مطوّر فردي وتاجر وفقًا لقانون الخدمات الرقمية في الاتحاد الأوروبي («نحن»). للتواصل: volodymyr.shyrochuk@gmail.com. عنوان التاجر وهاتفه: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro تطبيق يوميات تاروت من تطوير Volodymyr Shyrochuk، وهو مطوّر فردي وتاجر وفقًا لقانون الخدمات الرقمية في الاتحاد الأوروبي («نحن»). للتواصل: volodymyr.shyrochuk@gmail.com. عنوان التاجر وهاتفه: شارع Skrypnuka 278، لفيف 79049، أوكرانيا؛ الهاتف: ‎+380 93 815 0581.
 
 ## ملخص
 

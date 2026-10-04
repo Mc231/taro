@@ -2,7 +2,7 @@
 title: Умови використання
 locale: uk
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Умови використання Taro
 
-Версія 1.0 · Чинні з 2 жовтня 2026 року
+Версія 1.0 · Чинні з 4 жовтня 2026 року
 
 Ці умови стосуються застосунку Taro, створеного Володимиром Широчуком («ми»). Користуючись Taro, ви погоджуєтеся з ними. На iOS також діє стандартна ліцензійна угода Apple з кінцевим користувачем (Licensed Application EULA).
 
@@ -56,7 +56,7 @@ Taro використовує символіку таро для розваги 
 
 ## Застосовне право
 
-Ці умови регулюються правом [OWNER: country of establishment], що не позбавляє вас захисту імперативних норм споживчого права країни, де ви проживаєте.
+Ці умови регулюються правом України, що не позбавляє вас захисту імперативних норм споживчого права країни, де ви проживаєте.
 
 ## Зміни
 

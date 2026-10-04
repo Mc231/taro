@@ -2,7 +2,7 @@
 title: Gizlilik Politikası
 locale: tr
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Taro Gizlilik Politikası
 
-Sürüm 1.0 · Yürürlük tarihi: 2 Ekim 2026
+Sürüm 1.0 · Yürürlük tarihi: 4 Ekim 2026
 
 ## Biz kimiz
 
-Taro, bireysel geliştirici ve AB Dijital Hizmetler Yasası kapsamında tacir olan Volodymyr Shyrochuk tarafından geliştirilen bir tarot günlüğü uygulamasıdır („biz”). İletişim: volodymyr.shyrochuk@gmail.com. Tacir adresi ve telefonu: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro, bireysel geliştirici ve AB Dijital Hizmetler Yasası kapsamında tacir olan Volodymyr Shyrochuk tarafından geliştirilen bir tarot günlüğü uygulamasıdır („biz”). İletişim: volodymyr.shyrochuk@gmail.com. Tacir adresi ve telefonu: Skrypnuka Caddesi No: 278, 79049 Lviv, Ukrayna; telefon: +380 93 815 0581.
 
 ## Özet
 

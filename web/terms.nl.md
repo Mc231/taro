@@ -2,7 +2,7 @@
 title: Gebruiksvoorwaarden
 locale: nl
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Gebruiksvoorwaarden van Taro
 
-Versie 1.0 · Geldig vanaf 2 oktober 2026
+Versie 1.0 · Geldig vanaf 4 oktober 2026
 
 Deze voorwaarden gelden voor de app Taro, gemaakt door Volodymyr Shyrochuk („wij”). Door Taro te gebruiken ga je ermee akkoord. Op iOS geldt ook Apples standaard licentieovereenkomst voor eindgebruikers (Licensed Application EULA).
 
@@ -56,7 +56,7 @@ Je kunt op elk moment stoppen met Taro en de gegevens verwijderen via Instelling
 
 ## Toepasselijk recht
 
-Op deze voorwaarden is het recht van [OWNER: country of establishment] van toepassing, zonder dat je de bescherming verliest van het dwingende consumentenrecht van het land waar je woont.
+Op deze voorwaarden is het Oekraïense recht van toepassing, zonder dat je de bescherming verliest van het dwingende consumentenrecht van het land waar je woont.
 
 ## Wijzigingen
 

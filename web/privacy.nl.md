@@ -2,7 +2,7 @@
 title: Privacybeleid
 locale: nl
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Privacybeleid van Taro
 
-Versie 1.0 · Geldig vanaf 2 oktober 2026
+Versie 1.0 · Geldig vanaf 4 oktober 2026
 
 ## Wie we zijn
 
-Taro is een tarotdagboek-app van Volodymyr Shyrochuk, een individuele ontwikkelaar en handelaar in de zin van de EU-digitaledienstenverordening („wij”). Contact: volodymyr.shyrochuk@gmail.com. Adres en telefoonnummer van de handelaar: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro is een tarotdagboek-app van Volodymyr Shyrochuk, een individuele ontwikkelaar en handelaar in de zin van de EU-digitaledienstenverordening („wij”). Contact: volodymyr.shyrochuk@gmail.com. Adres en telefoonnummer van de handelaar: Skrypnuka-straat 278, 79049 Lviv, Oekraïne; telefoon: +380 93 815 0581.
 
 ## Samenvatting
 

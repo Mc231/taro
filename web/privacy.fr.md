@@ -2,7 +2,7 @@
 title: Politique de confidentialité
 locale: fr
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Politique de confidentialité de Taro
 
-Version 1.0 · En vigueur depuis le 2 octobre 2026
+Version 1.0 · En vigueur depuis le 4 octobre 2026
 
 ## Qui sommes-nous
 
-Taro est une application de journal de tarot créée par Volodymyr Shyrochuk, développeur individuel et professionnel au sens du règlement européen sur les services numériques (« nous »). Contact : volodymyr.shyrochuk@gmail.com. Adresse et téléphone du professionnel : [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro est une application de journal de tarot créée par Volodymyr Shyrochuk, développeur individuel et professionnel au sens du règlement européen sur les services numériques (« nous »). Contact : volodymyr.shyrochuk@gmail.com. Adresse et téléphone du professionnel : 278, rue Skrypnuka, 79049 Lviv, Ukraine ; téléphone : +380 93 815 0581.
 
 ## En bref
 

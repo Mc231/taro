@@ -2,18 +2,18 @@
 title: Privacy Policy
 locale: en
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
-review: "DRAFT: owner sign-off and legal review required before publishing (05 §5.3)"
+review: "Owner sign-off 2026-10-04 (05 §5.3); published at taro.vshyrochuk.com/privacy"
 ---
 
 # Taro Privacy Policy
 
-Version 1.0 · Effective 2 October 2026
+Version 1.0 · Effective 4 October 2026
 
 ## Who we are
 
-Taro is a tarot journal app made by Volodymyr Shyrochuk, an individual developer and trader under the EU Digital Services Act ("we", "us"). Contact: volodymyr.shyrochuk@gmail.com. Trader address and phone: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro is a tarot journal app made by Volodymyr Shyrochuk, an individual developer and trader under the EU Digital Services Act ("we", "us"). Contact: volodymyr.shyrochuk@gmail.com. Trader address and phone: Skrypnuka St 278, Lviv 79049, Ukraine; phone +380 93 815 0581.
 
 ## Summary
 

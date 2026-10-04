@@ -2,7 +2,7 @@
 title: 이용약관
 locale: ko
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Taro 이용약관
 
-버전 1.0 · 2026년 10월 2일 시행
+버전 1.0 · 2026년 10월 4일 시행
 
 본 약관은 Volodymyr Shyrochuk(이하 "당사")가 만든 Taro 앱에 적용됩니다. Taro를 사용하면 본 약관에 동의하는 것입니다. iOS에서는 Apple의 표준 최종 사용자 사용권 계약(Licensed Application EULA)도 적용됩니다.
 
@@ -56,7 +56,7 @@ AI 리딩은 AI 모델이 자동으로 생성합니다. 부정확하거나 불�
 
 ## 준거법
 
-본 약관은 [OWNER: country of establishment]의 법률에 따릅니다. 다만 사용자가 거주하는 국가의 강행적 소비자 보호법에 따른 보호를 박탈하지 않습니다.
+본 약관은 우크라이나의 법률에 따릅니다. 다만 사용자가 거주하는 국가의 강행적 소비자 보호법에 따른 보호를 박탈하지 않습니다.
 
 ## 변경
 

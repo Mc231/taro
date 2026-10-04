@@ -2,7 +2,7 @@
 title: 개인정보 처리방침
 locale: ko
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Taro 개인정보 처리방침
 
-버전 1.0 · 2026년 10월 2일 시행
+버전 1.0 · 2026년 10월 4일 시행
 
 ## 운영자
 
-Taro는 개인 개발자이자 EU 디지털서비스법상 사업자인 Volodymyr Shyrochuk(이하 "당사")가 만든 타로 일기 앱입니다. 연락처: volodymyr.shyrochuk@gmail.com. 사업자 주소 및 전화번호: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro는 개인 개발자이자 EU 디지털서비스법상 사업자인 Volodymyr Shyrochuk(이하 "당사")가 만든 타로 일기 앱입니다. 연락처: volodymyr.shyrochuk@gmail.com. 사업자 주소 및 전화번호: 우크라이나 리비우 79049 Skrypnuka St 278, 전화: +380 93 815 0581.
 
 ## 요약
 

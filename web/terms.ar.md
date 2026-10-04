@@ -3,7 +3,7 @@ title: شروط الاستخدام
 locale: ar
 dir: rtl
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -11,7 +11,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # شروط استخدام Taro
 
-الإصدار 1.0 · سارية اعتبارًا من 2 أكتوبر 2026
+الإصدار 1.0 · سارية اعتبارًا من 4 أكتوبر 2026
 
 تسري هذه الشروط على تطبيق Taro من تطوير Volodymyr Shyrochuk («نحن»). باستخدامك Taro فإنك توافق عليها. وعلى iOS تسري أيضًا اتفاقية ترخيص المستخدم النهائي القياسية من Apple ‏(Licensed Application EULA).
 
@@ -57,7 +57,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 ## القانون الواجب التطبيق
 
-تخضع هذه الشروط لقوانين [OWNER: country of establishment]، دون حرمانك من حماية قواعد حماية المستهلك الإلزامية في البلد الذي تقيم فيه.
+تخضع هذه الشروط لقوانين أوكرانيا، دون حرمانك من حماية قواعد حماية المستهلك الإلزامية في البلد الذي تقيم فيه.
 
 ## التغييرات
 

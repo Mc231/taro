@@ -2,7 +2,7 @@
 title: Kullanım Koşulları
 locale: tr
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Taro Kullanım Koşulları
 
-Sürüm 1.0 · Yürürlük tarihi: 2 Ekim 2026
+Sürüm 1.0 · Yürürlük tarihi: 4 Ekim 2026
 
 Bu koşullar, Volodymyr Shyrochuk tarafından geliştirilen Taro uygulaması için geçerlidir („biz”). Taro’yu kullanarak bu koşulları kabul edersiniz. iOS’ta Apple’ın standart Son Kullanıcı Lisans Sözleşmesi (Licensed Application EULA) de geçerlidir.
 
@@ -56,7 +56,7 @@ Taro’yu istediğiniz zaman kullanmayı bırakabilir ve verilerini Ayarlar → 
 
 ## Uygulanacak hukuk
 
-Bu koşullar [OWNER: country of establishment] hukukuna tabidir; bu durum, yaşadığınız ülkenin emredici tüketici koruma hükümlerinin size sağladığı korumayı ortadan kaldırmaz.
+Bu koşullar Ukrayna hukukuna tabidir; bu durum, yaşadığınız ülkenin emredici tüketici koruma hükümlerinin size sağladığı korumayı ortadan kaldırmaz.
 
 ## Değişiklikler
 

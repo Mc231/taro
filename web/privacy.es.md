@@ -2,7 +2,7 @@
 title: Política de privacidad
 locale: es
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required before publishing (05 §5.3). The English version prevails."
@@ -10,11 +10,11 @@ review: "MACHINE TRANSLATION of privacy.en.md v1.0: native legal review required
 
 # Política de privacidad de Taro
 
-Versión 1.0 · En vigor desde el 2 de octubre de 2026
+Versión 1.0 · En vigor desde el 4 de octubre de 2026
 
 ## Quiénes somos
 
-Taro es una app de diario de tarot creada por Volodymyr Shyrochuk, desarrollador individual y comerciante según la Ley de Servicios Digitales de la UE («nosotros»). Contacto: volodymyr.shyrochuk@gmail.com. Dirección y teléfono del comerciante: [OWNER: fill in before publishing, as shown in the App Store and Google Play listings].
+Taro es una app de diario de tarot creada por Volodymyr Shyrochuk, desarrollador individual y comerciante según la Ley de Servicios Digitales de la UE («nosotros»). Contacto: volodymyr.shyrochuk@gmail.com. Dirección y teléfono del comerciante: calle Skrypnuka 278, 79049 Leópolis (Lviv), Ucrania; teléfono: +380 93 815 0581.
 
 ## Resumen
 

@@ -2,14 +2,14 @@
 title: Terms of Use
 locale: en
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
-review: "DRAFT: owner sign-off and legal review required before publishing (05 §5.4)"
+review: "Owner sign-off 2026-10-04 (05 §5.4); published at taro.vshyrochuk.com/terms"
 ---
 
 # Taro Terms of Use
 
-Version 1.0 · Effective 2 October 2026
+Version 1.0 · Effective 4 October 2026
 
 These terms apply to the Taro app, made by Volodymyr Shyrochuk ("we", "us"). By using Taro you agree to them. On iOS, Apple's standard Licensed Application End User License Agreement also applies.
 
@@ -55,7 +55,7 @@ You can stop using Taro at any time and delete its data in Settings → Delete a
 
 ## Governing law
 
-These terms are governed by the laws of [OWNER: country of establishment], without depriving you of the protection of the mandatory consumer law of the country where you live.
+These terms are governed by the laws of Ukraine, without depriving you of the protection of the mandatory consumer law of the country where you live.
 
 ## Changes
 

@@ -2,7 +2,7 @@
 title: Condiciones de uso
 locale: es
 version: "1.0"
-effective: "2026-10-02"
+effective: "2026-10-04"
 source: en
 translation: machine
 review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required before publishing (05 §5.4). The English version prevails."
@@ -10,7 +10,7 @@ review: "MACHINE TRANSLATION of terms.en.md v1.0: native legal review required b
 
 # Condiciones de uso de Taro
 
-Versión 1.0 · En vigor desde el 2 de octubre de 2026
+Versión 1.0 · En vigor desde el 4 de octubre de 2026
 
 Estas condiciones se aplican a la app Taro, creada por Volodymyr Shyrochuk («nosotros»). Al usar Taro las aceptas. En iOS también se aplica el Contrato de licencia de usuario final estándar de Apple (Licensed Application EULA).
 
@@ -56,7 +56,7 @@ Puedes dejar de usar Taro en cualquier momento y eliminar sus datos en Ajustes �
 
 ## Ley aplicable
 
-Estas condiciones se rigen por las leyes de [OWNER: country of establishment], sin privarte de la protección de las normas imperativas de consumo del país donde vives.
+Estas condiciones se rigen por las leyes de Ucrania, sin privarte de la protección de las normas imperativas de consumo del país donde vives.
 
 ## Cambios
 
