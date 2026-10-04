@@ -62,7 +62,7 @@ Notes:
 
 ### 2026-10-03 — App Store Connect via asa (Phase 10.3)
 - App record `6818775977` created by the owner in the ASC UI (the API no longer allows app creation); `bootstrap-app` set LIFESTYLE / ENTERTAINMENT.
-- Bundle IDs: `com.vshyrochuk.taro`, `.dev` (7PXM43WGQX), `.stg` (4FBT4YG35K), IN_APP_PURCHASE. App Attest = entitlement only.
+- Bundle IDs: `com.vshyrochuk.taro`, `.dev` (7PXM43WGQX), `.stg` (4FBT4YG35K), IN_APP_PURCHASE. App Attest: the API has no APP_ATTEST capability, but the App ID needs "App Attest" ticked in the developer portal (done by the owner on all 3) or profiles lack the entitlement.
 - IAPs created: `remove_ads` (non-consumable, tier 4), `readings_3` (tier 2), `readings_10` (tier 5), `readings_30` (tier 10); prices set; availability 175 territories; 48 localizations (4 × 12).
 - `push-localizations`: 12 locales pushed (whats_new skipped on the first version).
 - Age rating declaration set from config, `ageRatingOverrideV2 = THIRTEEN_PLUS` accepted.
@@ -86,3 +86,8 @@ Notes:
 - GCP project `taro-app-prod` (number 207843881010): Play Integrity, Android Publisher, Pub/Sub, IAM APIs enabled. `playCloudProjectNumber` = 207843881010 in `apps/taro/config/{dev,staging,prod}.json`.
 - Service account `taro-worker@taro-app-prod.iam.gserviceaccount.com` (Play Developer API); key in `~/pet/secure/taro/taro-worker-sa.json` + bundle `worker.play_service_account_base64`; staging secret `GOOGLE_SERVICE_ACCOUNT_JSON` set.
 - Pub/Sub topic `projects/taro-app-prod/topics/play-rtdn` (publisher: google-play-developer-notifications@system.gserviceaccount.com); push subscriptions `play-rtdn-staging` → api-staging…/v1/webhooks/googleplay and `play-rtdn-prod` → api…/v1/webhooks/googleplay, OIDC via `taro-pubsub-push@taro-app-prod.iam.gserviceaccount.com` (audience = endpoint URL); staging secrets `GOOGLE_PUBSUB_AUDIENCE` / `GOOGLE_PUBSUB_SA` set.
+
+### 2026-10-04 — Signing and first TestFlight build (Phase 10.3/10.6)
+- Owner enabled Associated Domains + App Attest on the 3 App IDs; asa recreated the 3 App Store profiles (prod/stg/dev, both entitlements present), installed locally and stored in the bundle (`taro.ios_provisioning_profile{,_stg,_dev}_base64`).
+- Shared store credentials copied from the quiz_apps bundle into `shared.*` at the owner's request (ASC API key, distribution cert, team ID M3FHKUJ7Z3, Play upload SA).
+- `fastlane ios beta` (local): build 0.1.0 (1), prod flavor, uploaded to TestFlight (app 6818775977). The Crashlytics Dart-symbol step logged a java error (non-fatal; dSYMs/symbols to be rechecked in CI).
