@@ -128,19 +128,53 @@ describe('AppleAppStoreServerApi', () => {
     expect(malformed.requests).toHaveLength(0);
   });
 
-  it('maps outages, auth errors and missing secrets to unavailable', async () => {
-    for (const reply of [json({}, 500), json({}, 401), json({}, 429)]) {
-      const stub = new StubFetch().reply(reply);
-      expect(await api(stub).getTransaction(TXN)).toEqual({ ok: false, reason: 'unavailable' });
+  it('falls back to sandbox when production answers 401 (no live App Store version)', async () => {
+    const stub = new StubFetch().reply(json({}, 401), await signed({ environment: 'Sandbox' }));
+    const result = await api(stub).getTransaction(TXN);
+    expect(result.ok && result.transaction.environment).toBe('Sandbox');
+    expect(stub.requests.map((r) => r.url)).toEqual([
+      `${APP_STORE_PRODUCTION_URL}/inApps/v1/transactions/${TXN}`,
+      `${APP_STORE_SANDBOX_URL}/inApps/v1/transactions/${TXN}`,
+    ]);
+    const missing = new StubFetch().reply(json({}, 401), json({ errorCode: 4040010 }, 404));
+    expect(await api(missing).getTransaction(TXN)).toEqual({
+      ok: false,
+      reason: 'unavailable',
+      detail: 'production_http_401+sandbox_missing',
+    });
+  });
+
+  it('maps outages, auth errors and missing secrets to unavailable with a detail', async () => {
+    const cases: [Response[], string][] = [
+      [[json({}, 500)], 'production_http_500'],
+      [[json({}, 429)], 'production_http_429'],
+      [[json({}, 401)], 'production_http_401+sandbox_http_401'],
+      [[json({ errorCode: 4040010 }, 404), json({}, 503)], 'sandbox_http_503'],
+    ];
+    for (const [replies, detail] of cases) {
+      const stub = new StubFetch().reply(...replies);
+      expect(await api(stub).getTransaction(TXN)).toEqual({
+        ok: false,
+        reason: 'unavailable',
+        detail,
+      });
     }
     const offline = new StubFetch().reply(networkError);
-    expect(await api(offline).getTransaction(TXN)).toEqual({ ok: false, reason: 'unavailable' });
+    expect(await api(offline).getTransaction(TXN)).toEqual({
+      ok: false,
+      reason: 'unavailable',
+      detail: 'production_network',
+    });
 
     const unset = new StubFetch();
     const missing = api(unset, () => {
       throw new SecretConfigError('APPLE_ASC_* is not set');
     });
-    expect(await missing.getTransaction(TXN)).toEqual({ ok: false, reason: 'unavailable' });
+    expect(await missing.getTransaction(TXN)).toEqual({
+      ok: false,
+      reason: 'unavailable',
+      detail: 'credentials',
+    });
     expect(unset.requests).toHaveLength(0);
   });
 

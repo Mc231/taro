@@ -29,7 +29,8 @@ import { X509Certificate } from './x509';
  *
  * assertion — CBOR `{signature, authenticatorData}`: ECDSA P-256 over
  * `SHA256(authenticatorData ‖ clientDataHash)` with the stored key,
- * `rpIdHash` allowed, and `counter > previousCounter`.
+ * `rpIdHash` allowed, and `counter > previousCounter`. The assertion
+ * `authenticatorData` is only the 37-byte head; its flags are ignored.
  *
  * Verification is local, so every failure is `invalid` (a hard failure).
  */
@@ -76,25 +77,37 @@ function asRecord(value: unknown, label: string): Record<string, unknown> {
     : reject(label);
 }
 
-/** `authenticatorData` layout (WebAuthn §6.1). */
-export function parseAuthData(bytes: Uint8Array): AuthData {
-  if (bytes.length < 37) {
-    reject('auth_data');
+const AUTH_DATA_HEADER_BYTES = 37;
+
+/**
+ * The fixed 37-byte head of `authenticatorData`: `rpIdHash(32) ‖ flags(1) ‖
+ * signCount(4, big-endian)`. Assertions carry only this head; Apple's flags
+ * byte is not meaningful there (it may have AT set without any attested
+ * credential data following), so flags are not read.
+ */
+export function parseAssertionAuthData(bytes: Uint8Array): AuthData {
+  if (bytes.length < AUTH_DATA_HEADER_BYTES) {
+    reject('auth_data_short');
   }
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  const rpIdHash = bytes.subarray(0, 32);
+  return { rpIdHash: bytes.subarray(0, 32), counter: view.getUint32(33) };
+}
+
+/** Attestation `authData` layout (WebAuthn §6.1), with attested credential data. */
+export function parseAuthData(bytes: Uint8Array): AuthData {
+  const { rpIdHash, counter } = parseAssertionAuthData(bytes);
   const flags = bytes[32] ?? 0;
-  const counter = view.getUint32(33);
   if ((flags & FLAG_ATTESTED_CREDENTIAL_DATA) === 0) {
     return { rpIdHash, counter };
   }
   if (bytes.length < 55) {
-    reject('auth_data');
+    reject('auth_data_cred');
   }
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   const aaguid = bytes.subarray(37, 53);
   const idLength = view.getUint16(53);
   if (bytes.length < 55 + idLength) {
-    reject('auth_data');
+    reject('auth_data_cred');
   }
   return { rpIdHash, counter, aaguid, credentialId: bytes.subarray(55, 55 + idLength) };
 }
@@ -170,7 +183,7 @@ export class AppleAppAttestVerifier implements AppAttestVerifier {
     try {
       const object = asRecord(decode(input.assertion), 'cbor');
       const signature = asBytes(object['signature'], 'signature');
-      const authDataBytes = asBytes(object['authenticatorData'], 'auth_data');
+      const authDataBytes = asBytes(object['authenticatorData'], 'auth_data_missing');
       const nonce = await this.options.crypto.sha256(
         concatBytes(authDataBytes, input.clientDataHash),
       );
@@ -190,7 +203,7 @@ export class AppleAppAttestVerifier implements AppAttestVerifier {
       if (!valid) {
         reject('signature');
       }
-      const authData = parseAuthData(authDataBytes);
+      const authData = parseAssertionAuthData(authDataBytes);
       await this.checkRpId(authData.rpIdHash, input.allowedAppIds);
       if (authData.counter <= input.previousCounter) {
         reject('counter');

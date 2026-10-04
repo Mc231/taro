@@ -700,7 +700,10 @@ export class PurchaseService {
     if (failure.reason === 'invalid') {
       return purchaseInvalid('invalid_signature');
     }
-    this.deps.logger.log('warn', 'purchase_store_unavailable', { platform });
+    this.deps.logger.log('warn', 'purchase_store_unavailable', {
+      platform,
+      detail: failure.detail ?? 'unknown',
+    });
     return new ApiError('INTERNAL');
   }
 

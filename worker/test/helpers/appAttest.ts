@@ -155,17 +155,66 @@ export interface AssertionOptions {
   readonly clientDataHash: Uint8Array;
   readonly counter: number;
   readonly appId?: string;
+  /** The authenticator data flags byte; Apple devices send AT (0x40) set. */
+  readonly flags?: number;
 }
 
+/** CBOR head of a major type with a definite length (< 2^16). */
+function cborHead(major: number, length: number): Uint8Array {
+  const type = major << 5;
+  if (length < 24) {
+    return Uint8Array.of(type | length);
+  }
+  return length < 256
+    ? Uint8Array.of(type | 24, length)
+    : Uint8Array.of(type | 25, length >> 8, length & 0xff);
+}
+
+/**
+ * An assertion exactly as `DCAppAttestService.generateAssertion` returns it:
+ * a definite CBOR map of text keys to plain byte strings (major type 2, not
+ * the typed-array tag cbor-x writes).
+ */
+export function encodeAppleAssertion(
+  signature: Uint8Array,
+  authenticatorData: Uint8Array,
+): Uint8Array {
+  const entry = (key: string, value: Uint8Array) =>
+    concatBytes(cborHead(3, key.length), utf8(key), cborHead(2, value.length), value);
+  return concatBytes(
+    cborHead(5, 2),
+    entry('signature', signature),
+    entry('authenticatorData', authenticatorData),
+  );
+}
+
+/**
+ * A device-shaped assertion: 37-byte `authenticatorData`
+ * (`rpIdHash ‖ flags ‖ counter`), `nonce = SHA256(authenticatorData ‖
+ * clientDataHash)` and an ES256 (SHA-256 then ECDSA P-256) DER signature
+ * over `nonce`, as the Secure Enclave key signs it.
+ */
 export async function makeAssertion(options: AssertionOptions): Promise<Uint8Array> {
   const authenticatorData = concatBytes(
     await sha256(utf8(options.appId ?? TEST_APP_ID)),
-    Uint8Array.of(0x01),
+    Uint8Array.of(options.flags ?? 0x40),
     counterBytes(options.counter),
   );
-  const nonce = await sha256(concatBytes(authenticatorData, options.clientDataHash));
-  const raw = new Uint8Array(
-    await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, options.privateKey, nonce),
+  return encodeAppleAssertion(
+    await signAssertion(authenticatorData, options.clientDataHash, options.privateKey),
+    authenticatorData,
   );
-  return new Uint8Array(encode({ signature: ecdsaRawToDer(raw), authenticatorData }) as Uint8Array);
+}
+
+/** DER ES256 signature over `nonce = SHA256(authenticatorData ‖ clientDataHash)`. */
+export async function signAssertion(
+  authenticatorData: Uint8Array,
+  clientDataHash: Uint8Array,
+  privateKey: CryptoKey,
+): Promise<Uint8Array> {
+  const nonce = await sha256(concatBytes(authenticatorData, clientDataHash));
+  const raw = new Uint8Array(
+    await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, privateKey, nonce),
+  );
+  return ecdsaRawToDer(raw);
 }

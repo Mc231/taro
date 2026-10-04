@@ -128,6 +128,7 @@ describe('makeProdDeps', () => {
     expect(await deps.appStore.getTransaction('2000000000000001')).toEqual({
       ok: false,
       reason: 'unavailable',
+      detail: 'credentials',
     });
     expect(
       await deps.playDeveloper.getProductPurchase({
@@ -153,6 +154,7 @@ describe('makeProdDeps', () => {
       ).toEqual({
         ok: false,
         reason: 'unavailable',
+        detail: 'credentials',
       });
     }
     expect(() => deps.keys.transferToken()).toThrow('TRANSFER_TOKEN_KEY');

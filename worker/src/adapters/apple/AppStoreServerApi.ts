@@ -17,13 +17,17 @@ import type { AppleJwsVerifier } from './AppleJwsVerifier';
  * claims `{iss, iat, exp, aud: "appstoreconnect-v1", bid}`.
  *
  * `GET /inApps/v1/transactions/{transactionId}` goes to production first and
- * to sandbox only when production answers `4040010` (TransactionIdNotFound),
- * which is how App Review's sandbox purchases reach a production Worker.
+ * to sandbox when production answers `4040010` (TransactionIdNotFound) or
+ * `401`: that is how App Review's and TestFlight's sandbox purchases reach a
+ * production Worker, and production answers `401` to every request for an
+ * app that has no version live on the App Store yet (the sandbox host accepts
+ * the same JWT). A sandbox `401` too means the credentials are wrong.
  * The returned `signedTransactionInfo` is verified by `AppleJwsVerifier`
  * (x5c → pinned Apple Root CA G3, OIDs, ES256).
  *
  * Never throws: missing secrets, network errors, 401/429/5xx are
- * `unavailable` (the client keeps the transaction and retries); an unknown
+ * `unavailable` with a log-safe `detail` (the client keeps the transaction
+ * and retries); an unknown
  * transaction is `not_found`; a payload that fails verification is `invalid`.
  */
 export interface AppStoreCredentials {
@@ -51,7 +55,15 @@ export const APP_STORE_JWT_TTL_SEC = 20 * 60;
 const AUDIENCE = 'appstoreconnect-v1';
 const TRANSACTION_ID = /^\d{1,40}$/;
 
-const unavailable: StoreLookupFailure = { ok: false, reason: 'unavailable' };
+function unavailableBecause(detail: string): StoreLookupFailure {
+  return { ok: false, reason: 'unavailable', detail };
+}
+type Host = 'production' | 'sandbox';
+/** Production answers that send the lookup on to sandbox. */
+interface TrySandbox {
+  readonly trySandbox: true;
+  readonly detail: string;
+}
 const notFound: StoreLookupFailure = { ok: false, reason: 'not_found' };
 const invalid: StoreLookupFailure = { ok: false, reason: 'invalid' };
 
@@ -146,37 +158,48 @@ export class AppleAppStoreServerApi implements AppStoreServerApi {
     try {
       authorization = `Bearer ${await this.jwt()}`;
     } catch {
-      return unavailable;
+      return unavailableBecause('credentials');
     }
-    const production = await this.lookup(APP_STORE_PRODUCTION_URL, transactionId, authorization);
-    if (production !== 'missing') {
+    const production = await this.lookup('production', transactionId, authorization);
+    if (!('trySandbox' in production)) {
       return production;
     }
-    const sandbox = await this.lookup(APP_STORE_SANDBOX_URL, transactionId, authorization);
-    return sandbox === 'missing' ? notFound : sandbox;
+    const sandbox = await this.lookup('sandbox', transactionId, authorization);
+    if (!('trySandbox' in sandbox)) {
+      return sandbox;
+    }
+    return production.detail === 'missing' && sandbox.detail === 'missing'
+      ? notFound
+      : unavailableBecause(`production_${production.detail}+sandbox_${sandbox.detail}`);
   }
 
   private async lookup(
-    base: string,
+    host: Host,
     transactionId: string,
     authorization: string,
-  ): Promise<AppleTransactionResult | 'missing'> {
+  ): Promise<AppleTransactionResult | TrySandbox> {
+    const base = host === 'production' ? APP_STORE_PRODUCTION_URL : APP_STORE_SANDBOX_URL;
     let res: Response;
     try {
       res = await this.options.fetch(`${base}/inApps/v1/transactions/${transactionId}`, {
         headers: { authorization },
       });
     } catch {
-      return unavailable;
+      return unavailableBecause(`${host}_network`);
     }
     if (res.status === 200) {
       const signed = await signedTransactionInfo(res);
       return signed === null ? invalid : this.verifySignedTransaction(signed);
     }
     if (res.status === 404 || res.status === 400) {
-      return (await errorCode(res)) === TRANSACTION_ID_NOT_FOUND ? 'missing' : notFound;
+      return (await errorCode(res)) === TRANSACTION_ID_NOT_FOUND
+        ? { trySandbox: true, detail: 'missing' }
+        : notFound;
     }
-    return unavailable;
+    if (res.status === 401) {
+      return { trySandbox: true, detail: 'http_401' };
+    }
+    return unavailableBecause(`${host}_http_${String(res.status)}`);
   }
 
   async verifySignedTransaction(jws: string): Promise<AppleTransactionResult> {

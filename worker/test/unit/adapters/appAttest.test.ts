@@ -8,6 +8,7 @@ import {
   AppleAppAttestVerifier,
   certificateSha256,
   extractNonce,
+  parseAssertionAuthData,
   parseAuthData,
 } from '../../../src/adapters/apple/AppAttestVerifier';
 import { installReflectMetadataShim } from '../../../src/adapters/apple/reflectShim';
@@ -17,9 +18,11 @@ import { fromBase64, toBase64, utf8 } from '../../../src/crypto/encoding';
 import { FixedClock } from '../../fakes/FixedClock';
 import {
   createTestCa,
+  encodeAppleAssertion,
   makeAssertion,
   makeAttestation,
   nonceExtensionValue,
+  signAssertion,
   TEST_APP_ID,
   type AttestationOptions,
   type TestCa,
@@ -211,19 +214,82 @@ describe('AppleAppAttestVerifier.verifyAssertion (03 §3.4)', () => {
   });
 });
 
+describe('AppleAppAttestVerifier.verifyAssertion, device wire format', () => {
+  it('accepts a 37-byte authenticatorData with AT set (prod regression: auth_data)', async () => {
+    const { att } = await attest();
+    const assertion = await makeAssertion({
+      privateKey: att.keys.privateKey,
+      clientDataHash,
+      counter: 1,
+      flags: 0x40,
+    });
+    expect(assertion[0]).toBe(0xa2);
+    expect(
+      await verifier().verifyAssertion({
+        assertion,
+        clientDataHash,
+        publicKey: att.publicKeySpki,
+        previousCounter: 0,
+        allowedAppIds: ALLOWED,
+      }),
+    ).toEqual({ ok: true, counter: 1 });
+  });
+
+  it('names each failure', async () => {
+    const { att } = await attest();
+    const base = {
+      clientDataHash,
+      publicKey: att.publicKeySpki,
+      previousCounter: 0,
+      allowedAppIds: ALLOWED,
+    };
+    const v = verifier();
+    const short = new Uint8Array(36);
+    const shortAssertion = encodeAppleAssertion(
+      await signAssertion(short, clientDataHash, att.keys.privateKey),
+      short,
+    );
+    expect(await v.verifyAssertion({ ...base, assertion: shortAssertion })).toMatchObject({
+      detail: 'auth_data_short',
+    });
+    expect(
+      await v.verifyAssertion({ ...base, assertion: encode({ signature: new Uint8Array(8) }) }),
+    ).toMatchObject({ detail: 'auth_data_missing' });
+    const zero = await makeAssertion({
+      privateKey: att.keys.privateKey,
+      clientDataHash,
+      counter: 0,
+    });
+    expect(await v.verifyAssertion({ ...base, assertion: zero })).toMatchObject({
+      detail: 'counter',
+    });
+    expect(await v.verifyAssertion({ ...base, assertion: Uint8Array.of(0x01) })).toMatchObject({
+      detail: 'cbor',
+    });
+  });
+});
+
 describe('App Attest helpers', () => {
   it('parses authenticator data with and without attested credential data', () => {
     const short = new Uint8Array(37);
     short[36] = 7;
     expect(parseAuthData(short)).toEqual({ rpIdHash: short.subarray(0, 32), counter: 7 });
-    expect(() => parseAuthData(new Uint8Array(36))).toThrow('auth_data');
+    expect(() => parseAuthData(new Uint8Array(36))).toThrow('auth_data_short');
     const flagged = new Uint8Array(40);
     flagged[32] = 0x40;
-    expect(() => parseAuthData(flagged)).toThrow('auth_data');
+    expect(() => parseAuthData(flagged)).toThrow('auth_data_cred');
     const badLength = new Uint8Array(55);
     badLength[32] = 0x40;
     badLength[54] = 10;
-    expect(() => parseAuthData(badLength)).toThrow('auth_data');
+    expect(() => parseAuthData(badLength)).toThrow('auth_data_cred');
+  });
+
+  it('reads only the 37-byte head of assertion authenticator data, whatever the flags', () => {
+    const head = new Uint8Array(37);
+    head[32] = 0x40;
+    head[36] = 3;
+    expect(parseAssertionAuthData(head)).toEqual({ rpIdHash: head.subarray(0, 32), counter: 3 });
+    expect(() => parseAssertionAuthData(new Uint8Array(36))).toThrow('auth_data_short');
   });
 
   it('extracts the nonce and rejects other structures', () => {

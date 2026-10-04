@@ -12,6 +12,11 @@ export interface StoreLookupFailure {
    * network, auth or a 5xx (the client retries).
    */
   readonly reason: 'not_found' | 'invalid' | 'unavailable';
+  /**
+   * Log-safe cause of an `unavailable` (e.g. `credentials`,
+   * `production_http_401`, `sandbox_network`); never carries secrets.
+   */
+  readonly detail?: string;
 }
 
 /** The verified `JWSTransactionDecodedPayload` fields the Worker uses (03 §6.2). */

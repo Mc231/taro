@@ -250,6 +250,9 @@ describe('PurchaseService.verifyApple (03 §6.2)', () => {
     h.appStore.failure = 'unavailable';
     expect((await rejected(service.verify(caller, ios(txnId())))).code).toBe('INTERNAL');
     expect(h.logger.find('purchase_store_unavailable')).toHaveLength(1);
+    expect(h.logger.find('purchase_store_unavailable')[0]).toMatchObject({
+      fields: { platform: 'ios', detail: 'unknown' },
+    });
   });
 
   it('rejects a store answer for another transaction ID', async () => {
