@@ -74,13 +74,16 @@ final class InstallHarness {
     InMemorySecureStore? secure,
     DeviceDatabase? device,
     AttestationType attestationKind = AttestationType.appAttest,
+    bool attestationSettlesOnFirstUse = false,
     AppPlatform platform = AppPlatform.ios,
     SequentialIdGenerator? ids,
     FakeClock? clock,
     this.onRegistered,
   }) : secure = secure ?? InMemorySecureStore(),
        device = device ?? memoryDevice(),
-       attestation = FakeAttestationService(attestationKind),
+       attestation = attestationSettlesOnFirstUse
+           ? FakeAttestationService.unsettled(attestationKind)
+           : FakeAttestationService(attestationKind),
        ids = ids ?? SequentialIdGenerator(),
        clock = clock ?? FakeClock.utc(kInstallNow) {
     tokens = SecureSessionTokenStore(this.secure, logger: logger);

@@ -77,6 +77,7 @@ final class InstallRepositoryImpl implements InstallRepository {
   _Install? _install;
   Future<Result<_Install>>? _loading;
   Future<Result<InstallIdentity>>? _registering;
+  bool _upgradeTried = false;
 
   @override
   Future<Result<InstallIdentity>> getOrCreate() async =>
@@ -86,9 +87,35 @@ final class InstallRepositoryImpl implements InstallRepository {
   Future<Result<InstallIdentity>> ensureRegistered() async {
     final loaded = await _load();
     return loaded.then((install) async {
-      if (install.identity.isRegistered) return Result.ok(install.identity);
-      return _registerOnce();
+      final identity = install.identity;
+      if (!identity.isRegistered) return _registerOnce();
+      if (_canUpgrade(identity)) return _upgrade(identity);
+      return Result.ok(identity);
     });
+  }
+
+  /// An iOS install registered without an App Attest key (low trust: App
+  /// Attest was unavailable, or not yet probed, at that registration) tries
+  /// once per launch to re-register with App Attest (same ID and secret).
+  bool _canUpgrade(InstallIdentity identity) =>
+      !_upgradeTried &&
+      _config.platform == AppPlatform.ios &&
+      identity.trust == Trust.low &&
+      identity.attestationKeyId == null;
+
+  /// The upgrade of [_canUpgrade]. It reaches the Worker only with a
+  /// platform attestation; otherwise, or on any failure, the low-trust
+  /// registration stays as it is.
+  Future<Result<InstallIdentity>> _upgrade(InstallIdentity identity) async {
+    _upgradeTried = true;
+    final upgraded = await (_registering ??= _register(
+      platformOnly: true,
+    ).whenComplete(() => _registering = null));
+    if (upgraded case Err(:final failure)) {
+      _logger.info('low-trust install kept: ${failure.code}');
+      return Result.ok(identity);
+    }
+    return upgraded;
   }
 
   /// Registers again with the same install ID and secret (02 §6.4): after
@@ -206,7 +233,10 @@ final class InstallRepositoryImpl implements InstallRepository {
   Future<Result<InstallIdentity>> _registerOnce() =>
       _registering ??= _register().whenComplete(() => _registering = null);
 
-  Future<Result<InstallIdentity>> _register() async {
+  /// One registration attempt. With [platformOnly] (an upgrade), no
+  /// `type: none` fallback is sent: a missing platform attestation fails
+  /// with [AttestationFailure] before `POST /v1/installs`.
+  Future<Result<InstallIdentity>> _register({bool platformOnly = false}) async {
     final install = _install!;
     final installId = install.identity.installId.value;
 
@@ -221,7 +251,12 @@ final class InstallRepositoryImpl implements InstallRepository {
     final signal = await _attestation.deviceSignal();
     final RegistrationAttestationDto attestation;
     final String? keyId;
-    switch (await _attest(dto, installId, signal)) {
+    switch (await _attest(
+      dto,
+      installId,
+      signal,
+      platformOnly: platformOnly,
+    )) {
       case Ok(value: (final body, final id)):
         (attestation, keyId) = (body, id);
       case Err(:final failure):
@@ -259,20 +294,38 @@ final class InstallRepositoryImpl implements InstallRepository {
   /// The registration attestation: the platform one, or `type: none` with a
   /// proof of work when the platform has none (03 §3.3). The platform proof
   /// binds [installId] and the device [signal] (02 §6.4, 03 §3.7).
+  ///
+  /// There is no `isSupported` pre-check: the platform adapter settles it in
+  /// its warm-up, which [AttestationService.attest] awaits and which may not
+  /// have run yet (it did not on a first launch, so every new install
+  /// registered as `type: none`). An adapter without platform attestation
+  /// answers a `none` blob, which becomes the proof-of-work `none` here.
   Future<Result<_Attested>> _attest(
     ChallengeDto dto,
     String installId,
-    DeviceSignal signal,
-  ) async {
-    if (!_attestation.isSupported) {
-      return Result.ok(await _none(dto, installId, 'unsupported'));
-    }
+    DeviceSignal signal, {
+    required bool platformOnly,
+  }) async {
     final result = await _attestation.attest(
       challenge: dto.challenge,
       installId: installId,
       signal: signal,
     );
+    if (platformOnly) {
+      return switch (result) {
+        Ok(:final value) when value.type != AttestationType.none => Result.ok((
+          RegistrationAttestationDto.fromBlob(value),
+          value.keyId,
+        )),
+        Ok() => const Result.err(
+          Failure.attestation(kind: AttestationFailureKind.unsupported),
+        ),
+        Err(:final failure) => Result.err(failure),
+      };
+    }
     switch (result) {
+      case Ok(:final value) when value.type == AttestationType.none:
+        return Result.ok(await _none(dto, installId, 'unsupported'));
       case Ok(:final value):
         return Result.ok((
           RegistrationAttestationDto.fromBlob(value),

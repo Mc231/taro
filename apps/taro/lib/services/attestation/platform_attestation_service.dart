@@ -167,10 +167,12 @@ final class PlatformAttestationService implements AttestationService {
     if (!_supported) return const Result.ok(AssertionBlob(header: 'none'));
     try {
       if (_isIos) {
+        // No stored key: the install was registered without App Attest
+        // (low trust), and the Worker accepts `none` from a low-trust
+        // install (03 §3.4, BE4). A high-trust install answers it with
+        // ATTESTATION_REQUIRED, so the Worker still decides.
         if (keyId == null || keyId.isEmpty) {
-          return const Result.err(
-            Failure.attestation(kind: AttestationFailureKind.keyInvalidated),
-          );
+          return const Result.ok(AssertionBlob(header: 'none'));
         }
         final assertion = await _plugin.generateAssertion(
           keyId,

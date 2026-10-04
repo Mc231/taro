@@ -29,8 +29,8 @@ final class AttestationInterceptor extends Interceptor {
   static Future<String?> _noKeyId() async => null;
 
   /// A reader of `taro.attest_key_id` in [store]; an unreadable store reads
-  /// as no key, which the platform adapter answers with
-  /// `AttestationFailure(keyInvalidated)` (re-registration, 02 §6.4).
+  /// as no key, which the iOS adapter answers with the `none` header (the
+  /// Worker accepts it only from a low-trust install).
   static AttestationKeyIdReader storedKeyId(SecureStore store) =>
       () async => (await store.read(SecureKeys.attestKeyId)).valueOrNull;
 

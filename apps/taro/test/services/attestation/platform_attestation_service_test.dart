@@ -194,16 +194,14 @@ void main() {
       });
     });
 
-    test('assert_ without a key is keyInvalidated (re-register)', () async {
+    test('assert_ without a key sends none (a low-trust install keeps '
+        'reading, BE4)', () async {
       for (final keyId in [null, '']) {
         final result = await attestation.assert_(
           clientDataHash: List.filled(32, 1),
           keyId: keyId,
         );
-        expect(
-          result.failureOrNull,
-          _attestationFailure(AttestationFailureKind.keyInvalidated),
-        );
+        expect(result.valueOrNull?.header, 'none');
       }
       expect(native.callsOf('generateAssertion'), isEmpty);
     });

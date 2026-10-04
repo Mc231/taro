@@ -235,7 +235,20 @@ void main() {
         isTrue,
       );
       expect(n.powRuns.single.bits, 8);
-      expect(n.attestation.calls, ['deviceSignal']);
+      expect(n.attestation.calls, ['deviceSignal', 'attest']);
+    });
+
+    test('App Attest is used even before the warm-up settled isSupported '
+        '(first launch)', () async {
+      final w = InstallHarness(attestationSettlesOnFirstUse: true);
+      addTearDown(w.close);
+      expect(w.attestation.isSupported, isFalse);
+      final identity = expectOk(await w.repo.ensureRegistered());
+      final attestation = _body(w.adapter.requests.last)['attestation'] as Map;
+      expect(attestation['type'], 'app_attest');
+      expect(attestation['keyId'], 'key-1');
+      expect(identity.attestationKeyId, 'key-1');
+      expect(w.powRuns, isEmpty);
     });
 
     test('a platform reporting unsupported falls back to none', () async {
@@ -272,6 +285,98 @@ void main() {
         expect(h.logger.logged('platform attestation unavailable'), isTrue);
       });
     }
+
+    group('a low-trust iOS install without an App Attest key', () {
+      Future<InstallIdentity> registerLow(InstallHarness x) async {
+        x.adapter.routes[kChallenge] = (_) => InstallHarness.ok({
+          ...fixture('installs.challenge.response'),
+          'powBits': 4,
+        });
+        x.adapter.routes[kRegister] = (_) => InstallHarness.ok({
+          ...fixture('installs.register.response'),
+          'trust': 'low',
+        }, 201);
+        x.attestation.failNext(
+          const Failure.attestation(kind: AttestationFailureKind.transient),
+          on: 'attest',
+        );
+        final low = expectOk(await x.repo.ensureRegistered());
+        expect(low.trust, Trust.low);
+        expect(low.attestationKeyId, isNull);
+        x.adapter.routes[kRegister] = (_) =>
+            InstallHarness.ok(fixture('installs.register.response'));
+        return low;
+      }
+
+      test('re-registers with App Attest once per launch', () async {
+        final low = await registerLow(h);
+        final upgraded = expectOk(await h.repo.ensureRegistered());
+        final registers = h.adapter.to(kRegister);
+        expect(registers, hasLength(2));
+        final body = _body(registers.last);
+        expect(body['installId'], low.installId.value);
+        expect(
+          body['installSecret'],
+          h.secure.values[SecureKeys.installSecret],
+        );
+        expect((body['attestation'] as Map)['type'], 'app_attest');
+        expect(upgraded.trust, Trust.high);
+        expect(upgraded.attestationKeyId, 'key-2');
+        expect(h.secure.values[SecureKeys.attestKeyId], 'key-2');
+        expectOk(await h.repo.ensureRegistered());
+        expect(h.adapter.to(kRegister), hasLength(2));
+      });
+
+      test('keeps the low-trust registration without a platform '
+          'attestation, and does not retry in this launch', () async {
+        final low = await registerLow(h);
+        h.attestation.failNext(
+          const Failure.attestation(kind: AttestationFailureKind.transient),
+          on: 'attest',
+        );
+        expect(expectOk(await h.repo.ensureRegistered()), low);
+        expect(h.adapter.to(kRegister), hasLength(1));
+        expect(h.logger.logged('low-trust install kept: '), isTrue);
+        expect(expectOk(await h.repo.ensureRegistered()), low);
+        expect(h.attestation.calls.where((c) => c == 'attest'), hasLength(2));
+      });
+
+      test('keeps it when the platform answers none or the Worker '
+          'refuses', () async {
+        final n = InstallHarness(attestationKind: AttestationType.none);
+        addTearDown(n.close);
+        n.adapter.routes[kChallenge] = (_) => InstallHarness.ok({
+          ...fixture('installs.challenge.response'),
+          'powBits': 4,
+        });
+        n.adapter.routes[kRegister] = (_) => InstallHarness.ok({
+          ...fixture('installs.register.response'),
+          'trust': 'low',
+        }, 201);
+        final low = expectOk(await n.repo.ensureRegistered());
+        expect(expectOk(await n.repo.ensureRegistered()), low);
+        expect(n.adapter.to(kRegister), hasLength(1));
+
+        final r = InstallHarness();
+        addTearDown(r.close);
+        final rLow = await registerLow(r);
+        r.adapter.routes[kRegister] = (_) =>
+            InstallHarness.error(403, 'ATTESTATION_FAILED');
+        expect(expectOk(await r.repo.ensureRegistered()), rLow);
+        expect(r.adapter.to(kRegister), hasLength(2));
+      });
+
+      test('Android never upgrades this way', () async {
+        final a = InstallHarness(
+          attestationKind: AttestationType.playIntegrity,
+          platform: AppPlatform.android,
+        );
+        addTearDown(a.close);
+        await registerLow(a);
+        expectOk(await a.repo.ensureRegistered());
+        expect(a.adapter.to(kRegister), hasLength(1));
+      });
+    });
 
     test('a rejected attestation fails without POST /v1/installs', () async {
       h.attestation.failNext(

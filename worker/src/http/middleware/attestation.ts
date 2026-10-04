@@ -106,6 +106,11 @@ async function callTrust(
       return 'low';
     }
     if (config['attest.requiredOnReadings']) {
+      deps.logger.log('warn', 'call_attest_required', {
+        plat: install.platform,
+        header: parsed.kind,
+        trust: install.trust,
+      });
       throw new ApiError('ATTESTATION_REQUIRED');
     }
     return 'low';
@@ -170,5 +175,6 @@ function rejected(deps: Deps, install: InstallRow, result: AttestRejected): Trus
 
 function fail(deps: Deps, install: InstallRow, detail: string): never {
   deps.metrics.write({ event: 'attest_failed', platform: install.platform, code: detail });
+  deps.logger.log('warn', 'call_attest_rejected', { plat: install.platform, detail });
   throw new ApiError('ATTESTATION_FAILED');
 }

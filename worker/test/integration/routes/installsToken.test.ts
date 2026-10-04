@@ -113,6 +113,10 @@ describe('POST /v1/installs/token [attest] (03 §3.4)', () => {
       const res = await refresh(h, reg.body.installToken, extra);
       expect(res.status).toBe(401);
       expect((await errorOf(res)).code).toBe('ATTESTATION_REQUIRED');
+      expect(h.logger.find('call_attest_required').at(-1)?.fields).toMatchObject({
+        plat: 'ios',
+        trust: 'high',
+      });
     }
     h.config.set({ 'attest.requiredOnReadings': false });
     const res = await refresh(h, reg.body.installToken);
@@ -131,6 +135,10 @@ describe('POST /v1/installs/token [attest] (03 §3.4)', () => {
     const aa1 = await refresh(h, reg.body.installToken, AA1);
     expect(aa1.status).toBe(403);
     expect(h.metrics.points.at(-1)).toMatchObject({ event: 'attest_failed', code: 'no_key' });
+    expect(h.logger.find('call_attest_rejected').at(-1)?.fields).toEqual({
+      plat: 'ios',
+      detail: 'no_key',
+    });
   });
 
   it('rejects an invalid assertion (403) and degrades an outage to low trust', async () => {

@@ -335,13 +335,25 @@ final class FakeAttestationService
     with FakeBehaviour
     implements AttestationService {
   /// A fake attesting with [kind].
-  FakeAttestationService([this.kind = AttestationType.appAttest]);
+  FakeAttestationService([this.kind = AttestationType.appAttest])
+    : settlesOnFirstUse = false;
+
+  /// A fake attesting with [kind] whose [isSupported] reads `false` until
+  /// the first [attest] or [assert_] call, like the platform adapter before
+  /// its warm-up has run.
+  FakeAttestationService.unsettled([this.kind = AttestationType.appAttest])
+    : settlesOnFirstUse = true;
 
   @override
   String get fakeName => 'AttestationService';
 
   /// The attestation kind.
   final AttestationType kind;
+
+  /// Whether [isSupported] is unsettled (`false`) until the first use.
+  final bool settlesOnFirstUse;
+
+  bool _settled = false;
 
   /// Challenges passed to [attest].
   final List<String> challenges = [];
@@ -356,7 +368,8 @@ final class FakeAttestationService
   final List<String?> assertionKeyIds = [];
 
   @override
-  bool get isSupported => kind != AttestationType.none;
+  bool get isSupported =>
+      kind != AttestationType.none && (_settled || !settlesOnFirstUse);
 
   @override
   Future<Result<AttestationBlob>> attest({
@@ -365,6 +378,7 @@ final class FakeAttestationService
     required DeviceSignal signal,
   }) async {
     record('attest');
+    _settled = true;
     challenges.add(challenge);
     attestedInstalls.add((installId, signal));
     final failure = takeFailure('attest');
@@ -387,6 +401,7 @@ final class FakeAttestationService
     String? keyId,
   }) async {
     record('assert');
+    _settled = true;
     assertions.add(clientDataHash);
     assertionKeyIds.add(keyId);
     final failure = takeFailure('assert');

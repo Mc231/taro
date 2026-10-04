@@ -124,6 +124,17 @@ describe('POST /v1/installs — new installs (03 §3.3)', () => {
     expect(h.metrics.points).toContainEqual(
       expect.objectContaining({ event: 'install_registered', platform: 'ios', code: 'high' }),
     );
+    expect(h.logger.find('install_attest_verdict')).toEqual([
+      {
+        level: 'info',
+        event: 'install_attest_verdict',
+        fields: expect.objectContaining({
+          plat: 'ios',
+          att: 'app_attest',
+          trust: 'high',
+        }) as object,
+      },
+    ]);
     h.logger.expectNoSensitive(secret, installId, token);
   });
 
@@ -192,6 +203,10 @@ describe('POST /v1/installs — new installs (03 §3.3)', () => {
     expect(h.metrics.points).toContainEqual(
       expect.objectContaining({ event: 'attest_failed', code: 'chain' }),
     );
+    expect(h.logger.find('install_attest_rejected').at(-1)?.fields).toEqual({
+      plat: 'ios',
+      detail: 'chain',
+    });
 
     h.playIntegrity.enqueue({ ok: false, reason: 'invalid' });
     expect((await register(testApp(h), { platform: 'android' })).res.status).toBe(403);
@@ -270,6 +285,11 @@ describe('POST /v1/installs — new installs (03 §3.3)', () => {
     expect(valid.res.status).toBe(201);
     expect(valid.body.trust).toBe('low');
     expect(h.appAttest.attestationCalls).toHaveLength(0);
+    // The reason of a low-trust registration is visible in the logs.
+    expect(h.logger.find('install_attest_verdict').at(-1)).toMatchObject({
+      level: 'warn',
+      fields: { plat: 'ios', att: 'none', noneReason: 'unsupported', trust: 'low' },
+    });
   });
 
   it('caps `type: none` registrations per IP prefix (5/day) with 429 lowTrustCap', async () => {

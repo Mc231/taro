@@ -153,6 +153,7 @@ export class InstallService {
     const verdict = context.debugAttestation
       ? this.debugVerdict(input)
       : await this.verify(input, config);
+    this.logVerdict(input, verdict);
 
     const existing = await this.installs.findById(input.installId);
     if (existing !== null) {
@@ -522,8 +523,26 @@ export class InstallService {
     };
   }
 
+  /**
+   * One non-sensitive line per accepted registration attempt: the
+   * attestation type the client sent, its `none` reason and the resulting
+   * trust, so a low-trust registration shows why (never a key or token).
+   */
+  private logVerdict(input: RegisterInput, verdict: Verdict): void {
+    const { attestation } = input;
+    this.deps.logger.log(verdict.trust === 'low' ? 'warn' : 'info', 'install_attest_verdict', {
+      plat: input.platform,
+      att: attestation.type,
+      noneReason: attestation.type === 'none' ? attestation.reason : undefined,
+      trust: verdict.trust,
+      attEnv: verdict.attestEnv ?? undefined,
+      appVersion: input.appVersion,
+    });
+  }
+
   private reject(platform: Platform, detail: string): never {
     this.deps.metrics.write({ event: 'attest_failed', platform, code: detail });
+    this.deps.logger.log('warn', 'install_attest_rejected', { plat: platform, detail });
     throw new ApiError('ATTESTATION_FAILED');
   }
 }
