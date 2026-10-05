@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "ar",
+  "question": "كيف أضيف مزيدًا من التوازن إلى أسبوعي؟",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "مساحة لالتقاط الأنفاس",
+    "overview": "تنتقل البطاقات من الصلة الدافئة بالآخرين، مرورًا بعودة هادئة للأمل، نحو بداية صغيرة وعملية. ومعًا تشير إلى أن التوازن قد ينمو من خيارات بسيطة تتخذها عن قصد.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "في موضع الماضي، تُذكّرك ثلاثة من الكؤوس بأوقات منحتك فيها الصداقة واللحظات المشتركة شعورًا بالثبات. ربما أعطت وجبة مع الأصدقاء أو ضحكة أو رسالة من شخص قريب أسابيعك إيقاعًا طبيعيًا. قد يفيدك أن تسأل نفسك: أيّ هذه الروابط تودّ أن تفسح لها المجال من جديد؟"
+      },
+      {
+        "positionId": "present",
+        "interpretation": "النجمة في موضع الحاضر تتحدث عن الهدوء وعن أمل يتجدد بعد فترة مزدحمة. إنها تدعوك إلى التمهّل وملاحظة ما يعيد إليك طاقتك بهدوء، مثل الراحة أو الهواء الطلق أو لحظة سكون. يمكنك أن تعدّ هذه اللحظات جزءًا من أسبوعك، لا مكافأة عليه."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "في موضع المستقبل، يشير آس العملات إلى بداية صغيرة وعملية يمكنك أن تختارها بنفسك. قد تكون عادة ثابتة واحدة: نزهة منتظمة، أو وقتًا محددًا للابتعاد عن الشاشات، أو خطة بسيطة للأيام القادمة. الأمر أقرب إلى بذرة ترعاها منه إلى تغيير كبير."
+      }
+    ],
+    "synthesis": "حين تُقرأ البطاقات معًا، توحي بأن التوازن قد يأتي من الجمع بين الصلة بالآخرين والراحة وعادة ثابتة واحدة. أنت من يقرر أيّ خطوة تناسبك؛ فالفرشة تقدّم لك فقط زوايا للتأمل.",
+    "reflectionPrompts": [
+      "في أيّ لحظات من أسبوعك تشعر بأنك أقرب إلى نفسك؟",
+      "ما العادة الصغيرة التي يمكنك تجربتها خلال الأيام السبعة القادمة؟"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "ما أكثر ما أقدّره في صداقاتي؟",
+      "title": "هدية أن يُصغى إليك",
+      "overview": "يُبرز اثنان من الكؤوس الاهتمام المتبادل وقوة الإصغاء الهادئة."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "كيف أبدأ مشروعي الجديد؟",
+      "title": "خطوات هادئة وفضولية",
+      "overview": "تنتقل البطاقات من التخطيط إلى الإبداع ثم إلى الممارسة الصبورة."
+    }
+  ]
+}

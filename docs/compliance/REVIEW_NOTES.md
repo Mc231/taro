@@ -29,6 +29,9 @@ HOW TO REVIEW (no login needed)
 6. Settings: "Remove Banner Ads", "Restore purchases", "Export backup", "Import backup", "Delete all data", "Privacy choices" and "AI readings" (consent).
 7. Every AI reading has "Report this reading" in its menu.
 
+NO DEMO ACCOUNT NEEDED
+The app has no login and no accounts, so there are no credentials. Readings work right after onboarding. To reach the paywall: finish the free AI reading of the day, go back to Today and start a second reading; the out-of-readings sheet opens before any card is drawn. To see a refusal: type one of the SAFETY questions below as the question and tap Begin; it is declined before the draw and no credit is used.
+
 SAFETY
 Questions about health, pregnancy, death, legal or financial decisions and gambling are declined without using a credit. Mentions of self-harm show local crisis helplines. Try for example: "Am I pregnant?", "Should I buy Bitcoin?", "I want to hurt myself".
 
@@ -52,7 +55,7 @@ Contact: volodymyr.shyrochuk@gmail.com
 
 Differences from the 05 §7 template, all deliberate: step 4 names the real draw buttons; step 6 quotes the Settings labels for privacy choices and AI consent; the provider line names only OpenAI (the 05 text left the final list open, RC97); "Play Integrity" and the word "Google" (in "Google AdMob") are dropped because these notes are Apple-facing (rule 19, 2.3.10; the linter only applies the `global` list to review notes, so this is kept by hand). The Play Console "App access → instructions" text is the same without the IN-APP PURCHASES restore line and with "Play Integrity" instead of "App Attest", and may say "Google AdMob".
 
-Length: about 3,000 characters (limit 4,000).
+Length: about 3,500 characters (limit 4,000).
 
 ## Sample refusal prompts
 

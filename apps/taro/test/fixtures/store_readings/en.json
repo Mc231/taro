@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "en",
+  "question": "How can I bring more balance into my week?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Room to breathe",
+    "overview": "The cards move from warm connection, through a quiet return of hope, toward a small and practical new start. Together they suggest that balance may grow from simple choices you make on purpose.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "In the past position, the Three of Cups recalls times when friends and shared moments kept you steady. A meal together, laughter or a message from someone close may have given your weeks a natural rhythm. It may help to ask which of those connections you would like to make room for again."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "The Star in the present position speaks of calm and renewed hope after a busy stretch. It invites you to slow down and notice what quietly refills your energy, such as rest, fresh air or a moment of stillness. You might treat these not as rewards, but as part of the week itself."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "In the future position, the Ace of Pentacles points to a small, practical beginning that you can choose. This could be one steady habit: a regular walk, a set time to switch off, or a simple plan for the days ahead. It is less about a big change and more about a seed you can tend."
+      }
+    ],
+    "synthesis": "Read together, the cards suggest that balance may come from mixing connection, rest and one grounded routine. You decide which step feels right; the spread simply offers a few angles to reflect on.",
+    "reflectionPrompts": [
+      "Which moments in your week leave you feeling most like yourself?",
+      "What is one small habit you could try for the next seven days?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "What do I value most in my friendships?",
+      "title": "The gift of being heard",
+      "overview": "The Two of Cups highlights mutual care and the quiet strength of being listened to."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "How can I approach my new project?",
+      "title": "Steady, curious steps",
+      "overview": "The cards point from planning, through creativity, toward patient practice."
+    }
+  ]
+}

@@ -5,12 +5,13 @@
 # check_store_copy.py, check_pack_sizes.py, check_iap_ids.py, check_l10n.py and
 # check_urls.py.
 #
-# Status: Phase 9 draft. The en copy is 05 §8.1 / §7 / §9.3; the 11 other
-# locales are draft translations pending the reviewed store-copy pass
-# (Phase 18 / Phase 20). Keywords follow 05 §9.3 with `yes,no` swapped out
+# Status: Phase 20 final copy (2026-10-05). en is 05 §8.1 / §7 / §9.3; the
+# 11 other locales are translations awaiting the native-speaker pass listed in
+# docs/aso/REVIEW_NEEDED.md. Keywords follow 05 §9.3 with `yes,no` swapped out
 # (RC2: no yes/no spread in v1) and with words already in the locale's name or
-# subtitle removed. No secrets live here: the review phone is filled from
-# ~/pet/secure/taro/review_contact at submission (Phase 20).
+# subtitle removed (docs/aso/keywords.md). The repo is public, so the review
+# phone is not stored here: it lives in ~/pet/secure/taro/review_contact and is
+# entered at push time (Phase 20.3 / 20.4).
 
 app_identifier: taro
 app_name: Taro
@@ -58,13 +59,13 @@ support_url: https://taro.vshyrochuk.com/support
 marketing_url: https://taro.vshyrochuk.com
 terms_url: https://taro.vshyrochuk.com/terms
 whats_new: |
-  Welcome to Taro.
+  Welcome to Taro. Ask a question and draw from an original deck, with one free AI reading every day, a free daily card, six spreads, a reflection journal and Learn mode for all 78 cards.
 
 app_review_information:
   contact_first_name: Volodymyr
   contact_last_name: Shyrochuk
   contact_email: volodymyr.shyrochuk@gmail.com
-  # OWNER (Phase 20): filled from ~/pet/secure/taro/review_contact at push time; never committed.
+  # Filled from ~/pet/secure/taro/review_contact at push time; never committed (public repo).
   contact_phone: "<from ~/pet/secure/taro/review_contact>"
   # No login exists (05 §7), so no demo credentials are submitted. Testing
   # accounts (Apple sandbox testers, Play license testers, staging Worker) are
@@ -74,7 +75,7 @@ app_review_information:
   demo_account_password: ""
   # Copied from docs/compliance/REVIEW_NOTES.md (Phase 19.3 draft of 05 §7);
   # change both together. Quoted HOW TO REVIEW labels are app_en.arb values (RC79).
-  # OWNER (Phase 22): confirm the provider named here against ai.disclosedProviders.
+  # Provider: OpenAI only (ai.disclosedProviders = ["openai"], 2026-10-01).
   notes: |
     APP PURPOSE
     Taro is a tarot app for entertainment and self-reflection. Users ask a question, draw cards from an original 78-card deck (our own artwork), and receive an AI-written interpretation that explains the symbolism of each card in its spread position. The app does not claim to predict the future; this is stated in onboarding, under every reading and in the store description.
@@ -95,6 +96,9 @@ app_review_information:
     5. For more readings: tap "Begin" again. When you are out of readings, a sheet opens before any card is drawn, with an option to watch a short ad for +1 reading and "Get more readings" (reading packs, sandbox). Purchases are verified by our server before credits appear. After a purchase or reward you return to the question screen; tap "Begin" to continue.
     6. Settings: "Remove Banner Ads", "Restore purchases", "Export backup", "Import backup", "Delete all data", "Privacy choices" and "AI readings" (consent).
     7. Every AI reading has "Report this reading" in its menu.
+
+    NO DEMO ACCOUNT NEEDED
+    The app has no login and no accounts, so there are no credentials. Readings work right after onboarding. To reach the paywall: finish the free AI reading of the day, go back to Today and start a second reading; the out-of-readings sheet opens before any card is drawn. To see a refusal: type one of the SAFETY questions below as the question and tap Begin; it is declined before the draw and no credit is used.
 
     SAFETY
     Questions about health, pregnancy, death, legal or financial decisions and gambling are declined without using a credit. Mentions of self-harm show local crisis helplines. Try for example: "Am I pregnant?", "Should I buy Bitcoin?", "I want to hurt myself".
@@ -263,6 +267,113 @@ web:                                      # ASA-7 / ASA-10: `asa web generate -c
   mentions_game_center: false
   all_ages_statement: false
 
+# Store screenshot captions (05 §9.4, Phase 20.2): frame order and file names
+# are fixed by apps/taro/integration_test/screenshots/ and composed on the
+# Phase 14 ScreenshotFrame template by tools/screenshots/screenshots.py
+# (docs/aso/screenshots.md). Colours are the dark tokens bg.canvas, text.primary
+# and accent.primary. Linted by check_store_copy.py and `screenshots.py lint`.
+store_screenshots:
+  background_gradient: ['#0F1120', '#171A2D']
+  text_color: '#ECEEF7'
+  accent_color: '#9AA8FF'
+  screenshots:
+  - {file: 01_spread.png, headline: "Ask. Draw. Reflect.", subtext: "Tarot for self-reflection"}
+  - {file: 02_reading.png, headline: "Readings that fit your spread", subtext: "Every card in its position"}
+  - {file: 03_daily.png, headline: "Your daily card", subtext: "A free card every day"}
+  - {file: 04_journal.png, headline: "Journal your insights", subtext: "Linked to every reading"}
+  - {file: 05_learn.png, headline: "Learn all 78 cards", subtext: "Meanings, upright & reversed"}
+  - {file: 06_deck.png, headline: "An original deck", subtext: "One consistent art style"}
+  - {file: 07_private.png, headline: "No account needed", subtext: "Export your data anytime"}
+  translations:
+    ar:
+    - {headline: "اسأل. اسحب. تأمّل.", subtext: "تاروت للتأمل الذاتي"}
+    - {headline: "قراءات تناسب فرشتك", subtext: "كل بطاقة في موضعها"}
+    - {headline: "بطاقتك اليومية", subtext: "بطاقة مجانية كل يوم"}
+    - {headline: "دوّن أفكارك", subtext: "مرتبطة بكل قراءة"}
+    - {headline: "تعلّم البطاقات الـ78 كلها", subtext: "المعاني في الوضعين المستقيم والمقلوب"}
+    - {headline: "مجموعة بطاقات أصلية", subtext: "أسلوب فني متناسق"}
+    - {headline: "لا حاجة إلى حساب", subtext: "صدّر بياناتك في أي وقت"}
+    de:
+    - {headline: "Fragen. Ziehen. Reflektieren.", subtext: "Tarot zur Selbstreflexion"}
+    - {headline: "Deutungen passend zur Legung", subtext: "Jede Karte an ihrem Platz"}
+    - {headline: "Deine Tageskarte", subtext: "Jeden Tag eine kostenlose Karte"}
+    - {headline: "Einsichten im Journal festhalten", subtext: "Mit jeder Deutung verknüpft"}
+    - {headline: "Lerne alle 78 Karten", subtext: "Bedeutungen, aufrecht & umgekehrt"}
+    - {headline: "Ein eigenes Kartendeck", subtext: "Ein durchgehender Bildstil"}
+    - {headline: "Kein Konto nötig", subtext: "Exportiere deine Daten jederzeit"}
+    es:
+    - {headline: "Pregunta. Saca. Reflexiona.", subtext: "Tarot para la autorreflexión"}
+    - {headline: "Lecturas a la medida de tu tirada", subtext: "Cada carta en su posición"}
+    - {headline: "Tu carta del día", subtext: "Una carta gratis cada día"}
+    - {headline: "Anota tus reflexiones", subtext: "Vinculadas a cada lectura"}
+    - {headline: "Aprende las 78 cartas", subtext: "Significados, al derecho y al revés"}
+    - {headline: "Una baraja original", subtext: "Un estilo artístico coherente"}
+    - {headline: "Sin necesidad de cuenta", subtext: "Exporta tus datos cuando quieras"}
+    fr:
+    - {headline: "Demandez. Tirez. Réfléchissez.", subtext: "Le tarot pour mieux se connaître"}
+    - {headline: "Des lectures adaptées au tirage", subtext: "Chaque carte à sa place"}
+    - {headline: "Votre carte du jour", subtext: "Une carte gratuite chaque jour"}
+    - {headline: "Notez vos réflexions", subtext: "Liées à chaque lecture"}
+    - {headline: "Apprenez les 78 cartes", subtext: "Sens à l’endroit et inversé"}
+    - {headline: "Un jeu de cartes original", subtext: "Un style artistique cohérent"}
+    - {headline: "Aucun compte requis", subtext: "Exportez vos données à tout moment"}
+    it:
+    - {headline: "Chiedi. Pesca. Rifletti.", subtext: "Tarocchi per riflettere su di sé"}
+    - {headline: "Letture fatte per la tua stesa", subtext: "Ogni carta nella sua posizione"}
+    - {headline: "La tua carta del giorno", subtext: "Una carta gratis ogni giorno"}
+    - {headline: "Annota le tue riflessioni", subtext: "Collegate a ogni lettura"}
+    - {headline: "Impara tutte le 78 carte", subtext: "Significati, dritti e rovesciati"}
+    - {headline: "Un mazzo originale", subtext: "Uno stile artistico coerente"}
+    - {headline: "Nessun account richiesto", subtext: "Esporta i tuoi dati quando vuoi"}
+    ja:
+    - {headline: "問いかけ、引いて、見つめる", subtext: "自分を見つめるためのタロット"}
+    - {headline: "スプレッドに沿ったリーディング", subtext: "一枚ずつ、その位置の意味を"}
+    - {headline: "今日の一枚", subtext: "毎日1枚、無料で引けるカード"}
+    - {headline: "気づきをジャーナルに", subtext: "すべてのリーディングと連動"}
+    - {headline: "78枚すべてを学べる", subtext: "正位置と逆位置の意味"}
+    - {headline: "オリジナルのデッキ", subtext: "統一されたアートスタイル"}
+    - {headline: "アカウント不要", subtext: "いつでもデータを書き出せる"}
+    ko:
+    - {headline: "묻고, 뽑고, 돌아보기", subtext: "자기 성찰을 위한 타로"}
+    - {headline: "스프레드에 맞춘 리딩", subtext: "자리마다 담긴 카드의 의미"}
+    - {headline: "오늘의 카드", subtext: "매일 무료 카드 한 장"}
+    - {headline: "깨달음을 저널에", subtext: "모든 리딩과 연결"}
+    - {headline: "78장 모두 배우기", subtext: "정방향과 역방향 의미"}
+    - {headline: "오리지널 덱", subtext: "일관된 아트 스타일"}
+    - {headline: "계정 없이 사용", subtext: "언제든 데이터 내보내기"}
+    nl:
+    - {headline: "Vraag. Trek. Reflecteer.", subtext: "Tarot voor zelfreflectie"}
+    - {headline: "Lezingen die passen bij je legging", subtext: "Elke kaart op haar eigen plek"}
+    - {headline: "Jouw dagkaart", subtext: "Elke dag een gratis kaart"}
+    - {headline: "Leg je inzichten vast", subtext: "Gekoppeld aan elke lezing"}
+    - {headline: "Leer alle 78 kaarten", subtext: "Betekenissen, rechtop en omgekeerd"}
+    - {headline: "Een eigen kaartspel", subtext: "Eén consistente stijl"}
+    - {headline: "Geen account nodig", subtext: "Exporteer je gegevens wanneer je wilt"}
+    pt:
+    - {headline: "Pergunte. Tire. Reflita.", subtext: "Tarô para autorreflexão"}
+    - {headline: "Leituras feitas para sua tiragem", subtext: "Cada carta em sua posição"}
+    - {headline: "Sua carta do dia", subtext: "Uma carta grátis todo dia"}
+    - {headline: "Registre suas reflexões", subtext: "Ligadas a cada leitura"}
+    - {headline: "Aprenda as 78 cartas", subtext: "Significados, normal e invertida"}
+    - {headline: "Um baralho original", subtext: "Um estilo artístico coerente"}
+    - {headline: "Sem necessidade de conta", subtext: "Exporte seus dados quando quiser"}
+    tr:
+    - {headline: "Sor. Çek. Düşün.", subtext: "Kendini keşfetmek için tarot"}
+    - {headline: "Açılımına uygun yorumlar", subtext: "Her kart kendi konumunda"}
+    - {headline: "Günün kartı", subtext: "Her gün ücretsiz bir kart"}
+    - {headline: "Düşüncelerini günlüğe yaz", subtext: "Her okumayla bağlantılı"}
+    - {headline: "78 kartın hepsini öğren", subtext: "Düz ve ters anlamlarıyla"}
+    - {headline: "Özgün bir deste", subtext: "Tutarlı bir çizim tarzı"}
+    - {headline: "Hesap gerekmez", subtext: "Verilerini istediğin zaman dışa aktar"}
+    uk:
+    - {headline: "Питання. Карти. Роздуми.", subtext: "Таро для саморефлексії"}
+    - {headline: "Тлумачення для Вашого розкладу", subtext: "Кожна карта на своєму місці"}
+    - {headline: "Ваша карта дня", subtext: "Безкоштовна карта щодня"}
+    - {headline: "Записуйте свої думки", subtext: "Пов’язані з кожним тлумаченням"}
+    - {headline: "Вивчайте всі 78 карт", subtext: "Прямі та перевернуті значення"}
+    - {headline: "Оригінальна колода", subtext: "Єдиний художній стиль"}
+    - {headline: "Без облікового запису", subtext: "Експортуйте дані будь-коли"}
+
 # App Store listing per locale (05 §8.1, §9.3); asa maps pt → pt-BR, ar → ar-SA.
 localizations:
   en:
@@ -271,13 +382,13 @@ localizations:
     keywords: "ai,oracle,deck,meanings,love,celtic,cross,major,arcana,learn,reflection,mindful,guide,insight,symbol"
     promotional_text: "Ask a question, draw from an original deck and get a reading that explains every card in its place. One free AI reading every day."
     description: *desc_en
-    whats_new: "Welcome to Taro."
+    whats_new: "Welcome to Taro. Ask a question and draw from an original deck, with one free AI reading every day, a free daily card, six spreads, a reflection journal and Learn mode for all 78 cards."
   ar:
     name: "Taro: قراءة التاروت"
     subtitle: "بطاقة اليوم ومذكرات وفرشات"
     keywords: "تاروت,بطاقات,أوراق,معنى,حب,الصليب,السلتي,الأركانا,أوراكل,ذكاء,اصطناعي,تأمل,تعلم"
     promotional_text: "اطرح سؤالًا واسحب من مجموعة بطاقات أصلية واحصل على قراءة تشرح كل بطاقة في موضعها. قراءة مجانية بالذكاء الاصطناعي كل يوم."
-    whats_new: "مرحبًا بك في Taro."
+    whats_new: "مرحبًا بك في Taro. اطرح سؤالًا واسحب من مجموعة بطاقات أصلية، مع قراءة مجانية بالذكاء الاصطناعي كل يوم، وبطاقة يومية مجانية، وست فرشات، ومذكرات للتأمل، ووضع التعلّم لجميع البطاقات الـ78."
     description: &desc_ar |
       Taro مخصص للترفيه والتأمل الذاتي. لا يتنبأ بالمستقبل ولا يغني عن الاستشارة المهنية.
 
@@ -319,7 +430,7 @@ localizations:
     subtitle: "Tageskarte, Journal, Legungen"
     keywords: "kartenlegen,orakel,bedeutung,liebe,keltisches,kreuz,große,arkana,ki,deck,lernen,reflexion,anfänger"
     promotional_text: "Stell eine Frage, zieh aus einem eigenen Deck und erhalte eine Deutung, die jede Karte an ihrem Platz erklärt. Jeden Tag eine kostenlose KI-Deutung."
-    whats_new: "Willkommen bei Taro."
+    whats_new: "Willkommen bei Taro. Stell eine Frage und zieh aus einem eigenen Deck: jeden Tag eine kostenlose KI-Deutung, eine kostenlose Tageskarte, sechs Legungen, ein Reflexions-Journal und ein Lernmodus für alle 78 Karten."
     description: &desc_de |
       Taro dient der Unterhaltung und Selbstreflexion. Es sagt nicht die Zukunft voraus und ersetzt keine professionelle Beratung.
 
@@ -361,7 +472,7 @@ localizations:
     subtitle: "Carta del día, diario, tiradas"
     keywords: "cartas,oráculo,significado,amor,cruz,celta,arcanos,mayores,ia,baraja,aprender,reflexión,novatos"
     promotional_text: "Haz una pregunta, saca cartas de una baraja original y recibe una lectura que explica cada carta en su lugar. Una lectura con IA gratis cada día."
-    whats_new: "Te damos la bienvenida a Taro."
+    whats_new: "Te damos la bienvenida a Taro. Haz una pregunta y saca cartas de una baraja original, con una lectura con IA gratis cada día, una carta del día gratis, seis tiradas, un diario de reflexión y el modo Aprender con las 78 cartas."
     description: &desc_es |
       Taro es para entretenimiento y autorreflexión. No adivina el futuro y no sustituye el asesoramiento profesional.
 
@@ -403,7 +514,7 @@ localizations:
     subtitle: "Carte du jour, journal intime"
     keywords: "cartes,oracle,signification,amour,croix,celtique,arcanes,majeurs,ia,jeu,apprendre,réflexion,débutant"
     promotional_text: "Posez une question, tirez dans un jeu original et recevez une lecture qui explique chaque carte à sa place. Une lecture IA offerte chaque jour."
-    whats_new: "Bienvenue dans Taro."
+    whats_new: "Bienvenue dans Taro. Posez une question et tirez dans un jeu original, avec une lecture IA offerte chaque jour, une carte du jour gratuite, six tirages, un journal de réflexion et un mode Apprendre pour les 78 cartes."
     description: &desc_fr |
       Taro est destiné au divertissement et à la réflexion personnelle. Il ne lit pas l'avenir et ne remplace pas un avis professionnel.
 
@@ -445,7 +556,7 @@ localizations:
     subtitle: "Carta del giorno e diario"
     keywords: "tarot,carte,oracolo,significato,amore,croce,celtica,arcani,maggiori,ia,mazzo,imparare,stese"
     promotional_text: "Fai una domanda, pesca da un mazzo originale e ricevi una lettura che spiega ogni carta al suo posto. Una lettura IA gratuita ogni giorno."
-    whats_new: "Benvenuto in Taro."
+    whats_new: "Benvenuto in Taro. Fai una domanda e pesca da un mazzo originale, con una lettura IA gratuita ogni giorno, una carta del giorno gratuita, sei stese, un diario di riflessione e la modalità Impara per tutte le 78 carte."
     description: &desc_it |
       Taro è pensato per l'intrattenimento e l'autoriflessione. Non legge il futuro e non sostituisce una consulenza professionale.
 
@@ -487,7 +598,7 @@ localizations:
     subtitle: "今日の一枚・ジャーナル・スプレッド"
     keywords: "タロットカード,カードの意味,恋愛,大アルカナ,小アルカナ,ケルト十字,オラクル,AI,無料,内省,日記,デッキ,初心者,学習"
     promotional_text: "質問をして、オリジナルデッキからカードを引けば、各カードをその位置に沿って解説するリーディングが届きます。AIリーディングは毎日1回無料。"
-    whats_new: "Taroへようこそ。"
+    whats_new: "Taroへようこそ。質問をしてオリジナルデッキからカードを引きましょう。毎日1回無料のAIリーディング、無料の今日の一枚、6種類のスプレッド、振り返りジャーナル、78枚すべてを学べる学習モードを備えています。"
     description: &desc_ja |
       Taroはエンターテインメントと自己省察のためのアプリです。未来を言い当てるものではなく、専門家の助言に代わるものでもありません。
 
@@ -529,7 +640,7 @@ localizations:
     subtitle: "오늘의 카드, 저널, 스프레드"
     keywords: "타로카드,타로점,연애,의미,메이저,마이너,아르카나,켈틱크로스,오라클,AI,무료,성찰,일기,덱,초보"
     promotional_text: "질문하고 오리지널 덱에서 카드를 뽑으면, 각 카드를 그 자리에 맞게 설명하는 리딩을 받을 수 있습니다. 매일 AI 리딩 1회 무료."
-    whats_new: "Taro에 오신 것을 환영합니다."
+    whats_new: "Taro에 오신 것을 환영합니다. 질문하고 오리지널 덱에서 카드를 뽑아 보세요. 매일 무료 AI 리딩 1회, 무료 오늘의 카드, 6가지 스프레드, 성찰 저널, 78장 전체를 다루는 학습 모드를 제공합니다."
     description: &desc_ko |
       Taro는 엔터테인먼트와 자기 성찰을 위한 앱입니다. 미래를 알려 주지 않으며 전문가의 조언을 대신하지 않습니다.
 
@@ -571,7 +682,7 @@ localizations:
     subtitle: "Dagkaart, dagboek en leggingen"
     keywords: "tarot,orakel,betekenis,liefde,keltisch,kruis,grote,arcana,ai,deck,leren,reflectie,kaarten,beginners"
     promotional_text: "Stel een vraag, trek uit een eigen deck en krijg een lezing die elke kaart op haar plek uitlegt. Elke dag één gratis AI-lezing."
-    whats_new: "Welkom bij Taro."
+    whats_new: "Welkom bij Taro. Stel een vraag en trek uit een eigen deck, met elke dag één gratis AI-lezing, een gratis dagkaart, zes leggingen, een reflectiedagboek en een leermodus voor alle 78 kaarten."
     description: &desc_nl |
       Taro is bedoeld voor entertainment en zelfreflectie. Het voorspelt de toekomst niet en is geen vervanging voor professioneel advies.
 
@@ -613,7 +724,7 @@ localizations:
     subtitle: "Carta do dia, diário, tiragens"
     keywords: "tarot,cartas,oráculo,significado,amor,cruz,celta,arcanos,maiores,ia,baralho,aprender,iniciantes"
     promotional_text: "Faça uma pergunta, tire cartas de um baralho original e receba uma leitura que explica cada carta no seu lugar. Uma leitura com IA grátis por dia."
-    whats_new: "Boas-vindas ao Taro."
+    whats_new: "Boas-vindas ao Taro. Faça uma pergunta e tire cartas de um baralho original, com uma leitura com IA grátis por dia, uma carta do dia grátis, seis tiragens, um diário de reflexão e o modo Aprender com as 78 cartas."
     description: &desc_pt |
       Taro é para entretenimento e autorreflexão. Não adivinha o futuro e não substitui aconselhamento profissional.
 
@@ -655,7 +766,7 @@ localizations:
     subtitle: "Günün kartı, günlük, açılımlar"
     keywords: "kartları,anlamları,aşk,kelt,haçı,büyük,arkana,yapay,zeka,deste,öğren,yansıma,başlangıç"
     promotional_text: "Bir soru sor, özgün bir desteden kart çek ve her kartı yerine göre açıklayan bir okuma al. Her gün bir ücretsiz yapay zekâ okuması."
-    whats_new: "Taro'ya hoş geldin."
+    whats_new: "Taro'ya hoş geldin. Bir soru sor ve özgün bir desteden kart çek: her gün bir ücretsiz yapay zekâ okuması, ücretsiz günün kartı, altı açılım, bir yansıma günlüğü ve 78 kartın tamamı için öğrenme modu."
     description: &desc_tr |
       Taro eğlence ve kendini yansıtma içindir. Geleceği öngörmez ve profesyonel tavsiyenin yerini tutmaz.
 
@@ -697,7 +808,7 @@ localizations:
     subtitle: "Карта дня, щоденник і розклади"
     keywords: "ворожіння,значення,кохання,кельтський,хрест,старші,аркани,ші,оракул,колода,tarot,навчання"
     promotional_text: "Постав запитання, витягни карти з оригінальної колоди й отримай тлумачення, що пояснює кожну карту на її місці. Щодня одне безкоштовне тлумачення від ШІ."
-    whats_new: "Ласкаво просимо до Taro."
+    whats_new: "Ласкаво просимо до Taro. Постав запитання й витягни карти з оригінальної колоди: щодня одне безкоштовне тлумачення від ШІ, безкоштовна карта дня, шість розкладів, щоденник роздумів і режим навчання для всіх 78 карт."
     description: &desc_uk |
       Taro створено для розваги та саморефлексії. Він не пророкує майбутнього і не замінює професійної консультації.
 

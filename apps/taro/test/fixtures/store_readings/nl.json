@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "nl",
+  "question": "Hoe breng ik meer balans in mijn week?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Ruimte om te ademen",
+    "overview": "De kaarten gaan van warme verbondenheid, via een rustige terugkeer van hoop, naar een klein en praktisch nieuw begin. Samen laten ze zien dat balans kan groeien uit eenvoudige keuzes die je bewust maakt.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "Op de plek van het verleden herinnert de Drie van Kelken aan tijden waarin vriendschap en gedeelde momenten je houvast gaven. Samen eten, lachen of een berichtje van iemand dichtbij gaf je weken misschien een natuurlijk ritme. Het kan helpen om je af te vragen voor welke van die verbindingen je weer ruimte wilt maken."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "De Ster op de plek van het heden spreekt over rust en hernieuwde hoop na een drukke periode. Ze nodigt je uit om te vertragen en te merken wat je stilletjes nieuwe energie geeft, zoals rust, frisse lucht of een moment van stilte. Je kunt die momenten zien als vast onderdeel van je week, niet als beloning."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "Op de plek van de toekomst wijst de Aas van Pentakels op een klein, praktisch begin dat je zelf kunt kiezen. Dat kan één vaste gewoonte zijn: een regelmatige wandeling, een vast moment om uit te schakelen of een eenvoudig plan voor de komende dagen. Het gaat minder om een grote verandering en meer om een zaadje dat je kunt verzorgen."
+      }
+    ],
+    "synthesis": "Samen gelezen suggereren de kaarten dat balans kan ontstaan uit verbondenheid, rust en één geaarde routine. Jij bepaalt welke stap goed voelt; de legging biedt je alleen een paar invalshoeken om over na te denken.",
+    "reflectionPrompts": [
+      "Op welke momenten in je week voel je je het meest jezelf?",
+      "Welke kleine gewoonte zou je de komende zeven dagen kunnen proberen?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "Wat waardeer ik het meest in mijn vriendschappen?",
+      "title": "Het geschenk van gehoord worden",
+      "overview": "De Twee van Kelken laat wederzijdse zorg en de stille kracht van luisteren zien."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Hoe pak ik mijn nieuwe project aan?",
+      "title": "Rustige, nieuwsgierige stappen",
+      "overview": "De kaarten gaan van plannen, via creativiteit, naar geduldig oefenen."
+    }
+  ]
+}

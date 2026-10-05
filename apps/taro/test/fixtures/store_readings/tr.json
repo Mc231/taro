@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "tr",
+  "question": "Haftama nasıl daha fazla denge getirebilirim?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Nefes alacak alan",
+    "overview": "Kartlar sıcak bir bağdan, umudun sessizce geri dönüşünden geçerek küçük ve pratik bir başlangıca uzanıyor. Birlikte, dengenin bilinçli olarak yaptığın basit seçimlerden büyüyebileceğini düşündürüyorlar.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "Geçmiş konumundaki Kupa Üçlüsü, arkadaşlıkların ve paylaşılan anların sana güç verdiği zamanları hatırlatıyor. Birlikte yenen bir yemek, kahkahalar ya da yakın birinden gelen bir mesaj haftalarına doğal bir ritim katmış olabilir. Bu bağlardan hangilerine yeniden yer açmak istediğini kendine sormak iyi gelebilir."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "Şimdi konumundaki Yıldız, yoğun bir dönemin ardından gelen sakinlikten ve yenilenen umuttan söz ediyor. Seni yavaşlamaya ve enerjini sessizce yenileyen şeyleri fark etmeye davet ediyor: dinlenmek, temiz hava ya da kısa bir sessizlik anı. Bunları bir ödül olarak değil, haftanın doğal bir parçası olarak görebilirsin."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "Gelecek konumundaki Tılsım Ası, kendi seçebileceğin küçük ve pratik bir başlangıca işaret ediyor. Bu tek bir düzenli alışkanlık olabilir: düzenli bir yürüyüş, ekranları kapatmak için belirli bir saat ya da önümüzdeki günler için basit bir plan. Büyük bir değişiklikten çok, özenle büyütebileceğin bir tohum gibi."
+      }
+    ],
+    "synthesis": "Birlikte okunduğunda kartlar, dengenin bağ kurmak, dinlenmek ve ayakları yere basan bir rutinin birleşiminden doğabileceğini düşündürüyor. Hangi adımın sana uygun olduğuna sen karar verirsin; açılım yalnızca üzerine düşünebileceğin birkaç bakış açısı sunar.",
+    "reflectionPrompts": [
+      "Haftanın hangi anlarında kendini en çok kendin gibi hissediyorsun?",
+      "Önümüzdeki yedi gün boyunca hangi küçük alışkanlığı deneyebilirsin?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "Arkadaşlıklarımda en çok neye değer veriyorum?",
+      "title": "Dinlenmenin armağanı",
+      "overview": "Kupa İkilisi karşılıklı özeni ve dinlenmenin sessiz gücünü öne çıkarıyor."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Yeni projeme nasıl yaklaşabilirim?",
+      "title": "Sakin ve meraklı adımlar",
+      "overview": "Kartlar planlamadan yaratıcılığa ve sabırlı pratiğe uzanıyor."
+    }
+  ]
+}

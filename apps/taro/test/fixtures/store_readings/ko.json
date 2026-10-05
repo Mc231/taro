@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "ko",
+  "question": "한 주에 균형을 더 가져오려면 어떻게 해야 할까요?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "숨 돌릴 여유",
+    "overview": "카드는 따뜻한 관계에서 시작해 조용히 돌아오는 희망을 지나, 작고 실천적인 시작으로 이어집니다. 함께 보면 균형은 스스로 의식해서 고르는 작은 선택에서 자라날 수 있다는 점을 보여 줘요.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "과거 자리의 컵 3은 친구들과 함께한 순간들이 당신을 든든하게 받쳐 주던 때를 떠올리게 해요. 함께한 식사, 웃음, 가까운 사람의 메시지가 한 주에 자연스러운 리듬을 만들어 주었을지도 몰라요. 그중 어떤 관계에 다시 시간을 내고 싶은지 생각해 보면 도움이 될 수 있어요."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "현재 자리의 별은 바쁜 시기를 지난 뒤 찾아오는 차분함과 새로워진 희망을 말해요. 속도를 늦추고 휴식, 바깥 공기, 잠깐의 고요함처럼 조용히 에너지를 채워 주는 것들을 알아차려 보라고 권해요. 이런 시간을 보상이 아니라 한 주의 일부로 여겨 볼 수도 있어요."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "미래 자리의 펜타클 에이스는 당신이 직접 고를 수 있는 작고 실천적인 시작을 가리켜요. 규칙적인 산책, 화면을 끄는 정해진 시간, 앞으로 며칠을 위한 간단한 계획처럼 하나의 꾸준한 습관일 수 있어요. 큰 변화라기보다 정성껏 가꿀 수 있는 씨앗에 가까워요."
+      }
+    ],
+    "synthesis": "세 장을 함께 읽으면, 균형은 관계와 휴식, 그리고 땅에 발을 디딘 하나의 루틴이 어우러질 때 생길 수 있다는 뜻으로 볼 수 있어요. 어떤 걸음이 맞는지는 당신이 정해요. 이 스프레드는 생각해 볼 몇 가지 관점을 건넬 뿐이에요.",
+    "reflectionPrompts": [
+      "한 주 중 언제 가장 나다운 기분이 드나요?",
+      "앞으로 7일 동안 시도해 볼 수 있는 작은 습관은 무엇인가요?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "우정에서 내가 가장 소중히 여기는 것은?",
+      "title": "귀 기울여 주는 마음이라는 선물",
+      "overview": "컵 2는 서로를 아끼는 마음과 경청의 조용한 힘을 보여 줘요."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "새 프로젝트에 어떻게 다가가면 좋을까요?",
+      "title": "차분하고 호기심 어린 걸음",
+      "overview": "카드는 계획에서 창의성을 거쳐 꾸준한 연습으로 이어져요."
+    }
+  ]
+}

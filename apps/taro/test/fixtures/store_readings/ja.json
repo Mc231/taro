@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "ja",
+  "question": "一週間にもっとバランスを取り入れるには？",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "ひと息つける余白",
+    "overview": "カードは、温かなつながりから、静かに戻ってくる希望を経て、小さく実践的な始まりへと流れています。バランスは、自分で意識して選ぶ小さな行動から育っていくのかもしれません。",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "過去の位置にあるカップの3は、友人やともに過ごした時間があなたを支えていた頃を思い出させます。一緒の食事や笑い声、身近な人からのメッセージが、毎週に自然なリズムを与えていたのかもしれません。そうしたつながりのうち、どれにもう一度時間をつくりたいか考えてみてもよいでしょう。"
+      },
+      {
+        "positionId": "present",
+        "interpretation": "現在の位置にある星は、慌ただしい時期のあとに訪れる落ち着きと、新たな希望を表しています。ペースを落とし、休息や外の空気、静かなひとときなど、そっと力を取り戻させてくれるものに目を向けるよう促しています。それをご褒美ではなく、一週間の一部として扱ってみてはいかがでしょうか。"
+      },
+      {
+        "positionId": "future",
+        "interpretation": "未来の位置にあるペンタクルのエースは、あなた自身が選べる小さく実践的な始まりを示しています。定期的な散歩、スマホを置く時間を決めること、これからの数日のシンプルな計画など、ひとつの習慣かもしれません。大きな変化というより、育てていける一粒の種のようなものです。"
+      }
+    ],
+    "synthesis": "三枚を合わせて読むと、つながり、休息、そして地に足のついた習慣を組み合わせることでバランスが生まれるのかもしれません。どの一歩がしっくりくるかはあなた次第です。このスプレッドは、考えるためのいくつかの視点を差し出しているだけです。",
+    "reflectionPrompts": [
+      "一週間のなかで、いちばん自分らしくいられるのはどんな瞬間ですか？",
+      "これからの7日間で試せる小さな習慣は何でしょう？"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "友人関係でいちばん大切にしていることは？",
+      "title": "耳を傾けてもらえるという贈り物",
+      "overview": "カップの2は、互いを思いやる気持ちと、聴いてもらえることの静かな力を表しています。"
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "新しいプロジェクトにどう向き合えばいい？",
+      "title": "落ち着いた、好奇心ある一歩",
+      "overview": "カードは計画から創造性、そして根気強い実践へと続いています。"
+    }
+  ]
+}

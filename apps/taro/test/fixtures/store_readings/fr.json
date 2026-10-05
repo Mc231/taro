@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "fr",
+  "question": "Comment apporter plus d’équilibre à ma semaine ?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "De l’espace pour respirer",
+    "overview": "Les cartes vont d’un lien chaleureux, en passant par un retour paisible de l’espoir, vers un petit commencement concret. Ensemble, elles suggèrent que l’équilibre peut naître de choix simples que vous faites en conscience.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "En position du passé, le Trois de Coupes rappelle des moments où l’amitié et les instants partagés vous donnaient de la stabilité. Un repas ensemble, des rires ou un message d’un proche ont peut-être donné à vos semaines un rythme naturel. Demandez-vous à quels liens vous aimeriez refaire de la place."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "L’Étoile en position du présent parle de calme et d’un espoir renouvelé après une période chargée. Elle vous invite à ralentir et à remarquer ce qui recharge doucement votre énergie : le repos, l’air frais ou un moment de silence. Vous pourriez les voir non comme des récompenses, mais comme une partie de la semaine elle-même."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "En position du futur, l’As de Deniers évoque un petit commencement concret que vous pouvez choisir. Ce pourrait être une seule habitude régulière : une promenade, une heure fixe pour déconnecter ou un plan simple pour les jours qui viennent. Il s’agit moins d’un grand changement que d’une graine dont vous pouvez prendre soin."
+      }
+    ],
+    "synthesis": "Lues ensemble, les cartes suggèrent que l’équilibre peut venir d’un mélange de lien, de repos et d’une routine ancrée. C’est vous qui choisissez le pas qui vous convient ; le tirage vous offre simplement quelques angles de réflexion.",
+    "reflectionPrompts": [
+      "Quels moments de votre semaine vous font le plus vous sentir vous-même ?",
+      "Quelle petite habitude pourriez-vous essayer pendant les sept prochains jours ?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "Qu’est-ce que j’apprécie le plus dans mes amitiés ?",
+      "title": "Le cadeau d’être écouté",
+      "overview": "Le Deux de Coupes met en lumière l’attention mutuelle et la force tranquille de l’écoute."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Comment aborder mon nouveau projet ?",
+      "title": "Des pas sûrs et curieux",
+      "overview": "Les cartes vont de la planification à la créativité, puis à la pratique patiente."
+    }
+  ]
+}

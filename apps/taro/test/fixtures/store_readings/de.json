@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "de",
+  "question": "Wie bringe ich mehr Ausgleich in meine Woche?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Raum zum Durchatmen",
+    "overview": "Die Karten führen von herzlicher Verbundenheit über eine leise zurückkehrende Hoffnung zu einem kleinen, praktischen Neuanfang. Zusammen deuten sie an, dass Ausgleich aus einfachen, bewusst getroffenen Entscheidungen wachsen kann.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "In der Position der Vergangenheit erinnert die Drei der Kelche an Zeiten, in denen Freundschaften und gemeinsame Momente dir Halt gaben. Ein gemeinsames Essen, Lachen oder eine Nachricht von einem vertrauten Menschen hat deinen Wochen vielleicht einen natürlichen Rhythmus gegeben. Frag dich, für welche dieser Verbindungen du wieder Platz schaffen möchtest."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "Der Stern in der Gegenwart spricht von Ruhe und neuer Hoffnung nach einer vollen Zeit. Er lädt dich ein, langsamer zu werden und zu bemerken, was dir leise Kraft zurückgibt: Pausen, frische Luft oder ein Moment der Stille. Vielleicht siehst du diese Dinge nicht als Belohnung, sondern als festen Teil deiner Woche."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "In der Position der Zukunft zeigt das Ass der Münzen auf einen kleinen, praktischen Anfang, den du selbst wählen kannst. Das kann eine einzige verlässliche Gewohnheit sein: ein regelmäßiger Spaziergang, eine feste Zeit zum Abschalten oder ein einfacher Plan für die kommenden Tage. Es geht weniger um eine große Veränderung als um einen Samen, den du pflegen kannst."
+      }
+    ],
+    "synthesis": "Zusammen gelesen legen die Karten nahe, dass Ausgleich aus Verbundenheit, Ruhe und einer geerdeten Routine entstehen kann. Welcher Schritt sich richtig anfühlt, entscheidest du; die Legung bietet dir nur ein paar Blickwinkel zum Nachdenken.",
+    "reflectionPrompts": [
+      "In welchen Momenten deiner Woche fühlst du dich am meisten wie du selbst?",
+      "Welche kleine Gewohnheit könntest du die nächsten sieben Tage ausprobieren?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "Was schätze ich an meinen Freundschaften am meisten?",
+      "title": "Das Geschenk, gehört zu werden",
+      "overview": "Die Zwei der Kelche betont gegenseitige Fürsorge und die stille Kraft des Zuhörens."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Wie gehe ich mein neues Projekt an?",
+      "title": "Ruhige, neugierige Schritte",
+      "overview": "Die Karten führen von der Planung über Kreativität zu geduldiger Übung."
+    }
+  ]
+}

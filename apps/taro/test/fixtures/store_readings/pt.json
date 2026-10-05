@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "pt",
+  "question": "Como posso trazer mais equilíbrio para a minha semana?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Espaço para respirar",
+    "overview": "As cartas vão de uma conexão calorosa, passando por um retorno tranquilo da esperança, até um começo pequeno e prático. Juntas, sugerem que o equilíbrio pode nascer de escolhas simples feitas com intenção.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "Na posição do passado, o Três de Copas lembra momentos em que amizades e momentos compartilhados davam estabilidade a você. Uma refeição juntos, risadas ou uma mensagem de alguém próximo talvez dessem às suas semanas um ritmo natural. Pode ajudar perguntar a si mesmo para quais dessas conexões você gostaria de abrir espaço de novo."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "A Estrela na posição do presente fala de calma e de esperança renovada depois de uma fase agitada. Ela convida você a desacelerar e perceber o que recarrega sua energia em silêncio, como descanso, ar fresco ou um momento de quietude. Você pode encarar isso não como recompensa, mas como parte da própria semana."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "Na posição do futuro, o Ás de Ouros aponta para um começo pequeno e prático que você pode escolher. Pode ser um único hábito constante: uma caminhada regular, um horário fixo para desligar ou um plano simples para os próximos dias. É menos uma grande mudança e mais uma semente que você pode cultivar."
+      }
+    ],
+    "synthesis": "Lidas em conjunto, as cartas sugerem que o equilíbrio pode vir da mistura de conexão, descanso e uma rotina com os pés no chão. Você decide qual passo faz sentido; a tiragem apenas oferece alguns ângulos para refletir.",
+    "reflectionPrompts": [
+      "Em quais momentos da sua semana você se sente mais você mesmo?",
+      "Que pequeno hábito você poderia experimentar nos próximos sete dias?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "O que eu mais valorizo nas minhas amizades?",
+      "title": "O presente de ser ouvido",
+      "overview": "O Dois de Copas destaca o cuidado mútuo e a força tranquila de ser ouvido."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Como posso começar meu novo projeto?",
+      "title": "Passos firmes e curiosos",
+      "overview": "As cartas vão do planejamento à criatividade e à prática paciente."
+    }
+  ]
+}

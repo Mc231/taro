@@ -131,6 +131,10 @@ final class TaroFakes {
   /// Bundled content.
   FakeContentRepository content = FakeContentRepository();
 
+  /// Replaces [content] as the port (e.g. the bundled assets for the store
+  /// screenshots, 05 §9.4).
+  ContentRepository? contentPort;
+
   /// Crisis resources.
   FakeCrisisResourcesRepository crisis = FakeCrisisResourcesRepository();
 
@@ -266,7 +270,7 @@ final class TaroFakes {
     readingRepositoryProvider.overrideWithValue(readingsPort ?? readings),
     journalRepositoryProvider.overrideWithValue(journalRepository),
     dailyCardRepositoryProvider.overrideWithValue(dailyCards),
-    contentRepositoryProvider.overrideWithValue(content),
+    contentRepositoryProvider.overrideWithValue(contentPort ?? content),
     crisisResourcesRepositoryProvider.overrideWithValue(crisis),
     remoteConfigRepositoryProvider.overrideWithValue(config),
     settingsRepositoryProvider.overrideWithValue(settings),

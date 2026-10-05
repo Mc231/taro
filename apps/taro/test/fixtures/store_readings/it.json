@@ -1,0 +1,72 @@
+{
+  "_about": "Store screenshot fixture (05 §9.4, Phase 20.2). The reading is the 03 §9.1 wire `reading` object for the fixed draw below, written in the style of the staging outputs and reviewed against 05 §9.5 (no predictions, no certainty claims). Read by integration_test/screenshots/ through the generated store_readings.g.dart (tools/screenshots/screenshots.py fixtures).",
+  "locale": "it",
+  "question": "Come posso portare più equilibrio nella mia settimana?",
+  "spreadId": "three_ppf",
+  "cards": [
+    {
+      "positionId": "past",
+      "cardId": "cups_03",
+      "reversed": false
+    },
+    {
+      "positionId": "present",
+      "cardId": "major_17",
+      "reversed": false
+    },
+    {
+      "positionId": "future",
+      "cardId": "pentacles_01",
+      "reversed": false
+    }
+  ],
+  "reading": {
+    "title": "Spazio per respirare",
+    "overview": "Le carte vanno da un legame caloroso, attraverso un ritorno sereno della speranza, verso un piccolo inizio concreto. Insieme suggeriscono che l’equilibrio può nascere da scelte semplici fatte con intenzione.",
+    "cards": [
+      {
+        "positionId": "past",
+        "interpretation": "Nella posizione del passato, il Tre di Coppe ricorda momenti in cui le amicizie e il tempo condiviso ti davano stabilità. Una cena insieme, una risata o un messaggio da una persona cara forse davano alle tue settimane un ritmo naturale. Può aiutarti chiederti per quali di questi legami vorresti fare di nuovo spazio."
+      },
+      {
+        "positionId": "present",
+        "interpretation": "La Stella nella posizione del presente parla di calma e di una speranza rinnovata dopo un periodo intenso. Ti invita a rallentare e a notare ciò che ricarica in silenzio le tue energie: il riposo, l’aria aperta o un momento di quiete. Potresti considerarli non come premi, ma come parte della settimana stessa."
+      },
+      {
+        "positionId": "future",
+        "interpretation": "Nella posizione del futuro, l’Asso di Denari indica un piccolo inizio concreto che puoi scegliere tu. Potrebbe essere una sola abitudine costante: una passeggiata regolare, un orario fisso per staccare o un piano semplice per i prossimi giorni. Non si tratta tanto di un grande cambiamento quanto di un seme di cui prenderti cura."
+      }
+    ],
+    "synthesis": "Lette insieme, le carte suggeriscono che l’equilibrio può nascere dall’unione di legami, riposo e una routine con i piedi per terra. Sei tu a scegliere il passo giusto; la stesa offre solo alcuni punti di vista su cui riflettere.",
+    "reflectionPrompts": [
+      "In quali momenti della settimana ti senti più te stesso?",
+      "Quale piccola abitudine potresti provare nei prossimi sette giorni?"
+    ]
+  },
+  "dailyCardId": "major_19",
+  "learnCardId": "major_21",
+  "journal": [
+    {
+      "spreadId": "single",
+      "cards": [
+        "cups_02"
+      ],
+      "daysAgo": 2,
+      "question": "Che cosa apprezzo di più nelle mie amicizie?",
+      "title": "Il dono di essere ascoltati",
+      "overview": "Il Due di Coppe mette in luce la cura reciproca e la forza tranquilla dell’ascolto."
+    },
+    {
+      "spreadId": "three_sao",
+      "cards": [
+        "wands_03",
+        "major_03",
+        "pentacles_08"
+      ],
+      "daysAgo": 5,
+      "question": "Come posso affrontare il mio nuovo progetto?",
+      "title": "Passi calmi e curiosi",
+      "overview": "Le carte vanno dalla pianificazione alla creatività, fino alla pratica paziente."
+    }
+  ]
+}
