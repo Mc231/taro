@@ -43,6 +43,7 @@ export 'src/components/layout/settings_section.dart';
 export 'src/components/layout/settings_tile.dart';
 export 'src/components/layout/taro_app_bar.dart';
 export 'src/components/layout/taro_badge.dart';
+export 'src/components/layout/taro_columns.dart';
 export 'src/components/layout/taro_dialog.dart';
 export 'src/components/layout/taro_scaffold.dart';
 export 'src/components/layout/taro_sheet.dart';

@@ -14,13 +14,13 @@
         "name": "TelefonSeelsorge",
         "phone": "0800 111 0 111",
         "url": "https://www.telefonseelsorge.de",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       },
       {
         "languages": [],
         "name": "Find A Helpline",
         "url": "https://findahelpline.com",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "canRephrase": false

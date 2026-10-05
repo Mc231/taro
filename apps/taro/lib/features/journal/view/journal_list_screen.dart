@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/di/providers.dart';
@@ -295,21 +295,9 @@ class JournalListLayout extends StatelessWidget {
         ),
       ],
       JournalListContent(:final months, :final patterns) => [
-        SliverPadding(
-          padding: EdgeInsetsDirectional.only(bottom: tokens.space.s7),
-          sliver: SliverList.list(
-            children: [
-              if (patterns != null)
-                Padding(
-                  padding: EdgeInsetsDirectional.only(top: tokens.space.s4),
-                  child: _PatternsCard(
-                    patterns: patterns,
-                    range: range,
-                    names: cardNames,
-                    onRange: onRange,
-                    onOpenCard: onOpenCard,
-                  ),
-                ),
+        SliverLayoutBuilder(
+          builder: (context, constraints) {
+            final entries = <Widget>[
               for (final month in months) ...[
                 Padding(
                   padding: EdgeInsetsDirectional.only(
@@ -342,12 +330,68 @@ class JournalListLayout extends StatelessWidget {
                     ),
                   ),
               ],
-            ],
-          ),
+            ];
+            final card = patterns == null
+                ? null
+                : _PatternsCard(
+                    patterns: patterns,
+                    range: range,
+                    names: cardNames,
+                    onRange: onRange,
+                    onOpenCard: onOpenCard,
+                  );
+            final bottom = EdgeInsetsDirectional.only(
+              bottom: tokens.space.s7,
+            );
+            // Tablets keep the patterns beside the entries (RC99).
+            // `SliverCrossAxisGroup` always lays out left to right, so RTL
+            // lists the panes the other way round.
+            if (card != null && taroTwoPanes(constraints.crossAxisExtent)) {
+              final panes = [
+                SliverCrossAxisExpanded(
+                  flex: 2,
+                  sliver: SliverPadding(
+                    padding: EdgeInsetsDirectional.only(
+                      top: tokens.space.s6,
+                      end: tokens.space.s5,
+                    ),
+                    sliver: SliverToBoxAdapter(child: card),
+                  ),
+                ),
+                SliverCrossAxisExpanded(
+                  flex: 3,
+                  sliver: SliverList.list(children: entries),
+                ),
+              ];
+              final rtl = Directionality.of(context) == TextDirection.rtl;
+              return SliverPadding(
+                padding: bottom,
+                sliver: SliverCrossAxisGroup(
+                  slivers: rtl ? panes.reversed.toList() : panes,
+                ),
+              );
+            }
+            return SliverPadding(
+              padding: bottom,
+              sliver: SliverList.list(
+                children: [
+                  if (card != null)
+                    Padding(
+                      padding: EdgeInsetsDirectional.only(
+                        top: tokens.space.s4,
+                      ),
+                      child: card,
+                    ),
+                  ...entries,
+                ],
+              ),
+            );
+          },
         ),
       ],
     };
     return TaroScaffold(
+      wide: true,
       bottomNavigationBar: listed ? banner : null,
       body: CustomScrollView(
         slivers: [

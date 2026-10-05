@@ -80,7 +80,7 @@ const List<String> _colors = [
   'skeleton.highlight',
 ];
 
-/// Every token name of the 01 §14 contract (166 names).
+/// Every token name of the 01 §14 contract (167 names).
 final List<String> kContractTokenNames = List.unmodifiable([
   for (final c in _colors) 'color.$c',
   for (final role in kTypeRoles) 'type.$role',
@@ -90,6 +90,7 @@ final List<String> kContractTokenNames = List.unmodifiable([
   'space.adGap',
   'layout.gutter',
   'layout.maxContentWidth',
+  'layout.maxContentWidthWide',
   'layout.readingMaxWidth',
   'size.touchTarget.min',
   for (final s in ['sm', 'md', 'lg']) 'size.icon.$s',

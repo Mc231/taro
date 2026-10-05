@@ -483,7 +483,7 @@ ONE FREE AI READING EVERY DAY
 Every day you get one free AI reading for any spread. Extra readings come from an optional ad or a reading pack.
 
 YOUR DAILY CARD
-Draw a free card every day, with its meaning and a reflection question, even offline. Come back to it in your journal at night.
+Draw a free card every day, with its meaning and a reflection question, even offline. It is saved in your journal.
 
 SPREADS
 From a single card to three-card past, present and future, to the Celtic Cross. Each position is explained in plain language.

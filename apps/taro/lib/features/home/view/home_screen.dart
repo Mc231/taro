@@ -261,13 +261,17 @@ class _HomeContentState extends State<_HomeContent> {
           ),
         ],
         gap,
-        _DailyTile(card: view.dailyCard, onOpen: widget.onOpenDaily),
-        gap,
-        _ReadingCta(
-          key: _ctaKey,
-          buttonKey: _ctaButtonKey,
-          highlighted: view.firstRun,
-          onStart: widget.onStartReading,
+        // Tablets set the daily card and the reading CTA side by side
+        // (RC99); phones stack them.
+        TaroColumns(
+          spacing: tokens.space.s7,
+          start: _DailyTile(card: view.dailyCard, onOpen: widget.onOpenDaily),
+          end: _ReadingCta(
+            key: _ctaKey,
+            buttonKey: _ctaButtonKey,
+            highlighted: view.firstRun,
+            onStart: widget.onStartReading,
+          ),
         ),
         if (view.recentReadings.isNotEmpty)
           Column(
@@ -316,6 +320,7 @@ class _HomeContentState extends State<_HomeContent> {
         onDismiss: widget.onDismissFirstRun,
       ),
       child: TaroScaffold(
+        wide: true,
         topBanner: const OfflineBanner(),
         bottomNavigationBar: view.adsRemoved || view.firstRun
             ? null

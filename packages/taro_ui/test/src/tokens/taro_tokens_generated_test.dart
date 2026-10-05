@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:taro_ui/taro_ui.dart';
 
 void main() {
-  test('the generated file carries all 166 01 §14 names and both modes', () {
-    expect(kTaroTokenNames, hasLength(166));
-    expect(kTaroTokenNames.toSet(), hasLength(166));
+  test('the generated file carries all 167 01 §14 names and both modes', () {
+    expect(kTaroTokenNames, hasLength(167));
+    expect(kTaroTokenNames.toSet(), hasLength(167));
     expect(kTaroTokenModes, ['light', 'dark']);
     for (final group in [
       'color.',

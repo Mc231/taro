@@ -1,18 +1,19 @@
 # Crisis resources directory: the one source for the app asset and the Worker
 # (01 §7.5, 03 §9.5, 05 §4.2; RC25, RC81). Format: ../README.md.
 #
-# LLM draft (Phase 5 Sprint 5.3). Numbers are copied from the 05 §4.2 minimum
-# set. Names, URLs, hours and languages were drafted from general knowledge
-# and are NOT verified: every entry stays `verifiedAt: null` until the owner
-# checks it against the official source (Phase 18 Sprint 18.4) and records
-# the source list in 00_DECISIONS.md. `validate --release` fails until then.
+# Verified 2026-10-05 against each organisation's own site or a government /
+# Find A Helpline listing. Source URL and what was checked for every entry:
+# docs/content/CRISIS_SOURCES.md. Re-verify within 200 days of `verifiedAt`
+# (`validate --release`). An entry left `verifiedAt: null` could not be
+# confirmed from an official source and blocks `validate --release` until the
+# owner confirms it (Phase 18 Sprint 18.4).
 #
 # Selection (03 §9.5): country -> localeFallback[locale] -> international; at
 # most 3 entries, always including international, so keep each country to at
 # most 2 entries.
 localeFallback:
   en: US
-  ar: null
+  ar: null        # no single Arabic-language line; international only (see CRISIS_SOURCES.md)
   de: DE
   es: ES
   fr: FR
@@ -25,121 +26,164 @@ localeFallback:
   uk: UA
 countries:
   US:
+    # 988lifeline.org: call/text 988, chat, 24/7/365, English + Spanish.
     - name: 988 Suicide & Crisis Lifeline
       phone: "988"
       sms: "988"
       url: https://988lifeline.org
       hours: 24/7
       languages: [en, es]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   GB:
+    # samaritans.org: 116 123 free, day or night, 365 days a year.
     - name: Samaritans
       phone: "116 123"
       url: https://www.samaritans.org
       hours: 24/7
       languages: [en]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   IE:
+    # samaritans.org/samaritans-ireland: 116 123 free, day or night (ROI).
     - name: Samaritans Ireland
       phone: "116 123"
-      url: https://www.samaritans.org/ireland/
+      url: https://www.samaritans.org/samaritans-ireland/
       hours: 24/7
       languages: [en]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   CA:
+    # 988.ca: call or text 9-8-8, 24/7/365, English and French.
     - name: 9-8-8 Suicide Crisis Helpline
       phone: "988"
       sms: "988"
       url: https://988.ca
       hours: 24/7
       languages: [en, fr]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   AU:
+    # lifeline.org.au: call 13 11 14, text 0477 13 11 14, chat; 24/7.
     - name: Lifeline Australia
       phone: "13 11 14"
+      sms: "0477 13 11 14"
       url: https://www.lifeline.org.au
       hours: 24/7
       languages: [en]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   DE:
+    # telefonseelsorge.de: 0800 111 0 111 / 0800 111 0 222 / 116 123, free, day and night.
     - name: TelefonSeelsorge
       phone: "0800 111 0 111"
       url: https://www.telefonseelsorge.de
       hours: 24/7
       languages: [de]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   FR:
+    # 3114.fr: 3114, free, 24h/24 7j/7, mainland and overseas France.
     - name: 3114 Numéro national de prévention du suicide
       phone: "3114"
       url: https://3114.fr
       hours: 24/7
       languages: [fr]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   ES:
+    # sanidad.gob.es/linea024 (Ministerio de Sanidad): 024, free, 24 h, 365 days.
     - name: Línea 024 de atención a la conducta suicida
       phone: "024"
+      url: https://www.sanidad.gob.es/linea024/home.htm
       hours: 24/7
       languages: [es]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   IT:
+    # telefonoamico.it: 02 2327 2327, "tutti i giorni 24 ore su 24".
     - name: Telefono Amico Italia
       phone: "02 2327 2327"
       url: https://www.telefonoamico.it
+      hours: 24/7
       languages: [it]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   NL:
+    # 113.nl: "Call 113 free of charge ... 24 hours a day" (reachable only
+    # from within the Netherlands; chat works from abroad).
     - name: 113 Zelfmoordpreventie
-      phone: "0800-0113"
+      phone: "113"
       url: https://www.113.nl
       hours: 24/7
       languages: [nl]
-      verifiedAt: null
-    - name: 113 Zelfmoordpreventie (short number)
-      phone: "113"
+      verifiedAt: 2026-10-05
+    # 0800-0113 no longer appears on 113.nl (only press from 2020 and
+    # third-party pages list it). Owner: test-call it, or drop this entry.
+    - name: 113 Zelfmoordpreventie (0800)
+      phone: "0800-0113"
       hours: 24/7
       languages: [nl]
       verifiedAt: null
   JP:
+    # mhlw.go.jp/mamorouyokokoro (厚生労働省): #いのちSOS 0120-061-338, 24時間365日.
+    - name: "#いのちSOS"
+      phone: "0120-061-338"
+      url: https://www.mhlw.go.jp/mamorouyokokoro/soudan/tel/
+      hours: 24/7
+      languages: [ja]
+      verifiedAt: 2026-10-05
+    # inochinodenwa.org + MHLW: ナビダイヤル 0570-783-556, 10:00–22:00 (paid call).
     - name: いのちの電話
       phone: "0570-783-556"
+      url: https://www.inochinodenwa.org
+      hours: 10:00–22:00
       languages: [ja]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   KR:
-    - name: 자살예방상담전화
+    # 보건복지부 자살예방상담전화 109 (kfsp.or.kr banner): 24 h, 365 days, free.
+    - name: 자살예방상담전화 109
       phone: "109"
+      url: https://www.kfsp.or.kr
       hours: 24/7
       languages: [ko]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   TR:
-    # 05 §4.2 lists the general emergency number for TR.
-    - name: Acil Çağrı Merkezi
+    # 112.gov.tr (İçişleri Bakanlığı): single national emergency number.
+    # Türkiye has no national suicide-prevention line (Alo 182 closed in 2008).
+    - name: 112 Acil Çağrı Merkezi
       phone: "112"
+      url: https://www.112.gov.tr
       hours: 24/7
       languages: [tr]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   UA:
-    - name: Lifeline Ukraine
-      phone: "7333"
-      url: https://lifelineukraine.com
+    # Lifeline Ukraine (7333) has been paused since 2025-10-01 (lifelineukraine.com:
+    # "Робота гарячої лінії на паузі"). Replaced by the national hotline of
+    # La Strada-Ukraine (la-strada.org.ua): around the clock, free, psychologists
+    # on duty; 116 123 free from mobile, 0 800 500 335 free from landline.
+    - name: Національна гаряча лінія «Ла Страда-Україна»
+      phone: "116 123"
+      url: https://la-strada.org.ua
       hours: 24/7
       languages: [uk]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
+    - name: Національна гаряча лінія «Ла Страда-Україна» (стаціонарний)
+      phone: "0 800 500 335"
+      hours: 24/7
+      languages: [uk]
+      verifiedAt: 2026-10-05
   BR:
+    # cvv.org.br: "LIGUE 188", 24 horas, free nationwide; chat and e-mail too.
     - name: CVV – Centro de Valorização da Vida
       phone: "188"
       url: https://cvv.org.br
       hours: 24/7
       languages: [pt]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
   PT:
-    # 05 §4.2 names the service but gives no number; only the URL is listed
-    # until the owner verifies the phone number(s) from the official source.
+    # sosvozamiga.org: 213 544 545 (also 912 802 669, 963 524 660, 930 712 500),
+    # daily 15:30–00:30, ordinary call rates.
     - name: SOS Voz Amiga
+      phone: "213 544 545"
       url: https://www.sosvozamiga.org
+      hours: 15:30–00:30
       languages: [pt]
-      verifiedAt: null
+      verifiedAt: 2026-10-05
 international:
+  # findahelpline.com: free directory by ThroughLine, 175+ countries, IASP key partner.
   - name: Find A Helpline
     url: https://findahelpline.com
     languages: []
-    verifiedAt: null
+    verifiedAt: 2026-10-05

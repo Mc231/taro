@@ -213,6 +213,27 @@ void main() {
       );
     });
 
+    test('a crisis resource verifiedAt is a calendar date (03 §9.5)', () {
+      final dated = CrisisResourceDto.fromJson({
+        'name': 'Samaritans',
+        'phone': '116 123',
+        'verifiedAt': '2026-10-05',
+      }).toDomain();
+      expect(dated.verifiedAt, DateTime.utc(2026, 10, 5));
+      expect(dated.isVerified, isTrue);
+      final instant = CrisisResourceDto.fromJson({
+        'name': 'Samaritans',
+        'phone': '116 123',
+        'verifiedAt': '2026-10-05T08:00:00Z',
+      }).toDomain();
+      expect(instant.verifiedAt, DateTime.utc(2026, 10, 5, 8));
+      const converter = NullableVerifiedDateConverter();
+      expect(converter.fromJson(null), isNull);
+      expect(() => converter.fromJson('05.10.2026'), throwsFormatException);
+      expect(converter.toJson(null), isNull);
+      expect(converter.toJson(DateTime.utc(2026, 10, 5, 8)), '2026-10-05');
+    });
+
     test('ReadingResponseDto with an unknown status or missing safety', () {
       expect(
         () => ReadingResponseDto.fromJson({

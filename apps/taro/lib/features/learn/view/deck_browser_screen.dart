@@ -149,6 +149,7 @@ class _DeckBrowserLayoutState extends State<DeckBrowserLayout> {
       DeckBrowserContent(:final sections) => _content(context, sections),
     };
     return TaroScaffold(
+      wide: true,
       bottomNavigationBar: widget.banner,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -298,9 +299,13 @@ class _SectionHeading extends StatelessWidget {
   }
 }
 
+/// The densest grid: tablets fill `layout.maxContentWidthWide` (RC99).
+const int _maxColumns = 8;
+
 /// One section as rows of `CardGridTile`s: 3 columns on phones, growing to
-/// 5 within `layout.maxContentWidth`, one fewer at reflow text sizes. Every
-/// row is as tall as its section's longest name needs, so names never clip.
+/// [_maxColumns] within `layout.maxContentWidthWide` on tablets, one fewer
+/// at reflow text sizes. Every row is as tall as its section's longest name
+/// needs, so names never clip.
 class _SectionGrid extends StatelessWidget {
   const _SectionGrid({
     required this.section,
@@ -328,7 +333,7 @@ class _SectionGrid extends StatelessWidget {
         final columns =
             (((constraints.maxWidth + gap) / (minTile + gap)).floor() -
                     (reflow ? 1 : 0))
-                .clamp(2, 5);
+                .clamp(2, _maxColumns);
         final tileWidth =
             (constraints.maxWidth - gap * (columns - 1)) / columns;
         final height = _tileHeight(context, tileWidth);

@@ -8,8 +8,9 @@
         ],
         "name": "Lifeline Australia",
         "phone": "13 11 14",
+        "sms": "0477 13 11 14",
         "url": "https://www.lifeline.org.au",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "BR": [
@@ -21,7 +22,7 @@
         "name": "CVV – Centro de Valorização da Vida",
         "phone": "188",
         "url": "https://cvv.org.br",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "CA": [
@@ -35,7 +36,7 @@
         "phone": "988",
         "sms": "988",
         "url": "https://988.ca",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "DE": [
@@ -47,7 +48,7 @@
         "name": "TelefonSeelsorge",
         "phone": "0800 111 0 111",
         "url": "https://www.telefonseelsorge.de",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "ES": [
@@ -58,7 +59,8 @@
         ],
         "name": "Línea 024 de atención a la conducta suicida",
         "phone": "024",
-        "verifiedAt": null
+        "url": "https://www.sanidad.gob.es/linea024/home.htm",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "FR": [
@@ -70,7 +72,7 @@
         "name": "3114 Numéro national de prévention du suicide",
         "phone": "3114",
         "url": "https://3114.fr",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "GB": [
@@ -82,7 +84,7 @@
         "name": "Samaritans",
         "phone": "116 123",
         "url": "https://www.samaritans.org",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "IE": [
@@ -93,29 +95,42 @@
         ],
         "name": "Samaritans Ireland",
         "phone": "116 123",
-        "url": "https://www.samaritans.org/ireland/",
-        "verifiedAt": null
+        "url": "https://www.samaritans.org/samaritans-ireland/",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "IT": [
       {
+        "hours": "24/7",
         "languages": [
           "it"
         ],
         "name": "Telefono Amico Italia",
         "phone": "02 2327 2327",
         "url": "https://www.telefonoamico.it",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "JP": [
       {
+        "hours": "24/7",
+        "languages": [
+          "ja"
+        ],
+        "name": "#いのちSOS",
+        "phone": "0120-061-338",
+        "url": "https://www.mhlw.go.jp/mamorouyokokoro/soudan/tel/",
+        "verifiedAt": "2026-10-05"
+      },
+      {
+        "hours": "10:00–22:00",
         "languages": [
           "ja"
         ],
         "name": "いのちの電話",
         "phone": "0570-783-556",
-        "verifiedAt": null
+        "url": "https://www.inochinodenwa.org",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "KR": [
@@ -124,9 +139,10 @@
         "languages": [
           "ko"
         ],
-        "name": "자살예방상담전화",
+        "name": "자살예방상담전화 109",
         "phone": "109",
-        "verifiedAt": null
+        "url": "https://www.kfsp.or.kr",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "NL": [
@@ -136,28 +152,30 @@
           "nl"
         ],
         "name": "113 Zelfmoordpreventie",
-        "phone": "0800-0113",
+        "phone": "113",
         "url": "https://www.113.nl",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       },
       {
         "hours": "24/7",
         "languages": [
           "nl"
         ],
-        "name": "113 Zelfmoordpreventie (short number)",
-        "phone": "113",
+        "name": "113 Zelfmoordpreventie (0800)",
+        "phone": "0800-0113",
         "verifiedAt": null
       }
     ],
     "PT": [
       {
+        "hours": "15:30–00:30",
         "languages": [
           "pt"
         ],
         "name": "SOS Voz Amiga",
+        "phone": "213 544 545",
         "url": "https://www.sosvozamiga.org",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ],
     "TR": [
@@ -166,9 +184,10 @@
         "languages": [
           "tr"
         ],
-        "name": "Acil Çağrı Merkezi",
+        "name": "112 Acil Çağrı Merkezi",
         "phone": "112",
-        "verifiedAt": null
+        "url": "https://www.112.gov.tr",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "UA": [
@@ -177,10 +196,19 @@
         "languages": [
           "uk"
         ],
-        "name": "Lifeline Ukraine",
-        "phone": "7333",
-        "url": "https://lifelineukraine.com",
-        "verifiedAt": null
+        "name": "Національна гаряча лінія «Ла Страда-Україна»",
+        "phone": "116 123",
+        "url": "https://la-strada.org.ua",
+        "verifiedAt": "2026-10-05"
+      },
+      {
+        "hours": "24/7",
+        "languages": [
+          "uk"
+        ],
+        "name": "Національна гаряча лінія «Ла Страда-Україна» (стаціонарний)",
+        "phone": "0 800 500 335",
+        "verifiedAt": "2026-10-05"
       }
     ],
     "US": [
@@ -194,7 +222,7 @@
         "phone": "988",
         "sms": "988",
         "url": "https://988lifeline.org",
-        "verifiedAt": null
+        "verifiedAt": "2026-10-05"
       }
     ]
   },
@@ -203,7 +231,7 @@
       "languages": [],
       "name": "Find A Helpline",
       "url": "https://findahelpline.com",
-      "verifiedAt": null
+      "verifiedAt": "2026-10-05"
     }
   ],
   "localeFallback": {

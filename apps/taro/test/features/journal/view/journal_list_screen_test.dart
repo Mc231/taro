@@ -9,6 +9,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../../../../packages/taro_ui/test/helpers/golden/golden_sizes.dart';
 import '../../flow_view_support.dart';
 
 /// Sunday 27 September 2026, evening.
@@ -91,6 +92,7 @@ void main() {
       PatternsRange range = PatternsRange.d30,
       Widget? banner,
       double textScale = 1,
+      Size size = kPhoneSmall,
     }) => pumpTaroWidget(
       tester,
       JournalListLayout(
@@ -115,6 +117,7 @@ void main() {
         onRetry: () => calls.add('retry'),
       ),
       textScale: textScale,
+      size: size,
     );
 
     const banner = SizedBox(key: Key('banner'), height: 50);
@@ -269,6 +272,50 @@ void main() {
       );
       expect(find.text(l10n.journalPatternsTitle(90)), findsOneWidget);
       expect(calls, ['card:major_00', 'range:d90']);
+    });
+
+    testWidgets('tablets set Patterns beside the entries (RC99)', (
+      tester,
+    ) async {
+      await pump(tester, _content(patterns: _patterns()), size: kTabletIpad13);
+      final card = tester.getRect(find.byType(PatternsChart));
+      final row = tester.getRect(find.byType(JournalEntryTile).first);
+      expect(card.right, lessThan(row.left));
+      expect(row.top, lessThan(card.bottom));
+      // RTL mirrors the panes.
+      await pumpTaroWidget(
+        tester,
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: JournalListLayout(
+            state: _content(patterns: _patterns()),
+            filters: const JournalFilters(),
+            now: () => _now,
+            onType: (_) {},
+            onSpread: (_) {},
+            onClearCard: () {},
+            onSearch: (_) {},
+            onClearFilters: () {},
+            onOpen: (_) {},
+            onFinish: (_) {},
+            onDelete: (_) {},
+            onOpenCard: (_) {},
+            onRange: (_) {},
+            onStartReading: () {},
+            onOpenDaily: () {},
+            onRetry: () {},
+          ),
+        ),
+        size: kTabletAndroid,
+      );
+      expect(
+        tester.getRect(find.byType(PatternsChart)).left,
+        greaterThan(tester.getRect(find.byType(JournalEntryTile).first).right),
+      );
+      // Without patterns the entries take the whole column.
+      await pump(tester, _content(), size: kTabletIpad13);
+      expect(find.byType(PatternsChart), findsNothing);
+      expect(find.byType(JournalEntryTile), findsNWidgets(5));
     });
 
     testWidgets('content at 200 % text does not overflow', (tester) async {

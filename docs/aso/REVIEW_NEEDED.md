@@ -66,7 +66,7 @@ Sign off by adding a row to the table at the end.
 - `ШІ` for AI and `тлумачення` for reading: match the ARB.
 
 ### en (owner pass)
-- Daily card paragraph says "Come back to it in your journal at night": the journal entry ships, but there is no evening feature. Keep as an invitation or shorten to "It is saved in your journal." (same sentence exists in all locales).
+- ~~Daily card paragraph "Come back to it in your journal at night"~~: resolved 2026-10-05, shortened to "It is saved in your journal." in all 12 locales (no evening feature ships).
 
 ## Sign-off
 

@@ -50,7 +50,7 @@ void main() {
       expect(byLocale.first.phone, '188'); // pt → BR (localeFallback)
 
       final uk = expectOk(await crisis.select(locale: 'uk'));
-      expect(uk.first.phone, '7333');
+      expect(uk.first.phone, '116 123');
 
       final ar = expectOk(await crisis.select(locale: 'ar'));
       expect(ar, hasLength(1)); // ar → international only

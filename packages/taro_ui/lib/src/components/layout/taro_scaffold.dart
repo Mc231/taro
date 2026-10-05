@@ -3,7 +3,8 @@ import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 
 /// The page frame (02 §14.3): safe areas, `color.bg.canvas`, `layout.gutter`
 /// side padding, content centred and capped at `layout.maxContentWidth` on
-/// wide screens (RC24). Optional slots: an app bar, a top banner
+/// wide screens (RC24), or at `layout.maxContentWidthWide` for the [wide]
+/// browse screens (RC99). Optional slots: an app bar, a top banner
 /// (`TaroOfflineBanner`), a [bottom] slot for a sticky CTA outside the
 /// scroll view, a full-width [banner] slot separated by `space.adGap`
 /// (RC59), and a bottom navigation bar. Content that scrolls on under a
@@ -19,6 +20,7 @@ class TaroScaffold extends StatelessWidget {
     this.banner,
     this.bottomNavigationBar,
     this.padded = true,
+    this.wide = false,
     this.backgroundColor,
     this.resizeToAvoidBottomInset = true,
     super.key,
@@ -46,6 +48,10 @@ class TaroScaffold extends StatelessWidget {
   /// Whether [body] gets the `layout.gutter` side padding.
   final bool padded;
 
+  /// Whether the column is capped at `layout.maxContentWidthWide` instead
+  /// of `layout.maxContentWidth` (Today, Journal, Learn, Settings; RC99).
+  final bool wide;
+
   /// Overrides `color.bg.canvas`.
   final Color? backgroundColor;
 
@@ -64,7 +70,9 @@ class TaroScaffold extends StatelessWidget {
             alignment: AlignmentDirectional.topCenter,
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                maxWidth: tokens.layout.maxContentWidth,
+                maxWidth: wide
+                    ? tokens.layout.maxContentWidthWide
+                    : tokens.layout.maxContentWidth,
               ),
               child: fill ? SizedBox.expand(child: child) : child,
             ),

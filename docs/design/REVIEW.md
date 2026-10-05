@@ -155,10 +155,10 @@
 
 | # | Item | Result | Evidence |
 |---|---|---|---|
-| K1 | Every 01 §14 name is present | PASS | 166 tokens; the 166-name contract list (incl. `layout.gutter\|maxContentWidth\|readingMaxWidth`, `haptic.pick\|flip\|ready`, `font.family.{10 roles}.{latin\|cyrillic\|arabic\|cjk\|hangul}` = 50, `elevation.0–4.shadow\|overlay`, `color.status.on*`) has 0 missing and 0 extra |
+| K1 | Every 01 §14 name is present | PASS | 167 tokens; the 167-name contract list (incl. `layout.gutter\|maxContentWidth\|maxContentWidthWide\|readingMaxWidth` (RC99), `haptic.pick\|flip\|ready`, `font.family.{10 roles}.{latin\|cyrillic\|arabic\|cjk\|hangul}` = 50, `elevation.0–4.shadow\|overlay`, `color.status.on*`) has 0 missing and 0 extra |
 | K2 | Every colour token has light and dark | PASS | 43/43 under `$extensions["taro.modes"]` |
 | K3 | Reduced-motion values on every `motion.*` | PASS | 12/12 under `$extensions["taro.reducedMotion"]`, equal to 01 §14.4 (instant 0, fast 100, base 150, slow 200, shuffle 200, dealStagger 0, flip 200, readingReveal 0, easings linear) |
-| K4 | Constraint values | PASS | `type.body` 16, `type.caption` 13, `type.bodyReading` 18/29 (1.61), `size.touchTarget.min` 48, `space.adGap` 16, `layout.gutter` 16, `layout.readingMaxWidth` 560, `layout.maxContentWidth` 600 |
+| K4 | Constraint values | PASS | `type.body` 16, `type.caption` 13, `type.bodyReading` 18/29 (1.61), `size.touchTarget.min` 48, `space.adGap` 16, `layout.gutter` 16, `layout.readingMaxWidth` 560, `layout.maxContentWidth` 600, `layout.maxContentWidthWide` 960 (RC99) |
 | K5 | Every `type.*` role defines `letterSpacing` (01 §14.2) | **PASS (fixed 2026-09-27)** | Fixed: `letterSpacing` set on all 10 `type.*` roles (design system + `taro.tokens.json`). Before: 6 of 10 roles omit it: `body`, `bodyReading`, `cardName`, `headline`, `title`, `titleSmall` |
 | K6 | `text.primary` and `text.secondary` ≥ 4.5 on canvas, surface, surfaceRaised, sunken | PASS | 16/16; lowest: light secondary on sunken 6.86 |
 | K7 | `text.tertiary` ≥ 4.5 on canvas and surface | PASS | 4/4; lowest 5.11 (light canvas). Also ≥ 4.5 on surfaceRaised/sunken (lowest 4.66) |

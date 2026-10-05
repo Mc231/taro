@@ -162,7 +162,7 @@ class SettingsLayout extends StatelessWidget {
     );
     final restoring = restore is SettingsRestoreInProgress;
     final checking = transfer is SettingsTransferChecking;
-    final sections = <Widget>[
+    final startSections = <Widget>[
       SettingsSection(
         title: l10n.settingsSectionReadings,
         children: [
@@ -240,6 +240,8 @@ class SettingsLayout extends StatelessWidget {
           ),
         ],
       ),
+    ];
+    final endSections = <Widget>[
       SettingsSection(
         title: l10n.settingsSectionPrivacyData,
         children: [
@@ -323,7 +325,15 @@ class SettingsLayout extends StatelessWidget {
         ],
       ),
     ];
+    Widget column(List<Widget> sections) => Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: tokens.space.s7,
+      children: sections,
+    );
+    // Tablets show the groups in two columns (RC99); phones stack them in
+    // the same order.
     return TaroScaffold(
+      wide: true,
       body: ListView(
         padding: EdgeInsetsDirectional.only(
           top: tokens.space.s7,
@@ -331,10 +341,12 @@ class SettingsLayout extends StatelessWidget {
         ),
         children: [
           TaroLargeTitle(l10n.settingsTitle),
-          for (final section in sections) ...[
-            SizedBox(height: tokens.space.s7),
-            section,
-          ],
+          SizedBox(height: tokens.space.s7),
+          TaroColumns(
+            spacing: tokens.space.s7,
+            start: column(startSections),
+            end: column(endSections),
+          ),
         ],
       ),
     );

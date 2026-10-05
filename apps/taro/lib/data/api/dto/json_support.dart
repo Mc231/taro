@@ -31,6 +31,27 @@ final class NullableUtcInstantConverter
       object == null ? null : formatUtcInstant(object);
 }
 
+/// A crisis resource's `verifiedAt` (03 §9.5): the source carries a
+/// `YYYY-MM-DD` calendar date, read as UTC midnight; a zoned instant is also
+/// accepted. `null` stays `null` (unverified).
+final class NullableVerifiedDateConverter
+    implements JsonConverter<DateTime?, String?> {
+  /// Creates the converter.
+  const NullableVerifiedDateConverter();
+
+  @override
+  DateTime? fromJson(String? json) {
+    if (json == null) return null;
+    if (!_localDate.hasMatch(json)) return parseUtcInstant(json);
+    final [y, m, d] = json.split('-').map(int.parse).toList();
+    return DateTime.utc(y, m, d);
+  }
+
+  @override
+  String? toJson(DateTime? object) =>
+      object?.toUtc().toIso8601String().substring(0, 10);
+}
+
 final RegExp _zoned = RegExp(r'(Z|[+-]\d\d:?\d\d)$');
 final RegExp _localDate = RegExp(r'^\d{4}-\d{2}-\d{2}$');
 

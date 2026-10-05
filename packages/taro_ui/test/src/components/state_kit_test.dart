@@ -383,6 +383,25 @@ void main() {
       expect(scaffold.backgroundColor, TaroColorTokens.dark.bg.canvas);
     });
 
+    testWidgets('wide caps content at layout.maxContentWidthWide', (
+      tester,
+    ) async {
+      applyTestViewSize(tester, kTabletIpad13);
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: TaroTheme.light(),
+          home: const TaroScaffold(
+            wide: true,
+            padded: false,
+            body: SizedBox.expand(key: Key('content')),
+          ),
+        ),
+      );
+      final content = tester.getRect(find.byKey(const Key('content')));
+      expect(content.width, TaroLayoutTokens.light.maxContentWidthWide);
+      expect(content.center.dx, kTabletIpad13.width / 2);
+    });
+
     testWidgets('background override', (tester) async {
       await tester.pumpWidget(
         MaterialApp(
@@ -397,6 +416,48 @@ void main() {
         tester.widget<Scaffold>(find.byType(Scaffold)).backgroundColor,
         TaroColorTokens.light.bg.surface,
       );
+    });
+  });
+
+  group('TaroColumns', () {
+    const start = SizedBox(key: Key('start'), height: 40);
+    const end = SizedBox(key: Key('end'), height: 80);
+
+    testWidgets('stacks below the two-pane width', (tester) async {
+      await pumpTaroUiWidget(
+        tester,
+        const TaroColumns(start: start, end: end, spacing: 8),
+      );
+      final a = tester.getRect(find.byKey(const Key('start')));
+      final b = tester.getRect(find.byKey(const Key('end')));
+      expect(b.top - a.bottom, 8);
+      expect(a.width, b.width);
+      expect(taroTwoPanes(kTaroTwoPaneMinWidth - 1), isFalse);
+    });
+
+    testWidgets('splits by flex, start first, mirrored in RTL', (
+      tester,
+    ) async {
+      for (final locale in const [Locale('en'), Locale('ar')]) {
+        await pumpTaroUiWidget(
+          tester,
+          const TaroColumns(start: start, end: end, startFlex: 2, endFlex: 3),
+          locale: locale,
+          size: kTabletIpad13,
+        );
+        final a = tester.getRect(find.byKey(const Key('start')));
+        final b = tester.getRect(find.byKey(const Key('end')));
+        expect(a.top, b.top);
+        expect(a.width / b.width, closeTo(2 / 3, 0.01));
+        if (locale.languageCode == 'ar') {
+          expect(a.left, greaterThan(b.right));
+        } else {
+          expect(
+            b.left - a.right,
+            TaroSpaceTokens.light.s5,
+          );
+        }
+      }
     });
   });
 }

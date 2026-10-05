@@ -87,6 +87,7 @@ const List<String> kTaroTokenNames = <String>[
   'size.card.lg',
   'layout.gutter',
   'layout.maxContentWidth',
+  'layout.maxContentWidthWide',
   'layout.readingMaxWidth',
   'opacity.disabled',
   'opacity.scrim',
@@ -1090,6 +1091,7 @@ final class TaroLayoutTokens {
   const TaroLayoutTokens({
     required this.gutter,
     required this.maxContentWidth,
+    required this.maxContentWidthWide,
     required this.readingMaxWidth,
   });
 
@@ -1097,6 +1099,7 @@ final class TaroLayoutTokens {
   static const TaroLayoutTokens light = TaroLayoutTokens(
     gutter: 16,
     maxContentWidth: 600,
+    maxContentWidthWide: 960,
     readingMaxWidth: 560,
   );
 
@@ -1109,6 +1112,9 @@ final class TaroLayoutTokens {
   /// Content column cap on tablets and iPad; centred.
   final double maxContentWidth;
 
+  /// Content column cap of the browse screens (Today, Journal, Learn, Settings) on tablets and iPad; centred. Panes inside it split in two from 600 wide; reading text stays capped at layout-readingMaxWidth.
+  final double maxContentWidthWide;
+
   /// Measure cap for type-bodyReading (about 65 characters).
   final double readingMaxWidth;
 
@@ -1120,6 +1126,11 @@ final class TaroLayoutTokens {
   ) => TaroLayoutTokens(
     gutter: lerpDouble(a.gutter, b.gutter, t)!,
     maxContentWidth: lerpDouble(a.maxContentWidth, b.maxContentWidth, t)!,
+    maxContentWidthWide: lerpDouble(
+      a.maxContentWidthWide,
+      b.maxContentWidthWide,
+      t,
+    )!,
     readingMaxWidth: lerpDouble(a.readingMaxWidth, b.readingMaxWidth, t)!,
   );
 }

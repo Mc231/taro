@@ -22,9 +22,9 @@ Map<String, Object?> _at(Map<String, Object?> doc, String path) {
 
 void main() {
   group('01 §14 contract', () {
-    test('has the 166 names of REVIEW.md K1, without duplicates', () {
-      expect(kContractTokenNames, hasLength(166));
-      expect(kContractTokenNames.toSet(), hasLength(166));
+    test('has the 167 names of REVIEW.md K1, without duplicates', () {
+      expect(kContractTokenNames, hasLength(167));
+      expect(kContractTokenNames.toSet(), hasLength(167));
     });
 
     test('has the 44 contrast pairs of K6–K10 plus K11', () {

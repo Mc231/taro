@@ -343,7 +343,7 @@ final class CrisisResourceDto {
   /// Last human verification; `null` until the owner verifies the entry
   /// (Phase 18.4), mapped to [kUnverifiedCrisisResourceAt] like the bundled
   /// directory.
-  @NullableUtcInstantConverter()
+  @NullableVerifiedDateConverter()
   final DateTime? verifiedAt;
 
   /// The domain resource; throws a [FormatException] without a contact

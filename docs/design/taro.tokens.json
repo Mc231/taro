@@ -686,6 +686,11 @@
       "$value": "600px",
       "$description": "Content column cap on tablets and iPad; centred."
     },
+    "maxContentWidthWide": {
+      "$type": "dimension",
+      "$value": "960px",
+      "$description": "Content column cap of the browse screens (Today, Journal, Learn, Settings) on tablets and iPad; centred. Panes inside it split in two from 600 wide; reading text stays capped at layout-readingMaxWidth."
+    },
     "readingMaxWidth": {
       "$type": "dimension",
       "$value": "560px",
