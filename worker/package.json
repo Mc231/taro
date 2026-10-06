@@ -26,6 +26,7 @@
     "contract:update": "vitest run test/contract --update",
     "smoke": "node scripts/run.mjs smoke",
     "alert:test": "node scripts/run.mjs alert-test",
+    "telegram:webhook": "node scripts/run.mjs telegram-webhook",
     "gen-keys": "node scripts/run.mjs gen-keys",
     "credits-transfer": "node scripts/run.mjs credits-transfer",
     "ledger-adjust": "node scripts/run.mjs ledger-adjust",

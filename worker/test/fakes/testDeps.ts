@@ -33,6 +33,11 @@ export const TEST_APPLE_TEAM_ID = 'TEAMID1234';
 export const TEST_TRANSFER_TOKEN_KEY = 'test-transfer-token-key-0123456789';
 /** `REPORT_ENC_KEY` keyring for tests (32 bytes of 0x03, base64url); never a real key. */
 export const TEST_REPORT_ENC_KEY = 'kr1:AwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwM';
+/** Stats bot (`POST /v1/admin/telegram`) test values; never a real token or chat. */
+export const TEST_TELEGRAM_WEBHOOK_SECRET = 'test-telegram-webhook-secret-0123456789';
+export const TEST_TELEGRAM_ENDPOINT =
+  'https://api.telegram.org/bot123456:TEST-token-abc/sendMessage';
+export const TEST_TELEGRAM_CHAT_ID = '577000001';
 export const TEST_DEBUG_ATTESTATION_TOKEN = 'test-debug-attestation-token-0123456789';
 /** Expected Pub/Sub push claims (`GOOGLE_PUBSUB_AUDIENCE`, `GOOGLE_PUBSUB_SA`); test values. */
 export const TEST_PUBSUB_AUDIENCE = 'https://api.test.taro.invalid/v1/webhooks/googleplay';
@@ -130,6 +135,12 @@ export function createHarness(options: HarnessOptions = {}): TestHarness {
     metrics,
     logger,
     alerter,
+    telegramBot: {
+      webhookSecret: TEST_TELEGRAM_WEBHOOK_SECRET,
+      target: { endpoint: TEST_TELEGRAM_ENDPOINT, chatId: TEST_TELEGRAM_CHAT_ID },
+      adminChatIds: [TEST_TELEGRAM_CHAT_ID],
+      fetch: () => Promise.reject(new TypeError('telegram fetch not stubbed')),
+    },
     db: bindings.DB,
     rlKv: bindings.RL_KV,
     cacheKv: bindings.CACHE_KV,

@@ -128,6 +128,33 @@ unset ALERT_WEBHOOK_URL
 3. `npx wrangler secret put ALERT_WEBHOOK_URL --env staging`, then `--env prod` (paste on stdin, never as an argument). Each `secret put` deploys a new Worker version.
 4. Update the encrypted bundle if it holds the URL (`tools/secrets-manager.sh`, `.secrets/README.md`). General rotation rules: `SECRET_ROTATION.md`.
 
+## Stats bot (Telegram)
+
+The same bot answers read-only stats commands in the owner's chat: `/today`, `/week` (7 UTC days + totals), `/budget` (spend, DAU, soft / free-stop / hard and headroom, tier) and `/help`. Telegram calls the Worker webhook `POST /v1/admin/telegram` (03 §14.3, RC100). It replies only when the header `X-Telegram-Bot-Api-Secret-Token` matches the Worker secret **`TELEGRAM_WEBHOOK_SECRET`** and the chat is the `ALERT_WEBHOOK_URL` chat or listed in the optional secret `TELEGRAM_ADMIN_CHAT_IDS` (comma-separated). Every other request gets an empty `200` (or `401` for a bad secret) and no reply. Replies hold aggregates only; nothing is written.
+
+**Set up** (per environment; the bot token comes from `ALERT_WEBHOOK_URL`, so set that first):
+
+```bash
+cd worker
+SECRET=$(openssl rand -hex 32)                      # Telegram allows A-Z a-z 0-9 _ -, up to 256 chars
+printf %s "$SECRET" | npx wrangler secret put TELEGRAM_WEBHOOK_SECRET --env staging
+read -rs ALERT_WEBHOOK_URL && export ALERT_WEBHOOK_URL   # paste the Telegram URL
+TELEGRAM_WEBHOOK_SECRET=$SECRET npm run telegram:webhook -- --env staging --commands
+unset ALERT_WEBHOOK_URL SECRET
+```
+
+Then send `/today` to @taro_alerts_vsh_bot. Repeat with `--env prod`. A webhook replaces `getUpdates`: to read a chat ID later, add it via `TELEGRAM_ADMIN_CHAT_IDS` or delete the webhook first. Optional extra chats: `npx wrangler secret put TELEGRAM_ADMIN_CHAT_IDS --env <env>`.
+
+**Rotate `TELEGRAM_WEBHOOK_SECRET`** (leak, or yearly). The Worker and Telegram must hold the same value, and the bot is silent in between (no data is exposed: a wrong or missing header gets `401`):
+
+1. Generate a new value; `npx wrangler secret put TELEGRAM_WEBHOOK_SECRET --env <env>` (stdin).
+2. Re-run `npm run telegram:webhook -- --env <env>` with the new value in `TELEGRAM_WEBHOOK_SECRET`.
+3. Send `/help`; update the encrypted bundle if it holds the value (`tools/secrets-manager.sh`).
+
+After a **bot token** rotation (above), re-run step 2 too: the webhook belongs to the bot, and the Worker replies with the token in `ALERT_WEBHOOK_URL`.
+
+**No reply?** Check `wrangler tail --env <env>` for `telegram_command` (`status` of `sendMessage`), `telegram_command_failed` or `telegram_rate_limited` (6 commands per minute per chat), and Telegram's `getWebhookInfo` (`last_error_message`; a `401` means the secrets differ).
+
 ## Staging kill-switch drill
 
 Before launch (Phase 19.3) and after any change to the gate or the S31 screen:

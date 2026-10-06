@@ -29,6 +29,7 @@ import type {
   PlayDeveloperApi,
 } from './ports/StoreApis';
 import type { TokenSigner } from './ports/TokenSigner';
+import { telegramBotDeps, type TelegramBotDeps } from './routes/telegram';
 import { ConfigService, isolateConfigCache } from './services/ConfigService';
 import { aiDeps } from './aiDeps';
 import { identityDeps } from './identityDeps';
@@ -92,6 +93,8 @@ export interface Deps {
   readonly metrics: Metrics;
   readonly logger: Logger;
   readonly alerter: Alerter;
+  /** The owner's read-only stats bot (`POST /v1/admin/telegram`, 03 §14.3). */
+  readonly telegramBot: TelegramBotDeps;
 
   // Storage and limiter bindings (used by repos and middleware only, never by routes).
   readonly db: D1Database;
@@ -183,6 +186,7 @@ export function makeProdDeps(env: Env): Deps {
       { cache: env.CACHE_KV, clock },
       environment,
     ),
+    telegramBot: telegramBotDeps(env, fetch.bind(globalThis)),
     db: env.DB,
     rlKv: env.RL_KV,
     cacheKv: env.CACHE_KV,

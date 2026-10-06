@@ -22,6 +22,7 @@ import { registerReadingReportRoutes } from './routes/readingReports';
 import { registerReadingRoutes } from './routes/readings';
 import { registerAdmobSsvRoute } from './routes/admobSsv';
 import { registerRewardRoutes } from './routes/rewards';
+import { registerTelegramRoute } from './routes/telegram';
 import { registerWebhookRoutes } from './routes/webhooks';
 
 export type App = OpenAPIHono<AppEnv>;
@@ -77,5 +78,7 @@ export function buildApp(deps: Deps, options: BuildAppOptions = {}): App {
   registerAdmobSsvRoute(app, deps);
   // Store webhooks (Sprint 7.3): App Store Server Notifications, Play RTDN.
   registerWebhookRoutes(app, deps);
+  // Owner's read-only stats bot (03 §14.3); plain Hono route, not in the OpenAPI document.
+  registerTelegramRoute(app, deps);
   return app;
 }

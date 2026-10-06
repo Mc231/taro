@@ -41,6 +41,12 @@ export function documentDeps(): Deps {
     metrics: port('Metrics'),
     logger: port('Logger'),
     alerter: port('Alerter'),
+    telegramBot: {
+      webhookSecret: undefined,
+      target: undefined,
+      adminChatIds: [],
+      fetch: port('Fetch'),
+    },
     db: port('D1Database'),
     rlKv: port('KVNamespace'),
     cacheKv: port('KVNamespace'),

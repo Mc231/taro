@@ -188,8 +188,9 @@ worker/
 | `GET /v1/ads/admob/ssv` | AdMob signature | — | §7.2 |
 | `POST /v1/webhooks/appstore` | Apple JWS | — | §6.4 |
 | `POST /v1/webhooks/googleplay` | Pub/Sub OIDC | — | §6.4 |
+| `POST /v1/admin/telegram` | Telegram secret header + chat allowlist | — | §14.3 |
 
-There is no admin route (RC84). The only non-`/v1` route the Worker may serve is the RC92 fallback for `taro.vshyrochuk.com/.well-known/*` (05 ASA-10), used only if static hosting cannot set the content type.
+There is no admin route (RC84) except the read-only Telegram stats webhook (§14.3, RC100), which is not in the OpenAPI document. The only non-`/v1` route the Worker may serve is the RC92 fallback for `taro.vshyrochuk.com/.well-known/*` (05 ASA-10), used only if static hosting cannot set the content type.
 
 ### 2.2 Error model
 
@@ -1386,6 +1387,17 @@ These feed the App Store privacy label and the Play Data Safety form in `05_COMP
 3. Tag `worker-vX.Y.Z` → manual approval → migrations on prod → `wrangler versions upload --env prod` → `wrangler versions deploy` at 10 %, smoke, 100 % after 30 min without alerts. Rollback: `wrangler rollback` (code). Migrations are backward compatible by rule.
 
 Required CI secrets: `CLOUDFLARE_API_TOKEN` (Workers, D1, KV edit on this account only) and `CLOUDFLARE_ACCOUNT_ID`.
+
+### 14.3 Telegram stats bot (RC100)
+
+The alert bot (@taro_alerts_vsh_bot) also answers read-only stats commands through its webhook `POST /v1/admin/telegram` (plain Hono route, not in the OpenAPI document; no install token or `X-Taro-*` headers).
+
+- **Auth:** `X-Telegram-Bot-Api-Secret-Token` must equal the secret `TELEGRAM_WEBHOOK_SECRET` (SHA-256 digests compared in constant time); missing, wrong or unset → `401`, empty body.
+- **Allowlist:** only updates whose `message.chat.id` is the `chat_id` of `ALERT_WEBHOOK_URL` or listed in `TELEGRAM_ADMIN_CHAT_IDS` get a reply. Any other chat, a non-text update, a malformed body, a rate-limited chat (`RL_READINGS`, key `tg:{chatId}`, 6/min) or a failed reply → `200`, empty body, no reply (Telegram never retries).
+- **Reply:** `sendMessage` with the bot token from `ALERT_WEBHOOK_URL` (`postTelegramMessage`, shared with `WebhookAlerter`), sent after the `200` via `waitUntil`. The token, the URL and the chat ID are never logged; the log line is `telegram_command{command, status}`.
+- **Commands** (case-insensitive, `/cmd@botname` accepted, `/start` = `/help`; anything else gets a `/help` hint): `/today`, `/week` (7 UTC days, one line per day + totals), `/budget` (spend, `dau`, soft / free-stop / hard from §10.2 with the remaining headroom and the current tier), `/help`. All days are UTC days of the row timestamps (`readings.created_at`, `installs.created_at`, `purchases.granted_at` / `revoked_at`, `ad_rewards.granted_at`, `ai_spend_daily.date_utc`). Readings by status (completed, declined, failed, hold refunded, crisis = declined `self_harm` / `harm_to_others`), AI spend and average `cost_micro_usd` per completed reading, new and active installs (the §10.2 `dau` definition: last seen or a reading that day), purchases by product (production) plus the sandbox/test count, store refunds, rewarded ads granted. The header names the environment.
+- **Read-only:** `StatsRepo` and `BudgetService.snapshot` run only `SELECT`s; replies carry aggregates only, never an install ID, question, reading text or other personal data.
+- **Setup:** `npm run telegram:webhook -- --env staging|prod [--commands]` (`setWebhook` to `https://{API_HOST}/v1/admin/telegram` with `secret_token`, `allowed_updates: ["message"]`, `drop_pending_updates: true`; `--commands` = `setMyCommands`). Runbook: `docs/runbooks/INCIDENT.md` "Stats bot (Telegram)".
 
 ---
 

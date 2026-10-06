@@ -75,6 +75,28 @@ export function formatTelegramText(
   return truncateText(lines.join('\n'), TELEGRAM_MAX_TEXT);
 }
 
+/**
+ * Posts one Telegram `sendMessage` (`{chat_id, text, disable_web_page_preview}`)
+ * to `target.endpoint`; `text` is cut to `TELEGRAM_MAX_TEXT`. The endpoint
+ * holds the bot token: callers must never log it. Shared by `WebhookAlerter`
+ * and the stats bot (`routes/telegram.ts`).
+ */
+export function postTelegramMessage(
+  fetchFn: FetchFn,
+  target: TelegramTarget,
+  text: string,
+): Promise<Response> {
+  return fetchFn(target.endpoint, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: target.chatId,
+      text: truncateText(text, TELEGRAM_MAX_TEXT),
+      disable_web_page_preview: true,
+    }),
+  });
+}
+
 /** Hourly per-kind dedupe state (`CACHE_KV`, 03 §14.1). */
 export interface AlertDedupe {
   readonly cache: KVNamespace;
@@ -120,22 +142,18 @@ export class WebhookAlerter implements Alerter {
     }
     try {
       const telegram = parseTelegramUrl(this.url);
-      const [target, body] =
+      const res =
         telegram === undefined
-          ? [this.url, { text: `[taro-api] ${alert.kind}: ${alert.message}`, fields }]
-          : [
-              telegram.endpoint,
-              {
-                chat_id: telegram.chatId,
-                text: formatTelegramText(alert, fields, this.environment),
-                disable_web_page_preview: true,
-              },
-            ];
-      const res = await this.fetchFn(target, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(body),
-      });
+          ? await this.fetchFn(this.url, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify({ text: `[taro-api] ${alert.kind}: ${alert.message}`, fields }),
+            })
+          : await postTelegramMessage(
+              this.fetchFn,
+              telegram,
+              formatTelegramText(alert, fields, this.environment),
+            );
       if (!res.ok) {
         this.logger.log('error', 'alert_failed', { kind: alert.kind, status: res.status });
       }

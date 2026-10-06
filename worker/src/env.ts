@@ -52,6 +52,8 @@ export interface Env {
   readonly GOOGLE_PUBSUB_AUDIENCE?: string;
   readonly GOOGLE_PUBSUB_SA?: string;
   readonly ALERT_WEBHOOK_URL?: string;
+  readonly TELEGRAM_WEBHOOK_SECRET?: string;
+  readonly TELEGRAM_ADMIN_CHAT_IDS?: string;
   readonly ANALYTICS_ACCOUNT_ID?: string;
   readonly ANALYTICS_API_TOKEN?: string;
 }
