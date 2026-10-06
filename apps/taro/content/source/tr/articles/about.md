@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 3ff958fea41b282c6f97e628c2c4c423a06550264fbb91e56ebaa4cfaa4dd74c
+sourceHash: 4dcadc54a54cbd0fa51b993f2716fd090822b5de5adcbb594598adc17a289a77
 ---
 # Tarot ve Taro hakkında
 
@@ -49,7 +49,7 @@ Günün kartı ücretsizdir, internet bağlantısı gerektirmez ve yapay zekâ k
 
 ## Yapay zekâ okumaları nasıl çalışır
 
-Bir yapay zekâ okuması istediğinde Taro, sunucusuna dört şey gönderir: sorun (yazdıysan), açılım, çektiğin kartlar ve yönleri, bir de uygulama dilin. Sunucu, açılımın tamamının yorumunu yazması için OpenAI’ın GPT modellerine başvurur. Yapay zekâya Taro’nun kendi kart adları, anahtar kelimeleri ve kısa anlamları ile her pozisyonun açıklaması verilir; iç gözleme davet eden bir dille yazması, çektiğin kartlara değinmesi ve öngörülerden ve tavsiyelerden kaçınması istenir.
+Bir yapay zekâ okuması istediğinde Taro, sunucusuna dört şey gönderir: sorun (yazdıysan), açılım, çektiğin kartlar ve yönleri, bir de uygulama dilin. Sunucu, açılımın tamamının yorumunu yazması için üçüncü taraf bir yapay zekâ hizmetine başvurur; bu hizmetin adı gizlilik politikasında yer alır. Yapay zekâya Taro’nun kendi kart adları, anahtar kelimeleri ve kısa anlamları ile her pozisyonun açıklaması verilir; iç gözleme davet eden bir dille yazması, çektiğin kartlara değinmesi ve öngörülerden ve tavsiyelerden kaçınması istenir.
 
 Gizlilikle ilgili bilmen gereken birkaç şey:
 
@@ -57,7 +57,7 @@ Gizlilikle ilgili bilmen gereken birkaç şey:
 - Sorun Taro’nun sunucusunda saklanmaz.
 - Tamamlanan okuma, sunucuda yalnızca telefonun onu alana kadar (en fazla 7 gün) şifreli olarak tutulur, ardından silinir.
 - Bir okumayı bildirmeyi seçersen, sorun ve o okuma incelenebilmesi için 90 gün boyunca saklanır.
-- OpenAI bu verileri modellerini eğitmek için kullanmaz.
+- Yapay zekâ hizmeti bu verileri yapay zekâ modellerini eğitmek için kullanmaz.
 - Tüm geçmişin, soruların ve notların cihazında kalır.
 
 Yapay zekâ okumaları için iznin gerekir. Yapay zekâ ile veri paylaşımına istediğin zaman **Ayarlar → Gizlilik ve veriler → Yapay zekâ okumaları** bölümünden izin verebilir ya da kapatabilirsin. İzin vermesen de günün kartını, Öğren bölümünü ve günlüğünü kullanabilir, **klasik okuma** seçebilirsin: aynı kart çekimi, her kartın kendi pozisyonundaki yazılı anlamıyla, yapay zekâ olmadan telefonunda oluşturulur.

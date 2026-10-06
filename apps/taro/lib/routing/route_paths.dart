@@ -144,6 +144,13 @@ abstract final class RoutePaths {
     queryParameters: {'origin': origin},
   ).toString();
 
+  /// Whether [path] may open on top of onboarding before it is done: S29
+  /// legal (the S03 "Read the full disclaimer" link and its tabs) and S27
+  /// support lines (offered by the disclaimer). Deep links never reach
+  /// these (the allowlist maps them Home).
+  static bool openDuringOnboarding(String path) =>
+      path.startsWith('/legal/') || path == helpCrisis;
+
   /// The onboarding locations (S02, S03, S04).
   static const Set<String> onboarding = {
     onboardingWelcome,

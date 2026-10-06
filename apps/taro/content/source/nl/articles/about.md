@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 3ff958fea41b282c6f97e628c2c4c423a06550264fbb91e56ebaa4cfaa4dd74c
+sourceHash: 4dcadc54a54cbd0fa51b993f2716fd090822b5de5adcbb594598adc17a289a77
 ---
 # Over tarot en Taro
 
@@ -49,7 +49,7 @@ Leren bevat de volledige tekst van alle 78 kaarten, rechtop en omgekeerd, met no
 
 ## Hoe AI-lezingen werken
 
-Als je om een AI-lezing vraagt, stuurt Taro vier dingen naar zijn server: je vraag (als je er een hebt geschreven), de legging, de kaarten die je hebt getrokken met hun stand, en de taal van je app. De server vraagt de GPT-modellen van OpenAI om een interpretatie van de hele legging te schrijven. De AI krijgt de eigen kaartnamen, trefwoorden en korte betekenissen van Taro mee en een beschrijving van elke positie, en krijgt de opdracht in een reflectieve stem te schrijven, te verwijzen naar de kaarten die je hebt getrokken, en voorspellingen en advies te vermijden.
+Als je om een AI-lezing vraagt, stuurt Taro vier dingen naar zijn server: je vraag (als je er een hebt geschreven), de legging, de kaarten die je hebt getrokken met hun stand, en de taal van je app. De server vraagt een AI-dienst van een derde partij om een interpretatie van de hele legging te schrijven; het privacybeleid noemt die dienst. De AI krijgt de eigen kaartnamen, trefwoorden en korte betekenissen van Taro mee en een beschrijving van elke positie, en krijgt de opdracht in een reflectieve stem te schrijven, te verwijzen naar de kaarten die je hebt getrokken, en voorspellingen en advies te vermijden.
 
 Een paar dingen om te weten over privacy:
 
@@ -57,7 +57,7 @@ Een paar dingen om te weten over privacy:
 - Je vraag wordt niet op de server van Taro bewaard.
 - De afgeronde lezing wordt versleuteld op de server bewaard, alleen tot je telefoon haar heeft ontvangen (maximaal 7 dagen), en daarna verwijderd.
 - Als je ervoor kiest een lezing te melden, worden je vraag en die lezing 90 dagen bewaard zodat ze kunnen worden bekeken.
-- OpenAI gebruikt deze gegevens niet om zijn modellen te trainen.
+- De AI-dienst gebruikt deze gegevens niet om AI-modellen te trainen.
 - Je volledige geschiedenis, vragen en notities blijven op je apparaat.
 
 AI-lezingen hebben je toestemming nodig. Je kunt het delen van gegevens met AI altijd toestaan of uitzetten in **Instellingen → Privacy en gegevens → AI-lezingen**. Zonder toestemming kun je nog steeds de dagkaart, Leren en je dagboek gebruiken, en kun je kiezen voor een **klassieke lezing**: dezelfde trekking, met de geschreven betekenis van elke kaart op haar positie, gemaakt op je telefoon zonder AI.

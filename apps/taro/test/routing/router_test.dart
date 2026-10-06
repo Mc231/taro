@@ -257,6 +257,55 @@ void main() {
     expect(_screen('S13'), findsOneWidget);
   });
 
+  // Release 1.0.0: the onboarding links did nothing on a device: the
+  // onboarding guard sent `/legal/*` back to the current step.
+  testWidgets('S03 "Read the full disclaimer" opens S29 over onboarding', (
+    tester,
+  ) async {
+    final fakes = TaroFakes(
+      consent: const core.ConsentState(
+        onboardingStep: core.OnboardingStep.disclaimer,
+      ),
+    );
+    final (_, container) = await _boot(tester, fakes: fakes);
+    final l10n = TaroLocalizations.of(tester.element(_screen('S03')));
+    await tester.tap(find.text(l10n.disclaimerReadFull));
+    await tester.pumpAndSettle();
+    expect(_screen('S29'), findsOneWidget);
+    expect(find.text(l10n.legalDisclaimerBody), findsOneWidget);
+    expect(
+      container.read(routerProvider).state.uri.path,
+      RoutePaths.legal('disclaimer'),
+    );
+
+    await tester.tap(find.text(l10n.legalSupportLine));
+    await tester.pumpAndSettle();
+    expect(_screen('S27'), findsOneWidget);
+    container.read(routerProvider).pop();
+    await tester.pumpAndSettle();
+    container.read(routerProvider).pop();
+    await tester.pumpAndSettle();
+    expect(_screen('S03'), findsOneWidget);
+  });
+
+  testWidgets('S04 "Privacy policy" opens the hosted policy in onboarding', (
+    tester,
+  ) async {
+    final fakes = TaroFakes(
+      consent: const core.ConsentState(
+        onboardingStep: core.OnboardingStep.aiConsent,
+      ),
+    );
+    await _boot(tester, fakes: fakes);
+    final l10n = TaroLocalizations.of(tester.element(_screen('S04')));
+    await tester.tap(find.text(l10n.commonPrivacyPolicy));
+    await tester.pumpAndSettle();
+    expect(fakes.links.openedInApp, [
+      Uri.parse('https://taro.vshyrochuk.com/privacy?hl=en'),
+    ]);
+    expect(_screen('S04'), findsOneWidget);
+  });
+
   // BUG-01: "Allow AI readings" left the app on S04 when S04 navigated
   // Home before the onboarding step left `aiConsent` (the guard sent it
   // back to S04, which stays reachable once onboarded).

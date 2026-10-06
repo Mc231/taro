@@ -126,8 +126,8 @@ void main() {
       expect(find.byType(OnboardingIconTile), findsOneWidget);
       expect(find.text(l10n.aiConsentFootnote), findsOneWidget);
       expect(find.text(l10n.aiConsentReentryFootnote), findsNothing);
-      expect(l10n.aiConsentBody, contains('OpenAI'));
-      expect(l10n.aiConsentBody, isNot(contains('Anthropic')));
+      expect(l10n.aiConsentBody, contains('third-party AI service'));
+      expect(l10n.aiConsentBody, isNot(contains('OpenAI')));
     });
 
     testWidgets('re-entry: the Classic reading footnote and the app bar', (

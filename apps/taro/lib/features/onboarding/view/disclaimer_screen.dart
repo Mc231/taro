@@ -49,7 +49,8 @@ class DisclaimerLayout extends StatelessWidget {
   /// "I understand".
   final FutureOr<void> Function() onAcknowledge;
 
-  /// "Read the full disclaimer" (S29).
+  /// "Read the full disclaimer": S29 on the disclaimer tab, which the
+  /// onboarding guard lets open over S03.
   final VoidCallback onReadFull;
 
   @override
@@ -106,7 +107,7 @@ class DisclaimerLayout extends StatelessWidget {
             onPressed: acknowledged ? null : onAcknowledge,
           ),
           Center(
-            child: TaroButton.tertiary(
+            child: TaroButton.link(
               label: l10n.disclaimerReadFull,
               onPressed: onReadFull,
             ),

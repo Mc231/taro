@@ -705,20 +705,20 @@
     }
   ],
   "checksums": {
-    "ar.json": "f66d058cabc1d44be70658a092bc4648d64941febe771c6ae0b9cded8c5bec5f",
+    "ar.json": "440906f4251f7765f0cb9e1c0237cd0d7f6b4cbed0863f7cb277bea844698558",
     "crisis_resources.json": "722c9fc5cf0a57253ee4293635826e2540f5dd9f2da352231e8a2dad0601b12a",
-    "de.json": "5ec29fa0d999911b499036375382c9b160472c56ee96a71fe58b9f34a3e0c933",
-    "en.json": "96481b85744958e7b54e2e57edeb75f8937106bb4aad86cd3b4877f2fa482a0c",
-    "es.json": "be2fb3225fd37cdc2a9e6c7b32afdc6778e004e19308a14c6c47cb8b72006ac8",
-    "fr.json": "42240a33e1967f241285da25beeeab22bf0f469c773fcba961e7e00fcc08f1a5",
-    "it.json": "3231033d30e2ec1ba9fa1eb88827309cda799e1d1d171558ee59c88399ec46a2",
-    "ja.json": "abf77846881dba89891a6d0161d6f230960d007e4a10109b250a28bcc9ef306b",
-    "ko.json": "fdbf43aa16d64d9a4ab23e7bc1365d313d5204c9a6f3999c17e372c1ec578ab1",
-    "nl.json": "69c5bbe22f2257a77833af89eb15c549d9186f30ed8ea5e027e25f434b4717c2",
-    "pt.json": "f7a0673bafca3612b683c80a1062904ec127ed205848eca67f6e6e5aa96c27d8",
+    "de.json": "fdf0794a1dde19e1dd2ee02205d8e6a357c5c0d46936b21b13b8737ffe736299",
+    "en.json": "f8d9bb1c12ee43f6ea3805abfe2c954fafb955f6e6fa3b82741d913b906fc827",
+    "es.json": "5c6ca5acf9eff83cd2c52bec0aa19d4d24bd2b02bdcb34219af1befc4b6ab88c",
+    "fr.json": "66796ca3dc245a71ca7f93d008df7135d9728a7ed0807aebb4ace0de51801055",
+    "it.json": "c0bce2a6b7b52a25b6fc8bfaa8faa6dbc0888a7163bed3e5957cfba6282e47a2",
+    "ja.json": "bf32dbb1c41dcb86b650249035944150b3e8e68963a081522837896a7948d918",
+    "ko.json": "928ee124a4b8dafe4d988b6287a5f5e1d4d149f10f7f7d03b2a9ed96d23ad703",
+    "nl.json": "dc41918ccca2f8fc808dc2017d5dabada0fb15ee223dac067a4eb15c4febc648",
+    "pt.json": "e62232bf5e49e1fa5d8947b25c24d562b9fa57ff220dd637219809c0444d0fdb",
     "spreads.json": "385669d88af11ab7f3640b3015d80275205cec2a927c8d76daaa8fe84e835c12",
-    "tr.json": "ae2d586ef52767d0414c255fce33e80a12921ad4fdb88d3701da04e00fa4f107",
-    "uk.json": "380a8a7196fcf213e9bbeff0ccac6a46736e6784b74f9464813740be71dd7f4d"
+    "tr.json": "1759ea9d14638b419d18646964d7d962889be5e59ad1311f6e63520da3175006",
+    "uk.json": "aaba56fcadcddcde619da14d7dcc5a1b9ed7b4d78b1ce08c69348fb38695fe03"
   },
   "id": "rws_original",
   "locales": [

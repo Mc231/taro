@@ -54,6 +54,20 @@ void main() {
       });
     }
 
+    // Release 1.0.0: the S03 "Read the full disclaimer" link was sent back
+    // to S03 by this guard, so it did nothing on a device.
+    test('S29 legal and S27 support lines open over onboarding', () {
+      for (final step in table.keys) {
+        final state = GuardState(updateRequired: false, onboardingStep: step);
+        for (final doc in ['disclaimer', 'terms', 'privacy', 'licenses']) {
+          expect(onboardingGuard(state, '/legal/$doc'), isNull);
+        }
+        expect(onboardingGuard(state, '/help/crisis'), isNull);
+        expect(onboardingGuard(state, '/help'), table[step]);
+        expect(onboardingGuard(state, '/legalese'), table[step]);
+      }
+    });
+
     test('from the UMP step on the app is usable', () {
       for (final step in [
         OnboardingStep.ump,
@@ -115,6 +129,12 @@ void main() {
       );
       expect(pending.location, '/learn/card/major_00');
       expect(redirect(onboarding, '/onboarding/welcome', pending), isNull);
+      // In-app legal opens over onboarding; a link to it still does not.
+      expect(redirect(onboarding, '/legal/privacy', pending), isNull);
+      expect(
+        redirect(onboarding, 'taro://legal/privacy', PendingDeepLink()),
+        '/onboarding/disclaimer',
+      );
       expect(
         redirect(onboarding, '/journal', pending),
         '/onboarding/disclaimer',

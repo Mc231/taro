@@ -288,4 +288,44 @@ void main() {
       handle.dispose();
     },
   );
+
+  testWidgets('link: underlined accent text, the link role, a 48 dp target', (
+    tester,
+  ) async {
+    final handle = tester.ensureSemantics();
+    var taps = 0;
+    await pumpTaroUiWidget(
+      tester,
+      Center(
+        child: TaroButton.link(
+          label: 'Privacy policy',
+          onPressed: () => taps++,
+        ),
+      ),
+    );
+    final node = tester.getSemantics(find.byType(TaroButton));
+    expect(
+      node,
+      isSemantics(
+        label: 'Privacy policy',
+        isLink: true,
+        isButton: false,
+        isEnabled: true,
+        hasEnabledState: true,
+        hasTapAction: true,
+      ),
+    );
+    final text = tester.widget<Text>(find.text('Privacy policy'));
+    expect(text.style?.decoration, TextDecoration.underline);
+    final size = tester.getSize(find.byType(TaroButton));
+    expect(size.height, greaterThanOrEqualTo(48));
+    expect(size.width, greaterThanOrEqualTo(48));
+    expect(size.width, lessThan(400));
+    await tester.tap(find.text('Privacy policy'));
+    expect(taps, 1);
+    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+    await expectLater(tester, meetsGuideline(iOSTapTargetGuideline));
+    await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));
+    handle.dispose();
+  });
 }

@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
+sourceHash: 244e30980f63027d1e52f1bb233c7fb0fbfd1dd2f460997338b4c8c4e98f2850
 ---
 # Questions fréquentes
 
@@ -76,7 +76,7 @@ Vos lectures restantes et Supprimer les bannières publicitaires sont conservés
 
 ### Que partage l’autorisation des lectures par IA ?
 
-Quand vous demandez une lecture par IA, Taro envoie votre question (s’il y en a une), le tirage, les cartes tirées et la langue de l’app à son serveur, qui demande aux modèles GPT d’OpenAI de rédiger l’interprétation. Taro n’envoie jamais votre nom, votre adresse e-mail ni votre identifiant publicitaire. Votre question n’est pas conservée sur le serveur de Taro. La lecture est conservée chiffrée uniquement jusqu’à ce que votre téléphone l’ait reçue (7 jours au maximum), puis elle est supprimée. OpenAI n’utilise pas ces données pour entraîner ses modèles. La politique de confidentialité, dans **Réglages → Aide → Mentions légales**, donne tous les détails.
+Quand vous demandez une lecture par IA, Taro envoie votre question (s’il y en a une), le tirage, les cartes tirées et la langue de l’app à son serveur, qui demande à un service d’IA tiers de rédiger l’interprétation. Taro n’envoie jamais votre nom, votre adresse e-mail ni votre identifiant publicitaire. Votre question n’est pas conservée sur le serveur de Taro. La lecture est conservée chiffrée uniquement jusqu’à ce que votre téléphone l’ait reçue (7 jours au maximum), puis elle est supprimée. Le service d’IA n’utilise pas ces données pour entraîner des modèles d’IA. La politique de confidentialité, dans **Réglages → Aide → Mentions légales**, donne tous les détails, y compris le service d’IA utilisé par Taro.
 
 ### Puis-je changer d’avis sur le consentement à l’IA ?
 

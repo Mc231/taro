@@ -6,6 +6,8 @@ else the source ``ios/Runner/Info.plist`` it is copied from):
 
 - the four ``GOOGLE_ANALYTICS_DEFAULT_ALLOW_*`` keys are ``false`` (RC68);
 - ``SKIncludeConsumableInAppPurchaseHistory`` is ``true`` (RC84);
+- ``LSApplicationQueriesSchemes`` lists the ``UrlLauncher`` schemes
+  (``https``, ``tel``, ``sms``, ``mailto``) so links open from release builds;
 - ``NSUserTrackingUsageDescription`` is set, and every locale has an
   ``InfoPlist.strings`` whose value equals the ARB ``nsUserTrackingUsageDescription``;
 - ``PrivacyInfo.xcprivacy`` declares tracking, the collected data types of
@@ -20,6 +22,9 @@ the source manifest is checked instead, with a note, when it is absent):
 - no ``SCHEDULE_EXACT_ALARM`` / ``USE_EXACT_ALARM``;
 - ``POST_NOTIFICATIONS`` and ``AD_ID`` are declared (merged manifest only, they
   come from libraries), and only the reminder offer asks for notifications;
+- ``<queries>`` declares the ``UrlLauncher`` intents (Android 11+ package
+  visibility): ``VIEW https``, ``DIAL tel``, ``SENDTO sms`` / ``mailto`` and
+  the Custom Tabs service, so onboarding, legal, help and S27 links open;
 - the boot-completed reschedule receiver and ``RECEIVE_BOOT_COMPLETED`` exist;
 - the backup rules exclude secure storage and ``taro_device.db`` (RC75);
 - R8 keeps Room database constructors: ``android/app/proguard-rules.pro``
@@ -67,6 +72,9 @@ _GRADLE_RULES = re.compile(r'proguardFiles\([^)]*"proguard-rules\.pro"')
 
 GA_KEYS = ("ANALYTICS_STORAGE", "AD_STORAGE", "AD_USER_DATA", "AD_PERSONALIZATION_SIGNALS")
 TRACKING_KEY = "NSUserTrackingUsageDescription"
+QUERIES_KEY = "LSApplicationQueriesSchemes"
+# The schemes UrlLauncher opens (taro_core `UrlLauncher.allowedSchemes`).
+URL_SCHEMES = ("https", "tel", "sms", "mailto")
 ARB_TRACKING_KEY = "nsUserTrackingUsageDescription"
 
 # 05 §5.1, as NSPrivacyCollectedDataType suffix → (linked, tracking, purpose suffixes).
@@ -94,6 +102,14 @@ BOOT_ACTION = "android.intent.action.BOOT_COMPLETED"
 BOOT_RECEIVER = "com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
 SECURE_PREFS = "FlutterSecureStorage.xml"
 DEVICE_DB = "taro_device.db"
+# (action, scheme) pairs <queries> must declare for UrlLauncher; scheme None = any.
+URL_INTENTS = (
+    ("android.intent.action.VIEW", "https"),
+    ("android.intent.action.DIAL", "tel"),
+    ("android.intent.action.SENDTO", "sms"),
+    ("android.intent.action.SENDTO", "mailto"),
+    ("android.support.customtabs.action.CustomTabsService", None),
+)
 BACKUP_FILES = {"data_extraction_rules": ("cloud-backup", "device-transfer"), "full_backup_content": (None,)}
 
 # Only the reminder offer asks for notification permission (05 §2, 01 §7.7).
@@ -130,6 +146,11 @@ def check_info_plist(data: dict[str, Any], label: str) -> list[Finding]:
     value = data.get(TRACKING_KEY)
     if not isinstance(value, str) or not value.strip():
         findings.append(Finding(label, 0, "att-string", f"{TRACKING_KEY} is missing or empty"))
+    schemes = data.get(QUERIES_KEY)
+    listed = set(schemes) if isinstance(schemes, list) else set()
+    for scheme in URL_SCHEMES:
+        if scheme not in listed:
+            findings.append(Finding(label, 0, "url-schemes", f"{QUERIES_KEY} does not list {scheme}"))
     return findings
 
 
@@ -238,8 +259,26 @@ def permissions(manifest: ET.Element) -> set[str]:
     }
 
 
+def query_intents(manifest: ET.Element) -> set[tuple[str, str | None]]:
+    """The (action, scheme) pairs of every ``<queries><intent>``; scheme ``None`` when absent."""
+    found: set[tuple[str, str | None]] = set()
+    for queries in manifest.iter("queries"):
+        for intent in queries.iter("intent"):
+            actions = [a.get(f"{ANDROID}name", "") for a in intent.iter("action")]
+            schemes = [d.get(f"{ANDROID}scheme") for d in intent.iter("data") if d.get(f"{ANDROID}scheme")]
+            for action in actions:
+                found.add((action, None))
+                found.update((action, scheme) for scheme in schemes)
+    return found
+
+
 def check_android_manifest(manifest: ET.Element, label: str, merged: bool) -> list[Finding]:
     findings: list[Finding] = []
+    declared = query_intents(manifest)
+    for action, scheme in URL_INTENTS:
+        if (action, scheme) not in declared:
+            what = f"{action.rsplit('.', 1)[-1]} {scheme}" if scheme else action.rsplit(".", 1)[-1]
+            findings.append(Finding(label, 0, "url-queries", f"<queries> does not declare {what} (UrlLauncher)"))
     granted = permissions(manifest)
     for name in EXACT_ALARMS:
         if name in granted:

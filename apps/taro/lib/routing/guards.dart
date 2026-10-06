@@ -61,12 +61,14 @@ String onboardingLocationFor(OnboardingStep step) => switch (step) {
 };
 
 /// Before onboarding is done every location resumes at the persisted step
-/// (the onboarding screens themselves stay reachable); after it, the
+/// (the onboarding screens themselves, S29 legal and S27 support lines stay
+/// reachable, [RoutePaths.openDuringOnboarding]); after it, the
 /// welcome and disclaimer screens and `/` lead Home. S04 stays reachable
 /// as the gate re-entry (RC21).
 String? onboardingGuard(GuardState state, String path) {
   if (!state.onboarded) {
-    return RoutePaths.onboarding.contains(path)
+    return RoutePaths.onboarding.contains(path) ||
+            RoutePaths.openDuringOnboarding(path)
         ? null
         : onboardingLocationFor(state.onboardingStep);
   }

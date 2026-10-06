@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 3ff958fea41b282c6f97e628c2c4c423a06550264fbb91e56ebaa4cfaa4dd74c
+sourceHash: 4dcadc54a54cbd0fa51b993f2716fd090822b5de5adcbb594598adc17a289a77
 ---
 # Über Tarot und Taro
 
@@ -49,7 +49,7 @@ Unter Lernen findest du den vollständigen Text zu allen 78 Karten, aufrecht und
 
 ## Wie KI-Deutungen funktionieren
 
-Wenn du eine KI-Deutung anforderst, sendet Taro vier Dinge an seinen Server: deine Frage (falls du eine geschrieben hast), die Legung, die gezogenen Karten mit ihrer Ausrichtung und deine App-Sprache. Der Server lässt GPT-Modelle von OpenAI eine Deutung der ganzen Legung schreiben. Die KI erhält die Kartennamen, Schlüsselwörter und kurzen Bedeutungen von Taro sowie eine Beschreibung jeder Position. Sie ist angewiesen, in einem nachdenklichen Ton zu schreiben, sich auf die gezogenen Karten zu beziehen und Vorhersagen und Ratschläge zu vermeiden.
+Wenn du eine KI-Deutung anforderst, sendet Taro vier Dinge an seinen Server: deine Frage (falls du eine geschrieben hast), die Legung, die gezogenen Karten mit ihrer Ausrichtung und deine App-Sprache. Der Server lässt einen KI-Dienst eines Drittanbieters eine Deutung der ganzen Legung schreiben; die Datenschutzerklärung nennt den Dienst. Die KI erhält die Kartennamen, Schlüsselwörter und kurzen Bedeutungen von Taro sowie eine Beschreibung jeder Position. Sie ist angewiesen, in einem nachdenklichen Ton zu schreiben, sich auf die gezogenen Karten zu beziehen und Vorhersagen und Ratschläge zu vermeiden.
 
 Ein paar Dinge zum Datenschutz:
 
@@ -57,7 +57,7 @@ Ein paar Dinge zum Datenschutz:
 - Deine Frage wird nicht auf dem Server von Taro gespeichert.
 - Die fertige Deutung wird nur so lange verschlüsselt auf dem Server aufbewahrt, bis dein Handy sie empfangen hat (höchstens 7 Tage), und dann gelöscht.
 - Wenn du eine Deutung meldest, werden deine Frage und diese Deutung 90 Tage lang aufbewahrt, damit sie geprüft werden können.
-- OpenAI verwendet diese Daten nicht, um seine Modelle zu trainieren.
+- Der KI-Dienst verwendet diese Daten nicht, um KI-Modelle zu trainieren.
 - Dein gesamter Verlauf, deine Fragen und Notizen bleiben auf deinem Gerät.
 
 KI-Deutungen brauchen deine Erlaubnis. Du kannst die Datenweitergabe für KI jederzeit unter **Einstellungen → Datenschutz & Daten → KI-Deutungen** erlauben oder ausschalten. Auch ohne sie kannst du die Tageskarte, Lernen und dein Journal nutzen, und du kannst eine **Klassische Deutung** wählen: dieselbe Ziehung mit der verfassten Bedeutung jeder Karte an ihrer Position, erstellt auf deinem Handy, ohne KI.

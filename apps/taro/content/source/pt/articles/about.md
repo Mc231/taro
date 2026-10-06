@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 3ff958fea41b282c6f97e628c2c4c423a06550264fbb91e56ebaa4cfaa4dd74c
+sourceHash: 4dcadc54a54cbd0fa51b993f2716fd090822b5de5adcbb594598adc17a289a77
 ---
 # Sobre o tarô e o Taro
 
@@ -49,7 +49,7 @@ O Aprender tem o texto completo das 78 cartas, na posição normal e invertida, 
 
 ## Como funcionam as leituras com IA
 
-Quando você pede uma leitura com IA, o Taro envia quatro coisas para o seu servidor: a sua pergunta (se você escreveu uma), a tiragem, as cartas que você tirou com a orientação de cada uma e o idioma do app. O servidor pede aos modelos GPT da OpenAI que escrevam uma interpretação da tiragem inteira. A IA recebe os nomes, as palavras-chave e os significados curtos das cartas escritos pelo próprio Taro, além de uma descrição de cada posição, e é instruída a escrever com uma voz reflexiva, a se referir às cartas que você tirou e a evitar previsões e conselhos.
+Quando você pede uma leitura com IA, o Taro envia quatro coisas para o seu servidor: a sua pergunta (se você escreveu uma), a tiragem, as cartas que você tirou com a orientação de cada uma e o idioma do app. O servidor pede a um serviço de IA de terceiros que escreva uma interpretação da tiragem inteira; a política de privacidade informa qual é esse serviço. A IA recebe os nomes, as palavras-chave e os significados curtos das cartas escritos pelo próprio Taro, além de uma descrição de cada posição, e é instruída a escrever com uma voz reflexiva, a se referir às cartas que você tirou e a evitar previsões e conselhos.
 
 Algumas coisas que vale saber sobre privacidade:
 
@@ -57,7 +57,7 @@ Algumas coisas que vale saber sobre privacidade:
 - A sua pergunta não fica armazenada no servidor do Taro.
 - A leitura pronta fica guardada no servidor, com criptografia, só até o seu celular recebê-la (no máximo 7 dias), e depois é apagada.
 - Se você decidir denunciar uma leitura, a sua pergunta e essa leitura ficam guardadas por 90 dias para que possam ser analisadas.
-- A OpenAI não usa esses dados para treinar os seus modelos.
+- O serviço de IA não usa esses dados para treinar modelos de IA.
 - Todo o seu histórico, as suas perguntas e as suas notas ficam no seu dispositivo.
 
 As leituras com IA dependem da sua permissão. Você pode permitir ou desativar o compartilhamento de dados com a IA a qualquer momento em **Ajustes → Privacidade e dados → Leituras com IA**. Sem ele, você ainda pode usar a carta do dia, o Aprender e o seu diário, e pode escolher uma **Leitura clássica**: a mesma tiragem, com o significado escrito de cada carta na sua posição, criada no seu celular sem IA.

@@ -66,6 +66,8 @@ def test_ios_failures(tmp_path: Path) -> None:
         "collected data entry without NSPrivacyCollectedDataType",
         "NSPrivacyAccessedAPICategoryDiskSpace has no reason",
         "PrivacyInfo.xcprivacy is not a Runner resource",
+        "[url-schemes] LSApplicationQueriesSchemes does not list https",
+        "[url-schemes] LSApplicationQueriesSchemes does not list mailto",
     ):
         assert expected in text
     assert c.main(["--root", str(root)]) == 1
@@ -88,8 +90,10 @@ def test_android_failures(tmp_path: Path) -> None:
         "home_offer.dart:3: [notification-request]",
         "proguard-rules.pro: [r8-keep] must keep RoomDatabase subclass constructors",
         'build.gradle.kts: [r8-keep] release must list proguardFiles("proguard-rules.pro")',
+        "[url-queries] <queries> does not declare DIAL tel (UrlLauncher)",
     ):
         assert expected in text
+    assert "VIEW https" not in text
 
 
 def test_r8_seeds(tmp_path: Path) -> None:
@@ -112,7 +116,11 @@ def test_manifest_shapes(tmp_path: Path) -> None:
     import xml.etree.ElementTree as ET
 
     no_app = ET.fromstring('<manifest xmlns:android="http://schemas.android.com/apk/res/android"/>')
-    assert [f.rule for f in c.check_android_manifest(no_app, "m", merged=False)] == ["permission", "application"]
+    assert [f.rule for f in c.check_android_manifest(no_app, "m", merged=False)] == [
+        *["url-queries"] * len(c.URL_INTENTS),
+        "permission",
+        "application",
+    ]
     bad = tmp_path / "bad.xml"
     bad.write_text("<manifest>")
     with pytest.raises(c.InputError):

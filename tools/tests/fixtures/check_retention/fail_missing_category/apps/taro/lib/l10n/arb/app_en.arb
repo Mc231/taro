@@ -1,6 +1,6 @@
 {
   "@@locale": "en",
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI's GPT models to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our Taro servers, which use a third-party AI service to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our servers. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. The AI service does not use this data to train AI models. Readings are AI-generated and may be wrong or unexpected.",
   "@aiConsentBody": {
     "description": "AI consent"
   }

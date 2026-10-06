@@ -40,8 +40,25 @@ void main() {
     ]) {
       expect(en[key], isA<String>(), reason: key);
     }
-    expect(en['aiConsentBody'], isNot(contains('Anthropic')));
-    expect(en['aiConsentBody'], contains('OpenAI’s GPT'));
+    // Owner 2026-10-06: the app names no AI vendor (the privacy policy
+    // does), but still says a third-party AI service gets the question
+    // (5.1.2(i)).
+    expect(en['aiConsentBody'], contains('third-party AI service'));
+    expect(en['aiConsentBody'], contains('privacy policy names'));
+    expect(en['privacyAiAllowedSubtitle'], contains('third-party AI service'));
+  });
+
+  test('no locale names an AI vendor in app copy', () {
+    final vendor = RegExp('OpenAI|GPT|ChatGPT|Anthropic|Claude|Gemini');
+    for (final locale in [
+      'en', 'ar', 'de', 'es', 'fr', 'it', 'ja', 'ko', 'nl', 'pt', 'tr', 'uk', //
+    ]) {
+      final arb = _arb(locale);
+      for (final MapEntry(:key, :value) in arb.entries) {
+        if (key.startsWith('@') || value is! String) continue;
+        expect(vendor.hasMatch(value), isFalse, reason: '$locale $key');
+      }
+    }
   });
 
   // V2-10: the app is "Taro" (Latin) in every locale; in uk, tarot is

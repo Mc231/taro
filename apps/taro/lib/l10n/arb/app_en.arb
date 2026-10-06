@@ -248,9 +248,9 @@
   "@aiConsentTitle": {
     "description": "05 §3 compliance string (fixed copy). S04 AI consent sheet title."
   },
-  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our server, which asks OpenAI’s GPT models to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our server. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. OpenAI does not use this data to train its models. Readings are AI-generated and may be wrong or unexpected.",
+  "aiConsentBody": "To write your reading, Taro sends your question, the spread and the cards you drew, and your app language to our Taro servers, which use a third-party AI service to write the interpretation. We never send your name, email or advertising ID. Your question is not stored on our servers. Your reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. If you report a reading, it is kept for 90 days. The AI service does not use this data to train AI models. Readings are AI-generated and may be wrong or unexpected. Our privacy policy names the AI service.",
   "@aiConsentBody": {
-    "description": "05 §3 compliance string (fixed copy, CS6, RC97). S04 AI consent sheet body and S23; provider names must equal ai.disclosedProviders."
+    "description": "05 §3 compliance string (fixed copy, CS6, RC97). S04 AI consent sheet body and S23; names no AI vendor (owner 2026-10-06), says the question goes to a third-party AI service and that the privacy policy names it (5.1.2(i))."
   },
   "aiConsentAccept": "Allow AI readings",
   "@aiConsentAccept": {
@@ -2801,9 +2801,9 @@
   "@privacyAiHeading": {
     "description": "S23 section heading."
   },
-  "privacyAiAllowedSubtitle": "Your question and cards go to an AI service (OpenAI) to write readings.",
+  "privacyAiAllowedSubtitle": "Your question and cards go to our Taro servers and a third-party AI service to write readings.",
   "@privacyAiAllowedSubtitle": {
-    "description": "S23 AI status subtitle (providers of ai.disclosedProviders, RC97)."
+    "description": "S23 AI status subtitle; names no AI vendor (owner 2026-10-06), says a third-party AI service writes readings."
   },
   "privacyAiNotAllowedSubtitle": "Nothing is sent. You can still use classic readings.",
   "@privacyAiNotAllowedSubtitle": {

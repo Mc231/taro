@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
+sourceHash: 244e30980f63027d1e52f1bb233c7fb0fbfd1dd2f460997338b4c8c4e98f2850
 ---
 # Domande frequenti
 
@@ -76,7 +76,7 @@ Le letture rimanenti e Rimuovi i banner pubblicitari vengono conservati, perché
 
 ### Che cosa condivido consentendo le letture con IA?
 
-Quando chiedi una lettura con IA, Taro invia al suo server la tua domanda (se c’è), la stesa, le carte che hai pescato e la lingua dell’app; il server chiede ai modelli GPT di OpenAI di scrivere l’interpretazione. Taro non invia mai il tuo nome, il tuo indirizzo email o il tuo ID pubblicitario. La tua domanda non viene conservata sul server di Taro. La lettura resta cifrata solo finché il tuo telefono non l’ha ricevuta (al massimo 7 giorni), poi viene eliminata. OpenAI non usa questi dati per addestrare i propri modelli. L’informativa sulla privacy in **Impostazioni → Aiuto → Note legali** contiene tutti i dettagli.
+Quando chiedi una lettura con IA, Taro invia al suo server la tua domanda (se c’è), la stesa, le carte che hai pescato e la lingua dell’app; il server chiede a un servizio di IA di terze parti di scrivere l’interpretazione. Taro non invia mai il tuo nome, il tuo indirizzo email o il tuo ID pubblicitario. La tua domanda non viene conservata sul server di Taro. La lettura resta cifrata solo finché il tuo telefono non l’ha ricevuta (al massimo 7 giorni), poi viene eliminata. Il servizio di IA non usa questi dati per addestrare modelli di IA. L’informativa sulla privacy in **Impostazioni → Aiuto → Note legali** contiene tutti i dettagli, compreso quale servizio di IA usa Taro.
 
 ### Posso cambiare idea sul consenso all’IA?
 

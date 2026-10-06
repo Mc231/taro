@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taro/app_state/remote_config_controller.dart';
+import 'package:taro/common/legal_links.dart';
 import 'package:taro/common/onboarding_page.dart';
+import 'package:taro/di/providers.dart';
 import 'package:taro/features/onboarding/controller/ai_consent_controller.dart';
 import 'package:taro/features/onboarding/view/welcome_screen.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -72,7 +75,13 @@ class AiConsentScreen extends ConsumerWidget {
       onAllow: () => decide(granted: true),
       onNotNow: () => decide(granted: false),
       onBack: () => _back(context),
-      onPrivacy: () => context.push(RoutePaths.legal('privacy')),
+      onPrivacy: () => unawaited(
+        openLegalUrl(
+          ref.read(urlLauncherProvider),
+          ref.read(remoteConfigProvider).legalPrivacyUrl,
+          Localizations.localeOf(context),
+        ),
+      ),
     );
   }
 
@@ -109,7 +118,8 @@ class AiConsentLayout extends StatelessWidget {
   /// **Back** (the re-entry variant and the app bar).
   final VoidCallback onBack;
 
-  /// "Privacy policy" (S29).
+  /// "Privacy policy": the hosted policy (`legal.privacyUrl?hl=`) in the
+  /// in-app browser, also during onboarding.
   final VoidCallback onPrivacy;
 
   @override
@@ -169,7 +179,7 @@ class AiConsentLayout extends StatelessWidget {
             ),
             Align(
               alignment: AlignmentDirectional.centerStart,
-              child: TaroButton.tertiary(
+              child: TaroButton.link(
                 label: l10n.commonPrivacyPolicy,
                 onPressed: onPrivacy,
               ),

@@ -112,6 +112,10 @@ void main() {
         builder: (_) => const DisclaimerScreen(),
         fakes: fakes,
       );
+      final link = tester.widget<TaroButton>(
+        find.widgetWithText(TaroButton, l10n.disclaimerReadFull),
+      );
+      expect(link.variant, TaroButtonVariant.link);
       await tapText(tester, l10n.disclaimerReadFull);
       expectRoute(RoutePaths.legal('disclaimer'));
     });
@@ -319,22 +323,40 @@ void main() {
       expectRoute('/');
     });
 
-    testWidgets('settings: Not now returns; privacy link opens S29', (
-      tester,
-    ) async {
-      final fakes = _at(OnboardingStep.done);
-      await pumpFlow(
+    for (final origin in AiConsentOrigin.values) {
+      testWidgets('$origin: the privacy link opens the hosted policy', (
         tester,
-        path: RoutePaths.consentAi,
-        location: AiConsentScreen.location(AiConsentOrigin.settings),
-        pushed: true,
-        builder: (state) =>
-            AiConsentScreen.fromQuery(state.uri.queryParameters),
-        fakes: fakes,
-      );
-      await tapText(tester, l10n.commonPrivacyPolicy);
-      expectRoute(RoutePaths.legal('privacy'));
-    });
+      ) async {
+        final fakes = _at(
+          origin == AiConsentOrigin.onboarding
+              ? OnboardingStep.aiConsent
+              : OnboardingStep.done,
+        );
+        await pumpFlow(
+          tester,
+          path: RoutePaths.consentAi,
+          location: AiConsentScreen.location(origin),
+          pushed: origin != AiConsentOrigin.onboarding,
+          builder: (state) =>
+              AiConsentScreen.fromQuery(state.uri.queryParameters),
+          fakes: fakes,
+        );
+        final link = tester.widget<TaroButton>(
+          find.widgetWithText(TaroButton, l10n.commonPrivacyPolicy),
+        );
+        expect(link.variant, TaroButtonVariant.link);
+        await tapText(tester, l10n.commonPrivacyPolicy);
+        expect(fakes.links.openedInApp, [
+          Uri.parse('https://taro.vshyrochuk.com/privacy?hl=en'),
+        ]);
+        // No in-app browser: the system browser.
+        fakes.links.failNext(const Failure.storage(), on: 'openInApp');
+        await tapText(tester, l10n.commonPrivacyPolicy);
+        expect(fakes.links.opened, [
+          Uri.parse('https://taro.vshyrochuk.com/privacy?hl=en'),
+        ]);
+      });
+    }
 
     testWidgets('settings: Not now declines and returns', (tester) async {
       final fakes = _at(OnboardingStep.done);

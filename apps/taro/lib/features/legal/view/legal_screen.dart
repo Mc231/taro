@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:taro/common/bidi.dart';
 import 'package:taro/common/failure_message.dart';
+import 'package:taro/common/legal_links.dart';
 import 'package:taro/common/settings_page.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/legal/controller/legal_controller.dart';
@@ -35,12 +36,12 @@ class LegalScreen extends ConsumerWidget {
         context: context,
         applicationName: TaroLocalizations.of(context).appTitle,
       ),
-      onOpenWeb: (url) async {
-        final uri = Uri.parse(url);
-        // No in-app browser: the system browser instead.
-        if (await links.openInApp(uri) case Err()) await links.open(uri);
-      },
-      onOpenBrowser: (url) => unawaited(links.open(Uri.parse(url))),
+      // In the app language (`?hl=`); no in-app browser: the system one.
+      onOpenWeb: (url) =>
+          unawaited(openLegalUrl(links, url, Localizations.localeOf(context))),
+      onOpenBrowser: (url) => unawaited(
+        links.open(localizedLegalUri(url, Localizations.localeOf(context))),
+      ),
       onSupportLines: () =>
           unawaited(context.push<void>(RoutePaths.helpCrisis)),
       onBack: () => Navigator.of(context).maybePop(),

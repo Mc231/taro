@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
+sourceHash: 244e30980f63027d1e52f1bb233c7fb0fbfd1dd2f460997338b4c8c4e98f2850
 ---
 # Sık sorulan sorular
 
@@ -76,7 +76,7 @@ Kalan okumaların ve Banner Reklamları Kaldır satın alımın birer satın alm
 
 ### Yapay zekâ okumalarına izin vermek neyin paylaşılması anlamına gelir?
 
-Bir yapay zekâ okuması istediğinde Taro; sorunu (varsa), açılımı, çektiğin kartları ve uygulama dilini sunucusuna gönderir. Sunucu da yorumu yazması için OpenAI’ın GPT modellerine başvurur. Taro adını, e-posta adresini veya reklam kimliğini asla göndermez. Sorun Taro’nun sunucusunda saklanmaz. Okuma yalnızca telefonun onu alana kadar (en fazla 7 gün) şifreli olarak tutulur, ardından silinir. OpenAI bu verileri modellerini eğitmek için kullanmaz. Ayrıntıların tamamı **Ayarlar → Yardım → Yasal** bölümündeki gizlilik politikasında yer alır.
+Bir yapay zekâ okuması istediğinde Taro; sorunu (varsa), açılımı, çektiğin kartları ve uygulama dilini sunucusuna gönderir. Sunucu da yorumu yazması için üçüncü taraf bir yapay zekâ hizmetine başvurur. Taro adını, e-posta adresini veya reklam kimliğini asla göndermez. Sorun Taro’nun sunucusunda saklanmaz. Okuma yalnızca telefonun onu alana kadar (en fazla 7 gün) şifreli olarak tutulur, ardından silinir. Yapay zekâ hizmeti bu verileri yapay zekâ modellerini eğitmek için kullanmaz. Taro’nun hangi yapay zekâ hizmetini kullandığı dahil ayrıntıların tamamı **Ayarlar → Yardım → Yasal** bölümündeki gizlilik politikasında yer alır.
 
 ### Yapay zekâ onayım hakkındaki kararımı değiştirebilir miyim?
 

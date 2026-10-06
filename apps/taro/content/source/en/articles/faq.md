@@ -75,7 +75,7 @@ Your remaining readings and Remove Banner Ads are kept, because they are purchas
 
 ### What does allowing AI readings share?
 
-When you ask for an AI reading, Taro sends your question (if any), the spread, the cards you drew and your app language to its server, which asks OpenAI's GPT models to write the interpretation. Taro never sends your name, email address or advertising ID. Your question is not stored on Taro's server. The reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. OpenAI does not use this data to train its models. The privacy policy in **Settings → Help → Legal** has the full details.
+When you ask for an AI reading, Taro sends your question (if any), the spread, the cards you drew and your app language to its server, which asks a third-party AI service to write the interpretation. Taro never sends your name, email address or advertising ID. Your question is not stored on Taro's server. The reading is kept encrypted only until your phone has received it (at most 7 days), then deleted. The AI service does not use this data to train AI models. The privacy policy in **Settings → Help → Legal** has the full details, including which AI service Taro uses.
 
 ### Can I change my mind about AI consent?
 

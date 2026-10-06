@@ -48,7 +48,7 @@ Learn contains the full text for all 78 cards, upright and reversed, with notes 
 
 ## How AI readings work
 
-When you ask for an AI reading, Taro sends four things to its server: your question (if you wrote one), the spread, the cards you drew with their orientation, and your app language. The server asks OpenAI's GPT models to write an interpretation of the whole spread. The AI is given Taro's own card names, keywords and short meanings and a description of each position, and it is instructed to write in a reflective voice, to refer to the cards you drew, and to avoid predictions and advice.
+When you ask for an AI reading, Taro sends four things to its server: your question (if you wrote one), the spread, the cards you drew with their orientation, and your app language. The server asks a third-party AI service to write an interpretation of the whole spread; the privacy policy names the service. The AI is given Taro's own card names, keywords and short meanings and a description of each position, and it is instructed to write in a reflective voice, to refer to the cards you drew, and to avoid predictions and advice.
 
 A few things to know about privacy:
 
@@ -56,7 +56,7 @@ A few things to know about privacy:
 - Your question is not stored on Taro's server.
 - The finished reading is kept on the server, encrypted, only until your phone has received it (at most 7 days), and is then deleted.
 - If you choose to report a reading, your question and that reading are kept for 90 days so they can be reviewed.
-- OpenAI does not use this data to train its models.
+- The AI service does not use this data to train AI models.
 - Your full history, questions and notes stay on your device.
 
 AI readings need your permission. You can allow or turn off AI data sharing at any time in **Settings → Privacy & data → AI readings**. Without it, you can still use the daily card, Learn and your journal, and you can choose a **Classic reading**: the same draw, with the authored meaning of each card in its position, created on your phone without AI.

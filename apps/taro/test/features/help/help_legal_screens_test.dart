@@ -245,10 +245,15 @@ void main() {
         size: const Size(430, 1400),
       );
       await tapText(tester, l10n.legalReadOnline);
-      expect(fakes.links.openedInApp, hasLength(1));
+      // The hosted page in the app language (`?hl=`).
+      expect(fakes.links.openedInApp, [
+        Uri.parse('https://taro.vshyrochuk.com/terms?hl=en'),
+      ]);
       fakes.links.failNext(const Failure.storage(), on: 'openInApp');
       await tapText(tester, l10n.legalReadOnline);
-      expect(fakes.links.opened, hasLength(1));
+      expect(fakes.links.opened, [
+        Uri.parse('https://taro.vshyrochuk.com/terms?hl=en'),
+      ]);
       await tapText(tester, l10n.legalDisclaimer);
       expect(find.text(l10n.legalDisclaimerBody), findsOneWidget);
       await tapText(tester, l10n.legalSupportLine);
@@ -272,7 +277,10 @@ void main() {
       );
       expect(find.text(l10n.errorNetworkTitle), findsOneWidget);
       await tapText(tester, l10n.legalOpenInBrowser);
-      expect(fakes.links.opened, hasLength(2));
+      expect(
+        fakes.links.opened.last,
+        Uri.parse('https://taro.vshyrochuk.com/privacy?hl=en'),
+      );
     });
   });
 }

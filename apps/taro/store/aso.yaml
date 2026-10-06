@@ -90,7 +90,7 @@ app_review_information:
 
     HOW TO REVIEW (no login needed)
     1. Launch and complete onboarding (the disclaimer is page 2).
-    2. The AI consent step (onboarding step 3) names the AI provider (OpenAI) and lists what is sent. Choose "Allow AI readings" (choosing "Not now" still allows "Try a classic reading" with card meanings).
+    2. The AI consent step (onboarding step 3) says the question is sent to our servers and processed by a third-party AI service (OpenAI, named in the linked privacy policy) and lists what is sent. Choose "Allow AI readings" (choosing "Not now" still allows "Try a classic reading" with card meanings).
     3. On Today, tap "Start a reading", pick a spread, optionally type a question, then tap "Begin".
     4. Tap "Shuffle", then "I’m ready — draw", pick your cards (or tap "Draw for me"), then "Reveal all". One free AI reading per day is included.
     5. For more readings: tap "Begin" again. When you are out of readings, a sheet opens before any card is drawn, with an option to watch a short ad for +1 reading and "Get more readings" (reading packs, sandbox). Purchases are verified by our server before credits appear. After a purchase or reward you return to the question screen; tap "Begin" to continue.

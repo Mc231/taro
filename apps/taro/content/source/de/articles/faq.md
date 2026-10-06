@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
+sourceHash: 244e30980f63027d1e52f1bb233c7fb0fbfd1dd2f460997338b4c8c4e98f2850
 ---
 # Häufige Fragen
 
@@ -76,7 +76,7 @@ Deine verbleibenden Deutungen und „Bannerwerbung entfernen“ bleiben erhalten
 
 ### Was wird geteilt, wenn ich KI-Deutungen erlaube?
 
-Wenn du eine KI-Deutung anforderst, sendet Taro deine Frage (falls vorhanden), die Legung, die gezogenen Karten und deine App-Sprache an seinen Server. Dieser lässt GPT-Modelle von OpenAI die Interpretation schreiben. Taro sendet niemals deinen Namen, deine E-Mail-Adresse oder deine Werbe-ID. Deine Frage wird nicht auf dem Server von Taro gespeichert. Die Deutung wird nur so lange verschlüsselt aufbewahrt, bis dein Handy sie empfangen hat (höchstens 7 Tage), und dann gelöscht. OpenAI verwendet diese Daten nicht, um seine Modelle zu trainieren. Alle Einzelheiten findest du in der Datenschutzerklärung unter **Einstellungen → Hilfe → Rechtliches**.
+Wenn du eine KI-Deutung anforderst, sendet Taro deine Frage (falls vorhanden), die Legung, die gezogenen Karten und deine App-Sprache an seinen Server. Dieser lässt einen KI-Dienst eines Drittanbieters die Interpretation schreiben. Taro sendet niemals deinen Namen, deine E-Mail-Adresse oder deine Werbe-ID. Deine Frage wird nicht auf dem Server von Taro gespeichert. Die Deutung wird nur so lange verschlüsselt aufbewahrt, bis dein Handy sie empfangen hat (höchstens 7 Tage), und dann gelöscht. Der KI-Dienst verwendet diese Daten nicht, um KI-Modelle zu trainieren. Alle Einzelheiten findest du in der Datenschutzerklärung unter **Einstellungen → Hilfe → Rechtliches**, auch welchen KI-Dienst Taro nutzt.
 
 ### Kann ich meine Einwilligung zur KI ändern?
 

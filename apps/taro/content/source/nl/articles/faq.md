@@ -1,6 +1,6 @@
 ---
 reviewStatus: machine
-sourceHash: 20ab6a340c3c4e446ebdc39b04fcf7d402862dc0d84a1f76191a7c7154153ae5
+sourceHash: 244e30980f63027d1e52f1bb233c7fb0fbfd1dd2f460997338b4c8c4e98f2850
 ---
 # Veelgestelde vragen
 
@@ -76,7 +76,7 @@ Je resterende lezingen en Banneradvertenties verwijderen blijven behouden, omdat
 
 ### Wat wordt er gedeeld als ik AI-lezingen toesta?
 
-Als je om een AI-lezing vraagt, stuurt Taro je vraag (als je er een hebt), de legging, de kaarten die je hebt getrokken en de taal van je app naar zijn server, die de GPT-modellen van OpenAI vraagt de interpretatie te schrijven. Taro stuurt nooit je naam, e-mailadres of advertentie-ID mee. Je vraag wordt niet op de server van Taro bewaard. De lezing wordt alleen versleuteld bewaard tot je telefoon haar heeft ontvangen (maximaal 7 dagen), en daarna verwijderd. OpenAI gebruikt deze gegevens niet om zijn modellen te trainen. Het privacybeleid in **Instellingen → Hulp → Juridisch** bevat alle details.
+Als je om een AI-lezing vraagt, stuurt Taro je vraag (als je er een hebt), de legging, de kaarten die je hebt getrokken en de taal van je app naar zijn server, die een AI-dienst van een derde partij vraagt de interpretatie te schrijven. Taro stuurt nooit je naam, e-mailadres of advertentie-ID mee. Je vraag wordt niet op de server van Taro bewaard. De lezing wordt alleen versleuteld bewaard tot je telefoon haar heeft ontvangen (maximaal 7 dagen), en daarna verwijderd. De AI-dienst gebruikt deze gegevens niet om AI-modellen te trainen. Het privacybeleid in **Instellingen → Hulp → Juridisch** bevat alle details, ook welke AI-dienst Taro gebruikt.
 
 ### Kan ik mijn toestemming voor AI later wijzigen?
 

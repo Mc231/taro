@@ -16,10 +16,15 @@ enum TaroButtonVariant {
 
   /// Filled `color.status.error`: destructive actions only.
   destructive,
+
+  /// A text link: the tertiary look, underlined, announced as a link
+  /// (privacy policy, full disclaimer).
+  link,
 }
 
 /// Every action button (02 §14.3): primary, secondary, tertiary,
-/// destructive, each with a loading state.
+/// destructive, each with a loading state, and the [TaroButton.link] text
+/// link.
 ///
 /// The label is a sentence-case verb, passed already localised. While
 /// [loading], taps are ignored and a spinner replaces the label visually;
@@ -89,6 +94,19 @@ class TaroButton extends StatefulWidget {
     super.key,
   }) : variant = TaroButtonVariant.destructive;
 
+  /// A text link: `color.accent.primary`, underlined, ≥ 48 dp target,
+  /// with the link role for screen readers.
+  const TaroButton.link({
+    required this.label,
+    required this.onPressed,
+    this.icon,
+    this.expand,
+    this.semanticsLabel,
+    super.key,
+  }) : variant = TaroButtonVariant.link,
+       loading = false,
+       loadingSemanticsHint = null;
+
   /// The visible label.
   final String label;
 
@@ -105,7 +123,8 @@ class TaroButton extends StatefulWidget {
   final IconData? icon;
 
   /// Whether the button fills the available width. Defaults to true for
-  /// every variant except [TaroButtonVariant.tertiary].
+  /// every variant except [TaroButtonVariant.tertiary] and
+  /// [TaroButtonVariant.link].
   final bool? expand;
 
   /// Overrides [label] for screen readers.
@@ -135,14 +154,24 @@ class _TaroButtonState extends State<TaroButton> {
         c.text.onAccent,
       ),
       TaroButtonVariant.secondary => (Colors.transparent, c.text.primary),
-      TaroButtonVariant.tertiary => (Colors.transparent, c.accent.primary),
+      TaroButtonVariant.tertiary ||
+      TaroButtonVariant.link => (Colors.transparent, c.accent.primary),
       TaroButtonVariant.destructive => (c.status.error, c.status.onError),
     };
     final radius = BorderRadius.circular(tokens.radius.md);
-    final minHeight = variant == TaroButtonVariant.tertiary
+    final textOnly =
+        variant == TaroButtonVariant.tertiary ||
+        variant == TaroButtonVariant.link;
+    final minHeight = textOnly
         ? tokens.size.touchTarget.min
         : tokens.size.touchTarget.min + tokens.space.s2;
-    final labelStyle = tokens.typography.label.copyWith(color: foreground);
+    final labelStyle = tokens.typography.label.copyWith(
+      color: foreground,
+      decoration: variant == TaroButtonVariant.link
+          ? TextDecoration.underline
+          : null,
+      decorationColor: foreground,
+    );
     final label = Text(
       widget.label,
       textAlign: TextAlign.center,
@@ -239,12 +268,14 @@ class _TaroButtonState extends State<TaroButton> {
         ],
       );
     }
-    final expand = widget.expand ?? variant != TaroButtonVariant.tertiary;
+    final expand = widget.expand ?? !textOnly;
+    final link = variant == TaroButtonVariant.link;
     // Its own node: inside a toast, coachmark or list row the button is
     // announced separately, not merged into the surrounding text.
     return Semantics(
       container: true,
-      button: true,
+      button: !link,
+      link: link,
       enabled: _enabled,
       label: widget.semanticsLabel,
       hint: widget.loading ? widget.loadingSemanticsHint : null,
