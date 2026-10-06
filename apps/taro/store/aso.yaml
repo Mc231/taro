@@ -73,51 +73,52 @@ app_review_information:
   demo_account_required: false
   demo_account_name: ""
   demo_account_password: ""
-  # Copied from docs/compliance/REVIEW_NOTES.md (Phase 19.3 draft of 05 §7);
-  # change both together. Quoted HOW TO REVIEW labels are app_en.arb values (RC79).
+  # Copied from docs/compliance/REVIEW_NOTES.md (rewritten 2026-10-06 in
+  # Apple's step-by-step form, with the demo video); change both together. Quoted HOW TO REVIEW labels are app_en.arb values (RC79).
   # Provider: OpenAI only (ai.disclosedProviders = ["openai"], 2026-10-01).
   notes: |
-    APP PURPOSE
-    Taro is a tarot app for entertainment and self-reflection. Users ask a question, draw cards from an original 78-card deck (our own artwork), and receive an AI-written interpretation that explains the symbolism of each card in its spread position. The app does not claim to predict the future; this is stated in onboarding, under every reading and in the store description.
+    ABOUT THE APP
+    Taro is a reflective tarot journal for entertainment and self-reflection. The user asks a question, draws cards from an original 78-card deck (our own art) and gets an interpretation of the card symbols, then can keep notes in a journal and study all 78 cards in Learn. It does not predict the future or give advice; a disclaimer is shown in onboarding and on every reading.
 
-    WHAT MAKES IT DIFFERENT (4.3)
-    - Original deck art, not Rider-Waite scans
-    - Spread-aware readings that reference each card position
-    - Reflection journal linked to readings
-    - Learn mode covering all 78 cards
-    - 12 languages including Arabic (right-to-left)
-    - No account; users can export and import their data
+    DEMO VIDEO
+    A screen recording of the steps below is attached to this submission (taro_review_demo.mp4). It was recorded on the iPhone Simulator with scripted server answers so every step is shown; the live app behaves the same.
 
-    HOW TO REVIEW (no login needed)
-    1. Launch and complete onboarding (the disclaimer is page 2).
-    2. The AI consent step (onboarding step 3) says the question is sent to our servers and processed by a third-party AI service (OpenAI, named in the linked privacy policy) and lists what is sent. Choose "Allow AI readings" (choosing "Not now" still allows "Try a classic reading" with card meanings).
-    3. On Today, tap "Start a reading", pick a spread, optionally type a question, then tap "Begin".
-    4. Tap "Shuffle", then "I’m ready — draw", pick your cards (or tap "Draw for me"), then "Reveal all". One free AI reading per day is included.
-    5. For more readings: tap "Begin" again. When you are out of readings, a sheet opens before any card is drawn, with an option to watch a short ad for +1 reading and "Get more readings" (reading packs, sandbox). Purchases are verified by our server before credits appear. After a purchase or reward you return to the question screen; tap "Begin" to continue.
-    6. Settings: "Remove Banner Ads", "Restore purchases", "Export backup", "Import backup", "Delete all data", "Privacy choices" and "AI readings" (consent).
-    7. Every AI reading has "Report this reading" in its menu.
+    NO LOGIN NEEDED
+    There are no accounts, so no demo account is needed. Everything works right after onboarding.
 
-    NO DEMO ACCOUNT NEEDED
-    The app has no login and no accounts, so there are no credentials. Readings work right after onboarding. To reach the paywall: finish the free AI reading of the day, go back to Today and start a second reading; the out-of-readings sheet opens before any card is drawn. To see a refusal: type one of the SAFETY questions below as the question and tap Begin; it is declined before the draw and no credit is used.
+    HOW TO REVIEW
+    1. Onboarding: tap "Get started", read the disclaimer and tap "I understand".
+    2. AI consent: this screen says the question is sent to our server and processed by a third-party AI provider (OpenAI, named in our privacy policy) and lists what is sent. Tap "Allow AI readings". "Not now" is a real choice: the app still works and "Try a classic reading" shows card meanings without AI.
+    3. Tracking: a neutral screen explains the next prompt; tap "Continue" and the iOS App Tracking Transparency prompt appears. Either answer works.
+    4. Today: the daily card (free, no AI) is on this screen.
+    5. Reading: tap "Start a reading", pick a spread, type a question (optional) and tap "Begin". Tap "Shuffle", "I’m ready — draw", "Draw for me" and turn the cards. The AI reading takes about 10–15 seconds. It is marked "AI-generated" and has the disclaimer. One free AI reading per day is included.
+    6. Report: on a reading, open the three-dot menu and tap "Report this reading".
+    7. Paywall: start a second reading. Before any card is drawn a sheet opens with "Get more readings" (reading packs) and an optional rewarded ad for one reading. Ads never play on their own. Sandbox purchases work; credits appear only after our server verifies the purchase.
+    8. "Restore purchases" and "Remove Banner Ads" are on the store screen and in Settings.
+    9. Settings > "Privacy & data": "Privacy choices", "AI readings" (consent), "Export backup", "Import backup" and "Delete all data". "Legal" has the privacy policy and terms.
 
-    SAFETY
-    Questions about health, pregnancy, death, legal or financial decisions and gambling are declined without using a credit. Mentions of self-harm show local crisis helplines. Try for example: "Am I pregnant?", "Should I buy Bitcoin?", "I want to hurt myself".
+    SAFETY (YOU MAY TEST THIS)
+    - Refusal: ask "Will I get sick next month?" or "Should I buy Bitcoin?". Health, pregnancy, death, legal, money and gambling questions get a calm refusal and the reading is not charged.
+    - Crisis: type "I want to hurt myself". The app shows "You’re not alone" with local crisis helplines instead of a reading. No credit is used.
 
     IN-APP PURCHASES
-    - Reading packs (consumable): credits stored for this installation on our server. Not restorable after deleting the app; the paywall says so.
-    - Remove Banner Ads (non-consumable): removes banner ads; optional reward videos stay available. Restorable via Restore purchases.
+    - Reading packs of 3, 10 and 30 (consumable). Credits are kept for this install on our server and cannot be restored after the app is deleted; the store screen says so.
+    - Remove Banner Ads (non-consumable): removes banner ads; optional rewarded ads stay. Restorable.
     No subscriptions.
 
-    EXTERNAL SERVICES
-    - Our server (Cloudflare Workers): reading credits, purchase verification, daily allowance.
-    - AI provider (OpenAI API): writes the interpretation and checks it for safety, only after consent.
-    - AdMob with UMP consent and App Tracking Transparency; ads never appear inside reading text.
+    SERVICES AND DATA
+    - Our server (Cloudflare Workers): credits, daily allowance, purchase checks.
+    - AI provider (OpenAI, named in our privacy policy): writes the reading and checks it for safety, only after consent.
+    - AdMob with the consent form first, then the tracking prompt. Ads are never shown inside a reading.
     - Firebase Analytics and Crashlytics.
-    - App Attest to protect free readings from abuse.
+    - App Attest and DeviceCheck are used only to protect free readings from fraud, not for tracking.
 
-    REGIONAL DIFFERENCES
-    Same features in every storefront where the app is available, on iPhone and iPad. UI and card texts are localized into 12 languages; AI readings answer in the app language. Where AI readings are unavailable, the app offers a Classic reading with card meanings.
+    AGE RATING 13+
+    Tarot themes and open-ended AI text are not meant for young children, so we chose 13+. The app is not for children.
 
+    Same features in every storefront, on iPhone and iPad, in 12 languages (Arabic is right-to-left).
+
+    Links: https://taro.vshyrochuk.com/privacy, https://taro.vshyrochuk.com/terms, https://taro.vshyrochuk.com/support
     Contact: volodymyr.shyrochuk@gmail.com
 
 app_store:
