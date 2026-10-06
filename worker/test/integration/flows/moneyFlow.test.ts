@@ -24,7 +24,7 @@ import { ReadingDriver } from '../../helpers/readingDriver';
  */
 
 const KEY_ID = 4242;
-const AD_UNIT_ID = 'ca-app-pub-3940256099942544/1712485313';
+const AD_UNIT_ID = 'ca-app-pub-5769204800499735/4059850229';
 
 class UniqueIds extends SeqIdGenerator {
   override opaque(): string {
@@ -121,7 +121,7 @@ describe('03 §15.2 money flow (register → … → refund webhook)', () => {
     const intent = await intentRes.json<RewardIntentDto>();
     const ssvPath = await signedSsvPath(f.signer, {
       ad_network: '5450213213286189855',
-      ad_unit: '1712485313',
+      ad_unit: '4059850229',
       custom_data: intent.intentId,
       reward_amount: '5',
       reward_item: 'Reward',

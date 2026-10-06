@@ -605,7 +605,7 @@ void main() {
       h.adapter.reply(201, json: fixture('rewards.intent.response'));
       final intent = expectOk(
         await h.client.createRewardIntent(
-          'ca-app-pub-3940256099942544/1712485313',
+          'ca-app-pub-5769204800499735/4059850229',
           idempotencyKey: 'tap-1',
         ),
       );

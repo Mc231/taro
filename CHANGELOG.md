@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Crisis resources (owner, 2026-10-06): NL `0800-0113` removed (no longer listed on 113.nl), NL shows 113 (free, 24/7) only; every entry is verified, so `tools/content/validate --release` passes. La Strada-Ukraine and #いのちSOS confirmed. 05 §4.2 minimum set and `00_DECISIONS.md` updated.
+- `apps/taro/store/aso.yaml` `admob:` block holds the real AdMob app and unit IDs from `config/prod.json`.
+
 ## [1.0.0] - 2026-10-05
 
 ### Added

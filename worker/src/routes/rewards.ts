@@ -23,7 +23,7 @@ export const RewardIntentRequestSchema = z
       .string()
       .min(1)
       .max(128)
-      .openapi({ example: 'ca-app-pub-3940256099942544/1712485313' }),
+      .openapi({ example: 'ca-app-pub-5769204800499735/4059850229' }),
   })
   .openapi('RewardIntentRequest');
 

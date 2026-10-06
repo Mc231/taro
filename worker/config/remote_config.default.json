@@ -63,7 +63,7 @@
     "ai.moderation.provider": "openai",
     "ai.disclosedProviders": ["openai"],
     "ai.effort": "low",
-    "ai.serviceTier": "fast",
+    "ai.serviceTier": "standard",
     "ai.promptVersion": "v1",
     "ai.maxTokensBySpread": {
       "single": 2500,
@@ -156,8 +156,6 @@
     "ai.budget.dailyHardUsd": 300,
     "readings.holdTtlSec": 900,
     "rewarded.allowedAdUnitIds": [
-      "ca-app-pub-3940256099942544/1712485313",
-      "ca-app-pub-3940256099942544/5224354917",
       "ca-app-pub-5769204800499735/4059850229",
       "ca-app-pub-5769204800499735/6195807406"
     ],

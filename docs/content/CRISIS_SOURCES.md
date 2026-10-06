@@ -8,6 +8,8 @@ entry is unverified or its `verifiedAt` is older than 200 days, so re-verify by 
 Verification on 2026-10-05: each number, name, URL and hours were read from the organisation's own
 site or a government page (fetched that day). Entries confirmed that way carry
 `verifiedAt: 2026-10-05`. This was a web check only; nobody dialled the numbers (see "Owner to do").
+Owner decisions on 2026-10-06 (recorded in `00_DECISIONS.md`, "Launch config and crisis-line sources"):
+NL 0800-0113 removed, UA La Strada-Ukraine and JP #いのちSOS confirmed. `validate --release` passes.
 
 | Entry | Country | Number(s) | Official source | Verified | What was confirmed / notes |
 |---|---|---|---|---|---|
@@ -21,7 +23,7 @@ site or a government page (fetched that day). Entries confirmed that way carry
 | Línea 024 de atención a la conducta suicida | ES | 024 | https://www.sanidad.gob.es/linea024/home.htm | 2026-10-05 | Ministerio de Sanidad: free, 24 h, 365 days. **Added** the official URL. |
 | Telefono Amico Italia | IT | 02 2327 2327 | https://www.telefonoamico.it | 2026-10-05 | "tutti i giorni 24 ore su 24". **Added** `hours: 24/7`. WhatsApp 324 011 72 52 exists, but the schema has no field for it. |
 | 113 Zelfmoordpreventie | NL | 113 | https://www.113.nl/english | 2026-10-05 | "Call us, free of charge, on 113 ... 24 hours a day". 113 works only from inside the Netherlands; chat works from abroad. |
-| 113 Zelfmoordpreventie (0800) | NL | 0800-0113 | (none current) | **null** | The number no longer appears on 113.nl. Only 2020 press and third-party pages list it. It was a free fallback while 113 was a paid call, and 113 is now free. **Owner: test-call it, then either verify it or remove it.** |
+| ~~113 Zelfmoordpreventie (0800)~~ | NL | ~~0800-0113~~ | (none current) | removed | The number no longer appears on 113.nl. Only 2020 press and third-party pages list it. It was a free fallback while 113 was a paid call, and 113 is now free. **Removed (owner, 2026-10-06).** |
 | #いのちSOS | JP | 0120-061-338 | https://www.mhlw.go.jp/mamorouyokokoro/soudan/tel/ | 2026-10-05 | MHLW list: 24時間 365日, free. **Added** because いのちの電話 is not 24 h. |
 | いのちの電話 | JP | 0570-783-556 | https://www.inochinodenwa.org ; MHLW page above | 2026-10-05 | Navi-dial 10:00–22:00 every day (paid call). The free 0120-783-556 runs only 16:00–21:00 plus the 10th of each month. **Fixed** the hours (they were missing). |
 | 자살예방상담전화 109 | KR | 109 | https://www.kfsp.or.kr (MOHW banner "보건복지부 자살예방 상담 전화 109") | 2026-10-05 | 24 h, 365 days, free. It replaced 1393, 1577-0199 and 1388 in 2024. The 24 h and free claims come from MOHW statements in Korean press. The site banner confirms the number. |
@@ -45,7 +47,7 @@ site or a government page (fetched that day). Entries confirmed that way carry
 | it | IT | Telefono Amico |
 | ja | JP | #いのちSOS, いのちの電話 |
 | ko | KR | 109 |
-| nl | NL | 113 (+ 0800-0113 once verified) |
+| nl | NL | 113 |
 | pt | BR | CVV 188 |
 | tr | TR | 112 |
 | uk | UA | La Strada 116 123 / 0 800 500 335 |
@@ -67,9 +69,7 @@ None of these was verified for this change. Verify each one from its official so
 
 ## Owner to do (Phase 18 Sprint 18.4)
 
-1. Dial-test, or decide on, NL 0800-0113. It is the only `verifiedAt: null` entry, so `validate --release` fails until it is resolved.
-2. Confirm the UA replacement (La Strada instead of Lifeline Ukraine) and the JP addition (#いのちSOS).
-   Then update the 05 §4.2 minimum set (it still names "UA Lifeline Ukraine 7333" and lists NL "113 / 0800-0113").
-   Record this source list in `00_DECISIONS.md`, as 05 §4.2 requires.
+1. ~~Dial-test, or decide on, NL 0800-0113.~~ Removed 2026-10-06; 113 stays (free, 24/7).
+2. ~~Confirm the UA replacement and the JP addition.~~ Confirmed 2026-10-06; 05 §4.2 and `00_DECISIONS.md` updated.
 3. Optional: dial-test the 2026-10-05 entries that were verified only from the web, mainly KR 109 from abroad and TR 112.
 4. Re-verify before 2027-04-23 (200 days).

@@ -37,9 +37,9 @@ import {
  */
 
 const KEY_ID = 3335741209;
-const AD_UNIT_ID = 'ca-app-pub-3940256099942544/1712485313';
+const AD_UNIT_ID = 'ca-app-pub-5769204800499735/4059850229';
 /** The numeric part AdMob sends as SSV `ad_unit`. */
-const SSV_AD_UNIT = '1712485313';
+const SSV_AD_UNIT = '4059850229';
 
 /** Opaque intent IDs unique across the harnesses of this file (shared D1). */
 class UniqueIds extends SeqIdGenerator {

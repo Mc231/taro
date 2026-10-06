@@ -737,7 +737,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 128,
-            "example": "ca-app-pub-3940256099942544/1712485313"
+            "example": "ca-app-pub-5769204800499735/4059850229"
           }
         },
         "required": [

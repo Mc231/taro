@@ -433,7 +433,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `ai.moderation.provider` | string (`none` \| `openai`) | `"openai"` (RC97) | Worker |
 | `ai.disclosedProviders` | list\<string\> | `["openai"]` (RC97 amendment 2026-10-01); routing (tiers, outage fallback, moderation) outside it is rejected by `config-push` (RC97) | Worker (`config-push`) |
 | `ai.effort` | string | `"low"` (hint; each `AiProvider` adapter maps or ignores it, RC97) | Worker |
-| `ai.serviceTier` | string (`standard` \| `fast`) | `"fast"` (hint; the OpenAI adapter sends `service_tier: "fast"`, priced 2x; others ignore it; 03 §8.2) | Worker |
+| `ai.serviceTier` | string (`standard` \| `fast`) | `"standard"` (launch default, 2026-10-06; hint; the OpenAI adapter sends `service_tier: "fast"`, priced 2x; others ignore it; 03 §8.2) | Worker |
 | `ai.promptVersion` | string | `"v1"` | Worker |
 | `ai.maxTokensBySpread` | map\<spreadId,int\> | see §2 | Worker |
 | `ai.blockedCountries` | list\<string\> (ISO 3166-1 alpha-2) | `CN, RU, SA, AE, QA, KW, BH, OM` + union of the countries where any routable AI provider is not offered (Anthropic, OpenAI; snapshots dated in 00_DECISIONS.md, RC97) | Worker (→ `403 AI_UNAVAILABLE_REGION`) |
@@ -446,7 +446,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `ai.budget.freeStopFloorUsd` | number | `100` | Worker |
 | `ai.budget.dailyHardUsd` | number | `300` | Worker |
 | `readings.holdTtlSec` | int | `900` | Worker |
-| `rewarded.allowedAdUnitIds` | list\<string\> | prod rewarded unit IDs (non-empty) | Worker |
+| `rewarded.allowedAdUnitIds` | list\<string\> | prod rewarded unit IDs only: `ca-app-pub-5769204800499735/4059850229`, `ca-app-pub-5769204800499735/6195807406` (non-empty) | Worker |
 | `attest.allowedAppIds` | list\<string\> | prod `["{TEAM}.com.vshyrochuk.taro", "com.vshyrochuk.taro"]`; staging adds `.stg` (RC78) | Worker |
 | `attest.requiredOnReadings` | bool | `true` | Worker |
 | `purchases.allowedBundleIds` | list\<string\> | prod `["com.vshyrochuk.taro"]`; staging adds `.stg` | Worker |

@@ -41,7 +41,8 @@ void main() {
       expect(us, hasLength(2));
 
       final nl = expectOk(await crisis.select(country: 'NL'));
-      expect(nl, hasLength(3));
+      expect(nl, hasLength(2)); // 113 only (0800-0113 removed 2026-10-06)
+      expect(nl.first.phone, '113');
       expect(nl.last.url, contains('findahelpline'));
 
       final byLocale = expectOk(

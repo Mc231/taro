@@ -17,7 +17,7 @@ import { db, seedInstall } from '../../helpers/db';
  * compare-and-set, exactly as a concurrent request would change it.
  */
 
-const AD_UNIT_ID = 'ca-app-pub-3940256099942544/1712485313';
+const AD_UNIT_ID = 'ca-app-pub-5769204800499735/4059850229';
 const TODAY = '2026-09-26';
 
 class UniqueIds extends SeqIdGenerator {
@@ -80,7 +80,7 @@ async function issue(ctx: Ctx, installId: string): Promise<RewardIntentDto> {
 
 async function ssvQuery(ctx: Ctx, intentId: string, txn: string): Promise<string> {
   const path = await signedSsvPath(ctx.signer, {
-    ad_unit: '1712485313',
+    ad_unit: '4059850229',
     custom_data: intentId,
     transaction_id: txn,
     user_id: intentId,

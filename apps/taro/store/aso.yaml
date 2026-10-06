@@ -236,13 +236,13 @@ app_store:
       tr: {display_name: 30 okuma, description: 30 yapay zekâ tarot okuması ekler.}
       uk: {display_name: 30 тлумачень, description: Додає 30 тлумачень таро від ШІ.}
 
-admob:                                    # OWNER (M1): filled after manual AdMob setup (05 §8.3)
-  ios_app_id: ca-app-pub-XXXX~YYYY
-  ios_banner_id: ca-app-pub-XXXX/1
-  ios_rewarded_id: ca-app-pub-XXXX/2
-  android_app_id: ca-app-pub-XXXX~ZZZZ
-  android_banner_id: ca-app-pub-XXXX/3
-  android_rewarded_id: ca-app-pub-XXXX/4
+admob:                                    # from apps/taro/config/prod.json (05 §8.3; publisher pub-5769204800499735)
+  ios_app_id: ca-app-pub-5769204800499735~4008802776
+  ios_banner_id: ca-app-pub-5769204800499735/3457129271
+  ios_rewarded_id: ca-app-pub-5769204800499735/4059850229
+  android_app_id: ca-app-pub-5769204800499735~4087770387
+  android_banner_id: ca-app-pub-5769204800499735/4730768217
+  android_rewarded_id: ca-app-pub-5769204800499735/6195807406
   ssv_callback_url: https://api.taro.vshyrochuk.com/v1/ads/admob/ssv   # doc only; GET /v1/ads/admob/ssv (RC4, RC56)
 
 firebase:                                 # RC36: taro-app-dev (dev + staging), taro-app-prod (prod)

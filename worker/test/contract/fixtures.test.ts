@@ -663,7 +663,7 @@ describe('contract fixtures: rewards (03 §7.1, §7.3)', () => {
     const attested = (extra: Record<string, string> = {}) =>
       authed(token, { [ATTESTATION_HEADER]: 'aa1.YXNzZXJ0aW9u', ...extra });
     const request = parsed(RewardIntentRequestSchema, {
-      adUnitId: 'ca-app-pub-3940256099942544/1712485313',
+      adUnitId: 'ca-app-pub-5769204800499735/4059850229',
     });
     const create = (key: string, extra: Record<string, string> = {}) =>
       app.request('/v1/rewards/intents', {
@@ -690,7 +690,7 @@ describe('contract fixtures: rewards (03 §7.1, §7.3)', () => {
     const ssv = await app.request(
       await signedSsvPath(signer, {
         ad_network: '5450213213286189855',
-        ad_unit: '1712485313',
+        ad_unit: '4059850229',
         custom_data: intent.intentId,
         reward_amount: '1',
         reward_item: 'Reading',

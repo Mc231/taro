@@ -126,7 +126,7 @@ final Map<String, (String, Map<String, dynamic> Function())> _requests = {
   'rewards.intent.request': (
     'RewardIntentRequest',
     () => const RewardIntentRequestDto(
-      adUnitId: 'ca-app-pub-3940256099942544/1712485313',
+      adUnitId: 'ca-app-pub-5769204800499735/4059850229',
     ).toJson(),
   ),
   'timezone.request': (
