@@ -102,6 +102,32 @@ Personal data we hold (03 §13): install ID and hashes, balances and ledger, pur
 4. **Notify:** if personal data of EU/UK users may be exposed, the owner (controller) notifies the competent supervisory authority **within 72 h** of becoming aware (GDPR Art. 33), unless the breach is unlikely to result in a risk; if the risk is high, users are informed without undue delay (Art. 34), via the app (a notice on Home) and the support page. Processors (Cloudflare, OpenAI, Google) are informed if their systems are involved.
 5. Record the decision and reasoning even when no notification is needed.
 
+## Alerts (Telegram)
+
+The Worker posts alerts (`AlertKind`, 03 §14.1; each kind at most once per hour) to the Worker secret **`ALERT_WEBHOOK_URL`**, set per environment (`staging`, `prod`). The owner's channel is the Telegram bot **@taro_alerts_vsh_bot**; the secret holds its Bot API URL:
+
+```
+https://api.telegram.org/bot<TOKEN>/sendMessage?chat_id=<CHAT_ID>
+```
+
+For such a URL `WebhookAlerter` posts `{chat_id, text, disable_web_page_preview: true}` to `…/bot<TOKEN>/sendMessage`, with text `🔔 taro-api (<env>) — <kind>`, the message and one `key: value` line per redacted field (cut at 4096 characters). Any other URL gets the Slack-style `{text, fields}`. The URL contains the bot token: it is never logged, and failures log only the kind and the HTTP status or error name. Find `CHAT_ID` by messaging the bot and reading `https://api.telegram.org/bot<TOKEN>/getUpdates` (`message.chat.id`; a group or channel ID starts with `-100`).
+
+**Send a test alert** (no deploy; the URL comes from the shell, not from wrangler secrets, and is never printed):
+
+```bash
+cd worker
+read -rs ALERT_WEBHOOK_URL && export ALERT_WEBHOOK_URL   # paste the URL; not stored in shell history
+npm run alert:test -- --env staging   # "ok   test alert (staging) sent via telegram"; exit 1 on a failed delivery
+unset ALERT_WEBHOOK_URL
+```
+
+**Rotate the bot token** (leaked token, or yearly):
+
+1. In Telegram, @BotFather → `/revoke` → pick @taro_alerts_vsh_bot. The old token stops working at once (alerts are only logged until step 3).
+2. Build the new URL with the new token and the same `chat_id`; check it with `npm run alert:test` as above.
+3. `npx wrangler secret put ALERT_WEBHOOK_URL --env staging`, then `--env prod` (paste on stdin, never as an argument). Each `secret put` deploys a new Worker version.
+4. Update the encrypted bundle if it holds the URL (`tools/secrets-manager.sh`, `.secrets/README.md`). General rotation rules: `SECRET_ROTATION.md`.
+
 ## Staging kill-switch drill
 
 Before launch (Phase 19.3) and after any change to the gate or the S31 screen:

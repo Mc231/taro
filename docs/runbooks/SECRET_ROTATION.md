@@ -45,7 +45,7 @@ npm run gen-keys -- --env prod --rotate "$RUNNER_TEMP/current.json"   # keyrings
 | `TRANSFER_TOKEN_KEY` | ≥ 16 chars | `gen-keys --only TRANSFER_TOKEN_KEY`; open support transfer tokens become invalid (support re-issues them, 03 §6.6). | none |
 | `REPORT_ENC_KEY` | keyring (Phase 8) | Added in Phase 8 with its keyring format; reports are kept 90 days. | 90 days |
 | `DEBUG_ATTESTATION_TOKEN` | ≥ 16 chars, **dev/staging only** | `gen-keys --env staging --only DEBUG_ATTESTATION_TOKEN`, `secret put --env staging`, update `worker.staging_debug_attestation_token` in the bundle (used by the staging smoke test). Never set it on prod (`check_worker_env.py`, RC86). | none |
-| `ALERT_WEBHOOK_URL` | URL | Create a new incoming webhook, `secret put`, send a test alert, delete the old webhook. | none |
+| `ALERT_WEBHOOK_URL` | URL (Telegram `https://api.telegram.org/bot<TOKEN>/sendMessage?chat_id=<ID>`, or a webhook) | Telegram: @BotFather `/revoke`, new URL, `npm run alert:test`, `secret put` (`INCIDENT.md` "Alerts"). Webhook: create a new one, `secret put`, send a test alert, delete the old one. | none |
 | `ANTHROPIC_API_KEY` | vendor, optional (RC97) | See "Anthropic API key". | minutes |
 | `OPENAI_API_KEY` | vendor, optional (RC97) | See "OpenAI API key". | minutes |
 | `APPLE_DEVICECHECK_KEY_ID` / `_PRIVATE_KEY`, `APPLE_ASC_*`, `GOOGLE_*` | vendor | Phase 10 (sections below). | — |

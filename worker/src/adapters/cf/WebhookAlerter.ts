@@ -1,7 +1,7 @@
 import { redactFields } from '../../logging/redact';
 import type { Alert, Alerter } from '../../ports/Alerter';
 import type { Clock } from '../../ports/Clock';
-import type { Logger } from '../../ports/Logger';
+import type { LogFields, Logger } from '../../ports/Logger';
 
 export type FetchFn = (input: string, init: RequestInit) => Promise<Response>;
 
@@ -13,6 +13,68 @@ export function alertDedupeKey(bucket: string): string {
   return `alert:last:${bucket}`;
 }
 
+/** Telegram's `sendMessage` text limit (characters). */
+export const TELEGRAM_MAX_TEXT = 4096;
+
+/** Where a Telegram alert goes: the token stays inside `endpoint` only. */
+export interface TelegramTarget {
+  /** `https://api.telegram.org/bot<TOKEN>/sendMessage` (secret; never logged). */
+  readonly endpoint: string;
+  readonly chatId: string;
+}
+
+/**
+ * Recognises a Telegram Bot API URL
+ * `https://api.telegram.org/bot<TOKEN>/sendMessage?chat_id=<ID>`; anything
+ * else (a Slack-style webhook) returns `undefined`.
+ */
+export function parseTelegramUrl(url: string): TelegramTarget | undefined {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return undefined;
+  }
+  const chatId = parsed.searchParams.get('chat_id') ?? '';
+  if (
+    parsed.protocol !== 'https:' ||
+    parsed.hostname !== 'api.telegram.org' ||
+    !/^\/bot[^/]+\/sendMessage$/.test(parsed.pathname) ||
+    chatId === ''
+  ) {
+    return undefined;
+  }
+  return { endpoint: `${parsed.origin}${parsed.pathname}`, chatId };
+}
+
+/** Cuts `text` to at most `max` UTF-16 units with a trailing ellipsis, never splitting a surrogate pair. */
+export function truncateText(text: string, max: number): string {
+  if (text.length <= max) {
+    return text;
+  }
+  let cut = text.slice(0, max - 1);
+  if (/[\uD800-\uDBFF]$/.test(cut)) {
+    cut = cut.slice(0, -1);
+  }
+  return `${cut}…`;
+}
+
+/** The Telegram message: header with service, environment and kind, the message, then one line per (already redacted) field. */
+export function formatTelegramText(
+  alert: Alert,
+  fields: LogFields | undefined,
+  environment: string | undefined,
+): string {
+  const env = environment === undefined || environment === '' ? '' : ` (${environment})`;
+  const lines = [`🔔 taro-api${env} — ${alert.kind}`, alert.message];
+  for (const [key, value] of Object.entries(fields ?? {})) {
+    if (value !== undefined) {
+      lines.push(`${key}: ${String(value)}`);
+    }
+  }
+  return truncateText(lines.join('\n'), TELEGRAM_MAX_TEXT);
+}
+
 /** Hourly per-kind dedupe state (`CACHE_KV`, 03 §14.1). */
 export interface AlertDedupe {
   readonly cache: KVNamespace;
@@ -22,6 +84,12 @@ export interface AlertDedupe {
 /**
  * Posts alerts to `ALERT_WEBHOOK_URL` (03 §14.1). Without a URL (dev) the
  * alert is only logged. Never throws.
+ *
+ * A Telegram Bot API URL (`parseTelegramUrl`) gets
+ * `{chat_id, text, disable_web_page_preview: true}` posted to its
+ * `sendMessage` endpoint, with `environment` in the text; any other URL gets
+ * the Slack-style `{text, fields}`. The URL carries the bot token, so it is
+ * never logged: failures log only the kind and the HTTP status or error name.
  *
  * With `dedupe`, each bucket (`alert.dedupeKey ?? alert.kind`) is sent at
  * most once per hour: the last-sent instant lives in `CACHE_KV` under
@@ -36,6 +104,7 @@ export class WebhookAlerter implements Alerter {
     private readonly url: string | undefined,
     private readonly logger: Logger,
     private readonly dedupe?: AlertDedupe,
+    private readonly environment?: string,
   ) {}
 
   async send(alert: Alert): Promise<void> {
@@ -50,10 +119,22 @@ export class WebhookAlerter implements Alerter {
       return;
     }
     try {
-      const res = await this.fetchFn(this.url, {
+      const telegram = parseTelegramUrl(this.url);
+      const [target, body] =
+        telegram === undefined
+          ? [this.url, { text: `[taro-api] ${alert.kind}: ${alert.message}`, fields }]
+          : [
+              telegram.endpoint,
+              {
+                chat_id: telegram.chatId,
+                text: formatTelegramText(alert, fields, this.environment),
+                disable_web_page_preview: true,
+              },
+            ];
+      const res = await this.fetchFn(target, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ text: `[taro-api] ${alert.kind}: ${alert.message}`, fields }),
+        body: JSON.stringify(body),
       });
       if (!res.ok) {
         this.logger.log('error', 'alert_failed', { kind: alert.kind, status: res.status });

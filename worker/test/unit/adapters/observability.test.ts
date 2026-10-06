@@ -6,6 +6,10 @@ import { SystemClock } from '../../../src/adapters/cf/SystemClock';
 import {
   ALERT_DEDUPE_SEC,
   alertDedupeKey,
+  formatTelegramText,
+  parseTelegramUrl,
+  TELEGRAM_MAX_TEXT,
+  truncateText,
   WebhookAlerter,
   type FetchFn,
 } from '../../../src/adapters/cf/WebhookAlerter';
@@ -208,6 +212,130 @@ describe('WebhookAlerter', () => {
       { kind: 'budget_tier', error: 'TypeError' },
       { kind: 'budget_tier', error: 'unknown' },
     ]);
+  });
+});
+
+describe('WebhookAlerter Telegram delivery', () => {
+  const TOKEN = '123456:AAFakeBotToken_xyz';
+  const TELEGRAM_URL = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=-1001234567890`;
+
+  function recordingFetch(response: Response | Error) {
+    const calls: { url: string; init: RequestInit }[] = [];
+    const fetchFn: FetchFn = (url, init) => {
+      calls.push({ url, init });
+      return response instanceof Error ? Promise.reject(response) : Promise.resolve(response);
+    };
+    return { calls, fetchFn };
+  }
+
+  it('detects only Telegram sendMessage URLs with a chat_id', () => {
+    expect(parseTelegramUrl(TELEGRAM_URL)).toEqual({
+      endpoint: `https://api.telegram.org/bot${TOKEN}/sendMessage`,
+      chatId: '-1001234567890',
+    });
+    expect(parseTelegramUrl('https://api.telegram.org/botX/sendMessage?chat_id=@chan&x=1')).toEqual(
+      { endpoint: 'https://api.telegram.org/botX/sendMessage', chatId: '@chan' },
+    );
+    for (const url of [
+      'https://hooks.slack.com/services/T/B/x',
+      'https://api.telegram.org/botX/sendMessage',
+      'https://api.telegram.org/botX/sendMessage?chat_id=',
+      'http://api.telegram.org/botX/sendMessage?chat_id=1',
+      'https://api.telegram.org.evil.example/botX/sendMessage?chat_id=1',
+      'https://api.telegram.org/botX/sendPhoto?chat_id=1',
+      'https://api.telegram.org/bot/sendMessage?chat_id=1',
+      'not a url',
+    ]) {
+      expect(parseTelegramUrl(url), url).toBeUndefined();
+    }
+  });
+
+  it('posts {chat_id, text, disable_web_page_preview} to sendMessage, token only in the URL', async () => {
+    const logger = new CapturingLogger();
+    const { calls, fetchFn } = recordingFetch(new Response('{"ok":true}'));
+    await new WebhookAlerter(fetchFn, TELEGRAM_URL, logger, undefined, 'staging').send({
+      kind: 'low_trust_bucket',
+      message: '400/500',
+      fields: { platform: 'ios', installSecret: 'never', count: 3, gone: undefined },
+    });
+
+    expect(calls).toHaveLength(1);
+    expect(calls[0]?.url).toBe(`https://api.telegram.org/bot${TOKEN}/sendMessage`);
+    expect(calls[0]?.init.headers).toEqual({ 'content-type': 'application/json' });
+    const body = calls[0]?.init.body as string;
+    expect(JSON.parse(body)).toEqual({
+      chat_id: '-1001234567890',
+      text: `🔔 taro-api (staging) — low_trust_bucket\n400/500\nplatform: ios\ninstallSecret: ${REDACTED}\ncount: 3`,
+      disable_web_page_preview: true,
+    });
+    expect(body).not.toContain(TOKEN);
+    expect(logger.lines().join('\n')).not.toContain(TOKEN);
+  });
+
+  it('formats without an environment and truncates to the Telegram limit', () => {
+    expect(formatTelegramText({ kind: 'error_rate', message: 'x' }, undefined, undefined)).toBe(
+      '🔔 taro-api — error_rate\nx',
+    );
+    expect(formatTelegramText({ kind: 'error_rate', message: 'x' }, {}, '')).toBe(
+      '🔔 taro-api — error_rate\nx',
+    );
+    const long = formatTelegramText(
+      { kind: 'error_rate', message: 'm'.repeat(10_000) },
+      {},
+      'prod',
+    );
+    expect(long).toHaveLength(TELEGRAM_MAX_TEXT);
+    expect(long.endsWith('m…')).toBe(true);
+    expect(long.startsWith('🔔 taro-api (prod) — error_rate\nmmm')).toBe(true);
+  });
+
+  it('truncates without splitting a surrogate pair', () => {
+    expect(truncateText('abc', 3)).toBe('abc');
+    expect(truncateText('abcd', 3)).toBe('ab…');
+    // 'a🔔' is 3 UTF-16 units; cutting at 2 would leave a lone high surrogate.
+    expect(truncateText('a🔔🔔', 3)).toBe('a…');
+  });
+
+  it('logs failures without the URL or token', async () => {
+    const logger = new CapturingLogger();
+    await new WebhookAlerter(
+      recordingFetch(new Response('{"ok":false}', { status: 401 })).fetchFn,
+      TELEGRAM_URL,
+      logger,
+      undefined,
+      'prod',
+    ).send({ kind: 'budget_tier', message: 'x' });
+    await new WebhookAlerter(
+      recordingFetch(new TypeError(`fetch failed: ${TELEGRAM_URL}`)).fetchFn,
+      TELEGRAM_URL,
+      logger,
+      undefined,
+      'prod',
+    ).send({ kind: 'budget_tier', message: 'x' });
+
+    expect(logger.find('alert_failed').map((e) => e.fields)).toEqual([
+      { kind: 'budget_tier', status: 401 },
+      { kind: 'budget_tier', error: 'TypeError' },
+    ]);
+    const lines = logger.lines().join('\n');
+    expect(lines).not.toContain(TOKEN);
+    expect(lines).not.toContain('api.telegram.org');
+  });
+
+  it('keeps the Slack-style body for other URLs even with an environment', async () => {
+    const { calls, fetchFn } = recordingFetch(new Response('ok'));
+    await new WebhookAlerter(
+      fetchFn,
+      'https://hooks.example/abc',
+      new CapturingLogger(),
+      undefined,
+      'prod',
+    ).send({ kind: 'error_rate', message: '5 %', fields: { window: 15 } });
+    expect(calls[0]?.url).toBe('https://hooks.example/abc');
+    expect(JSON.parse(calls[0]?.init.body as string)).toEqual({
+      text: '[taro-api] error_rate: 5 %',
+      fields: { window: 15 },
+    });
   });
 });
 

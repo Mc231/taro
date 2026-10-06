@@ -25,6 +25,7 @@
     "openapi:check": "node scripts/run.mjs export-openapi --check",
     "contract:update": "vitest run test/contract --update",
     "smoke": "node scripts/run.mjs smoke",
+    "alert:test": "node scripts/run.mjs alert-test",
     "gen-keys": "node scripts/run.mjs gen-keys",
     "credits-transfer": "node scripts/run.mjs credits-transfer",
     "ledger-adjust": "node scripts/run.mjs ledger-adjust",

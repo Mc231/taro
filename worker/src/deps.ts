@@ -176,10 +176,13 @@ export function makeProdDeps(env: Env): Deps {
     config: new ConfigService(env.CONFIG_KV, clock, logger, isolateConfigCache),
     metrics: new AnalyticsEngineMetrics(env.METRICS, metricsSqlAccess(env, logger)),
     logger,
-    alerter: new WebhookAlerter(fetch.bind(globalThis), env.ALERT_WEBHOOK_URL, logger, {
-      cache: env.CACHE_KV,
-      clock,
-    }),
+    alerter: new WebhookAlerter(
+      fetch.bind(globalThis),
+      env.ALERT_WEBHOOK_URL,
+      logger,
+      { cache: env.CACHE_KV, clock },
+      environment,
+    ),
     db: env.DB,
     rlKv: env.RL_KV,
     cacheKv: env.CACHE_KV,

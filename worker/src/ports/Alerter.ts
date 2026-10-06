@@ -15,7 +15,9 @@ export type AlertKind =
   /** Grant to a blocked or indebted install; support may refund via the store (03 §6.5). */
   | 'blocked_purchase'
   /** A tier routed to a provider without a key (03 §9.3, RC97). */
-  | 'ai_provider_unavailable';
+  | 'ai_provider_unavailable'
+  /** Owner-sent test message (`npm run alert:test`, `scripts/alert-test.ts`). */
+  | 'alert_test';
 
 export interface Alert {
   readonly kind: AlertKind;
