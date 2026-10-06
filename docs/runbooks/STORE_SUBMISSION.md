@@ -120,3 +120,8 @@ The form's text is Google's template, so the app can't change it. RC59 is the ba
 ### 2026-10-05 — Store assets pushed (Phase 20.3, owner-authorized)
 - `asa ios update-review-info --platform ios` from a temp copy of aso.yaml with the phone filled (temp deleted): review contact + 3,527-char notes set on version 1.0.
 - `tools/screenshots/upload_store_assets.sh`: 421 uploads, 0 errors. Read-back: App Store Connect — 12 locales × APP_IPHONE_67=7 + APP_IPAD_PRO_129=7; Google Play — 12 listings × phone 7 / 7-inch 7 / 10-inch 7; feature graphic on en-US (default language; other locales fall back to it).
+
+### 2026-10-06 — Play pricing and icon; owner forms (owner-requested)
+- Owner completed the App Store Connect forms (App Privacy, content rights, EU trader, version page, IAP review screenshots, agreements) and AdMob step 10 (rewarded SSV → prod `https://api.taro.vshyrochuk.com/v1/ads/admob/ssv`). AdMob consent-message languages skipped for now.
+- `asa android fix-iap-prices`: 4 products, regional prices in 174 regions (USD base, auto-converted), all activated.
+- Play hi-res icon 512×512 (from `docs/design/assets/icon/app-icon-1024.png`) uploaded to the en-US listing (edit 08899185162443506699).
