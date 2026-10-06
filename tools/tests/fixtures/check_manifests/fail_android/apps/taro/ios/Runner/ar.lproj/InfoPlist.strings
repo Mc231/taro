@@ -1,2 +1,4 @@
 /* Localized Info.plist strings (ar). Source: app_en.arb nsUserTrackingUsageDescription (05 §1 5.1.2). */
 "NSUserTrackingUsageDescription" = "السماح بالتتبع يتيح لك رؤية إعلانات أقرب إلى اهتماماتك. يبقى التطبيق نفسه في الحالتين.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

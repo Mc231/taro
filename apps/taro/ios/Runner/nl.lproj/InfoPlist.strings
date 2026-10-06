@@ -1,2 +1,4 @@
 /* Source: apps/taro/lib/l10n/arb/app_nl.arb "nsUserTrackingUsageDescription" (05 §2, CS14). */
 "NSUserTrackingUsageDescription" = "Sta tracking toe om relevantere advertenties te zien. Je krijgt hoe dan ook dezelfde app.";
+"NSPhotoLibraryUsageDescription" = "Taro gebruikt dit alleen als je een back-upbestand kiest om te importeren. Taro leest je foto’s niet.";
+"NSFaceIDUsageDescription" = "Taro gebruikt Face ID niet. Dit is vereist door een beveiligingsonderdeel dat de gegevens op je apparaat beschermt.";

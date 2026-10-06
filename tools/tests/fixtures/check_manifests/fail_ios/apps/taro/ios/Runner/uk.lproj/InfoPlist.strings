@@ -1,2 +1,4 @@
 /* Localized Info.plist keys (uk). Source text: ARB key nsUserTrackingUsageDescription. */
 "NSUserTrackingUsageDescription" = "Дозвольте відстеження, щоб бачити доречнішу рекламу. Застосунок буде однаковим за будь-якого вибору.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

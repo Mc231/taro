@@ -1,2 +1,4 @@
 /* Localized Info.plist strings (it). Source: nsUserTrackingUsageDescription in app_it.arb. */
 "NSUserTrackingUsageDescription" = "Consenti il tracciamento per vedere annunci più pertinenti. L’app resta la stessa in ogni caso.";
+"NSPhotoLibraryUsageDescription" = "Taro lo usa solo se scegli un file di backup da importare. Taro non legge le tue foto.";
+"NSFaceIDUsageDescription" = "Taro non usa Face ID. È richiesto da un componente di sicurezza che protegge i dati salvati sul tuo dispositivo.";

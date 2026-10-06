@@ -68,6 +68,9 @@ def test_ios_failures(tmp_path: Path) -> None:
         "PrivacyInfo.xcprivacy is not a Runner resource",
         "[url-schemes] LSApplicationQueriesSchemes does not list https",
         "[url-schemes] LSApplicationQueriesSchemes does not list mailto",
+        "[purpose-string] NSPhotoLibraryUsageDescription is missing or empty (ITMS-90683)",
+        "[purpose-string] NSFaceIDUsageDescription is missing or empty (ITMS-90683)",
+        "fr.lproj/InfoPlist.strings: [purpose-string] no NSFaceIDUsageDescription entry (ITMS-90683)",
     ):
         assert expected in text
     assert c.main(["--root", str(root)]) == 1
@@ -133,6 +136,31 @@ def test_manifest_shapes(tmp_path: Path) -> None:
     with pytest.raises(c.InputError):
         c.load_plist(plist, "bad.plist")
     assert c.strings_value('"NSUserTrackingUsageDescription" = "a \\"b\\"";') == 'a "b"'
+
+
+def test_privacy_tracking_domains() -> None:
+    def rules(data: dict[str, object]) -> list[str]:
+        return [f.message for f in c.check_privacy_manifest(data) if f.rule == "privacy-domains"]
+
+    base = {"NSPrivacyCollectedDataTypes": [], "NSPrivacyAccessedAPITypes": []}
+    # Build 11 (ITMS-91064): tracking true with an empty domains array.
+    assert rules({**base, "NSPrivacyTracking": True, c.DOMAINS_KEY: []}) == [
+        "NSPrivacyTrackingDomains is an empty array; omit it (ITMS-91064)"
+    ]
+    assert rules({**base, "NSPrivacyTracking": False, c.DOMAINS_KEY: ["ads.example"]}) == [
+        "NSPrivacyTrackingDomains is not empty, so NSPrivacyTracking must be true (ITMS-91064)"
+    ]
+    assert rules({**base, "NSPrivacyTracking": True, c.DOMAINS_KEY: ["ads.example"]}) == []
+    assert rules({**base, "NSPrivacyTracking": True}) == []
+
+
+def test_purpose_strings_in_strings_files(tmp_path: Path) -> None:
+    root = _root(tmp_path, "pass")
+    strings = root / c.STRINGS.format(locale="uk")
+    strings.write_text(strings.read_text(encoding="utf-8").replace("NSPhotoLibraryUsageDescription", "X"))
+    assert [f.render() for f in c.check_tracking_strings(root)] == [
+        f"{c.STRINGS.format(locale='uk')}: [purpose-string] no NSPhotoLibraryUsageDescription entry (ITMS-90683)"
+    ]
 
 
 def test_missing_inputs(tmp_path: Path) -> None:

@@ -1,2 +1,4 @@
 /* Source: app_ja.arb nsUserTrackingUsageDescription (05 §1 5.1.2, CS14). reviewStatus: machine */
 "NSUserTrackingUsageDescription" = "トラッキングを許可すると、より関心に合った広告が表示されます。どちらを選んでもアプリの機能は変わりません。";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

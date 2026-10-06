@@ -1,2 +1,4 @@
 /* Localized Info.plist keys (tr). Source text: ARB key nsUserTrackingUsageDescription. */
 "NSUserTrackingUsageDescription" = "Daha ilgili reklamlar görmek için izlemeye izin ver. Her iki durumda da uygulama aynı kalır.";
+"NSPhotoLibraryUsageDescription" = "Taro bunu yalnızca içe aktarmak için bir yedek dosyası seçtiğinde kullanır. Taro fotoğraflarını okumaz.";
+"NSFaceIDUsageDescription" = "Taro Face ID kullanmaz. Bu izin, cihazında saklanan verileri koruyan bir güvenlik bileşeni için gereklidir.";

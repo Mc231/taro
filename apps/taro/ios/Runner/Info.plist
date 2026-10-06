@@ -60,6 +60,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Taro doesn't use Face ID; this is required by a security component that protects data stored on your device.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Taro only uses this if you choose a backup file to import. Taro does not read your photos.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>Allow tracking to see more relevant ads. You'll still get the same app either way.</string>
 	<key>SKAdNetworkItems</key>

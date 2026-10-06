@@ -10,9 +10,15 @@ else the source ``ios/Runner/Info.plist`` it is copied from):
   (``https``, ``tel``, ``sms``, ``mailto``) so links open from release builds;
 - ``NSUserTrackingUsageDescription`` is set, and every locale has an
   ``InfoPlist.strings`` whose value equals the ARB ``nsUserTrackingUsageDescription``;
+- ``NSPhotoLibraryUsageDescription`` and ``NSFaceIDUsageDescription`` are set in
+  ``Info.plist`` and every locale's ``InfoPlist.strings`` (ITMS-90683: the
+  linked file picker references PhotoKit, secure storage references
+  LocalAuthentication);
 - ``PrivacyInfo.xcprivacy`` declares tracking, the collected data types of
   05 §5.1 (no more, no fewer), a reason for every required-reason API, and is
-  a resource of the Runner target.
+  a resource of the Runner target; ``NSPrivacyTrackingDomains`` is absent
+  rather than an empty array, and non-empty only with ``NSPrivacyTracking``
+  true (ITMS-91064).
 
 Android, over the merged release ``AndroidManifest.xml`` (built by
 ``./gradlew :app:processProdReleaseMainManifest`` in ``apps/taro/android``;
@@ -76,6 +82,9 @@ QUERIES_KEY = "LSApplicationQueriesSchemes"
 # The schemes UrlLauncher opens (taro_core `UrlLauncher.allowedSchemes`).
 URL_SCHEMES = ("https", "tel", "sms", "mailto")
 ARB_TRACKING_KEY = "nsUserTrackingUsageDescription"
+# Purpose strings App Store Connect requires for APIs that linked plugins reference (ITMS-90683).
+PURPOSE_KEYS = ("NSPhotoLibraryUsageDescription", "NSFaceIDUsageDescription")
+DOMAINS_KEY = "NSPrivacyTrackingDomains"
 
 # 05 §5.1, as NSPrivacyCollectedDataType suffix → (linked, tracking, purpose suffixes).
 COLLECTED: dict[str, tuple[bool, bool, frozenset[str]]] = {
@@ -146,6 +155,10 @@ def check_info_plist(data: dict[str, Any], label: str) -> list[Finding]:
     value = data.get(TRACKING_KEY)
     if not isinstance(value, str) or not value.strip():
         findings.append(Finding(label, 0, "att-string", f"{TRACKING_KEY} is missing or empty"))
+    for key in PURPOSE_KEYS:
+        purpose = data.get(key)
+        if not isinstance(purpose, str) or not purpose.strip():
+            findings.append(Finding(label, 0, "purpose-string", f"{key} is missing or empty (ITMS-90683)"))
     schemes = data.get(QUERIES_KEY)
     listed = set(schemes) if isinstance(schemes, list) else set()
     for scheme in URL_SCHEMES:
@@ -154,11 +167,8 @@ def check_info_plist(data: dict[str, Any], label: str) -> list[Finding]:
     return findings
 
 
-_STRINGS_ENTRY = re.compile(r'"' + TRACKING_KEY + r'"\s*=\s*"((?:[^"\\]|\\.)*)"\s*;')
-
-
-def strings_value(text: str) -> str | None:
-    match = _STRINGS_ENTRY.search(text)
+def strings_value(text: str, key: str = TRACKING_KEY) -> str | None:
+    match = re.search(r'"' + re.escape(key) + r'"\s*=\s*"((?:[^"\\]|\\.)*)"\s*;', text)
     return match.group(1).replace('\\"', '"').replace("\\\\", "\\") if match else None
 
 
@@ -170,7 +180,11 @@ def check_tracking_strings(root: Path) -> list[Finding]:
         if not path.is_file():
             findings.append(Finding(label, 0, "att-string", f"missing ({TRACKING_KEY} for {locale})"))
             continue
-        value = strings_value(path.read_text(encoding="utf-8"))
+        text = path.read_text(encoding="utf-8")
+        for key in PURPOSE_KEYS:
+            if not strings_value(text, key):
+                findings.append(Finding(label, 0, "purpose-string", f"no {key} entry (ITMS-90683)"))
+        value = strings_value(text)
         if not value:
             findings.append(Finding(label, 0, "att-string", f"no {TRACKING_KEY} entry"))
             continue
@@ -189,8 +203,14 @@ def check_privacy_manifest(data: dict[str, Any], label: str = PRIVACY) -> list[F
     findings: list[Finding] = []
     if data.get("NSPrivacyTracking") is not True:
         findings.append(Finding(label, 0, "privacy-tracking", "NSPrivacyTracking must be true (AdMob, ATT)"))
-    if not isinstance(data.get("NSPrivacyTrackingDomains", []), list):
-        findings.append(Finding(label, 0, "privacy-shape", "NSPrivacyTrackingDomains is not an array"))
+    domains = data.get(DOMAINS_KEY)
+    if domains is not None and not isinstance(domains, list):
+        findings.append(Finding(label, 0, "privacy-shape", f"{DOMAINS_KEY} is not an array"))
+    elif domains == []:
+        findings.append(Finding(label, 0, "privacy-domains", f"{DOMAINS_KEY} is an empty array; omit it (ITMS-91064)"))
+    elif domains and data.get("NSPrivacyTracking") is not True:
+        findings.append(Finding(label, 0, "privacy-domains",
+                                f"{DOMAINS_KEY} is not empty, so NSPrivacyTracking must be true (ITMS-91064)"))
     declared: dict[str, tuple[bool, bool, frozenset[str]]] = {}
     for item in data.get("NSPrivacyCollectedDataTypes") or []:
         kind = str(item.get(_TYPE, "")).removeprefix(_TYPE) if isinstance(item, dict) else ""

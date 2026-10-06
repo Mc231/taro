@@ -1,2 +1,3 @@
 /* Localized Info.plist keys (fr). Source text: ARB key nsUserTrackingUsageDescription. */
 "NSUserTrackingUsageDescription" = "Autorisez le suivi pour voir des publicités plus pertinentes. L’app reste la même dans les deux cas.";
+"NSPhotoLibraryUsageDescription" = "Photos.";

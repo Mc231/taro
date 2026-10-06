@@ -1,2 +1,4 @@
 /* NSUserTrackingUsageDescription (app_en.arb nsUserTrackingUsageDescription) */
 "NSUserTrackingUsageDescription" = "더 관련성 있는 광고를 보려면 추적을 허용해 주세요. 어느 쪽을 선택해도 앱은 똑같이 이용할 수 있어요.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

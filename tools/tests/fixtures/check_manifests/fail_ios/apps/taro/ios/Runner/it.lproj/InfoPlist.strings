@@ -1,2 +1,4 @@
 /* Localized Info.plist strings (it). Source: nsUserTrackingUsageDescription in app_it.arb. */
 "NSUserTrackingUsageDescription" = "Consenti il tracciamento per vedere annunci più pertinenti. L’app resta la stessa in ogni caso.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

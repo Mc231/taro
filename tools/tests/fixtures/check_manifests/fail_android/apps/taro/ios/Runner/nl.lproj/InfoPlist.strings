@@ -1,2 +1,4 @@
 /* Source: apps/taro/lib/l10n/arb/app_nl.arb "nsUserTrackingUsageDescription" (05 §2, CS14). */
 "NSUserTrackingUsageDescription" = "Sta tracking toe om relevantere advertenties te zien. Je krijgt hoe dan ook dezelfde app.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

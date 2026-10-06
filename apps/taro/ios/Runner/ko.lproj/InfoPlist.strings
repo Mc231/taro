@@ -1,2 +1,4 @@
 /* NSUserTrackingUsageDescription (app_en.arb nsUserTrackingUsageDescription) */
 "NSUserTrackingUsageDescription" = "더 관련성 있는 광고를 보려면 추적을 허용해 주세요. 어느 쪽을 선택해도 앱은 똑같이 이용할 수 있어요.";
+"NSPhotoLibraryUsageDescription" = "Taro는 가져올 백업 파일을 선택할 때만 이 권한을 사용해요. Taro는 사진을 읽지 않아요.";
+"NSFaceIDUsageDescription" = "Taro는 Face ID를 사용하지 않아요. 기기에 저장된 데이터를 보호하는 보안 구성 요소에 필요한 항목이에요.";

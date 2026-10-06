@@ -1,1 +1,3 @@
 "NSUserTrackingUsageDescription" = "Anders.";
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

@@ -1,1 +1,3 @@
 /* empty */
+"NSPhotoLibraryUsageDescription" = "Photos.";
+"NSFaceIDUsageDescription" = "Face ID.";

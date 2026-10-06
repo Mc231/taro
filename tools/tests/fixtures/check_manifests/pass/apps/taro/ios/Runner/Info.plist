@@ -19,6 +19,10 @@
 		<string>sms</string>
 		<string>mailto</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photos.</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>Allow tracking to see more relevant ads. You'll still get the same app either way.</string>
 	<key>SKIncludeConsumableInAppPurchaseHistory</key>

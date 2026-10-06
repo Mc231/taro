@@ -1,2 +1,4 @@
 /* Localized Info.plist keys (en). Source text: ARB key nsUserTrackingUsageDescription. */
 "NSUserTrackingUsageDescription" = "Allow tracking to see more relevant ads. You’ll still get the same app either way.";
+"NSPhotoLibraryUsageDescription" = "Taro only uses this if you choose a backup file to import. Taro does not read your photos.";
+"NSFaceIDUsageDescription" = "Taro doesn’t use Face ID; this is required by a security component that protects data stored on your device.";
