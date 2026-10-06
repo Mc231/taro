@@ -1,0 +1,37 @@
+FATAL EXCEPTION: main
+Process: com.vshyrochuk.taro, PID: 17796
+java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: c5.i: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at android.app.ActivityThread.installProvider(ActivityThread.java:8562)
+	at android.app.ActivityThread.installContentProviders(ActivityThread.java:8072)
+	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7730)
+	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2509)
+	at android.os.Handler.dispatchMessage(Handler.java:110)
+	at android.os.Looper.loopOnce(Looper.java:248)
+	at android.os.Looper.loop(Looper.java:338)
+	at android.app.ActivityThread.main(ActivityThread.java:8982)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+Caused by: c5.i: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at androidx.startup.StartupException.<init>(StartupException.java:35)
+	at androidx.startup.AppInitializer.doInitialize(AppInitializer.java:187)
+	at androidx.startup.AppInitializer.discoverAndInitialize(AppInitializer.java:238)
+	at androidx.startup.AppInitializer.discoverAndInitialize(AppInitializer.java:206)
+	at androidx.startup.InitializationProvider.onCreate(InitializationProvider.java:45)
+	at android.content.ContentProvider.attachInfo(ContentProvider.java:2649)
+	at android.content.ContentProvider.attachInfo(ContentProvider.java:2618)
+	at android.app.ActivityThread.installProvider(ActivityThread.java:8557)
+	... 11 more
+Caused by: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at androidx.room.Room.getGeneratedImplementation(Room.java:100)
+	at androidx.room.RoomDatabase$Builder.build(RoomDatabase.java:952)
+	at androidx.work.impl.WorkDatabase.create(WorkDatabase.java:155)
+	at androidx.work.impl.WorkManagerImpl.<init>(WorkManagerImpl.java:244)
+	at androidx.work.impl.WorkManagerImpl.<init>(WorkManagerImpl.java:219)
+	at androidx.work.impl.WorkManagerImpl.initialize(WorkManagerImpl.java:198)
+	at androidx.work.WorkManager.initialize(WorkManager.java:210)
+	at androidx.work.WorkManagerInitializer.create(WorkManagerInitializer.java:39)
+	at androidx.work.WorkManagerInitializer.create(WorkManagerInitializer.java:30)
+	at androidx.startup.AppInitializer.doInitialize(AppInitializer.java:180)
+	... 16 more

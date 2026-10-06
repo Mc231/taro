@@ -356,6 +356,26 @@ void main() {
       expect(plugin.pending, {kDailyReminderId});
     });
 
+    // Android still reports legacy IANA links (Ukraine is `Europe/Kiev`,
+    // India `Asia/Calcutta`). setUpAll loads only the canonical `latest`
+    // data, so this passes only when the scheduler loads the full database
+    // itself (round 4: reminders fired at 09:00 UTC instead of local time).
+    for (final (legacy, offset) in [
+      ('Europe/Kiev', 3),
+      ('Asia/Calcutta', 5),
+      ('America/Buenos_Aires', -3),
+    ]) {
+      test('a legacy zone name $legacy fires in local time', () async {
+        zones.iana = legacy;
+        await scheduler().schedule(on, 'en');
+        final at = plugin.scheduled.single.at;
+        expect(at.location.name, legacy);
+        expect(at.timeZoneOffset.inHours, offset);
+        expect([at.hour, at.minute], [8, 30]);
+        expect(logger.records, isEmpty);
+      });
+    }
+
     test('an unknown zone falls back to UTC', () async {
       zones.iana = 'Mars/Olympus_Mons';
       await scheduler().schedule(on, 'en');

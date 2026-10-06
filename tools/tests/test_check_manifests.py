@@ -86,8 +86,26 @@ def test_android_failures(tmp_path: Path) -> None:
         "full_backup_content.xml: [backup-rules] missing",
         "home_offer.dart:2: [notification-request]",
         "home_offer.dart:3: [notification-request]",
+        "proguard-rules.pro: [r8-keep] must keep RoomDatabase subclass constructors",
+        'build.gradle.kts: [r8-keep] release must list proguardFiles("proguard-rules.pro")',
     ):
         assert expected in text
+
+
+def test_r8_seeds(tmp_path: Path) -> None:
+    root = _root(tmp_path, "pass")
+    seeds = root / c.R8_SEEDS
+    seeds.parent.mkdir(parents=True)
+    # Round 4 crash: R8 kept the class but not its constructor.
+    seeds.write_text(f"{c.WORK_DB}\nandroidx.work.impl.WorkDatabase\n")
+    assert [f.rule for f in c.check_r8_rules(root)] == ["r8-keep"]
+    seeds.write_text(f"{c.WORK_DB}\n{c.WORK_DB}: WorkDatabase_Impl()\n")
+    assert c.check_r8_rules(root) == []
+    seeds.write_text("io.flutter.Foo\n")
+    assert c.check_r8_rules(root) == []
+    (root / c.R8_RULES).unlink()
+    (root / c.APP_GRADLE).unlink()
+    assert [f.path for f in c.check_r8_rules(root)] == [c.R8_RULES, c.APP_GRADLE]
 
 
 def test_manifest_shapes(tmp_path: Path) -> None:

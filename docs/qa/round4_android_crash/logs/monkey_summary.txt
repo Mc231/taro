@@ -1,0 +1,12 @@
+monkey_s2024.txt:Events injected: 3000
+monkey_s2024.txt:// Monkey finished
+monkey1.txt:Events injected: 3000
+monkey1.txt:// Monkey finished
+monkey_s99.txt:Events injected: 3000
+monkey_s99.txt:// Monkey finished
+monkey_s42.txt:Events injected: 3000
+monkey_s42.txt:// Monkey finished
+monkey_aab.txt:Events injected: 2000
+monkey_aab.txt:// Monkey finished
+monkey2.txt:Events injected: 2000
+monkey2.txt:// Monkey finished

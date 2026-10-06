@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:taro/services/notifications/reminder_copy.dart';
 import 'package:taro_core/taro_core.dart';
-import 'package:timezone/data/latest.dart' as tz_data;
+import 'package:timezone/data/latest_all.dart' as tz_data;
 import 'package:timezone/timezone.dart' as tz;
 
 /// The deep link a reminder tap opens (01 §7.7, 02 §8.2).
@@ -209,6 +209,8 @@ final class LocalReminderScheduler implements ReminderScheduler {
 
   tz.Location _location(String iana) {
     if (!_tzLoaded) {
+      // The full database: Android still reports legacy links such as
+      // `Europe/Kiev` and `Asia/Calcutta`, which `latest` lacks.
       tz_data.initializeTimeZones();
       _tzLoaded = true;
     }

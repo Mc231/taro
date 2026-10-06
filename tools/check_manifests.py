@@ -21,7 +21,11 @@ the source manifest is checked instead, with a note, when it is absent):
 - ``POST_NOTIFICATIONS`` and ``AD_ID`` are declared (merged manifest only, they
   come from libraries), and only the reminder offer asks for notifications;
 - the boot-completed reschedule receiver and ``RECEIVE_BOOT_COMPLETED`` exist;
-- the backup rules exclude secure storage and ``taro_device.db`` (RC75).
+- the backup rules exclude secure storage and ``taro_device.db`` (RC75);
+- R8 keeps Room database constructors: ``android/app/proguard-rules.pro``
+  has the rule and the release build type lists it, and, when a release
+  build left ``seeds.txt``, ``WorkDatabase_Impl()`` is in it (round 4: R8
+  full mode dropped it and every Play install crashed on launch).
 """
 
 from __future__ import annotations
@@ -54,6 +58,12 @@ MERGED_MANIFEST = (
 )
 RES_XML = f"{APP}/android/app/src/main/res/xml"
 LIB = f"{APP}/lib"
+R8_RULES = f"{APP}/android/app/proguard-rules.pro"
+APP_GRADLE = f"{APP}/android/app/build.gradle.kts"
+R8_SEEDS = f"{APP}/build/app/outputs/mapping/prodRelease/seeds.txt"
+WORK_DB = "androidx.work.impl.WorkDatabase_Impl"
+_ROOM_KEEP = re.compile(r"^-keep class \* extends androidx\.room\.RoomDatabase\s*\{\s*<init>\(\);\s*\}", re.M)
+_GRADLE_RULES = re.compile(r'proguardFiles\([^)]*"proguard-rules\.pro"')
 
 GA_KEYS = ("ANALYTICS_STORAGE", "AD_STORAGE", "AD_USER_DATA", "AD_PERSONALIZATION_SIGNALS")
 TRACKING_KEY = "NSUserTrackingUsageDescription"
@@ -294,6 +304,22 @@ def check_permission_callers(root: Path) -> list[Finding]:
     return findings
 
 
+def check_r8_rules(root: Path) -> list[Finding]:
+    findings: list[Finding] = []
+    rules = root / R8_RULES
+    if not rules.is_file() or not _ROOM_KEEP.search(rules.read_text(encoding="utf-8")):
+        findings.append(Finding(R8_RULES, 0, "r8-keep", "must keep RoomDatabase subclass constructors (<init>())"))
+    gradle = root / APP_GRADLE
+    if not gradle.is_file() or not _GRADLE_RULES.search(gradle.read_text(encoding="utf-8")):
+        findings.append(Finding(APP_GRADLE, 0, "r8-keep", 'release must list proguardFiles("proguard-rules.pro")'))
+    seeds = root / R8_SEEDS
+    if seeds.is_file():
+        kept = seeds.read_text(encoding="utf-8").splitlines()
+        if WORK_DB in kept and f"{WORK_DB}: WorkDatabase_Impl()" not in kept:
+            findings.append(Finding(R8_SEEDS, 0, "r8-keep", f"R8 dropped the {WORK_DB} constructor"))
+    return findings
+
+
 def check_android(root: Path, manifest: Path | None, require_merged: bool) -> tuple[list[Finding], list[str]]:
     notices: list[str] = []
     merged = True
@@ -313,6 +339,7 @@ def check_android(root: Path, manifest: Path | None, require_merged: bool) -> tu
     findings = check_android_manifest(load_xml(manifest, label), label, merged)
     findings += check_backup_rules(root)
     findings += check_permission_callers(root)
+    findings += check_r8_rules(root)
     return findings, notices
 
 

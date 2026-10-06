@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Android release crash on every launch (round 4, `docs/qa/round4_android_crash/REPORT.md`): R8 full mode kept WorkManager's `WorkDatabase_Impl` (pulled in by `play-services-ads` with Room 2.2.5) but dropped its constructor, so `androidx.startup.InitializationProvider` threw "Failed to create an instance of androidx.work.impl.WorkDatabase" before the first frame. New `android/app/proguard-rules.pro` keeps `RoomDatabase` subclass constructors and the release build type lists it; `tools/check_manifests.py` rule `r8-keep` checks the rule, the Gradle wiring and the release `seeds.txt`.
+- Android daily reminders fired at the set time in UTC on devices that report a legacy IANA zone name (`Europe/Kiev`, `Asia/Calcutta`, …): `LocalReminderScheduler` now loads the full `timezone` database (`latest_all`), which includes those links.
+
 ### Changed
 
 - Crisis resources (owner, 2026-10-06): NL `0800-0113` removed (no longer listed on 113.nl), NL shows 113 (free, 24/7) only; every entry is verified, so `tools/content/validate --release` passes. La Strada-Ukraine and #いのちSOS confirmed. 05 §4.2 minimum set and `00_DECISIONS.md` updated.

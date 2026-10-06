@@ -82,6 +82,9 @@ android {
             } else {
                 signingConfigs.getByName("debug")
             }
+            // Appended to the Flutter plugin's default R8 files; see the file
+            // for why each rule exists (round 4 release crash).
+            proguardFiles("proguard-rules.pro")
         }
     }
 }

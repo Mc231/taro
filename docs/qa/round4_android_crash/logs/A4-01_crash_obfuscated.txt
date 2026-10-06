@@ -1,0 +1,29 @@
+FATAL EXCEPTION: main
+Process: com.vshyrochuk.taro, PID: 17796
+java.lang.RuntimeException: Unable to get provider androidx.startup.InitializationProvider: c5.i: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at android.app.ActivityThread.installProvider(ActivityThread.java:8562)
+	at android.app.ActivityThread.installContentProviders(ActivityThread.java:8072)
+	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:7730)
+	at android.app.ActivityThread.-$$Nest$mhandleBindApplication(Unknown Source:0)
+	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2509)
+	at android.os.Handler.dispatchMessage(Handler.java:110)
+	at android.os.Looper.loopOnce(Looper.java:248)
+	at android.os.Looper.loop(Looper.java:338)
+	at android.app.ActivityThread.main(ActivityThread.java:8982)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+Caused by: c5.i: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at o1.a.b(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:107)
+	at o1.a.a(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:84)
+	at androidx.startup.InitializationProvider.onCreate(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:55)
+	at android.content.ContentProvider.attachInfo(ContentProvider.java:2649)
+	at android.content.ContentProvider.attachInfo(ContentProvider.java:2618)
+	at android.app.ActivityThread.installProvider(ActivityThread.java:8557)
+	... 11 more
+Caused by: java.lang.RuntimeException: Failed to create an instance of androidx.work.impl.WorkDatabase
+	at e2.l.<init>(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:589)
+	at e2.l.c(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:44)
+	at androidx.work.WorkManagerInitializer.b(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:28)
+	at o1.a.b(r8-map-id-7264392fbc3fefbde9f9536392bf78b0a0ad5829a50a9877285a4cd4474e2a2c:92)
+	... 16 more
