@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- App privacy manifest (05 §1 technical declarations). Collected data types
-     mirror the App Store label in 05 §5.1 and docs/compliance/PRIVACY_LABELS.md;
-     tracking domains come from the Google Mobile Ads SDK's own manifest.
-     Checked by tools/check_manifests.py. -->
 <plist version="1.0">
 <dict>
 	<key>NSPrivacyAccessedAPITypes</key>
@@ -137,6 +133,6 @@
 		</dict>
 	</array>
 	<key>NSPrivacyTracking</key>
-	<true/>
+	<false/>
 </dict>
 </plist>

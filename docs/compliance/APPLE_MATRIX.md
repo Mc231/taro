@@ -46,3 +46,6 @@ Legend for **Evidence**: a linked automated test (file + test name) runs in CI (
 | Date | Build | Row | Check | Result | By |
 |---|---|---|---|---|---|
 | — | — | — | (none recorded yet; Sprint 19.3 dry run and Phase 20 console steps add rows here) | — | — |
+
+
+> 2026-10-07: ITMS-91064 again on build 12 — Apple requires at least one `NSPrivacyTrackingDomains` entry when `NSPrivacyTracking` is true. The app manifest now declares `NSPrivacyTracking` false (no Taro-owned tracking domains; Google SDK manifests declare their own); the App Privacy label still declares tracking and ATT is still shown. Enforced by `check_manifests.py` (`privacy-tracking`).

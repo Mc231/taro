@@ -201,16 +201,25 @@ def check_tracking_strings(root: Path) -> list[Finding]:
 
 def check_privacy_manifest(data: dict[str, Any], label: str = PRIVACY) -> list[Finding]:
     findings: list[Finding] = []
-    if data.get("NSPrivacyTracking") is not True:
-        findings.append(Finding(label, 0, "privacy-tracking", "NSPrivacyTracking must be true (AdMob, ATT)"))
+    tracking = data.get("NSPrivacyTracking")
+    if not isinstance(tracking, bool):
+        findings.append(Finding(label, 0, "privacy-tracking", "NSPrivacyTracking must be a boolean"))
     domains = data.get(DOMAINS_KEY)
     if domains is not None and not isinstance(domains, list):
         findings.append(Finding(label, 0, "privacy-shape", f"{DOMAINS_KEY} is not an array"))
     elif domains == []:
         findings.append(Finding(label, 0, "privacy-domains", f"{DOMAINS_KEY} is an empty array; omit it (ITMS-91064)"))
-    elif domains and data.get("NSPrivacyTracking") is not True:
+    elif domains and tracking is not True:
         findings.append(Finding(label, 0, "privacy-domains",
                                 f"{DOMAINS_KEY} is not empty, so NSPrivacyTracking must be true (ITMS-91064)"))
+    # Apple (ITMS-91064, rejected builds 11 and 12): NSPrivacyTracking true
+    # requires at least one tracking domain. Taro lists none (listing Google's
+    # ad domains would block ads after an ATT denial), so the app manifest
+    # declares NSPrivacyTracking false; the App Privacy label still declares
+    # tracking and ATT is still requested.
+    if tracking is True and not domains:
+        findings.append(Finding(label, 0, "privacy-tracking",
+                                f"NSPrivacyTracking is true but {DOMAINS_KEY} lists no domain (ITMS-91064)"))
     declared: dict[str, tuple[bool, bool, frozenset[str]]] = {}
     for item in data.get("NSPrivacyCollectedDataTypes") or []:
         kind = str(item.get(_TYPE, "")).removeprefix(_TYPE) if isinstance(item, dict) else ""

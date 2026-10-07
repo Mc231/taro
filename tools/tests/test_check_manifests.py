@@ -58,7 +58,7 @@ def test_ios_failures(tmp_path: Path) -> None:
         "de.lproj/InfoPlist.strings: [att-string] differs from ARB",
         "ja.lproj/InfoPlist.strings: [att-string] missing",
         "ko.lproj/InfoPlist.strings: [att-string] no NSUserTrackingUsageDescription entry",
-        "NSPrivacyTracking must be true",
+        "NSPrivacyTrackingDomains is not an array",
         "NSPrivacyTrackingDomains is not an array",
         "CoarseLocation is in 05 §5.1 but not declared",
         "Health is declared but not in 05 §5.1",
@@ -184,3 +184,12 @@ def test_invalid_arb(tmp_path: Path) -> None:
 
 def test_real_repository_passes() -> None:
     assert c.main(["--root", str(REPO)]) == 0
+
+
+def test_tracking_true_requires_a_domain() -> None:
+    """ITMS-91064 (builds 11 and 12): true with no domains is rejected; false passes."""
+    base = {"NSPrivacyCollectedDataTypes": [], "NSPrivacyAccessedAPITypes": []}
+    texts = [f.message for f in c.check_privacy_manifest({**base, "NSPrivacyTracking": True})]
+    assert any("lists no domain (ITMS-91064)" in t for t in texts)
+    texts = [f.message for f in c.check_privacy_manifest({**base, "NSPrivacyTracking": False})]
+    assert not any("ITMS-91064" in t or "NSPrivacyTracking" in t for t in texts)
