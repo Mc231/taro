@@ -168,3 +168,5 @@ The full safety run (`evals/reports/2026-09-30-v1-openai-gpt-6-luna.*`) answered
 - Trimmed wording elsewhere (hard rules preface, the disclaimer example, the trailing-clause example) so the Arabic and Ukrainian Celtic Cross prompts stay within the 18 KB budget; `system.md` grows by 9 bytes.
 - `style.fr.md`: the rejected `précis*` stem names « préciser » (it slipped through as « préciser » / « précise »).
 - `versions.lock.json` re-pinned.
+
+- 2026-10-08: production default `ai.promptVersion` → `v2` (owner-approved; reports `evals/reports/2026-10-08-v{1,2}-openai-gpt-6.1-sol-{quality,smoke}`). Rollback: set `v1` and push config.

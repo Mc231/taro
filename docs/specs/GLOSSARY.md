@@ -435,7 +435,7 @@ Owner: 03 §8.2 (names, schema, defaults; RC8); monetization types and ranges fr
 | `ai.disclosedProviders` | list\<string\> | `["openai"]` (RC97 amendment 2026-10-01); routing (tiers, outage fallback, moderation) outside it is rejected by `config-push` (RC97) | Worker (`config-push`) |
 | `ai.effort` | string | `"low"` (hint; each `AiProvider` adapter maps or ignores it, RC97) | Worker |
 | `ai.serviceTier` | string (`standard` \| `fast`) | `"standard"` (launch default, 2026-10-06; hint; the OpenAI adapter sends `service_tier: "fast"`, priced 2x; others ignore it; 03 §8.2) | Worker |
-| `ai.promptVersion` | string (`v1` \| `v2`, the bundled `PROMPT_VERSIONS`) | `"v1"` | Worker |
+| `ai.promptVersion` | string (`v1` \| `v2`, the bundled `PROMPT_VERSIONS`) | `"v2"` | Worker |
 | `ai.maxTokensBySpread` | map\<spreadId,int\> | see §2 | Worker |
 | `ai.blockedCountries` | list\<string\> (ISO 3166-1 alpha-2) | `CN, RU, SA, AE, QA, KW, BH, OM` + union of the countries where any routable AI provider is not offered (Anthropic, OpenAI; snapshots dated in 00_DECISIONS.md, RC97) | Worker (→ `403 AI_UNAVAILABLE_REGION`) |
 | `ai.timeoutMs` | int | `50000` (< `ai.deadlineMs`, RC97 amendment 2026-10-01) | Worker |

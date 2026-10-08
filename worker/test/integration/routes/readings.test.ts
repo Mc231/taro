@@ -96,7 +96,7 @@ describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.
     expect(body).toMatchObject({
       status: 'completed',
       chargeSource: 'free',
-      promptVersion: 'v1',
+      promptVersion: 'v2',
       reading: { title: 'A quiet turning point' },
     });
     expect(body.reading?.cards).toEqual([
@@ -108,7 +108,7 @@ describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.
       holdState: 'consumed',
       chargeSource: 'free',
       hasQuestion: true,
-      promptVersion: 'v1',
+      promptVersion: 'v2',
       model: 'openai/gpt-6.1-sol',
       inputTokens: 800,
       outputTokens: 600,

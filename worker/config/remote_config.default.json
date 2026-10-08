@@ -64,7 +64,7 @@
     "ai.disclosedProviders": ["openai"],
     "ai.effort": "low",
     "ai.serviceTier": "standard",
-    "ai.promptVersion": "v1",
+    "ai.promptVersion": "v2",
     "ai.maxTokensBySpread": {
       "single": 2500,
       "three_ppf": 4000,

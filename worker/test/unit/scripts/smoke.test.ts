@@ -74,7 +74,7 @@ describe('scripts/smoke.ts main([...]) (03 §14.2)', () => {
       'ok   register: trust high',
       'ok   balance: canRead true, ledgerVersion 0',
       'ok   hold: chargeSource free, expiresAt 2026-09-26T10:15:00Z',
-      'ok   reading: status completed, 0 ms, classification none, chargeSource free, promptVersion v1, balance free 0/1, bonus 0, paid 0, text "The cards point to a steady, reflective moment."',
+      'ok   reading: status completed, 0 ms, classification none, chargeSource free, promptVersion v2, balance free 0/1, bonus 0, paid 0, text "The cards point to a steady, reflective moment."',
       'ok   ack: HTTP 204',
     ]);
     const printed = cli.stdout.join('\n');
