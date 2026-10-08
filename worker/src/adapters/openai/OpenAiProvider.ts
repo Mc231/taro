@@ -33,7 +33,7 @@ export const OPENAI_MODERATION_MODEL = 'omni-moderation-latest';
 const FAST_SERVICE_TIERS: readonly string[] = ['fast', 'priority'];
 
 /** Models with a `reasoning.effort` parameter (GPT-5+ and the o-series). */
-const REASONING_MODEL = /^(gpt-(?:[5-9]|\d{2,})|o\d)/;
+export const REASONING_MODEL = /^(gpt-(?:[5-9]|\d{2,})|o\d)/;
 
 /** Keywords outside OpenAI's documented strict-mode list; L3 enforces them. */
 export function openAiSchema(schema: unknown): Record<string, unknown> {

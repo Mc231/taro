@@ -1,0 +1,68 @@
+<reading_language code="en">English</reading_language>
+<style_notes>
+Register: warm, plain US English; "you" singular; other people are "they" unless the question genders them.
+Names: the names in <cards>, with "the" in running text ("the Tower", "the Three of Cups"). Terms: Major Arcana, Minor Arcana, Wands, Cups, Swords, Pentacles, upright, reversed; the layout is a "spread".
+Card-focus clause: "This reading stays with the cards themselves."
+Prompts start with What, Which, How, Where or When.
+Avoid: "the cards show / say that", "you will", "is going to", "soon", "over time", "rather than", "instead of", "not … but".
+Rejected words: accurate, precise, guarantee(d), psychic, medium, clairvoyant, heal, healing, cure, therapy, therapist, spell, hex, best, 100%, #1. Write instead: "clear", "specific", "a middle path", "mend", "care for", "most helpful", "a ritual".
+</style_notes>
+<spread id="relationship" name="Relationship" cards="5">
+Any close bond counts: romantic, family, friendship or work. Read 'other' as how the reader may experience that person, never as their thoughts or intentions. If the question names no other person, read 'other' and 'connection' as the reader's close bonds in general and assume no partner; if the other person has died, as the reader's memory of them.
+</spread>
+<length>
+Overview 2–3 sentences, 40–55 words; each card 3–4 sentences, 50–65 words; synthesis 4–6 sentences, 65–90 words; exactly 3 reflection prompts; about 400–550 words in total, title and prompts included. Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="you" cardId="major_02" reversed="false">
+Position: You. Read as what the reader may bring to the bond: feelings, needs, hopes and habits.
+Card: The High Priestess; upright
+Image: a seated figure between a dark and a light pillar, a veil of pomegranates behind, a half-hidden scroll in the lap and a crescent moon at the feet
+Keywords: inner knowing; stillness; listening; the unspoken; patience
+</card>
+<card n="2" positionId="other" cardId="swords_09" reversed="true">
+Position: The Other Person. Read as how the reader may experience or see the other person, or what they might ask them about.
+Card: Nine of Swords; reversed
+Image: a figure sits up in bed with their face in their hands, nine swords hanging on the dark wall behind them
+Keywords: worry lifting; reaching out; hidden stress; perspective returning; sharing the load
+</card>
+<card n="3" positionId="connection" cardId="cups_10" reversed="false">
+Position: Connection. Read as what the bond may share: common ground, dynamic and quality as the reader experiences it.
+Card: Ten of Cups; upright
+Image: two adults with arms raised and two children dancing look at a rainbow of ten cups over a house and a river
+Keywords: emotional fulfillment; harmony; belonging; home; shared happiness
+</card>
+<card n="4" positionId="challenge" cardId="wands_01" reversed="false">
+Position: Challenge. Read as a tension, difference or pattern that may strain the bond and could be looked at with care.
+Card: Ace of Wands; upright
+Image: a hand emerges from a cloud holding a sprouting wand, a castle on a hill in the distance
+Keywords: spark of inspiration; creative impulse; enthusiasm; fresh energy; a new idea
+</card>
+<card n="5" positionId="potential" cardId="pentacles_05" reversed="true">
+Position: Potential. Read as what the bond could grow into with care from both sides.
+Card: Five of Pentacles; reversed
+Image: two figures walk through the snow past a lit stained-glass window, one on crutches
+Keywords: returning warmth; accepting help; lingering worry; finding shelter
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 5 (The High Priestess).
+Suits: 1 × Wands (Ace of Wands); 1 × Cups (Ten of Cups); 1 × Swords (Nine of Swords); 1 × Pentacles (Five of Pentacles).
+Dominant suit: none (Wands, Cups, Swords and Pentacles tied at 1 card each).
+Reversed: 2 of 5 (Nine of Swords, Five of Pentacles).
+Court cards: none.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question></user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Relationship reading in English. Address the reader as "you" (singular). The question is empty: name the main theme plainly in the overview's first sentence, then read what these cards invite the reader to notice in their life now, without inventing circumstances or mentioning the empty question.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- the overview's first sentence answers the question in plain words, with no yes, no or outcome;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "precise", "accurate", "guarantee", "best", "medium", "healing") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

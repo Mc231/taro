@@ -546,7 +546,7 @@ describe('live eval', () => {
     const judge: JudgeClient = () =>
       Promise.resolve({
         kind: 'ok',
-        text: '{"tone": 5, "coherence": 3, "fidelity": 3, "notes": "thin"}',
+        text: '{"tone": 5, "coherence": 3, "fidelity": 3, "clarity": 4, "answerFirst": true, "notes": "thin"}',
         call: { provider: 'anthropic', model: 'claude-haiku-4-5', usage: FAKE_USAGE },
       });
     const models: string[] = [];
@@ -569,7 +569,13 @@ describe('live eval', () => {
       cli.written.get('evals/reports/2026-09-30-v1-anthropic-claude-sonnet-5-quality.md') ?? '';
     expect(report).toContain('## LLM judge (advisory, `claude-haiku-4-5`)');
     expect(report).toContain('| tone | 5.00 |');
-    expect(report).toContain('- `a` (en): tone 5, coherence 3, fidelity 3. thin');
+    expect(report).toContain('- `a` (en): tone 5, coherence 3, fidelity 3, clarity 4. thin');
+    expect(report).toContain('Mean latency');
+    const judged =
+      cli.written.get(
+        'evals/reports/2026-09-30-v1-anthropic-claude-sonnet-5-quality.judge.jsonl',
+      ) ?? '';
+    expect(JSON.parse(judged.trim())).toMatchObject({ id: 'a', answerFirst: true, clarity: 4 });
   });
 
   it('selects the smoke sample and applies --limit', async () => {

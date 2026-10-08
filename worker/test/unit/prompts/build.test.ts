@@ -61,6 +61,23 @@ describe('buildReadingPrompt', () => {
     expect(input.expected).toEqual({ cards: THREE.cards, reflectionPrompts: 3 });
   });
 
+  it('builds prompt v2 with the same per-spread output schema and data feeds as v1', () => {
+    const v2 = buildReadingPrompt(THREE, 'v2');
+    if (!v2.ok) {
+      throw new Error(v2.error);
+    }
+    const v1 = build(THREE);
+    expect(v2.input.promptVersion).toBe('v2');
+    expect(v2.input.system).toBe(systemPrompt('v2'));
+    expect(v2.input.system).not.toBe(v1.system);
+    expect(v2.input.outputSchema).toEqual(v1.outputSchema);
+    expect(v2.input.expected).toEqual(v1.expected);
+    expect(tag(v2.input.user, 'cards')).toBe(tag(v1.user, 'cards'));
+    expect(tag(v2.input.user, 'length')).toBe(tag(v1.user, 'length'));
+    expect(v2.input.user).toContain(READING_TEMPLATES.v2.data.phrases.withQuestion);
+    expect(v2.input.user).toContain("the overview's first sentence answers the question");
+  });
+
   it('puts locale, style notes, spread, cards, hint and question in the user message', () => {
     const { user } = build(THREE);
     expect(user).toContain('<reading_language code="de">German (Deutsch)</reading_language>');

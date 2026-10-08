@@ -45,6 +45,7 @@ import {
 import { parseCases } from './io';
 import {
   JUDGE_MAX_TOKENS,
+  judgeJsonl,
   judgeMarkdown,
   judgeReading,
   makeJudge,
@@ -307,6 +308,8 @@ interface CaseRun {
   readonly usd: number;
   readonly usage: AiUsage;
   readonly detail: string | null;
+  /** Wall time of the model call(s), retries included; null without a call. */
+  readonly latencyMs?: number;
 }
 
 function layerOf(result: AiResult): CaseLayer {
@@ -401,19 +404,25 @@ function liveMarkdown(
     '|---|---|',
     ...counts.filter(([, n]) => n !== 0).map(([layer, n]) => `| ${String(layer)} | ${String(n)} |`),
     '',
-    '### Measured cost per reading (model calls only)',
+    '### Measured cost and latency per reading (model calls only)',
     '',
-    '| Spread | Calls | Mean | Max |',
-    '|---|---|---|---|',
+    '| Spread | Calls | Mean | Max | Mean latency | p90 latency |',
+    '|---|---|---|---|---|---|',
   ];
-  const bySpread = new Map<string, number[]>();
+  const bySpread = new Map<string, CaseRun[]>();
   for (const r of runs.filter((x) => x.usd > 0)) {
-    bySpread.set(r.spreadId, [...(bySpread.get(r.spreadId) ?? []), r.usd]);
+    bySpread.set(r.spreadId, [...(bySpread.get(r.spreadId) ?? []), r]);
   }
-  for (const [spread, costs] of [...bySpread.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  const all = [...bySpread.values()].flat();
+  for (const [spread, rows] of [
+    ...bySpread.entries(),
+    ...(all.length > 0 ? [['all', all] as const] : []),
+  ].sort(([a], [b]) => (a === 'all' ? 1 : b === 'all' ? -1 : a.localeCompare(b)))) {
+    const costs = rows.map((r) => r.usd);
     const mean = costs.reduce((a, b) => a + b, 0) / costs.length;
+    const times = rows.flatMap((r) => (r.latencyMs === undefined ? [] : [r.latencyMs]));
     lines.push(
-      `| ${spread} | ${String(costs.length)} | ${usd(mean)} | ${usd(Math.max(...costs))} |`,
+      `| ${spread} | ${String(costs.length)} | ${usd(mean)} | ${usd(Math.max(...costs))} | ${seconds(meanOf(times))} | ${seconds(percentile(times, 0.9))} |`,
     );
   }
   lines.push('');
@@ -426,6 +435,23 @@ function liveMarkdown(
     lines.push('');
   }
   return lines;
+}
+
+function meanOf(values: readonly number[]): number | null {
+  return values.length === 0 ? null : values.reduce((a, b) => a + b, 0) / values.length;
+}
+
+/** Nearest-rank percentile; null for no values. */
+export function percentile(values: readonly number[], p: number): number | null {
+  if (values.length === 0) {
+    return null;
+  }
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted[Math.min(sorted.length - 1, Math.max(0, Math.ceil(p * sorted.length) - 1))] ?? null;
+}
+
+function seconds(ms: number | null): string {
+  return ms === null ? '–' : `${(ms / 1000).toFixed(1)} s`;
 }
 
 async function loadCases(
@@ -687,6 +713,7 @@ export async function main(
       } catch {
         result = { kind: 'upstream', calls: [] };
       }
+      const latencyMs = live.now().getTime() - startedAt;
       const cost = callsUsd(result.calls, live.runtime.logger);
       guard.settle(reserved, cost);
       const reading =
@@ -710,6 +737,7 @@ export async function main(
         layer,
         usd: cost,
         usage: totalUsage(result.calls),
+        latencyMs,
         detail:
           result.kind === 'invalid_output'
             ? result.issues.slice(0, 3).join('; ')
@@ -777,6 +805,9 @@ export async function main(
       `${JSON.stringify({ ...summary, spentUsd: guard.spent, projectedUsd: projected, aborted: state.aborted, moderation: { provider: options.moderation, ...moderation } }, null, 2)}\n`,
     );
     await deps.writeFile(`${path}.results.jsonl`, renderResultsJsonl(run));
+    if (options.judgeModel !== null) {
+      await deps.writeFile(`${path}.judge.jsonl`, judgeJsonl(judged));
+    }
     await deps.writeFile(
       `${path}.outputs.jsonl`,
       `${outputs.map((o) => JSON.stringify(o)).join('\n')}\n`,

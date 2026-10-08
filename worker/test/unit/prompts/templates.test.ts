@@ -21,13 +21,13 @@ import lock from '../../../src/prompts/versions.lock.json';
 
 // Sprint 8.2 / 06 §7: the versioned templates are complete, provider-neutral
 // (RC97), and frozen by the hash in versions.lock.json.
-describe('reading prompt templates', () => {
-  const set = READING_TEMPLATES.v1;
+describe.each(PROMPT_VERSIONS)('reading prompt templates %s', (version) => {
+  const set = READING_TEMPLATES[version];
 
   it('knows its versions', () => {
-    expect(PROMPT_VERSIONS).toEqual(['v1']);
-    expect(isPromptVersion('v1')).toBe(true);
-    expect(isPromptVersion('v2')).toBe(false);
+    expect(PROMPT_VERSIONS).toEqual(['v1', 'v2']);
+    expect(isPromptVersion(version)).toBe(true);
+    expect(isPromptVersion('v3')).toBe(false);
     expect(isPromptVersion(1)).toBe(false);
   });
 
@@ -249,7 +249,7 @@ describe('reading prompt templates', () => {
     });
 
     it('has a static prefix with no placeholders, the refusal shape and every category', () => {
-      const system = systemPrompt('v1');
+      const system = systemPrompt(version);
       expect(system).not.toMatch(/\{\{[a-z_]+\}\}/);
       expect(system).toContain(
         '{"classification":"health","title":"","overview":"","cards":{"focus":{"cardId":"swords_02","reversed":false,"interpretation":""}},"synthesis":"","reflectionPrompts":{"prompt1":"","prompt2":""}}',
@@ -260,19 +260,19 @@ describe('reading prompt templates', () => {
     });
 
     it('keeps the deck out of the static prefix: keywords and images only for drawn cards', () => {
-      const system = systemPrompt('v1');
+      const system = systemPrompt(version);
       for (const card of cardsFeed.cards) {
         expect(system, card.id).not.toContain(card.keywordsUpright.join('; '));
         expect(system, card.id).not.toContain(set.data.images[card.id]);
       }
     });
 
-    it('stays inside the consolidated size budget (static ≤ 12 KB, Celtic Cross ≤ 18 KB)', () => {
+    it('stays inside the size budget (static ≤ 12 KB, Celtic Cross ≤ 18 KB in v1, ≤ +10 % later)', () => {
       const bytes = (text: string): number => new TextEncoder().encode(text).length;
-      expect(bytes(systemPrompt('v1'))).toBeLessThanOrEqual(12 * 1024);
+      expect(bytes(systemPrompt(version))).toBeLessThanOrEqual(12 * 1024);
       const celtic = spreadsFeed.spreads.find((s) => s.id === 'celtic_cross');
       for (const locale of LOCALES) {
-        const built = buildReadingPrompt({
+        const request = {
           spreadId: 'celtic_cross',
           locale,
           // The longest question the route accepts (300 graphemes, 03 §9.1).
@@ -282,13 +282,18 @@ describe('reading prompt templates', () => {
             cardId: cardsFeed.cards[i * 7]?.id ?? 'major_00',
             reversed: i % 2 === 0,
           })),
-        });
-        if (!built.ok) {
-          throw new Error(built.error);
-        }
-        expect(bytes(built.input.system) + bytes(built.input.user), locale).toBeLessThanOrEqual(
-          18 * 1024,
-        );
+        };
+        const size = (v: (typeof PROMPT_VERSIONS)[number]): number => {
+          const built = buildReadingPrompt(request, v);
+          if (!built.ok) {
+            throw new Error(built.error);
+          }
+          return bytes(built.input.system) + bytes(built.input.user);
+        };
+        // v1 consolidation budget; v2 adds the answer-first and plain-words rules (≈ 1 KB).
+        expect(size(version), locale).toBeLessThanOrEqual((version === 'v1' ? 18 : 19.5) * 1024);
+        // A later version grows the rendered prompt by at most 10 % over v1.
+        expect(size(version), locale).toBeLessThanOrEqual(size('v1') * 1.1);
       }
     });
 
@@ -296,7 +301,8 @@ describe('reading prompt templates', () => {
       const systems = new Set<string>();
       for (const locale of LOCALES) {
         for (const spread of spreadsFeed.spreads) {
-          const built = buildReadingPrompt({
+          const built = buildReadingPrompt(
+            {
             spreadId: spread.id,
             locale,
             question: `${locale} ${spread.id}?`,
@@ -305,7 +311,9 @@ describe('reading prompt templates', () => {
               cardId: cardsFeed.cards[i * 7]?.id ?? 'major_00',
               reversed: i % 2 === 1,
             })),
-          });
+            },
+            version,
+          );
           if (!built.ok) {
             throw new Error(built.error);
           }
@@ -462,5 +470,48 @@ describe('reading prompt templates', () => {
         parseModelOutput({ ...wire, reflectionPrompts: { prompt1: 'What?' } }, expected),
       ).toEqual({ ok: false, issues: ['$.reflectionPrompts: 1, expected 2'] });
     });
+  });
+});
+
+// Prompt v2 (tester feedback on v1: too general): answer first, plain words,
+// the same output contract so the app needs no update.
+describe('reading prompt v2', () => {
+  const v1 = READING_TEMPLATES.v1;
+  const v2 = READING_TEMPLATES.v2;
+
+  it('keeps the v1 output contract, data shape and style notes', () => {
+    expect(v2.outputSchema).toEqual(v1.outputSchema);
+    expect(Object.keys(v2.data)).toEqual(Object.keys(v1.data));
+    expect(v2.data.spreads).toEqual(v1.data.spreads);
+    expect(v2.data.images).toEqual(v1.data.images);
+    expect(v2.styles).toEqual(v1.styles);
+  });
+
+  it('asks for a direct, plain answer in the first overview sentence', () => {
+    const system = systemPrompt('v2');
+    expect(system).toContain('**Answer first.**');
+    expect(system).toContain("The overview's first sentence answers the question directly");
+    expect(system).toContain('With no question, it names the reading');
+    expect(system).toContain('**Plain words.**');
+    expect(system).toMatch(/`overview`: two or three sentences: first the direct answer/);
+    expect(systemPrompt('v1')).not.toContain('Answer first');
+  });
+
+  it('restates the answer-first check in the user message, with and without a question', () => {
+    const request = {
+      spreadId: 'single',
+      locale: 'uk' as const,
+      cards: [{ positionId: 'focus', cardId: 'swords_02', reversed: false }],
+    };
+    const asked = buildReadingPrompt({ ...request, question: 'Чи варто міняти роботу?' }, 'v2');
+    const empty = buildReadingPrompt({ ...request, question: null }, 'v2');
+    if (!asked.ok || !empty.ok) {
+      throw new Error('build failed');
+    }
+    expect(asked.input.promptVersion).toBe('v2');
+    expect(asked.input.user).toContain("the overview's first sentence answers the question");
+    expect(asked.input.user).toContain(v2.data.phrases.withQuestion);
+    expect(empty.input.user).toContain(v2.data.phrases.noQuestion);
+    expect(v2.data.phrases.noQuestion).toMatch(/main theme plainly/);
   });
 });

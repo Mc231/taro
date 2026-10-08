@@ -82,7 +82,7 @@ worker/
   tsconfig.json                  strict, noUncheckedIndexedAccess
   vitest.config.ts               pool: workers, coverage thresholds (BE17)
   migrations/                    0001_init.sql, 0002_… (D1, forward-only)
-  prompts/reading/v1/            system.md, output.schema.json, style.<locale>.md, CHANGELOG.md
+  prompts/reading/v1/, v2/       system.md, user.md, output.schema.json, prompt_data.json, style.<locale>.md, CHANGELOG.md
   config/
     remote_config.default.json   the one defaults file for remote config (§8, RC8)
   safety/
@@ -929,7 +929,7 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC29, RC45, RC62, RC64, RC73, RC82, RC9
 | `ai.disclosedProviders` | `["openai"]` (RC97 amendment 2026-10-01; was `["anthropic", "openai"]`, so Anthropic routing is rejected until it is disclosed again); the processors the shipped consent copy and store forms name (05 CS6). `config-push` rejects any `ai.provider.*`, `ai.outageFallback.provider` or `ai.moderation.provider` outside this list (RC97; in the defaults file and enforced by the config schema since 2026-09-30) |
 | `ai.effort` | `"low"` (a hint; each adapter maps it to its vendor's effort setting or ignores it, RC97) |
 | `ai.serviceTier` | `"standard"` (launch default, owner 2026-10-06); ∈ `standard`, `fast` (a hint like `ai.effort`: the OpenAI adapter sends `service_tier: "fast"`, others ignore it). Fast mode cut `gpt-6.1-sol` generation time by about 40 % at 2x the token price (2026-10-03, `docs/compliance/PERF_REPORT.md` §4); `standard` keeps the standard price at ≈ 12 s per `single` reading; either value is switched without a release |
-| `ai.promptVersion` | `"v1"` |
+| `ai.promptVersion` | `"v1"`; ∈ the versions bundled in the build (`PROMPT_VERSIONS`: `v1`, `v2`; an unknown value serves `v1`). `v2` (answer-first overview, plain words, same output contract) is selectable once its eval reports pass (`prompts/reading/v2/CHANGELOG.md`) |
 | `ai.maxTokensBySpread` | `{ "single": 2500, "three_ppf": 4000, "three_sao": 4000, "two_paths": 5500, "relationship": 5500, "celtic_cross": 8000, "*": 4000 }` (keys are the 01 §10.3 spread IDs, RC2) |
 | `ai.blockedCountries` | ISO 3166-1 alpha-2 list matching the CS16 territory exclusions (`CN`, `RU`, `SA`, `AE`, `QA`, `KW`, `BH`, `OM`) plus the countries where any routable AI provider (the three tiers and the outage fallback; v1 Anthropic and OpenAI) is not offered (union of the snapshots dated in `00_DECISIONS.md`, RC97); `cf.country` in the list → `403 AI_UNAVAILABLE_REGION` (RC29) |
 | `ai.timeoutMs` | `50000` (RC97 amendment 2026-10-01; was `40000`: `gpt-6.1-sol` timed out at 40 s on a long Korean reading). Must stay below `ai.deadlineMs`; a call that uses the whole 50 s leaves < 15 s, so it gets no retry, regeneration or outage fallback (RC52) and the reading fails with a refund |

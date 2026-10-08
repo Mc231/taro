@@ -15,6 +15,22 @@ import styleTrV1 from '../../prompts/reading/v1/style.tr.md';
 import styleUkV1 from '../../prompts/reading/v1/style.uk.md';
 import systemV1 from '../../prompts/reading/v1/system.md';
 import userV1 from '../../prompts/reading/v1/user.md';
+import outputSchemaV2 from '../../prompts/reading/v2/output.schema.json';
+import promptDataV2 from '../../prompts/reading/v2/prompt_data.json';
+import styleArV2 from '../../prompts/reading/v2/style.ar.md';
+import styleDeV2 from '../../prompts/reading/v2/style.de.md';
+import styleEnV2 from '../../prompts/reading/v2/style.en.md';
+import styleEsV2 from '../../prompts/reading/v2/style.es.md';
+import styleFrV2 from '../../prompts/reading/v2/style.fr.md';
+import styleItV2 from '../../prompts/reading/v2/style.it.md';
+import styleJaV2 from '../../prompts/reading/v2/style.ja.md';
+import styleKoV2 from '../../prompts/reading/v2/style.ko.md';
+import styleNlV2 from '../../prompts/reading/v2/style.nl.md';
+import stylePtV2 from '../../prompts/reading/v2/style.pt.md';
+import styleTrV2 from '../../prompts/reading/v2/style.tr.md';
+import styleUkV2 from '../../prompts/reading/v2/style.uk.md';
+import systemV2 from '../../prompts/reading/v2/system.md';
+import userV2 from '../../prompts/reading/v2/user.md';
 import { CLASSIFICATIONS, LOCALES, type Locale } from '../domain/types';
 
 /**
@@ -23,7 +39,7 @@ import { CLASSIFICATIONS, LOCALES, type Locale } from '../domain/types';
  * version is frozen (its hash is pinned in `versions.lock.json`, 06 §7), so a
  * change means a new directory and a new entry here.
  */
-export const PROMPT_VERSIONS = ['v1'] as const;
+export const PROMPT_VERSIONS = ['v1', 'v2'] as const;
 export type PromptVersion = (typeof PROMPT_VERSIONS)[number];
 
 export function isPromptVersion(value: unknown): value is PromptVersion {
@@ -130,6 +146,27 @@ export const READING_TEMPLATES: Readonly<Record<PromptVersion, ReadingTemplateSe
       pt: stylePtV1,
       tr: styleTrV1,
       uk: styleUkV1,
+    },
+  },
+  v2: {
+    version: 'v2',
+    system: systemV2,
+    user: userV2,
+    outputSchema: outputSchemaV2,
+    data: promptDataSchema.parse(promptDataV2),
+    styles: {
+      en: styleEnV2,
+      ar: styleArV2,
+      de: styleDeV2,
+      es: styleEsV2,
+      fr: styleFrV2,
+      it: styleItV2,
+      ja: styleJaV2,
+      ko: styleKoV2,
+      nl: styleNlV2,
+      pt: stylePtV2,
+      tr: styleTrV2,
+      uk: styleUkV2,
     },
   },
 };

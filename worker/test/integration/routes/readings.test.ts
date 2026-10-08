@@ -157,6 +157,23 @@ describe('POST /v1/readings/holds + POST /v1/readings: completed (03 §9.0, §9.
     expect(h.ai.openai.requests.at(-1)?.model).toBe('gpt-6.1-sol');
   });
 
+  it('ai.promptVersion selects a bundled prompt version (BE11): v2 is served and recorded', async () => {
+    const h = setup();
+    h.config.set({ 'ai.promptVersion': 'v2' });
+    const id = await install();
+    const readingId = crid();
+    const res = await postReading(h, id, readingId);
+    expect(res.status).toBe(200);
+    expect(await json<ReadingResponse>(res)).toMatchObject({
+      status: 'completed',
+      promptVersion: 'v2',
+    });
+    expect(await readings.findByClientId(id, readingId)).toMatchObject({ promptVersion: 'v2' });
+    const sent = h.ai.openai.requests.at(-1)?.prompt;
+    expect(sent?.promptVersion).toBe('v2');
+    expect(sent?.system).toContain('**Answer first.**');
+  });
+
   it('a three-card reading echoes the cards in position order', async () => {
     const h = setup();
     const id = await install();

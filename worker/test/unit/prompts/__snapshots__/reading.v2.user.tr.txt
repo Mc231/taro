@@ -1,0 +1,58 @@
+<reading_language code="tr">Turkish (Türkçe)</reading_language>
+<style_notes>
+Register: warm Turkish with "sen" (senin, sana; "deneyebilirsin"), never "siz" forms. Other people neutral ("diğer kişi", "sana yakın biri").
+Names: exactly the names in <cards> ("Asa Onlusu", "Kupa Yedilisi"). Terms: Büyük Arkana, Küçük Arkana; Asalar, Kupalar, Kılıçlar, Tılsımlar; "düz", "ters"; the layout is "açılım".
+Card-focus clause: "Bu okuma kartların kendisine odaklanıyor."
+Prompts use "Ne", "Hangi", "Nasıl", "Nerede" or "Ne zaman", never "mı/mi".
+Avoid: "kartlar gösteriyor", the -(y)AcAK future about outcomes (write "-abilir"), "yakında", "zamanla", "yerine", "-den çok", "… değil, …".
+Rejected words: every word starting with "isabetli", "kesin", "garanti" or "tedavi", medyum, kehanet, the words "büyü" and "büyüsü", 100%. "Büyük" and "Büyücü" are fine. Write instead: "belki", "net", "açık", "toparlanmak", "kendine iyi bakmak", "küçük bir ritüel".
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 25–40 Turkish words; each card 3–5 sentences, 40–55 Turkish words; synthesis 3–5 sentences, 40–60 Turkish words; exactly 3 reflection prompts; about 225–300 Turkish words in total, title and prompts included. (Converted: about 0.75 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: Geçmiş. Read as earlier influences, choices or habits that may still shape the situation.
+Card: Kule; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: Şimdi. Read as a mood, circumstance or inner stance that may be active now.
+Card: Kupa Üçlüsü; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: Gelecek. Read as a possible direction ahead.
+Card: Tılsım Kralı; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (Kule).
+Suits: 1 × Cups (Kupa Üçlüsü); 1 × Pentacles (Tılsım Kralı). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (Kupa Üçlüsü).
+Court cards: Tılsım Kralı.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Turkish (Türkçe). Address the reader informally with "sen" (never "siz"). Answer the question in the overview's first sentence, then tie every section to it and to the reader's own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- the overview's first sentence answers the question in plain words, with no yes, no or outcome;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "kesin" / "kesinlikle", "garanti", "tedavi", "büyü") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

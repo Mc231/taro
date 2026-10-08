@@ -1,0 +1,448 @@
+{
+  "locales": {
+    "en": "English",
+    "ar": "Modern Standard Arabic (العربية)",
+    "de": "German (Deutsch)",
+    "es": "Spanish (español)",
+    "fr": "French (français)",
+    "it": "Italian (italiano)",
+    "ja": "Japanese (日本語)",
+    "ko": "Korean (한국어)",
+    "nl": "Dutch (Nederlands)",
+    "pt": "Brazilian Portuguese (português do Brasil)",
+    "tr": "Turkish (Türkçe)",
+    "uk": "Ukrainian (українська)"
+  },
+  "spreads": {
+    "single": {
+      "name": "Single Card",
+      "positions": {
+        "focus": "Focus"
+      },
+      "positionNotes": {
+        "focus": "Read as a quality, feeling or perspective the card may bring to the question."
+      },
+      "words": {
+        "overview": [
+          25,
+          40
+        ],
+        "card": [
+          75,
+          95
+        ],
+        "synthesis": [
+          25,
+          45
+        ],
+        "total": [
+          150,
+          220
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "5–7",
+        "synthesis": "2–3"
+      },
+      "reflectionPrompts": 2,
+      "note": "One card, read in depth for the question. With a yes-or-no or \"should I\" question, show what the card may bring to each side and leave the answer with the reader."
+    },
+    "three_ppf": {
+      "name": "Past, Present, Future",
+      "positions": {
+        "past": "Past",
+        "present": "Present",
+        "future": "Future"
+      },
+      "positionNotes": {
+        "past": "Read as earlier influences, choices or habits that may still shape the situation.",
+        "present": "Read as a mood, circumstance or inner stance that may be active now.",
+        "future": "Read as a possible direction ahead."
+      },
+      "words": {
+        "overview": [
+          35,
+          50
+        ],
+        "card": [
+          55,
+          70
+        ],
+        "synthesis": [
+          55,
+          80
+        ],
+        "total": [
+          300,
+          400
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "3–5",
+        "synthesis": "3–5"
+      },
+      "reflectionPrompts": 3,
+      "note": "One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with \"may\" and \"if\"."
+    },
+    "three_sao": {
+      "name": "Situation, Action, Outcome",
+      "positions": {
+        "situation": "Situation",
+        "action": "Action",
+        "outcome": "Outcome"
+      },
+      "positionNotes": {
+        "situation": "Read as circumstances, pressures and feelings that may surround the question.",
+        "action": "Read as an approach or attitude the reader could weigh; describe what it may offer and ask.",
+        "outcome": "Read as where that approach may lead."
+      },
+      "words": {
+        "overview": [
+          35,
+          50
+        ],
+        "card": [
+          55,
+          70
+        ],
+        "synthesis": [
+          55,
+          80
+        ],
+        "total": [
+          300,
+          400
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "3–5",
+        "synthesis": "3–5"
+      },
+      "reflectionPrompts": 3,
+      "note": "The action card is an approach the reader could weigh and the outcome card where it may lead, both in conditional wording (\"if you…\"). With a \"should I\" question, describe the approach and what it may ask, without endorsing or rejecting it."
+    },
+    "relationship": {
+      "name": "Relationship",
+      "positions": {
+        "you": "You",
+        "other": "The Other Person",
+        "connection": "Connection",
+        "challenge": "Challenge",
+        "potential": "Potential"
+      },
+      "positionNotes": {
+        "you": "Read as what the reader may bring to the bond: feelings, needs, hopes and habits.",
+        "other": "Read as how the reader may experience or see the other person, or what they might ask them about.",
+        "connection": "Read as what the bond may share: common ground, dynamic and quality as the reader experiences it.",
+        "challenge": "Read as a tension, difference or pattern that may strain the bond and could be looked at with care.",
+        "potential": "Read as what the bond could grow into with care from both sides."
+      },
+      "words": {
+        "overview": [
+          40,
+          55
+        ],
+        "card": [
+          50,
+          65
+        ],
+        "synthesis": [
+          65,
+          90
+        ],
+        "total": [
+          400,
+          550
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "3–4",
+        "synthesis": "4–6"
+      },
+      "reflectionPrompts": 3,
+      "note": "Any close bond counts: romantic, family, friendship or work. Read 'other' as how the reader may experience that person, never as their thoughts or intentions. If the question names no other person, read 'other' and 'connection' as the reader's close bonds in general and assume no partner; if the other person has died, as the reader's memory of them."
+    },
+    "two_paths": {
+      "name": "Two Paths",
+      "positions": {
+        "situation": "Situation",
+        "path_a": "Path A",
+        "path_a_outcome": "Path A Outcome",
+        "path_b": "Path B",
+        "path_b_outcome": "Path B Outcome"
+      },
+      "positionNotes": {
+        "situation": "Read as the situation behind the choice: why it may matter now and what the reader may hope to find or protect.",
+        "path_a": "Read as the first path (as the reader named it, or labelled by this card): what it might involve and ask for.",
+        "path_a_outcome": "Read as where the first path may lead: what it may offer and what it may cost.",
+        "path_b": "Read as the second path (as the reader named it, or labelled by this card): what it might involve and ask for.",
+        "path_b_outcome": "Read as where the second path may lead: what it may offer and what it may cost."
+      },
+      "words": {
+        "overview": [
+          40,
+          55
+        ],
+        "card": [
+          50,
+          65
+        ],
+        "synthesis": [
+          65,
+          90
+        ],
+        "total": [
+          400,
+          550
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "3–4",
+        "synthesis": "4–6"
+      },
+      "reflectionPrompts": 3,
+      "note": "Path A is the first option the question names and path B the second. With no named options, call each path after its path card and describe it only through that card. Give both paths the same length and care: what each may offer and what each may ask."
+    },
+    "celtic_cross": {
+      "name": "Celtic Cross",
+      "positions": {
+        "present": "Present",
+        "challenge": "Challenge",
+        "foundation": "Foundation",
+        "recent_past": "Recent Past",
+        "potential": "Potential",
+        "near_future": "Near Future",
+        "self": "Self",
+        "environment": "Environment",
+        "hopes_fears": "Hopes and Fears",
+        "outcome": "Outcome"
+      },
+      "positionNotes": {
+        "present": "Read as the heart of the matter now.",
+        "challenge": "Read as what crosses the situation: a tension that may need attention.",
+        "foundation": "Read as the roots the situation may rest on.",
+        "recent_past": "Read as recent influences that may still color things.",
+        "potential": "Read as the hopeful aim the reader may be reaching for.",
+        "near_future": "Read as what may come next if things continue as they are.",
+        "self": "Read as the reader's own stance and strengths.",
+        "environment": "Read as the people and circumstances around the reader, as the reader may experience them.",
+        "hopes_fears": "Read as what the reader may hope for, fear, or both.",
+        "outcome": "Read as the direction the cards may point to together."
+      },
+      "words": {
+        "overview": [
+          45,
+          60
+        ],
+        "card": [
+          45,
+          55
+        ],
+        "synthesis": [
+          100,
+          140
+        ],
+        "total": [
+          650,
+          850
+        ]
+      },
+      "sentences": {
+        "overview": "2–3",
+        "card": "2–3",
+        "synthesis": "5–7"
+      },
+      "reflectionPrompts": 3,
+      "note": "Keep each card section short and about its own card. The synthesis links present and challenge, the roots, self and environment, and hopes and fears flowing into the outcome."
+    }
+  },
+  "suits": {
+    "wands": "Wands",
+    "cups": "Cups",
+    "swords": "Swords",
+    "pentacles": "Pentacles"
+  },
+  "ranks": {
+    "01": "Ace",
+    "02": "Two",
+    "03": "Three",
+    "04": "Four",
+    "05": "Five",
+    "06": "Six",
+    "07": "Seven",
+    "08": "Eight",
+    "09": "Nine",
+    "10": "Ten",
+    "11": "Page",
+    "12": "Knight",
+    "13": "Queen",
+    "14": "King"
+  },
+  "phrases": {
+    "noQuestion": "The question is empty: name the main theme plainly in the overview's first sentence, then read what these cards invite the reader to notice in their life now, without inventing circumstances or mentioning the empty question.",
+    "withQuestion": "Answer the question in the overview's first sentence, then tie every section to it and to the reader's own words.",
+    "noHint": "none",
+    "regenerationIntro": "The app rejected your previous attempt for this reason. Write a fresh reading that fixes it:",
+    "lengthConverted": "(Converted: about {factor} × the English word count.)",
+    "lengthFloor": "Every range is a floor and a ceiling; keep sentences short."
+  },
+  "localeNotes": {
+    "en": {
+      "factor": 1,
+      "unit": "words",
+      "address": "Address the reader as \"you\" (singular).",
+      "checkWords": "\"precise\", \"accurate\", \"guarantee\", \"best\", \"medium\", \"healing\""
+    },
+    "ar": {
+      "factor": 0.85,
+      "unit": "Arabic words",
+      "address": "Write Modern Standard Arabic and address the reader in the second person singular, avoiding gender marking unless the question shows the reader's gender.",
+      "checkWords": "\"دقيق\" / \"بدقة\" / \"دقيقة\", \"مضمون\", \"علاج\", \"سحر\" / \"سحري\""
+    },
+    "de": {
+      "factor": 0.9,
+      "unit": "German words",
+      "address": "Address the reader informally with \"du\".",
+      "checkWords": "\"genau\" (write \"gerade\", \"eben\"), \"garantiert\", \"Garantie\", \"heilen\", \"Zauber\" / \"zauberhaft\""
+    },
+    "es": {
+      "factor": 1.05,
+      "unit": "Spanish words",
+      "address": "Address the reader informally with \"tú\", in gender-neutral wording.",
+      "checkWords": "\"preciso\" / \"precisamente\", \"exacto\" / \"exactamente\", \"garantiza\", \"curar\", \"hechizo\""
+    },
+    "fr": {
+      "factor": 1.05,
+      "unit": "French words",
+      "address": "Address the reader with \"vous\", in gender-neutral wording.",
+      "checkWords": "\"précis\" / \"précisément\", \"exact\" / \"exactement\", \"garanti\", \"sort\" (also as \"fate\" and as the verb \"il sort\"), \"guérir\""
+    },
+    "it": {
+      "factor": 1,
+      "unit": "Italian words",
+      "address": "Address the reader informally with \"tu\", in gender-neutral wording.",
+      "checkWords": "\"preciso\" / \"precisa\" / \"precisamente\", \"accurato\", \"garantito\", \"guarire\", \"sensitivo\""
+    },
+    "ja": {
+      "factor": 2,
+      "unit": "Japanese characters",
+      "address": "Write in polite です・ます form throughout.",
+      "checkWords": "「必ず」「保証」「当たる」「治す」「治療」"
+    },
+    "ko": {
+      "factor": 0.75,
+      "unit": "Korean space-separated words",
+      "address": "Write in polite 해요체 throughout.",
+      "checkWords": "\"정확\" (정확히), \"반드시\", \"보장\", \"치료\""
+    },
+    "nl": {
+      "factor": 1,
+      "unit": "Dutch words",
+      "address": "Address the reader informally with \"je\".",
+      "checkWords": "\"nauwkeurig\", \"garantie\" / \"gegarandeerd\", \"genezen\", \"betoveren\""
+    },
+    "pt": {
+      "factor": 1,
+      "unit": "Portuguese words",
+      "address": "Address the reader with \"você\" (pt-BR), in gender-neutral wording.",
+      "checkWords": "\"precisar\" in every form (\"precisa\", \"precisamos\"), \"exato\" / \"exatamente\", \"garantia\", \"curar\""
+    },
+    "tr": {
+      "factor": 0.75,
+      "unit": "Turkish words",
+      "address": "Address the reader informally with \"sen\" (never \"siz\").",
+      "checkWords": "\"kesin\" / \"kesinlikle\", \"garanti\", \"tedavi\", \"büyü\""
+    },
+    "uk": {
+      "factor": 0.85,
+      "unit": "Ukrainian words",
+      "address": "Address the reader formally with capitalised \"Ви\" (Вас, Вам, Ваш), in gender-neutral wording.",
+      "checkWords": "\"точно\" / \"точний\", \"гарантія\", \"лікування\", \"заклинання\""
+    }
+  },
+  "images": {
+    "major_00": "a traveller with a small bundle steps lightly toward a cliff edge, a white rose in hand and a small dog at their heels",
+    "major_01": "a figure raises a wand to the sky and points to the ground, with a cup, a sword and a pentacle laid out on the table",
+    "major_02": "a seated figure between a dark and a light pillar, a veil of pomegranates behind, a half-hidden scroll in the lap and a crescent moon at the feet",
+    "major_03": "a figure resting on cushions in a ripe field of wheat beside a stream, a shield with the sign of Venus at the side",
+    "major_04": "a figure on a stone throne carved with rams' heads, holding an orb and a sceptre, bare mountains behind",
+    "major_05": "a figure seated between two pillars, raising a hand in blessing over two listeners, with two crossed keys at the feet",
+    "major_06": "two figures stand in a garden under a large winged figure in the sun, a fruit tree behind one and a tree of flames behind the other",
+    "major_07": "a figure stands in a chariot under a starry canopy, drawn by a black and a white sphinx that face different ways",
+    "major_08": "a figure calmly closes a lion's jaws with bare hands, an infinity sign above the head",
+    "major_09": "a cloaked figure alone on a snowy peak, holding up a lantern with a six-pointed star inside",
+    "major_10": "a great wheel turning in the clouds, marked with letters and symbols, a sphinx on top and figures rising and sinking on its rim",
+    "major_11": "a figure seated between two pillars, holding upright scales in one hand and a raised sword in the other",
+    "major_12": "a figure hangs upside down by one foot from a living tree, the other leg crossed, face calm and a soft halo around the head",
+    "major_13": "a rider in black armour on a white horse carries a banner with a white rose, while a sun rises between two towers in the distance",
+    "major_14": "a figure with one foot on land and one in a pool pours water back and forth between two cups, a path leading to distant mountains",
+    "major_15": "a horned figure on a pedestal above two figures whose chains hang loose enough around their necks to lift off",
+    "major_16": "lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open",
+    "major_17": "a figure kneels by a pool under a large star, pouring water from one jar into the pool and from another onto the land",
+    "major_18": "a moon between two towers above a winding path, a dog and a wolf howling at it and a crayfish climbing out of a pool",
+    "major_19": "a child rides a white horse beneath a bright sun, sunflowers along a wall behind",
+    "major_20": "a figure blows a trumpet from the clouds while people below rise from open boxes, arms stretched toward the sound",
+    "major_21": "a dancing figure inside an oval wreath holds a wand in each hand, with a figure in each corner of the card",
+    "wands_01": "a hand emerges from a cloud holding a sprouting wand, a castle on a hill in the distance",
+    "wands_02": "a figure on a castle wall holds a small globe and looks out over land and sea, one wand held and one fixed to the wall",
+    "wands_03": "a figure on a cliff watches ships sail out across a golden sea, three wands planted around them",
+    "wands_04": "four wands hung with a garland of flowers form a gateway, people celebrating in front of a castle",
+    "wands_05": "five figures swing their wands at one another in a lively, open scuffle",
+    "wands_06": "a rider crowned with a laurel wreath passes through a crowd, a wreathed wand held high",
+    "wands_07": "a figure on high ground holds one wand against six rising from below, wearing two different shoes",
+    "wands_08": "eight wands fly through open sky in parallel over a green landscape, about to land",
+    "wands_09": "a figure with a bandaged head leans on one wand and watches, eight more wands standing like a fence behind",
+    "wands_10": "a figure bends under a bundle of ten wands, walking toward a town close ahead",
+    "wands_11": "a young figure in a desert landscape holds up a sprouting wand and studies it with curiosity",
+    "wands_12": "a rider on a rearing horse charges forward with a wand, salamanders on the tunic",
+    "wands_13": "a figure on a throne with lions, holding a wand and a sunflower, a black cat sitting at the feet",
+    "wands_14": "a figure on a throne decorated with lions and salamanders, holding a sprouting wand and leaning slightly forward",
+    "cups_01": "a hand from a cloud offers a cup overflowing with five streams, a dove dropping a wafer into it above a pond of lilies",
+    "cups_02": "two figures face each other and exchange cups, a winged lion's head rising above them",
+    "cups_03": "three figures raise their cups together in a dance, fruit and flowers at their feet",
+    "cups_04": "a figure sits under a tree, arms folded, looking at three cups while a hand from a cloud offers a fourth",
+    "cups_05": "a cloaked figure looks down at three spilled cups while two full cups stand behind them, a bridge across the river",
+    "cups_06": "a child offers another a cup filled with flowers in an old courtyard, more flower cups around them",
+    "cups_07": "a figure faces seven cups floating in the clouds, each holding something different: a castle, jewels, a wreath, a snake, a veiled face",
+    "cups_08": "a figure with a staff walks away by moonlight toward the mountains, leaving eight stacked cups behind with a gap in the rows",
+    "cups_09": "a contented figure sits with arms crossed in front of nine cups lined up on a curved shelf",
+    "cups_10": "two adults with arms raised and two children dancing look at a rainbow of ten cups over a house and a river",
+    "cups_11": "a young figure in a patterned tunic looks with surprise at a fish peeking out of a cup, the sea behind",
+    "cups_12": "a rider on a slow white horse holds a cup out in front, crossing toward a stream",
+    "cups_13": "a figure on a throne at the water's edge gazes into an ornate, closed cup held in both hands",
+    "cups_14": "a figure on a throne floating on a rough sea holds a cup and a sceptre, calm while a ship and a fish move nearby",
+    "swords_01": "a hand from a cloud holds a single upright sword crowned with a wreath, above bare mountains",
+    "swords_02": "a blindfolded figure sits by the sea with two swords crossed over the chest, a crescent moon above",
+    "swords_03": "three swords pierce a red heart against grey clouds and rain",
+    "swords_04": "a figure rests with hands together on a stone bench, one sword beneath and three hanging on the wall above, a quiet stained-glass window",
+    "swords_05": "a figure gathers swords with a half smile while two others walk away toward the water under a torn sky",
+    "swords_06": "a ferry carries a figure and a child across the water toward calmer shore, six swords standing upright in the boat",
+    "swords_07": "a figure tiptoes away from a camp carrying five swords and glancing back at the two left standing",
+    "swords_08": "a loosely bound and blindfolded figure stands among eight swords set in the ground, with open space to walk away",
+    "swords_09": "a figure sits up in bed with their face in their hands, nine swords hanging on the dark wall behind them",
+    "swords_10": "a figure lies still on the ground under ten swords while the dark sky begins to lighten at the horizon over calm water",
+    "swords_11": "a young figure on a windy hill holds a sword up, alert and watchful",
+    "swords_12": "a rider charges full speed into the wind, sword raised, clouds and trees bent",
+    "swords_13": "a figure on a throne among clouds holds a raised sword upright and extends an open hand",
+    "swords_14": "a figure on a throne faces forward holding an upright sword, butterflies carved on the throne",
+    "pentacles_01": "a hand from a cloud offers a single coin above a garden, an archway of flowers opening onto a path",
+    "pentacles_02": "a figure juggles two coins inside a looping ribbon shaped like an infinity sign, ships riding high waves behind",
+    "pentacles_03": "a stonemason on a bench in a cathedral shows the work to two figures holding a plan",
+    "pentacles_04": "a figure sits holding one coin tightly to the chest, one balanced on the head and two under the feet, a city behind",
+    "pentacles_05": "two figures walk through the snow past a lit stained-glass window, one on crutches",
+    "pentacles_06": "a figure holding scales gives coins to two kneeling figures",
+    "pentacles_07": "a figure leans on a hoe and looks at a bush heavy with seven coins",
+    "pentacles_08": "a craftsperson at a bench carves coins one by one, finished ones hung up in a row",
+    "pentacles_09": "a figure in a rich robe stands in a vineyard among nine coins, a hooded falcon on the gloved hand",
+    "pentacles_10": "an older figure with two dogs sits under an archway, a family and a child beyond, ten coins arranged across the scene",
+    "pentacles_11": "a young figure stands in a green field, holding up a single coin and studying it closely",
+    "pentacles_12": "a rider sits still on a heavy horse, holding a coin, looking over a ploughed field",
+    "pentacles_13": "a figure on a throne in a garden holds a coin in the lap, a rabbit nearby and flowers around",
+    "pentacles_14": "a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind"
+  }
+}

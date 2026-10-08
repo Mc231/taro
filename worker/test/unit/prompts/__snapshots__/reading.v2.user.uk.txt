@@ -1,0 +1,58 @@
+<reading_language code="uk">Ukrainian (українська)</reading_language>
+<style_notes>
+Register: warm Ukrainian with capitalised "Ви" (Вас, Вам, Ваш). No gendered forms for the reader: "Вам може бути важко". Apostrophe ’, no Russian words.
+Names: the names in <cards> («Паж Кубків»). Terms: Старші аркани, Молодші аркани; Жезли, Кубки, Мечі, Пентаклі; "пряма", "перевернута"; the layout is "розклад".
+Card-focus clause: «Це тлумачення зосереджене на самих картах.»
+Prompts start with "Що", "Який/Яка", "Як", "Де" or "Коли", never "Чи".
+Avoid: "карта показує, що", "станеться", "незабаром", "з часом", "а не", "замість", "не … а".
+Rejected words: every word starting with "точн", "гарант", "ясновид", "лікув" or "заклинан", екстрасенс, приворот, 100%. Write instead: "чітко", "саме", "подбати про себе".
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 30–45 Ukrainian words; each card 3–5 sentences, 45–60 Ukrainian words; synthesis 3–5 sentences, 45–70 Ukrainian words; exactly 3 reflection prompts; about 255–340 Ukrainian words in total, title and prompts included. (Converted: about 0.85 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: Минуле. Read as earlier influences, choices or habits that may still shape the situation.
+Card: Вежа; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: Теперішнє. Read as a mood, circumstance or inner stance that may be active now.
+Card: Трійка Кубків; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: Майбутнє. Read as a possible direction ahead.
+Card: Король Пентаклів; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (Вежа).
+Suits: 1 × Cups (Трійка Кубків); 1 × Pentacles (Король Пентаклів). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (Трійка Кубків).
+Court cards: Король Пентаклів.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Ukrainian (українська). Address the reader formally with capitalised "Ви" (Вас, Вам, Ваш), in gender-neutral wording. Answer the question in the overview's first sentence, then tie every section to it and to the reader's own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- the overview's first sentence answers the question in plain words, with no yes, no or outcome;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "точно" / "точний", "гарантія", "лікування", "заклинання") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

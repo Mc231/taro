@@ -1,0 +1,73 @@
+{
+  "$comment": "Provider-neutral template (RC97): no if/then/oneOf, which vendor strict modes reject. `outputSchemaFor` (src/prompts/templates.ts) builds the schema sent with each request from the spread: the `<positionId>` property of `cards` becomes one required property per position ID of the spread, and `prompt<n>` of `reflectionPrompts` becomes prompt1..promptN (the spread's count), so the grammar enforces both counts without minItems/maxItems, which some vendor strict modes reject. The Worker's zod parse (parseModelOutput) also requires, when classification is none, a non-empty title, overview, synthesis, interpretation and prompt, and the drawn cardId and reversed echoed per position.",
+  "type": "object",
+  "required": ["classification", "title", "overview", "cards", "synthesis", "reflectionPrompts"],
+  "properties": {
+    "classification": {
+      "type": "string",
+      "enum": [
+        "none",
+        "health",
+        "pregnancy",
+        "death",
+        "legal",
+        "financial",
+        "gambling",
+        "self_harm",
+        "harm_to_others",
+        "sexual_minors",
+        "hate_or_harassment"
+      ],
+      "description": "Decided first. \"none\" = write the reading; any other value = refusal, every other string empty."
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 80,
+      "description": "Two to seven words. Non-empty unless declined."
+    },
+    "overview": {
+      "type": "string",
+      "maxLength": 700,
+      "description": "Two or three sentences. Non-empty unless declined."
+    },
+    "cards": {
+      "type": "object",
+      "description": "One entry per drawn card, keyed by its positionId, in input order. Kept with empty interpretations when declined.",
+      "properties": {
+        "<positionId>": {
+          "type": "object",
+          "required": ["cardId", "reversed", "interpretation"],
+          "properties": {
+            "cardId": { "type": "string" },
+            "reversed": { "type": "boolean" },
+            "interpretation": {
+              "type": "string",
+              "maxLength": 900
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["<positionId>"],
+      "additionalProperties": false
+    },
+    "synthesis": {
+      "type": "string",
+      "maxLength": 1400,
+      "description": "How the cards connect, ending on one concrete step. Non-empty unless declined."
+    },
+    "reflectionPrompts": {
+      "type": "object",
+      "description": "prompt1, prompt2, …: exactly the number given in <length>, open questions. Empty strings when declined.",
+      "properties": {
+        "prompt<n>": {
+          "type": "string",
+          "maxLength": 200
+        }
+      },
+      "required": ["prompt<n>"],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

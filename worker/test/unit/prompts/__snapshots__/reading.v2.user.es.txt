@@ -1,0 +1,58 @@
+<reading_language code="es">Spanish (español)</reading_language>
+<style_notes>
+Register: warm, neutral Spanish with "tú". Other people neutral ("la otra persona"). No gendered adjectives for the reader: "sin rumbo", "sin compañía", "con calma" (never solo/a, preparado/a, or doublets).
+Names: the names in <cards> with their article ("la Sota", "el As"); a numbered card is singular ("el Tres de Espadas invertido"). Terms: Arcanos mayores, Arcanos menores; Bastos, Copas, Espadas, Oros; "al derecho", "invertido/invertida" agreeing with the card; the layout is "la tirada".
+Card-focus clause: "Esta lectura se centra en las cartas mismas."
+Prompts use "¿Qué…?", "¿Cuál…?", "¿Cómo…?", "¿Dónde…?" or "¿Cuándo…?".
+Avoid: "las cartas muestran que", "va a pasar", "pronto", "con el tiempo", "en lugar de", "más que", "no … sino".
+Rejected words: every word starting with "precis" or "exact" (preciso, precisamente, exacto), garantiza, vidente, psíquico, curar, terapia, hechizo, amarre, 100 %. Write instead: "necesitas", "claro", "concreto", "justo", "cuidarte", "un ritual".
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 35–55 Spanish words; each card 3–5 sentences, 60–75 Spanish words; synthesis 3–5 sentences, 60–85 Spanish words; exactly 3 reflection prompts; about 315–420 Spanish words in total, title and prompts included. (Converted: about 1.05 × the English word count.) Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: Pasado. Read as earlier influences, choices or habits that may still shape the situation.
+Card: La Torre; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: Presente. Read as a mood, circumstance or inner stance that may be active now.
+Card: Tres de Copas; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: Futuro. Read as a possible direction ahead.
+Card: Rey de Oros; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (La Torre).
+Suits: 1 × Cups (Tres de Copas); 1 × Pentacles (Rey de Oros). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (Tres de Copas).
+Court cards: Rey de Oros.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Spanish (español). Address the reader informally with "tú", in gender-neutral wording. Answer the question in the overview's first sentence, then tie every section to it and to the reader's own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- the overview's first sentence answers the question in plain words, with no yes, no or outcome;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "preciso" / "precisamente", "exacto" / "exactamente", "garantiza", "curar", "hechizo") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.

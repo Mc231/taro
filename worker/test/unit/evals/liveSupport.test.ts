@@ -13,6 +13,7 @@ import {
 import { parseCase, parseCases } from '../../../evals/lib/io';
 import {
   anthropicJudge,
+  judgeJsonl,
   judgeMarkdown,
   judgeMessage,
   judgeReading,
@@ -226,7 +227,12 @@ describe('LLM judge', () => {
       },
     });
     expect(stub.requests[0]?.headers.get('authorization')).toBe('Bearer k');
-    expect(stub.requests[0]?.body).toMatchObject({ store: false, model: 'gpt-6-luna' });
+    expect(stub.requests[0]?.body).toMatchObject({
+      store: false,
+      model: 'gpt-6-luna',
+      reasoning: { effort: 'low' },
+      max_output_tokens: 2000,
+    });
     expect(await judge('s', 'u')).toMatchObject({
       kind: 'ok',
       call: { usage: { inputTokens: 0 } },
@@ -241,6 +247,8 @@ describe('LLM judge', () => {
       kind: 'error',
       detail: 'timeout',
     });
+    // No reasoning parameter for a model without one.
+    expect(stub.requests[0]?.body['reasoning']).toBeUndefined();
     expect(await anthropicJudge('k', 'm', stub.fetch)('s', 'u')).toEqual({
       kind: 'error',
       detail: 'http 200',
@@ -258,13 +266,24 @@ describe('LLM judge', () => {
   });
 
   it('parses scores strictly', () => {
-    expect(parseJudge('Sure: {"tone":5,"coherence":4,"fidelity":3,"notes":"n"} done')).toEqual({
+    const full = '"tone":5,"coherence":4,"fidelity":3,"clarity":2,"answerFirst":true';
+    expect(parseJudge(`Sure: {${full},"notes":"n"} done`)).toEqual({
       tone: 5,
       coherence: 4,
       fidelity: 3,
+      clarity: 2,
+      answerFirst: true,
       notes: 'n',
     });
-    expect(parseJudge('{"tone":5,"coherence":4,"fidelity":3}')?.notes).toBe('');
+    expect(parseJudge(`{${full}}`)?.notes).toBe('');
+    // Clarity and answer-first are required (prompt v2 criteria).
+    expect(parseJudge('{"tone":5,"coherence":4,"fidelity":3}')).toBeNull();
+    expect(
+      parseJudge('{"tone":5,"coherence":4,"fidelity":3,"clarity":4,"answerFirst":"yes"}'),
+    ).toBeNull();
+    expect(
+      parseJudge('{"tone":5,"coherence":4,"fidelity":3,"clarity":0,"answerFirst":false}'),
+    ).toBeNull();
     expect(parseJudge('no json')).toBeNull();
     expect(parseJudge('{bad json}')).toBeNull();
     expect(parseJudge('[1]')).toBeNull();
@@ -287,7 +306,11 @@ describe('LLM judge', () => {
       usage: { inputTokens: 1, outputTokens: 1, cacheReadTokens: 0, cacheWriteTokens: 0 },
     };
     const replies: Awaited<ReturnType<JudgeClient>>[] = [
-      { kind: 'ok', text: '{"tone":2,"coherence":2,"fidelity":2,"notes":"flat"}', call },
+      {
+        kind: 'ok',
+        text: '{"tone":2,"coherence":2,"fidelity":2,"clarity":2,"answerFirst":false,"notes":"flat"}',
+        call,
+      },
       { kind: 'ok', text: 'nope', call },
       { kind: 'error', detail: 'timeout' },
     ];
@@ -313,7 +336,14 @@ describe('LLM judge', () => {
           locale: 'de',
           outcome: {
             kind: 'ok',
-            scores: { tone: 5, coherence: 5, fidelity: 5, notes: '' },
+            scores: {
+              tone: 5,
+              coherence: 5,
+              fidelity: 5,
+              clarity: 5,
+              answerFirst: true,
+              notes: '',
+            },
             calls: [],
           },
         },
@@ -323,8 +353,22 @@ describe('LLM judge', () => {
     ).join('\n');
     expect(md).toContain('2 answered readings scored, 1 judge errors');
     expect(md).toContain('| tone | 3.50 |');
-    expect(md).toContain('- `a` (en): tone 2');
+    expect(md).toContain('| clarity | 3.50 |');
+    expect(md).toContain('first sentence answers the question): 50.0 % (1/2).');
+    expect(md).toContain(
+      '- `a` (en): tone 2, coherence 2, fidelity 2, clarity 2, not answer-first. flat',
+    );
     expect(md).not.toContain('`b`');
     expect(judgeMarkdown([], 'm').join('\n')).toContain('| tone | – |');
+    expect(judgeMarkdown([], 'm').join('\n')).toContain('the question): –.');
+    const lines = judgeJsonl([
+      { id: 'a', locale: 'en', outcome: ok },
+      { id: 'c', locale: 'fr', outcome: { kind: 'error', detail: 'x', calls: [] } },
+    ])
+      .trimEnd()
+      .split('\n')
+      .map((line) => JSON.parse(line) as Record<string, unknown>);
+    expect(lines[0]).toMatchObject({ id: 'a', clarity: 2, answerFirst: false });
+    expect(lines[1]).toEqual({ id: 'c', locale: 'fr', error: 'x' });
   });
 });

@@ -1,0 +1,58 @@
+<reading_language code="nl">Dutch (Nederlands)</reading_language>
+<style_notes>
+Register: warm, direct Dutch with "je" / "jij". Other people neutral ("de ander", "iemand die dicht bij je staat"). No English words or anglicisms.
+Names: the names in <cards>, with "de" or "het" in lower case in running text ("staat de Maan", "de Zes van Staven"). Terms: Grote Arcana, Kleine Arcana; Staven, Kelken, Zwaarden, Pentakels; "rechtop", "omgekeerd"; the layout is "de legging".
+Card-focus clause: "Deze lezing richt zich op de kaarten zelf."
+Prompts start with "Wat", "Welke", "Hoe", "Waar" or "Wanneer", never with a verb.
+Avoid: "de kaarten laten zien dat", "zal gebeuren", "binnenkort", "met de tijd", "in plaats van", "niet … maar", "eerder … dan".
+Rejected words: every word starting with "nauwkeurig", "accura", "garantie", "helderziend", "therapie" or "betover" (also gegarandeerd), paranormaal, genezen, 100%. Write instead: "helder", "concreet", "herstellen", "goed voor jezelf zorgen", "een ritueel".
+</style_notes>
+<spread id="three_ppf" name="Past, Present, Future" cards="3">
+One story in three steps: what may have shaped this, what may be active now, and a possible direction ahead. Offer the past and present as possibilities the reader may recognise, and keep the future card forward-looking with "may" and "if".
+</spread>
+<length>
+Overview 2–3 sentences, 35–50 Dutch words; each card 3–5 sentences, 55–70 Dutch words; synthesis 3–5 sentences, 55–80 Dutch words; exactly 3 reflection prompts; about 300–400 Dutch words in total, title and prompts included. Every range is a floor and a ceiling; keep sentences short.
+</length>
+<cards>
+<card n="1" positionId="past" cardId="major_16" reversed="false">
+Position: Verleden. Read as earlier influences, choices or habits that may still shape the situation.
+Card: De Toren; upright
+Image: lightning knocks the crown off a tall tower on a rock, sparks scattering as the old structure breaks open
+Keywords: sudden change; clearing away; breakthrough; shaken assumptions; truth revealed
+</card>
+<card n="2" positionId="present" cardId="cups_03" reversed="true">
+Position: Heden. Read as a mood, circumstance or inner stance that may be active now.
+Card: Drie van Kelken; reversed
+Image: three figures raise their cups together in a dance, fruit and flowers at their feet
+Keywords: overindulgence; feeling left out; social fatigue; drifting apart; choosing your circle
+</card>
+<card n="3" positionId="future" cardId="pentacles_14" reversed="false">
+Position: Toekomst. Read as a possible direction ahead.
+Card: Koning van Pentakels; upright
+Image: a figure on a throne decorated with bulls and grapes rests a hand on a coin, a castle behind
+Keywords: stewardship; stability; generous leadership; steady provision; mastery of the practical
+</card>
+</cards>
+<spread_facts>
+Major Arcana: 1 of 3 (De Toren).
+Suits: 1 × Cups (Drie van Kelken); 1 × Pentacles (Koning van Pentakels). Absent: Wands, Swords.
+Dominant suit: none (Cups and Pentacles tied at 1 card each).
+Reversed: 1 of 3 (Drie van Kelken).
+Court cards: Koning van Pentakels.
+Repeated ranks: none.
+</spread_facts>
+<prefilter_hint>none</prefilter_hint>
+<user_question>
+How can I approach the change at work?
+</user_question>
+
+Classify first; if not "none", return only the refusal shape. Otherwise write this Past, Present, Future reading in Dutch (Nederlands). Address the reader informally with "je". Answer the question in the overview's first sentence, then tie every section to it and to the reader's own words.
+Before you reply, check:
+- every string is in the reading language, with the names from <cards>;
+- each section keeps its sentence count and range from <length>;
+- the overview's first sentence answers the question in plain words, with no yes, no or outcome;
+- each interpretation opens with its card and reads its orientation, position and one image detail;
+- no rejected word in any form (watch for "nauwkeurig", "garantie" / "gegarandeerd", "genezen", "betoveren") and no certainty, time or odds;
+- nothing invented about the reader, no hinted yes or no, no ranking of options;
+- every prompt is an open question with no unstated premise.
+Return only the JSON object.
