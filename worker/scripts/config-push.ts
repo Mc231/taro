@@ -34,6 +34,59 @@ function describe(payload: KvPayload): string {
   return `<${payload.key} v${String(payload.version)}, ${String(payload.value.length)} bytes>`;
 }
 
+/** The KV payloads of a valid config file; `null` after reporting why not. */
+async function loadPayloads(deps: CliDeps, file: string): Promise<KvPayload[] | null> {
+  let text: string;
+  try {
+    text = await deps.readFile(file);
+  } catch (err) {
+    deps.err(`cannot read ${file}: ${(err as Error).message}`);
+    return null;
+  }
+  const validation = validateConfigText(text);
+  if (!validation.ok) {
+    deps.err(`${file} is invalid:`);
+    for (const issue of validation.issues) {
+      deps.err(`  ${issue}`);
+    }
+    return null;
+  }
+  return buildKvPayloads(validation.file);
+}
+
+/** Why a payload's version may not replace the stored one, per payload. */
+async function versionIssues(
+  deps: CliDeps,
+  payloads: readonly KvPayload[],
+  env: Environment,
+  target: KvTarget,
+): Promise<string[]> {
+  const issues: string[] = [];
+  for (const payload of payloads) {
+    const current = await deps.run('npx', ['wrangler', ...kvGetArgs(payload.key, env, target)]);
+    const issue = versionIssue(payload, current.code === 0 ? storedVersion(current.stdout) : null);
+    if (issue !== null) {
+      issues.push(issue);
+    }
+  }
+  return issues;
+}
+
+/** The `wrangler kv key put` commands, values replaced by a description. */
+function printDryRun(
+  deps: CliDeps,
+  payloads: readonly KvPayload[],
+  env: Environment,
+  target: KvTarget,
+): void {
+  for (const payload of payloads) {
+    const command = kvPutArgs(payload, env, target).map((a) =>
+      a === payload.value ? describe(payload) : a,
+    );
+    deps.out(`[dry-run] wrangler ${command.join(' ')}`);
+  }
+}
+
 export async function main(argv: readonly string[], deps: CliDeps): Promise<number> {
   const args = parseArgs(argv, {
     flags: ['--dry-run', '--local', '--force'],
@@ -51,46 +104,19 @@ export async function main(argv: readonly string[], deps: CliDeps): Promise<numb
   const file = args.options.get('--file') ?? DEFAULT_FILE;
   const target: KvTarget = args.flags.has('--local') ? 'local' : 'remote';
 
-  let text: string;
-  try {
-    text = await deps.readFile(file);
-  } catch (err) {
-    deps.err(`cannot read ${file}: ${(err as Error).message}`);
+  const payloads = await loadPayloads(deps, file);
+  if (payloads === null) {
     return 1;
   }
-  const validation = validateConfigText(text);
-  if (!validation.ok) {
-    deps.err(`${file} is invalid:`);
-    for (const issue of validation.issues) {
-      deps.err(`  ${issue}`);
-    }
-    return 1;
-  }
-  const payloads = buildKvPayloads(validation.file);
 
   if (args.flags.has('--dry-run')) {
-    for (const payload of payloads) {
-      const command = kvPutArgs(payload, env, target).map((a) =>
-        a === payload.value ? describe(payload) : a,
-      );
-      deps.out(`[dry-run] wrangler ${command.join(' ')}`);
-    }
+    printDryRun(deps, payloads, env, target);
     deps.out(`${file} is valid; nothing written (--dry-run).`);
     return 0;
   }
 
   if (!args.flags.has('--force')) {
-    const issues: string[] = [];
-    for (const payload of payloads) {
-      const current = await deps.run('npx', ['wrangler', ...kvGetArgs(payload.key, env, target)]);
-      const issue = versionIssue(
-        payload,
-        current.code === 0 ? storedVersion(current.stdout) : null,
-      );
-      if (issue !== null) {
-        issues.push(issue);
-      }
-    }
+    const issues = await versionIssues(deps, payloads, env, target);
     if (issues.length > 0) {
       for (const issue of issues) {
         deps.err(issue);

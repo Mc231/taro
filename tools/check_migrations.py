@@ -37,32 +37,41 @@ def strip_sql_comments(sql: str) -> str:
     out: list[str] = []
     i, n = 0, len(sql)
     while i < n:
-        if sql.startswith("--", i):
-            end = sql.find("\n", i)
-            end = n if end < 0 else end
-            out.append(" " * (end - i))
-            i = end
-        elif sql.startswith("/*", i):
-            end = sql.find("*/", i + 2)
-            end = n if end < 0 else end + 2
-            out.append("".join(c if c == "\n" else " " for c in sql[i:end]))
-            i = end
-        elif sql[i] == "'":
-            end = i + 1
-            while end < n:
-                if sql[end] == "'" and sql.startswith("''", end):
-                    end += 2
-                    continue
-                if sql[end] == "'":
-                    end += 1
-                    break
-                end += 1
-            out.append("".join(c if c == "\n" else " " for c in sql[i:end]))
-            i = end
-        else:
+        end = _blanked_end(sql, i)
+        if end is None:
             out.append(sql[i])
             i += 1
+        else:
+            out.append("".join(c if c == "\n" else " " for c in sql[i:end]))
+            i = end
     return "".join(out)
+
+
+def _blanked_end(sql: str, i: int) -> int | None:
+    """End of the comment or string literal starting at ``i``, or ``None``."""
+    n = len(sql)
+    if sql.startswith("--", i):
+        end = sql.find("\n", i)
+        return n if end < 0 else end
+    if sql.startswith("/*", i):
+        end = sql.find("*/", i + 2)
+        return n if end < 0 else end + 2
+    if sql[i] == "'":
+        return _string_end(sql, i)
+    return None
+
+
+def _string_end(sql: str, i: int) -> int:
+    """Index just past the ``'…'`` literal at ``i`` (``''`` is an escaped quote)."""
+    end, n = i + 1, len(sql)
+    while end < n:
+        if sql.startswith("''", end):
+            end += 2
+        elif sql[end] == "'":
+            return end + 1
+        else:
+            end += 1
+    return end
 
 
 def check_names(names: Sequence[str]) -> list[Finding]:

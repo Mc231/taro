@@ -40,7 +40,7 @@ import {
 import type { ClientNetwork } from '../http/middleware/rateLimit';
 import { inst8 } from '../logging/redact';
 import { totalUsage, type AiCall } from '../ports/AiProvider';
-import { buildReadingPrompt } from '../prompts/build';
+import { buildReadingPrompt, type BuildResult } from '../prompts/build';
 import { isPromptVersion, type PromptVersion } from '../prompts/templates';
 import { DailyUsageRepo } from '../repos/DailyUsageRepo';
 import { prefilter } from '../safety/prefilter';
@@ -190,6 +190,21 @@ interface Attempt {
   readonly startedAt: number;
   readonly promptVersion: PromptVersion;
 }
+
+/** One routed result judged: answered / declined / retry (L3) / failed. */
+type Judged =
+  | { readonly kind: 'answered'; readonly reading: AnsweredReading }
+  | {
+      readonly kind: 'declined';
+      readonly category: RefusalCategory | null;
+      readonly layer: SafetyLayer;
+    }
+  | {
+      readonly kind: 'retry';
+      readonly code: FailCode;
+      readonly violations: readonly Violation[];
+    }
+  | { readonly kind: 'failed'; readonly code: FailCode };
 
 export class ReadingService {
   private readonly readings: ReadingRepo;
@@ -549,7 +564,7 @@ export class ReadingService {
   // --- generation (03 §9.1 steps 3–6) ------------------------------------------
 
   private async generate(attempt: Attempt): Promise<ReadingResponse> {
-    const { reading, request, ctx, config } = attempt;
+    const { request, ctx, config } = attempt;
     const log: CallLog = { calls: [], model: null };
 
     const l1 = prefilter(request.question, request.locale);
@@ -561,15 +576,7 @@ export class ReadingService {
       return this.decline(attempt, l1.category, 'L1', log);
     }
 
-    let budgetTier: BudgetTier;
-    try {
-      budgetTier = await this.budget.assertModelCallAllowed(config, this.deps.clock.now());
-    } catch (err) {
-      await this.refund(reading, 'budget');
-      await this.recordEnd(attempt, 'failed', log, { errorCode: 'budget' });
-      throw err;
-    }
-    const tier = aiTierFor(attempt.source, budgetTier);
+    const tier = aiTierFor(attempt.source, await this.modelBudgetTier(attempt, log));
     // The question's moderation runs alongside the first model call (03 §9.4):
     // it is checked before that call's answer is used, so a flagged question
     // is still declined and its answer discarded, uncharged.
@@ -578,17 +585,7 @@ export class ReadingService {
 
     let note: string | undefined;
     for (let round = 0; ; round++) {
-      const built = buildReadingPrompt(
-        {
-          spreadId: request.spreadId,
-          cards: request.cards,
-          locale: request.locale,
-          question: request.question,
-          prefilterHints: l1.hints,
-          ...(note === undefined ? {} : { regenerationNote: note }),
-        },
-        attempt.promptVersion,
-      );
+      const built = promptFor(attempt, l1.hints, note);
       if (!built.ok) {
         return this.fail(attempt, 'prompt', log);
       }
@@ -602,22 +599,13 @@ export class ReadingService {
       if ('model' in result) {
         log.model = result.model;
       }
-      const flagged =
-        moderated === null || moderated.kind === 'skipped'
-          ? null
-          : moderationInputCategory(moderated);
+      const flagged = questionFlag(moderated);
       if (flagged !== null) {
         return this.decline(attempt, flagged, 'L2', log);
       }
       const outcome = await this.judge(attempt, result, built.input.expected);
-      if (outcome.kind === 'answered') {
-        return this.commit(attempt, outcome.reading, log);
-      }
-      if (outcome.kind === 'declined') {
-        return this.decline(attempt, outcome.category, outcome.layer, log);
-      }
-      if (outcome.kind === 'failed') {
-        return this.fail(attempt, outcome.code, log);
+      if (outcome.kind !== 'retry') {
+        return this.settle(attempt, outcome, log);
       }
       if (round > 0) {
         return this.fail(attempt, outcome.code, log);
@@ -630,6 +618,36 @@ export class ReadingService {
         violations: outcome.violations.map((v) => v.kind).join(','),
       });
       note = regenerationNote(outcome.violations);
+    }
+  }
+
+  /**
+   * The budget tier of the model call (03 §9.0); a budget stop refunds the
+   * hold and records the attempt as failed before the error propagates.
+   */
+  private async modelBudgetTier(attempt: Attempt, log: CallLog): Promise<BudgetTier> {
+    try {
+      return await this.budget.assertModelCallAllowed(attempt.config, this.deps.clock.now());
+    } catch (err) {
+      await this.refund(attempt.reading, 'budget');
+      await this.recordEnd(attempt, 'failed', log, { errorCode: 'budget' });
+      throw err;
+    }
+  }
+
+  /** Ends the attempt with a judged outcome other than a retry. */
+  private settle(
+    attempt: Attempt,
+    outcome: Exclude<Judged, { readonly kind: 'retry' }>,
+    log: CallLog,
+  ): Promise<ReadingResponse> {
+    switch (outcome.kind) {
+      case 'answered':
+        return this.commit(attempt, outcome.reading, log);
+      case 'declined':
+        return this.decline(attempt, outcome.category, outcome.layer, log);
+      case 'failed':
+        return this.fail(attempt, outcome.code, log);
     }
   }
 
@@ -654,20 +672,7 @@ export class ReadingService {
     attempt: Attempt,
     result: RoutedAiResult,
     expected: Parameters<typeof validateReadingOutput>[1]['expected'],
-  ): Promise<
-    | { readonly kind: 'answered'; readonly reading: AnsweredReading }
-    | {
-        readonly kind: 'declined';
-        readonly category: RefusalCategory | null;
-        readonly layer: SafetyLayer;
-      }
-    | {
-        readonly kind: 'retry';
-        readonly code: FailCode;
-        readonly violations: readonly Violation[];
-      }
-    | { readonly kind: 'failed'; readonly code: FailCode }
-  > {
+  ): Promise<Judged> {
     switch (result.kind) {
       case 'unavailable':
         return { kind: 'failed', code: 'ai_unavailable' };
@@ -960,6 +965,33 @@ export class ReadingService {
 }
 
 /** A live hold: `held` and not expired. */
+/** The prompt of one round; `note` is the L3 regeneration note of a second round. */
+function promptFor(
+  attempt: Attempt,
+  hints: readonly RefusalCategory[],
+  note: string | undefined,
+): BuildResult {
+  const { request } = attempt;
+  return buildReadingPrompt(
+    {
+      spreadId: request.spreadId,
+      cards: request.cards,
+      locale: request.locale,
+      question: request.question,
+      prefilterHints: hints,
+      ...(note === undefined ? {} : { regenerationNote: note }),
+    },
+    attempt.promptVersion,
+  );
+}
+
+/** The question's moderation category, or `null` (not run, skipped or not flagged). */
+function questionFlag(moderated: RoutedModerationResult | null): RefusalCategory | null {
+  return moderated === null || moderated.kind === 'skipped'
+    ? null
+    : moderationInputCategory(moderated);
+}
+
 function liveHold(row: ReadingRow, now: Date): boolean {
   return row.holdState === 'held' && row.status === 'held' && !holdExpired(row.holdExpiresAt, now);
 }

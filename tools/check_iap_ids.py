@@ -102,29 +102,38 @@ def cross_findings(sources: Mapping[str, Mapping[str, Product]]) -> list[Finding
     labels = sorted(sources)
     for i, left in enumerate(labels):
         for right in labels[i + 1:]:
-            a = {k: v for k, v in sources[left].items() if not v.retired}
-            b = {k: v for k, v in sources[right].items() if not v.retired}
-            only_a = sorted(set(a) - set(b))
-            only_b = sorted(set(b) - set(a))
-            if only_a or only_b:
-                findings.append(
-                    Finding(
-                        left,
-                        0,
-                        "sets_differ",
-                        f"vs {right}: only here {only_a or '[]'}, only there {only_b or '[]'}",
-                    )
+            findings += _pair_findings(left, sources[left], right, sources[right])
+    return findings
+
+
+def _pair_findings(
+    left: str, left_products: Mapping[str, Product], right: str, right_products: Mapping[str, Product]
+) -> list[Finding]:
+    """Set and kind differences between two sources' active products."""
+    findings: list[Finding] = []
+    a = {k: v for k, v in left_products.items() if not v.retired}
+    b = {k: v for k, v in right_products.items() if not v.retired}
+    only_a = sorted(set(a) - set(b))
+    only_b = sorted(set(b) - set(a))
+    if only_a or only_b:
+        findings.append(
+            Finding(
+                left,
+                0,
+                "sets_differ",
+                f"vs {right}: only here {only_a or '[]'}, only there {only_b or '[]'}",
+            )
+        )
+    for pid in sorted(set(a) & set(b)):
+        if a[pid].kind and b[pid].kind and a[pid].kind != b[pid].kind:
+            findings.append(
+                Finding(
+                    left,
+                    a[pid].line,
+                    "kinds_differ",
+                    f"{pid} is {a[pid].kind} here and {b[pid].kind} in {right}",
                 )
-            for pid in sorted(set(a) & set(b)):
-                if a[pid].kind and b[pid].kind and a[pid].kind != b[pid].kind:
-                    findings.append(
-                        Finding(
-                            left,
-                            a[pid].line,
-                            "kinds_differ",
-                            f"{pid} is {a[pid].kind} here and {b[pid].kind} in {right}",
-                        )
-                    )
+            )
     return findings
 
 

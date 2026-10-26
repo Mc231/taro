@@ -31,7 +31,8 @@ export function phraseRegex(phrase: string, substring: boolean): RegExp {
   if (tokens.length === 0) {
     throw new Error('empty phrase');
   }
-  const escape = (token: string): string => token.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
+  const escape = (token: string): string =>
+    token.replaceAll(/[.*+?^${}()|[\]\\]/gu, String.raw`\$&`);
   if (substring) {
     return new RegExp(tokens.map((t) => escape(t.replace(/\*$/u, ''))).join(String.raw`\s*`), 'u');
   }
@@ -42,7 +43,8 @@ export function phraseRegex(phrase: string, substring: boolean): RegExp {
     parts[0] = arabicHead(parts[0] ?? '');
   }
   const tail = tokens.at(-1)?.endsWith('*') === true ? '' : `(?!${WORD})`;
-  return new RegExp(`(?<!${WORD})${parts.join(String.raw`\s+`)}${tail}`, 'u');
+  const body = parts.join(String.raw`\s+`);
+  return new RegExp(`(?<!${WORD})${body}${tail}`, 'u');
 }
 
 /**

@@ -28,7 +28,7 @@ export function sqlString(value: string): string {
 
 export function sqlInt(value: number): string {
   if (!Number.isSafeInteger(value)) {
-    throw new Error(`not an integer: ${String(value)}`);
+    throw new TypeError(`not an integer: ${String(value)}`);
   }
   return String(value);
 }

@@ -359,7 +359,7 @@ export function judgeMarkdown(judged: readonly JudgedCase[], judgeModel: string)
     lines.push('Lowest scored:', '');
     for (const j of lowest) {
       lines.push(
-        `- \`${j.id}\` (${j.locale}): tone ${String(j.s.tone)}, coherence ${String(j.s.coherence)}, fidelity ${String(j.s.fidelity)}, clarity ${String(j.s.clarity)}${j.s.answerFirst ? '' : ', not answer-first'}. ${j.s.notes.replace(/\s+/gu, ' ')}`,
+        `- \`${j.id}\` (${j.locale}): tone ${String(j.s.tone)}, coherence ${String(j.s.coherence)}, fidelity ${String(j.s.fidelity)}, clarity ${String(j.s.clarity)}${j.s.answerFirst ? '' : ', not answer-first'}. ${j.s.notes.replaceAll(/\s+/gu, ' ')}`,
       );
     }
     lines.push('');

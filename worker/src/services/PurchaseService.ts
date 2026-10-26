@@ -226,12 +226,7 @@ export class PurchaseService {
     if (bound !== null && bound.id !== install.id && bound.status === 'active') {
       // RC85: bound to another active install. Never granted to the caller.
       const owner = await this.grant(bound, { ...candidate, accountTokenMatch: true }, config);
-      const row =
-        owner.kind === 'granted'
-          ? await this.purchases.findById(owner.purchase.id)
-          : owner.kind === 'existing'
-            ? owner.row
-            : null;
+      const row = await this.outcomeRow(owner);
       this.deps.logger.log('warn', 'purchase_bound_elsewhere', {
         inst: inst8(install.id),
         owner: inst8(bound.id),
@@ -529,6 +524,18 @@ export class PurchaseService {
   }
 
   /** The grant batch (03 §6.2 step 4); on no insert, the existing row or the sandbox cap. */
+  /** The purchase row a grant left behind (`null` for the sandbox cap). */
+  private async outcomeRow(outcome: GrantOutcome): Promise<PurchaseRow | null> {
+    switch (outcome.kind) {
+      case 'granted':
+        return this.purchases.findById(outcome.purchase.id);
+      case 'existing':
+        return outcome.row;
+      case 'sandbox_cap':
+        return null;
+    }
+  }
+
   private async grant(
     install: InstallRow,
     candidate: Candidate,

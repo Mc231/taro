@@ -194,9 +194,9 @@ export const gradeClassification: Grader = (c, _o, a) => {
     return result('classification', 'fail', 'no valid classification in the output');
   }
   if (
-    c.expectedCategory !== null
-      ? a.classification === c.expectedCategory
-      : a.outcome === c.expectedOutcome
+    c.expectedCategory === null
+      ? a.outcome === c.expectedOutcome
+      : a.classification === c.expectedCategory
   ) {
     return result('classification', 'pass', `got ${label}`);
   }
@@ -420,7 +420,7 @@ export const gradeLength: Grader = (c, _o, a) => {
 // --- contacts -----------------------------------------------------------
 
 function allTexts(o: RecordedOutput, a: ActualResult): string {
-  return a.reading !== null ? readingTexts(a.reading).join('\n') : o.output;
+  return a.reading === null ? o.output : readingTexts(a.reading).join('\n');
 }
 
 export const gradeContacts: Grader = (_c, o, a) => {

@@ -58,6 +58,7 @@ FORBIDDEN_EARLY = frozenset({"major_13", "major_15", "major_16"})
 SPREAD_POSITIONS = {"three_ppf": ("past", "present", "future")}
 HEADLINE_MAX = 34
 SUBTEXT_MAX = 44
+ASO_FILE = "aso.yaml"
 
 FIXTURES_DIR = Path("apps/taro/test/fixtures/store_readings")
 DART_OUT = Path("apps/taro/integration_test/screenshots/store_readings.g.dart")
@@ -110,6 +111,8 @@ _FONT_FILES = {
 }
 _HEADLINE_FONT = {"ar": "TaroSansArabic", "ja": "NotoSerifJP", "ko": "TaroSansKR"}
 _SUB_FONT = {"ar": "TaroSansArabic", "ja": "TaroSansJP", "ko": "TaroSansKR"}
+# CSS word-break per locale: phrase-aware for Japanese, whole words for Korean.
+_WORD_BREAK = {"ja": "auto-phrase", "ko": "keep-all"}
 
 Runner = Callable[[Path, Path, int, int], None]
 
@@ -137,42 +140,66 @@ def fixture_findings(fixtures: Mapping[str, Mapping[str, Any]]) -> list[str]:
     out: list[str] = []
     for locale, data in fixtures.items():
         where = f"store_readings/{locale}.json"
-        if data.get("locale") != locale:
-            out.append(f"{where}: locale is {data.get('locale')!r}")
-        for key in ("question", "dailyCardId", "learnCardId"):
-            if not isinstance(data.get(key), str) or not data[key].strip():
-                out.append(f"{where}: {key} must be a non-empty string")
+        out += _header_findings(where, locale, data)
         spread = data.get("spreadId")
         positions = SPREAD_POSITIONS.get(str(spread))
         if positions is None:
             out.append(f"{where}: spreadId {spread!r} is not a supported spread")
             continue
-        cards = data.get("cards") or []
-        if [c.get("positionId") for c in cards] != list(positions):
-            out.append(f"{where}: cards must cover {', '.join(positions)} in order")
-        early = {c.get("cardId") for c in cards} | {data.get("dailyCardId")}
-        for card in sorted(str(c) for c in early & FORBIDDEN_EARLY):
-            out.append(f"{where}: {card} may not appear in frames 1–3 (05 §9.4)")
-        if any(c.get("reversed") for c in cards):
-            out.append(f"{where}: store draw cards are upright")
-        reading = data.get("reading") or {}
-        for key in ("title", "overview", "synthesis"):
-            if not str(reading.get(key) or "").strip():
-                out.append(f"{where}: reading.{key} is empty")
-        texts = reading.get("cards") or []
-        if [t.get("positionId") for t in texts] != list(positions):
-            out.append(f"{where}: reading.cards must follow the draw positions")
-        if any(not str(t.get("interpretation") or "").strip() for t in texts):
-            out.append(f"{where}: a reading.cards interpretation is empty")
-        prompts = reading.get("reflectionPrompts")
-        if not isinstance(prompts, list) or not 1 <= len(prompts) <= 3:
-            out.append(f"{where}: reading.reflectionPrompts must hold 1–3 prompts")
-        for index, entry in enumerate(data.get("journal") or []):
-            for key in ("question", "title", "overview", "spreadId"):
-                if not str(entry.get(key) or "").strip():
-                    out.append(f"{where}: journal[{index}].{key} is empty")
-            if not entry.get("cards"):
-                out.append(f"{where}: journal[{index}].cards is empty")
+        out += _draw_findings(where, data, positions)
+        out += _reading_findings(where, data.get("reading") or {}, positions)
+        out += _journal_findings(where, data.get("journal") or [])
+    return out
+
+
+def _header_findings(where: str, locale: str, data: Mapping[str, Any]) -> list[str]:
+    out: list[str] = []
+    if data.get("locale") != locale:
+        out.append(f"{where}: locale is {data.get('locale')!r}")
+    for key in ("question", "dailyCardId", "learnCardId"):
+        if not isinstance(data.get(key), str) or not data[key].strip():
+            out.append(f"{where}: {key} must be a non-empty string")
+    return out
+
+
+def _draw_findings(where: str, data: Mapping[str, Any], positions: Sequence[str]) -> list[str]:
+    """The drawn cards: positions in order, upright, none forbidden in frames 1–3."""
+    out: list[str] = []
+    cards = data.get("cards") or []
+    if [c.get("positionId") for c in cards] != list(positions):
+        out.append(f"{where}: cards must cover {', '.join(positions)} in order")
+    early = {c.get("cardId") for c in cards} | {data.get("dailyCardId")}
+    for card in sorted(str(c) for c in early & FORBIDDEN_EARLY):
+        out.append(f"{where}: {card} may not appear in frames 1–3 (05 §9.4)")
+    if any(c.get("reversed") for c in cards):
+        out.append(f"{where}: store draw cards are upright")
+    return out
+
+
+def _reading_findings(where: str, reading: Mapping[str, Any], positions: Sequence[str]) -> list[str]:
+    out: list[str] = []
+    for key in ("title", "overview", "synthesis"):
+        if not str(reading.get(key) or "").strip():
+            out.append(f"{where}: reading.{key} is empty")
+    texts = reading.get("cards") or []
+    if [t.get("positionId") for t in texts] != list(positions):
+        out.append(f"{where}: reading.cards must follow the draw positions")
+    if any(not str(t.get("interpretation") or "").strip() for t in texts):
+        out.append(f"{where}: a reading.cards interpretation is empty")
+    prompts = reading.get("reflectionPrompts")
+    if not isinstance(prompts, list) or not 1 <= len(prompts) <= 3:
+        out.append(f"{where}: reading.reflectionPrompts must hold 1–3 prompts")
+    return out
+
+
+def _journal_findings(where: str, journal: Sequence[Mapping[str, Any]]) -> list[str]:
+    out: list[str] = []
+    for index, entry in enumerate(journal):
+        for key in ("question", "title", "overview", "spreadId"):
+            if not str(entry.get(key) or "").strip():
+                out.append(f"{where}: journal[{index}].{key} is empty")
+        if not entry.get("cards"):
+            out.append(f"{where}: journal[{index}].cards is empty")
     return out
 
 
@@ -203,12 +230,12 @@ def load_captions(aso: Mapping[str, Any]) -> dict[str, list[tuple[str, str]]]:
     """``store_screenshots`` captions, ``(headline, subtext)`` per frame."""
     shots = aso.get("store_screenshots")
     if not isinstance(shots, dict):
-        raise InputError("aso.yaml", "store_screenshots is missing")
+        raise InputError(ASO_FILE, "store_screenshots is missing")
     out: dict[str, list[tuple[str, str]]] = {}
 
     def items(value: Any, locale: str) -> list[tuple[str, str]]:
         if not isinstance(value, list):
-            raise InputError("aso.yaml", f"store_screenshots {locale} must be a list")
+            raise InputError(ASO_FILE, f"store_screenshots {locale} must be a list")
         return [
             (str(i.get("headline") or ""), str(i.get("subtext") or ""))
             if isinstance(i, dict)
@@ -219,7 +246,7 @@ def load_captions(aso: Mapping[str, Any]) -> dict[str, list[tuple[str, str]]]:
     out["en"] = items(shots.get("screenshots"), "en")
     files = [i.get("file") for i in shots.get("screenshots") or [] if isinstance(i, dict)]
     if files != [f"{f}.png" for f in FRAMES]:
-        raise InputError("aso.yaml", f"store_screenshots files must be {', '.join(FRAMES)}")
+        raise InputError(ASO_FILE, f"store_screenshots files must be {', '.join(FRAMES)}")
     for locale, value in (shots.get("translations") or {}).items():
         out[str(locale)] = items(value, str(locale))
     return out
@@ -336,6 +363,7 @@ def frame_html(
         f"width:{round(620 * s)}px;height:{round(1069 * s)}px;opacity:.6'></div>"
     )
     sub = f"<p class='sub'>{html.escape(subtext)}</p>" if subtext else ""
+    word_break = _WORD_BREAK.get(locale, "normal")
     return f"""<!doctype html>
 <html lang="{locale}" dir="{"rtl" if rtl else "ltr"}"><head><meta charset="utf-8">
 <style>
@@ -350,10 +378,10 @@ height:{g.head_height}px;display:flex;flex-direction:column;align-items:center;j
 gap:{round(18 * s)}px;text-align:center}}
 h1{{margin:0;font-family:{head_font},serif;font-weight:{400 if locale == "ja" else 600};
 font-size:{round(92 * s)}px;line-height:1.18;letter-spacing:{"0" if locale in ("ar", "ja", "ko") else "-0.01em"};
-color:var(--text);word-break:{"auto-phrase" if locale == "ja" else "keep-all" if locale == "ko" else "normal"};
+color:var(--text);word-break:{word_break};
 text-wrap:balance;max-height:{round(92 * s * 1.18 * 2) + 2}px;overflow:hidden}}
 .sub{{margin:0;font-family:{sub_font},sans-serif;font-size:{round(46 * s)}px;line-height:1.3;
-color:var(--accent);text-wrap:balance;word-break:{"auto-phrase" if locale == "ja" else "keep-all" if locale == "ko" else "normal"}}}
+color:var(--accent);text-wrap:balance;word-break:{word_break}}}
 .device{{position:absolute;left:{g.device_left}px;top:{g.device_top}px;width:{g.device_width}px;
 height:{g.device_height}px;box-sizing:border-box;padding:{g.pad}px;border-radius:{radius}px;
 background:var(--raised);border:{max(round(3 * s), 2)}px solid var(--border);
@@ -551,49 +579,69 @@ def main(argv: Sequence[str] | None = None, runner: Runner | None = None) -> int
 
 def _dispatch(args: argparse.Namespace, root: Path, runner: Runner | None) -> int:
     if args.command == "fixtures":
-        text = render_fixtures_dart(load_fixtures(root))
-        target = root / DART_OUT
-        if args.check:
-            current = target.read_text(encoding="utf-8") if target.is_file() else ""
-            if current != text:
-                print(f"{NAME}: {DART_OUT} is stale; run `screenshots.py fixtures`")
-                return 1
-            print(f"{NAME}: {DART_OUT} is up to date")
-            return 0
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(text, encoding="utf-8")
-        print(f"{NAME}: wrote {DART_OUT}")
-        return 0
+        return _fixtures(root, check=args.check)
     if args.command == "lint":
-        aso = load_aso(root)
-        if aso is None:
-            raise InputError("aso.yaml", "missing")
-        problems = fixture_findings(load_fixtures(root)) + caption_findings(load_captions(aso))
-        for problem in problems:
-            print(f"{NAME}: {problem}")
-        print(f"{NAME}: {'FAILED' if problems else 'OK'}")
-        return 1 if problems else 0
+        return _lint(root)
     if args.command == "feature-graphic":
-        out = args.out or root / FEATURE_OUT
-        out.parent.mkdir(parents=True, exist_ok=True)
-        page = feature_graphic_html(
-            art=root / ART_DIR, fonts=root / FONTS_DIR, tagline="Tarot for self-reflection"
-        )
-        render([Job(page, out, 1024, 500)], runner or chrome_runner(args.chrome), workers=1)
-        print(f"{NAME}: wrote {out}")
-        return 0
+        return _feature_graphic(args, root, runner)
     locales = _csv(args.locales, LOCALES, "locale")
     targets = _csv(args.targets, list(TARGETS), "target")
     out_root = args.out or root / OUT_DIR
     if args.command == "verify":
-        problems = verify_findings(out_root, root / FEATURE_OUT, locales, targets)
-        for problem in problems:
-            print(f"{NAME}: {problem}")
-        print(f"{NAME}: {'FAILED' if problems else 'OK'}")
-        return 1 if problems else 0
+        return _report(verify_findings(out_root, root / FEATURE_OUT, locales, targets))
+    return _compose(args, root, runner, out_root, locales, targets)
+
+
+def _require_aso(root: Path) -> Mapping[str, Any]:
     aso = load_aso(root)
     if aso is None:
-        raise InputError("aso.yaml", "missing")
+        raise InputError(ASO_FILE, "missing")
+    return aso
+
+
+def _report(problems: Sequence[str]) -> int:
+    """Prints ``problems`` and the verdict; the exit code."""
+    for problem in problems:
+        print(f"{NAME}: {problem}")
+    print(f"{NAME}: {'FAILED' if problems else 'OK'}")
+    return 1 if problems else 0
+
+
+def _fixtures(root: Path, *, check: bool) -> int:
+    text = render_fixtures_dart(load_fixtures(root))
+    target = root / DART_OUT
+    if check:
+        current = target.read_text(encoding="utf-8") if target.is_file() else ""
+        if current != text:
+            print(f"{NAME}: {DART_OUT} is stale; run `screenshots.py fixtures`")
+            return 1
+        print(f"{NAME}: {DART_OUT} is up to date")
+        return 0
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(text, encoding="utf-8")
+    print(f"{NAME}: wrote {DART_OUT}")
+    return 0
+
+
+def _lint(root: Path) -> int:
+    aso = _require_aso(root)
+    return _report(fixture_findings(load_fixtures(root)) + caption_findings(load_captions(aso)))
+
+
+def _feature_graphic(args: argparse.Namespace, root: Path, runner: Runner | None) -> int:
+    out = args.out or root / FEATURE_OUT
+    out.parent.mkdir(parents=True, exist_ok=True)
+    page = feature_graphic_html(
+        art=root / ART_DIR, fonts=root / FONTS_DIR, tagline="Tarot for self-reflection"
+    )
+    render([Job(page, out, 1024, 500)], runner or chrome_runner(args.chrome), workers=1)
+    print(f"{NAME}: wrote {out}")
+    return 0
+
+
+def _compose(args: argparse.Namespace, root: Path, runner: Runner | None, out_root: Path,
+             locales: Sequence[str], targets: Sequence[str]) -> int:
+    aso = _require_aso(root)
     jobs, missing = plan_jobs(
         root, args.raw or root / RAW_DIR, out_root, load_captions(aso), locales, targets
     )

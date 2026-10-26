@@ -175,28 +175,29 @@ def parse_banned(data: Any) -> dict[str, LocaleRules]:
     for key in common:
         if key not in _LISTS:
             raise InputError(BANNED_PATH, f"common.{key} is not a phrase list")
-    rules: dict[str, LocaleRules] = {}
-    for locale in LOCALES:
-        block = locales[locale]
-        if not isinstance(block, dict):
-            raise InputError(BANNED_PATH, f"locales.{locale} must be a mapping")
-        for key in block:
-            if key not in (*_LISTS, "match", "allowed_contexts"):
-                raise InputError(BANNED_PATH, f"locales.{locale}.{key} is not a known key")
-        match = block.get("match", "word")
-        if match not in ("word", "substring"):
-            raise InputError(BANNED_PATH, f"locales.{locale}.match must be word or substring")
-        lists = {}
-        for name in _LISTS:
-            phrases = _str_list(common.get(name), f"common.{name}") + _str_list(
-                block.get(name), f"locales.{locale}.{name}"
-            )
-            lists[name] = PhraseList(
-                tuple((p, phrase_regex(p, match == "substring")) for p in phrases)
-            )
-        contexts = _str_list(block.get("allowed_contexts"), f"locales.{locale}.allowed_contexts")
-        rules[locale] = LocaleRules(lists, tuple(normalize(c) for c in contexts), match == "substring")
-    return rules
+    return {locale: _locale_rules(locale, locales[locale], common) for locale in LOCALES}
+
+
+def _locale_rules(locale: str, block: Any, common: Mapping[str, Any]) -> LocaleRules:
+    """Validate and compile ``locales.<locale>`` merged with ``common``."""
+    if not isinstance(block, dict):
+        raise InputError(BANNED_PATH, f"locales.{locale} must be a mapping")
+    for key in block:
+        if key not in (*_LISTS, "match", "allowed_contexts"):
+            raise InputError(BANNED_PATH, f"locales.{locale}.{key} is not a known key")
+    match = block.get("match", "word")
+    if match not in ("word", "substring"):
+        raise InputError(BANNED_PATH, f"locales.{locale}.match must be word or substring")
+    lists = {}
+    for name in _LISTS:
+        phrases = _str_list(common.get(name), f"common.{name}") + _str_list(
+            block.get(name), f"locales.{locale}.{name}"
+        )
+        lists[name] = PhraseList(
+            tuple((p, phrase_regex(p, match == "substring")) for p in phrases)
+        )
+    contexts = _str_list(block.get("allowed_contexts"), f"locales.{locale}.allowed_contexts")
+    return LocaleRules(lists, tuple(normalize(c) for c in contexts), match == "substring")
 
 
 _PLATFORMS = ("apple", "play")
@@ -419,39 +420,47 @@ def keyword_findings(fields: Sequence[TextField]) -> list[Finding]:
         if keywords is None:
             continue
         key = f"localizations.{locale}.keywords"
-        problems: list[str] = []
-        if re.search(r"\s", keywords.strip()):
-            problems.append("contains whitespace (use commas only)")
-        entries = [normalize(k) for k in keywords.strip().split(",")]
-        if any(not e.strip() for e in entries):
-            problems.append("has an empty entry")
-        dups = sorted(e for e, n in Counter(entries).items() if n > 1 and e.strip())
-        if dups:
-            problems.append(f"duplicates {dups}")
-        name_words = _words(values.get("name", "")) | _words(values.get("subtitle", ""))
-        repeated = sorted({e.strip() for e in entries} & name_words)
-        if repeated:
-            problems.append(f"repeats name/subtitle words {repeated}")
+        problems = _keyword_problems(keywords, values)
         findings += [Finding(ASO_PATH, 0, "keywords", f"{key} {p}") for p in problems]
     return findings
+
+
+def _keyword_problems(keywords: str, values: Mapping[str, str]) -> list[str]:
+    """Rule 1–2 problems of one locale's keyword list (``values``: its other fields)."""
+    problems: list[str] = []
+    if re.search(r"\s", keywords.strip()):
+        problems.append("contains whitespace (use commas only)")
+    entries = [normalize(k) for k in keywords.strip().split(",")]
+    if any(not e.strip() for e in entries):
+        problems.append("has an empty entry")
+    dups = sorted(e for e, n in Counter(entries).items() if n > 1 and e.strip())
+    if dups:
+        problems.append(f"duplicates {dups}")
+    name_words = _words(values.get("name", "")) | _words(values.get("subtitle", ""))
+    repeated = sorted({e.strip() for e in entries} & name_words)
+    if repeated:
+        problems.append(f"repeats name/subtitle words {repeated}")
+    return problems
 
 
 def disclaimer_findings(fields: Sequence[TextField], required: Mapping[str, str]) -> list[Finding]:
     """Every long description starts (first 3 lines) with its disclaimer."""
     findings = []
     for f in fields:
-        if f.field in _DESCRIPTION_FIELDS and f.locale in required and not f.key.startswith(
-            ("app_store.iap_products", "google_play.iap_products")
+        if (
+            f.field in _DESCRIPTION_FIELDS
+            and f.locale in required
+            and not f.key.startswith(("app_store.iap_products", "google_play.iap_products"))
+            and _squash(required[f.locale]) not in _squash(_first_lines(f.text))
         ):
-            if _squash(required[f.locale]) not in _squash(_first_lines(f.text)):
-                findings.append(
-                    Finding(
-                        ASO_PATH,
-                        0,
-                        "description_has_disclaimer",
-                        f"{f.key}: the first 3 lines lack the {f.locale} disclaimer sentence",
-                    )
+            findings.append(
+                Finding(
+                    ASO_PATH,
+                    0,
+                    "description_has_disclaimer",
+                    f"{f.key}: the first 3 lines lack the {f.locale} disclaimer sentence",
                 )
+            )
     return findings
 
 
@@ -486,21 +495,27 @@ def iap_findings(aso: Mapping[str, Any]) -> list[Finding]:
             {str(loc): (entry or {}).get("display_name") for loc, entry in locs.items() if isinstance(entry, dict)}
         )
         missing = [loc for loc in LOCALES if not isinstance(names.get(loc), str) or not names[loc].strip()]
-        if item["product_id"] != REMOVE_ADS:
-            if missing:
-                findings.append(
-                    Finding(ASO_PATH, 0, "iap_localized", f"{key} ({item['product_id']}) lacks display_name for: {', '.join(missing)}")
-                )
-            continue
-        rule = "remove_banner_ads_name"
-        if names["en"] != REMOVE_ADS_NAME:
-            findings.append(Finding(ASO_PATH, 0, rule, f"{key}.display_name is {names['en']!r}, expected {REMOVE_ADS_NAME!r} (RC80)"))
-        if missing:
-            findings.append(Finding(ASO_PATH, 0, rule, f"{key} lacks a localized display_name for: {', '.join(missing)}"))
-        for loc in LOCALES:
-            name = names.get(loc)
-            if isinstance(name, str) and len(name) > 30:
-                findings.append(Finding(ASO_PATH, 0, rule, f"{key} {loc} display_name is {len(name)} characters (limit 30)"))
+        if item["product_id"] == REMOVE_ADS:
+            findings += _remove_ads_findings(key, names, missing)
+        elif missing:
+            findings.append(
+                Finding(ASO_PATH, 0, "iap_localized", f"{key} ({item['product_id']}) lacks display_name for: {', '.join(missing)}")
+            )
+    return findings
+
+
+def _remove_ads_findings(key: str, names: Mapping[str, Any], missing: Sequence[str]) -> list[Finding]:
+    """RC80: the Remove Ads display name, localized everywhere, ≤ 30 characters."""
+    findings: list[Finding] = []
+    rule = "remove_banner_ads_name"
+    if names["en"] != REMOVE_ADS_NAME:
+        findings.append(Finding(ASO_PATH, 0, rule, f"{key}.display_name is {names['en']!r}, expected {REMOVE_ADS_NAME!r} (RC80)"))
+    if missing:
+        findings.append(Finding(ASO_PATH, 0, rule, f"{key} lacks a localized display_name for: {', '.join(missing)}"))
+    for loc in LOCALES:
+        name = names.get(loc)
+        if isinstance(name, str) and len(name) > 30:
+            findings.append(Finding(ASO_PATH, 0, rule, f"{key} {loc} display_name is {len(name)} characters (limit 30)"))
     return findings
 
 
@@ -658,15 +673,12 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
     if certainty is None:
         notices.append(f"{LEXICON_DIR} not present yet; certainty wording (1.1.6) not checked")
 
-    arbs: dict[str, dict[str, Any]] = {}
-    if (root / ARB_DIR).is_dir():
-        for locale in LOCALES:
-            path = root / arb_path(locale)
-            if path.is_file():
-                arbs[locale] = load_arb(path, arb_path(locale))
-        findings += arb_findings(matcher, arbs, certainty, platform_keys)
-    else:
+    arbs = _load_arbs(root)
+    if arbs is None:
+        arbs = {}
         notices.append(f"{ARB_DIR} not present yet; ARB copy not checked")
+    else:
+        findings += arb_findings(matcher, arbs, certainty, platform_keys)
 
     aso = load_aso(root)
     if aso is None:
@@ -680,16 +692,36 @@ def check(root: Path) -> tuple[list[Finding], list[str]]:
         (PROMPT_TEMPLATES, "templates", ["global"], None),
     )
     for base, marker, lists, cert in surfaces:
-        directory = root / base
-        files = _text_files(directory) if directory.is_dir() else []
-        if marker == "templates":
-            files = [p for p in files if "templates" in p.relative_to(directory).parts]
+        files = _surface_files(root / base, marker)
         if not files:
-            where = f"{base}/**/templates/**" if marker == "templates" else f"{base}/**"
-            notices.append(f"{where} not present yet; skipped")
+            notices.append(f"{_surface_glob(base, marker)} not present yet; skipped")
             continue
         findings += file_findings(matcher, root, files, lists, cert)
     return findings, notices
+
+
+def _load_arbs(root: Path) -> dict[str, dict[str, Any]] | None:
+    """The ARB files present, by locale; ``None`` when the ARB directory does not exist."""
+    if not (root / ARB_DIR).is_dir():
+        return None
+    arbs: dict[str, dict[str, Any]] = {}
+    for locale in LOCALES:
+        path = root / arb_path(locale)
+        if path.is_file():
+            arbs[locale] = load_arb(path, arb_path(locale))
+    return arbs
+
+
+def _surface_glob(base: str, marker: str) -> str:
+    return f"{base}/**/templates/**" if marker == "templates" else f"{base}/**"
+
+
+def _surface_files(directory: Path, marker: str) -> list[Path]:
+    """The text files of one surface; under a ``templates`` folder only when ``marker`` says so."""
+    files = _text_files(directory) if directory.is_dir() else []
+    if marker == "templates":
+        files = [p for p in files if "templates" in p.relative_to(directory).parts]
+    return files
 
 
 def main(argv: Sequence[str] | None = None) -> int:

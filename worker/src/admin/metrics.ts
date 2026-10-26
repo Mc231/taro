@@ -1,6 +1,6 @@
 import type { AlertKind } from '../ports/Alerter';
 import type { MetricEvent } from '../ports/Metrics';
-import { numberOrNull, sqlInt } from './d1';
+import { numberOrNull, sqlInt, sqlString } from './d1';
 
 /**
  * Analytics Engine queries for `scripts/metrics.ts` (03 §14.1, 04 §14;
@@ -35,7 +35,8 @@ function since(minutes: number): string {
 }
 
 function eventIn(events: readonly MetricEvent[]): string {
-  return `blob1 IN (${events.map((e) => `'${e}'`).join(', ')})`;
+  const quoted = events.map((e) => sqlString(e)).join(', ');
+  return `blob1 IN (${quoted})`;
 }
 
 export const QUERY_NAMES = ['events', 'verify', 'purchases', 'rewards', 'ssv-lag'] as const;
@@ -68,7 +69,7 @@ export type Row = Readonly<Record<string, unknown>>;
 export function parseSqlResponse(body: unknown): Row[] {
   const data = (body as { data?: unknown } | null)?.data;
   if (!Array.isArray(data)) {
-    throw new Error('Analytics Engine response has no data array');
+    throw new TypeError('Analytics Engine response has no data array');
   }
   return data as Row[];
 }

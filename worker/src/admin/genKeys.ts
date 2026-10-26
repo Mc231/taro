@@ -71,7 +71,7 @@ export interface Ed25519Jwk {
 /** The private JWK fields `TOKEN_SIGNING_KEYS` needs from an exported key. */
 export function toEd25519Jwk(kid: string, jwk: { x?: unknown; d?: unknown }): Ed25519Jwk {
   if (typeof jwk.x !== 'string' || typeof jwk.d !== 'string') {
-    throw new Error('Ed25519 export did not return x and d');
+    throw new TypeError('Ed25519 export did not return x and d');
   }
   return { kty: 'OKP', crv: 'Ed25519', kid, x: jwk.x, d: jwk.d };
 }
@@ -132,7 +132,7 @@ function kidOf(entry: unknown): unknown {
 export async function generateSecrets(
   options: GenerateOptions,
 ): Promise<Partial<Record<GeneratedSecret, string>>> {
-  const { crypto, environment, kid } = options;
+  const { environment } = options;
   const wanted = options.only ?? GENERATED_SECRETS;
   if (environment === 'prod') {
     const forbidden = wanted.filter((name) => NON_PROD_ONLY.includes(name));
@@ -140,36 +140,39 @@ export async function generateSecrets(
       throw new GenKeysError(`${forbidden.join(', ')} must never be set in prod (RC86)`);
     }
   }
-  const random = (): string => toBase64Url(crypto.randomBytes(KEY_BYTES));
   const out: Partial<Record<GeneratedSecret, string>> = {};
   for (const name of wanted) {
     if (environment === 'prod' && NON_PROD_ONLY.includes(name)) {
       continue;
     }
-    switch (name) {
-      case 'TOKEN_SIGNING_KEYS': {
-        const fresh = await (options.ed25519 ?? generateEd25519Jwk)(kid);
-        const kept = previousJwk(options.previous?.TOKEN_SIGNING_KEYS);
-        if (kept.some((key) => kidOf(key) === kid)) {
-          throw new GenKeysError(`kid ${kid} is already the current TOKEN_SIGNING_KEYS kid`);
-        }
-        out[name] = JSON.stringify({ keys: [fresh, ...kept] });
-        break;
-      }
-      case 'IDEMPOTENCY_ENC_KEY': {
-        const kept = previousRing(options.previous?.IDEMPOTENCY_ENC_KEY);
-        if (kept.some((entry) => entry.startsWith(`${kid}:`))) {
-          throw new GenKeysError(`kid ${kid} is already the current IDEMPOTENCY_ENC_KEY kid`);
-        }
-        out[name] = [`${kid}:${random()}`, ...kept].join(',');
-        break;
-      }
-      case 'APPLE_ACCOUNT_NS':
-        out[name] = uuidV4(crypto);
-        break;
-      default:
-        out[name] = random();
-    }
+    out[name] = await secretValue(name, options);
   }
   return out;
+}
+
+/** A fresh value of one secret; key rings keep the previous current key second. */
+async function secretValue(name: GeneratedSecret, options: GenerateOptions): Promise<string> {
+  const { crypto, kid } = options;
+  const random = (): string => toBase64Url(crypto.randomBytes(KEY_BYTES));
+  switch (name) {
+    case 'TOKEN_SIGNING_KEYS': {
+      const fresh = await (options.ed25519 ?? generateEd25519Jwk)(kid);
+      const kept = previousJwk(options.previous?.TOKEN_SIGNING_KEYS);
+      if (kept.some((key) => kidOf(key) === kid)) {
+        throw new GenKeysError(`kid ${kid} is already the current TOKEN_SIGNING_KEYS kid`);
+      }
+      return JSON.stringify({ keys: [fresh, ...kept] });
+    }
+    case 'IDEMPOTENCY_ENC_KEY': {
+      const kept = previousRing(options.previous?.IDEMPOTENCY_ENC_KEY);
+      if (kept.some((entry) => entry.startsWith(`${kid}:`))) {
+        throw new GenKeysError(`kid ${kid} is already the current IDEMPOTENCY_ENC_KEY kid`);
+      }
+      return [`${kid}:${random()}`, ...kept].join(',');
+    }
+    case 'APPLE_ACCOUNT_NS':
+      return uuidV4(crypto);
+    default:
+      return random();
+  }
 }

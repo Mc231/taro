@@ -197,7 +197,7 @@ abstract final class ContentJson {
   /// A required list of strings.
   static List<String> strings(Map<String, Object?> json, String key) => [
     for (final s in list(json, key))
-      s is String ? s : throw FormatException('"$key" must hold strings'),
+      if (s is String) s else throw FormatException('"$key" must hold strings'),
   ];
 
   /// A required object.

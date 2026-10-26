@@ -69,6 +69,11 @@ export function validateJsonSchema(value: unknown, schema: unknown): string[] {
   return errors;
 }
 
+interface Walk {
+  readonly errors: string[];
+  readonly unsupported: Set<string>;
+}
+
 function walk(
   value: unknown,
   schema: unknown,
@@ -94,50 +99,64 @@ function walk(
   if ('const' in schema && schema['const'] !== value) {
     errors.push(`${path}: must equal ${JSON.stringify(schema['const'])}`);
   }
+  const state: Walk = { errors, unsupported };
   if (typeof value === 'string') {
-    const length = Array.from(value).length;
-    const max = num(schema, 'maxLength');
-    const min = num(schema, 'minLength');
-    if (max !== null && length > max) {
-      errors.push(`${path}: ${String(length)} characters > maxLength ${String(max)}`);
-    }
-    if (min !== null && length < min) {
-      errors.push(`${path}: ${String(length)} characters < minLength ${String(min)}`);
-    }
-    if (typeof schema['pattern'] === 'string' && !new RegExp(schema['pattern'], 'u').test(value)) {
-      errors.push(`${path}: does not match ${schema['pattern']}`);
-    }
+    checkString(value, schema, path, state);
   }
   if (Array.isArray(value)) {
-    const max = num(schema, 'maxItems');
-    const min = num(schema, 'minItems');
-    if (max !== null && value.length > max) {
-      errors.push(`${path}: ${String(value.length)} items > maxItems ${String(max)}`);
-    }
-    if (min !== null && value.length < min) {
-      errors.push(`${path}: ${String(value.length)} items < minItems ${String(min)}`);
-    }
-    (value as unknown[]).forEach((item, index) => {
-      walk(item, schema['items'], `${path}[${String(index)}]`, errors, unsupported);
-    });
+    checkArray(value as unknown[], schema, path, state);
   }
   if (isSchema(value)) {
-    const properties = isSchema(schema['properties']) ? schema['properties'] : {};
-    if (Array.isArray(schema['required'])) {
-      for (const key of schema['required'] as unknown[]) {
-        if (typeof key === 'string' && !(key in value)) {
-          errors.push(`${path}: missing required "${key}"`);
-        }
+    checkObject(value, schema, path, state);
+  }
+}
+
+function checkString(value: string, schema: Schema, path: string, { errors }: Walk): void {
+  const length = Array.from(value).length;
+  const max = num(schema, 'maxLength');
+  const min = num(schema, 'minLength');
+  if (max !== null && length > max) {
+    errors.push(`${path}: ${String(length)} characters > maxLength ${String(max)}`);
+  }
+  if (min !== null && length < min) {
+    errors.push(`${path}: ${String(length)} characters < minLength ${String(min)}`);
+  }
+  if (typeof schema['pattern'] === 'string' && !new RegExp(schema['pattern'], 'u').test(value)) {
+    errors.push(`${path}: does not match ${schema['pattern']}`);
+  }
+}
+
+function checkArray(value: unknown[], schema: Schema, path: string, state: Walk): void {
+  const max = num(schema, 'maxItems');
+  const min = num(schema, 'minItems');
+  if (max !== null && value.length > max) {
+    state.errors.push(`${path}: ${String(value.length)} items > maxItems ${String(max)}`);
+  }
+  if (min !== null && value.length < min) {
+    state.errors.push(`${path}: ${String(value.length)} items < minItems ${String(min)}`);
+  }
+  value.forEach((item, index) => {
+    walk(item, schema['items'], `${path}[${String(index)}]`, state.errors, state.unsupported);
+  });
+}
+
+function checkObject(value: Schema, schema: Schema, path: string, state: Walk): void {
+  const { errors, unsupported } = state;
+  const properties = isSchema(schema['properties']) ? schema['properties'] : {};
+  if (Array.isArray(schema['required'])) {
+    for (const key of schema['required'] as unknown[]) {
+      if (typeof key === 'string' && !(key in value)) {
+        errors.push(`${path}: missing required "${key}"`);
       }
     }
-    for (const [key, child] of Object.entries(value)) {
-      if (key in properties) {
-        walk(child, properties[key], `${path}.${key}`, errors, unsupported);
-      } else if (schema['additionalProperties'] === false) {
-        errors.push(`${path}: unexpected property "${key}"`);
-      } else {
-        walk(child, schema['additionalProperties'], `${path}.${key}`, errors, unsupported);
-      }
+  }
+  for (const [key, child] of Object.entries(value)) {
+    if (key in properties) {
+      walk(child, properties[key], `${path}.${key}`, errors, unsupported);
+    } else if (schema['additionalProperties'] === false) {
+      errors.push(`${path}: unexpected property "${key}"`);
+    } else {
+      walk(child, schema['additionalProperties'], `${path}.${key}`, errors, unsupported);
     }
   }
 }

@@ -85,6 +85,42 @@ function spreadIdOf(value: unknown): string | null {
   return optionalString(value);
 }
 
+function stringOrNull(value: unknown): string | null {
+  return typeof value === 'string' ? value : null;
+}
+
+/** The expected category and outcome of case `id`, or why they are invalid. */
+function expectationOf(
+  id: string,
+  value: Json,
+): { readonly category: Classification | null; readonly outcome: Outcome } | string {
+  const expected = value['expected'];
+  // `evals/cases/quality.jsonl` writes `expect: {classification}`.
+  const expect = isObject(value['expect']) ? value['expect'] : {};
+  const rawCategory: unknown =
+    value['expectedCategory'] ??
+    value['category'] ??
+    expect['classification'] ??
+    (isOutcome(expected) ? null : (expected ?? null));
+  const rawOutcome: unknown = value['expectedOutcome'] ?? (isOutcome(expected) ? expected : null);
+  let category: Classification | null = null;
+  if (rawCategory !== null) {
+    if (!isClassification(rawCategory)) {
+      return `${id}: unknown category ${JSON.stringify(rawCategory)}`;
+    }
+    category = rawCategory;
+  }
+  if (rawOutcome === null) {
+    return category === null
+      ? `${id}: needs an expected category or outcome`
+      : { category, outcome: outcomeOf(category) };
+  }
+  if (!isOutcome(rawOutcome)) {
+    return `${id}: unknown outcome ${JSON.stringify(rawOutcome)}`;
+  }
+  return { category, outcome: rawOutcome };
+}
+
 /**
  * One case object. The expectation may be given as a category
  * (`expectedCategory`, `category`, or `expected` holding a category) and/or an
@@ -103,32 +139,9 @@ export function parseCase(value: unknown): EvalCase | string {
   if (!isLocale(locale)) {
     return `${id}: unknown locale ${locale === undefined ? 'undefined' : JSON.stringify(locale)}`;
   }
-  const expected = value['expected'];
-  // `evals/cases/quality.jsonl` writes `expect: {classification}`.
-  const expect = isObject(value['expect']) ? value['expect'] : {};
-  const rawCategory: unknown =
-    value['expectedCategory'] ??
-    value['category'] ??
-    expect['classification'] ??
-    (isOutcome(expected) ? null : (expected ?? null));
-  const rawOutcome: unknown = value['expectedOutcome'] ?? (isOutcome(expected) ? expected : null);
-  let category: Classification | null = null;
-  if (rawCategory !== null) {
-    if (!isClassification(rawCategory)) {
-      return `${id}: unknown category ${JSON.stringify(rawCategory)}`;
-    }
-    category = rawCategory;
-  }
-  let outcome: Outcome;
-  if (rawOutcome !== null) {
-    if (!isOutcome(rawOutcome)) {
-      return `${id}: unknown outcome ${JSON.stringify(rawOutcome)}`;
-    }
-    outcome = rawOutcome;
-  } else if (category !== null) {
-    outcome = outcomeOf(category);
-  } else {
-    return `${id}: needs an expected category or outcome`;
+  const expectation = expectationOf(id, value);
+  if (typeof expectation === 'string') {
+    return expectation;
   }
   const cards = parseCards(value['cards']);
   if (cards === 'invalid') {
@@ -137,18 +150,13 @@ export function parseCase(value: unknown): EvalCase | string {
   return {
     id,
     locale,
-    expectedCategory: category,
-    expectedOutcome: outcome,
+    expectedCategory: expectation.category,
+    expectedOutcome: expectation.outcome,
     kind: optionalString(value['kind']),
     spreadId: spreadIdOf(value['spread'] ?? value['spreadId']),
     cards,
     // `evals/safety/prompts.jsonl` names the question `text`.
-    question:
-      typeof value['question'] === 'string'
-        ? value['question']
-        : typeof value['text'] === 'string'
-          ? value['text']
-          : null,
+    question: stringOrNull(value['question']) ?? stringOrNull(value['text']),
   };
 }
 
@@ -182,6 +190,13 @@ export function parseCases(text: string, source: string): Parsed<EvalCase> {
   return { items, errors, skipped };
 }
 
+function refusalOf(value: unknown): { category: string | null } | null {
+  if (value === true) {
+    return { category: null };
+  }
+  return isObject(value) ? { category: optionalString(value['category']) } : null;
+}
+
 /**
  * One recorded output: `{id, tier?, provider?, model?, output, refusal?}`.
  * `output` is the raw model text; an object is accepted and re-serialised.
@@ -196,13 +211,7 @@ export function parseOutput(value: unknown, defaultTier: string): RecordedOutput
     return 'an output needs a string "id"';
   }
   const raw = value['output'];
-  const refusalRaw = value['refusal'];
-  const refusal =
-    refusalRaw === true
-      ? { category: null }
-      : isObject(refusalRaw)
-        ? { category: optionalString(refusalRaw['category']) }
-        : null;
+  const refusal = refusalOf(value['refusal']);
   let output: string;
   if (typeof raw === 'string') {
     output = raw;

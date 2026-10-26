@@ -118,12 +118,12 @@ def parse_catalog_ts(text: str, label: str) -> dict[str, Product]:
         kind = re.search(r"""\bkind\s*:\s*['"]([\w-]+)['"]""", body)
         if not kind:
             raise InputError(label, f"catalog entry {entry.group(2)!r} has no kind")
-        credits = re.search(r"\bcredits\s*:\s*(\d+)", body)
+        credit_count = re.search(r"\bcredits\s*:\s*(\d+)", body)
         products[entry.group(2)] = Product(
             id=entry.group(2),
             kind=normalize_kind(kind.group(1)),
             line=line_of(text, entry.start()),
-            credits=int(credits.group(1)) if credits else None,
+            credits=int(credit_count.group(1)) if credit_count else None,
             retired=bool(re.search(r"\bretired\s*:\s*true\b", body)),
         )
     if not products:

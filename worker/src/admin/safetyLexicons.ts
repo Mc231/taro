@@ -28,7 +28,7 @@ const BOUNDARY_AFTER = String.raw`(?![\p{L}\p{N}])`;
 
 /** The pattern with its escapes (`\p{L}`, `\s`, …) masked, which `foldText` would lower-case. */
 function literalPart(pattern: string): string {
-  return pattern.replace(/\\(?:[pP]\{[^}]*\}|.)/gu, '\u0001');
+  return pattern.replaceAll(/\\(?:[pP]\{[^}]*\}|.)/gu, '\u0001');
 }
 
 function compilePattern(locale: Locale, id: string, pattern: string, boundaries: boolean): string {

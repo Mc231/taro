@@ -67,6 +67,17 @@ async function readPrevious(
   return previous;
 }
 
+/** `--only` if given, else the rotatable secrets with `--rotate`, else all of them. */
+function onlyOption(
+  only: GeneratedSecret[] | undefined,
+  rotate: string | undefined,
+): Pick<GenerateOptions, 'only'> {
+  if (only !== undefined) {
+    return { only };
+  }
+  return rotate === undefined ? {} : { only: ROTATABLE };
+}
+
 export async function main(
   argv: readonly string[],
   deps: CliDeps,
@@ -101,9 +112,9 @@ export async function main(
       environment: environment as Environment,
       kid,
       crypto,
-      ...(only !== undefined ? { only } : rotate !== undefined ? { only: ROTATABLE } : {}),
-      ...(previous !== undefined ? { previous } : {}),
-      ...(ed25519 !== undefined ? { ed25519 } : {}),
+      ...onlyOption(only, rotate),
+      ...(previous === undefined ? {} : { previous }),
+      ...(ed25519 === undefined ? {} : { ed25519 }),
     });
     deps.out(JSON.stringify(secrets, null, 2));
     return 0;

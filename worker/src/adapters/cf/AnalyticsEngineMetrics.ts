@@ -28,9 +28,10 @@ export function countsSql(query: MetricCountQuery): string {
     throw new RangeError('counts: no events');
   }
   const minutes = Math.min(MAX_WINDOW_MINUTES, Math.max(1, Math.floor(query.windowMinutes)));
+  const eventList = events.map((e) => `'${e}'`).join(', ');
   return (
     `SELECT blob1 AS event, blob7 AS code, SUM(_sample_interval) AS n FROM ${METRICS_DATASET} ` +
-    `WHERE blob1 IN (${events.map((e) => `'${e}'`).join(', ')}) ` +
+    `WHERE blob1 IN (${eventList}) ` +
     `AND timestamp > NOW() - INTERVAL '${String(minutes)}' MINUTE GROUP BY event, code`
   );
 }

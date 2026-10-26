@@ -127,4 +127,11 @@ describe('findContacts', () => {
     expect(findContacts('Call 112 now')).toEqual(['phone: 112']);
     expect(findContacts('The Tower asks for a pause.')).toEqual([]);
   });
+
+  it('finds bare domains on any known TLD, any case or script, on label boundaries only', () => {
+    expect(findContacts('see мой-сайт.UA today')).toEqual(['domain: мой-сайт.UA']);
+    expect(findContacts('ex-ample.io!')).toEqual(['domain: ex-ample.io']);
+    expect(findContacts('taro.eu and tarot.br')).toEqual(['domain: taro.eu']);
+    expect(findContacts('foo.coma, .com, foo.xyz')).toEqual([]);
+  });
 });

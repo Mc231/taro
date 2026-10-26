@@ -778,7 +778,10 @@ final class _Validator {
       error(path, 'spreads must be a list', locale: en);
       return;
     }
-    final ids = [for (final s in list) s is Map ? s['id'] : null];
+    final ids = [
+      for (final s in list)
+        if (s is Map) s['id'] else null,
+    ];
     final expected = kSpreadPositions.keys.toList();
     if (ids.length != expected.length ||
         !List.generate(

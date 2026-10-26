@@ -139,6 +139,88 @@ def _blank(chars: list[str], start: int, end: int) -> None:
             chars[k] = " "
 
 
+def _comment_end(source: str, i: int) -> int | None:
+    """End of the ``//`` or (nested) ``/* */`` comment at ``i``, or ``None``."""
+    n = len(source)
+    if source.startswith("//", i):
+        end = source.find("\n", i)
+        return n if end < 0 else end
+    if not source.startswith("/*", i):
+        return None
+    depth, j = 1, i + 2
+    while j < n and depth:
+        if source.startswith("/*", j):
+            depth, j = depth + 1, j + 2
+        elif source.startswith("*/", j):
+            depth, j = depth - 1, j + 2
+        else:
+            j += 1
+    return j
+
+
+def _string_open(source: str, i: int) -> tuple[int, bool]:
+    """``(quote index, raw)`` when a string literal starts at ``i``, else ``(-1, False)``."""
+    prev = source[i - 1] if i else ""
+    if (
+        source[i] in "rR"
+        and i + 1 < len(source)
+        and source[i + 1] in "'\""
+        and not (prev.isalnum() or prev in "_$")
+    ):
+        return i + 1, True
+    if source[i] in "'\"":
+        return i, False
+    return -1, False
+
+
+def _code_step(source: str, i: int, chars: list[str], stack: list[list[Any]]) -> int:
+    """Consumes code at ``i`` (comment, string opening, brace or char); the next index."""
+    end = _comment_end(source, i)
+    if end is not None:
+        _blank(chars, i, end)
+        return end
+    start, raw = _string_open(source, i)
+    if start >= 0:
+        quote = source[start]
+        triple = source.startswith(quote * 3, start)
+        stack.append(["str", quote, triple, raw])
+        return start + (3 if triple else 1)
+    top = stack[-1]
+    if source[i] == "{":
+        top[1] += 1
+    elif source[i] == "}":
+        if top[1] == 0 and len(stack) > 1:
+            stack.pop()  # closes a `${...}` interpolation
+        else:
+            top[1] -= 1
+    return i + 1
+
+
+def _string_step(
+    source: str, i: int, chars: list[str], stack: list[list[Any]], mask_strings: bool
+) -> int:
+    """Consumes string content at ``i`` (close, escape, interpolation or char); the next index."""
+    _, quote, triple, raw = stack[-1]
+    close = quote * 3 if triple else quote
+    if source.startswith(close, i):
+        stack.pop()
+        return i + len(close)
+    char = source[i]
+    if not raw and char == "\\":
+        if mask_strings:
+            _blank(chars, i, i + 2)
+        return i + 2
+    if not raw and source.startswith("${", i):
+        stack.append(["code", 0])
+        return i + 2
+    if char == "\n" and not triple:
+        stack.pop()  # unterminated single-line string: recover
+        return i + 1
+    if mask_strings and char != "\n":
+        chars[i] = " "
+    return i + 1
+
+
 def mask_dart(source: str, *, mask_strings: bool = True) -> str:
     """Blank Dart comments (and string contents) keeping offsets and lines.
 
@@ -152,76 +234,10 @@ def mask_dart(source: str, *, mask_strings: bool = True) -> str:
     stack: list[list[Any]] = [["code", 0]]
     i = 0
     while i < n:
-        top = stack[-1]
-        if top[0] == "code":
-            if source.startswith("//", i):
-                end = source.find("\n", i)
-                end = n if end < 0 else end
-                _blank(chars, i, end)
-                i = end
-                continue
-            if source.startswith("/*", i):
-                depth, j = 1, i + 2
-                while j < n and depth:
-                    if source.startswith("/*", j):
-                        depth, j = depth + 1, j + 2
-                    elif source.startswith("*/", j):
-                        depth, j = depth - 1, j + 2
-                    else:
-                        j += 1
-                _blank(chars, i, j)
-                i = j
-                continue
-            start = i
-            raw = False
-            prev = source[i - 1] if i else ""
-            if (
-                source[i] in "rR"
-                and i + 1 < n
-                and source[i + 1] in "'\""
-                and not (prev.isalnum() or prev in "_$")
-            ):
-                raw = True
-                start = i + 1
-            if source[start] in "'\"":
-                quote = source[start]
-                triple = source.startswith(quote * 3, start)
-                stack.append(["str", quote, triple, raw])
-                i = start + (3 if triple else 1)
-                continue
-            if source[i] == "{":
-                top[1] += 1
-            elif source[i] == "}":
-                if top[1] == 0 and len(stack) > 1:
-                    stack.pop()
-                    i += 1
-                    continue
-                top[1] -= 1
-            i += 1
-            continue
-        _, quote, triple, raw = top
-        close = quote * 3 if triple else quote
-        if source.startswith(close, i):
-            stack.pop()
-            i += len(close)
-            continue
-        char = source[i]
-        if not raw and char == "\\":
-            if mask_strings:
-                _blank(chars, i, i + 2)
-            i += 2
-            continue
-        if not raw and source.startswith("${", i):
-            stack.append(["code", 0])
-            i += 2
-            continue
-        if char == "\n" and not triple:
-            stack.pop()  # unterminated single-line string: recover
-            i += 1
-            continue
-        if mask_strings and char != "\n":
-            chars[i] = " "
-        i += 1
+        if stack[-1][0] == "code":
+            i = _code_step(source, i, chars, stack)
+        else:
+            i = _string_step(source, i, chars, stack, mask_strings)
     return "".join(chars)
 
 

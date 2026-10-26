@@ -115,29 +115,18 @@ export async function runWithPolicy(
       case 'refused':
       case 'truncated':
       case 'invalid_output': {
-        calls.push({
-          provider,
-          model: outcome.model,
-          usage: outcome.usage,
-          ...(outcome.fast === true ? { fast: true } : {}),
-        });
-        const model = modelKey(provider, outcome.model);
-        if (outcome.kind === 'ok') {
-          return { kind: 'ok', output: outcome.output, model, calls };
-        }
-        if (outcome.kind === 'refused') {
-          return { kind: 'refused', category: outcome.category, model, calls };
-        }
-        if (outcome.kind === 'invalid_output') {
-          return { kind: 'invalid_output', issues: outcome.issues, model, calls };
-        }
-        if (!truncationRetried && request.deadlineAt - now() >= MIN_REMAINING_FOR_REGENERATION_MS) {
+        const result = settleAnswered(provider, outcome, calls);
+        if (
+          result.kind === 'truncated' &&
+          !truncationRetried &&
+          request.deadlineAt - now() >= MIN_REMAINING_FOR_REGENERATION_MS
+        ) {
           truncationRetried = true;
           maxTokens = Math.ceil(maxTokens * TRUNCATION_RETRY_FACTOR);
           runtime.logger.log('info', 'ai_truncated_retry', { provider, maxTokens });
           continue;
         }
-        return { kind: 'truncated', model, calls };
+        return result;
       }
       case 'timeout':
         runtime.logger.log('warn', 'ai_call_failed', { provider, kind: 'timeout' });
@@ -161,6 +150,36 @@ export async function runWithPolicy(
         return { kind: outcome.kind, calls };
       }
     }
+  }
+}
+
+type AnsweredOutcome = Extract<AiAttemptOutcome, Answered>;
+
+/**
+ * Records an answered call in `calls` and maps it to its result; a
+ * `truncated` result may still be retried by the caller.
+ */
+function settleAnswered(
+  provider: AiProviderId,
+  outcome: AnsweredOutcome,
+  calls: AiCall[],
+): AiResult {
+  calls.push({
+    provider,
+    model: outcome.model,
+    usage: outcome.usage,
+    ...(outcome.fast === true ? { fast: true } : {}),
+  });
+  const model = modelKey(provider, outcome.model);
+  switch (outcome.kind) {
+    case 'ok':
+      return { kind: 'ok', output: outcome.output, model, calls };
+    case 'refused':
+      return { kind: 'refused', category: outcome.category, model, calls };
+    case 'invalid_output':
+      return { kind: 'invalid_output', issues: outcome.issues, model, calls };
+    case 'truncated':
+      return { kind: 'truncated', model, calls };
   }
 }
 

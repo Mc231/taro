@@ -27,6 +27,9 @@ from pathlib import Path
 from taro_tools import find_repo_root
 
 
+_GLOB_WILDCARDS = {"*": "[^/]*", "?": "[^/]"}
+
+
 def _glob_to_regex(glob: str) -> re.Pattern[str]:
     out = ["^"]
     i = 0
@@ -39,7 +42,7 @@ def _glob_to_regex(glob: str) -> re.Pattern[str]:
             i += 2
         else:
             c = glob[i]
-            out.append("[^/]*" if c == "*" else "[^/]" if c == "?" else re.escape(c))
+            out.append(_GLOB_WILDCARDS.get(c) or re.escape(c))
             i += 1
     out.append("$")
     return re.compile("".join(out))
@@ -58,6 +61,66 @@ def _included(rel: str, include: Sequence[re.Pattern[str]]) -> bool:
     return not include or any(r.match(rel) for r in include)
 
 
+def _entry(records: dict[str, dict], rel: str) -> dict:
+    return records.setdefault(rel, {"lines": {}, "functions": [], "lf": 0, "lh": 0})
+
+
+def _add_archive(
+    records: dict[str, dict], archive: dict, repo_root: Path, patterns: Sequence[re.Pattern[str]]
+) -> None:
+    """Per-line execution counts from an xccov archive."""
+    for raw_path, lines in archive.items():
+        rel = repo_relative(raw_path, repo_root)
+        if not _included(rel, patterns):
+            continue
+        entry = _entry(records, rel)
+        for item in lines:
+            if not item.get("isExecutable"):
+                continue
+            number = int(item["line"])
+            hits = int(item.get("executionCount") or 0)
+            entry["lines"][number] = max(entry["lines"].get(number, 0), hits)
+
+
+def _add_report(
+    records: dict[str, dict], report: dict, repo_root: Path, patterns: Sequence[re.Pattern[str]]
+) -> None:
+    """Line totals and functions from an xccov report."""
+    for target in report.get("targets", []):
+        for file in target.get("files", []):
+            rel = repo_relative(file["path"], repo_root)
+            if not _included(rel, patterns):
+                continue
+            entry = _entry(records, rel)
+            entry["lf"] = max(entry["lf"], int(file.get("executableLines", 0)))
+            entry["lh"] = max(entry["lh"], int(file.get("coveredLines", 0)))
+            for fn in file.get("functions", []):
+                entry["functions"].append(
+                    (int(fn.get("lineNumber", 0)), fn["name"], int(fn.get("executionCount", 0)))
+                )
+
+
+def _record(rel: str, entry: dict) -> list[str]:
+    """The lcov record of one file; per-line data wins over report totals."""
+    out = ["TN:", f"SF:{rel}"]
+    functions = sorted(set(entry["functions"]))
+    out += [f"FN:{line},{name}" for line, name, _ in functions]
+    out += [f"FNDA:{count},{name}" for _, name, count in functions]
+    if functions:
+        out.append(f"FNF:{len(functions)}")
+        out.append(f"FNH:{sum(1 for f in functions if f[2] > 0)}")
+    lines = entry["lines"]
+    out += [f"DA:{number},{lines[number]}" for number in sorted(lines)]
+    if lines:
+        out.append(f"LF:{len(lines)}")
+        out.append(f"LH:{sum(1 for h in lines.values() if h > 0)}")
+    else:
+        out.append(f"LF:{entry['lf']}")
+        out.append(f"LH:{entry['lh']}")
+    out.append("end_of_record")
+    return out
+
+
 def convert(
     report: dict | None,
     archive: dict | None,
@@ -69,55 +132,11 @@ def convert(
         raise ValueError("need an xccov report or archive")
     patterns = [_glob_to_regex(g) for g in include]
     records: dict[str, dict] = {}
-
-    for raw_path, lines in (archive or {}).items():
-        rel = repo_relative(raw_path, repo_root)
-        if not _included(rel, patterns):
-            continue
-        entry = records.setdefault(rel, {"lines": {}, "functions": [], "lf": 0, "lh": 0})
-        for item in lines:
-            if not item.get("isExecutable"):
-                continue
-            number = int(item["line"])
-            hits = int(item.get("executionCount") or 0)
-            entry["lines"][number] = max(entry["lines"].get(number, 0), hits)
-
-    for target in (report or {}).get("targets", []):
-        for file in target.get("files", []):
-            rel = repo_relative(file["path"], repo_root)
-            if not _included(rel, patterns):
-                continue
-            entry = records.setdefault(rel, {"lines": {}, "functions": [], "lf": 0, "lh": 0})
-            entry["lf"] = max(entry["lf"], int(file.get("executableLines", 0)))
-            entry["lh"] = max(entry["lh"], int(file.get("coveredLines", 0)))
-            for fn in file.get("functions", []):
-                entry["functions"].append(
-                    (int(fn.get("lineNumber", 0)), fn["name"], int(fn.get("executionCount", 0)))
-                )
-
+    _add_archive(records, archive or {}, repo_root, patterns)
+    _add_report(records, report or {}, repo_root, patterns)
     out: list[str] = []
     for rel in sorted(records):
-        entry = records[rel]
-        out.append("TN:")
-        out.append(f"SF:{rel}")
-        functions = sorted(set(entry["functions"]))
-        for line, name, _ in functions:
-            out.append(f"FN:{line},{name}")
-        for _, name, count in functions:
-            out.append(f"FNDA:{count},{name}")
-        if functions:
-            out.append(f"FNF:{len(functions)}")
-            out.append(f"FNH:{sum(1 for f in functions if f[2] > 0)}")
-        lines = entry["lines"]
-        for number in sorted(lines):
-            out.append(f"DA:{number},{lines[number]}")
-        if lines:
-            out.append(f"LF:{len(lines)}")
-            out.append(f"LH:{sum(1 for h in lines.values() if h > 0)}")
-        else:
-            out.append(f"LF:{entry['lf']}")
-            out.append(f"LH:{entry['lh']}")
-        out.append("end_of_record")
+        out += _record(rel, records[rel])
     return "\n".join(out) + ("\n" if out else "")
 
 

@@ -20,7 +20,7 @@ export async function uuidV5(crypto: Crypto, namespace: string, name: string): P
   if (!isUuid(namespace)) {
     throw new Error('UUIDv5 namespace must be a UUID');
   }
-  const digest = await crypto.sha1(concatBytes(fromHex(namespace.replace(/-/g, '')), utf8(name)));
+  const digest = await crypto.sha1(concatBytes(fromHex(namespace.replaceAll('-', '')), utf8(name)));
   const bytes = digest.slice(0, 16);
   bytes[6] = ((bytes[6] ?? 0) & 0x0f) | 0x50;
   bytes[8] = ((bytes[8] ?? 0) & 0x3f) | 0x80;

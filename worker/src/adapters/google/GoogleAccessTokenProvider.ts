@@ -44,7 +44,7 @@ export function parseServiceAccount(raw: string | undefined): ServiceAccount {
   const privateKey = json['private_key'];
   const tokenUri = json['token_uri'];
   if (typeof clientEmail !== 'string' || typeof privateKey !== 'string') {
-    throw new Error('GOOGLE_SERVICE_ACCOUNT_JSON lacks client_email or private_key');
+    throw new TypeError('GOOGLE_SERVICE_ACCOUNT_JSON lacks client_email or private_key');
   }
   return {
     clientEmail,

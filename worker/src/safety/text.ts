@@ -11,17 +11,17 @@
 export function normalize(text: string): string {
   return text
     .normalize('NFKC')
-    .replace(/[‘’]/gu, "'")
+    .replaceAll(/[‘’]/gu, "'")
     .toLowerCase()
-    .replace(/[\u064B-\u065F\u0670\u0640]/gu, '')
-    .replace(/[أإآٱ]/gu, 'ا');
+    .replaceAll(/[\u064B-\u065F\u0670\u0640]/gu, '')
+    .replaceAll(/[أإآٱ]/gu, 'ا');
 }
 
 /** Letter tokens (Unicode letters, marks and apostrophes) of the normalised text. */
 export function letterTokens(text: string): string[] {
   return normalize(text)
     .split(/[^\p{L}\p{M}']+/u)
-    .map((token) => token.replace(/^'+|'+$/gu, ''))
+    .map((token) => token.replaceAll(/^'+|'+$/gu, ''))
     .filter((token) => token !== '');
 }
 
@@ -50,21 +50,21 @@ const LATIN_EXTRA: Readonly<Record<string, string>> = {
 export function foldText(text: string): string {
   const lower = text
     .normalize('NFKC')
-    .replace(INVISIBLE, '')
-    .replace(/[‘’ʼ`´]/gu, "'")
+    .replaceAll(INVISIBLE, '')
+    .replaceAll(/[‘’ʼ`´]/gu, "'")
     .toLowerCase();
   let folded = lower
     .normalize('NFD')
-    .replace(/(\p{Script=Latin})\p{M}+/gu, '$1')
+    .replaceAll(/(\p{Script=Latin})\p{M}+/gu, '$1')
     .normalize('NFC');
   for (const [from, to] of Object.entries(LATIN_EXTRA)) {
     folded = folded.replaceAll(from, to);
   }
   return folded
-    .replace(/[ً-ٰٟـ]/gu, '')
-    .replace(/[أإآٱ]/gu, 'ا')
-    .replace(/ى/gu, 'ي')
-    .replace(/ة/gu, 'ه')
-    .replace(/\s+/gu, ' ')
+    .replaceAll(/[ً-ٰٟـ]/gu, '')
+    .replaceAll(/[أإآٱ]/gu, 'ا')
+    .replaceAll('ى', 'ي')
+    .replaceAll('ة', 'ه')
+    .replaceAll(/\s+/gu, ' ')
     .trim();
 }

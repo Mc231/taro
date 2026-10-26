@@ -9,21 +9,53 @@ const EASTERN_DIGITS = /[٠-٩۰-۹]/gu;
 
 /** NFKC plus Arabic-Indic and Persian digits as ASCII digits. */
 export function asciiDigits(text: string): string {
-  return text.normalize('NFKC').replace(EASTERN_DIGITS, (d) => String(d.charCodeAt(0) & 0xf));
+  return text
+    .normalize('NFKC')
+    .replaceAll(EASTERN_DIGITS, (d) => String((d.codePointAt(0) ?? 0) & 0xf));
 }
+
+/** Top-level domains the bare-domain check knows. */
+const TLDS = [
+  'com',
+  'org',
+  'net',
+  'info',
+  'io',
+  'ai',
+  'app',
+  'me',
+  'co',
+  'de',
+  'fr',
+  'es',
+  'it',
+  'pt',
+  'nl',
+  'jp',
+  'kr',
+  'tr',
+  'ua',
+  'uk',
+  'ru',
+  'br',
+  'eu',
+];
+
+/** A bare domain: a label not preceded by a word character, `@`, `.` or `-`, then a known TLD. */
+const DOMAIN = new RegExp(
+  String.raw`(?<![\p{L}\p{N}@.-])[\p{L}\p{N}-]+\.(?:${TLDS.join('|')})\b`,
+  'iu',
+);
 
 const CONTACT_PATTERNS: readonly (readonly ['url' | 'domain' | 'email', RegExp])[] = [
   ['url', /\b(?:https?:\/\/|www\.)\S+/iu],
-  [
-    'domain',
-    /(?<![\p{L}\p{N}@.-])[\p{L}\p{N}-]+\.(?:com|org|net|info|io|ai|app|me|co|de|fr|es|it|pt|nl|jp|kr|tr|ua|uk|ru|br|eu)\b/iu,
-  ],
+  ['domain', DOMAIN],
   ['email', /[\p{L}\p{N}._%+-]+@[\p{L}\p{N}-]+(?:\.[\p{L}\p{N}-]+)+/u],
 ];
 
 function findPhone(text: string): string | null {
   for (const match of text.matchAll(/\+?\d[\d\s().\-‐–]{5,}\d/gu)) {
-    const digits = match[0].replace(/\D/gu, '');
+    const digits = match[0].replaceAll(/\D/gu, '');
     if (digits.length >= 7) {
       return match[0];
     }

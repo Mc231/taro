@@ -50,6 +50,23 @@ def _texts(item: Mapping[str, Any], field: str) -> list[tuple[str, str]]:
     return out
 
 
+def _text_findings(pid: str, item: Mapping[str, Any], credits: int) -> list[Finding]:
+    """Display names must state ``credits``; descriptions may mention no other number."""
+    findings: list[Finding] = []
+    for locale, name in _texts(item, "display_name"):
+        if numbers(name) != [credits]:
+            findings.append(
+                Finding(ASO_PATH, 0, "pack_size", f"{pid} {locale} display_name {name!r} does not state {credits}")
+            )
+    for locale, text in _texts(item, "description"):
+        wrong = [n for n in numbers(text) if n != credits]
+        if wrong:
+            findings.append(
+                Finding(ASO_PATH, 0, "pack_size", f"{pid} {locale} description {text!r} mentions {wrong}, catalog says {credits}")
+            )
+    return findings
+
+
 def pack_findings(aso: Mapping[str, Any], catalog: Mapping[str, Product]) -> list[Finding]:
     """Compare every consumable's store texts with its catalog credits."""
     findings: list[Finding] = []
@@ -65,17 +82,7 @@ def pack_findings(aso: Mapping[str, Any], catalog: Mapping[str, Product]) -> lis
         if item is None:
             findings.append(Finding(ASO_PATH, 0, "pack_missing", f"{pid} is in the catalog but not in app_store.iap_products"))
             continue
-        for locale, name in _texts(item, "display_name"):
-            if numbers(name) != [product.credits]:
-                findings.append(
-                    Finding(ASO_PATH, 0, "pack_size", f"{pid} {locale} display_name {name!r} does not state {product.credits}")
-                )
-        for locale, text in _texts(item, "description"):
-            wrong = [n for n in numbers(text) if n != product.credits]
-            if wrong:
-                findings.append(
-                    Finding(ASO_PATH, 0, "pack_size", f"{pid} {locale} description {text!r} mentions {wrong}, catalog says {product.credits}")
-                )
+        findings += _text_findings(pid, item, product.credits)
     for pid, item in sorted(items.items()):
         kind = str(item.get("type", "")).upper()
         if kind == "CONSUMABLE" and pid not in consumables:

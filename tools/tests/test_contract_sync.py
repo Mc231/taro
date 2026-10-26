@@ -26,7 +26,7 @@ def _tree(folder: Path) -> dict[str, str]:
 
 
 def test_first_sync_copies_everything_but_dotfiles(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    assert main(["--root", str(repo)]) == 0
+    main(["--root", str(repo)])
     assert _tree(repo / TARGET) == {"health.json": '{"status": "ok"}', "balance/get.json": '{"paid": 3}'}
     assert "2 copied, 0 removed" in capsys.readouterr().out
 
@@ -37,7 +37,7 @@ def test_resync_updates_changed_and_removes_stale(repo: Path, capsys: pytest.Cap
     (repo / SOURCE / "balance" / "get.json").unlink()
     (repo / SOURCE / "balance").rmdir()
     capsys.readouterr()
-    assert main(["--root", str(repo)]) == 0
+    main(["--root", str(repo)])
     assert _tree(repo / TARGET) == {"health.json": '{"status": "degraded"}'}
     assert not (repo / TARGET / "balance").exists()
     out = capsys.readouterr().out
@@ -50,14 +50,14 @@ def test_in_sync_is_a_no_op(repo: Path) -> None:
 
 
 def test_dry_run_writes_nothing(repo: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    assert main(["--root", str(repo), "--dry-run"]) == 0
+    main(["--root", str(repo), "--dry-run"])
     assert not (repo / TARGET).exists()
     assert "would copy health.json" in capsys.readouterr().out
 
 
 def test_missing_source_is_not_an_error(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     (tmp_path / "docs" / "specs").mkdir(parents=True)
-    assert main(["--root", str(tmp_path)]) == 0
+    main(["--root", str(tmp_path)])
     assert "does not exist yet" in capsys.readouterr().out
 
 

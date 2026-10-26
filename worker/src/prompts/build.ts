@@ -127,7 +127,7 @@ export function spreadPositionIds(spreadId: string): readonly string[] | undefin
 /** Replaces `{{name}}` in one pass; values are inserted literally, never re-scanned. */
 export function fillTemplate(template: string, values: Readonly<Record<string, string>>): string {
   const missing = new Set<string>();
-  const out = template.replace(/\{\{([a-z_]+)\}\}/g, (_match, name: string) => {
+  const out = template.replaceAll(/\{\{([a-z_]+)\}\}/g, (_match, name: string) => {
     const value = values[name];
     if (value === undefined) {
       missing.add(name);
@@ -143,7 +143,7 @@ export function fillTemplate(template: string, values: Readonly<Record<string, s
 
 /** Makes reader-supplied text inert inside a tag: no tag can be opened or closed from it. */
 export function escapeTagText(text: string): string {
-  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 }
 
 /** NFC, control characters (except line breaks and tabs) removed, trimmed. */
@@ -155,8 +155,8 @@ export function normaliseQuestion(question: string | null | undefined): string {
     question
       .normalize('NFC')
       // eslint-disable-next-line no-control-regex
-      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
-      .replace(/\r\n?/g, '\n')
+      .replaceAll(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+      .replaceAll(/\r\n?/g, '\n')
       .trim()
   );
 }
@@ -312,6 +312,7 @@ function spreadFacts(
     }
   }
 
+  const absentNote = absent.length === 0 ? '' : ` Absent: ${absent.join(', ')}.`;
   const dominant = dominantSuit(set, placed);
 
   const byRank = new Map<string, Placed[]>();
@@ -331,7 +332,7 @@ function spreadFacts(
   return [
     '<spread_facts>',
     `Major Arcana: ${String(majors.length)} of ${total} (${list(majors)}).`,
-    `Suits: ${present.length === 0 ? 'none' : present.join('; ')}.${absent.length === 0 ? '' : ` Absent: ${absent.join(', ')}.`}`,
+    `Suits: ${present.length === 0 ? 'none' : present.join('; ')}.${absentNote}`,
     dominant,
     `Reversed: ${String(reversed.length)} of ${total} (${list(reversed)}).`,
     `Court cards: ${list(courts)}.`,
@@ -363,6 +364,38 @@ function lengthBudget(
   return `Overview ${n.overview} sentences, ${r(w.overview)}; ${cards} ${n.card} sentences, ${r(w.card)}; synthesis ${n.synthesis} sentences, ${r(w.synthesis)}; exactly ${String(notes.reflectionPrompts)} reflection prompts; about ${r(w.total)} in total, title and prompts included.${converted} ${set.data.phrases.lengthFloor}`;
 }
 
+/** The drawn cards in position order, one per position, each card at most once. */
+function placeCards(
+  spread: DeckSpread,
+  cards: readonly ReadingPromptCard[],
+): { readonly ok: true; readonly placed: Placed[] } | { readonly ok: false; readonly error: string } {
+  if (cards.length !== spread.positions.length) {
+    return {
+      ok: false,
+      error: `spread ${spread.id} needs ${String(spread.positions.length)} cards, got ${String(cards.length)}`,
+    };
+  }
+  const seenCards = new Set<string>();
+  const placed: Placed[] = [];
+  for (const position of [...spread.positions].sort((a, b) => a.order - b.order)) {
+    const matches = cards.filter((c) => c.positionId === position.id);
+    const drawn = matches[0];
+    if (drawn === undefined || matches.length > 1) {
+      return { ok: false, error: `spread ${spread.id} needs exactly one card at ${position.id}` };
+    }
+    const card = CARDS_BY_ID.get(drawn.cardId);
+    if (card === undefined) {
+      return { ok: false, error: `unknown card ${drawn.cardId}` };
+    }
+    if (seenCards.has(card.id)) {
+      return { ok: false, error: `card ${card.id} drawn twice` };
+    }
+    seenCards.add(card.id);
+    placed.push({ position, drawn, card });
+  }
+  return { ok: true, placed };
+}
+
 /**
  * Builds the prompt for one reading. Inputs are validated by
  * `domain/spreadValidation.ts` before this runs; a failure here is a bug or a
@@ -381,30 +414,11 @@ export function buildReadingPrompt(
   if (spread === undefined || notes === undefined) {
     return { ok: false, error: `unknown spread ${request.spreadId}` };
   }
-  if (request.cards.length !== spread.positions.length) {
-    return {
-      ok: false,
-      error: `spread ${spread.id} needs ${String(spread.positions.length)} cards, got ${String(request.cards.length)}`,
-    };
+  const placement = placeCards(spread, request.cards);
+  if (!placement.ok) {
+    return placement;
   }
-  const seenCards = new Set<string>();
-  const placed: Placed[] = [];
-  for (const position of [...spread.positions].sort((a, b) => a.order - b.order)) {
-    const matches = request.cards.filter((c) => c.positionId === position.id);
-    const drawn = matches[0];
-    if (drawn === undefined || matches.length > 1) {
-      return { ok: false, error: `spread ${spread.id} needs exactly one card at ${position.id}` };
-    }
-    const card = CARDS_BY_ID.get(drawn.cardId);
-    if (card === undefined) {
-      return { ok: false, error: `unknown card ${drawn.cardId}` };
-    }
-    if (seenCards.has(card.id)) {
-      return { ok: false, error: `card ${card.id} drawn twice` };
-    }
-    seenCards.add(card.id);
-    placed.push({ position, drawn, card });
-  }
+  const { placed } = placement;
   const hints = request.prefilterHints ?? [];
   // Runtime check: eval cases and future callers may pass unchecked strings.
   const badHint = (hints as readonly string[]).find((hint) => !isRefusalCategory(hint));

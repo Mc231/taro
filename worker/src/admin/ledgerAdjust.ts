@@ -168,95 +168,120 @@ WHERE ${guard}
 ON CONFLICT (reason, ref_type, ref_id, bucket) DO NOTHING`;
 }
 
+function refuse(reason: string): AdjustPlan {
+  return { kind: 'refused', reason };
+}
+
+type AdjustAction = Extract<LedgerAction, { kind: 'adjust' }>;
+
+/** One `admin_adjust` entry on a bucket, idempotent per ticket and bucket. */
+function planAdjust(
+  input: AdjustInput,
+  snapshot: AdjustSnapshot,
+  action: AdjustAction,
+): AdjustPlan {
+  const ticket = input.ticketId;
+  const sign = action.delta > 0 ? '+' : '';
+  const summary = `ticket ${ticket}: ${action.bucket} ${sign}${String(action.delta)} on ${input.installId.slice(0, 8)}`;
+  const existing = action.bucket === 'paid' ? snapshot.ticketPaid : snapshot.ticketBonus;
+  if (existing !== null) {
+    return existing === action.delta
+      ? { kind: 'already_applied', summary }
+      : refuse(
+          `ticket ${ticket} already adjusted ${action.bucket} by ${String(existing)}; use a new ticket ID`,
+        );
+  }
+  const current = action.bucket === 'paid' ? snapshot.paid : snapshot.bonus;
+  if (action.delta < 0 && current + action.delta < 0) {
+    return refuse(
+      `${action.bucket} balance is ${String(current)}; ${String(action.delta)} would go below 0`,
+    );
+  }
+  const guard =
+    action.delta < 0
+      ? `${sumOf(input.installId, action.bucket)} >= ${sqlInt(-action.delta)}`
+      : 'true';
+  return {
+    kind: 'apply',
+    summary,
+    statements: [
+      insert(input, action.bucket, action.delta, ticket, action.note, guard),
+      bump(input.installId),
+    ],
+    expect: (after) =>
+      (action.bucket === 'paid' ? after.ticketPaid : after.ticketBonus) === action.delta,
+  };
+}
+
+/** Settles a refund debt (`paid < 0`) back to 0, guarded on the planned balance. */
+function planSettle(input: AdjustInput, snapshot: AdjustSnapshot): AdjustPlan {
+  const ticket = input.ticketId;
+  const who = input.installId.slice(0, 8);
+  if (snapshot.ticketSettle !== null) {
+    return {
+      kind: 'already_applied',
+      summary: `ticket ${ticket}: refund debt of ${String(snapshot.ticketSettle)} settled on ${who}`,
+    };
+  }
+  if (snapshot.paid >= 0) {
+    return refuse(`paid balance is ${String(snapshot.paid)}; there is no refund debt to settle`);
+  }
+  const delta = -snapshot.paid;
+  return {
+    kind: 'apply',
+    summary: `ticket ${ticket}: refund debt of ${String(delta)} settled on ${who} (paid → 0)`,
+    statements: [
+      insert(
+        input,
+        'paid',
+        delta,
+        settleRef(ticket),
+        'settle refund debt',
+        `${sumOf(input.installId, 'paid')} = ${sqlInt(snapshot.paid)}`,
+      ),
+      bump(input.installId),
+    ],
+    expect: (after) => after.ticketSettle === delta,
+  };
+}
+
+/** `active ↔ blocked`. */
+function planStatus(
+  input: AdjustInput,
+  snapshot: AdjustSnapshot,
+  kind: 'block' | 'unblock',
+): AdjustPlan {
+  const [from, to] = kind === 'block' ? ['active', 'blocked'] : ['blocked', 'active'];
+  const summary = `ticket ${input.ticketId}: ${input.installId.slice(0, 8)} ${to}`;
+  if (snapshot.status === to) {
+    return { kind: 'already_applied', summary };
+  }
+  return {
+    kind: 'apply',
+    summary,
+    statements: [
+      `UPDATE installs SET status = '${to}', state_version = state_version + 1 WHERE id = ${sqlString(input.installId)} AND status = '${from}'`,
+    ],
+    expect: (after) => after.status === to,
+  };
+}
+
 export function planAdjustment(input: AdjustInput, snapshot: AdjustSnapshot | null): AdjustPlan {
-  const refuse = (reason: string): AdjustPlan => ({ kind: 'refused', reason });
   if (snapshot === null || snapshot.status === 'deleted') {
     return refuse('install not found (or erased)');
   }
-  const who = input.installId.slice(0, 8);
-  const ticket = input.ticketId;
   if (snapshot.ticketInstallId !== null && snapshot.ticketInstallId !== input.installId) {
-    return refuse(`ticket ${ticket} was already used for another install`);
+    return refuse(`ticket ${input.ticketId} was already used for another install`);
   }
   const action = input.action;
   switch (action.kind) {
-    case 'adjust': {
-      const summary = `ticket ${ticket}: ${action.bucket} ${action.delta > 0 ? '+' : ''}${String(action.delta)} on ${who}`;
-      const existing = action.bucket === 'paid' ? snapshot.ticketPaid : snapshot.ticketBonus;
-      if (existing !== null) {
-        return existing === action.delta
-          ? { kind: 'already_applied', summary }
-          : refuse(
-              `ticket ${ticket} already adjusted ${action.bucket} by ${String(existing)}; use a new ticket ID`,
-            );
-      }
-      const current = action.bucket === 'paid' ? snapshot.paid : snapshot.bonus;
-      if (action.delta < 0 && current + action.delta < 0) {
-        return refuse(
-          `${action.bucket} balance is ${String(current)}; ${String(action.delta)} would go below 0`,
-        );
-      }
-      const guard =
-        action.delta < 0
-          ? `${sumOf(input.installId, action.bucket)} >= ${sqlInt(-action.delta)}`
-          : 'true';
-      return {
-        kind: 'apply',
-        summary,
-        statements: [
-          insert(input, action.bucket, action.delta, ticket, action.note, guard),
-          bump(input.installId),
-        ],
-        expect: (after) =>
-          (action.bucket === 'paid' ? after.ticketPaid : after.ticketBonus) === action.delta,
-      };
-    }
-    case 'settle': {
-      if (snapshot.ticketSettle !== null) {
-        return {
-          kind: 'already_applied',
-          summary: `ticket ${ticket}: refund debt of ${String(snapshot.ticketSettle)} settled on ${who}`,
-        };
-      }
-      if (snapshot.paid >= 0) {
-        return refuse(
-          `paid balance is ${String(snapshot.paid)}; there is no refund debt to settle`,
-        );
-      }
-      const delta = -snapshot.paid;
-      return {
-        kind: 'apply',
-        summary: `ticket ${ticket}: refund debt of ${String(delta)} settled on ${who} (paid → 0)`,
-        statements: [
-          insert(
-            input,
-            'paid',
-            delta,
-            settleRef(ticket),
-            'settle refund debt',
-            `${sumOf(input.installId, 'paid')} = ${sqlInt(snapshot.paid)}`,
-          ),
-          bump(input.installId),
-        ],
-        expect: (after) => after.ticketSettle === delta,
-      };
-    }
+    case 'adjust':
+      return planAdjust(input, snapshot, action);
+    case 'settle':
+      return planSettle(input, snapshot);
     case 'block':
-    case 'unblock': {
-      const [from, to] = action.kind === 'block' ? ['active', 'blocked'] : ['blocked', 'active'];
-      const summary = `ticket ${ticket}: ${who} ${to}`;
-      if (snapshot.status === to) {
-        return { kind: 'already_applied', summary };
-      }
-      return {
-        kind: 'apply',
-        summary,
-        statements: [
-          `UPDATE installs SET status = '${to}', state_version = state_version + 1 WHERE id = ${sqlString(input.installId)} AND status = '${from}'`,
-        ],
-        expect: (after) => after.status === to,
-      };
-    }
+    case 'unblock':
+      return planStatus(input, snapshot, action.kind);
   }
 }
 

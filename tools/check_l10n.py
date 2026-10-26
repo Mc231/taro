@@ -99,9 +99,11 @@ LITERAL_EXCEPT = (
     "**/*.gen.dart",
     "**/lib/src/tokens/generated/**",
 )
-_LITERAL = re.compile(
-    r"""(?<![\w$])(?:Text\s*\(\s*|(?:label|tooltip)\s*:\s*)r?(['"])((?:\\.|(?!\1)[^\n])*)\1"""
-)
+# ``Text(`` or a ``label:``/``tooltip:`` argument, not inside an identifier.
+_LITERAL_PREFIX = r"(?<![\w$])(?:Text\s*\(\s*|(?:label|tooltip)\s*:\s*)"
+# A one-line (raw) string literal: group 1 is the quote, group 2 the body.
+_LITERAL_STRING = r"""r?(['"])((?:\\.|(?!\1)[^\n])*)\1"""
+_LITERAL = re.compile(_LITERAL_PREFIX + _LITERAL_STRING)
 _INTERPOLATION = re.compile(r"\$\{[^}]*\}|\$[A-Za-z_]\w*")
 _LETTER = re.compile(r"[^\W\d_]")
 _GLOSSARY_KEY = re.compile(r"`((?:failure|safetyDeclined)[A-Z]\w*)`")
@@ -166,20 +168,36 @@ def _parse_arg(text: str, i: int) -> tuple[IcuArg, int]:
         return IcuArg(name, "simple"), i + 1
     kind, i = _read_until(text, i + 1, ",}{")
     if kind not in ("plural", "select", "selectordinal"):
-        if text[i] == "{":
-            raise IcuError(f"unexpected '{{' after {kind!r}")
-        # `{x, number, …}` style: keep as a simple placeholder.
-        depth = 1
-        while depth:
-            i += 1
-            if i >= len(text):
-                raise IcuError("unterminated argument")
-            depth += {"{": 1, "}": -1}.get(text[i], 0)
-        return IcuArg(name, "simple"), i + 1
+        return IcuArg(name, "simple"), _skip_formatted_arg(text, i, kind)
     if text[i] != ",":
         raise IcuError(f"{kind} without branches")
-    arg = IcuArg(name, kind)
-    i += 1
+    return _parse_branches(text, i + 1, IcuArg(name, kind))
+
+
+def _skip_formatted_arg(text: str, i: int, kind: str) -> int:
+    """Index just past a ``{x, number, …}`` style argument whose type is at ``i``."""
+    if text[i] == "{":
+        raise IcuError(f"unexpected '{{' after {kind!r}")
+    depth = 1
+    while depth:
+        i += 1
+        if i >= len(text):
+            raise IcuError("unterminated argument")
+        depth += {"{": 1, "}": -1}.get(text[i], 0)
+    return i + 1
+
+
+def _read_branch_key(text: str, i: int) -> tuple[str, int]:
+    """A branch key (``one``, ``=0``, …) and the index of what follows it."""
+    start = i
+    while i < len(text) and not text[i].isspace() and text[i] not in "{}":
+        i += 1
+    return text[start:i], _skip_ws(text, i)
+
+
+def _parse_branches(text: str, i: int, arg: IcuArg) -> tuple[IcuArg, int]:
+    """The ``key {…}`` branches of a plural/select ``arg`` starting at ``i``."""
+    kind = arg.kind
     while True:
         i = _skip_ws(text, i)
         if i >= len(text):
@@ -188,11 +206,7 @@ def _parse_arg(text: str, i: int) -> tuple[IcuArg, int]:
             if not arg.branches:
                 raise IcuError(f"{kind} without branches")
             return arg, i + 1
-        start = i
-        while i < len(text) and not text[i].isspace() and text[i] not in "{}":
-            i += 1
-        key = text[start:i]
-        i = _skip_ws(text, i)
+        key, i = _read_branch_key(text, i)
         if not key or i >= len(text) or text[i] != "{":
             raise IcuError(f"malformed {kind} branch")
         sub, i = _parse_text(text, i + 1, nested=True)
@@ -276,21 +290,27 @@ def _compare_icu(
                     )
                 )
             continue
-        exact = {k for k in ref.branches if k.startswith("=")}
-        allowed = PLURAL_CATEGORIES[locale] | {k for k in keys if re.fullmatch(r"=\d+", k)}
-        problems = []
-        if "other" not in keys:
-            problems.append("no 'other' branch")
-        if exact - keys:
-            problems.append(f"missing {sorted(exact - keys)} of en")
-        if keys - allowed:
-            problems.append(f"categories {sorted(keys - allowed)} not used by {locale}")
-        collisions = [f"{e}/{c}" for e, c in GEN_L10N_ALIASES if {e, c} <= keys]
-        if collisions:
-            problems.append(f"{', '.join(collisions)} collide (gen-l10n maps =N to that category)")
+        problems = _plural_problems(locale, keys, ref)
         if problems:
             findings.append(Finding(path, 0, "icu_mismatch", f"{key}: plural {'; '.join(problems)}"))
     return findings
+
+
+def _plural_problems(locale: str, keys: set[str], ref: IcuArg) -> list[str]:
+    """What is wrong with a plural's branch ``keys`` against the en ``ref``."""
+    exact = {k for k in ref.branches if k.startswith("=")}
+    allowed = PLURAL_CATEGORIES[locale] | {k for k in keys if re.fullmatch(r"=\d+", k)}
+    problems = []
+    if "other" not in keys:
+        problems.append("no 'other' branch")
+    if exact - keys:
+        problems.append(f"missing {sorted(exact - keys)} of en")
+    if keys - allowed:
+        problems.append(f"categories {sorted(keys - allowed)} not used by {locale}")
+    collisions = [f"{e}/{c}" for e, c in GEN_L10N_ALIASES if {e, c} <= keys]
+    if collisions:
+        problems.append(f"{', '.join(collisions)} collide (gen-l10n maps =N to that category)")
+    return problems
 
 
 @dataclass(frozen=True)
@@ -345,19 +365,9 @@ def check_arbs(
     ``strict_translations`` (Phase 18) reports every ``x-translate`` marker;
     otherwise a marked key may keep the English text.
     """
-    findings: list[Finding] = []
     en = arbs["en"]
-    en_path = arb_path("en")
+    findings, en_icu = _en_findings(en)
     en_messages = arb_messages(en)
-    en_icu: dict[str, list[IcuArg]] = {}
-    for key, value in en_messages.items():
-        meta = en.get(f"@{key}")
-        if not isinstance(meta, dict) or not str(meta.get("description") or "").strip():
-            findings.append(Finding(en_path, 0, "missing_description", f"{key}: no @{key}.description"))
-        try:
-            en_icu[key] = parse_icu(value)
-        except IcuError as exc:
-            findings.append(Finding(en_path, 0, "invalid_icu", f"{key}: {exc}"))
     stale = (allowlist.keys | frozenset().union(*allowlist.per_locale.values())) - set(en_messages)
     for key in sorted(stale):
         findings.append(Finding(ALLOWLIST_PATH, 0, "stale_allowlist", f"{key} is not an en key"))
@@ -372,56 +382,105 @@ def check_arbs(
         for key, value in messages.items():
             if not value.strip():
                 findings.append(Finding(path, 0, "empty_value", f"{key} is empty"))
-        if locale == "en":
-            continue
-        pending = x_translate_keys(arb)
-        if strict_translations and pending:
+        if locale != "en":
+            findings += _translation_findings(
+                _Translation(locale, arb, en, en_icu, allowlist), strict_translations
+            )
+    return findings
+
+
+def _en_findings(en: Mapping[str, Any]) -> tuple[list[Finding], dict[str, list[IcuArg]]]:
+    """Missing descriptions and invalid ICU in ``en``, plus the parsed en messages."""
+    findings: list[Finding] = []
+    en_path = arb_path("en")
+    en_icu: dict[str, list[IcuArg]] = {}
+    for key, value in arb_messages(en).items():
+        meta = en.get(f"@{key}")
+        if not isinstance(meta, dict) or not str(meta.get("description") or "").strip():
+            findings.append(Finding(en_path, 0, "missing_description", f"{key}: no @{key}.description"))
+        try:
+            en_icu[key] = parse_icu(value)
+        except IcuError as exc:
+            findings.append(Finding(en_path, 0, "invalid_icu", f"{key}: {exc}"))
+    return findings, en_icu
+
+
+@dataclass(frozen=True)
+class _Translation:
+    """One translated locale's ARB next to the en reference."""
+
+    locale: str
+    arb: Mapping[str, Any]
+    en: Mapping[str, Any]
+    en_icu: Mapping[str, list[IcuArg]]
+    allowlist: Allowlist
+
+    @property
+    def path(self) -> str:
+        return arb_path(self.locale)
+
+
+def _translation_findings(t: _Translation, strict_translations: bool) -> list[Finding]:
+    """``x-translate`` markers, key parity and per-key findings of one non-en locale."""
+    findings: list[Finding] = []
+    path = t.path
+    messages = arb_messages(t.arb)
+    en_messages = arb_messages(t.en)
+    pending = x_translate_keys(t.arb)
+    if strict_translations and pending:
+        findings.append(
+            Finding(
+                path,
+                0,
+                "x_translate",
+                f"{len(pending)} key(s) still marked {X_TRANSLATE}, e.g. {sorted(pending)[0]}",
+            )
+        )
+    missing = sorted(set(en_messages) - set(messages))
+    extra = sorted(set(messages) - set(en_messages))
+    if missing:
+        findings.append(Finding(path, 0, "key_parity", f"missing keys: {', '.join(missing)}"))
+    if extra:
+        findings.append(Finding(path, 0, "key_parity", f"keys not in en: {', '.join(extra)}"))
+    for key in sorted(set(messages) & set(en_messages)):
+        value = messages[key]
+        if value.strip():  # an empty value is already reported as empty_value
+            findings += _key_findings(t, key, value, en_messages[key], pending)
+    return findings
+
+
+def _key_findings(t: _Translation, key: str, value: str, en_value: str, pending: set[str]) -> list[Finding]:
+    """Placeholder types, ICU structure and untranslated text of one key."""
+    findings: list[Finding] = []
+    path = t.path
+    en_types = _placeholder_types(t.en, key)
+    for name, kind in _placeholder_types(t.arb, key).items():
+        if en_types.get(name) != kind:
             findings.append(
                 Finding(
                     path,
                     0,
-                    "x_translate",
-                    f"{len(pending)} key(s) still marked {X_TRANSLATE}, e.g. {sorted(pending)[0]}",
+                    "placeholder_mismatch",
+                    f"{key}: placeholder {name} type {kind!r} != en {en_types.get(name)!r}",
                 )
             )
-        missing = sorted(set(en_messages) - set(messages))
-        extra = sorted(set(messages) - set(en_messages))
-        if missing:
-            findings.append(Finding(path, 0, "key_parity", f"missing keys: {', '.join(missing)}"))
-        if extra:
-            findings.append(Finding(path, 0, "key_parity", f"keys not in en: {', '.join(extra)}"))
-        for key in sorted(set(messages) & set(en_messages)):
-            value = messages[key]
-            if not value.strip():
-                continue  # already reported as empty_value
-            en_types = _placeholder_types(en, key)
-            for name, kind in _placeholder_types(arb, key).items():
-                if en_types.get(name) != kind:
-                    findings.append(
-                        Finding(
-                            path,
-                            0,
-                            "placeholder_mismatch",
-                            f"{key}: placeholder {name} type {kind!r} != en {en_types.get(name)!r}",
-                        )
-                    )
-            if key in en_icu:
-                try:
-                    args = parse_icu(value)
-                except IcuError as exc:
-                    findings.append(Finding(path, 0, "invalid_icu", f"{key}: {exc}"))
-                else:
-                    findings += _compare_icu(locale, key, en_icu[key], args, path)
-            text = _INTERPOLATION.sub("", value)
-            if (
-                value == en_messages[key]
-                and _LETTER.search(re.sub(r"\{[^{}]*\}", "", text))
-                and not allowlist.allows(locale, key)
-                and key not in pending
-            ):
-                findings.append(
-                    Finding(path, 0, "untranslated", f"{key} equals en ({value!r}); translate or allowlist it")
-                )
+    if key in t.en_icu:
+        try:
+            args = parse_icu(value)
+        except IcuError as exc:
+            findings.append(Finding(path, 0, "invalid_icu", f"{key}: {exc}"))
+        else:
+            findings += _compare_icu(t.locale, key, t.en_icu[key], args, path)
+    text = _INTERPOLATION.sub("", value)
+    if (
+        value == en_value
+        and _LETTER.search(re.sub(r"\{[^{}]*\}", "", text))
+        and not t.allowlist.allows(t.locale, key)
+        and key not in pending
+    ):
+        findings.append(
+            Finding(path, 0, "untranslated", f"{key} equals en ({value!r}); translate or allowlist it")
+        )
     return findings
 
 
@@ -518,48 +577,61 @@ def deck_findings(root: Path, require_all_locales: bool = False) -> tuple[list[F
     """
     findings: list[Finding] = []
     notices: list[str] = []
-    source = root / CONTENT_SOURCE
-    if not source.is_dir():
+    if not (root / CONTENT_SOURCE).is_dir():
         notices.append(f"{CONTENT_SOURCE} not present yet (Phase 5); deck content not checked")
     else:
         for locale in LOCALES:
-            missing: list[str] = []
-            for card in CARD_IDS:
-                result = _card_fields(root, locale, card)
-                if result is None:
-                    missing.append(card)
-                else:
-                    findings += result
-            if not missing:
-                continue
-            if locale == "en" or require_all_locales:
-                findings += [
-                    Finding(f"{CONTENT_SOURCE}/{locale}/cards/{card}.yaml", 0, "deck_missing_card", "card source file is missing")
-                    for card in missing
-                ]
-            else:
-                notices.append(f"{CONTENT_SOURCE}/{locale}/cards: {len(missing)} of {len(CARD_IDS)} cards not translated yet (Phase 18)")
+            found, notes = _source_locale_findings(root, locale, require_all_locales)
+            findings += found
+            notices += notes
     assets = root / DECK_ASSETS
     built = sorted(assets.glob("*.json")) if assets.is_dir() else []
     if not built:
         notices.append(f"{DECK_ASSETS}/*.json not built yet (Phase 5); built deck not checked")
         return findings, notices
     for locale in LOCALES:
-        label = f"{DECK_ASSETS}/{locale}.json"
-        path = root / label
-        if not path.is_file():
-            if locale == "en" or require_all_locales:
-                findings.append(Finding(label, 0, "deck_missing_locale", "built deck texts are missing"))
-            else:
-                notices.append(f"{label} not built (locale incomplete until Phase 18)")
-            continue
-        strings = _strings(load_json(path, label))
-        missing_cards = [card for card in CARD_IDS if card not in strings]
-        if missing_cards:
-            findings.append(
-                Finding(label, 0, "deck_missing_card", f"{len(missing_cards)} card(s) missing, e.g. {missing_cards[0]}")
-            )
+        found, notes = _built_locale_findings(root, locale, require_all_locales)
+        findings += found
+        notices += notes
     return findings, notices
+
+
+def _source_locale_findings(root: Path, locale: str, require_all_locales: bool) -> tuple[list[Finding], list[str]]:
+    """Card source files of one locale: empty fields and missing cards."""
+    findings: list[Finding] = []
+    missing: list[str] = []
+    for card in CARD_IDS:
+        result = _card_fields(root, locale, card)
+        if result is None:
+            missing.append(card)
+        else:
+            findings += result
+    if not missing:
+        return findings, []
+    if locale == "en" or require_all_locales:
+        findings += [
+            Finding(f"{CONTENT_SOURCE}/{locale}/cards/{card}.yaml", 0, "deck_missing_card", "card source file is missing")
+            for card in missing
+        ]
+        return findings, []
+    return findings, [f"{CONTENT_SOURCE}/{locale}/cards: {len(missing)} of {len(CARD_IDS)} cards not translated yet (Phase 18)"]
+
+
+def _built_locale_findings(root: Path, locale: str, require_all_locales: bool) -> tuple[list[Finding], list[str]]:
+    """The built ``<locale>.json``: present (when required) and holding all 78 cards."""
+    label = f"{DECK_ASSETS}/{locale}.json"
+    path = root / label
+    if not path.is_file():
+        if locale == "en" or require_all_locales:
+            return [Finding(label, 0, "deck_missing_locale", "built deck texts are missing")], []
+        return [], [f"{label} not built (locale incomplete until Phase 18)"]
+    strings = _strings(load_json(path, label))
+    missing_cards = [card for card in CARD_IDS if card not in strings]
+    if missing_cards:
+        return [
+            Finding(label, 0, "deck_missing_card", f"{len(missing_cards)} card(s) missing, e.g. {missing_cards[0]}")
+        ], []
+    return [], []
 
 
 def glossary_keys(root: Path) -> list[str] | None:

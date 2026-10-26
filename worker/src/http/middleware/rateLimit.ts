@@ -53,7 +53,7 @@ export async function ipPrefixHash(deps: Deps, ip: string | undefined): Promise<
 
 /** `yyyymmdd` of the UTC day. */
 export function utcDay(now: Date): string {
-  return now.toISOString().slice(0, 10).replace(/-/g, '');
+  return now.toISOString().slice(0, 10).replaceAll('-', '');
 }
 
 /**

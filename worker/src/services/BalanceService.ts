@@ -229,52 +229,81 @@ export class BalanceService {
       if (reading.holdState === 'consumed') {
         return { kind: 'consumed', chargeSource: reading.chargeSource };
       }
-      if (reading.holdState === 'held') {
-        if (!holdExpired(reading.holdExpiresAt, now)) {
-          const expiresAt = holdExpiry(now, config);
-          if (await this.readings.extendHold(reading.id, reading.attempt, expiresAt)) {
-            return {
-              kind: 'held',
-              chargeSource: reading.holdSource ?? 'paid',
-              attempt: reading.attempt,
-              expiresAt,
-              renewed: true,
-            };
-          }
-        } else {
-          await this.refund({ readingId: reading.id, reason: 'expired', attempt: reading.attempt });
-        }
-        continue;
-      }
-      const install = await this.loadInstall(request.installId);
-      const context = await this.holdContext(install, reading, config, now, request);
-      const batch = this.holdBatch(context);
-      batch.statements.push(
-        this.readings.noCreditStmt(context.expected),
-        this.readings.findByIdStmt(reading.id),
-      );
-      const results = await this.deps.db.batch(batch.statements);
-      const applied = appliedBucket(batch, results);
-      const after = ReadingRepo.parse(results.at(-1)?.results[0]);
-      if (applied !== null) {
-        await this.afterHold(context, applied, request);
-      }
-      if (after.holdState === 'held' && after.attempt === context.attempt) {
-        return {
-          kind: 'held',
-          chargeSource: after.holdSource ?? applied ?? 'paid',
-          attempt: after.attempt,
-          expiresAt: after.holdExpiresAt ?? context.expiresAt,
-          renewed: false,
-        };
-      }
-      if (after.holdState === 'none' || after.holdState === 'refunded') {
-        if (after.attempt === reading.attempt) {
-          return this.insufficient(install, config, now, request.network);
-        }
+      const result =
+        reading.holdState === 'held'
+          ? await this.renewHold(reading, config, now)
+          : await this.takeHold(request, reading, config, now);
+      if (result !== null) {
+        return result;
       }
     }
     throw new Error('hold: lost the compare-and-set too often');
+  }
+
+  /**
+   * A reading already `held`: a live hold is renewed; an expired one is
+   * refunded. `null` (refunded, or the renewal lost the CAS) = next round.
+   */
+  private async renewHold(
+    reading: ReadingRow,
+    config: RuntimeConfig,
+    now: Date,
+  ): Promise<HoldResult | null> {
+    if (holdExpired(reading.holdExpiresAt, now)) {
+      await this.refund({ readingId: reading.id, reason: 'expired', attempt: reading.attempt });
+      return null;
+    }
+    const expiresAt = holdExpiry(now, config);
+    if (await this.readings.extendHold(reading.id, reading.attempt, expiresAt)) {
+      return {
+        kind: 'held',
+        chargeSource: reading.holdSource ?? 'paid',
+        attempt: reading.attempt,
+        expiresAt,
+        renewed: true,
+      };
+    }
+    return null;
+  }
+
+  /**
+   * One new-hold batch (free → bonus → paid, else `no_credit`). `null` when a
+   * concurrent call changed the row in between = next round.
+   */
+  private async takeHold(
+    request: HoldRequest,
+    reading: ReadingRow,
+    config: RuntimeConfig,
+    now: Date,
+  ): Promise<HoldResult | null> {
+    const install = await this.loadInstall(request.installId);
+    const context = await this.holdContext(install, reading, config, now, request);
+    const batch = this.holdBatch(context);
+    batch.statements.push(
+      this.readings.noCreditStmt(context.expected),
+      this.readings.findByIdStmt(reading.id),
+    );
+    const results = await this.deps.db.batch(batch.statements);
+    const applied = appliedBucket(batch, results);
+    const after = ReadingRepo.parse(results.at(-1)?.results[0]);
+    if (applied !== null) {
+      await this.afterHold(context, applied, request);
+    }
+    if (after.holdState === 'held' && after.attempt === context.attempt) {
+      return {
+        kind: 'held',
+        chargeSource: after.holdSource ?? applied ?? 'paid',
+        attempt: after.attempt,
+        expiresAt: after.holdExpiresAt ?? context.expiresAt,
+        renewed: false,
+      };
+    }
+    if (after.holdState === 'none' || after.holdState === 'refunded') {
+      if (after.attempt === reading.attempt) {
+        return this.insufficient(install, config, now, request.network);
+      }
+    }
+    return null;
   }
 
   /**

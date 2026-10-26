@@ -60,7 +60,7 @@ def sync(source: Path, target: Path, dry_run: bool = False) -> tuple[list[str], 
     return copy, remove
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def main(argv: Sequence[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="contract_sync", description=__doc__.splitlines()[0])
     parser.add_argument("--root", type=Path, default=None, help="repository root (default: auto-detected)")
     parser.add_argument("--dry-run", action="store_true", help="print the changes without writing")
@@ -69,7 +69,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     source, target = root / SOURCE, root / TARGET
     if not source.is_dir():
         print(f"contract_sync: {SOURCE} does not exist yet; nothing to sync")
-        return 0
+        return
     copy, remove = sync(source, target, dry_run=args.dry_run)
     verb = "would " if args.dry_run else ""
     for name in copy:
@@ -77,8 +77,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     for name in remove:
         print(f"contract_sync: {verb}remove {name}")
     print(f"contract_sync: {len(copy)} copied, {len(remove)} removed ({SOURCE} -> {TARGET})")
-    return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

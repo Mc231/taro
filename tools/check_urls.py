@@ -119,15 +119,20 @@ def check_refs(refs: Sequence[UrlRef], offline: bool, fetch: Fetch) -> list[Find
         problem = syntax_problem(ref.url)
         if problem is None and not offline:
             if ref.url not in fetched:
-                try:
-                    status = fetch(ref.url)
-                    fetched[ref.url] = None if status == 200 else f"returned HTTP {status}"
-                except (urllib.error.URLError, OSError, ValueError) as exc:
-                    fetched[ref.url] = f"request failed: {exc}"
+                fetched[ref.url] = _fetch_problem(ref.url, fetch)
             problem = fetched[ref.url]
         if problem:
             findings.append(Finding(ref.path, 0, "url", f"{ref.where}: {ref.url} {problem}"))
     return findings
+
+
+def _fetch_problem(url: str, fetch: Fetch) -> str | None:
+    """``None`` when ``url`` answers 200, else what went wrong."""
+    try:
+        status = fetch(url)
+    except (OSError, ValueError) as exc:  # urllib.error.URLError is an OSError
+        return f"request failed: {exc}"
+    return None if status == 200 else f"returned HTTP {status}"
 
 
 def check(root: Path, offline: bool, fetch: Fetch = default_fetch) -> tuple[list[Finding], list[str]]:

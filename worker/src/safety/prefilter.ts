@@ -54,6 +54,30 @@ function lexiconsFor(folded: string, locale: Locale, lexicons: SafetyLexicons): 
   return lexiconLocales(folded, locale).map((l) => lexicons[l]);
 }
 
+/**
+ * Adds the rules of `lexicon` that fire on `folded`: a high-severity block
+ * category to `blocks` (first rule per category wins), anything else to `hints`.
+ */
+function collectMatches(
+  lexicon: SafetyLexicon,
+  folded: string,
+  blocks: Map<L1BlockCategory, string>,
+  hints: Set<RefusalCategory>,
+): void {
+  for (const rule of lexicon.l1) {
+    if (!fires(rule, folded)) {
+      continue;
+    }
+    if (rule.severity === 'high' && isL1BlockCategory(rule.category)) {
+      if (!blocks.has(rule.category)) {
+        blocks.set(rule.category, `${lexicon.locale}:${rule.id}`);
+      }
+    } else {
+      hints.add(rule.category);
+    }
+  }
+}
+
 export function prefilter(
   question: string | null | undefined,
   locale: Locale,
@@ -66,18 +90,7 @@ export function prefilter(
   const blocks = new Map<L1BlockCategory, string>();
   const hints = new Set<RefusalCategory>();
   for (const lexicon of lexiconsFor(folded, locale, lexicons)) {
-    for (const rule of lexicon.l1) {
-      if (!fires(rule, folded)) {
-        continue;
-      }
-      if (rule.severity === 'high' && isL1BlockCategory(rule.category)) {
-        if (!blocks.has(rule.category)) {
-          blocks.set(rule.category, `${lexicon.locale}:${rule.id}`);
-        }
-      } else {
-        hints.add(rule.category);
-      }
-    }
+    collectMatches(lexicon, folded, blocks, hints);
   }
   // Fixed priority when several crisis rules fire: the user's own safety first.
   for (const category of L1_BLOCK_CATEGORIES) {

@@ -3,6 +3,14 @@ import type { Locale } from './types';
 // Shared with the Worker's safety layers (one normalisation for L3 and graders).
 export { letterTokens, normalize } from '../../src/safety/text';
 
+/** UTF-16 code-unit order, the order of a comparator-less `sort()`. */
+export function byCodeUnit(a: string, b: string): number {
+  if (a < b) {
+    return -1;
+  }
+  return a > b ? 1 : 0;
+}
+
 function stringAt(value: unknown): string {
   return typeof value === 'string' ? value : '';
 }

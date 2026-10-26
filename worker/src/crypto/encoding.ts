@@ -14,7 +14,7 @@ export function fromUtf8(bytes: Uint8Array): string {
 function toBinaryString(bytes: Uint8Array): string {
   let out = '';
   for (const byte of bytes) {
-    out += String.fromCharCode(byte);
+    out += String.fromCodePoint(byte);
   }
   return out;
 }
@@ -25,18 +25,19 @@ export function toBase64(bytes: Uint8Array): string {
 
 /** Decodes standard or URL-safe base64, padded or not. Throws on invalid input. */
 export function fromBase64(text: string): Uint8Array {
-  const normalized = text.replace(/-/g, '+').replace(/_/g, '/');
+  const normalized = text.replaceAll('-', '+').replaceAll('_', '/');
   const padded = normalized + '='.repeat((4 - (normalized.length % 4)) % 4);
   const binary = atob(padded);
   const out = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) {
-    out[i] = binary.charCodeAt(i);
+    // atob yields one code unit per byte (0–255), never a surrogate pair.
+    out[i] = binary.codePointAt(i) ?? 0;
   }
   return out;
 }
 
 export function toBase64Url(bytes: Uint8Array): string {
-  return toBase64(bytes).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return toBase64(bytes).replaceAll('+', '-').replaceAll('/', '_').replace(/=+$/, '');
 }
 
 export function toHex(bytes: Uint8Array): string {
@@ -50,7 +51,7 @@ export function fromHex(text: string): Uint8Array {
   }
   const out = new Uint8Array(text.length / 2);
   for (let i = 0; i < out.length; i++) {
-    out[i] = parseInt(text.slice(i * 2, i * 2 + 2), 16);
+    out[i] = Number.parseInt(text.slice(i * 2, i * 2 + 2), 16);
   }
   return out;
 }

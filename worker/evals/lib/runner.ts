@@ -1,5 +1,6 @@
 import { GRADERS, parseActual, type GraderContext } from './graders';
 import type { CaseGrade, EvalCase, RecordedOutput } from './types';
+import { byCodeUnit } from './text';
 
 /**
  * Grades recorded outputs against their cases. Outputs are matched by `id`
@@ -86,7 +87,7 @@ export function runEval(
       }
       const outs = [...byCase.values()];
       const distinct = (values: (string | null)[]): string[] =>
-        [...new Set(values.filter((v): v is string => v !== null))].sort();
+        [...new Set(values.filter((v): v is string => v !== null))].sort(byCodeUnit);
       return {
         tier,
         providers: distinct(outs.map((o) => o.provider)),

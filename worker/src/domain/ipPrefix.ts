@@ -65,7 +65,7 @@ function parseGroups(text: string): number[] | undefined {
     if (!/^[0-9a-fA-F]{1,4}$/.test(part)) {
       return undefined;
     }
-    groups.push(parseInt(part, 16));
+    groups.push(Number.parseInt(part, 16));
   }
   return groups;
 }
@@ -73,7 +73,7 @@ function parseGroups(text: string): number[] | undefined {
 /** Eight 16-bit groups, or undefined. Handles `::` and a trailing dotted quad; drops a `%zone`. */
 function parseIpv6(text: string): number[] | undefined {
   const withoutZone = text.split('%')[0] ?? '';
-  const unbracketed = withoutZone.replace(/^\[|\]$/g, '');
+  const unbracketed = withoutZone.replaceAll(/^\[|\]$/g, '');
   const halves = unbracketed.split('::');
   if (halves.length > 2) {
     return undefined;

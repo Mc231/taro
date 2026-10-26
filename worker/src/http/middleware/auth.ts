@@ -25,7 +25,7 @@ export interface AuthOptions {
   readonly allowExpired?: boolean;
 }
 
-const BEARER = /^Bearer\s+([A-Za-z0-9_\-.]+)$/i;
+const BEARER = /^Bearer\s+([\w.-]+)$/i;
 
 export function auth(deps: Deps, options: AuthOptions = {}): MiddlewareHandler<AppEnv> {
   const repo = new InstallRepo(deps.db);

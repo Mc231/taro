@@ -46,9 +46,11 @@ _SNAKE = re.compile(r"^[a-z][a-z0-9]*(_[a-z0-9]+)*$")
 _CLASS = re.compile(r"\b((?:(?:abstract|sealed|base|final|interface|mixin)\s+)*)class\s+(\w+)[^{;]*\{")
 _EVENT_NAME = re.compile(r"\b(?:eventName|name)\s*(?:=>|=)\s*(['\"])")
 _PARAMS = re.compile(r"\b(?:parameters|params)\s*(=>|\{)")
-_STRING_FIELD = re.compile(
-    r"((?:@\w+(?:\.\w+)?(?:\([^;]*?\))?\s+)*)(?:final\s+|late\s+)*String\??\s+(\w+)\s*[;=]"
-)
+# A run of annotations (``@Foo``, ``@a.B``, ``@Foo(...)``) before a field.
+_ANNOTATION = r"@\w+(?:\.\w+)?(?:\([^;]*?\))?\s+"
+# ``[final|late ...] String[?] name`` followed by ``;`` or ``=``.
+_STRING_DECL = r"(?:final\s+|late\s+)*String\??\s+(\w+)\s*[;=]"
+_STRING_FIELD = re.compile(f"((?:{_ANNOTATION})*){_STRING_DECL}")
 
 
 @dataclass
@@ -178,6 +180,16 @@ def _split_params(cell: str) -> list[str]:
     return segments
 
 
+def _doc_params(cell: str) -> list[str]:
+    """Parameter names from one catalogue ``Params`` cell."""
+    params: list[str] = []
+    for segment in _split_params(cell):
+        tokens = backticks(segment.strip())
+        if tokens and segment.strip().startswith("`"):
+            params.append(tokens[0].rstrip("?"))
+    return params
+
+
 def doc_events(text: str, where: str = DOC) -> list[Event]:
     """Events documented in the catalogue tables."""
     events: list[Event] = []
@@ -189,12 +201,7 @@ def doc_events(text: str, where: str = DOC) -> list[Event]:
         )
         for offset, row in enumerate(table.rows, start=2):
             names = backticks(row.get("Event", ""))
-            params: list[str] = []
-            if params_column:
-                for segment in _split_params(row.get(params_column, "")):
-                    tokens = backticks(segment.strip())
-                    if tokens and segment.strip().startswith("`"):
-                        params.append(tokens[0].rstrip("?"))
+            params = _doc_params(row.get(params_column, "")) if params_column else []
             for name in names:
                 events.append(Event(name, list(params), where, table.line + offset))
     return events

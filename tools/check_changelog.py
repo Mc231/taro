@@ -86,18 +86,46 @@ def _version_key(version: str) -> tuple[int, ...]:
     return tuple(int(part) for part in version.split("."))
 
 
-def check_structure(text: str, label: str) -> list[Finding]:
-    """Keep a Changelog structure findings for one file."""
-    findings: list[Finding] = []
-    releases = parse_releases(text)
+def _unreleased_findings(releases: Sequence[Release], label: str) -> list[Finding]:
+    """The ``## [Unreleased]`` section exists and comes first."""
     names = [release.name for release in releases]
     if "Unreleased" not in names:
-        findings.append(Finding(label, 0, "unreleased-missing", "no '## [Unreleased]' section"))
-    elif names.index("Unreleased") != 0:
-        findings.append(
+        return [Finding(label, 0, "unreleased-missing", "no '## [Unreleased]' section")]
+    if names.index("Unreleased") != 0:
+        return [
             Finding(label, releases[names.index("Unreleased")].line, "unreleased-order",
                     "'## [Unreleased]' must be the first section")
-        )
+        ]
+    return []
+
+
+def _heading_finding(release: Release, label: str) -> Finding | None:
+    """A malformed or undated version heading, if any."""
+    if not _VERSION.match(release.name) or release.date is None:
+        return Finding(label, release.line, "heading",
+                       f"release heading must be '## [X.Y.Z] - YYYY-MM-DD', got '## [{release.name}]…'")
+    if not _valid_date(release.date):
+        return Finding(label, release.line, "date", f"invalid date {release.date}")
+    return None
+
+
+def _subsection_findings(release: Release, label: str) -> list[Finding]:
+    """``###`` subsections outside the Keep a Changelog set."""
+    findings: list[Finding] = []
+    for offset, line in enumerate(release.body, start=1):
+        sub = _SUBSECTION.match(line)
+        if sub and sub.group(1) not in SUBSECTIONS:
+            findings.append(
+                Finding(label, release.line + offset, "subsection",
+                        f"'### {sub.group(1)}' is not one of {', '.join(SUBSECTIONS)}")
+            )
+    return findings
+
+
+def check_structure(text: str, label: str) -> list[Finding]:
+    """Keep a Changelog structure findings for one file."""
+    releases = parse_releases(text)
+    findings = _unreleased_findings(releases, label)
     seen: dict[str, int] = {}
     versions: list[tuple[str, int]] = []
     unreleased_seen = False
@@ -106,13 +134,8 @@ def check_structure(text: str, label: str) -> list[Finding]:
             if unreleased_seen:
                 findings.append(Finding(label, release.line, "duplicate", "second '## [Unreleased]' section"))
             unreleased_seen = True
-        elif not _VERSION.match(release.name) or release.date is None:
-            findings.append(
-                Finding(label, release.line, "heading",
-                        f"release heading must be '## [X.Y.Z] - YYYY-MM-DD', got '## [{release.name}]…'")
-            )
-        elif not _valid_date(release.date):
-            findings.append(Finding(label, release.line, "date", f"invalid date {release.date}"))
+        elif (heading := _heading_finding(release, label)) is not None:
+            findings.append(heading)
         else:
             if release.name in seen:
                 findings.append(
@@ -120,13 +143,7 @@ def check_structure(text: str, label: str) -> list[Finding]:
                 )
             seen[release.name] = release.line
             versions.append((release.name, release.line))
-        for offset, line in enumerate(release.body, start=1):
-            sub = _SUBSECTION.match(line)
-            if sub and sub.group(1) not in SUBSECTIONS:
-                findings.append(
-                    Finding(label, release.line + offset, "subsection",
-                            f"'### {sub.group(1)}' is not one of {', '.join(SUBSECTIONS)}")
-                )
+        findings += _subsection_findings(release, label)
     for (newer, _), (older, line) in zip(versions, versions[1:], strict=False):
         if _version_key(newer) <= _version_key(older):
             findings.append(Finding(label, line, "order", f"{older} listed below {newer}; newest first"))
@@ -208,16 +225,22 @@ def run(root: Path, *, version: str | None, worker: bool, rev_range: str | None)
         elif label == WORKER_CHANGELOG:
             findings.append(Finding(label, 0, "missing", "file not found"))
     if rev_range is not None:
-        try:
-            changed = _git(root, ["diff", "--name-only", rev_range])
-            subjects = _git(root, ["log", "--format=%s", rev_range])
-        except (OSError, subprocess.CalledProcessError) as exc:
-            detail = getattr(exc, "stderr", "") or str(exc)
-            findings.append(Finding("git", 0, "range", f"cannot read {rev_range}: {detail.strip()}"))
-        else:
-            findings += check_range(changed, subjects)
-            notices.append(f"range {rev_range}: {len(subjects)} commit(s), {len(changed)} file(s)")
+        range_findings, range_notices = _run_range(root, rev_range)
+        findings += range_findings
+        notices += range_notices
     return findings, notices
+
+
+def _run_range(root: Path, rev_range: str) -> tuple[list[Finding], list[str]]:
+    """The ``--pr``/``--range`` part of :func:`run`."""
+    try:
+        changed = _git(root, ["diff", "--name-only", rev_range])
+        subjects = _git(root, ["log", "--format=%s", rev_range])
+    except (OSError, subprocess.CalledProcessError) as exc:
+        detail = getattr(exc, "stderr", "") or str(exc)
+        return [Finding("git", 0, "range", f"cannot read {rev_range}: {detail.strip()}")], []
+    notice = f"range {rev_range}: {len(subjects)} commit(s), {len(changed)} file(s)"
+    return check_range(changed, subjects), [notice]
 
 
 def main(argv: Sequence[str] | None = None) -> int:

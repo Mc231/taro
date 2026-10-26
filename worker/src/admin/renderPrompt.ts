@@ -51,29 +51,44 @@ function issueText(error: z.ZodError): string {
  * Parses a `.jsonl` file (one case per non-empty line) or a JSON file holding
  * one case or an array of cases. Case IDs must be unique.
  */
-export function parseCases(text: string, jsonl: boolean): ParsedCases {
-  const raw: { readonly where: string; readonly value: unknown }[] = [];
-  if (jsonl) {
-    const lines = text.split(/\r?\n/);
-    for (const [index, line] of lines.entries()) {
-      if (line.trim() === '') {
-        continue;
-      }
-      try {
-        raw.push({ where: `line ${String(index + 1)}`, value: JSON.parse(line) });
-      } catch {
-        return { ok: false, error: `line ${String(index + 1)}: not valid JSON` };
-      }
+interface RawCase {
+  readonly where: string;
+  readonly value: unknown;
+}
+
+/** One raw value per non-empty line, or the first line that is not JSON. */
+function jsonLines(text: string): RawCase[] | string {
+  const raw: RawCase[] = [];
+  const lines = text.split(/\r?\n/);
+  for (const [index, line] of lines.entries()) {
+    if (line.trim() === '') {
+      continue;
     }
-  } else {
-    let parsed: unknown;
     try {
-      parsed = JSON.parse(text);
+      raw.push({ where: `line ${String(index + 1)}`, value: JSON.parse(line) });
     } catch {
-      return { ok: false, error: 'not valid JSON' };
+      return `line ${String(index + 1)}: not valid JSON`;
     }
-    const values: unknown[] = Array.isArray(parsed) ? parsed : [parsed];
-    values.forEach((value, index) => raw.push({ where: `case ${String(index + 1)}`, value }));
+  }
+  return raw;
+}
+
+/** One case or an array of cases. */
+function jsonCases(text: string): RawCase[] | string {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    return 'not valid JSON';
+  }
+  const values: unknown[] = Array.isArray(parsed) ? parsed : [parsed];
+  return values.map((value, index) => ({ where: `case ${String(index + 1)}`, value }));
+}
+
+export function parseCases(text: string, jsonl: boolean): ParsedCases {
+  const raw = jsonl ? jsonLines(text) : jsonCases(text);
+  if (typeof raw === 'string') {
+    return { ok: false, error: raw };
   }
   const cases: EvalCase[] = [];
   const ids = new Set<string>();
@@ -115,23 +130,28 @@ export type RenderedCase =
   | { readonly ok: true; readonly input: ReadingPromptInput }
   | { readonly ok: false; readonly error: string };
 
+function hintsOf(hint: EvalCase['prefilterHint']): z.infer<typeof hintSchema>[] {
+  if (hint === undefined || hint === 'none') {
+    return [];
+  }
+  return Array.isArray(hint) ? hint : [hint];
+}
+
 export function renderCase(evalCase: EvalCase, version: PromptVersion): RenderedCase {
   const cards = placeCards(evalCase);
   if (typeof cards === 'string') {
     return { ok: false, error: cards };
   }
-  const hint = evalCase.prefilterHint;
   const built = buildReadingPrompt(
     {
       spreadId: evalCase.spreadId,
       cards,
       locale: evalCase.locale,
       question: evalCase.question ?? null,
-      prefilterHints:
-        hint === undefined || hint === 'none' ? [] : Array.isArray(hint) ? hint : [hint],
-      ...(evalCase.regenerationNote !== undefined
-        ? { regenerationNote: evalCase.regenerationNote }
-        : {}),
+      prefilterHints: hintsOf(evalCase.prefilterHint),
+      ...(evalCase.regenerationNote === undefined
+        ? {}
+        : { regenerationNote: evalCase.regenerationNote }),
     },
     version,
   );

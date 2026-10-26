@@ -272,7 +272,8 @@ String render(
     ];
     final starred = [
       for (final r in s.rows)
-        if (r.starred) r.union == null ? r.name : '`${r.name}`',
+        if (r.starred)
+          if (r.union == null) r.name else '`${r.name}`',
     ];
     b.writeln(
       '| ${g.id} ${_cell(g.name)} | ${_cell(g.route)} | '

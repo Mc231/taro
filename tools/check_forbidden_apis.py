@@ -25,8 +25,9 @@ import fnmatch
 import posixpath
 import re
 import sys
-from collections.abc import Mapping, Sequence
+from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass
+from itertools import chain
 from pathlib import Path
 from typing import Any
 
@@ -207,48 +208,67 @@ def _imports(source: str) -> list[tuple[int, str]]:
     return found
 
 
-def check_source(path: str, source: str, rules: Rules) -> list[Finding]:
-    """All findings for one Dart file at repository path ``path``."""
-    findings: list[Finding] = []
-    code = mask_dart(source)
+# ``(offset, rule, message)`` before it is turned into a :class:`Finding`.
+_Hit = tuple[int, str, str]
 
-    def add(offset: int, rule: str, message: str) -> None:
-        findings.append(Finding(path, line_of(source, offset), rule, message))
 
+def _call_hits(path: str, code: str, rules: Rules) -> Iterator[_Hit]:
+    """Banned non-deterministic calls outside their allow-listed adapters."""
     for rule_id, pattern, message in CALL_RULES:
         if glob_match(path, rules.api_allowlist.get(rule_id, ())):
             continue
         for match in pattern.finditer(code):
-            add(match.start(), rule_id, message)
+            yield match.start(), rule_id, message
 
+
+def _import_hits(path: str, source: str, rules: Rules) -> Iterator[_Hit]:
+    """SDK imports outside their adapters and test-support imports."""
     for offset, uri in _imports(source):
+        if uri.startswith("dart:"):
+            continue
         if uri.startswith("package:"):
             package = uri[len("package:"):].split("/", 1)[0]
             rule = rules.sdk_rule(package)
             if rule is not None and not glob_match(path, rule.allowed):
                 where = ", ".join(rule.allowed) or "nowhere"
-                add(offset, "sdk_import", f"package:{package} is allowed only in {where}")
+                yield offset, "sdk_import", f"package:{package} is allowed only in {where}"
             target = uri
-        elif uri.startswith("dart:"):
-            continue
         else:
             target = posixpath.normpath(posixpath.join(posixpath.dirname(path), uri))
         if _TEST_SUPPORT.search(target):
-            add(offset, "test_support_import", f"lib/ imports test support {uri!r}")
+            yield offset, "test_support_import", f"lib/ imports test support {uri!r}"
 
+
+def _directional_hits(code: str) -> Iterator[_Hit]:
+    """Non-directional layout APIs."""
     for pattern, message in DIRECTIONAL_SIMPLE:
         for match in pattern.finditer(code):
-            add(match.start(), "non_directional", message)
+            yield match.start(), "non_directional", message
     for pattern, message in DIRECTIONAL_CALLS:
         for match in pattern.finditer(code):
             if _LEFT_RIGHT_ARG.search(_top_level_args(code, match.end() - 1)):
-                add(match.start(), "non_directional", message)
+                yield match.start(), "non_directional", message
 
-    if glob_match(path, UI_SCOPE) and not glob_match(path, UI_SCOPE_EXCEPT):
-        for pattern, message in RAW_VISUAL:
-            for match in pattern.finditer(code):
-                add(match.start(), "raw_visual_value", message)
-    return findings
+
+def _raw_visual_hits(path: str, code: str) -> Iterator[_Hit]:
+    """Raw visual values, in UI code only (RC90)."""
+    if not glob_match(path, UI_SCOPE) or glob_match(path, UI_SCOPE_EXCEPT):
+        return
+    for pattern, message in RAW_VISUAL:
+        for match in pattern.finditer(code):
+            yield match.start(), "raw_visual_value", message
+
+
+def check_source(path: str, source: str, rules: Rules) -> list[Finding]:
+    """All findings for one Dart file at repository path ``path``."""
+    code = mask_dart(source)
+    hits = chain(
+        _call_hits(path, code, rules),
+        _import_hits(path, source, rules),
+        _directional_hits(code),
+        _raw_visual_hits(path, code),
+    )
+    return [Finding(path, line_of(source, offset), rule, message) for offset, rule, message in hits]
 
 
 def dart_files(root: Path) -> list[Path]:

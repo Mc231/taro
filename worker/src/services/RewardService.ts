@@ -201,12 +201,12 @@ export class RewardService {
     const now = this.deps.clock.now();
     const config = await this.deps.config.snapshot();
     const adUnit = params['ad_unit'] ?? '';
-    const mismatch: SsvRejectReason | null =
-      params['user_id'] !== customData
-        ? 'user_mismatch'
-        : adUnitAllowed(adUnit, config['rewarded.allowedAdUnitIds'])
-          ? null
-          : 'ad_unit';
+    const mismatch = ssvMismatch(
+      params['user_id'],
+      customData,
+      adUnit,
+      config['rewarded.allowedAdUnitIds'],
+    );
     if (mismatch !== null) {
       await this.rewards.reject(intent.id, mismatch);
       return this.reject(mismatch, txn);
@@ -371,6 +371,19 @@ export class RewardService {
       resetsAt: nextResetUtc(now, timezone),
     });
   }
+}
+
+/** `user_mismatch` when the SSV user is not the intent's, else `ad_unit` for a unit not allowed. */
+function ssvMismatch(
+  userId: string | undefined,
+  customData: string,
+  adUnit: string,
+  allowedAdUnitIds: RuntimeConfig['rewarded.allowedAdUnitIds'],
+): SsvRejectReason | null {
+  if (userId !== customData) {
+    return 'user_mismatch';
+  }
+  return adUnitAllowed(adUnit, allowedAdUnitIds) ? null : 'ad_unit';
 }
 
 function capError(reason: 'cap' | 'cooldown', availableAt: string): ApiError {

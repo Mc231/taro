@@ -102,18 +102,7 @@ async function callTrust(
   const parsed = parseAttestationHeader(c.req.header(ATTESTATION_HEADER));
   const config = await deps.config.snapshot();
   if (parsed.kind === 'missing' || parsed.kind === 'none') {
-    if (parsed.kind === 'none' && install.trust === 'low') {
-      return 'low';
-    }
-    if (config['attest.requiredOnReadings']) {
-      deps.logger.log('warn', 'call_attest_required', {
-        plat: install.platform,
-        header: parsed.kind,
-        trust: install.trust,
-      });
-      throw new ApiError('ATTESTATION_REQUIRED');
-    }
-    return 'low';
+    return unattestedTrust(deps, install, parsed.kind, config['attest.requiredOnReadings']);
   }
 
   const clientDataHash = await callClientDataHash(deps.crypto, {
@@ -125,23 +114,7 @@ async function callTrust(
   const allowedAppIds = resolveAllowedAppIds(config['attest.allowedAppIds'], deps.appleTeamId);
 
   if (parsed.kind === 'aa1') {
-    if (install.platform !== 'ios' || install.attestPublicKey === null) {
-      return fail(deps, install, 'no_key');
-    }
-    const result = await deps.appAttest.verifyAssertion({
-      assertion: parsed.assertion,
-      clientDataHash,
-      publicKey: install.attestPublicKey,
-      previousCounter: install.attestCounter ?? 0,
-      allowedAppIds,
-    });
-    if (!result.ok) {
-      return rejected(deps, install, result);
-    }
-    if (!(await repo.advanceAttestCounter(install.id, result.counter))) {
-      return fail(deps, install, 'counter_race');
-    }
-    return install.trust;
+    return assertionTrust(deps, repo, install, parsed.assertion, clientDataHash, allowedAppIds);
   }
 
   if (install.platform !== 'android') {
@@ -158,6 +131,58 @@ async function callTrust(
   const genuine =
     result.deviceVerdict === 'device' && (result.appRecognized || deps.environment !== 'prod');
   return genuine ? install.trust : 'low';
+}
+
+/**
+ * No attestation on the call: `none` from a low-trust install stays low;
+ * otherwise low trust, or `ATTESTATION_REQUIRED` while `attest.requiredOnReadings`.
+ */
+function unattestedTrust(
+  deps: Deps,
+  install: InstallRow,
+  header: 'missing' | 'none',
+  required: boolean,
+): Trust {
+  if (header === 'none' && install.trust === 'low') {
+    return 'low';
+  }
+  if (required) {
+    deps.logger.log('warn', 'call_attest_required', {
+      plat: install.platform,
+      header,
+      trust: install.trust,
+    });
+    throw new ApiError('ATTESTATION_REQUIRED');
+  }
+  return 'low';
+}
+
+/** An App Attest assertion (`aa1.`): verified against the install's key, counter advanced once. */
+async function assertionTrust(
+  deps: Deps,
+  repo: InstallRepo,
+  install: InstallRow,
+  assertion: Uint8Array,
+  clientDataHash: Uint8Array,
+  allowedAppIds: readonly string[],
+): Promise<Trust> {
+  if (install.platform !== 'ios' || install.attestPublicKey === null) {
+    return fail(deps, install, 'no_key');
+  }
+  const result = await deps.appAttest.verifyAssertion({
+    assertion,
+    clientDataHash,
+    publicKey: install.attestPublicKey,
+    previousCounter: install.attestCounter ?? 0,
+    allowedAppIds,
+  });
+  if (!result.ok) {
+    return rejected(deps, install, result);
+  }
+  if (!(await repo.advanceAttestCounter(install.id, result.counter))) {
+    return fail(deps, install, 'counter_race');
+  }
+  return install.trust;
 }
 
 /** `unavailable` (an outage) degrades to low trust (BE4); `invalid` is a hard failure. */

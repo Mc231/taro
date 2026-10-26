@@ -37,7 +37,7 @@ UPDATE_COMMAND = ("flutter", "test", "--no-pub", "--tags", "golden", "--update-g
 
 Runner = Callable[..., subprocess.CompletedProcess[str]]
 
-_FLUTTER_PIN = re.compile(r"^environment:\s*$(?:\n[ \t]+.*$)*?\n[ \t]+flutter:\s*['\"]?([0-9][^'\"\s]*)",
+_FLUTTER_PIN = re.compile(r"^environment:\s*$(?:\n[ \t]+.*$)*?\n[ \t]+flutter:\s*['\"]?(\d[^'\"\s]*)",
                           re.MULTILINE)
 
 

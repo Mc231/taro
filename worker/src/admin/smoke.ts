@@ -112,7 +112,7 @@ function balanceSummary(value: unknown): string {
 }
 
 function snippet(text: unknown): string {
-  const flat = String(text).replace(/\s+/g, ' ').trim();
+  const flat = String(text).replaceAll(/\s+/g, ' ').trim();
   return JSON.stringify(flat.length > SNIPPET_CHARS ? `${flat.slice(0, SNIPPET_CHARS)}…` : flat);
 }
 

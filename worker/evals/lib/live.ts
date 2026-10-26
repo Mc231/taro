@@ -6,13 +6,11 @@ import {
   AI_MODERATION_PROVIDERS,
   AI_PROVIDER_IDS,
   type AiProviderId,
+  type RuntimeConfig,
 } from '../../src/config/schema';
-
-type AiModerationProvider = (typeof AI_MODERATION_PROVIDERS)[number];
 import { DEFAULT_RUNTIME_CONFIG } from '../../src/config/defaults';
 import { readingText } from '../../src/domain/outputValidator';
 import { moderationInputCategory, moderationOutputFlagged } from '../../src/domain/safetyPolicy';
-import type { RuntimeConfig } from '../../src/config/schema';
 import {
   isAiOutage,
   totalUsage,
@@ -32,7 +30,7 @@ import {
 } from '../../src/prompts/templates';
 import { prefilter } from '../../src/safety/prefilter';
 import { maxTokensFor } from '../../src/services/AiRouter';
-import { cardNames, DEFAULT_BANNED, loadGraderContext } from './cli';
+import { cardNames, DEFAULT_BANNED, loadGraderContext, parseArgs } from './cli';
 import {
   callsUsd,
   estimateTokens,
@@ -56,6 +54,8 @@ import { renderMarkdown, renderResultsJsonl, summarize } from './report';
 import { runEval } from './runner';
 import { selectSample } from './sample';
 import type { EvalCase, RecordedOutput } from './types';
+
+type AiModerationProvider = (typeof AI_MODERATION_PROVIDERS)[number];
 
 /**
  * Live mode of the eval runner (Phase 8 Sprint 8.6, 03 §15.4, 05 §4.3, RC60,
@@ -148,33 +148,10 @@ function positiveInt(value: string | undefined): number | null | 'invalid' {
   return /^[1-9]\d*$/u.test(value) ? Number(value) : 'invalid';
 }
 
-export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOptions | string {
-  const lists = new Map<string, string[]>();
-  const values = new Map<string, string>();
-  const flags = new Set<string>();
-  for (let i = 0; i < argv.length; i++) {
-    const arg = argv[i] ?? '';
-    const eq = arg.indexOf('=');
-    const name = eq >= 0 ? arg.slice(0, eq) : arg;
-    if (FLAG_OPTIONS.has(name) && eq < 0) {
-      flags.add(name);
-      continue;
-    }
-    if (!LIST_OPTIONS.has(name) && !VALUE_OPTIONS.has(name)) {
-      return `unknown argument ${arg}`;
-    }
-    const value = eq >= 0 ? arg.slice(eq + 1) : argv[++i];
-    if (value === undefined || value === '' || value.startsWith('--')) {
-      return `${name} needs a value`;
-    }
-    if (LIST_OPTIONS.has(name)) {
-      lists.set(name, [...(lists.get(name) ?? []), value]);
-    } else if (values.has(name)) {
-      return `${name} given twice`;
-    } else {
-      values.set(name, value);
-    }
-  }
+/** `--provider`, `--model`, `--max-usd` and `--prompt`, or the usage error. */
+function routeOf(
+  values: ReadonlyMap<string, string>,
+): Pick<LiveOptions, 'provider' | 'model' | 'maxUsd' | 'prompt'> | string {
   const provider = values.get('--provider');
   if (provider === undefined || !(AI_PROVIDER_IDS as readonly string[]).includes(provider)) {
     return `--provider must be one of ${AI_PROVIDER_IDS.join(', ')}`;
@@ -188,13 +165,22 @@ export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOption
     return '--max-usd is required: a live eval spends real money (the owner approves the budget)';
   }
   const maxUsd = Number(maxUsdText);
-  if (!/^\d+(\.\d+)?$/u.test(maxUsdText) || !(maxUsd > 0)) {
+  if (!/^\d+(\.\d+)?$/u.test(maxUsdText) || maxUsd <= 0) {
     return '--max-usd must be a positive amount in USD';
   }
   const prompt = values.get('--prompt') ?? 'v1';
   if (!isPromptVersion(prompt)) {
     return `--prompt must be one of ${PROMPT_VERSIONS.join(', ')}`;
   }
+  return { provider: provider as AiProviderId, model, maxUsd, prompt };
+}
+
+/** `--sample`, `--limit`, `--concurrency`, `--env`, `--judge-model` and `--moderation`. */
+function scopeOf(values: ReadonlyMap<string, string>):
+  | (Pick<LiveOptions, 'sample' | 'limit' | 'concurrency' | 'env' | 'moderation'> & {
+      readonly judgeModel: string | undefined;
+    })
+  | string {
   const sample = values.get('--sample') ?? 'all';
   if (sample !== 'smoke' && sample !== 'all') {
     return '--sample must be smoke or all';
@@ -216,36 +202,58 @@ export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOption
   if (!(AI_MODERATION_PROVIDERS as readonly string[]).includes(moderation)) {
     return `--moderation must be one of ${AI_MODERATION_PROVIDERS.join(', ')}`;
   }
-  const explicit = lists.get('--cases') ?? [];
-  const cases =
-    explicit.length > 0
-      ? explicit
-      : sample === 'smoke'
-        ? [SUITE_CASES.safety, SUITE_CASES.quality]
-        : [SUITE_CASES[suite]];
   return {
-    provider: provider as AiProviderId,
-    model,
-    prompt,
-    maxUsd,
-    cases,
     sample,
     limit,
     concurrency: concurrency ?? DEFAULT_CONCURRENCY,
     env,
+    judgeModel,
+    moderation: moderation as AiModerationProvider,
+  };
+}
+
+/** The case files of a run without `--cases`. */
+function defaultCases(sample: LiveOptions['sample'], suite: Suite): string[] {
+  return sample === 'smoke' ? [SUITE_CASES.safety, SUITE_CASES.quality] : [SUITE_CASES[suite]];
+}
+
+export function parseLiveArgs(argv: readonly string[], suite: Suite): LiveOptions | string {
+  const args = parseArgs(argv, {
+    repeatable: LIST_OPTIONS,
+    single: VALUE_OPTIONS,
+    flags: FLAG_OPTIONS,
+  });
+  if (typeof args === 'string') {
+    return args;
+  }
+  const { lists, options: values, flags } = args;
+  const route = routeOf(values);
+  if (typeof route === 'string') {
+    return route;
+  }
+  const scope = scopeOf(values);
+  if (typeof scope === 'string') {
+    return scope;
+  }
+  const explicit = lists.get('--cases') ?? [];
+  const { judgeModel, ...rest } = scope;
+  return {
+    ...route,
+    cases: explicit.length > 0 ? explicit : defaultCases(scope.sample, suite),
+    ...rest,
     tier: values.get('--tier') ?? 'live',
     out: (values.get('--out') ?? DEFAULT_REPORTS_DIR).replace(/\/+$/u, ''),
     banned: values.get('--banned') ?? DEFAULT_BANNED,
-    judgeModel: flags.has('--judge') || judgeModel !== undefined ? (judgeModel ?? model) : null,
+    judgeModel:
+      flags.has('--judge') || judgeModel !== undefined ? (judgeModel ?? route.model) : null,
     skipL1: flags.has('--skip-l1'),
-    moderation: moderation as AiModerationProvider,
     allowIncomplete: flags.has('--allow-incomplete'),
   };
 }
 
 /** `<date>-<promptVersion>-<provider>-<model>` plus `-quality` / `-smoke` for those runs. */
 export function reportBase(options: LiveOptions, suite: Suite, date: string): string {
-  const model = options.model.replace(/[^A-Za-z0-9.-]+/gu, '-');
+  const model = options.model.replaceAll(/[^A-Za-z0-9.-]+/gu, '-');
   const suffix = [
     suite === 'quality' ? 'quality' : null,
     options.sample === 'smoke' ? 'smoke' : null,
@@ -379,22 +387,29 @@ function moderationLine(options: LiveOptions, stats: ModerationStats): string {
     : `Provider moderation \`${options.moderation}\` (free): ${String(stats.calls)} call(s), ${String(stats.errors)} error(s) (never blocking), ${String(stats.inputBlocks)} question(s) declined, ${String(stats.outputFlags)} answer(s) flagged (no regeneration: the reading fails).`;
 }
 
+/** USD of a run: spent, projected up front, judge share; `aborted` = stopped on budget. */
+interface LiveSpend {
+  readonly spent: number;
+  readonly projected: number;
+  readonly aborted: boolean;
+  readonly judgeUsd: number;
+}
+
 function liveMarkdown(
   options: LiveOptions,
   suite: Suite,
   runs: readonly CaseRun[],
-  spent: number,
-  projected: number,
-  aborted: boolean,
-  judgeUsd: number,
+  spend: LiveSpend,
   moderation: ModerationStats,
 ): string[] {
+  const { spent, projected, aborted, judgeUsd } = spend;
   const counts = LAYERS.map((layer) => [layer, runs.filter((r) => r.layer === layer).length]);
   const tokens = runs.reduce((sum, r) => addUsage(sum, r.usage), ZERO_USAGE);
+  const envPart = options.env === null ? '' : `, env \`${options.env}\``;
   const lines = [
     '## Live run',
     '',
-    `Provider \`${options.provider}\`, model \`${options.model}\`, prompt \`${options.prompt}\`, suite \`${suite}\`, sample \`${options.sample}\`${options.env === null ? '' : `, env \`${options.env}\``}. L1 prefilter ${options.skipL1 ? 'skipped (model only)' : 'on (production order)'}; no L3 regeneration.`,
+    `Provider \`${options.provider}\`, model \`${options.model}\`, prompt \`${options.prompt}\`, suite \`${suite}\`, sample \`${options.sample}\`${envPart}. L1 prefilter ${options.skipL1 ? 'skipped (model only)' : 'on (production order)'}; no L3 regeneration.`,
     '',
     moderationLine(options, moderation),
     '',
@@ -417,7 +432,7 @@ function liveMarkdown(
   for (const [spread, rows] of [
     ...bySpread.entries(),
     ...(all.length > 0 ? [['all', all] as const] : []),
-  ].sort(([a], [b]) => (a === 'all' ? 1 : b === 'all' ? -1 : a.localeCompare(b)))) {
+  ].sort(([a], [b]) => spreadOrder(a, b))) {
     const costs = rows.map((r) => r.usd);
     const mean = costs.reduce((a, b) => a + b, 0) / costs.length;
     const times = rows.flatMap((r) => (r.latencyMs === undefined ? [] : [r.latencyMs]));
@@ -430,11 +445,19 @@ function liveMarkdown(
   if (errors.length > 0) {
     lines.push('Calls without a gradable answer:', '');
     for (const r of errors) {
-      lines.push(`- \`${r.id}\`: ${r.layer} (${String(r.detail).replace(/\s+/gu, ' ')})`);
+      lines.push(`- \`${r.id}\`: ${r.layer} (${String(r.detail).replaceAll(/\s+/gu, ' ')})`);
     }
     lines.push('');
   }
   return lines;
+}
+
+/** Spread rows by id, the `all` row last. */
+function spreadOrder(a: string, b: string): number {
+  if (a === 'all') {
+    return 1;
+  }
+  return b === 'all' ? -1 : a.localeCompare(b);
 }
 
 function meanOf(values: readonly number[]): number | null {
@@ -474,6 +497,159 @@ async function loadCases(
   return { cases, errors };
 }
 
+/** The `--sample smoke` quota sample (shortfalls noted), cut to `--limit`. */
+function selectCases(
+  deps: CliDeps,
+  options: LiveOptions,
+  cases: readonly EvalCase[],
+): readonly EvalCase[] {
+  let selected = cases;
+  if (options.sample === 'smoke') {
+    const sample = selectSample(selected);
+    selected = [...sample.cases];
+    for (const [quota, left] of Object.entries(sample.unmet)) {
+      deps.err(`note: smoke quota ${quota} short by ${String(left)}`);
+    }
+  }
+  return options.limit === null ? selected : selected.slice(0, options.limit);
+}
+
+/**
+ * One planned call per runnable case: an L1 hard block (no model call) or
+ * the built prompt. Cases that cannot run are reported in `inputErrors`.
+ */
+function planCases(
+  selected: readonly EvalCase[],
+  options: LiveOptions,
+  config: RuntimeConfig,
+  inputErrors: string[],
+): Planned[] {
+  const plan: Planned[] = [];
+  for (const c of selected) {
+    if (c.spreadId === null || c.cards === null) {
+      inputErrors.push(`${c.id}: no spreadId/cards, cannot run live`);
+      continue;
+    }
+    const l1 = options.skipL1 ? null : prefilter(c.question, c.locale);
+    const maxTokens = maxTokensFor(config, c.spreadId);
+    if (l1?.kind === 'block') {
+      plan.push({ c, spreadId: c.spreadId, block: l1.category, prompt: null, maxTokens });
+      continue;
+    }
+    const built = buildReadingPrompt(
+      {
+        spreadId: c.spreadId,
+        cards: c.cards,
+        locale: c.locale,
+        question: c.question,
+        prefilterHints: l1?.hints ?? [],
+      },
+      options.prompt,
+    );
+    if (!built.ok) {
+      inputErrors.push(`${c.id}: ${built.error}`);
+      continue;
+    }
+    plan.push({ c, spreadId: c.spreadId, block: null, prompt: built.input, maxTokens });
+  }
+  return plan;
+}
+
+/** Typical and worst-case USD of one judge call; 0 with the judge off. */
+function judgeBudget(options: LiveOptions): { readonly typical: number; readonly worst: number } {
+  if (options.judgeModel === null) {
+    return { typical: 0, worst: 0 };
+  }
+  const judgePrice = evalPrice(options.provider, options.judgeModel);
+  return {
+    typical:
+      (JUDGE_INPUT_TOKENS * judgePrice.input + 0.3 * JUDGE_MAX_TOKENS * judgePrice.output) /
+      1_000_000,
+    worst:
+      (2 * JUDGE_INPUT_TOKENS * judgePrice.input + JUDGE_MAX_TOKENS * judgePrice.output) /
+      1_000_000,
+  };
+}
+
+/** Typical spend of the plan: model calls plus a judge call per answered case. */
+function projectedUsd(
+  plan: readonly Planned[],
+  judgeTypical: number,
+  price: ReturnType<typeof evalPrice>,
+): number {
+  return plan.reduce((sum, p) => {
+    if (p.prompt === null) {
+      return sum;
+    }
+    const judged = p.c.expectedOutcome === 'answered' ? judgeTypical : 0;
+    return (
+      sum +
+      judged +
+      typicalUsd(estimateTokens(p.prompt.system), estimateTokens(p.prompt.user), p.maxTokens, price)
+    );
+  }, 0);
+}
+
+/**
+ * The moderation call of `--moderation`: `null` when off, `undefined` when
+ * the adapter has none. The run's provider is reused when it is the same one.
+ */
+function moderatorOf(
+  options: LiveOptions,
+  provider: AiProvider,
+  makeModerator: () => AiProvider,
+): AiProvider['moderate'] | null {
+  if (options.moderation === 'none') {
+    return null;
+  }
+  const moderator = options.moderation === options.provider ? provider : makeModerator();
+  return moderator.moderate;
+}
+
+/** The report detail of a call without a gradable answer. */
+function detailOf(result: AiResult): string | null {
+  if (result.kind === 'invalid_output') {
+    return result.issues.slice(0, 3).join('; ');
+  }
+  return result.kind === 'truncated' || isAiOutage(result) ? result.kind : null;
+}
+
+/** The provider and moderation API keys from the environment, or what is missing. */
+function keysOf(
+  deps: CliDeps,
+  options: LiveOptions,
+): { readonly apiKey: string; readonly moderationKey: string } | string {
+  const keyName = KEY_ENV[options.provider];
+  const apiKey = deps.env?.[keyName] ?? '';
+  if (apiKey === '') {
+    return `${keyName} is not set; a live eval needs the ${options.provider} key of the target env`;
+  }
+  if (options.moderation === 'none') {
+    return { apiKey, moderationKey: '' };
+  }
+  const moderationKey = deps.env?.[KEY_ENV[options.moderation]] ?? '';
+  if (moderationKey === '') {
+    return `${KEY_ENV[options.moderation]} is not set; --moderation ${options.moderation} needs it`;
+  }
+  return { apiKey, moderationKey };
+}
+
+/**
+ * The token price of the route (Fast tier on OpenAI when `ai.serviceTier` is
+ * `fast`) and whether a refusal may fall back to a second model call.
+ */
+function pricingOf(
+  options: LiveOptions,
+  config: RuntimeConfig,
+): { price: ReturnType<typeof evalPrice>; fallback: boolean } {
+  const fast = options.provider === 'openai' && config['ai.serviceTier'] === 'fast';
+  const fallback =
+    config['ai.refusalFallbacks'] &&
+    options.provider === 'anthropic' &&
+    options.model.startsWith('claude-opus-');
+  return { price: evalPrice(options.provider, options.model, fast), fallback };
+}
+
 export async function main(
   argv: readonly string[],
   deps: CliDeps,
@@ -485,103 +661,22 @@ export async function main(
     deps.err(`${options}\n${usage(suite)}`);
     return 2;
   }
-  const keyName = KEY_ENV[options.provider];
-  const apiKey = deps.env?.[keyName] ?? '';
-  if (apiKey === '') {
-    deps.err(
-      `${keyName} is not set; a live eval needs the ${options.provider} key of the target env`,
-    );
+  const keys = keysOf(deps, options);
+  if (typeof keys === 'string') {
+    deps.err(keys);
     return 1;
   }
-  const moderationKey =
-    options.moderation === 'none' ? '' : (deps.env?.[KEY_ENV[options.moderation]] ?? '');
-  if (options.moderation !== 'none' && moderationKey === '') {
-    deps.err(
-      `${KEY_ENV[options.moderation]} is not set; --moderation ${options.moderation} needs it`,
-    );
-    return 1;
-  }
+  const { apiKey, moderationKey } = keys;
   try {
     const config = live.config ?? DEFAULT_RUNTIME_CONFIG;
     const loaded = await loadCases(deps, options.cases);
     const inputErrors = [...loaded.errors];
-    let selected = loaded.cases;
-    if (options.sample === 'smoke') {
-      const sample = selectSample(selected);
-      selected = [...sample.cases];
-      for (const [quota, left] of Object.entries(sample.unmet)) {
-        deps.err(`note: smoke quota ${quota} short by ${String(left)}`);
-      }
-    }
-    if (options.limit !== null) {
-      selected = selected.slice(0, options.limit);
-    }
+    const selected = selectCases(deps, options, loaded.cases);
     const { ctx, schemaSource } = await loadGraderContext(deps, options.prompt, options.banned);
-    const price = evalPrice(
-      options.provider,
-      options.model,
-      options.provider === 'openai' && config['ai.serviceTier'] === 'fast',
-    );
-    const judgePrice =
-      options.judgeModel === null ? null : evalPrice(options.provider, options.judgeModel);
-    const fallback =
-      config['ai.refusalFallbacks'] &&
-      options.provider === 'anthropic' &&
-      options.model.startsWith('claude-opus-');
-    const plan: Planned[] = [];
-    for (const c of selected) {
-      if (c.spreadId === null || c.cards === null) {
-        inputErrors.push(`${c.id}: no spreadId/cards, cannot run live`);
-        continue;
-      }
-      const l1 = options.skipL1 ? null : prefilter(c.question, c.locale);
-      const maxTokens = maxTokensFor(config, c.spreadId);
-      if (l1?.kind === 'block') {
-        plan.push({ c, spreadId: c.spreadId, block: l1.category, prompt: null, maxTokens });
-        continue;
-      }
-      const built = buildReadingPrompt(
-        {
-          spreadId: c.spreadId,
-          cards: c.cards,
-          locale: c.locale,
-          question: c.question,
-          prefilterHints: l1?.hints ?? [],
-        },
-        options.prompt,
-      );
-      if (!built.ok) {
-        inputErrors.push(`${c.id}: ${built.error}`);
-        continue;
-      }
-      plan.push({ c, spreadId: c.spreadId, block: null, prompt: built.input, maxTokens });
-    }
-    const judgeTypical =
-      judgePrice === null
-        ? 0
-        : (JUDGE_INPUT_TOKENS * judgePrice.input + 0.3 * JUDGE_MAX_TOKENS * judgePrice.output) /
-          1_000_000;
-    const judgeWorst =
-      judgePrice === null
-        ? 0
-        : (2 * JUDGE_INPUT_TOKENS * judgePrice.input + JUDGE_MAX_TOKENS * judgePrice.output) /
-          1_000_000;
-    const projected = plan.reduce((sum, p) => {
-      if (p.prompt === null) {
-        return sum;
-      }
-      const judged = p.c.expectedOutcome === 'answered' ? judgeTypical : 0;
-      return (
-        sum +
-        judged +
-        typicalUsd(
-          estimateTokens(p.prompt.system),
-          estimateTokens(p.prompt.user),
-          p.maxTokens,
-          price,
-        )
-      );
-    }, 0);
+    const { price, fallback } = pricingOf(options, config);
+    const plan = planCases(selected, options, config, inputErrors);
+    const { typical: judgeTypical, worst: judgeWorst } = judgeBudget(options);
+    const projected = projectedUsd(plan, judgeTypical, price);
     const calls = plan.filter((p) => p.prompt !== null).length;
     deps.out(
       `plan: ${String(plan.length)} case(s) on ${options.provider}/${options.model} (prompt ${options.prompt}): ${String(calls)} model call(s), ${String(plan.length - calls)} L1 block(s), moderation ${options.moderation}; projected ~${usd(projected)}, budget ${usd(options.maxUsd)}`,
@@ -596,13 +691,9 @@ export async function main(
     const makeProvider =
       live.makeProvider ?? ((p, key) => realProvider(p, key, live.runtime, live.fetch));
     const provider = makeProvider(options.provider, apiKey);
-    const moderate =
-      options.moderation === 'none'
-        ? null
-        : (options.moderation === options.provider
-            ? provider
-            : makeProvider(options.moderation, moderationKey)
-          ).moderate;
+    const moderate = moderatorOf(options, provider, () =>
+      makeProvider(options.moderation as AiProviderId, moderationKey),
+    );
     if (moderate === undefined) {
       deps.err(`the ${options.moderation} adapter has no moderation endpoint`);
       return 1;
@@ -738,12 +829,7 @@ export async function main(
         usd: cost,
         usage: totalUsage(result.calls),
         latencyMs,
-        detail:
-          result.kind === 'invalid_output'
-            ? result.issues.slice(0, 3).join('; ')
-            : result.kind === 'truncated' || isAiOutage(result)
-              ? result.kind
-              : null,
+        detail: detailOf(result),
       });
       if (reading !== null && !flagged) {
         await runJudge(p, reading);
@@ -791,19 +877,24 @@ export async function main(
         options,
         suite,
         runs,
-        guard.spent,
-        projected,
-        state.aborted,
-        judgeUsd,
+        { spent: guard.spent, projected, aborted: state.aborted, judgeUsd },
         moderation,
       ),
       ...(options.judgeModel === null ? [] : judgeMarkdown(judged, options.judgeModel)),
     ];
-    await deps.writeFile(`${path}.md`, `${markdown.join('\n').trimEnd()}\n`);
-    await deps.writeFile(
-      `${path}.summary.json`,
-      `${JSON.stringify({ ...summary, spentUsd: guard.spent, projectedUsd: projected, aborted: state.aborted, moderation: { provider: options.moderation, ...moderation } }, null, 2)}\n`,
+    const summaryJson = JSON.stringify(
+      {
+        ...summary,
+        spentUsd: guard.spent,
+        projectedUsd: projected,
+        aborted: state.aborted,
+        moderation: { provider: options.moderation, ...moderation },
+      },
+      null,
+      2,
     );
+    await deps.writeFile(`${path}.md`, `${markdown.join('\n').trimEnd()}\n`);
+    await deps.writeFile(`${path}.summary.json`, `${summaryJson}\n`);
     await deps.writeFile(`${path}.results.jsonl`, renderResultsJsonl(run));
     if (options.judgeModel !== null) {
       await deps.writeFile(`${path}.judge.jsonl`, judgeJsonl(judged));

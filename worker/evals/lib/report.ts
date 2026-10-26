@@ -233,7 +233,12 @@ function mark(pass: boolean | null): string {
 }
 
 function cell(text: string): string {
-  return text.replace(/\|/gu, '\\|').replace(/\s+/gu, ' ');
+  return text.replaceAll('|', String.raw`\|`).replaceAll(/\s+/gu, ' ');
+}
+
+/** `text` as inline markdown code. */
+function code(text: string): string {
+  return `\`${text}\``;
 }
 
 /** Failing cases listed per tier in the markdown (all of them are in `results.jsonl`). */
@@ -241,8 +246,9 @@ export const MAX_LISTED_FAILURES = 100;
 
 function tierMarkdown(tier: TierSummary, grades: readonly CaseGrade[]): string[] {
   const route = [...tier.providers, ...tier.models].join(' / ');
+  const routeSuffix = route === '' ? '' : ` (${route})`;
   const lines = [
-    `## Tier \`${tier.tier}\`${route === '' ? '' : ` (${route})`}: ${tier.verdict.toUpperCase()}`,
+    `## Tier ${code(tier.tier)}${routeSuffix}: ${tier.verdict.toUpperCase()}`,
     '',
     `${String(tier.cases)} cases graded, ${String(tier.passed)} without a failing grader, ${String(tier.missing.length)} without an output.`,
     '',
@@ -289,11 +295,12 @@ function tierMarkdown(tier: TierSummary, grades: readonly CaseGrade[]): string[]
   if (failures.length > 0) {
     lines.push('### Failing cases', '');
     for (const g of failures.slice(0, MAX_LISTED_FAILURES)) {
-      const failed = g.results.filter((r) => r.status === 'fail');
+      const failed = g.results
+        .filter((r) => r.status === 'fail')
+        .map((r) => `**${r.grader}** ${cell(r.messages.join('; '))}`)
+        .join(' · ');
       lines.push(
-        `- \`${g.id}\` (${g.locale}, expected ${g.expectedCategory ?? g.expectedOutcome}, got ${g.actualCategory ?? g.actualOutcome}): ${failed
-          .map((r) => `**${r.grader}** ${cell(r.messages.join('; '))}`)
-          .join(' · ')}`,
+        `- ${code(g.id)} (${g.locale}, expected ${g.expectedCategory ?? g.expectedOutcome}, got ${g.actualCategory ?? g.actualOutcome}): ${failed}`,
       );
     }
     if (failures.length > MAX_LISTED_FAILURES) {
@@ -302,7 +309,7 @@ function tierMarkdown(tier: TierSummary, grades: readonly CaseGrade[]): string[]
     lines.push('');
   }
   if (tier.missing.length > 0) {
-    lines.push(`Missing outputs: ${tier.missing.map((id) => `\`${id}\``).join(', ')}`, '');
+    lines.push(`Missing outputs: ${tier.missing.map(code).join(', ')}`, '');
   }
   return lines;
 }
@@ -313,17 +320,14 @@ export function renderMarkdown(summary: EvalSummary, run: EvalRun): string {
     '',
     `Generated ${summary.generatedAt}. Verdict: **${summary.verdict.toUpperCase()}** (05 §4.3 bar per tier; RC60, RC97).`,
     '',
-    `Schema: \`${summary.schemaSource}\`. Inputs: ${summary.sources.map((s) => `\`${s}\``).join(', ')}.`,
+    `Schema: \`${summary.schemaSource}\`. Inputs: ${summary.sources.map(code).join(', ')}.`,
     '',
   ];
   if (summary.problems.length > 0) {
     lines.push('Input problems:', '', ...summary.problems.map((p) => `- ${p}`), '');
   }
   if (summary.unknownOutputs.length > 0) {
-    lines.push(
-      `Outputs without a case: ${summary.unknownOutputs.map((id) => `\`${id}\``).join(', ')}`,
-      '',
-    );
+    lines.push(`Outputs without a case: ${summary.unknownOutputs.map(code).join(', ')}`, '');
   }
   summary.tiers.forEach((tier, index) => {
     lines.push(...tierMarkdown(tier, run.tiers[index]?.grades ?? []));

@@ -88,29 +88,33 @@ def client_keys(architecture: str) -> set[str]:
 def flatten(document: Mapping[str, Any], known: Iterable[str]) -> dict[str, Any]:
     """Dotted key → value; recursion stops at known keys (maps and lists stay values)."""
     known_set = set(known)
-    parts: list[Mapping[str, Any]] = []
-    if any(isinstance(document.get(s), Mapping) for s in SECTIONS):
-        parts = [document[s] for s in SECTIONS if isinstance(document.get(s), Mapping)]
-        extra = [k for k in document if k not in SECTIONS and k not in META_KEYS]
-        if extra:
-            parts.append({k: document[k] for k in extra})
-    else:
-        parts = [document]
     flat: dict[str, Any] = {}
-
-    def visit(node: Mapping[str, Any], prefix: str) -> None:
-        for key, value in node.items():
-            if not prefix and key in META_KEYS:
-                continue
-            dotted = f"{prefix}.{key}" if prefix else str(key)
-            if isinstance(value, Mapping) and dotted not in known_set and value:
-                visit(value, dotted)
-            else:
-                flat[dotted] = value
-
-    for part in parts:
-        visit(part, "")
+    for part in _document_parts(document):
+        _flatten_into(flat, part, "", known_set)
     return flat
+
+
+def _document_parts(document: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """The section maps of a sectioned document (plus loose top-level keys), or the document."""
+    if not any(isinstance(document.get(s), Mapping) for s in SECTIONS):
+        return [document]
+    parts: list[Mapping[str, Any]] = [document[s] for s in SECTIONS if isinstance(document.get(s), Mapping)]
+    extra = [k for k in document if k not in SECTIONS and k not in META_KEYS]
+    if extra:
+        parts.append({k: document[k] for k in extra})
+    return parts
+
+
+def _flatten_into(flat: dict[str, Any], node: Mapping[str, Any], prefix: str, known: set[str]) -> None:
+    """Adds ``node``'s leaves to ``flat`` under ``prefix``."""
+    for key, value in node.items():
+        if not prefix and key in META_KEYS:
+            continue
+        dotted = f"{prefix}.{key}" if prefix else str(key)
+        if isinstance(value, Mapping) and dotted not in known and value:
+            _flatten_into(flat, value, dotted, known)
+        else:
+            flat[dotted] = value
 
 
 def check_keys(flat: Mapping[str, Any], allowed: set[str], client: set[str]) -> list[Finding]:

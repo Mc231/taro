@@ -170,10 +170,20 @@ def _repo_relative(raw: str, repo_root: Path, base: str) -> str:
             return path.resolve().relative_to(repo_root.resolve()).as_posix()
         except ValueError:
             # Produced on another machine (CI artifact): re-anchor on the unit dir.
-            marker = f"/{base}/" if base not in ("", ".") else ""
-            index = raw.rfind(marker) if marker else -1
-            return f"{base}/{raw[index + len(marker):]}" if index >= 0 else path.as_posix()
+            return _reanchor(raw, base)
     joined = f"{base}/{raw}" if base not in ("", ".") else raw
+    return _normalize_parts(joined)
+
+
+def _reanchor(raw: str, base: str) -> str:
+    """An absolute path from another machine, cut at the last ``/<base>/``."""
+    marker = f"/{base}/" if base not in ("", ".") else ""
+    index = raw.rfind(marker) if marker else -1
+    return f"{base}/{raw[index + len(marker):]}" if index >= 0 else Path(raw).as_posix()
+
+
+def _normalize_parts(joined: str) -> str:
+    """Drops ``.`` and empty segments and resolves ``..`` lexically."""
     parts: list[str] = []
     for part in joined.split("/"):
         if part in ("", "."):
@@ -460,6 +470,11 @@ def _dart_statement_has_code(statement: str) -> bool:
     if kind == "enum":
         # Const constructors and plain final fields of an enum emit no lines.
         return "=" in body or ":" in body
+    return _dart_members_have_code(body, name)
+
+
+def _dart_members_have_code(body: str, name: str) -> bool:
+    """Whether any member of a class/mixin body named ``name`` emits lines."""
     for member in (m.strip() for m in body.split(";")):
         if not member:
             continue
@@ -473,6 +488,9 @@ def _dart_statement_has_code(statement: str) -> bool:
         if "=" in member and not _DART_REDIRECT_RE.match(member):
             return True
     return False
+
+
+_BRACKET_DEPTH = {"{": 1, "(": 1, "[": 1, "}": -1, ")": -1, "]": -1}
 
 
 def _top_level_statements(text: str) -> list[str]:
@@ -489,21 +507,26 @@ def _top_level_statements(text: str) -> list[str]:
             continue
         if char in "'\"`":
             quote = char
-        elif char in "{([":
-            depth += 1
-        elif char in "})]":
-            depth -= 1
-            # `export { a } from './a';` continues after its brace, and so does a
-            # TS union or intersection whose first member is an object type.
-            rest = text[index + 1 :].lstrip()
-            if depth == 0 and char == "}" and not rest.startswith(("from", ";", ",", ")", "|", "&")):
-                statements.append("".join(current))
-                current = []
-        elif char == ";" and depth == 0:
+            continue
+        depth += _BRACKET_DEPTH.get(char, 0)
+        if depth == 0 and _ends_statement(text, index):
             statements.append("".join(current))
             current = []
     statements.append("".join(current))
     return [st.strip() for st in statements if st.strip() and st.strip() != ";"]
+
+
+def _ends_statement(text: str, index: int) -> bool:
+    """Whether ``text[index]``, met at depth 0, closes a top-level statement."""
+    char = text[index]
+    if char == ";":
+        return True
+    if char != "}":
+        return False
+    # `export { a } from './a';` continues after its brace, and so does a
+    # TS union or intersection whose first member is an object type.
+    rest = text[index + 1 :].lstrip()
+    return not rest.startswith(("from", ";", ",", ")", "|", "&"))
 
 
 # --------------------------------------------------------------------------

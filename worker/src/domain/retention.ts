@@ -25,7 +25,7 @@ export function monthsBefore(now: Date, months: number): string {
   const y = now.getUTCFullYear();
   const m = now.getUTCMonth() - months;
   const lastDay = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
-  const shifted = new Date(now.getTime());
+  const shifted = new Date(now);
   shifted.setUTCFullYear(y, m, Math.min(now.getUTCDate(), lastDay));
   return shifted.toISOString();
 }

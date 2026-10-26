@@ -32,12 +32,12 @@ interface CachedKeys {
 export function parseVerifierKeys(document: unknown): Record<string, string> {
   const keys = (document as { keys?: unknown } | null)?.keys;
   if (!Array.isArray(keys)) {
-    throw new Error('admob keys: no keys array');
+    throw new TypeError('admob keys: no keys array');
   }
   const out: Record<string, string> = {};
   for (const entry of keys as unknown[]) {
     const { keyId, base64, pem } = (entry ?? {}) as Record<string, unknown>;
-    const spki = typeof base64 === 'string' ? base64 : typeof pem === 'string' ? pemBody(pem) : '';
+    const spki = spkiOf(base64, pem);
     if ((typeof keyId === 'number' || typeof keyId === 'string') && spki !== '') {
       out[String(keyId)] = spki;
     }
@@ -48,8 +48,16 @@ export function parseVerifierKeys(document: unknown): Record<string, string> {
   return out;
 }
 
+/** The entry's SPKI base64: `base64` when present, else the PEM body, else ''. */
+function spkiOf(base64: unknown, pem: unknown): string {
+  if (typeof base64 === 'string') {
+    return base64;
+  }
+  return typeof pem === 'string' ? pemBody(pem) : '';
+}
+
 function pemBody(pem: string): string {
-  return pem.replace(/-----(BEGIN|END) PUBLIC KEY-----/g, '').replace(/\s+/g, '');
+  return pem.replaceAll(/-----(BEGIN|END) PUBLIC KEY-----/g, '').replaceAll(/\s+/g, '');
 }
 
 export class GstaticAdmobKeyProvider implements AdmobKeyProvider {

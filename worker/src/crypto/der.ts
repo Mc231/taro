@@ -77,7 +77,7 @@ function derInteger(raw: Uint8Array): Uint8Array {
   while (value.length > 1 && value[0] === 0 && ((value[1] ?? 0) & 0x80) === 0) {
     value = value.subarray(1);
   }
-  const pad = ((value[0] ?? 0) & 0x80) !== 0 ? 1 : 0;
+  const pad = ((value[0] ?? 0) & 0x80) === 0 ? 0 : 1;
   const out = new Uint8Array(2 + pad + value.length);
   out[0] = 0x02;
   out[1] = pad + value.length;

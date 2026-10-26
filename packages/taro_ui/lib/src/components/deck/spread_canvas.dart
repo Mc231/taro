@@ -188,7 +188,7 @@ class _SlotCanvas extends StatelessWidget {
     }
     final labels = [
       for (var i = 0; i < slots.length; i++)
-        numbered ? _numbersAt(i, layouts) : slots[i].label,
+        if (numbered) _numbersAt(i, layouts) else slots[i].label,
     ];
     var labelHeight = 0.0;
     for (var i = 0; i < slots.length; i++) {

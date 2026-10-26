@@ -30,7 +30,7 @@ export const OPENAI_SCHEMA_NAME = 'tarot_reading';
 export const OPENAI_MODERATION_MODEL = 'omni-moderation-latest';
 
 /** `service_tier` values billed at the Fast price (`priority` is the pre-rename name). */
-const FAST_SERVICE_TIERS: readonly string[] = ['fast', 'priority'];
+const FAST_SERVICE_TIERS: ReadonlySet<string> = new Set(['fast', 'priority']);
 
 /** Models with a `reasoning.effort` parameter (GPT-5+ and the o-series). */
 export const REASONING_MODEL = /^(gpt-(?:[5-9]|\d{2,})|o\d)/;
@@ -119,7 +119,7 @@ export function mapOpenAiResponse(body: unknown, request: AiAttemptRequest): AiA
   const served = {
     model,
     usage,
-    ...(FAST_SERVICE_TIERS.includes(response.service_tier ?? '') ? { fast: true } : {}),
+    ...(FAST_SERVICE_TIERS.has(response.service_tier ?? '') ? { fast: true } : {}),
   };
   const content = response.output
     .filter((item) => item.type === 'message')

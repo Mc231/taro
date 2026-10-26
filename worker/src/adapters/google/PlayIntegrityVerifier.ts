@@ -2,6 +2,7 @@ import type { Clock } from '../../ports/Clock';
 import type {
   PlayIntegrityInput,
   PlayIntegrityResult,
+  PlayIntegrityVerdict,
   PlayIntegrityVerifier,
 } from '../../ports/PlayIntegrityVerifier';
 
@@ -60,6 +61,14 @@ export function androidPackageNames(appIds: readonly string[]): string[] {
   return appIds.filter((id) => /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/.test(id));
 }
 
+/** `MEETS_DEVICE_INTEGRITY` (or stronger) → `device`, `MEETS_BASIC_INTEGRITY` only → `basic`, else `none`. */
+function deviceVerdictOf(verdicts: readonly string[]): PlayIntegrityVerdict['deviceVerdict'] {
+  if (verdicts.includes('MEETS_DEVICE_INTEGRITY') || verdicts.includes('MEETS_STRONG_INTEGRITY')) {
+    return 'device';
+  }
+  return verdicts.includes('MEETS_BASIC_INTEGRITY') ? 'basic' : 'none';
+}
+
 function isTransient(status: number): boolean {
   return status === 429 || status >= 500;
 }
@@ -97,12 +106,7 @@ export class GooglePlayIntegrityVerifier implements PlayIntegrityVerifier {
       return { ok: false, reason: 'invalid', detail: 'app_unrecognized' };
     }
     const verdicts = deviceIntegrity?.deviceRecognitionVerdict ?? [];
-    const deviceVerdict =
-      verdicts.includes('MEETS_DEVICE_INTEGRITY') || verdicts.includes('MEETS_STRONG_INTEGRITY')
-        ? 'device'
-        : verdicts.includes('MEETS_BASIC_INTEGRITY')
-          ? 'basic'
-          : 'none';
+    const deviceVerdict = deviceVerdictOf(verdicts);
     const licensing = accountDetails?.appLicensingVerdict;
     return {
       ok: true,

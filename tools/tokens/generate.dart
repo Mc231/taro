@@ -1,5 +1,8 @@
 import 'dart:io';
 
+// Run from the workspace root, which resolves taro_dart_tools as a workspace
+// member; the root pubspec deliberately has no dependency on it.
+// ignore: depend_on_referenced_packages
 import 'package:taro_dart_tools/tokens.dart';
 
 /// `dart run tools/tokens/generate.dart [--check]`: DTCG tokens →

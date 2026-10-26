@@ -35,6 +35,30 @@ function positiveInt(raw: string | undefined, fallback: number, max: number): nu
   return value >= 1 && value <= max ? value : null;
 }
 
+/** Evaluates (or with `--print-sql` prints) the alert rules; 3 when one fires. */
+async function runAlerts(
+  deps: CliDeps,
+  cap: number,
+  printSql: boolean,
+  run: (sql: string) => Promise<Row[]>,
+): Promise<number> {
+  let fired = 0;
+  for (const rule of alertRules({ sandboxGlobalCreditsPerDay: cap })) {
+    if (printSql) {
+      deps.out(`-- ${rule.kind}\n${rule.sql}`);
+      continue;
+    }
+    const message = rule.evaluate(await run(rule.sql));
+    if (message === null) {
+      deps.out(`ok     ${rule.kind}`);
+    } else {
+      fired++;
+      deps.out(`ALERT  ${rule.kind}: ${message}`);
+    }
+  }
+  return fired > 0 ? 3 : 0;
+}
+
 export async function main(
   argv: readonly string[],
   deps: CliDeps,
@@ -81,21 +105,7 @@ export async function main(
 
   try {
     if (name === 'alerts') {
-      let fired = 0;
-      for (const rule of alertRules({ sandboxGlobalCreditsPerDay: cap })) {
-        if (printSql) {
-          deps.out(`-- ${rule.kind}\n${rule.sql}`);
-          continue;
-        }
-        const message = rule.evaluate(await run(rule.sql));
-        if (message === null) {
-          deps.out(`ok     ${rule.kind}`);
-        } else {
-          fired++;
-          deps.out(`ALERT  ${rule.kind}: ${message}`);
-        }
-      }
-      return fired > 0 ? 3 : 0;
+      return await runAlerts(deps, cap, printSql, run);
     }
     const sql = querySql(name, minutes);
     if (printSql) {

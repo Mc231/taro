@@ -21,6 +21,7 @@ import {
   parseAdjustSnapshot,
   planAdjustment,
   validateAdjust,
+  type AdjustPlan,
   type AdjustSnapshot,
   type LedgerAction,
 } from '../src/admin/ledgerAdjust';
@@ -100,6 +101,59 @@ async function query(
   return parseD1Output(result.stdout)[0] ?? [];
 }
 
+/** Install IDs matching the Support ID, scanned page by page; refuses more than one. */
+async function scanInstalls(
+  deps: CliDeps,
+  crypto: Crypto,
+  env: Environment,
+  target: D1Target,
+  supportId: string,
+): Promise<string[]> {
+  const candidates: string[] = [];
+  let after = '';
+  for (let page = 0; page < MAX_SCAN_PAGES; page++) {
+    const ids = idsOf(await query(deps, env, target, installPageSql(after, SCAN_PAGE)));
+    candidates.push(...(await matchSupportId(crypto, ids, supportId)));
+    if (ids.length < SCAN_PAGE) {
+      break;
+    }
+    after = ids.at(-1) ?? '';
+  }
+  if (candidates.length > 1) {
+    throw new Refused(
+      `Support ID matches ${String(candidates.length)} installs; narrow it with --txn or --install`,
+    );
+  }
+  return candidates;
+}
+
+/** The install IDs named by `--install` or `--txn`, else found by scanning. */
+async function installCandidates(
+  deps: CliDeps,
+  crypto: Crypto,
+  env: Environment,
+  target: D1Target,
+  supportId: string,
+  options: ReadonlyMap<string, string>,
+): Promise<string[]> {
+  const install = options.get('--install');
+  if (install !== undefined) {
+    if (!ROW_ID.test(install)) {
+      throw new Refused('--install is not an install ID');
+    }
+    return [install];
+  }
+  const txn = options.get('--txn');
+  if (txn === undefined) {
+    return scanInstalls(deps, crypto, env, target, supportId);
+  }
+  const candidates = idsOf(await query(deps, env, target, installByTxnSql(txn)));
+  if (candidates.length === 0) {
+    throw new Refused('no purchase with that store transaction / order ID');
+  }
+  return candidates;
+}
+
 async function resolveInstall(
   deps: CliDeps,
   crypto: Crypto,
@@ -108,36 +162,7 @@ async function resolveInstall(
   supportId: string,
   options: ReadonlyMap<string, string>,
 ): Promise<string> {
-  const install = options.get('--install');
-  const txn = options.get('--txn');
-  let candidates: string[];
-  if (install !== undefined) {
-    if (!ROW_ID.test(install)) {
-      throw new Refused('--install is not an install ID');
-    }
-    candidates = [install];
-  } else if (txn !== undefined) {
-    candidates = idsOf(await query(deps, env, target, installByTxnSql(txn)));
-    if (candidates.length === 0) {
-      throw new Refused('no purchase with that store transaction / order ID');
-    }
-  } else {
-    candidates = [];
-    let after = '';
-    for (let page = 0; page < MAX_SCAN_PAGES; page++) {
-      const ids = idsOf(await query(deps, env, target, installPageSql(after, SCAN_PAGE)));
-      candidates.push(...(await matchSupportId(crypto, ids, supportId)));
-      if (ids.length < SCAN_PAGE) {
-        break;
-      }
-      after = ids[ids.length - 1] ?? '';
-    }
-    if (candidates.length > 1) {
-      throw new Refused(
-        `Support ID matches ${String(candidates.length)} installs; narrow it with --txn or --install`,
-      );
-    }
-  }
+  const candidates = await installCandidates(deps, crypto, env, target, supportId, options);
   const matching = await matchSupportId(crypto, candidates, supportId);
   if (matching.length !== 1 || matching[0] === undefined) {
     throw new Refused(
@@ -147,6 +172,42 @@ async function resolveInstall(
     );
   }
   return matching[0];
+}
+
+/**
+ * Runs an `apply` plan (or prints it with `--dry-run`) and confirms it on a
+ * re-read. Returns the exit code.
+ */
+async function applyPlan(
+  deps: CliDeps,
+  where: { readonly env: Environment; readonly target: D1Target; readonly installId: string },
+  plan: Extract<AdjustPlan, { kind: 'apply' }>,
+  read: () => Promise<AdjustSnapshot | null>,
+  dryRun: boolean,
+): Promise<number> {
+  const { env, target, installId } = where;
+  if (dryRun) {
+    deps.out(`[dry-run] ${plan.summary}`);
+    for (const statement of plan.statements) {
+      deps.out(redactIds(statement, [installId]));
+    }
+    deps.out('nothing written (--dry-run).');
+    return 0;
+  }
+  const applied = await deps.run('npx', d1ExecuteArgs(env, target, plan.statements));
+  if (applied.code !== 0) {
+    deps.err(`wrangler d1 execute failed (exit ${String(applied.code)}); re-run the same command:`);
+    deps.err(redactIds(applied.stderr.trim(), [installId]));
+    return 1;
+  }
+  const after = await read();
+  if (after === null || !plan.expect(after)) {
+    deps.err(`not applied: ${plan.summary} (the balance changed meanwhile); re-run to re-plan`);
+    return 1;
+  }
+  deps.out(`applied (${env}, ${target}): ${plan.summary}`);
+  deps.out(describeBalances(after));
+  return 0;
 }
 
 export async function main(
@@ -208,30 +269,13 @@ export async function main(
       deps.out(`already applied: ${plan.summary}`);
       return 0;
     }
-    if (args.flags.has('--dry-run')) {
-      deps.out(`[dry-run] ${plan.summary}`);
-      for (const statement of plan.statements) {
-        deps.out(redactIds(statement, [installId]));
-      }
-      deps.out('nothing written (--dry-run).');
-      return 0;
-    }
-    const applied = await deps.run('npx', d1ExecuteArgs(env, target, plan.statements));
-    if (applied.code !== 0) {
-      deps.err(
-        `wrangler d1 execute failed (exit ${String(applied.code)}); re-run the same command:`,
-      );
-      deps.err(redactIds(applied.stderr.trim(), [installId]));
-      return 1;
-    }
-    const after = await read();
-    if (after === null || !plan.expect(after)) {
-      deps.err(`not applied: ${plan.summary} (the balance changed meanwhile); re-run to re-plan`);
-      return 1;
-    }
-    deps.out(`applied (${env}, ${target}): ${plan.summary}`);
-    deps.out(describeBalances(after));
-    return 0;
+    return await applyPlan(
+      deps,
+      { env, target, installId },
+      plan,
+      read,
+      args.flags.has('--dry-run'),
+    );
   } catch (err) {
     const message = redactIds((err as Error).message, installId === '' ? [] : [installId]);
     deps.err(err instanceof Refused ? `refused: ${message}` : `failed: ${message}`);

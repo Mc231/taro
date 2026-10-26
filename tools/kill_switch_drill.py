@@ -173,15 +173,15 @@ def restore(run: Runner, fetch: Fetch, worker: Path, env: str, original: dict[st
 
 
 def drill(args: argparse.Namespace, run: Runner, fetch: Fetch, sleep: Callable[[float], None],
-          workdir: Path) -> int:
-    """Runs one drill (or ``--restore``); returns the exit code."""
+          workdir: Path) -> None:
+    """Runs one drill (or ``--restore``); raises :class:`DrillError` on failure."""
     worker = args.root / "worker"
     if args.restore is not None:
         original = json.loads(args.restore.read_text(encoding="utf-8"))
         current = snapshot(run, worker, args.env, args.base)
         restore(run, fetch, worker, args.env, original, stored_version(current) + 1, workdir, sleep,
                 dry_run=args.dry_run)
-        return 0
+        return
 
     original = snapshot(run, worker, args.env, args.base)
     base_version = stored_version(original)
@@ -193,7 +193,7 @@ def drill(args: argparse.Namespace, run: Runner, fetch: Fetch, sleep: Callable[[
         push(run, worker, args.env, drill_file, dry_run=True)
         restore(run, fetch, worker, args.env, original, base_version + 2, workdir, sleep, dry_run=True)
         print("dry run: both files are valid; nothing written")
-        return 0
+        return
 
     push(run, worker, args.env, drill_file, dry_run=False)
     failure: DrillError | None = None
@@ -212,7 +212,6 @@ def drill(args: argparse.Namespace, run: Runner, fetch: Fetch, sleep: Callable[[
         raise DrillError(f"{prefix}restore failed: {err}; re-run with --restore {args.snapshot}") from err
     if failure is not None:
         raise failure
-    return 0
 
 
 def parse_args(argv: Sequence[str]) -> argparse.Namespace:
@@ -242,10 +241,11 @@ def main(argv: Sequence[str] | None = None, *, run: Runner = subprocess.run, fet
         if args.snapshot is None:
             args.snapshot = Path(tempfile.gettempdir()) / f"taro-drill-{args.env}-snapshot.json"
         try:
-            return drill(args, run, fetch, sleep, workdir)
+            drill(args, run, fetch, sleep, workdir)
         except (DrillError, OSError, ValueError, KeyError) as err:
             print(f"kill_switch_drill: {err}", file=sys.stderr)
             return 1
+    return 0
 
 
 if __name__ == "__main__":

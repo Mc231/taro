@@ -36,30 +36,40 @@ def convert(xml_text: str, source_roots: Sequence[str], repo_root: Path) -> str:
         package_name = package.get("name", "")
         for source in package.findall("sourcefile"):
             path = _locate(package_name, source.get("name", ""), source_roots, repo_root)
-            lines = []
-            branches = []
-            for line in source.findall("line"):
-                number = int(line.get("nr", "0"))
-                covered = int(line.get("ci", "0"))
-                lines.append((number, 1 if covered > 0 else 0))
-                mb, cb = int(line.get("mb", "0")), int(line.get("cb", "0"))
-                if mb + cb:
-                    branches.append((number, mb, cb))
-            out.append("TN:")
-            out.append(f"SF:{path}")
-            for number, mb, cb in branches:
-                for index in range(cb + mb):
-                    taken = "1" if index < cb else "0"
-                    out.append(f"BRDA:{number},0,{index},{taken}")
-            if branches:
-                out.append(f"BRF:{sum(mb + cb for _, mb, cb in branches)}")
-                out.append(f"BRH:{sum(cb for _, _, cb in branches)}")
-            for number, hits in lines:
-                out.append(f"DA:{number},{hits}")
-            out.append(f"LF:{len(lines)}")
-            out.append(f"LH:{sum(1 for _, h in lines if h)}")
-            out.append("end_of_record")
+            out += _record(path, source)
     return "\n".join(out) + ("\n" if out else "")
+
+
+def _line_data(source: ET.Element) -> tuple[list[tuple[int, int]], list[tuple[int, int, int]]]:
+    """``(line, hit)`` per line and ``(line, missed, covered)`` per line with branches."""
+    lines: list[tuple[int, int]] = []
+    branches: list[tuple[int, int, int]] = []
+    for line in source.findall("line"):
+        number = int(line.get("nr", "0"))
+        covered = int(line.get("ci", "0"))
+        lines.append((number, 1 if covered > 0 else 0))
+        mb, cb = int(line.get("mb", "0")), int(line.get("cb", "0"))
+        if mb + cb:
+            branches.append((number, mb, cb))
+    return lines, branches
+
+
+def _record(path: str, source: ET.Element) -> list[str]:
+    """The lcov record (``TN:`` … ``end_of_record``) of one ``<sourcefile>``."""
+    lines, branches = _line_data(source)
+    out = ["TN:", f"SF:{path}"]
+    for number, mb, cb in branches:
+        for index in range(cb + mb):
+            taken = "1" if index < cb else "0"
+            out.append(f"BRDA:{number},0,{index},{taken}")
+    if branches:
+        out.append(f"BRF:{sum(mb + cb for _, mb, cb in branches)}")
+        out.append(f"BRH:{sum(cb for _, _, cb in branches)}")
+    out += [f"DA:{number},{hits}" for number, hits in lines]
+    out.append(f"LF:{len(lines)}")
+    out.append(f"LH:{sum(1 for _, h in lines if h)}")
+    out.append("end_of_record")
+    return out
 
 
 def main(argv: Sequence[str] | None = None) -> int:

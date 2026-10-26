@@ -6,6 +6,7 @@ import { buildPhraseBook } from './phrases';
 import { renderMarkdown, renderResultsJsonl, summarize } from './report';
 import { runEval } from './runner';
 import { SPEC_OUTPUT_SCHEMA } from './specSchema';
+import { byCodeUnit } from './text';
 import type { EvalCase, RecordedOutput } from './types';
 
 /**
@@ -31,13 +32,36 @@ const REPEATABLE = new Set(['--cases', '--outputs']);
 const SINGLE = new Set(['--out', '--prompt', '--tier', '--banned']);
 const FLAGS = new Set(['--allow-incomplete']);
 
-interface Args {
+export interface ParsedArgs {
   readonly lists: ReadonlyMap<string, readonly string[]>;
   readonly options: ReadonlyMap<string, string>;
   readonly flags: ReadonlySet<string>;
 }
 
-export function parseEvalArgs(argv: readonly string[]): Args | string {
+/** The option names a command accepts. */
+export interface ArgSpec {
+  /** May be given more than once; every value is kept. */
+  readonly repeatable: ReadonlySet<string>;
+  /** At most once. */
+  readonly single: ReadonlySet<string>;
+  /** Take no value. */
+  readonly flags: ReadonlySet<string>;
+}
+
+/** The value of `--name=value` or of the next argument; `null` when missing. */
+function readValue(argv: readonly string[], arg: string, eq: number, next: number): string | null {
+  const value = eq >= 0 ? arg.slice(eq + 1) : argv[next];
+  if (value === undefined || value === '' || value.startsWith('--')) {
+    return null;
+  }
+  return value;
+}
+
+/**
+ * `--name value` / `--name=value` options and bare flags, or the usage error
+ * (unknown argument, missing value, single option given twice).
+ */
+export function parseArgs(argv: readonly string[], spec: ArgSpec): ParsedArgs | string {
   const lists = new Map<string, string[]>();
   const options = new Map<string, string>();
   const flags = new Set<string>();
@@ -45,26 +69,48 @@ export function parseEvalArgs(argv: readonly string[]): Args | string {
     const arg = argv[i] ?? '';
     const eq = arg.indexOf('=');
     const name = eq >= 0 ? arg.slice(0, eq) : arg;
-    if (FLAGS.has(name) && eq < 0) {
+    if (spec.flags.has(name) && eq < 0) {
       flags.add(name);
       continue;
     }
-    if (!REPEATABLE.has(name) && !SINGLE.has(name)) {
+    if (!spec.repeatable.has(name) && !spec.single.has(name)) {
       return `unknown argument ${arg}`;
     }
-    const value = eq >= 0 ? arg.slice(eq + 1) : argv[++i];
-    if (value === undefined || value === '' || value.startsWith('--')) {
+    if (eq < 0) {
+      i++;
+    }
+    const value = readValue(argv, arg, eq, i);
+    if (value === null) {
       return `${name} needs a value`;
     }
-    if (REPEATABLE.has(name)) {
-      lists.set(name, [...(lists.get(name) ?? []), value]);
-    } else if (options.has(name)) {
-      return `${name} given twice`;
-    } else {
-      options.set(name, value);
+    const stored = storeValue(spec, lists, options, name, value);
+    if (stored !== null) {
+      return stored;
     }
   }
   return { lists, options, flags };
+}
+
+/** Keeps one option value; the usage error when a single option repeats. */
+function storeValue(
+  spec: ArgSpec,
+  lists: Map<string, string[]>,
+  options: Map<string, string>,
+  name: string,
+  value: string,
+): string | null {
+  if (spec.repeatable.has(name)) {
+    lists.set(name, [...(lists.get(name) ?? []), value]);
+  } else if (options.has(name)) {
+    return `${name} given twice`;
+  } else {
+    options.set(name, value);
+  }
+  return null;
+}
+
+export function parseEvalArgs(argv: readonly string[]): ParsedArgs | string {
+  return parseArgs(argv, { repeatable: REPEATABLE, single: SINGLE, flags: FLAGS });
 }
 
 function isDataFile(path: string): boolean {
@@ -131,6 +177,62 @@ export async function loadGraderContext(
   return { ctx, schemaSource };
 }
 
+/**
+ * The recorded outputs of an `--outputs` directory: every data file except
+ * those starting with `_` or `.`, at the tier of `--tier`, the directory name
+ * or `default`.
+ */
+async function loadOutputDir(
+  deps: CliDeps,
+  path: string,
+  explicitTier: string | undefined,
+): Promise<{
+  readonly items: RecordedOutput[];
+  readonly errors: string[];
+  readonly source: string;
+}> {
+  if (deps.listDir === undefined) {
+    throw new Error(`cannot list directory ${path}`);
+  }
+  const tier = explicitTier ?? tierOfDir(path) ?? 'default';
+  const names = (await deps.listDir(path)).filter(isDataFile).sort(byCodeUnit);
+  const base = path.replace(/\/+$/u, '');
+  for (const name of names.filter((n) => n.startsWith('_') || n.startsWith('.'))) {
+    deps.err(`note: skipped ${base}/${name} (leading _ or .)`);
+  }
+  const files = names
+    .filter((n) => !n.startsWith('_') && !n.startsWith('.'))
+    .map((name) => `${base}/${name}`);
+  const items: RecordedOutput[] = [];
+  const errors: string[] = [];
+  for (const file of files) {
+    const parsed = parseOutputFileInDir(await deps.readFile(file), file, tier);
+    items.push(...parsed.items);
+    errors.push(...parsed.errors);
+  }
+  // One entry per directory: a run over many `out_<tier>/` folders would
+  // otherwise list every `<id>.json` in the report header.
+  const source = files.length === 1 ? files.join('') : `${base}/ (${String(files.length)} files)`;
+  return { items, errors, source };
+}
+
+function printSummary(deps: CliDeps, summary: ReturnType<typeof summarize>): void {
+  for (const problem of summary.problems) {
+    deps.err(`input: ${problem}`);
+  }
+  for (const t of summary.tiers) {
+    deps.out(
+      `${t.tier}: ${t.verdict.toUpperCase()}  ${String(t.passed)}/${String(t.cases)} cases clean, ${String(t.missing.length)} missing`,
+    );
+    for (const b of t.bars.filter((x) => x.pass !== true)) {
+      const rate = b.rate === null ? 'no data' : `${(b.rate * 100).toFixed(1)} %`;
+      deps.out(
+        `  ${b.id}: ${rate} (${String(b.ok)}/${String(b.n)}, need ${String(b.threshold * 100)} %)`,
+      );
+    }
+  }
+}
+
 export async function main(
   argv: readonly string[],
   deps: CliDeps,
@@ -173,28 +275,10 @@ export async function main(
         sources.push(path);
         continue;
       }
-      if (deps.listDir === undefined) {
-        throw new Error(`cannot list directory ${path}`);
-      }
-      const tier = explicitTier ?? tierOfDir(path) ?? 'default';
-      const names = (await deps.listDir(path)).filter(isDataFile).sort();
-      for (const name of names.filter((n) => n.startsWith('_') || n.startsWith('.'))) {
-        deps.err(`note: skipped ${path.replace(/\/+$/u, '')}/${name} (leading _ or .)`);
-      }
-      const base = path.replace(/\/+$/u, '');
-      const files = names
-        .filter((n) => !n.startsWith('_') && !n.startsWith('.'))
-        .map((name) => `${base}/${name}`);
-      for (const file of files) {
-        const parsed = parseOutputFileInDir(await deps.readFile(file), file, tier);
-        outputs.push(...parsed.items);
-        inputErrors.push(...parsed.errors);
-      }
-      // One entry per directory: a run over many `out_<tier>/` folders would
-      // otherwise list every `<id>.json` in the report header.
-      sources.push(
-        files.length === 1 ? files.join('') : `${base}/ (${String(files.length)} files)`,
-      );
+      const loaded = await loadOutputDir(deps, path, explicitTier);
+      outputs.push(...loaded.items);
+      inputErrors.push(...loaded.errors);
+      sources.push(loaded.source);
     }
     const { ctx, schemaSource } = await loadGraderContext(
       deps,
@@ -214,20 +298,7 @@ export async function main(
     await deps.writeFile(`${dir}/report.md`, renderMarkdown(summary, run));
     await deps.writeFile(`${dir}/summary.json`, `${JSON.stringify(summary, null, 2)}\n`);
     await deps.writeFile(`${dir}/results.jsonl`, renderResultsJsonl(run));
-    for (const problem of summary.problems) {
-      deps.err(`input: ${problem}`);
-    }
-    for (const t of summary.tiers) {
-      deps.out(
-        `${t.tier}: ${t.verdict.toUpperCase()}  ${String(t.passed)}/${String(t.cases)} cases clean, ${String(t.missing.length)} missing`,
-      );
-      for (const b of t.bars.filter((x) => x.pass !== true)) {
-        const rate = b.rate === null ? 'no data' : `${(b.rate * 100).toFixed(1)} %`;
-        deps.out(
-          `  ${b.id}: ${rate} (${String(b.ok)}/${String(b.n)}, need ${String(b.threshold * 100)} %)`,
-        );
-      }
-    }
+    printSummary(deps, summary);
     deps.out(`verdict: ${summary.verdict.toUpperCase()}; report in ${dir}/report.md`);
     if (summary.verdict === 'pass') {
       return 0;

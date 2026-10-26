@@ -114,7 +114,7 @@ export interface Deps {
   readonly debugAttestationToken: string | undefined;
 }
 
-const ENVIRONMENTS: readonly Environment[] = ['dev', 'staging', 'prod'];
+const ENVIRONMENTS: ReadonlySet<unknown> = new Set<Environment>(['dev', 'staging', 'prod']);
 
 /** Vars that must never reach prod (BE20, RC86). */
 export const TEST_ONLY_VARS = [
@@ -124,7 +124,7 @@ export const TEST_ONLY_VARS = [
 ] as const;
 
 function isEnvironment(value: unknown): value is Environment {
-  return ENVIRONMENTS.includes(value as Environment);
+  return ENVIRONMENTS.has(value);
 }
 
 /** Checks the deploy environment and the prod test-var guard (BE20, RC86). */

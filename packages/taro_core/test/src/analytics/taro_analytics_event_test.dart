@@ -67,7 +67,7 @@ Map<String, List<String>> _eventClasses() {
     if (row != null) {
       rows[row[1]!] = {
         for (final t in row[2]!.split(_cellSplit))
-          t.endsWith('?') ? t.substring(0, t.length - 1) : t,
+          if (t.endsWith('?')) t.substring(0, t.length - 1) else t,
       };
     } else if (set != null) {
       sets[set]!.addAll(line.split(RegExp(r'[\s,]+')));

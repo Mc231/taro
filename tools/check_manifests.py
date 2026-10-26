@@ -180,26 +180,47 @@ def check_tracking_strings(root: Path) -> list[Finding]:
         if not path.is_file():
             findings.append(Finding(label, 0, "att-string", f"missing ({TRACKING_KEY} for {locale})"))
             continue
-        text = path.read_text(encoding="utf-8")
-        for key in PURPOSE_KEYS:
-            if not strings_value(text, key):
-                findings.append(Finding(label, 0, "purpose-string", f"no {key} entry (ITMS-90683)"))
-        value = strings_value(text)
-        if not value:
-            findings.append(Finding(label, 0, "att-string", f"no {TRACKING_KEY} entry"))
-            continue
-        arb_path = root / ARB.format(locale=locale)
-        if arb_path.is_file():
-            try:
-                expected = json.loads(arb_path.read_text(encoding="utf-8")).get(ARB_TRACKING_KEY)
-            except json.JSONDecodeError as exc:
-                raise InputError(rel(root, arb_path), f"invalid JSON: {exc}") from exc
-            if expected is not None and expected != value:
-                findings.append(Finding(label, 0, "att-string", f"differs from ARB {ARB_TRACKING_KEY} ({locale})"))
+        findings += _locale_strings_findings(root, label, locale, path.read_text(encoding="utf-8"))
     return findings
 
 
+def _locale_strings_findings(root: Path, label: str, locale: str, text: str) -> list[Finding]:
+    """One ``InfoPlist.strings``: purpose strings present, ATT string present and equal to the ARB."""
+    findings = [
+        Finding(label, 0, "purpose-string", f"no {key} entry (ITMS-90683)")
+        for key in PURPOSE_KEYS
+        if not strings_value(text, key)
+    ]
+    value = strings_value(text)
+    if not value:
+        return findings + [Finding(label, 0, "att-string", f"no {TRACKING_KEY} entry")]
+    expected = _arb_tracking_string(root, locale)
+    if expected is not None and expected != value:
+        findings.append(Finding(label, 0, "att-string", f"differs from ARB {ARB_TRACKING_KEY} ({locale})"))
+    return findings
+
+
+def _arb_tracking_string(root: Path, locale: str) -> Any:
+    """The ARB's ATT string for ``locale``; ``None`` when the ARB or the key is absent."""
+    arb_path = root / ARB.format(locale=locale)
+    if not arb_path.is_file():
+        return None
+    try:
+        return json.loads(arb_path.read_text(encoding="utf-8")).get(ARB_TRACKING_KEY)
+    except json.JSONDecodeError as exc:
+        raise InputError(rel(root, arb_path), f"invalid JSON: {exc}") from exc
+
+
 def check_privacy_manifest(data: dict[str, Any], label: str = PRIVACY) -> list[Finding]:
+    return (
+        _tracking_findings(data, label)
+        + _collected_findings(data, label)
+        + _required_reason_findings(data, label)
+    )
+
+
+def _tracking_findings(data: dict[str, Any], label: str) -> list[Finding]:
+    """``NSPrivacyTracking`` and ``NSPrivacyTrackingDomains`` agree (ITMS-91064)."""
     findings: list[Finding] = []
     tracking = data.get("NSPrivacyTracking")
     if not isinstance(tracking, bool):
@@ -220,6 +241,12 @@ def check_privacy_manifest(data: dict[str, Any], label: str = PRIVACY) -> list[F
     if tracking is True and not domains:
         findings.append(Finding(label, 0, "privacy-tracking",
                                 f"NSPrivacyTracking is true but {DOMAINS_KEY} lists no domain (ITMS-91064)"))
+    return findings
+
+
+def _collected_findings(data: dict[str, Any], label: str) -> list[Finding]:
+    """``NSPrivacyCollectedDataTypes`` matches 05 §5.1 (``COLLECTED``)."""
+    findings: list[Finding] = []
     declared: dict[str, tuple[bool, bool, frozenset[str]]] = {}
     for item in data.get("NSPrivacyCollectedDataTypes") or []:
         kind = str(item.get(_TYPE, "")).removeprefix(_TYPE) if isinstance(item, dict) else ""
@@ -235,10 +262,15 @@ def check_privacy_manifest(data: dict[str, Any], label: str = PRIVACY) -> list[F
     for kind in sorted(set(declared) & set(COLLECTED)):
         if declared[kind] != COLLECTED[kind]:
             findings.append(Finding(label, 0, "privacy-collected", f"{kind}: linked/tracking/purposes differ from 05 §5.1"))
+    return findings
+
+
+def _required_reason_findings(data: dict[str, Any], label: str) -> list[Finding]:
+    findings: list[Finding] = []
     for item in data.get("NSPrivacyAccessedAPITypes") or []:
-        api = item.get("NSPrivacyAccessedAPIType") if isinstance(item, dict) else None
-        reasons = item.get("NSPrivacyAccessedAPITypeReasons") if isinstance(item, dict) else None
-        if not api or not reasons:
+        entry = item if isinstance(item, dict) else {}
+        api = entry.get("NSPrivacyAccessedAPIType")
+        if not api or not entry.get("NSPrivacyAccessedAPITypeReasons"):
             findings.append(Finding(label, 0, "privacy-reason", f"required-reason API {api or '?'} has no reason"))
     return findings
 
@@ -302,38 +334,57 @@ def query_intents(manifest: ET.Element) -> set[tuple[str, str | None]]:
 
 
 def check_android_manifest(manifest: ET.Element, label: str, merged: bool) -> list[Finding]:
+    findings = _query_findings(manifest, label) + _permission_findings(manifest, label, merged)
+    application = manifest.find("application")
+    if application is None:
+        return findings + [Finding(label, 0, "application", "no <application> element")]
+    return findings + _application_findings(application, label)
+
+
+def _query_findings(manifest: ET.Element, label: str) -> list[Finding]:
     findings: list[Finding] = []
     declared = query_intents(manifest)
     for action, scheme in URL_INTENTS:
         if (action, scheme) not in declared:
             what = f"{action.rsplit('.', 1)[-1]} {scheme}" if scheme else action.rsplit(".", 1)[-1]
             findings.append(Finding(label, 0, "url-queries", f"<queries> does not declare {what} (UrlLauncher)"))
+    return findings
+
+
+def _permission_findings(manifest: ET.Element, label: str, merged: bool) -> list[Finding]:
+    """No exact-alarm permission; boot (and, merged, notification and ad ID) declared."""
     granted = permissions(manifest)
-    for name in EXACT_ALARMS:
-        if name in granted:
-            findings.append(Finding(label, 0, "exact-alarm", f"{name} must not be declared (inexact reminders)"))
+    findings = [
+        Finding(label, 0, "exact-alarm", f"{name} must not be declared (inexact reminders)")
+        for name in EXACT_ALARMS
+        if name in granted
+    ]
     required = [BOOT_PERMISSION] + ([POST_NOTIFICATIONS, AD_ID] if merged else [])
-    for name in required:
-        if name not in granted:
-            findings.append(Finding(label, 0, "permission", f"{name} is not declared"))
-    application = manifest.find("application")
-    if application is None:
-        return findings + [Finding(label, 0, "application", "no <application> element")]
+    findings += [Finding(label, 0, "permission", f"{name} is not declared") for name in required if name not in granted]
+    return findings
+
+
+def _application_findings(application: ET.Element, label: str) -> list[Finding]:
+    """Consent defaults (RC68), the boot receiver and the backup rules (RC75)."""
+    findings: list[Finding] = []
     meta = {e.get(f"{ANDROID}name"): e.get(f"{ANDROID}value") for e in application.iter("meta-data")}
     for key in (f"google_analytics_default_allow_{k.lower()}" for k in GA_KEYS):
         if meta.get(key) != "false":
             findings.append(Finding(label, 0, "consent-default", f"{key} must be false (RC68)"))
-    boot = [
-        r for r in application.iter("receiver")
-        if r.get(f"{ANDROID}name") == BOOT_RECEIVER and _kept(r)
-        and any(a.get(f"{ANDROID}name") == BOOT_ACTION for a in r.iter("action"))
-    ]
-    if not boot:
+    if not any(_is_boot_receiver(r) for r in application.iter("receiver")):
         findings.append(Finding(label, 0, "boot-receiver", f"{BOOT_RECEIVER} with BOOT_COMPLETED is missing"))
     for attribute, name in (("dataExtractionRules", "data_extraction_rules"), ("fullBackupContent", "full_backup_content")):
         if application.get(f"{ANDROID}{attribute}") != f"@xml/{name}":
             findings.append(Finding(label, 0, "backup-rules", f"android:{attribute} must be @xml/{name} (RC75)"))
     return findings
+
+
+def _is_boot_receiver(receiver: ET.Element) -> bool:
+    return (
+        receiver.get(f"{ANDROID}name") == BOOT_RECEIVER
+        and _kept(receiver)
+        and any(a.get(f"{ANDROID}name") == BOOT_ACTION for a in receiver.iter("action"))
+    )
 
 
 def check_backup_rules(root: Path) -> list[Finding]:
@@ -346,13 +397,20 @@ def check_backup_rules(root: Path) -> list[Finding]:
             continue
         document = load_xml(path, label)
         for section in sections:
-            scope = document if section is None else document.find(section)
-            excluded = [] if scope is None else [(e.get("domain"), e.get("path", "")) for e in scope.iter("exclude")]
-            where = section or "root"
-            if ("sharedpref", SECURE_PREFS) not in excluded:
-                findings.append(Finding(label, 0, "backup-rules", f"{where}: secure storage prefs not excluded (RC75)"))
-            if not any(domain == "file" and p.endswith(DEVICE_DB) for domain, p in excluded):
-                findings.append(Finding(label, 0, "backup-rules", f"{where}: {DEVICE_DB} not excluded (RC75)"))
+            findings += _backup_section_findings(document, section, label)
+    return findings
+
+
+def _backup_section_findings(document: ET.Element, section: str | None, label: str) -> list[Finding]:
+    """One backup section (``None`` = the root) excludes secure prefs and the device DB (RC75)."""
+    findings: list[Finding] = []
+    scope = document if section is None else document.find(section)
+    excluded = [] if scope is None else [(e.get("domain"), e.get("path", "")) for e in scope.iter("exclude")]
+    where = section or "root"
+    if ("sharedpref", SECURE_PREFS) not in excluded:
+        findings.append(Finding(label, 0, "backup-rules", f"{where}: secure storage prefs not excluded (RC75)"))
+    if not any(domain == "file" and p.endswith(DEVICE_DB) for domain, p in excluded):
+        findings.append(Finding(label, 0, "backup-rules", f"{where}: {DEVICE_DB} not excluded (RC75)"))
     return findings
 
 

@@ -101,7 +101,8 @@ export async function main(
     if (!commandsSet) {
       return 1;
     }
-    deps.out(`ok   commands: ${STATS_COMMANDS.map((c) => `/${c}`).join(' ')}`);
+    const commands = STATS_COMMANDS.map((c) => '/' + c).join(' ');
+    deps.out(`ok   commands: ${commands}`);
   }
   return 0;
 }

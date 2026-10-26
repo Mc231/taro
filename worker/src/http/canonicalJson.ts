@@ -16,6 +16,14 @@ export function canonicalJson(text: string): string {
   return JSON.stringify(sortKeys(value));
 }
 
+/**
+ * UTF-16 code-unit order, the default `sort()` order (never locale order: the
+ * result feeds request hashes). Object keys are unique, so no tie.
+ */
+function byCodeUnit(a: string, b: string): number {
+  return a < b ? -1 : 1;
+}
+
 function sortKeys(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map(sortKeys);
@@ -24,7 +32,7 @@ function sortKeys(value: unknown): unknown {
     const record = value as Record<string, unknown>;
     return Object.fromEntries(
       Object.keys(record)
-        .sort()
+        .sort(byCodeUnit)
         .map((key) => [key, sortKeys(record[key])]),
     );
   }

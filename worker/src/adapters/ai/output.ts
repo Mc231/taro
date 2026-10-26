@@ -12,13 +12,12 @@ import {
  * mode rejects some keywords, so the adapter drops them (`stripSchemaKeywords`)
  * and the Worker's zod parse and L3 enforce them instead (RC97).
  */
-type SchemaNode = unknown;
 
 /** Removes the keywords `drop(key, value)` selects, recursively (property names are kept). */
 export function stripSchemaKeywords(
-  schema: SchemaNode,
+  schema: unknown,
   drop: (key: string, value: unknown) => boolean,
-): SchemaNode {
+): unknown {
   if (Array.isArray(schema)) {
     return schema.map((item: unknown) => stripSchemaKeywords(item, drop));
   }
