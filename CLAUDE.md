@@ -130,3 +130,5 @@ SECRETS_PASSPHRASE=$TARO_SECRETS tools/secrets-manager.sh decrypt   # edit, then
 ```
 
 SonarQube (advisory, RC88): project `taro`, gate `Taro`, `http://localhost:9000`; token in the bundle as `shared.sonar_token` and in Gitea as `SONAR_TOKEN` / `SONAR_HOST_URL`. `tools/ci/setup_sonar.sh` created them (re-run with `SKIP_TOKEN=1` to fix the gate only).
+
+`SONAR_MASTER_TOKEN` in `~/.zshrc` is an admin user token for the Sonar Web API: reading issues, reviewing security hotspots (`api/hotspots/change_status`), gates and project settings. Load it with `eval "$(grep -E '^export SONAR_MASTER_TOKEN=' ~/.zshrc)"` and send it as `Authorization: Bearer` (zsh does not word-split `-u $VAR`). Never print it; scans use `SONAR_TOKEN`.
