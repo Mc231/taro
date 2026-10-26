@@ -346,7 +346,7 @@ Owner: 03 §1, §2.4, §8.1, §11.
 | `staging` | `taro-api-staging` | `taro-staging` | Anthropic workspace + OpenAI project `taro-staging` | `api-staging.taro.vshyrochuk.com` |
 | `prod` | `taro-api` | `taro-prod` | Anthropic workspace + OpenAI project `taro-prod` | `api.taro.vshyrochuk.com` |
 
-Cron trigger (03 §12): one per environment, `*/15 * * * *` (`CRON_TRIGGER`); `groupsDue(scheduledTime)` picks the job groups (`JOB_GROUP`): `quarterHourly` every run (`BudgetService.check`, `releaseExpiredHolds`, `refundStaleHolds`, intent expiry, `AlertService.check`), `hourly` on the run in minute 0–14 UTC (`refundUndeliveredReadings`, idempotency and challenge purges, pending Google acknowledgements), `daily` on the run in [03:30, 03:45) UTC (Voided Purchases backstop, retention purge, daily summary).
+Cron trigger (03 §12): one per environment, `*/15 * * * *` (`CRON_TRIGGER`); `groupsDue(scheduledTime)` picks the job groups (`JOB_GROUP`): `quarterHourly` every run (`BudgetService.check`, `releaseExpiredHolds`, `refundStaleHolds`, intent expiry, `AlertService.check`), `hourly` on the run in minute 0–14 UTC (`refundUndeliveredReadings`, idempotency and challenge purges, pending Google acknowledgements), `daily` on the run in [03:30, 03:45) UTC (Voided Purchases backstop, retention purge), `morning` on the run in minute 0–14 of 09:00 `Europe/Kyiv` (`MORNING_TIME_ZONE`, `MORNING_HOUR`; `telegramMorningDigest` → `TelegramStatsService.daily()`).
 
 ## 7. drift tables (client)
 

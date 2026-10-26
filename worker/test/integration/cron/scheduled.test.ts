@@ -78,6 +78,7 @@ function recordingJobs(ran: string[]): Record<JobGroup, readonly CronJob[]> {
     [JOB_GROUP.quarterHourly]: [job('q')],
     [JOB_GROUP.hourly]: [job('h')],
     [JOB_GROUP.daily]: [job('d')],
+    [JOB_GROUP.morning]: [job('m')],
   };
 }
 
@@ -104,6 +105,25 @@ describe('scheduled() (03 §12)', () => {
       'expireRewardIntents',
     );
     expect(CRON_JOBS[JOB_GROUP.daily].map((job) => job.name)).toContain('voidedPurchasesBackstop');
+    expect(CRON_JOBS[JOB_GROUP.morning].map((job) => job.name)).toEqual(['telegramMorningDigest']);
+  });
+
+  it('groupsDue: morning only on the 09:00 Europe/Kyiv run, across DST', () => {
+    // Summer (UTC+3): 06:00 UTC; winter (UTC+2): 07:00 UTC.
+    expect(groupsDue(Date.UTC(2026, 9, 4, 6, 0))).toEqual(['quarterHourly', 'hourly', 'morning']);
+    expect(groupsDue(Date.UTC(2026, 9, 4, 6, 15))).toEqual(['quarterHourly']);
+    expect(groupsDue(Date.UTC(2026, 9, 4, 7, 0))).toEqual(['quarterHourly', 'hourly']);
+    expect(groupsDue(Date.UTC(2026, 10, 4, 7, 0))).toEqual(['quarterHourly', 'hourly', 'morning']);
+    expect(groupsDue(Date.UTC(2026, 10, 4, 6, 0))).toEqual(['quarterHourly', 'hourly']);
+  });
+
+  it.each([
+    ['a summer day', Date.UTC(2026, 9, 4)],
+    ['the autumn DST change', Date.UTC(2026, 9, 25)],
+    ['the spring DST change', Date.UTC(2027, 2, 28)],
+  ])('the morning group runs exactly once on %s', (_label, day) => {
+    const runs = Array.from({ length: 96 }, (_, i) => groupsDue(day + i * 15 * 60_000));
+    expect(runs.filter((g) => g.includes('morning'))).toHaveLength(1);
   });
 
   it('groupsDue: hourly in minute 0-14, nightly only in [03:30, 03:45) UTC', () => {
@@ -124,6 +144,7 @@ describe('scheduled() (03 §12)', () => {
     expect(runs.filter((g) => g.includes('quarterHourly'))).toHaveLength(96);
     expect(runs.filter((g) => g.includes('hourly'))).toHaveLength(24);
     expect(runs.filter((g) => g.includes('daily'))).toHaveLength(1);
+    expect(runs.filter((g) => g.includes('morning'))).toHaveLength(1);
   });
 
   it('a quarter-hour run performs only the 15-minute jobs', async () => {
@@ -212,6 +233,7 @@ describe('scheduled() (03 §12)', () => {
       [JOB_GROUP.quarterHourly]: [boom, odd, ok],
       [JOB_GROUP.hourly]: [],
       [JOB_GROUP.daily]: [],
+      [JOB_GROUP.morning]: [],
     };
     await runJobs(h.deps, JOB_GROUP.quarterHourly, jobs);
     expect(ran).toEqual(['ok']);
@@ -244,6 +266,7 @@ describe('scheduled() (03 §12)', () => {
           },
         ],
         [JOB_GROUP.daily]: [],
+        [JOB_GROUP.morning]: [],
       },
       { batchSize: 2, maxBatches: 2 },
     );

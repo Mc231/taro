@@ -10,7 +10,8 @@ import { BudgetService, DauCache, MICRO_USD, type BudgetSnapshot } from './Budge
  * Read-only stats for the owner's Telegram bot (`POST /v1/admin/telegram`,
  * 03 §14.3): `/today`, `/week`, `/budget`, `/help`. Every number is an
  * aggregate over UTC days; no reply carries an install ID, a question, a
- * reading or any other per-user value. Nothing here writes.
+ * reading or any other per-user value. Nothing here writes. `daily()` is
+ * the morning digest the cron pushes (`telegramMorningDigest`, 03 §12).
  */
 export const STATS_COMMANDS = ['today', 'week', 'budget', 'help'] as const;
 export type StatsCommand = (typeof STATS_COMMANDS)[number];
@@ -103,6 +104,35 @@ export class TelegramStatsService {
     ].join('\n');
   }
 
+  /**
+   * The morning digest: yesterday's full UTC day and the 7 UTC days ending
+   * yesterday, plus today's budget tier so far.
+   */
+  async daily(): Promise<string> {
+    const now = this.deps.clock.now();
+    const yesterday = utcDay(new Date(now.getTime() - DAY_MS));
+    const first = utcDay(new Date(now.getTime() - WEEK_DAYS * DAY_MS));
+    const [days, budget] = await Promise.all([
+      this.stats.days(first, WEEK_DAYS),
+      this.snapshot(now),
+    ]);
+    const y = sumDays(
+      days.filter((s) => s.day === yesterday),
+      yesterday,
+    );
+    const week = sumDays(days, first);
+    return [
+      `☀️ Taro daily (${this.deps.environment}, UTC day ${yesterday})`,
+      readingsLine(y),
+      `AI spend: ${usd(y.spendMicroUsd / MICRO_USD)} · avg ${avgCost(y.completedCostMicroUsd, y.costedCompleted)}`,
+      `Installs: ${String(y.newInstalls)} new · ${String(y.active)} active`,
+      purchasesLine(y.purchases, y.sandboxPurchases),
+      `Refunds: ${String(y.refunds)} · Rewarded: ${String(y.rewarded)}`,
+      `7 days: ${String(week.completed)} ✓ · ${usd(week.spendMicroUsd / MICRO_USD)} AI · ${String(week.newInstalls)} new · ${String(purchaseCount(week))} 💳`,
+      `Today so far: ${usd(budget.spendUsd)} · tier: ${TIER_LABEL[budget.tier]}`,
+    ].join('\n');
+  }
+
   async week(): Promise<string> {
     const now = this.deps.clock.now();
     const first = utcDay(new Date(now.getTime() - (WEEK_DAYS - 1) * DAY_MS));
@@ -175,11 +205,10 @@ function purchaseCount(s: DayStats): number {
 function purchasesLine(purchases: Readonly<Record<string, number>>, sandbox: number): string {
   const entries = Object.entries(purchases).sort(([a, x], [b, y]) => y - x || a.localeCompare(b));
   const total = entries.reduce((sum, [, n]) => sum + n, 0);
-  const detail =
-    entries.length === 0
-      ? ''
-      : ` (${entries.map(([id, n]) => `${String(n)}× ${id.replace(PRODUCT_PREFIX, '')}`).join(', ')})`;
-  return `Purchases: ${String(total)}${detail}${sandbox > 0 ? ` · sandbox ${String(sandbox)}` : ''}`;
+  const items = entries.map(([id, n]) => `${String(n)}× ${id.replace(PRODUCT_PREFIX, '')}`);
+  const detail = items.length === 0 ? '' : ` (${items.join(', ')})`;
+  const sandboxPart = sandbox > 0 ? ` · sandbox ${String(sandbox)}` : '';
+  return `Purchases: ${String(total)}${detail}${sandboxPart}`;
 }
 
 function sumDays(days: readonly DayStats[], label: string): DayStats {

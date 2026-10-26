@@ -1,3 +1,4 @@
+import { postTelegramMessage } from './adapters/cf/WebhookAlerter';
 import type { Deps } from './deps';
 import { daysBeforeDate, monthsBefore, RETENTION } from './domain/retention';
 import { DailyUsageRepo } from './repos/DailyUsageRepo';
@@ -13,6 +14,7 @@ import { BalanceService } from './services/BalanceService';
 import { BudgetService, isolateDauCache } from './services/BudgetService';
 import { PurchaseService } from './services/PurchaseService';
 import { UNDELIVERED_AFTER_MS } from './services/ReadingService';
+import { TelegramStatsService } from './services/TelegramStatsService';
 import { WebhookService } from './services/WebhookService';
 
 /**
@@ -30,8 +32,10 @@ export const JOB_GROUP = {
   quarterHourly: 'quarterHourly',
   /** Run in minute 0–14 of each UTC hour: undelivered refunds, idempotency + challenge purge, Google acks. */
   hourly: 'hourly',
-  /** Run in [03:30, 03:45) UTC: Voided Purchases backstop, retention purge, daily summary (Phase 8). */
+  /** Run in [03:30, 03:45) UTC: Voided Purchases backstop, retention purge (Phase 8). */
   daily: 'daily',
+  /** Run in [09:00, 09:15) Europe/Kyiv (the owner's morning, DST-aware): the Telegram digest. */
+  morning: 'morning',
 } as const;
 
 export type JobGroup = (typeof JOB_GROUP)[keyof typeof JOB_GROUP];
@@ -39,12 +43,28 @@ export type JobGroup = (typeof JOB_GROUP)[keyof typeof JOB_GROUP];
 const QUARTER_MINUTES = 15;
 const NIGHTLY_HOUR_UTC = 3;
 const NIGHTLY_MINUTE_UTC = 30;
+/** The owner's zone and local hour for the morning digest. */
+export const MORNING_TIME_ZONE = 'Europe/Kyiv';
+export const MORNING_HOUR = 9;
+
+const morningHourFormat = new Intl.DateTimeFormat('en-GB', {
+  timeZone: MORNING_TIME_ZONE,
+  hour: 'numeric',
+  hourCycle: 'h23',
+});
+
+/** The hour (0-23) of `at` in {@link MORNING_TIME_ZONE}. */
+function morningZoneHour(at: Date): number {
+  return Number(morningHourFormat.format(at));
+}
 
 /**
  * The groups due for a run scheduled at `scheduledTime` (epoch ms; Cloudflare
  * passes the cron's scheduled instant, not the start time). Each 15-minute
  * window holds exactly one run, so the hourly group runs once per hour (the
- * :00 run) and the nightly group once per day (the 03:30 UTC run).
+ * :00 run), the nightly group once per day (the 03:30 UTC run) and the
+ * morning group once per day (the 09:00 Kyiv run; Kyiv offsets are whole
+ * hours, so that run is also a :00 UTC run).
  */
 export function groupsDue(scheduledTime: number): JobGroup[] {
   const at = new Date(scheduledTime);
@@ -59,6 +79,9 @@ export function groupsDue(scheduledTime: number): JobGroup[] {
     minute < NIGHTLY_MINUTE_UTC + QUARTER_MINUTES
   ) {
     groups.push(JOB_GROUP.daily);
+  }
+  if (minute < QUARTER_MINUTES && morningZoneHour(at) === MORNING_HOUR) {
+    groups.push(JOB_GROUP.morning);
   }
   return groups;
 }
@@ -227,6 +250,28 @@ export const alertCheck: CronJob = {
   run: async (deps) => new AlertService(deps).check(await deps.config.snapshot()),
 };
 
+/**
+ * The morning digest (03 §12, §14.3): `TelegramStatsService.daily()` to the
+ * `ALERT_WEBHOOK_URL` chat. Without a Telegram target it does nothing. A
+ * failed `sendMessage` throws, so `runJobs` logs `cron_job_failed`; it is not
+ * retried (the next digest is tomorrow's).
+ */
+export const telegramMorningDigest: CronJob = {
+  name: 'telegramMorningDigest',
+  run: async (deps) => {
+    const { target, fetch } = deps.telegramBot;
+    if (target === undefined) {
+      return 0;
+    }
+    const text = await new TelegramStatsService(deps).daily();
+    const res = await postTelegramMessage(fetch, target, text);
+    if (!res.ok) {
+      throw new Error(`telegram_${String(res.status)}`);
+    }
+    return 1;
+  },
+};
+
 /** Retention (03 §13, RC22): `reading_reports` past `expires_at` (90 days). */
 export const purgeReadingReports: CronJob = {
   name: 'purgeReadingReports',
@@ -300,7 +345,8 @@ export const RETENTION_JOBS: readonly CronJob[] = [
  * The job table. Phase 7 registers `releaseExpiredHolds`, `refundStaleHolds`,
  * intent expiry, Google acknowledgements and the Voided Purchases backstop;
  * Phase 8 `BudgetService.check`, `AlertService.check`,
- * `refundUndeliveredReadings`, the retention purge and the daily summary.
+ * `refundUndeliveredReadings` and the retention purge; the morning group the
+ * Telegram digest (`telegramMorningDigest`).
  */
 export const CRON_JOBS: Readonly<Record<JobGroup, readonly CronJob[]>> = {
   [JOB_GROUP.quarterHourly]: [
@@ -317,11 +363,12 @@ export const CRON_JOBS: Readonly<Record<JobGroup, readonly CronJob[]>> = {
     retryPendingAcks,
   ],
   [JOB_GROUP.daily]: [voidedPurchasesBackstop, ...RETENTION_JOBS],
+  [JOB_GROUP.morning]: [telegramMorningDigest],
 };
 
 /**
  * `scheduled()` (03 §12): every group `groupsDue(scheduledTime)` names, in
- * order quarter-hourly, hourly, nightly. Any other cron is logged and ignored.
+ * order quarter-hourly, hourly, nightly, morning. Any other cron is logged and ignored.
  */
 export async function runScheduled(
   deps: Deps,

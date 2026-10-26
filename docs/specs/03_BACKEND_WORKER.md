@@ -1324,9 +1324,10 @@ Each environment declares **one** cron trigger, `*/15 * * * *` (Workers Free all
 |---|---|---|
 | quarter-hourly | every run | `BudgetService.check` → tier alerts; `releaseExpiredHolds` + `refundStaleHolds` (§9.1, RC52); expire `ad_rewards` past `expires_at`; `AlertService.check` (§14.1) |
 | hourly | minute 0–14 of each hour (the :00 run) | `refundUndeliveredReadings` (§9.1, RC51); purge `idempotency_keys` and `used_challenges` past expiry; retry pending Google acknowledgements |
-| nightly | in [03:30, 03:45) (the 03:30 run) | Google Voided Purchases backstop; retention purge (§13, including `reading_reports` past `expires_at`); daily metrics summary to `ALERT_WEBHOOK_URL` |
+| nightly | in [03:30, 03:45) (the 03:30 run) | Google Voided Purchases backstop; retention purge (§13, including `reading_reports` past `expires_at`) |
+| morning | minute 0–14 of the hour that is 09 in `Europe/Kyiv` (06:00 UTC in summer, 07:00 UTC in winter; once per day across DST) | `telegramMorningDigest`: `TelegramStatsService.daily()` to the `ALERT_WEBHOOK_URL` chat (§14.3); nothing without a Telegram target; a failed send is logged, not retried |
 
-A run does the quarter-hourly jobs first, then the hourly or nightly ones.
+A run does the quarter-hourly jobs first, then the hourly, nightly and morning ones.
 Every job is idempotent and bounded (batched `LIMIT 500` loops) to stay inside CPU limits.
 
 ---
@@ -1396,6 +1397,7 @@ The alert bot (@taro_alerts_vsh_bot) also answers read-only stats commands throu
 - **Allowlist:** only updates whose `message.chat.id` is the `chat_id` of `ALERT_WEBHOOK_URL` or listed in `TELEGRAM_ADMIN_CHAT_IDS` get a reply. Any other chat, a non-text update, a malformed body, a rate-limited chat (`RL_READINGS`, key `tg:{chatId}`, 6/min) or a failed reply → `200`, empty body, no reply (Telegram never retries).
 - **Reply:** `sendMessage` with the bot token from `ALERT_WEBHOOK_URL` (`postTelegramMessage`, shared with `WebhookAlerter`), sent after the `200` via `waitUntil`. The token, the URL and the chat ID are never logged; the log line is `telegram_command{command, status}`.
 - **Commands** (case-insensitive, `/cmd@botname` accepted, `/start` = `/help`; anything else gets a `/help` hint): `/today`, `/week` (7 UTC days, one line per day + totals), `/budget` (spend, `dau`, soft / free-stop / hard from §10.2 with the remaining headroom and the current tier), `/help`. All days are UTC days of the row timestamps (`readings.created_at`, `installs.created_at`, `purchases.granted_at` / `revoked_at`, `ad_rewards.granted_at`, `ai_spend_daily.date_utc`). Readings by status (completed, declined, failed, hold refunded, crisis = declined `self_harm` / `harm_to_others`), AI spend and average `cost_micro_usd` per completed reading, new and active installs (the §10.2 `dau` definition: last seen or a reading that day), purchases by product (production) plus the sandbox/test count, store refunds, rewarded ads granted. The header names the environment.
+- **Morning digest** (§12 morning group, 09:00 Europe/Kyiv): yesterday's UTC day (readings by status, AI spend and average cost, new and active installs, purchases, refunds, rewarded), totals for the 7 UTC days ending yesterday, and today's spend and tier so far; same aggregates-only rule.
 - **Read-only:** `StatsRepo` and `BudgetService.snapshot` run only `SELECT`s; replies carry aggregates only, never an install ID, question, reading text or other personal data.
 - **Setup:** `npm run telegram:webhook -- --env staging|prod [--commands]` (`setWebhook` to `https://{API_HOST}/v1/admin/telegram` with `secret_token`, `allowed_updates: ["message"]`, `drop_pending_updates: true`; `--commands` = `setMyCommands`). Runbook: `docs/runbooks/INCIDENT.md` "Stats bot (Telegram)".
 

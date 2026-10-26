@@ -2,6 +2,7 @@ import { createExecutionContext, waitOnExecutionContext } from 'cloudflare:test'
 import { beforeAll, describe, expect, it } from 'vitest';
 import { buildApp, type App } from '../../../src/app';
 import { TELEGRAM_ROUTE, TELEGRAM_SECRET_HEADER } from '../../../src/routes/telegram';
+import { telegramMorningDigest } from '../../../src/scheduled';
 import {
   createHarness,
   TEST_TELEGRAM_CHAT_ID,
@@ -434,6 +435,48 @@ describe('POST /v1/admin/telegram', () => {
       expect(res.status).toBe(200);
       await waitOnExecutionContext(ctx);
       expect(telegram.requests).toHaveLength(1);
+    });
+  });
+
+  describe('morning digest (telegramMorningDigest, 03 §12)', () => {
+    /** 09:00 Kyiv on Wednesday 2026-10-07: the digest covers 2026-10-06. */
+    const MORNING = '2026-10-07T06:00:00.000Z';
+    const limits = { batchSize: 500, maxBatches: 1 };
+
+    it('sends yesterday, the 7-day totals and today so far to the alert chat', async () => {
+      const { h, telegram } = setup();
+      h.clock.set(MORNING);
+      expect(await telegramMorningDigest.run(h.deps, h.clock.now(), limits)).toBe(1);
+      const { url, chatId, text } = sent(telegram);
+      expect(url).toBe(TEST_TELEGRAM_ENDPOINT);
+      expect(String(chatId)).toBe(TEST_TELEGRAM_CHAT_ID);
+      expect(text).toBe(
+        [
+          '☀️ Taro daily (dev, UTC day 2026-10-06)',
+          'Readings: 3 ✓ · 2 declined · 1 failed · 2 refunded · 1 crisis',
+          'AI spend: $1.84 · avg $0.011/reading',
+          'Installs: 2 new · 4 active',
+          'Purchases: 5 (2× readings_10, 2× remove_ads, 1× readings_3) · sandbox 2',
+          'Refunds: 1 · Rewarded: 2',
+          '7 days: 4 ✓ · $2.44 AI · 3 new · 6 💳',
+          'Today so far: $0.00 · tier: ok',
+        ].join('\n'),
+      );
+    });
+
+    it('does nothing without a Telegram target', async () => {
+      const { h, telegram } = setup({
+        overrides: { telegramBot: { ...createHarness().deps.telegramBot, target: undefined } },
+      });
+      expect(await telegramMorningDigest.run(h.deps, h.clock.now(), limits)).toBe(0);
+      expect(telegram.requests).toHaveLength(0);
+    });
+
+    it('throws on a failed sendMessage (runJobs logs cron_job_failed)', async () => {
+      const { h } = setup({}, json({ ok: false }, 500));
+      await expect(telegramMorningDigest.run(h.deps, h.clock.now(), limits)).rejects.toThrow(
+        'telegram_500',
+      );
     });
   });
 });

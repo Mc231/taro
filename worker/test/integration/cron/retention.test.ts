@@ -137,6 +137,7 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
       [JOB_GROUP.quarterHourly]: [],
       [JOB_GROUP.hourly]: [],
       [JOB_GROUP.daily]: RETENTION_JOBS,
+      [JOB_GROUP.morning]: [],
     });
 
     expect(await exists('reading_reports', 'id', expiredReport)).toBe(false);
@@ -194,6 +195,7 @@ describe('retention purge in the nightly cron (03 §12, §13; RC22, RC37, RC51)'
       [JOB_GROUP.quarterHourly]: [],
       [JOB_GROUP.hourly]: [],
       [JOB_GROUP.daily]: RETENTION_JOBS,
+      [JOB_GROUP.morning]: [],
     });
 
     const after = await repo.findById(idle);
