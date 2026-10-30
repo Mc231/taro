@@ -787,7 +787,7 @@
   "@homeDailyTitleNotDrawn": {
     "description": "S05 tile title before today's card is drawn."
   },
-  "homeDailyCaption": "Free, works offline, no AI.",
+  "homeDailyCaption": "Works offline, no AI.",
   "@homeDailyCaption": {
     "description": "S05 tile caption under the title."
   },
@@ -1992,7 +1992,7 @@
   "@dailyReveal": {
     "description": "S13 notDrawn primary button."
   },
-  "dailyNotDrawnCaption": "Free, works offline, no AI.",
+  "dailyNotDrawnCaption": "Works offline, no AI.",
   "@dailyNotDrawnCaption": {
     "description": "S13 notDrawn caption."
   },
@@ -2019,7 +2019,7 @@
   "@dailyAddNote": {
     "description": "S13 secondary action."
   },
-  "dailyCaption": "Your daily card is free, works offline and uses no AI. Reflecting deeper starts a single-card reading and uses one reading.",
+  "dailyCaption": "Your daily card works offline and uses no AI. Reflecting deeper starts a single-card reading and uses one reading.",
   "@dailyCaption": {
     "description": "S13 caption under the actions."
   },
@@ -3677,7 +3677,7 @@
   "@dailyNotDrawnBody": {
     "description": "S13 notDrawn body under the heading."
   },
-  "dailyNotDrawnBadge": "Free · works offline · no AI",
+  "dailyNotDrawnBadge": "Works offline · no AI",
   "@dailyNotDrawnBadge": {
     "description": "S13 notDrawn pill under the body."
   },

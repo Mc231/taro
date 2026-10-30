@@ -17,8 +17,10 @@
 #   apple_only     banned in Apple-facing fields (App Store metadata) — rule
 #                  apple_fields_no_android
 #   play_only      banned in Play-facing fields — rule play_fields_no_apple
-#   name_subtitle  banned in the app name / subtitle / Play title only
-#                  ("free" is allowed in the keyword field, 05 §9.5)
+#   name_subtitle  banned in the app name / subtitle / Play title, promotional
+#                  text, What's New and screenshot captions (Apple 2.3.7:
+#                  "free" is a price reference there); allowed in the
+#                  description and the keyword field (05 §9.5)
 #   allowed_contexts
 #                  exact spans removed before matching: negated uses in the
 #                  fixed compliance copy (05 §3), e.g. "not medical … advice".
@@ -129,7 +131,7 @@ locales:
       - zauber*
       - liebeszauber*
     name_subtitle:
-      - kostenlos
+      - kostenlos*
       - gratis
 
   es:
@@ -164,6 +166,7 @@ locales:
       - envoûtement*
     name_subtitle:
       - gratuit*
+      - offert*
 
   it:
     global:
@@ -275,7 +278,7 @@ locales:
       - büyü
       - büyüsü
     name_subtitle:
-      - ücretsiz
+      - ücretsiz*
       - bedava
 
   uk:

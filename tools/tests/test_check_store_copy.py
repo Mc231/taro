@@ -32,6 +32,8 @@ EXPECTED: dict[str, set[str]] = {
     "fail_play_apple": {"play_fields_no_apple", "banned_phrase"},
     "fail_both_platforms": {"apple_fields_no_android", "play_fields_no_apple"},
     "fail_name_free": {"name_subtitle_banned"},
+    "fail_caption_free": {"name_subtitle_banned"},
+    "fail_promo_free": {"name_subtitle_banned"},
     "fail_disclaimer": {"description_has_disclaimer"},
     "fail_disclaimer_play": {"description_has_disclaimer"},
     "fail_keywords_spaces": {"keywords"},

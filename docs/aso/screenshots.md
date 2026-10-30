@@ -46,15 +46,15 @@ Source: `apps/taro/store/aso.yaml` `store_screenshots` (`screenshots` = en, `tra
 
 | # | en headline | en subtext |
 |---|---|---|
-| 1 | Ask. Draw. Reflect. | Tarot for self-reflection |
-| 2 | Readings that fit your spread | Every card in its position |
-| 3 | Your daily card | A free card every day |
-| 4 | Journal your insights | Linked to every reading |
+| 1 | Ask. Draw. Reflect. | A mirror, not a forecast |
+| 2 | Prompts that make you think | Each card in its place, with questions |
+| 3 | A card to reflect on daily | With a question for your journal |
+| 4 | A private reflection journal | Write what each reading brings up |
 | 5 | Learn all 78 cards | Meanings, upright & reversed |
 | 6 | An original deck | One consistent art style |
 | 7 | No account needed | Export your data anytime |
 
-Frame 3's caption speaks of the free daily *card*, not the free AI reading (RC64). Frame 6 says "original" and "one consistent art style", not "hand-crafted" (the art provenance is `docs/ART_PROVENANCE.md`). The 11 translations await the native-speaker pass with the rest of the store copy (`docs/aso/REVIEW_NEEDED.md`).
+No caption says "free" (Apple 2.3.7, RC101; `check_store_copy.py` rule `name_subtitle_banned`); frames 1–4 lead with reflection and the journal (4.3(b) repositioning). Frame 6 says "original" and "one consistent art style", not "hand-crafted" (the art provenance is `docs/ART_PROVENANCE.md`). The 11 translations await the native-speaker pass with the rest of the store copy (`docs/aso/REVIEW_NEEDED.md`).
 
 ## Fixtures
 

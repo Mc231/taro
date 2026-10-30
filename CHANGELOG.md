@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- App Store listing repositioned as a reflection journal after the 4.3(b) / 2.3.7 rejection (RC101): name `Taro: Reflection Journal`, new subtitle, keywords, promotional text, What's New and en description in 12 locales, secondary category Productivity, screenshot captions 1–4. `check_store_copy.py` now bans "free" in promotional text, What's New and screenshot captions too.
+- The daily-card captions and badge (S05, S13) no longer say "free", in all 12 locales.
 - Crisis resources (owner, 2026-10-06): NL `0800-0113` removed (no longer listed on 113.nl), NL shows 113 (free, 24/7) only; every entry is verified, so `tools/content/validate --release` passes. La Strada-Ukraine and #いのちSOS confirmed. 05 §4.2 minimum set and `00_DECISIONS.md` updated.
 - `apps/taro/store/aso.yaml` `admob:` block holds the real AdMob app and unit IDs from `config/prod.json`.
 

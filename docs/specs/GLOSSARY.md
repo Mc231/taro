@@ -718,7 +718,7 @@ Owner: 03 §1. `hono`, `@hono/zod-openapi`, `zod`, `jose`, `@anthropic-ai/sdk`, 
 | Firebase projects | `taro-app-dev` (dev, staging, prodStaging), `taro-app-prod` | 02 AR17 (RC36, renamed 2026-10-03) |
 | Web host | `taro.vshyrochuk.com` (`/privacy`, `/terms`, `/support`, `/.well-known/*`) | 05 CS10 (RC92) |
 | API hosts | `api.taro.vshyrochuk.com` (prod), `api-staging.taro.vshyrochuk.com` (staging) | 03 §2.1 (BE Q5) |
-| Store name | "Taro: Tarot Card Reading"; on-device name "Taro" | 05 CS2 |
+| Store name | App Store "Taro: Reflection Journal" (RC101); Google Play "Taro: Tarot Card Reading"; on-device name "Taro" | 05 CS2, RC101 |
 | Locales | `en, ar, de, es, fr, it, ja, ko, nl, pt, tr, uk` (fallback `en`; `pt` = pt-BR) | 01 §13 |
 | Repo / CI | origin `git@github.com:Mc231/taro.git` (owner `Mc231`); CI on a self-hosted Gitea pull-mirror, workflows in `.gitea/workflows/` | 06 QA10 (owner 2026-09-27) |
 | Tags | `app-vX.Y.Z+B`, `worker-vX.Y.Z` | 06 §10.1 |

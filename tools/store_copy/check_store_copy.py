@@ -13,7 +13,9 @@
   both platforms (rule 19), so they get both lists, except the keys listed under
   ``arb_platform_keys`` in ``banned_phrases.yaml``: an ``apple`` key (shown on
   iOS only) gets ``apple_only``, a ``play`` key (Android only) ``play_only``;
-* ``name_subtitle_banned`` — e.g. "free" in the name, subtitle or Play title;
+* ``name_subtitle_banned`` — e.g. "free" in the name, subtitle, Play title,
+  promotional text, What's New or a screenshot caption (Apple 2.3.7 counts
+  "free" as a price reference in that metadata; the description may say it);
 * ``description_has_disclaimer`` — a long description lacks the locale's
   ``required_sentences.yaml`` sentence in its first 3 lines;
 * ``keywords`` — spaces, empty or duplicate entries, or a word repeated from
@@ -83,7 +85,17 @@ REMOVE_ADS_NAME = "Remove Banner Ads"
 TEXT_SUFFIXES = {".txt", ".md", ".yaml", ".yml", ".json"}
 
 _LISTS = ("global", "apple_only", "play_only", "name_subtitle")
-_NAME_FIELDS = {"name", "subtitle", "title"}
+# Fields that get the ``name_subtitle`` list (no "free", Apple 2.3.7).
+_NAME_FIELDS = {
+    "name",
+    "subtitle",
+    "title",
+    "promotional_text",
+    "whats_new",
+    "headline",
+    "subtext",
+    "caption",
+}
 _DESCRIPTION_FIELDS = {"description", "full_description"}
 
 
