@@ -75,7 +75,7 @@ The draw is staged, not seeded: `_StagedDraw` answers `CardDrawer.shuffle`'s Fis
 - No price: no visible text with a currency sign or code next to a number.
 - No countdown: no text matching `balanceNextFreeIn`, `balanceNextFreeInAt`, `rewardedCoolingDown` or `balanceNextFreeTomorrow` in the locale.
 - Frames 1–3: no Death, Devil or Tower (`major_13`, `major_15`, `major_16`) among the card IDs shown (the fixture draw, checked against the cards actually drawn, and the daily card); `screenshots.py lint` checks the same on the fixtures.
-- Frame 6: none of Death, Devil, Tower, Nine or Ten of Swords painted inside the screen (their localized names).
+- Frame 6: none of Death, Devil or Tower painted inside the screen (their localized names); on phones also not the Nine or Ten of Swords. Tablets (iPad, Play tablet) open at Cups and may show those two Swords: their up-to-8-column grid (RC99) shows Cups, Swords and Pentacles in one view, so no scroll position hides them (RC101).
 - No other platform's status bar: frames are Flutter-layer captures without OS chrome.
 
 ## Upload

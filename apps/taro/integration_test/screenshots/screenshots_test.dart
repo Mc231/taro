@@ -48,16 +48,22 @@ const String _locales = String.fromEnvironment(
 /// Death, Devil, Tower: never in frames 1–3 (05 §9.4).
 const Set<String> _forbiddenEarly = {'major_13', 'major_15', 'major_16'};
 
+/// Whether this capture is a tablet (the RC99 grid of up to 8 columns).
+const bool _tablet = _capture == 'ipad' || _capture == 'tablet';
+
 /// Cards kept out of view in the deck gallery (frame 6, 05 §9.4
 /// "non-threatening cards only"): the above plus the darkest Swords
-/// (Nine and Ten).
-const Set<String> _threatening = {..._forbiddenEarly, 'swords_09', 'swords_10'};
+/// (Nine and Ten). Tablets keep only the above: their grid shows Cups,
+/// both Swords rows and Pentacles in one view, so no scroll position hides
+/// the Nine and Ten of Swords (RC101).
+const Set<String> _threatening = _tablet
+    ? _forbiddenEarly
+    : {..._forbiddenEarly, 'swords_09', 'swords_10'};
 
-/// The deck section frame 6 opens at: Cups on phones; Wands on tablets,
-/// whose taller grid also shows Cups and the first row of Swords.
-const String _deckAnchor = _capture == 'ipad' || _capture == 'tablet'
-    ? 'anchor-wands'
-    : 'anchor-cups';
+/// The deck section frame 6 opens at: Cups on phones and tablets (on a
+/// tablet any section above Cups brings the last Major Arcana row, with The
+/// Tower, into view).
+const String _deckAnchor = 'anchor-cups';
 
 /// One locale's fixture (`test/fixtures/store_readings/{locale}.json`).
 final class StoreFixture {
