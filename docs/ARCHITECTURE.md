@@ -145,9 +145,9 @@ Items for the docs owner to fold into specs / ARCHITECTURE.md.
 
 | Package | Version | Note |
 |---|---|---|
-| hono | 4.13.9 | BE1 |
+| hono | 4.13.17 | BE1 |
 | @hono/zod-openapi | 1.6.3 | BE1 |
-| zod | 4.6.5 | |
+| zod | 4.6.7 | |
 | jose | 6.2.12 | |
 | @anthropic-ai/sdk | 0.128.0 | imported only by `adapters/anthropic/` (RC97); the OpenAI adapter uses plain `fetch` against the Responses API, no `openai` SDK (Sprint 8.1, 2026-09-30) |
 | cbor-x | 1.6.6 | |

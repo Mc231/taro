@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+
+- `zod` 4.6.7 (GHSA-mrhx-c7xc-m3w5, high: memory exhaustion on oversized constrained collections) and `hono` 4.13.17 (GHSA-5r4p-p66f-jhc7, moderate: `serveStatic` double decoding; the Worker serves no static files).
+
 ### Added
 
 - Telegram morning digest (03 §12, §14.3): a new cron group `morning` runs on the 09:00 `Europe/Kyiv` quarter-hour (DST-aware, once per day) and sends `TelegramStatsService.daily()` to the `ALERT_WEBHOOK_URL` chat: yesterday's UTC day (readings by status, AI spend and average cost, installs, purchases, refunds, rewarded), the 7-day totals and today's spend and tier so far. Aggregates only; nothing without a Telegram target; a failed send logs `cron_job_failed`. Replaces the never-built nightly "daily metrics summary" of 03 §12.
