@@ -65,10 +65,10 @@ jobs:
           flutter-version: ${{ steps.flutter-pin.outputs.version }}
           channel: stable
           cache: true
-          # r2-: the 2026-11 cache entry held an SDK truncated by a full disk (a
-          # prefix, because the cache server also restores a stored key that is a
+          # r3-: the 2026-11 entries (r2- too) held an SDK truncated by a full disk
+          # (a prefix, because the cache server also restores a stored key that is a
           # prefix of the requested one).
-          cache-key: 'r2-flutter-:os:-:channel:-:version:-:arch:-:hash:'
+          cache-key: 'r3-flutter-:os:-:channel:-:version:-:arch:-:hash:'
           # Host-mode act_runner: a second actions/cache copy inside this
           # composite fails on read-only git packs; the SDK cache is enough.
           pub-cache: false
