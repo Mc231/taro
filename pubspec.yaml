@@ -37,6 +37,11 @@ melos:
         # gen-l10n output is not committed (02 §11); produce it right after
         # `pub get` so analyze/test work on a fresh checkout.
         post: melos run gen:l10n
+    run:
+      # Never prompt "Select a package to run the … script": with no TTY the
+      # prompt waits forever (the nightly golden job hung 3 h on it). Every
+      # exec script runs in all of its matching packages.
+      noSelect: true
 
   scripts:
     gen:
