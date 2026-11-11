@@ -174,9 +174,9 @@ void main() {
       final chunk = Uint8List(max ~/ 4);
       final file = _HugeFile(chunk, chunks: 100);
       final result = await transfer(pick: () async => [file]).pickJson();
-      final read = expectOk(result)!;
-      expect(read.length, greaterThan(max));
-      expect(read.length, lessThanOrEqualTo(max + chunk.length));
+      final read = expectOk(result);
+      expect(read?.length, greaterThan(max));
+      expect(read?.length, lessThanOrEqualTo(max + chunk.length));
       expect(file.wholeRead, isFalse);
     });
 
