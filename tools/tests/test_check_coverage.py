@@ -472,6 +472,13 @@ def test_script_entry_point(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> 
             "abstract final class K {\n  /// Doc.\n  static const double a = 1;\n  static const b = 1.5;\n}\n",
             False,
         ),
+        (
+            "top_const.dart",
+            "import 'a.dart';\n\n/// Doc.\nconst List<D<Object?>> kAll = [\n  A.delegate,\n  ...B.delegates,\n];\n"
+            "const x = 1;\n",
+            False,
+        ),
+        ("top_final.dart", "final List<int> kAll = [1];\n", True),
         ("consts_and_field.dart", "class K {\n  static const a = 1;\n  static final b = [a];\n}\n", True),
         ("enum_init.dart", "enum E {\n  a(1);\n\n  const E(this.v) : assert(v > 0);\n\n  final int v;\n}\n", True),
         ("enum_static.dart", "enum E {\n  a;\n\n  static const all = [a];\n}\n", True),

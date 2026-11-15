@@ -445,8 +445,9 @@ def _collapse_parens(text: str) -> str:
 def _dart_statement_has_code(statement: str) -> bool:
     """Whether one top-level Dart declaration can produce coverage lines.
 
-    Directives, typedefs, enums with only values, final fields and a const
-    constructor, classes holding only ``static const`` values, and classes
+    Directives, typedefs, top-level ``const`` values (evaluated at compile
+    time), enums with only values, final fields and a const constructor,
+    classes holding only ``static const`` values, and classes
     or mixins whose
     members are all abstract signatures or redirecting factories (interfaces,
     freezed unions whose code lives in the excluded ``*.freezed.dart`` part)
@@ -458,7 +459,7 @@ def _dart_statement_has_code(statement: str) -> bool:
     text = _collapse_parens(_DART_STRING_RE.sub("''", statement))
     while (stripped := _DART_ANNOTATION_RE.sub("", text, count=1)) != text:
         text = stripped
-    if text.startswith("typedef "):
+    if text.startswith(("typedef ", "const ")):
         return False
     match = _DART_TYPE_RE.match(text)
     if not match or "{" not in text or not text.endswith("}"):
