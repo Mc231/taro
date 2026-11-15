@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'home_controller.dart';
@@ -9,6 +9,7 @@ part of 'home_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $HomeViewCopyWith<HomeView> get copyWith => _$HomeViewCopyWithImpl<HomeView>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeView&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.firstRun, firstRun) || other.firstRun == firstRun)&&(identical(other.balanceStale, balanceStale) || other.balanceStale == balanceStale)&&(identical(other.deviceUnverified, deviceUnverified) || other.deviceUnverified == deviceUnverified)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.updateAvailable, updateAvailable) || other.updateAvailable == updateAvailable)&&(identical(other.dailyCard, dailyCard) || other.dailyCard == dailyCard)&&const DeepCollectionEquality().equals(other.recentReadings, recentReadings));
+  final _this = this as HomeView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeView&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.variant, _this.variant) || other.variant == _this.variant)&&(identical(other.firstRun, _this.firstRun) || other.firstRun == _this.firstRun)&&(identical(other.balanceStale, _this.balanceStale) || other.balanceStale == _this.balanceStale)&&(identical(other.deviceUnverified, _this.deviceUnverified) || other.deviceUnverified == _this.deviceUnverified)&&(identical(other.adsRemoved, _this.adsRemoved) || other.adsRemoved == _this.adsRemoved)&&(identical(other.updateAvailable, _this.updateAvailable) || other.updateAvailable == _this.updateAvailable)&&(identical(other.dailyCard, _this.dailyCard) || other.dailyCard == _this.dailyCard)&&const DeepCollectionEquality().equals(other.recentReadings, _this.recentReadings));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,balance,variant,firstRun,balanceStale,deviceUnverified,adsRemoved,updateAvailable,dailyCard,const DeepCollectionEquality().hash(recentReadings));
+int get hashCode {
+  final _this = this as HomeView;
+  return Object.hash(runtimeType,_this.balance,_this.variant,_this.firstRun,_this.balanceStale,_this.deviceUnverified,_this.adsRemoved,_this.updateAvailable,_this.dailyCard,const DeepCollectionEquality().hash(_this.recentReadings));
+}
 
 @override
 String toString() {
-  return 'HomeView(balance: $balance, variant: $variant, firstRun: $firstRun, balanceStale: $balanceStale, deviceUnverified: $deviceUnverified, adsRemoved: $adsRemoved, updateAvailable: $updateAvailable, dailyCard: $dailyCard, recentReadings: $recentReadings)';
+  final _this = this as HomeView;
+  return 'HomeView(balance: ${_this.balance}, variant: ${_this.variant}, firstRun: ${_this.firstRun}, balanceStale: ${_this.balanceStale}, deviceUnverified: ${_this.deviceUnverified}, adsRemoved: ${_this.adsRemoved}, updateAvailable: ${_this.updateAvailable}, dailyCard: ${_this.dailyCard}, recentReadings: ${_this.recentReadings})';
 }
 
 
@@ -63,7 +69,7 @@ class _$HomeViewCopyWithImpl<$Res>
 /// Create a copy of HomeView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? balance = freezed,Object? variant = null,Object? firstRun = null,Object? balanceStale = null,Object? deviceUnverified = null,Object? adsRemoved = null,Object? updateAvailable = null,Object? dailyCard = freezed,Object? recentReadings = null,}) {
-  return _then(_self.copyWith(
+  return _then(HomeView(
 balance: freezed == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as CreditBalance?,variant: null == variant ? _self.variant : variant // ignore: cast_nullable_to_non_nullable
 as HomeBalanceVariant,firstRun: null == firstRun ? _self.firstRun : firstRun // ignore: cast_nullable_to_non_nullable
@@ -238,7 +244,7 @@ return $default(_that.balance,_that.variant,_that.firstRun,_that.balanceStale,_t
 
 
 class _HomeView extends HomeView {
-  const _HomeView({required this.balance, required this.variant, required this.firstRun, required this.balanceStale, required this.deviceUnverified, required this.adsRemoved, required this.updateAvailable, this.dailyCard, final  List<Reading> recentReadings = const <Reading>[]}): _recentReadings = recentReadings,super._();
+  const _HomeView({required this.balance, required this.variant, required this.firstRun, required this.balanceStale, required this.deviceUnverified, required this.adsRemoved, required this.updateAvailable, this.dailyCard,  List<Reading> recentReadings = const <Reading>[]}): _recentReadings = recentReadings,super._();
   
 
 @override final  CreditBalance? balance;
@@ -267,16 +273,18 @@ _$HomeViewCopyWith<_HomeView> get copyWith => __$HomeViewCopyWithImpl<_HomeView>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeView&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.firstRun, firstRun) || other.firstRun == firstRun)&&(identical(other.balanceStale, balanceStale) || other.balanceStale == balanceStale)&&(identical(other.deviceUnverified, deviceUnverified) || other.deviceUnverified == deviceUnverified)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.updateAvailable, updateAvailable) || other.updateAvailable == updateAvailable)&&(identical(other.dailyCard, dailyCard) || other.dailyCard == dailyCard)&&const DeepCollectionEquality().equals(other._recentReadings, _recentReadings));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeView&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.variant, variant) || other.variant == variant)&&(identical(other.firstRun, firstRun) || other.firstRun == firstRun)&&(identical(other.balanceStale, balanceStale) || other.balanceStale == balanceStale)&&(identical(other.deviceUnverified, deviceUnverified) || other.deviceUnverified == deviceUnverified)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.updateAvailable, updateAvailable) || other.updateAvailable == updateAvailable)&&(identical(other.dailyCard, dailyCard) || other.dailyCard == dailyCard)&&const DeepCollectionEquality().equals(other.recentReadings, _recentReadings));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,balance,variant,firstRun,balanceStale,deviceUnverified,adsRemoved,updateAvailable,dailyCard,const DeepCollectionEquality().hash(_recentReadings));
+int get hashCode {
+    return Object.hash(runtimeType,balance,variant,firstRun,balanceStale,deviceUnverified,adsRemoved,updateAvailable,dailyCard,const DeepCollectionEquality().hash(_recentReadings));
+}
 
 @override
 String toString() {
-  return 'HomeView(balance: $balance, variant: $variant, firstRun: $firstRun, balanceStale: $balanceStale, deviceUnverified: $deviceUnverified, adsRemoved: $adsRemoved, updateAvailable: $updateAvailable, dailyCard: $dailyCard, recentReadings: $recentReadings)';
+    return 'HomeView(balance: $balance, variant: $variant, firstRun: $firstRun, balanceStale: $balanceStale, deviceUnverified: $deviceUnverified, adsRemoved: $adsRemoved, updateAvailable: $updateAvailable, dailyCard: $dailyCard, recentReadings: $recentReadings)';
 }
 
 
@@ -355,7 +363,7 @@ mixin _$HomeState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState);
 }
 
 
@@ -364,7 +372,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState()';
+    return 'HomeState()';
 }
 
 
@@ -520,7 +528,7 @@ class HomeLoading implements HomeState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeLoading);
 }
 
 
@@ -529,7 +537,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeState.loading()';
+    return 'HomeState.loading()';
 }
 
 
@@ -557,16 +565,18 @@ $HomeContentCopyWith<HomeContent> get copyWith => _$HomeContentCopyWithImpl<Home
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeContent&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeContent&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'HomeState.content(view: $view)';
+    return 'HomeState.content(view: $view)';
 }
 
 
@@ -627,16 +637,21 @@ $HomeFlagsCopyWith<HomeFlags> get copyWith => _$HomeFlagsCopyWithImpl<HomeFlags>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion));
+  final _this = this as HomeFlags;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeFlags&&(identical(other.firstRunDone, _this.firstRunDone) || other.firstRunDone == _this.firstRunDone)&&(identical(other.updateNoticeVersion, _this.updateNoticeVersion) || other.updateNoticeVersion == _this.updateNoticeVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion);
+int get hashCode {
+  final _this = this as HomeFlags;
+  return Object.hash(runtimeType,_this.firstRunDone,_this.updateNoticeVersion);
+}
 
 @override
 String toString() {
-  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion)';
+  final _this = this as HomeFlags;
+  return 'HomeFlags(firstRunDone: ${_this.firstRunDone}, updateNoticeVersion: ${_this.updateNoticeVersion})';
 }
 
 
@@ -665,7 +680,7 @@ class _$HomeFlagsCopyWithImpl<$Res>
 /// Create a copy of HomeFlags
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? firstRunDone = null,Object? updateNoticeVersion = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(HomeFlags(
 firstRunDone: null == firstRunDone ? _self.firstRunDone : firstRunDone // ignore: cast_nullable_to_non_nullable
 as bool,updateNoticeVersion: freezed == updateNoticeVersion ? _self.updateNoticeVersion : updateNoticeVersion // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -825,16 +840,18 @@ _$HomeFlagsCopyWith<_HomeFlags> get copyWith => __$HomeFlagsCopyWithImpl<_HomeFl
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeFlags&&(identical(other.firstRunDone, firstRunDone) || other.firstRunDone == firstRunDone)&&(identical(other.updateNoticeVersion, updateNoticeVersion) || other.updateNoticeVersion == updateNoticeVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,firstRunDone,updateNoticeVersion);
+int get hashCode {
+    return Object.hash(runtimeType,firstRunDone,updateNoticeVersion);
+}
 
 @override
 String toString() {
-  return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion)';
+    return 'HomeFlags(firstRunDone: $firstRunDone, updateNoticeVersion: $updateNoticeVersion)';
 }
 
 

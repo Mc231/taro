@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'deck_card.dart';
@@ -9,6 +9,7 @@ part of 'deck_card.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -32,16 +33,21 @@ $DeckCardCopyWith<DeckCard> get copyWith => _$DeckCardCopyWithImpl<DeckCard>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckCard&&(identical(other.id, id) || other.id == id)&&(identical(other.arcana, arcana) || other.arcana == arcana)&&(identical(other.suit, suit) || other.suit == suit)&&(identical(other.number, number) || other.number == number)&&(identical(other.artKey, artKey) || other.artKey == artKey)&&(identical(other.element, element) || other.element == element)&&(identical(other.astrology, astrology) || other.astrology == astrology));
+  final _this = this as DeckCard;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckCard&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.arcana, _this.arcana) || other.arcana == _this.arcana)&&(identical(other.suit, _this.suit) || other.suit == _this.suit)&&(identical(other.number, _this.number) || other.number == _this.number)&&(identical(other.artKey, _this.artKey) || other.artKey == _this.artKey)&&(identical(other.element, _this.element) || other.element == _this.element)&&(identical(other.astrology, _this.astrology) || other.astrology == _this.astrology));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,arcana,suit,number,artKey,element,astrology);
+int get hashCode {
+  final _this = this as DeckCard;
+  return Object.hash(runtimeType,_this.id,_this.arcana,_this.suit,_this.number,_this.artKey,_this.element,_this.astrology);
+}
 
 @override
 String toString() {
-  return 'DeckCard(id: $id, arcana: $arcana, suit: $suit, number: $number, artKey: $artKey, element: $element, astrology: $astrology)';
+  final _this = this as DeckCard;
+  return 'DeckCard(id: ${_this.id}, arcana: ${_this.arcana}, suit: ${_this.suit}, number: ${_this.number}, artKey: ${_this.artKey}, element: ${_this.element}, astrology: ${_this.astrology})';
 }
 
 
@@ -70,7 +76,7 @@ class _$DeckCardCopyWithImpl<$Res>
 /// Create a copy of DeckCard
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? arcana = null,Object? suit = freezed,Object? number = null,Object? artKey = null,Object? element = freezed,Object? astrology = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(DeckCard(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as CardId,arcana: null == arcana ? _self.arcana : arcana // ignore: cast_nullable_to_non_nullable
 as Arcana,suit: freezed == suit ? _self.suit : suit // ignore: cast_nullable_to_non_nullable
@@ -247,16 +253,18 @@ _$DeckCardCopyWith<_DeckCard> get copyWith => __$DeckCardCopyWithImpl<_DeckCard>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckCard&&(identical(other.id, id) || other.id == id)&&(identical(other.arcana, arcana) || other.arcana == arcana)&&(identical(other.suit, suit) || other.suit == suit)&&(identical(other.number, number) || other.number == number)&&(identical(other.artKey, artKey) || other.artKey == artKey)&&(identical(other.element, element) || other.element == element)&&(identical(other.astrology, astrology) || other.astrology == astrology));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckCard&&(identical(other.id, id) || other.id == id)&&(identical(other.arcana, arcana) || other.arcana == arcana)&&(identical(other.suit, suit) || other.suit == suit)&&(identical(other.number, number) || other.number == number)&&(identical(other.artKey, artKey) || other.artKey == artKey)&&(identical(other.element, element) || other.element == element)&&(identical(other.astrology, astrology) || other.astrology == astrology));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,arcana,suit,number,artKey,element,astrology);
+int get hashCode {
+    return Object.hash(runtimeType,id,arcana,suit,number,artKey,element,astrology);
+}
 
 @override
 String toString() {
-  return 'DeckCard(id: $id, arcana: $arcana, suit: $suit, number: $number, artKey: $artKey, element: $element, astrology: $astrology)';
+    return 'DeckCard(id: $id, arcana: $arcana, suit: $suit, number: $number, artKey: $artKey, element: $element, astrology: $astrology)';
 }
 
 

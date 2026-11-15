@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart' hide ThemeMode;
 import 'package:taro/di/providers.dart' show SupportInfo;
 import 'package:taro/features/settings/controller/delete_data_controller.dart';
 import 'package:taro/features/settings/controller/language_controller.dart';

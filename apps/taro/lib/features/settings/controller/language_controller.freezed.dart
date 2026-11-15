@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'language_controller.dart';
@@ -9,6 +9,7 @@ part of 'language_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $LanguageStateCopyWith<LanguageState> get copyWith => _$LanguageStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguageState&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&const DeepCollectionEquality().equals(other.locales, locales));
+  final _this = this as LanguageState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguageState&&(identical(other.localeOverride, _this.localeOverride) || other.localeOverride == _this.localeOverride)&&const DeepCollectionEquality().equals(other.locales, _this.locales));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,localeOverride,const DeepCollectionEquality().hash(locales));
+int get hashCode {
+  final _this = this as LanguageState;
+  return Object.hash(runtimeType,_this.localeOverride,const DeepCollectionEquality().hash(_this.locales));
+}
 
 @override
 String toString() {
-  return 'LanguageState(localeOverride: $localeOverride, locales: $locales)';
+  final _this = this as LanguageState;
+  return 'LanguageState(localeOverride: ${_this.localeOverride}, locales: ${_this.locales})';
 }
 
 
@@ -63,7 +69,7 @@ class _$LanguageStateCopyWithImpl<$Res>
 /// Create a copy of LanguageState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? localeOverride = freezed,Object? locales = null,}) {
-  return _then(_self.copyWith(
+  return _then(LanguageState.content(
 localeOverride: freezed == localeOverride ? _self.localeOverride : localeOverride // ignore: cast_nullable_to_non_nullable
 as String?,locales: null == locales ? _self.locales : locales // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -201,7 +207,7 @@ return content(_that.localeOverride,_that.locales);case _:
 
 
 class LanguageContent implements LanguageState {
-  const LanguageContent({required this.localeOverride, required final  List<String> locales}): _locales = locales;
+  const LanguageContent({required this.localeOverride, required  List<String> locales}): _locales = locales;
   
 
 @override final  String? localeOverride;
@@ -223,16 +229,18 @@ $LanguageContentCopyWith<LanguageContent> get copyWith => _$LanguageContentCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguageContent&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&const DeepCollectionEquality().equals(other._locales, _locales));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LanguageContent&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&const DeepCollectionEquality().equals(other.locales, _locales));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,localeOverride,const DeepCollectionEquality().hash(_locales));
+int get hashCode {
+    return Object.hash(runtimeType,localeOverride,const DeepCollectionEquality().hash(_locales));
+}
 
 @override
 String toString() {
-  return 'LanguageState.content(localeOverride: $localeOverride, locales: $locales)';
+    return 'LanguageState.content(localeOverride: $localeOverride, locales: $locales)';
 }
 
 

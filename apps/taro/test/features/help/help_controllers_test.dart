@@ -71,11 +71,9 @@ void main() {
       () async {
         final container = open(null, CrisisResourcesOrigin.help);
         await pumpEventQueue();
-        final content =
-            container.read(
-                  crisisResourcesControllerProvider(CrisisResourcesOrigin.help),
-                )
-                as CrisisResourcesContent;
+        final content = container.read(
+          crisisResourcesControllerProvider(CrisisResourcesOrigin.help),
+        ) as CrisisResourcesContent;
         expect(content.country, isNull);
         expect(content.resources, isNotEmpty);
       },
@@ -113,11 +111,9 @@ void main() {
         aCrisisResource(name: 'Samaritans', phone: '116 123'),
       ]);
       await pumpEventQueue();
-      final content =
-          container.read(
-                crisisResourcesControllerProvider(CrisisResourcesOrigin.help),
-              )
-              as CrisisResourcesContent;
+      final content = container.read(
+        crisisResourcesControllerProvider(CrisisResourcesOrigin.help),
+      ) as CrisisResourcesContent;
       expect(content.country, 'DE');
       expect(
         content.resources.map((r) => r.name),

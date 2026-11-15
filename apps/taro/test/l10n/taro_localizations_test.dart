@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 
 void main() {
   test('supports the 12 v1 locales', () {
@@ -33,7 +34,7 @@ void main() {
     await tester.pumpWidget(
       Localizations(
         locale: const Locale('en'),
-        delegates: TaroLocalizations.localizationsDelegates,
+        delegates: kTaroLocalizationsDelegates,
         child: Builder(
           builder: (context) {
             title = TaroLocalizations.of(context).appTitle;

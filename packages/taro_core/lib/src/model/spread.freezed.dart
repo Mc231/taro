@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'spread.dart';
@@ -9,6 +9,7 @@ part of 'spread.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -30,16 +31,21 @@ $SpreadPositionCopyWith<SpreadPosition> get copyWith => _$SpreadPositionCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadPosition&&(identical(other.id, id) || other.id == id)&&(identical(other.order, order) || other.order == order)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.rotationDeg, rotationDeg) || other.rotationDeg == rotationDeg));
+  final _this = this as SpreadPosition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadPosition&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.order, _this.order) || other.order == _this.order)&&(identical(other.x, _this.x) || other.x == _this.x)&&(identical(other.y, _this.y) || other.y == _this.y)&&(identical(other.rotationDeg, _this.rotationDeg) || other.rotationDeg == _this.rotationDeg));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,order,x,y,rotationDeg);
+int get hashCode {
+  final _this = this as SpreadPosition;
+  return Object.hash(runtimeType,_this.id,_this.order,_this.x,_this.y,_this.rotationDeg);
+}
 
 @override
 String toString() {
-  return 'SpreadPosition(id: $id, order: $order, x: $x, y: $y, rotationDeg: $rotationDeg)';
+  final _this = this as SpreadPosition;
+  return 'SpreadPosition(id: ${_this.id}, order: ${_this.order}, x: ${_this.x}, y: ${_this.y}, rotationDeg: ${_this.rotationDeg})';
 }
 
 
@@ -68,7 +74,7 @@ class _$SpreadPositionCopyWithImpl<$Res>
 /// Create a copy of SpreadPosition
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? order = null,Object? x = null,Object? y = null,Object? rotationDeg = null,}) {
-  return _then(_self.copyWith(
+  return _then(SpreadPosition(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as PositionId,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,x: null == x ? _self.x : x // ignore: cast_nullable_to_non_nullable
@@ -239,16 +245,18 @@ _$SpreadPositionCopyWith<_SpreadPosition> get copyWith => __$SpreadPositionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadPosition&&(identical(other.id, id) || other.id == id)&&(identical(other.order, order) || other.order == order)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.rotationDeg, rotationDeg) || other.rotationDeg == rotationDeg));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadPosition&&(identical(other.id, id) || other.id == id)&&(identical(other.order, order) || other.order == order)&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y)&&(identical(other.rotationDeg, rotationDeg) || other.rotationDeg == rotationDeg));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,order,x,y,rotationDeg);
+int get hashCode {
+    return Object.hash(runtimeType,id,order,x,y,rotationDeg);
+}
 
 @override
 String toString() {
-  return 'SpreadPosition(id: $id, order: $order, x: $x, y: $y, rotationDeg: $rotationDeg)';
+    return 'SpreadPosition(id: $id, order: $order, x: $x, y: $y, rotationDeg: $rotationDeg)';
 }
 
 
@@ -310,16 +318,21 @@ $SpreadDefinitionCopyWith<SpreadDefinition> get copyWith => _$SpreadDefinitionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadDefinition&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.positions, positions)&&const DeepCollectionEquality().equals(other.questionSuggestionKeys, questionSuggestionKeys)&&(identical(other.allowsReversals, allowsReversals) || other.allowsReversals == allowsReversals)&&(identical(other.enabled, enabled) || other.enabled == enabled));
+  final _this = this as SpreadDefinition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadDefinition&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.version, _this.version) || other.version == _this.version)&&const DeepCollectionEquality().equals(other.positions, _this.positions)&&const DeepCollectionEquality().equals(other.questionSuggestionKeys, _this.questionSuggestionKeys)&&(identical(other.allowsReversals, _this.allowsReversals) || other.allowsReversals == _this.allowsReversals)&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(positions),const DeepCollectionEquality().hash(questionSuggestionKeys),allowsReversals,enabled);
+int get hashCode {
+  final _this = this as SpreadDefinition;
+  return Object.hash(runtimeType,_this.id,_this.version,const DeepCollectionEquality().hash(_this.positions),const DeepCollectionEquality().hash(_this.questionSuggestionKeys),_this.allowsReversals,_this.enabled);
+}
 
 @override
 String toString() {
-  return 'SpreadDefinition(id: $id, version: $version, positions: $positions, questionSuggestionKeys: $questionSuggestionKeys, allowsReversals: $allowsReversals, enabled: $enabled)';
+  final _this = this as SpreadDefinition;
+  return 'SpreadDefinition(id: ${_this.id}, version: ${_this.version}, positions: ${_this.positions}, questionSuggestionKeys: ${_this.questionSuggestionKeys}, allowsReversals: ${_this.allowsReversals}, enabled: ${_this.enabled})';
 }
 
 
@@ -348,7 +361,7 @@ class _$SpreadDefinitionCopyWithImpl<$Res>
 /// Create a copy of SpreadDefinition
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? version = null,Object? positions = null,Object? questionSuggestionKeys = null,Object? allowsReversals = null,Object? enabled = null,}) {
-  return _then(_self.copyWith(
+  return _then(SpreadDefinition(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as SpreadId,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int,positions: null == positions ? _self.positions : positions // ignore: cast_nullable_to_non_nullable
@@ -496,7 +509,7 @@ return $default(_that.id,_that.version,_that.positions,_that.questionSuggestionK
 
 
 class _SpreadDefinition extends SpreadDefinition {
-  const _SpreadDefinition({required this.id, required this.version, required final  List<SpreadPosition> positions, final  List<String> questionSuggestionKeys = const <String>[], this.allowsReversals = true, this.enabled = true}): _positions = positions,_questionSuggestionKeys = questionSuggestionKeys,super._();
+  const _SpreadDefinition({required this.id, required this.version, required  List<SpreadPosition> positions,  List<String> questionSuggestionKeys = const <String>[], this.allowsReversals = true, this.enabled = true}): _positions = positions,_questionSuggestionKeys = questionSuggestionKeys,super._();
   
 
 /// One of [kSpreadIds].
@@ -536,16 +549,18 @@ _$SpreadDefinitionCopyWith<_SpreadDefinition> get copyWith => __$SpreadDefinitio
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadDefinition&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._positions, _positions)&&const DeepCollectionEquality().equals(other._questionSuggestionKeys, _questionSuggestionKeys)&&(identical(other.allowsReversals, allowsReversals) || other.allowsReversals == allowsReversals)&&(identical(other.enabled, enabled) || other.enabled == enabled));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadDefinition&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.positions, _positions)&&const DeepCollectionEquality().equals(other.questionSuggestionKeys, _questionSuggestionKeys)&&(identical(other.allowsReversals, allowsReversals) || other.allowsReversals == allowsReversals)&&(identical(other.enabled, enabled) || other.enabled == enabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(_positions),const DeepCollectionEquality().hash(_questionSuggestionKeys),allowsReversals,enabled);
+int get hashCode {
+    return Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(_positions),const DeepCollectionEquality().hash(_questionSuggestionKeys),allowsReversals,enabled);
+}
 
 @override
 String toString() {
-  return 'SpreadDefinition(id: $id, version: $version, positions: $positions, questionSuggestionKeys: $questionSuggestionKeys, allowsReversals: $allowsReversals, enabled: $enabled)';
+    return 'SpreadDefinition(id: $id, version: $version, positions: $positions, questionSuggestionKeys: $questionSuggestionKeys, allowsReversals: $allowsReversals, enabled: $enabled)';
 }
 
 

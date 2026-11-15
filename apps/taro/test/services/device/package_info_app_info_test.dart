@@ -33,9 +33,7 @@ final class _Android extends Fake implements AndroidDeviceInfo {
 }
 
 final class _Devices extends Fake implements DeviceInfoPlugin {
-  _Devices({IosDeviceInfo? ios, AndroidDeviceInfo? android})
-    : _ios = ios,
-      _android = android;
+  _Devices({this._ios, this._android});
 
   final IosDeviceInfo? _ios;
   final AndroidDeviceInfo? _android;

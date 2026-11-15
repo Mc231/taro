@@ -62,25 +62,22 @@ PurchasesBlockedReason? _neverBlocked() => null;
 ///
 /// Tokens, JWS and install bindings are never logged.
 final class StoreIapService implements IapService, StoreOwnership {
-  /// An adapter over the plugin [platform] of [store].
+  /// An adapter over the plugin [platform] of [_store].
   ///
   /// [androidAddition] carries Play `consumePurchase` and
   /// `queryPastPurchases` (required on Android). [purchasesBlockedReason]
   /// reads `balance.purchasesBlockedReason` when `purchasesAllowed` is
-  /// false, `null` otherwise. [delay] is the restore settle timer.
+  /// false, `null` otherwise. [_delay] is the restore settle timer.
   StoreIapService({
     required InAppPurchasePlatform platform,
-    required StorePlatform store,
-    required Logger logger,
+    required this._store,
+    required this._logger,
     InAppPurchaseAndroidPlatformAddition? androidAddition,
     PurchasesBlockedReason? Function() purchasesBlockedReason = _neverBlocked,
-    Delay delay = _wait,
+    this._delay = _wait,
   }) : _platform = platform,
-       _store = store,
-       _logger = logger,
        _android = androidAddition,
-       _blockedReason = purchasesBlockedReason,
-       _delay = delay {
+       _blockedReason = purchasesBlockedReason {
     _deliveries = StreamController<StorePurchase>.broadcast(
       onListen: _flushDeliveries,
     );

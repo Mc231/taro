@@ -12,13 +12,11 @@ import 'logic_support.dart';
 const _goldenChecksum =
     'a83d19893d77cfdfb279fd3d3999a52b03b1115d50dcd35e400ee96d91752389';
 
-Map<String, Object?> _fixture() =>
-    jsonDecode(
-          File(
-            'test/src/logic/fixtures/backup_v1_sample.json',
-          ).readAsStringSync(),
-        )
-        as Map<String, Object?>;
+Map<String, Object?> _fixture() => jsonDecode(
+  File(
+    'test/src/logic/fixtures/backup_v1_sample.json',
+  ).readAsStringSync(),
+) as Map<String, Object?>;
 
 void main() {
   group('BackupChecksum golden fixture', () {

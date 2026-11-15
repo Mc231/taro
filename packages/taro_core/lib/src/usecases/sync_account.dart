@@ -28,32 +28,20 @@ import 'package:taro_core/src/usecases/resume_reading.dart';
 final class SyncAccount {
   /// Creates the use case.
   SyncAccount({
-    required InstallRepository install,
-    required SessionTokenStore tokens,
-    required RemoteConfigRepository config,
-    required TimezoneProvider timezone,
-    required BalanceRepository balance,
-    required PurchaseOutboxDrainer purchases,
-    required ResumeReading resume,
-    required ReadingRepository readings,
-    required DeleteAllData deletion,
-    required ReminderScheduler reminders,
-    required SettingsRepository settings,
-    required Clock clock,
-    required Logger logger,
-  }) : _install = install,
-       _tokens = tokens,
-       _config = config,
-       _timezone = timezone,
-       _balance = balance,
-       _purchases = purchases,
-       _resume = resume,
-       _readings = readings,
-       _deletion = deletion,
-       _reminders = reminders,
-       _settings = settings,
-       _clock = clock,
-       _logger = logger;
+    required this._install,
+    required this._tokens,
+    required this._config,
+    required this._timezone,
+    required this._balance,
+    required this._purchases,
+    required this._resume,
+    required this._readings,
+    required this._deletion,
+    required this._reminders,
+    required this._settings,
+    required this._clock,
+    required this._logger,
+  });
 
   final InstallRepository _install;
   final SessionTokenStore _tokens;

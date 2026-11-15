@@ -10,14 +10,13 @@ import 'package:taro_core/taro_core.dart';
 /// pending its button shows "Waiting for approval"; other packs stay
 /// purchasable.
 final class PendingPurchaseTracker {
-  /// A tracker reading the time from [clock] and the hold from
-  /// [holdMinutes] (`store.pendingHoldMinutes`, read on every check so a
+  /// A tracker reading the time from [_clock] and the hold from
+  /// [_holdMinutes] (`store.pendingHoldMinutes`, read on every check so a
   /// config refresh applies at once).
   PendingPurchaseTracker({
-    required Clock clock,
-    required int Function() holdMinutes,
-  }) : _clock = clock,
-       _holdMinutes = holdMinutes;
+    required this._clock,
+    required this._holdMinutes,
+  });
 
   final Clock _clock;
   final int Function() _holdMinutes;

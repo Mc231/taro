@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'import_controller.dart';
@@ -9,6 +9,7 @@ part of 'import_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$ImportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ImportState()';
+    return 'ImportState()';
 }
 
 
@@ -221,7 +222,7 @@ class ImportPicking implements ImportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportPicking);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportPicking);
 }
 
 
@@ -230,7 +231,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ImportState.picking()';
+    return 'ImportState.picking()';
 }
 
 
@@ -253,7 +254,7 @@ class ImportValidating implements ImportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportValidating);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportValidating);
 }
 
 
@@ -262,7 +263,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ImportState.validating()';
+    return 'ImportState.validating()';
 }
 
 
@@ -290,16 +291,18 @@ $ImportInvalidCopyWith<ImportInvalid> get copyWith => _$ImportInvalidCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportInvalid&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportInvalid&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason);
+int get hashCode {
+    return Object.hash(runtimeType,reason);
+}
 
 @override
 String toString() {
-  return 'ImportState.invalid(reason: $reason)';
+    return 'ImportState.invalid(reason: $reason)';
 }
 
 
@@ -357,16 +360,18 @@ $ImportPreviewingCopyWith<ImportPreviewing> get copyWith => _$ImportPreviewingCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportPreviewing&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.mode, mode) || other.mode == mode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportPreviewing&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.mode, mode) || other.mode == mode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,preview,mode);
+int get hashCode {
+    return Object.hash(runtimeType,preview,mode);
+}
 
 @override
 String toString() {
-  return 'ImportState.preview(preview: $preview, mode: $mode)';
+    return 'ImportState.preview(preview: $preview, mode: $mode)';
 }
 
 
@@ -434,16 +439,18 @@ $ImportConfirmReplaceCopyWith<ImportConfirmReplace> get copyWith => _$ImportConf
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportConfirmReplace&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.localEntries, localEntries) || other.localEntries == localEntries));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportConfirmReplace&&(identical(other.preview, preview) || other.preview == preview)&&(identical(other.localEntries, localEntries) || other.localEntries == localEntries));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,preview,localEntries);
+int get hashCode {
+    return Object.hash(runtimeType,preview,localEntries);
+}
 
 @override
 String toString() {
-  return 'ImportState.confirmReplace(preview: $preview, localEntries: $localEntries)';
+    return 'ImportState.confirmReplace(preview: $preview, localEntries: $localEntries)';
 }
 
 
@@ -510,16 +517,18 @@ $ImportImportingCopyWith<ImportImporting> get copyWith => _$ImportImportingCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportImporting&&(identical(other.progress, progress) || other.progress == progress));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportImporting&&(identical(other.progress, progress) || other.progress == progress));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,progress);
+int get hashCode {
+    return Object.hash(runtimeType,progress);
+}
 
 @override
 String toString() {
-  return 'ImportState.importing(progress: $progress)';
+    return 'ImportState.importing(progress: $progress)';
 }
 
 
@@ -578,16 +587,18 @@ $ImportDoneCopyWith<ImportDone> get copyWith => _$ImportDoneCopyWithImpl<ImportD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportDone&&(identical(other.summary, summary) || other.summary == summary)&&(identical(other.readings, readings) || other.readings == readings)&&(identical(other.dailyCards, dailyCards) || other.dailyCards == dailyCards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportDone&&(identical(other.summary, summary) || other.summary == summary)&&(identical(other.readings, readings) || other.readings == readings)&&(identical(other.dailyCards, dailyCards) || other.dailyCards == dailyCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,summary,readings,dailyCards);
+int get hashCode {
+    return Object.hash(runtimeType,summary,readings,dailyCards);
+}
 
 @override
 String toString() {
-  return 'ImportState.done(summary: $summary, readings: $readings, dailyCards: $dailyCards)';
+    return 'ImportState.done(summary: $summary, readings: $readings, dailyCards: $dailyCards)';
 }
 
 
@@ -655,16 +666,18 @@ $ImportFailedCopyWith<ImportFailed> get copyWith => _$ImportFailedCopyWithImpl<I
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ImportFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'ImportState.failed(kind: $kind)';
+    return 'ImportState.failed(kind: $kind)';
 }
 
 

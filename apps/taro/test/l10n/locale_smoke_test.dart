@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/data/content/asset_content_repository.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/screen_builders.dart';
@@ -41,12 +41,9 @@ Iterable<ScreenId> get _screens => screenBuilders.keys;
 
 void main() {
   final keys = {
-    for (final key
-        in (jsonDecode(
-                  File('lib/l10n/arb/app_en.arb').readAsStringSync(),
-                )
-                as Map<String, Object?>)
-            .keys)
+    for (final key in (jsonDecode(
+      File('lib/l10n/arb/app_en.arb').readAsStringSync(),
+    ) as Map<String, Object?>).keys)
       if (!key.startsWith('@')) key,
   };
   final keyLike = RegExp(r'^[a-z][A-Za-z0-9_]+$');

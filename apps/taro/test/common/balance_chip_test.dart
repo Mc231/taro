@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro_core/taro_core.dart';

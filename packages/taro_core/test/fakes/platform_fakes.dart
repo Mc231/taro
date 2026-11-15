@@ -476,8 +476,8 @@ final class FakeFileTransfer with FakeBehaviour implements FileTransfer {
 final class FakeConnectivityMonitor
     with FakeBehaviour
     implements ConnectivityMonitor {
-  /// A monitor starting [online].
-  FakeConnectivityMonitor({bool online = true}) : _online = online;
+  /// A monitor starting [_online].
+  FakeConnectivityMonitor({this._online = true});
 
   @override
   String get fakeName => 'ConnectivityMonitor';

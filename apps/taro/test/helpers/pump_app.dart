@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/bootstrap/bootstrap.dart' show noProviderRetry;
 import 'package:taro/bootstrap/flavor_config.dart';
 import 'package:taro/common/card_art.dart';

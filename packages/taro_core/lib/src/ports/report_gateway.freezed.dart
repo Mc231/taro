@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'report_gateway.dart';
@@ -9,6 +9,7 @@ part of 'report_gateway.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -33,16 +34,21 @@ $ReadingReportCopyWith<ReadingReport> get copyWith => _$ReadingReportCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingReport&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.note, note) || other.note == note)&&(identical(other.question, question) || other.question == question)&&(identical(other.reading, reading) || other.reading == reading));
+  final _this = this as ReadingReport;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingReport&&(identical(other.readingId, _this.readingId) || other.readingId == _this.readingId)&&(identical(other.reason, _this.reason) || other.reason == _this.reason)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.idempotencyKey, _this.idempotencyKey) || other.idempotencyKey == _this.idempotencyKey)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.question, _this.question) || other.question == _this.question)&&(identical(other.reading, _this.reading) || other.reading == _this.reading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,readingId,reason,locale,idempotencyKey,note,question,reading);
+int get hashCode {
+  final _this = this as ReadingReport;
+  return Object.hash(runtimeType,_this.readingId,_this.reason,_this.locale,_this.idempotencyKey,_this.note,_this.question,_this.reading);
+}
 
 @override
 String toString() {
-  return 'ReadingReport(readingId: $readingId, reason: $reason, locale: $locale, idempotencyKey: $idempotencyKey, note: $note, question: $question, reading: $reading)';
+  final _this = this as ReadingReport;
+  return 'ReadingReport(readingId: ${_this.readingId}, reason: ${_this.reason}, locale: ${_this.locale}, idempotencyKey: ${_this.idempotencyKey}, note: ${_this.note}, question: ${_this.question}, reading: ${_this.reading})';
 }
 
 
@@ -71,7 +77,7 @@ class _$ReadingReportCopyWithImpl<$Res>
 /// Create a copy of ReadingReport
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? readingId = null,Object? reason = null,Object? locale = null,Object? idempotencyKey = null,Object? note = freezed,Object? question = freezed,Object? reading = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingReport(
 readingId: null == readingId ? _self.readingId : readingId // ignore: cast_nullable_to_non_nullable
 as ReadingId,reason: null == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
 as ReportReason,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
@@ -261,16 +267,18 @@ _$ReadingReportCopyWith<_ReadingReport> get copyWith => __$ReadingReportCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingReport&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.note, note) || other.note == note)&&(identical(other.question, question) || other.question == question)&&(identical(other.reading, reading) || other.reading == reading));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingReport&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.note, note) || other.note == note)&&(identical(other.question, question) || other.question == question)&&(identical(other.reading, reading) || other.reading == reading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,readingId,reason,locale,idempotencyKey,note,question,reading);
+int get hashCode {
+    return Object.hash(runtimeType,readingId,reason,locale,idempotencyKey,note,question,reading);
+}
 
 @override
 String toString() {
-  return 'ReadingReport(readingId: $readingId, reason: $reason, locale: $locale, idempotencyKey: $idempotencyKey, note: $note, question: $question, reading: $reading)';
+    return 'ReadingReport(readingId: $readingId, reason: $reason, locale: $locale, idempotencyKey: $idempotencyKey, note: $note, question: $question, reading: $reading)';
 }
 
 

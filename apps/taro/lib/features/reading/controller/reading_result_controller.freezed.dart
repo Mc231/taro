@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading_result_controller.dart';
@@ -9,6 +9,7 @@ part of 'reading_result_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $ReadingResultArgsCopyWith<ReadingResultArgs> get copyWith => _$ReadingResultArg
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultArgs&&(identical(other.id, id) || other.id == id)&&(identical(other.origin, origin) || other.origin == origin));
+  final _this = this as ReadingResultArgs;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultArgs&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.origin, _this.origin) || other.origin == _this.origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,origin);
+int get hashCode {
+  final _this = this as ReadingResultArgs;
+  return Object.hash(runtimeType,_this.id,_this.origin);
+}
 
 @override
 String toString() {
-  return 'ReadingResultArgs(id: $id, origin: $origin)';
+  final _this = this as ReadingResultArgs;
+  return 'ReadingResultArgs(id: ${_this.id}, origin: ${_this.origin})';
 }
 
 
@@ -63,7 +69,7 @@ class _$ReadingResultArgsCopyWithImpl<$Res>
 /// Create a copy of ReadingResultArgs
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? origin = null,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingResultArgs(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as ReadingId,origin: null == origin ? _self.origin : origin // ignore: cast_nullable_to_non_nullable
 as ReadingViewOrigin,
@@ -223,16 +229,18 @@ _$ReadingResultArgsCopyWith<_ReadingResultArgs> get copyWith => __$ReadingResult
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultArgs&&(identical(other.id, id) || other.id == id)&&(identical(other.origin, origin) || other.origin == origin));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultArgs&&(identical(other.id, id) || other.id == id)&&(identical(other.origin, origin) || other.origin == origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,origin);
+int get hashCode {
+    return Object.hash(runtimeType,id,origin);
+}
 
 @override
 String toString() {
-  return 'ReadingResultArgs(id: $id, origin: $origin)';
+    return 'ReadingResultArgs(id: $id, origin: $origin)';
 }
 
 
@@ -286,16 +294,21 @@ $ReadingResultViewCopyWith<ReadingResultView> get copyWith => _$ReadingResultVie
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.cardTexts, cardTexts)&&(identical(other.spread, spread) || other.spread == spread));
+  final _this = this as ReadingResultView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultView&&(identical(other.reading, _this.reading) || other.reading == _this.reading)&&const DeepCollectionEquality().equals(other.cardTexts, _this.cardTexts)&&(identical(other.spread, _this.spread) || other.spread == _this.spread));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(cardTexts),spread);
+int get hashCode {
+  final _this = this as ReadingResultView;
+  return Object.hash(runtimeType,_this.reading,const DeepCollectionEquality().hash(_this.cardTexts),_this.spread);
+}
 
 @override
 String toString() {
-  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts, spread: $spread)';
+  final _this = this as ReadingResultView;
+  return 'ReadingResultView(reading: ${_this.reading}, cardTexts: ${_this.cardTexts}, spread: ${_this.spread})';
 }
 
 
@@ -324,7 +337,7 @@ class _$ReadingResultViewCopyWithImpl<$Res>
 /// Create a copy of ReadingResultView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reading = null,Object? cardTexts = null,Object? spread = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingResultView(
 reading: null == reading ? _self.reading : reading // ignore: cast_nullable_to_non_nullable
 as Reading,cardTexts: null == cardTexts ? _self.cardTexts : cardTexts // ignore: cast_nullable_to_non_nullable
 as Map<CardId, CardText>,spread: freezed == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
@@ -490,7 +503,7 @@ return $default(_that.reading,_that.cardTexts,_that.spread);case _:
 
 
 class _ReadingResultView extends ReadingResultView {
-  const _ReadingResultView({required this.reading, required final  Map<CardId, CardText> cardTexts, this.spread}): _cardTexts = cardTexts,super._();
+  const _ReadingResultView({required this.reading, required  Map<CardId, CardText> cardTexts, this.spread}): _cardTexts = cardTexts,super._();
   
 
 @override final  Reading reading;
@@ -514,16 +527,18 @@ _$ReadingResultViewCopyWith<_ReadingResultView> get copyWith => __$ReadingResult
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other._cardTexts, _cardTexts)&&(identical(other.spread, spread) || other.spread == spread));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingResultView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.cardTexts, _cardTexts)&&(identical(other.spread, spread) || other.spread == spread));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_cardTexts),spread);
+int get hashCode {
+    return Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_cardTexts),spread);
+}
 
 @override
 String toString() {
-  return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts, spread: $spread)';
+    return 'ReadingResultView(reading: $reading, cardTexts: $cardTexts, spread: $spread)';
 }
 
 
@@ -593,7 +608,7 @@ mixin _$ReadingResultState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultState);
 }
 
 
@@ -602,7 +617,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingResultState()';
+    return 'ReadingResultState()';
 }
 
 
@@ -782,7 +797,7 @@ class ReadingResultLoadingFromStorage implements ReadingResultState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultLoadingFromStorage);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultLoadingFromStorage);
 }
 
 
@@ -791,7 +806,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingResultState.loadingFromStorage()';
+    return 'ReadingResultState.loadingFromStorage()';
 }
 
 
@@ -819,16 +834,18 @@ $ReadingResultContentCopyWith<ReadingResultContent> get copyWith => _$ReadingRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultContent&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultContent&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'ReadingResultState.content(view: $view)';
+    return 'ReadingResultState.content(view: $view)';
 }
 
 
@@ -894,16 +911,18 @@ $ReadingResultRatingGivenCopyWith<ReadingResultRatingGiven> get copyWith => _$Re
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultRatingGiven&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultRatingGiven&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'ReadingResultState.ratingGiven(view: $view)';
+    return 'ReadingResultState.ratingGiven(view: $view)';
 }
 
 
@@ -969,16 +988,18 @@ $ReadingResultSharingCopyWith<ReadingResultSharing> get copyWith => _$ReadingRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultSharing&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultSharing&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'ReadingResultState.sharing(view: $view)';
+    return 'ReadingResultState.sharing(view: $view)';
 }
 
 
@@ -1039,7 +1060,7 @@ class ReadingResultNotFound implements ReadingResultState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultNotFound);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultNotFound);
 }
 
 
@@ -1048,7 +1069,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingResultState.notFound()';
+    return 'ReadingResultState.notFound()';
 }
 
 
@@ -1076,16 +1097,18 @@ $ReadingResultFailedCopyWith<ReadingResultFailed> get copyWith => _$ReadingResul
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultFailed&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingResultFailed&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode {
+    return Object.hash(runtimeType,failure);
+}
 
 @override
 String toString() {
-  return 'ReadingResultState.failed(failure: $failure)';
+    return 'ReadingResultState.failed(failure: $failure)';
 }
 
 

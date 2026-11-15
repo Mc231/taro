@@ -23,9 +23,8 @@ part 'device_database.g.dart';
 )
 class DeviceDatabase extends _$DeviceDatabase {
   /// A database over the executor [e] (`NativeDatabase.memory()` in tests).
-  /// [afterOpen] runs once the connection is configured.
-  DeviceDatabase(super.e, {Future<void> Function()? afterOpen})
-    : _afterOpen = afterOpen;
+  /// [_afterOpen] runs once the connection is configured.
+  DeviceDatabase(super.e, {this._afterOpen});
 
   /// Opens `taro_device.db` at [location] and excludes its files from OS
   /// backup through [backupExclusion]. A failed exclusion is logged and

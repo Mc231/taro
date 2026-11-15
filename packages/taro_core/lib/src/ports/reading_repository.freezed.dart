@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading_repository.dart';
@@ -9,6 +9,7 @@ part of 'reading_repository.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $ReadingHoldCopyWith<ReadingHold> get copyWith => _$ReadingHoldCopyWithImpl<Read
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHold&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.balance, balance) || other.balance == balance));
+  final _this = this as ReadingHold;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHold&&(identical(other.readingId, _this.readingId) || other.readingId == _this.readingId)&&(identical(other.chargeSource, _this.chargeSource) || other.chargeSource == _this.chargeSource)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,readingId,chargeSource,expiresAt,balance);
+int get hashCode {
+  final _this = this as ReadingHold;
+  return Object.hash(runtimeType,_this.readingId,_this.chargeSource,_this.expiresAt,_this.balance);
+}
 
 @override
 String toString() {
-  return 'ReadingHold(readingId: $readingId, chargeSource: $chargeSource, expiresAt: $expiresAt, balance: $balance)';
+  final _this = this as ReadingHold;
+  return 'ReadingHold(readingId: ${_this.readingId}, chargeSource: ${_this.chargeSource}, expiresAt: ${_this.expiresAt}, balance: ${_this.balance})';
 }
 
 
@@ -67,7 +73,7 @@ class _$ReadingHoldCopyWithImpl<$Res>
 /// Create a copy of ReadingHold
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? readingId = null,Object? chargeSource = null,Object? expiresAt = null,Object? balance = null,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingHold(
 readingId: null == readingId ? _self.readingId : readingId // ignore: cast_nullable_to_non_nullable
 as ReadingId,chargeSource: null == chargeSource ? _self.chargeSource : chargeSource // ignore: cast_nullable_to_non_nullable
 as ChargeSource,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
@@ -244,16 +250,18 @@ _$ReadingHoldCopyWith<_ReadingHold> get copyWith => __$ReadingHoldCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingHold&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingHold&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,readingId,chargeSource,expiresAt,balance);
+int get hashCode {
+    return Object.hash(runtimeType,readingId,chargeSource,expiresAt,balance);
+}
 
 @override
 String toString() {
-  return 'ReadingHold(readingId: $readingId, chargeSource: $chargeSource, expiresAt: $expiresAt, balance: $balance)';
+    return 'ReadingHold(readingId: $readingId, chargeSource: $chargeSource, expiresAt: $expiresAt, balance: $balance)';
 }
 
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/common/taro_pressable.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 import 'package:taro_ui/src/tokens/taro_strokes.dart';
@@ -21,12 +21,11 @@ class TaroChip extends StatelessWidget {
   /// A suggestion chip.
   const TaroChip.suggestion({
     required this.label,
-    required VoidCallback? onPressed,
+    required this._onPressed,
     this.leading,
     super.key,
   }) : variant = TaroChipVariant.suggestion,
        selected = false,
-       _onPressed = onPressed,
        onSelected = null;
 
   /// A filter chip.

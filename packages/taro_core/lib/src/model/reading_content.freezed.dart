@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading_content.dart';
@@ -9,6 +9,7 @@ part of 'reading_content.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $PositionTextCopyWith<PositionText> get copyWith => _$PositionTextCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PositionText&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.text, text) || other.text == text));
+  final _this = this as PositionText;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PositionText&&(identical(other.positionId, _this.positionId) || other.positionId == _this.positionId)&&(identical(other.text, _this.text) || other.text == _this.text));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionId,text);
+int get hashCode {
+  final _this = this as PositionText;
+  return Object.hash(runtimeType,_this.positionId,_this.text);
+}
 
 @override
 String toString() {
-  return 'PositionText(positionId: $positionId, text: $text)';
+  final _this = this as PositionText;
+  return 'PositionText(positionId: ${_this.positionId}, text: ${_this.text})';
 }
 
 
@@ -65,7 +71,7 @@ class _$PositionTextCopyWithImpl<$Res>
 /// Create a copy of PositionText
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? positionId = null,Object? text = null,}) {
-  return _then(_self.copyWith(
+  return _then(PositionText(
 positionId: null == positionId ? _self.positionId : positionId // ignore: cast_nullable_to_non_nullable
 as PositionId,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as String,
@@ -227,16 +233,18 @@ _$PositionTextCopyWith<_PositionText> get copyWith => __$PositionTextCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PositionText&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.text, text) || other.text == text));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PositionText&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.text, text) || other.text == text));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionId,text);
+int get hashCode {
+    return Object.hash(runtimeType,positionId,text);
+}
 
 @override
 String toString() {
-  return 'PositionText(positionId: $positionId, text: $text)';
+    return 'PositionText(positionId: $positionId, text: $text)';
 }
 
 
@@ -294,16 +302,21 @@ $ReadingContentCopyWith<ReadingContent> get copyWith => _$ReadingContentCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingContent&&(identical(other.title, title) || other.title == title)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.positions, positions)&&(identical(other.synthesis, synthesis) || other.synthesis == synthesis)&&const DeepCollectionEquality().equals(other.reflectionPrompts, reflectionPrompts));
+  final _this = this as ReadingContent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingContent&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.summary, _this.summary) || other.summary == _this.summary)&&const DeepCollectionEquality().equals(other.positions, _this.positions)&&(identical(other.synthesis, _this.synthesis) || other.synthesis == _this.synthesis)&&const DeepCollectionEquality().equals(other.reflectionPrompts, _this.reflectionPrompts));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,summary,const DeepCollectionEquality().hash(positions),synthesis,const DeepCollectionEquality().hash(reflectionPrompts));
+int get hashCode {
+  final _this = this as ReadingContent;
+  return Object.hash(runtimeType,_this.title,_this.summary,const DeepCollectionEquality().hash(_this.positions),_this.synthesis,const DeepCollectionEquality().hash(_this.reflectionPrompts));
+}
 
 @override
 String toString() {
-  return 'ReadingContent(title: $title, summary: $summary, positions: $positions, synthesis: $synthesis, reflectionPrompts: $reflectionPrompts)';
+  final _this = this as ReadingContent;
+  return 'ReadingContent(title: ${_this.title}, summary: ${_this.summary}, positions: ${_this.positions}, synthesis: ${_this.synthesis}, reflectionPrompts: ${_this.reflectionPrompts})';
 }
 
 
@@ -332,7 +345,7 @@ class _$ReadingContentCopyWithImpl<$Res>
 /// Create a copy of ReadingContent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? summary = null,Object? positions = null,Object? synthesis = null,Object? reflectionPrompts = null,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingContent(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,summary: null == summary ? _self.summary : summary // ignore: cast_nullable_to_non_nullable
 as String,positions: null == positions ? _self.positions : positions // ignore: cast_nullable_to_non_nullable
@@ -479,7 +492,7 @@ return $default(_that.title,_that.summary,_that.positions,_that.synthesis,_that.
 
 
 class _ReadingContent extends ReadingContent {
-  const _ReadingContent({required this.title, required this.summary, required final  List<PositionText> positions, required this.synthesis, required final  List<String> reflectionPrompts}): _positions = positions,_reflectionPrompts = reflectionPrompts,super._();
+  const _ReadingContent({required this.title, required this.summary, required  List<PositionText> positions, required this.synthesis, required  List<String> reflectionPrompts}): _positions = positions,_reflectionPrompts = reflectionPrompts,super._();
   
 
 /// Title.
@@ -517,16 +530,18 @@ _$ReadingContentCopyWith<_ReadingContent> get copyWith => __$ReadingContentCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingContent&&(identical(other.title, title) || other.title == title)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other._positions, _positions)&&(identical(other.synthesis, synthesis) || other.synthesis == synthesis)&&const DeepCollectionEquality().equals(other._reflectionPrompts, _reflectionPrompts));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingContent&&(identical(other.title, title) || other.title == title)&&(identical(other.summary, summary) || other.summary == summary)&&const DeepCollectionEquality().equals(other.positions, _positions)&&(identical(other.synthesis, synthesis) || other.synthesis == synthesis)&&const DeepCollectionEquality().equals(other.reflectionPrompts, _reflectionPrompts));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,summary,const DeepCollectionEquality().hash(_positions),synthesis,const DeepCollectionEquality().hash(_reflectionPrompts));
+int get hashCode {
+    return Object.hash(runtimeType,title,summary,const DeepCollectionEquality().hash(_positions),synthesis,const DeepCollectionEquality().hash(_reflectionPrompts));
+}
 
 @override
 String toString() {
-  return 'ReadingContent(title: $title, summary: $summary, positions: $positions, synthesis: $synthesis, reflectionPrompts: $reflectionPrompts)';
+    return 'ReadingContent(title: $title, summary: $summary, positions: $positions, synthesis: $synthesis, reflectionPrompts: $reflectionPrompts)';
 }
 
 

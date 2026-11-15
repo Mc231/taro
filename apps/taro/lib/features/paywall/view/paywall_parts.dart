@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/duration_text.dart';
 import 'package:taro/features/paywall/controller/paywall_catalog.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';

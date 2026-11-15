@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store_product.dart';
@@ -9,6 +9,7 @@ part of 'store_product.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -30,16 +31,21 @@ $StoreProductCopyWith<StoreProduct> get copyWith => _$StoreProductCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode));
+  final _this = this as StoreProduct;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreProduct&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.title, _this.title) || other.title == _this.title)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.rawPrice, _this.rawPrice) || other.rawPrice == _this.rawPrice)&&(identical(other.currencyCode, _this.currencyCode) || other.currencyCode == _this.currencyCode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,price,rawPrice,currencyCode);
+int get hashCode {
+  final _this = this as StoreProduct;
+  return Object.hash(runtimeType,_this.id,_this.title,_this.price,_this.rawPrice,_this.currencyCode);
+}
 
 @override
 String toString() {
-  return 'StoreProduct(id: $id, title: $title, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode)';
+  final _this = this as StoreProduct;
+  return 'StoreProduct(id: ${_this.id}, title: ${_this.title}, price: ${_this.price}, rawPrice: ${_this.rawPrice}, currencyCode: ${_this.currencyCode})';
 }
 
 
@@ -68,7 +74,7 @@ class _$StoreProductCopyWithImpl<$Res>
 /// Create a copy of StoreProduct
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? price = null,Object? rawPrice = null,Object? currencyCode = null,}) {
-  return _then(_self.copyWith(
+  return _then(StoreProduct(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as ProductId,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
@@ -239,16 +245,18 @@ _$StoreProductCopyWith<_StoreProduct> get copyWith => __$StoreProductCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreProduct&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,title,price,rawPrice,currencyCode);
+int get hashCode {
+    return Object.hash(runtimeType,id,title,price,rawPrice,currencyCode);
+}
 
 @override
 String toString() {
-  return 'StoreProduct(id: $id, title: $title, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode)';
+    return 'StoreProduct(id: $id, title: $title, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode)';
 }
 
 

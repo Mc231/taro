@@ -281,9 +281,11 @@ final class StoreController extends Notifier<StoreState> {
 
   void _onDelivery(StorePurchase purchase) {
     if (purchase.isRestored) return;
-    if (_phase case StorePhasePending(
-      :final productId,
-    ) when productId == purchase.productId) {
+    if (_phase
+        case StorePhasePending(
+          :final productId,
+        )
+        when productId == purchase.productId) {
       _setPhase(StorePurchasePhase.verifying(productId));
     }
   }

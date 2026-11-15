@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/learn/controller/spread_guide_controller.dart';
 import 'package:taro/features/learn/view/learn_top_bar.dart';
@@ -29,12 +29,14 @@ class SpreadGuideScreen extends ConsumerWidget {
       state: state,
       onSelect: (id) => unawaited(controller.select(id)),
       onBack: () {
-        if (state case SpreadGuideContent(
-          :final selected?,
-        ) when selected != initial) {
+        if (state
+            case SpreadGuideContent(
+              :final selected?,
+            )
+            when selected != initial) {
           controller.closeDetail();
         } else {
-          unawaited(Navigator.of(context).maybePop());
+          Navigator.of(context).maybePop();
         }
       },
       onStart: (id) => context.go(RoutePaths.readingQuestion(id.value)),

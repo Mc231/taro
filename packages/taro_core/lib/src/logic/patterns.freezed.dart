@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'patterns.dart';
@@ -9,6 +9,7 @@ part of 'patterns.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $CardCountCopyWith<CardCount> get copyWith => _$CardCountCopyWithImpl<CardCount>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardCount&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.count, count) || other.count == count));
+  final _this = this as CardCount;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardCount&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.count, _this.count) || other.count == _this.count));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,count);
+int get hashCode {
+  final _this = this as CardCount;
+  return Object.hash(runtimeType,_this.cardId,_this.count);
+}
 
 @override
 String toString() {
-  return 'CardCount(cardId: $cardId, count: $count)';
+  final _this = this as CardCount;
+  return 'CardCount(cardId: ${_this.cardId}, count: ${_this.count})';
 }
 
 
@@ -65,7 +71,7 @@ class _$CardCountCopyWithImpl<$Res>
 /// Create a copy of CardCount
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cardId = null,Object? count = null,}) {
-  return _then(_self.copyWith(
+  return _then(CardCount(
 cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
 as int,
@@ -227,16 +233,18 @@ _$CardCountCopyWith<_CardCount> get copyWith => __$CardCountCopyWithImpl<_CardCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardCount&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.count, count) || other.count == count));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardCount&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.count, count) || other.count == count));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,count);
+int get hashCode {
+    return Object.hash(runtimeType,cardId,count);
+}
 
 @override
 String toString() {
-  return 'CardCount(cardId: $cardId, count: $count)';
+    return 'CardCount(cardId: $cardId, count: $count)';
 }
 
 
@@ -298,16 +306,21 @@ $PatternWindowCopyWith<PatternWindow> get copyWith => _$PatternWindowCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatternWindow&&(identical(other.days, days) || other.days == days)&&(identical(other.entries, entries) || other.entries == entries)&&(identical(other.cards, cards) || other.cards == cards)&&const DeepCollectionEquality().equals(other.mostDrawn, mostDrawn)&&const DeepCollectionEquality().equals(other.suits, suits)&&(identical(other.major, major) || other.major == major)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+  final _this = this as PatternWindow;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PatternWindow&&(identical(other.days, _this.days) || other.days == _this.days)&&(identical(other.entries, _this.entries) || other.entries == _this.entries)&&(identical(other.cards, _this.cards) || other.cards == _this.cards)&&const DeepCollectionEquality().equals(other.mostDrawn, _this.mostDrawn)&&const DeepCollectionEquality().equals(other.suits, _this.suits)&&(identical(other.major, _this.major) || other.major == _this.major)&&(identical(other.reversed, _this.reversed) || other.reversed == _this.reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,days,entries,cards,const DeepCollectionEquality().hash(mostDrawn),const DeepCollectionEquality().hash(suits),major,reversed);
+int get hashCode {
+  final _this = this as PatternWindow;
+  return Object.hash(runtimeType,_this.days,_this.entries,_this.cards,const DeepCollectionEquality().hash(_this.mostDrawn),const DeepCollectionEquality().hash(_this.suits),_this.major,_this.reversed);
+}
 
 @override
 String toString() {
-  return 'PatternWindow(days: $days, entries: $entries, cards: $cards, mostDrawn: $mostDrawn, suits: $suits, major: $major, reversed: $reversed)';
+  final _this = this as PatternWindow;
+  return 'PatternWindow(days: ${_this.days}, entries: ${_this.entries}, cards: ${_this.cards}, mostDrawn: ${_this.mostDrawn}, suits: ${_this.suits}, major: ${_this.major}, reversed: ${_this.reversed})';
 }
 
 
@@ -336,7 +349,7 @@ class _$PatternWindowCopyWithImpl<$Res>
 /// Create a copy of PatternWindow
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? days = null,Object? entries = null,Object? cards = null,Object? mostDrawn = null,Object? suits = null,Object? major = null,Object? reversed = null,}) {
-  return _then(_self.copyWith(
+  return _then(PatternWindow(
 days: null == days ? _self.days : days // ignore: cast_nullable_to_non_nullable
 as int,entries: null == entries ? _self.entries : entries // ignore: cast_nullable_to_non_nullable
 as int,cards: null == cards ? _self.cards : cards // ignore: cast_nullable_to_non_nullable
@@ -485,7 +498,7 @@ return $default(_that.days,_that.entries,_that.cards,_that.mostDrawn,_that.suits
 
 
 class _PatternWindow extends PatternWindow {
-  const _PatternWindow({required this.days, required this.entries, required this.cards, required final  List<CardCount> mostDrawn, required final  Map<Suit, int> suits, required this.major, required this.reversed}): _mostDrawn = mostDrawn,_suits = suits,super._();
+  const _PatternWindow({required this.days, required this.entries, required this.cards, required  List<CardCount> mostDrawn, required  Map<Suit, int> suits, required this.major, required this.reversed}): _mostDrawn = mostDrawn,_suits = suits,super._();
   
 
 /// Length of the window in local days, today included.
@@ -531,16 +544,18 @@ _$PatternWindowCopyWith<_PatternWindow> get copyWith => __$PatternWindowCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatternWindow&&(identical(other.days, days) || other.days == days)&&(identical(other.entries, entries) || other.entries == entries)&&(identical(other.cards, cards) || other.cards == cards)&&const DeepCollectionEquality().equals(other._mostDrawn, _mostDrawn)&&const DeepCollectionEquality().equals(other._suits, _suits)&&(identical(other.major, major) || other.major == major)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PatternWindow&&(identical(other.days, days) || other.days == days)&&(identical(other.entries, entries) || other.entries == entries)&&(identical(other.cards, cards) || other.cards == cards)&&const DeepCollectionEquality().equals(other.mostDrawn, _mostDrawn)&&const DeepCollectionEquality().equals(other.suits, _suits)&&(identical(other.major, major) || other.major == major)&&(identical(other.reversed, reversed) || other.reversed == reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,days,entries,cards,const DeepCollectionEquality().hash(_mostDrawn),const DeepCollectionEquality().hash(_suits),major,reversed);
+int get hashCode {
+    return Object.hash(runtimeType,days,entries,cards,const DeepCollectionEquality().hash(_mostDrawn),const DeepCollectionEquality().hash(_suits),major,reversed);
+}
 
 @override
 String toString() {
-  return 'PatternWindow(days: $days, entries: $entries, cards: $cards, mostDrawn: $mostDrawn, suits: $suits, major: $major, reversed: $reversed)';
+    return 'PatternWindow(days: $days, entries: $entries, cards: $cards, mostDrawn: $mostDrawn, suits: $suits, major: $major, reversed: $reversed)';
 }
 
 
@@ -601,16 +616,21 @@ $JournalPatternsCopyWith<JournalPatterns> get copyWith => _$JournalPatternsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalPatterns&&(identical(other.totalEntries, totalEntries) || other.totalEntries == totalEntries)&&(identical(other.last30, last30) || other.last30 == last30)&&(identical(other.last90, last90) || other.last90 == last90));
+  final _this = this as JournalPatterns;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalPatterns&&(identical(other.totalEntries, _this.totalEntries) || other.totalEntries == _this.totalEntries)&&(identical(other.last30, _this.last30) || other.last30 == _this.last30)&&(identical(other.last90, _this.last90) || other.last90 == _this.last90));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,totalEntries,last30,last90);
+int get hashCode {
+  final _this = this as JournalPatterns;
+  return Object.hash(runtimeType,_this.totalEntries,_this.last30,_this.last90);
+}
 
 @override
 String toString() {
-  return 'JournalPatterns(totalEntries: $totalEntries, last30: $last30, last90: $last90)';
+  final _this = this as JournalPatterns;
+  return 'JournalPatterns(totalEntries: ${_this.totalEntries}, last30: ${_this.last30}, last90: ${_this.last90})';
 }
 
 
@@ -639,7 +659,7 @@ class _$JournalPatternsCopyWithImpl<$Res>
 /// Create a copy of JournalPatterns
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? totalEntries = null,Object? last30 = null,Object? last90 = null,}) {
-  return _then(_self.copyWith(
+  return _then(JournalPatterns(
 totalEntries: null == totalEntries ? _self.totalEntries : totalEntries // ignore: cast_nullable_to_non_nullable
 as int,last30: null == last30 ? _self.last30 : last30 // ignore: cast_nullable_to_non_nullable
 as PatternWindow,last90: null == last90 ? _self.last90 : last90 // ignore: cast_nullable_to_non_nullable
@@ -822,16 +842,18 @@ _$JournalPatternsCopyWith<_JournalPatterns> get copyWith => __$JournalPatternsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalPatterns&&(identical(other.totalEntries, totalEntries) || other.totalEntries == totalEntries)&&(identical(other.last30, last30) || other.last30 == last30)&&(identical(other.last90, last90) || other.last90 == last90));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalPatterns&&(identical(other.totalEntries, totalEntries) || other.totalEntries == totalEntries)&&(identical(other.last30, last30) || other.last30 == last30)&&(identical(other.last90, last90) || other.last90 == last90));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,totalEntries,last30,last90);
+int get hashCode {
+    return Object.hash(runtimeType,totalEntries,last30,last90);
+}
 
 @override
 String toString() {
-  return 'JournalPatterns(totalEntries: $totalEntries, last30: $last30, last90: $last90)';
+    return 'JournalPatterns(totalEntries: $totalEntries, last30: $last30, last90: $last90)';
 }
 
 

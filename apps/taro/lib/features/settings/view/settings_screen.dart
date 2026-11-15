@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart' hide ThemeMode;
 import 'package:taro/common/bidi.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/settings/controller/settings_controller.dart';

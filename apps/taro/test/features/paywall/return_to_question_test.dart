@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/features/paywall/controller/rewarded_controller.dart';
 import 'package:taro/features/paywall/view/out_of_readings_screen.dart';
 import 'package:taro/features/paywall/view/rewarded_screen.dart';

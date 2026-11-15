@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'entitlement.dart';
@@ -9,6 +9,7 @@ part of 'entitlement.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $EntitlementCopyWith<Entitlement> get copyWith => _$EntitlementCopyWithImpl<Enti
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Entitlement&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.source, source) || other.source == source)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+  final _this = this as Entitlement;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Entitlement&&(identical(other.removeAds, _this.removeAds) || other.removeAds == _this.removeAds)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,removeAds,source,verifiedAt);
+int get hashCode {
+  final _this = this as Entitlement;
+  return Object.hash(runtimeType,_this.removeAds,_this.source,_this.verifiedAt);
+}
 
 @override
 String toString() {
-  return 'Entitlement(removeAds: $removeAds, source: $source, verifiedAt: $verifiedAt)';
+  final _this = this as Entitlement;
+  return 'Entitlement(removeAds: ${_this.removeAds}, source: ${_this.source}, verifiedAt: ${_this.verifiedAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$EntitlementCopyWithImpl<$Res>
 /// Create a copy of Entitlement
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? removeAds = null,Object? source = null,Object? verifiedAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(Entitlement(
 removeAds: null == removeAds ? _self.removeAds : removeAds // ignore: cast_nullable_to_non_nullable
 as EntitlementState,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as EntitlementSource,verifiedAt: freezed == verifiedAt ? _self.verifiedAt : verifiedAt // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$EntitlementCopyWith<_Entitlement> get copyWith => __$EntitlementCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Entitlement&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.source, source) || other.source == source)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Entitlement&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.source, source) || other.source == source)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,removeAds,source,verifiedAt);
+int get hashCode {
+    return Object.hash(runtimeType,removeAds,source,verifiedAt);
+}
 
 @override
 String toString() {
-  return 'Entitlement(removeAds: $removeAds, source: $source, verifiedAt: $verifiedAt)';
+    return 'Entitlement(removeAds: $removeAds, source: $source, verifiedAt: $verifiedAt)';
 }
 
 

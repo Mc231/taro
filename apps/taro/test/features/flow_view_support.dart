@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/bootstrap/bootstrap.dart' show noProviderRetry;
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 import 'package:taro_ui/taro_ui.dart';
 
 import '../../../../packages/taro_ui/test/helpers/golden/golden_sizes.dart';
@@ -73,7 +74,7 @@ Future<GoRouter> pumpFlow(
         routerConfig: router,
         locale: locale,
         theme: withTaroTestFonts(TaroTheme.light()),
-        localizationsDelegates: TaroLocalizations.localizationsDelegates,
+        localizationsDelegates: kTaroLocalizationsDelegates,
         supportedLocales: TaroLocalizations.supportedLocales,
         builder: (context, app) => MediaQuery(
           data: MediaQuery.of(context).copyWith(disableAnimations: true),

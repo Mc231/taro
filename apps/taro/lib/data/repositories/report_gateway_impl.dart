@@ -13,10 +13,9 @@ import 'package:taro_core/taro_core.dart';
 final class ReportGatewayImpl implements ReportGateway {
   /// Creates the gateway.
   ReportGatewayImpl({
-    required WorkerClient client,
-    required ReadingRepository readings,
-  }) : _client = client,
-       _readings = readings;
+    required this._client,
+    required this._readings,
+  });
 
   final WorkerClient _client;
   final ReadingRepository _readings;

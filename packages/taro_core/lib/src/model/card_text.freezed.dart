@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'card_text.dart';
@@ -9,6 +9,7 @@ part of 'card_text.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -31,16 +32,21 @@ $CardAspectsCopyWith<CardAspects> get copyWith => _$CardAspectsCopyWithImpl<Card
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardAspects&&(identical(other.relationshipsUpright, relationshipsUpright) || other.relationshipsUpright == relationshipsUpright)&&(identical(other.relationshipsReversed, relationshipsReversed) || other.relationshipsReversed == relationshipsReversed)&&(identical(other.workUpright, workUpright) || other.workUpright == workUpright)&&(identical(other.workReversed, workReversed) || other.workReversed == workReversed)&&(identical(other.growthUpright, growthUpright) || other.growthUpright == growthUpright)&&(identical(other.growthReversed, growthReversed) || other.growthReversed == growthReversed));
+  final _this = this as CardAspects;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardAspects&&(identical(other.relationshipsUpright, _this.relationshipsUpright) || other.relationshipsUpright == _this.relationshipsUpright)&&(identical(other.relationshipsReversed, _this.relationshipsReversed) || other.relationshipsReversed == _this.relationshipsReversed)&&(identical(other.workUpright, _this.workUpright) || other.workUpright == _this.workUpright)&&(identical(other.workReversed, _this.workReversed) || other.workReversed == _this.workReversed)&&(identical(other.growthUpright, _this.growthUpright) || other.growthUpright == _this.growthUpright)&&(identical(other.growthReversed, _this.growthReversed) || other.growthReversed == _this.growthReversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,relationshipsUpright,relationshipsReversed,workUpright,workReversed,growthUpright,growthReversed);
+int get hashCode {
+  final _this = this as CardAspects;
+  return Object.hash(runtimeType,_this.relationshipsUpright,_this.relationshipsReversed,_this.workUpright,_this.workReversed,_this.growthUpright,_this.growthReversed);
+}
 
 @override
 String toString() {
-  return 'CardAspects(relationshipsUpright: $relationshipsUpright, relationshipsReversed: $relationshipsReversed, workUpright: $workUpright, workReversed: $workReversed, growthUpright: $growthUpright, growthReversed: $growthReversed)';
+  final _this = this as CardAspects;
+  return 'CardAspects(relationshipsUpright: ${_this.relationshipsUpright}, relationshipsReversed: ${_this.relationshipsReversed}, workUpright: ${_this.workUpright}, workReversed: ${_this.workReversed}, growthUpright: ${_this.growthUpright}, growthReversed: ${_this.growthReversed})';
 }
 
 
@@ -69,7 +75,7 @@ class _$CardAspectsCopyWithImpl<$Res>
 /// Create a copy of CardAspects
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? relationshipsUpright = null,Object? relationshipsReversed = null,Object? workUpright = null,Object? workReversed = null,Object? growthUpright = null,Object? growthReversed = null,}) {
-  return _then(_self.copyWith(
+  return _then(CardAspects(
 relationshipsUpright: null == relationshipsUpright ? _self.relationshipsUpright : relationshipsUpright // ignore: cast_nullable_to_non_nullable
 as String,relationshipsReversed: null == relationshipsReversed ? _self.relationshipsReversed : relationshipsReversed // ignore: cast_nullable_to_non_nullable
 as String,workUpright: null == workUpright ? _self.workUpright : workUpright // ignore: cast_nullable_to_non_nullable
@@ -243,16 +249,18 @@ _$CardAspectsCopyWith<_CardAspects> get copyWith => __$CardAspectsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardAspects&&(identical(other.relationshipsUpright, relationshipsUpright) || other.relationshipsUpright == relationshipsUpright)&&(identical(other.relationshipsReversed, relationshipsReversed) || other.relationshipsReversed == relationshipsReversed)&&(identical(other.workUpright, workUpright) || other.workUpright == workUpright)&&(identical(other.workReversed, workReversed) || other.workReversed == workReversed)&&(identical(other.growthUpright, growthUpright) || other.growthUpright == growthUpright)&&(identical(other.growthReversed, growthReversed) || other.growthReversed == growthReversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardAspects&&(identical(other.relationshipsUpright, relationshipsUpright) || other.relationshipsUpright == relationshipsUpright)&&(identical(other.relationshipsReversed, relationshipsReversed) || other.relationshipsReversed == relationshipsReversed)&&(identical(other.workUpright, workUpright) || other.workUpright == workUpright)&&(identical(other.workReversed, workReversed) || other.workReversed == workReversed)&&(identical(other.growthUpright, growthUpright) || other.growthUpright == growthUpright)&&(identical(other.growthReversed, growthReversed) || other.growthReversed == growthReversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,relationshipsUpright,relationshipsReversed,workUpright,workReversed,growthUpright,growthReversed);
+int get hashCode {
+    return Object.hash(runtimeType,relationshipsUpright,relationshipsReversed,workUpright,workReversed,growthUpright,growthReversed);
+}
 
 @override
 String toString() {
-  return 'CardAspects(relationshipsUpright: $relationshipsUpright, relationshipsReversed: $relationshipsReversed, workUpright: $workUpright, workReversed: $workReversed, growthUpright: $growthUpright, growthReversed: $growthReversed)';
+    return 'CardAspects(relationshipsUpright: $relationshipsUpright, relationshipsReversed: $relationshipsReversed, workUpright: $workUpright, workReversed: $workReversed, growthUpright: $growthUpright, growthReversed: $growthReversed)';
 }
 
 
@@ -323,16 +331,21 @@ $CardTextCopyWith<CardText> get copyWith => _$CardTextCopyWithImpl<CardText>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardText&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.keywordsUpright, keywordsUpright)&&const DeepCollectionEquality().equals(other.keywordsReversed, keywordsReversed)&&(identical(other.shortUpright, shortUpright) || other.shortUpright == shortUpright)&&(identical(other.shortReversed, shortReversed) || other.shortReversed == shortReversed)&&(identical(other.meaningUpright, meaningUpright) || other.meaningUpright == meaningUpright)&&(identical(other.meaningReversed, meaningReversed) || other.meaningReversed == meaningReversed)&&(identical(other.aspects, aspects) || other.aspects == aspects)&&const DeepCollectionEquality().equals(other.reflectionQuestions, reflectionQuestions)&&(identical(other.sourceHash, sourceHash) || other.sourceHash == sourceHash)&&(identical(other.reviewStatus, reviewStatus) || other.reviewStatus == reviewStatus)&&(identical(other.imageryNote, imageryNote) || other.imageryNote == imageryNote));
+  final _this = this as CardText;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardText&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.name, _this.name) || other.name == _this.name)&&const DeepCollectionEquality().equals(other.keywordsUpright, _this.keywordsUpright)&&const DeepCollectionEquality().equals(other.keywordsReversed, _this.keywordsReversed)&&(identical(other.shortUpright, _this.shortUpright) || other.shortUpright == _this.shortUpright)&&(identical(other.shortReversed, _this.shortReversed) || other.shortReversed == _this.shortReversed)&&(identical(other.meaningUpright, _this.meaningUpright) || other.meaningUpright == _this.meaningUpright)&&(identical(other.meaningReversed, _this.meaningReversed) || other.meaningReversed == _this.meaningReversed)&&(identical(other.aspects, _this.aspects) || other.aspects == _this.aspects)&&const DeepCollectionEquality().equals(other.reflectionQuestions, _this.reflectionQuestions)&&(identical(other.sourceHash, _this.sourceHash) || other.sourceHash == _this.sourceHash)&&(identical(other.reviewStatus, _this.reviewStatus) || other.reviewStatus == _this.reviewStatus)&&(identical(other.imageryNote, _this.imageryNote) || other.imageryNote == _this.imageryNote));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,locale,name,const DeepCollectionEquality().hash(keywordsUpright),const DeepCollectionEquality().hash(keywordsReversed),shortUpright,shortReversed,meaningUpright,meaningReversed,aspects,const DeepCollectionEquality().hash(reflectionQuestions),sourceHash,reviewStatus,imageryNote);
+int get hashCode {
+  final _this = this as CardText;
+  return Object.hash(runtimeType,_this.cardId,_this.locale,_this.name,const DeepCollectionEquality().hash(_this.keywordsUpright),const DeepCollectionEquality().hash(_this.keywordsReversed),_this.shortUpright,_this.shortReversed,_this.meaningUpright,_this.meaningReversed,_this.aspects,const DeepCollectionEquality().hash(_this.reflectionQuestions),_this.sourceHash,_this.reviewStatus,_this.imageryNote);
+}
 
 @override
 String toString() {
-  return 'CardText(cardId: $cardId, locale: $locale, name: $name, keywordsUpright: $keywordsUpright, keywordsReversed: $keywordsReversed, shortUpright: $shortUpright, shortReversed: $shortReversed, meaningUpright: $meaningUpright, meaningReversed: $meaningReversed, aspects: $aspects, reflectionQuestions: $reflectionQuestions, sourceHash: $sourceHash, reviewStatus: $reviewStatus, imageryNote: $imageryNote)';
+  final _this = this as CardText;
+  return 'CardText(cardId: ${_this.cardId}, locale: ${_this.locale}, name: ${_this.name}, keywordsUpright: ${_this.keywordsUpright}, keywordsReversed: ${_this.keywordsReversed}, shortUpright: ${_this.shortUpright}, shortReversed: ${_this.shortReversed}, meaningUpright: ${_this.meaningUpright}, meaningReversed: ${_this.meaningReversed}, aspects: ${_this.aspects}, reflectionQuestions: ${_this.reflectionQuestions}, sourceHash: ${_this.sourceHash}, reviewStatus: ${_this.reviewStatus}, imageryNote: ${_this.imageryNote})';
 }
 
 
@@ -361,7 +374,7 @@ class _$CardTextCopyWithImpl<$Res>
 /// Create a copy of CardText
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cardId = null,Object? locale = null,Object? name = null,Object? keywordsUpright = null,Object? keywordsReversed = null,Object? shortUpright = null,Object? shortReversed = null,Object? meaningUpright = null,Object? meaningReversed = null,Object? aspects = null,Object? reflectionQuestions = null,Object? sourceHash = null,Object? reviewStatus = null,Object? imageryNote = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CardText(
 cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -526,7 +539,7 @@ return $default(_that.cardId,_that.locale,_that.name,_that.keywordsUpright,_that
 
 
 class _CardText extends CardText {
-  const _CardText({required this.cardId, required this.locale, required this.name, required final  List<String> keywordsUpright, required final  List<String> keywordsReversed, required this.shortUpright, required this.shortReversed, required this.meaningUpright, required this.meaningReversed, required this.aspects, required final  List<String> reflectionQuestions, required this.sourceHash, required this.reviewStatus, this.imageryNote}): _keywordsUpright = keywordsUpright,_keywordsReversed = keywordsReversed,_reflectionQuestions = reflectionQuestions,super._();
+  const _CardText({required this.cardId, required this.locale, required this.name, required  List<String> keywordsUpright, required  List<String> keywordsReversed, required this.shortUpright, required this.shortReversed, required this.meaningUpright, required this.meaningReversed, required this.aspects, required  List<String> reflectionQuestions, required this.sourceHash, required this.reviewStatus, this.imageryNote}): _keywordsUpright = keywordsUpright,_keywordsReversed = keywordsReversed,_reflectionQuestions = reflectionQuestions,super._();
   
 
 /// The card this text belongs to.
@@ -589,16 +602,18 @@ _$CardTextCopyWith<_CardText> get copyWith => __$CardTextCopyWithImpl<_CardText>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardText&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._keywordsUpright, _keywordsUpright)&&const DeepCollectionEquality().equals(other._keywordsReversed, _keywordsReversed)&&(identical(other.shortUpright, shortUpright) || other.shortUpright == shortUpright)&&(identical(other.shortReversed, shortReversed) || other.shortReversed == shortReversed)&&(identical(other.meaningUpright, meaningUpright) || other.meaningUpright == meaningUpright)&&(identical(other.meaningReversed, meaningReversed) || other.meaningReversed == meaningReversed)&&(identical(other.aspects, aspects) || other.aspects == aspects)&&const DeepCollectionEquality().equals(other._reflectionQuestions, _reflectionQuestions)&&(identical(other.sourceHash, sourceHash) || other.sourceHash == sourceHash)&&(identical(other.reviewStatus, reviewStatus) || other.reviewStatus == reviewStatus)&&(identical(other.imageryNote, imageryNote) || other.imageryNote == imageryNote));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardText&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.keywordsUpright, _keywordsUpright)&&const DeepCollectionEquality().equals(other.keywordsReversed, _keywordsReversed)&&(identical(other.shortUpright, shortUpright) || other.shortUpright == shortUpright)&&(identical(other.shortReversed, shortReversed) || other.shortReversed == shortReversed)&&(identical(other.meaningUpright, meaningUpright) || other.meaningUpright == meaningUpright)&&(identical(other.meaningReversed, meaningReversed) || other.meaningReversed == meaningReversed)&&(identical(other.aspects, aspects) || other.aspects == aspects)&&const DeepCollectionEquality().equals(other.reflectionQuestions, _reflectionQuestions)&&(identical(other.sourceHash, sourceHash) || other.sourceHash == sourceHash)&&(identical(other.reviewStatus, reviewStatus) || other.reviewStatus == reviewStatus)&&(identical(other.imageryNote, imageryNote) || other.imageryNote == imageryNote));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,locale,name,const DeepCollectionEquality().hash(_keywordsUpright),const DeepCollectionEquality().hash(_keywordsReversed),shortUpright,shortReversed,meaningUpright,meaningReversed,aspects,const DeepCollectionEquality().hash(_reflectionQuestions),sourceHash,reviewStatus,imageryNote);
+int get hashCode {
+    return Object.hash(runtimeType,cardId,locale,name,const DeepCollectionEquality().hash(_keywordsUpright),const DeepCollectionEquality().hash(_keywordsReversed),shortUpright,shortReversed,meaningUpright,meaningReversed,aspects,const DeepCollectionEquality().hash(_reflectionQuestions),sourceHash,reviewStatus,imageryNote);
+}
 
 @override
 String toString() {
-  return 'CardText(cardId: $cardId, locale: $locale, name: $name, keywordsUpright: $keywordsUpright, keywordsReversed: $keywordsReversed, shortUpright: $shortUpright, shortReversed: $shortReversed, meaningUpright: $meaningUpright, meaningReversed: $meaningReversed, aspects: $aspects, reflectionQuestions: $reflectionQuestions, sourceHash: $sourceHash, reviewStatus: $reviewStatus, imageryNote: $imageryNote)';
+    return 'CardText(cardId: $cardId, locale: $locale, name: $name, keywordsUpright: $keywordsUpright, keywordsReversed: $keywordsReversed, shortUpright: $shortUpright, shortReversed: $shortReversed, meaningUpright: $meaningUpright, meaningReversed: $meaningReversed, aspects: $aspects, reflectionQuestions: $reflectionQuestions, sourceHash: $sourceHash, reviewStatus: $reviewStatus, imageryNote: $imageryNote)';
 }
 
 

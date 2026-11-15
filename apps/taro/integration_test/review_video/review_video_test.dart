@@ -16,8 +16,8 @@
 //     --dart-define=TARO_ENV=test --dart-define=REVIEW_VIDEO=1 -d <sim>
 import 'dart:convert';
 
-import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart' hide ThemeMode;
 import 'package:taro/data/content/asset_content_repository.dart';
 import 'package:taro/data/content/asset_crisis_resources_repository.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
@@ -162,13 +162,11 @@ void main() {
         final content = AssetContentRepository.fromBundle(rootBundle);
         final deck = await content.deck();
         final order = [for (final c in deck.valueOrNull!.cards) c.id.value];
-        final crisisJson =
-            jsonDecode(
-                  await rootBundle.loadString(
-                    'assets/deck/crisis_resources.json',
-                  ),
-                )
-                as Map<String, Object?>;
+        final crisisJson = jsonDecode(
+          await rootBundle.loadString(
+            'assets/deck/crisis_resources.json',
+          ),
+        ) as Map<String, Object?>;
 
         final fakes = flowFakes(consent: const ConsentState())
           ..install = FakeInstallRepository.firstLaunch()

@@ -14,21 +14,16 @@ import 'package:taro_core/taro_core.dart';
 /// `DailyCardsDao.insertIfAbsent` stores it, so two concurrent draws on one
 /// day still keep a single card.
 final class DailyCardRepositoryImpl implements DailyCardRepository {
-  /// Creates the repository. [content] supplies the deck, [settings] the
+  /// Creates the repository. [_content] supplies the deck, [_settings] the
   /// reversals setting, [random] the CSPRNG.
   DailyCardRepositoryImpl({
-    required DailyCardsDao dao,
-    required ContentRepository content,
-    required SettingsRepository settings,
-    required Clock clock,
+    required this._dao,
+    required this._content,
+    required this._settings,
+    required this._clock,
     required RandomSource random,
-    required Logger logger,
-  }) : _dao = dao,
-       _content = content,
-       _settings = settings,
-       _clock = clock,
-       _rules = DailyCardRules(random),
-       _logger = logger;
+    required this._logger,
+  }) : _rules = DailyCardRules(random);
 
   final DailyCardsDao _dao;
   final ContentRepository _content;

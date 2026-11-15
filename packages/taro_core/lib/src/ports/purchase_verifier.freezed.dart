@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchase_verifier.dart';
@@ -9,6 +9,7 @@ part of 'purchase_verifier.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -31,16 +32,21 @@ $GrantResultCopyWith<GrantResult> get copyWith => _$GrantResultCopyWithImpl<Gran
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GrantResult&&(identical(other.status, status) || other.status == status)&&(identical(other.creditsGranted, creditsGranted) || other.creditsGranted == creditsGranted)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.purchaseId, purchaseId) || other.purchaseId == purchaseId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.balance, balance) || other.balance == balance));
+  final _this = this as GrantResult;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GrantResult&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.creditsGranted, _this.creditsGranted) || other.creditsGranted == _this.creditsGranted)&&(identical(other.isFirstPurchase, _this.isFirstPurchase) || other.isFirstPurchase == _this.isFirstPurchase)&&(identical(other.purchaseId, _this.purchaseId) || other.purchaseId == _this.purchaseId)&&(identical(other.productId, _this.productId) || other.productId == _this.productId)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,creditsGranted,isFirstPurchase,purchaseId,productId,balance);
+int get hashCode {
+  final _this = this as GrantResult;
+  return Object.hash(runtimeType,_this.status,_this.creditsGranted,_this.isFirstPurchase,_this.purchaseId,_this.productId,_this.balance);
+}
 
 @override
 String toString() {
-  return 'GrantResult(status: $status, creditsGranted: $creditsGranted, isFirstPurchase: $isFirstPurchase, purchaseId: $purchaseId, productId: $productId, balance: $balance)';
+  final _this = this as GrantResult;
+  return 'GrantResult(status: ${_this.status}, creditsGranted: ${_this.creditsGranted}, isFirstPurchase: ${_this.isFirstPurchase}, purchaseId: ${_this.purchaseId}, productId: ${_this.productId}, balance: ${_this.balance})';
 }
 
 
@@ -69,7 +75,7 @@ class _$GrantResultCopyWithImpl<$Res>
 /// Create a copy of GrantResult
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? creditsGranted = null,Object? isFirstPurchase = null,Object? purchaseId = freezed,Object? productId = freezed,Object? balance = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(GrantResult(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as GrantStatus,creditsGranted: null == creditsGranted ? _self.creditsGranted : creditsGranted // ignore: cast_nullable_to_non_nullable
 as int,isFirstPurchase: null == isFirstPurchase ? _self.isFirstPurchase : isFirstPurchase // ignore: cast_nullable_to_non_nullable
@@ -255,16 +261,18 @@ _$GrantResultCopyWith<_GrantResult> get copyWith => __$GrantResultCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GrantResult&&(identical(other.status, status) || other.status == status)&&(identical(other.creditsGranted, creditsGranted) || other.creditsGranted == creditsGranted)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.purchaseId, purchaseId) || other.purchaseId == purchaseId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _GrantResult&&(identical(other.status, status) || other.status == status)&&(identical(other.creditsGranted, creditsGranted) || other.creditsGranted == creditsGranted)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.purchaseId, purchaseId) || other.purchaseId == purchaseId)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,creditsGranted,isFirstPurchase,purchaseId,productId,balance);
+int get hashCode {
+    return Object.hash(runtimeType,status,creditsGranted,isFirstPurchase,purchaseId,productId,balance);
+}
 
 @override
 String toString() {
-  return 'GrantResult(status: $status, creditsGranted: $creditsGranted, isFirstPurchase: $isFirstPurchase, purchaseId: $purchaseId, productId: $productId, balance: $balance)';
+    return 'GrantResult(status: $status, creditsGranted: $creditsGranted, isFirstPurchase: $isFirstPurchase, purchaseId: $purchaseId, productId: $productId, balance: $balance)';
 }
 
 

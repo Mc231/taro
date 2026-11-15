@@ -72,7 +72,7 @@ Resolved versions, deviations from 02 §18, build fixes and the RC91 FTS5 spike 
 
 ### Flutter workspace and app
 
-Toolchain: Flutter 3.44.8 (Dart 3.12.2), melos 8.9.0, Xcode + iPhone 17 simulator (iOS 26), Android emulator Pixel_9a (API 36), AGP 9.0.1, Kotlin 2.3.20, CocoaPods 1.16.2.
+Toolchain: Flutter 3.50.0 (Dart 3.14.0), melos 8.10.1, Xcode + iPhone 17 simulator (iOS 26), Android emulator Pixel_9a (API 36), AGP 9.3.1, Gradle 9.5.0, Kotlin 2.4.20; iOS plugins through Swift Package Manager (no CocoaPods).
 
 #### Workspace layout (owner decision 2026-09-27: 3 packages + app)
 
@@ -82,21 +82,22 @@ The former `taro_data`, `taro_services`, `taro_content`, `taro_l10n`, `taro_test
 
 #### Dependencies: resolved versions and deviations from 02 §18
 
-The root cause of every deviation: Flutter 3.44.8 pins `meta 1.18.0`, `clock 1.1.2`, `test_api 0.7.11` and ships Dart 3.12.2.
+Flutter 3.50.0 ships Dart 3.14.0 and pins `meta 1.19.0`, `clock 1.1.3`, `test_api 0.7.14`. Material widgets come from `material_ui` (`package:flutter/material.dart` is deprecated in 3.50).
 
 | Package | 02 §18 | Used | Resolved | Why |
 |---|---|---|---|---|
-| very_good_analysis | ^11.0.0 | ^10.3.0 | 10.3.0 | 11.x needs Dart ^3.13 |
-| freezed | ^4.0.2 | ^3.2.5 | 3.2.5 | 4.x stable needs Dart 3.13; `test` (test_api 0.7.11) caps analyzer < 13, freezed 4 dev builds need analyzer 13 |
-| build_runner | ^2.16.1 | ^2.15.1 | 2.15.1 | 2.16 needs analyzer >= 13.3 (which needs meta ^1.18.3) |
-| drift / drift_dev | ^2.35.0 | 2.34.0 (pinned) / ^2.34.0 | 2.34.0 / 2.34.0 | drift_dev >= 2.34.1 needs analyzer 13; drift_dev 2.34.0's CLI (`make-migrations`, `schema`) and `SchemaVerifier` do not compile against drift 2.34.4, so drift is pinned to 2.34.0 (Phase 11.1) |
-| meta | ^1.19.0 | ^1.18.0 | 1.18.0 | SDK pin |
-| clock | ^1.1.3 | ^1.1.2 | 1.1.2 | SDK pin |
-| intl | ^0.20.2 | ^0.20.2 | 0.20.2 | SDK pin |
-| test (dev, taro_core, dart_tools) | – | ^1.31.0 | 1.31.0 | highest compatible with test_api 0.7.11 |
-| cli_util (transitive) | – | root `dependency_overrides: ^0.5.0` | 0.5.2 | drift_dev 2.34.0 declares ^0.4, melos 8 needs >= 0.5; drift_dev only uses `Ansi`/`Logger` (unchanged; 2.34.1 widened to <0.6). Remove with the upgrade below. |
+| very_good_analysis | ^11.0.0 | ^10.3.0 | 10.3.0 | not bumped with Flutter 3.50 (11.x adds lints); next upgrade |
+| freezed | ^4.0.2 | ^4.0.1 | 4.0.3 | |
+| build_runner | ^2.16.1 | ^2.16.1 | 2.16.2 | |
+| drift / drift_dev | ^2.35.0 | 2.35.3 (pinned) / 2.35.3 (pinned) | 2.35.3 / 2.35.3 | drift_dev's CLI (`make-migrations`, `schema`) and `SchemaVerifier` must compile against the same drift, so both are pinned together |
+| meta | ^1.19.0 | ^1.18.0 | 1.19.0 | SDK pin |
+| clock | ^1.1.3 | ^1.1.2 | 1.1.3 | SDK pin |
+| intl | ^0.20.2 | ^0.20.2 | 0.20.3 | SDK pin |
+| test (dev, taro_core, dart_tools) | – | ^1.32.0 | 1.32.0 | matches test_api 0.7.14 |
+| material_ui (apps/taro, taro_ui, attestation example) | – | ^1.11.0 | 1.11.0 | Material widgets for Flutter 3.50 (BSD-3-Clause, flutter.dev); `kTaroLocalizationsDelegates` passes its `GlobalMaterialLocalizations` delegates |
+| cli_util (transitive) | – | root `dependency_overrides: ^0.5.0` | 0.5.2 | flutter_launcher_icons 0.14.4 declares ^0.4.1, melos 8 needs >= 0.5; it only uses `Ansi`/`Logger` (unchanged). Remove when flutter_launcher_icons widens its constraint. |
 
-All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, in_app_purchase_platform_interface 1.4.1 (direct since Phase 12.2: the adapter takes the platform by injection), flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, url_launcher 6.3.2 (BSD-3-Clause; direct since Phase 16.4, the `UrlLauncher` adapter; already resolved transitively), plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, flutter_launcher_icons 0.14.4 (dev; MIT; Phase 16.1 app icon from `apps/taro/flutter_launcher_icons.yaml`), mocktail 1.0.5, patrol 4.10.0, patrol_finders 3.6.0 (direct dev dependency since Phase 13.6: the flows' finders; already resolved through patrol, BSD-3-Clause like patrol), melos 8.9.0. `pubspec.lock` at the root is the single workspace lock (commit it).
+All other §18 constraints resolved as written (latest): flutter_riverpod 3.4.3, go_router 18.0.1, freezed_annotation 3.1.0, json_annotation 4.12.0, json_serializable 6.14.1, collection 1.19.1, crypto 3.0.7, uuid 4.6.0, drift_flutter 0.3.1 (sqlite3 3.5.2 via build hooks, no sqlite3_flutter_libs), flutter_secure_storage 11.2.0, dio 5.11.1, logging 1.3.0, firebase_core 4.15.0, firebase_analytics 12.6.0, firebase_crashlytics 5.4.0, google_mobile_ads 9.1.0, app_tracking_transparency 2.0.7, in_app_purchase 3.3.1, in_app_purchase_storekit 0.4.13, in_app_purchase_android 0.5.3, in_app_purchase_platform_interface 1.4.1 (direct since Phase 12.2: the adapter takes the platform by injection), flutter_local_notifications 22.3.1, timezone 0.11.1, flutter_timezone 5.1.0, share_plus 13.3.0, file_picker 13.1.0, package_info_plus 10.2.1, device_info_plus 13.2.0, connectivity_plus 7.3.1, in_app_review 2.0.12, url_launcher 6.3.2 (BSD-3-Clause; direct since Phase 16.4, the `UrlLauncher` adapter; already resolved transitively), plugin_platform_interface 2.1.8, flutter_native_splash 2.4.8, flutter_launcher_icons 0.14.4 (dev; MIT; Phase 16.1 app icon from `apps/taro/flutter_launcher_icons.yaml`), mocktail 1.0.5, patrol 4.10.0, patrol_finders 3.6.0 (direct dev dependency since Phase 13.6: the flows' finders; already resolved through patrol, BSD-3-Clause like patrol), melos 8.10.1. `pubspec.lock` at the root is the single workspace lock (commit it).
 
 `apps/taro` (Phase 11.1) also depends directly on `path_provider` ^2.1.6 (resolved 2.1.6, BSD-3-Clause, already in the lock through drift_flutter) for the database directory in `lib/data/db/database_location.dart`, the only file allowed to import it (`tools/import_rules.yaml`).
 
@@ -106,12 +107,11 @@ Phase 12 adds, for the services layer: `in_app_purchase_platform_interface` (abo
 
 `taro_core` (Phase 4) also depends on `characters` ^1.4.1 (resolved 1.4.1, pinned by the Flutter SDK; grapheme counting in `QuestionPrecheck`, BSD-3-Clause). It is not in 02 §18. `json_annotation`/`json_serializable` stay app-only: core JSON mappers are hand-written.
 
-**Upgrade trigger:** when Flutter ships Dart >= 3.13 with newer SDK pins, move to very_good_analysis ^11, freezed ^4.0.2, build_runner ^2.16.1, drift/drift_dev ^2.35.0 and drop the `cli_util` override.
+**Upgrade trigger:** very_good_analysis ^11 is still open (Flutter 3.50 resolves it); the `cli_util` override goes once flutter_launcher_icons accepts cli_util 0.5.
 
 #### Build notes
 
-- iOS: CocoaPods (SPM is off in this Flutter config). Build configurations `{Debug,Profile,Release}-{dev,staging,prod}`; the unflavored ones were removed, so every build needs `--flavor`. xcconfigs in `apps/taro/ios/Config/` (`Dev|Staging|Prod.xcconfig` hold bundle id, `APP_DISPLAY_NAME`, `ADMOB_APP_ID`; `Common.xcconfig` shared). Podfile maps the 9 configs and forces pod deployment target 16.0.
-- iOS: `CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES` (Config/Common.xcconfig) is required: google_mobile_ads 9.1.0 headers import the SDK's private `GoogleMobileAds_Beta.h` and the Runner module import fails under `use_frameworks!`.
+- iOS: Swift Package Manager only (Flutter 3.50; no Podfile, no Pods includes in the xcconfigs; every plugin, `taro_attestation` included, ships a `Package.swift`). Build configurations `{Debug,Profile,Release}-{dev,staging,prod}`; the unflavored ones were removed, so every build needs `--flavor`. xcconfigs in `apps/taro/ios/Config/` (`Dev|Staging|Prod.xcconfig` hold bundle id, `APP_DISPLAY_NAME`, `ADMOB_APP_ID`; `Common.xcconfig` shared, empty since the CocoaPods-only `CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES` workaround went). Deployment target 16.0.
 - AdMob app IDs are required at launch by the SDK (Info.plist `GADApplicationIdentifier`, manifest `com.google.android.gms.ads.APPLICATION_ID`). All flavors, including prod, use Google's sample app IDs natively until Phase 10; `config/prod.json` ad IDs stay `TBD`.
 - Android: AGP 9 disables `resValue` by default, so the launcher label comes from the `appName` manifest placeholder. Core library desugaring (`desugar_jdk_libs 2.1.5`) is enabled for flutter_local_notifications. `minSdk 24`, `targetSdk 36`.
 - Firebase config (Phase 10 Sprint 10.2, RC36): projects `taro-app-dev` (dev, staging) and `taro-app-prod`. `flutterfire configure` (flutterfire_cli 1.3.1) wrote `apps/taro/lib/firebase_options_{dev,staging,prod}.dart` (coverage-excluded, RC16), `ios/Config/<flavor>/GoogleService-Info.plist` and `android/app/src/<flavor>/google-services.json`; its edits to `project.pbxproj` and the Gradle files were discarded and wired by hand. `main_<flavor>.dart` passes `DefaultFirebaseOptions.currentPlatform` to `ProductionEnvironment(firebaseOptions:)` (read inside the failure-tolerant `initFirebase`). iOS: the Runner build phase "Copy GoogleService-Info.plist" copies `Config/$(FIREBASE_CONFIG_FLAVOR)/` (set in `Config/{Dev,Staging,Prod}.xcconfig`). Android: Gradle plugin `com.google.gms.google-services` 4.4.4 (Apache-2.0, build-time only). No Crashlytics Gradle plugin: symbols go up through fastlane (02 §13). Re-running `flutterfire configure`: discard its `project.pbxproj` / Gradle edits again.

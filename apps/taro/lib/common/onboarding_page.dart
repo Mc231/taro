@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/taro_ui.dart';
 
 /// The page template of the onboarding screens S02–S04 and the ATT

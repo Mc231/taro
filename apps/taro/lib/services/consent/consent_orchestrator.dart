@@ -59,29 +59,21 @@ AnalyticsConsent analyticsConsentFor(AdsConsent ads, String? purposes) {
 /// (`EarnReward`). Never throws: a failing step is logged and treated as
 /// denied, and [whenResolved] still completes.
 final class ConsentOrchestrator {
-  /// Creates the orchestrator; [policy] is read when the SDK would be
+  /// Creates the orchestrator; [_policy] is read when the SDK would be
   /// initialised (`ads.enabled`, Remove Banner Ads and `rewarded.enabled`).
   ConsentOrchestrator({
-    required ConsentService consent,
-    required TrackingAuthorization tracking,
-    required AdsService ads,
-    required AnalyticsService analytics,
-    required ConsentStore store,
-    required RemoteConfigRepository config,
-    required AdRequestPolicy Function() policy,
-    required Logger logger,
+    required this._consent,
+    required this._tracking,
+    required this._ads,
+    required this._analytics,
+    required this._store,
+    required this._config,
+    required this._policy,
+    required this._logger,
     this.prePrompt,
     TcfPurposeSource? tcfPurposes,
     bool Function()? debugEea,
-  }) : _consent = consent,
-       _tracking = tracking,
-       _ads = ads,
-       _analytics = analytics,
-       _store = store,
-       _config = config,
-       _policy = policy,
-       _logger = logger,
-       _tcfPurposes = tcfPurposes ?? _noPurposes,
+  }) : _tcfPurposes = tcfPurposes ?? _noPurposes,
        _debugEea = debugEea ?? _never;
 
   /// The neutral ATT pre-prompt; `null` skips it (the system prompt is

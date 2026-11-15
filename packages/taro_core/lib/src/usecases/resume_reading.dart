@@ -10,10 +10,9 @@ import 'package:taro_core/src/usecases/delivery_ack.dart';
 final class ResumeReading {
   /// Creates the use case.
   ResumeReading({
-    required ReadingRepository readings,
-    required Logger logger,
-  }) : _readings = readings,
-       _logger = logger;
+    required this._readings,
+    required this._logger,
+  });
 
   final ReadingRepository _readings;
   final Logger _logger;

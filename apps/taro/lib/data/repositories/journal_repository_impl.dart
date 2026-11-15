@@ -18,15 +18,14 @@ typedef CardNameResolver = Future<Set<CardId>> Function(String text);
 /// [replaceAll] run in one transaction through [JournalBackupStore], which
 /// the backup import shares.
 final class JournalRepositoryImpl implements JournalRepository {
-  /// Creates the repository. Without [cardNames], search covers questions
+  /// Creates the repository. Without [_cardNames], search covers questions
   /// and notes only.
   JournalRepositoryImpl({
     required JournalDatabase journal,
     required Logger logger,
-    CardNameResolver? cardNames,
+    this._cardNames,
   }) : _db = journal,
        _backup = JournalBackupStore(journal, logger: logger),
-       _cardNames = cardNames,
        _logger = logger.child('journal');
 
   final JournalDatabase _db;
@@ -46,9 +45,11 @@ final class JournalRepositoryImpl implements JournalRepository {
     final ids = <CardId>{};
     for (final card in deck.value.cards) {
       final name = await content.cardText(card.id, locale());
-      if (name case Ok(
-        :final value,
-      ) when value.name.toLowerCase().contains(needle)) {
+      if (name
+          case Ok(
+            :final value,
+          )
+          when value.name.toLowerCase().contains(needle)) {
         ids.add(card.id);
       }
     }

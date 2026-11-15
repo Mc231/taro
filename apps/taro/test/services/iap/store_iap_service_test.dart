@@ -635,10 +635,9 @@ void main() {
       platform.unfinished['token-1'] = pack;
       addition.extra.add(
         platform.transaction(
-              TaroProducts.readings10.id.value,
-              status: PurchaseStatus.pending,
-            )
-            as GooglePlayPurchaseDetails,
+          TaroProducts.readings10.id.value,
+          status: PurchaseStatus.pending,
+        ) as GooglePlayPurchaseDetails,
       );
       final iap = _android(platform, addition: addition);
       final delivered = <StorePurchase>[];

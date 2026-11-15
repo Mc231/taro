@@ -18,10 +18,8 @@ import 'package:taro_core/taro_core.dart';
 /// `verification_data` holds the iOS JWS or the Play purchase token. It is
 /// never logged; failures are logged by kind only.
 final class PurchaseOutboxImpl implements PurchaseOutbox {
-  /// Creates the outbox over [dao].
-  PurchaseOutboxImpl({required OutboxDao dao, required Logger logger})
-    : _dao = dao,
-      _logger = logger;
+  /// Creates the outbox over [_dao].
+  PurchaseOutboxImpl({required this._dao, required this._logger});
 
   final OutboxDao _dao;
   final Logger _logger;

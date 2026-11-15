@@ -1,8 +1,8 @@
 @Tags(['golden'])
 library;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/features/paywall/controller/out_of_readings_controller.dart';
 import 'package:taro/features/paywall/controller/paywall_catalog.dart';

@@ -23,24 +23,18 @@ typedef SyncStep = Future<void> Function();
 /// * [status] feeds the balance chip (`syncing`, `synced`, `stale`,
 ///   `unavailable`; 01 §7.1).
 final class SyncCoordinator {
-  /// Creates the coordinator. [locale] gives the reminder copy locale;
+  /// Creates the coordinator. [_locale] gives the reminder copy locale;
   /// [extraSteps] run after the pass, in order.
   SyncCoordinator({
-    required SyncAccount account,
+    required this._account,
     required BalanceRepository balance,
-    required RemoteConfigRepository config,
-    required TimezoneProvider timezone,
-    required Clock clock,
-    required Logger logger,
-    required String Function() locale,
+    required this._config,
+    required this._timezone,
+    required this._clock,
+    required this._logger,
+    required this._locale,
     List<SyncStep> extraSteps = const [],
-  }) : _account = account,
-       _balance = balance,
-       _config = config,
-       _timezone = timezone,
-       _clock = clock,
-       _logger = logger,
-       _locale = locale,
+  }) : _balance = balance,
        _extraSteps = List.unmodifiable(extraSteps),
        _current = SyncStatus.stale(lastSyncedAt: balance.cached?.syncedAt);
 

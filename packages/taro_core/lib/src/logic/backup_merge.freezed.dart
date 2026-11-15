@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'backup_merge.dart';
@@ -9,6 +9,7 @@ part of 'backup_merge.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $MergeReportCopyWith<MergeReport> get copyWith => _$MergeReportCopyWithImpl<Merg
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MergeReport&&(identical(other.added, added) || other.added == added)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.skipped, skipped) || other.skipped == skipped)&&(identical(other.removed, removed) || other.removed == removed));
+  final _this = this as MergeReport;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MergeReport&&(identical(other.added, _this.added) || other.added == _this.added)&&(identical(other.updated, _this.updated) || other.updated == _this.updated)&&(identical(other.skipped, _this.skipped) || other.skipped == _this.skipped)&&(identical(other.removed, _this.removed) || other.removed == _this.removed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,added,updated,skipped,removed);
+int get hashCode {
+  final _this = this as MergeReport;
+  return Object.hash(runtimeType,_this.added,_this.updated,_this.skipped,_this.removed);
+}
 
 @override
 String toString() {
-  return 'MergeReport(added: $added, updated: $updated, skipped: $skipped, removed: $removed)';
+  final _this = this as MergeReport;
+  return 'MergeReport(added: ${_this.added}, updated: ${_this.updated}, skipped: ${_this.skipped}, removed: ${_this.removed})';
 }
 
 
@@ -67,7 +73,7 @@ class _$MergeReportCopyWithImpl<$Res>
 /// Create a copy of MergeReport
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? added = null,Object? updated = null,Object? skipped = null,Object? removed = null,}) {
-  return _then(_self.copyWith(
+  return _then(MergeReport(
 added: null == added ? _self.added : added // ignore: cast_nullable_to_non_nullable
 as int,updated: null == updated ? _self.updated : updated // ignore: cast_nullable_to_non_nullable
 as int,skipped: null == skipped ? _self.skipped : skipped // ignore: cast_nullable_to_non_nullable
@@ -235,16 +241,18 @@ _$MergeReportCopyWith<_MergeReport> get copyWith => __$MergeReportCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MergeReport&&(identical(other.added, added) || other.added == added)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.skipped, skipped) || other.skipped == skipped)&&(identical(other.removed, removed) || other.removed == removed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MergeReport&&(identical(other.added, added) || other.added == added)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.skipped, skipped) || other.skipped == skipped)&&(identical(other.removed, removed) || other.removed == removed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,added,updated,skipped,removed);
+int get hashCode {
+    return Object.hash(runtimeType,added,updated,skipped,removed);
+}
 
 @override
 String toString() {
-  return 'MergeReport(added: $added, updated: $updated, skipped: $skipped, removed: $removed)';
+    return 'MergeReport(added: $added, updated: $updated, skipped: $skipped, removed: $removed)';
 }
 
 
@@ -303,16 +311,21 @@ $MergeResultCopyWith<MergeResult> get copyWith => _$MergeResultCopyWithImpl<Merg
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MergeResult&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other.readings, readings)&&const DeepCollectionEquality().equals(other.dailyCards, dailyCards)&&(identical(other.report, report) || other.report == report));
+  final _this = this as MergeResult;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MergeResult&&(identical(other.settings, _this.settings) || other.settings == _this.settings)&&const DeepCollectionEquality().equals(other.readings, _this.readings)&&const DeepCollectionEquality().equals(other.dailyCards, _this.dailyCards)&&(identical(other.report, _this.report) || other.report == _this.report));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(readings),const DeepCollectionEquality().hash(dailyCards),report);
+int get hashCode {
+  final _this = this as MergeResult;
+  return Object.hash(runtimeType,_this.settings,const DeepCollectionEquality().hash(_this.readings),const DeepCollectionEquality().hash(_this.dailyCards),_this.report);
+}
 
 @override
 String toString() {
-  return 'MergeResult(settings: $settings, readings: $readings, dailyCards: $dailyCards, report: $report)';
+  final _this = this as MergeResult;
+  return 'MergeResult(settings: ${_this.settings}, readings: ${_this.readings}, dailyCards: ${_this.dailyCards}, report: ${_this.report})';
 }
 
 
@@ -341,7 +354,7 @@ class _$MergeResultCopyWithImpl<$Res>
 /// Create a copy of MergeResult
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? settings = null,Object? readings = null,Object? dailyCards = null,Object? report = null,}) {
-  return _then(_self.copyWith(
+  return _then(MergeResult(
 settings: null == settings ? _self.settings : settings // ignore: cast_nullable_to_non_nullable
 as UserSettings,readings: null == readings ? _self.readings : readings // ignore: cast_nullable_to_non_nullable
 as List<Reading>,dailyCards: null == dailyCards ? _self.dailyCards : dailyCards // ignore: cast_nullable_to_non_nullable
@@ -505,7 +518,7 @@ return $default(_that.settings,_that.readings,_that.dailyCards,_that.report);cas
 
 
 class _MergeResult implements MergeResult {
-  const _MergeResult({required this.settings, required final  List<Reading> readings, required final  List<DailyCard> dailyCards, required this.report}): _readings = readings,_dailyCards = dailyCards;
+  const _MergeResult({required this.settings, required  List<Reading> readings, required  List<DailyCard> dailyCards, required this.report}): _readings = readings,_dailyCards = dailyCards;
   
 
 /// Settings to store.
@@ -541,16 +554,18 @@ _$MergeResultCopyWith<_MergeResult> get copyWith => __$MergeResultCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MergeResult&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other._readings, _readings)&&const DeepCollectionEquality().equals(other._dailyCards, _dailyCards)&&(identical(other.report, report) || other.report == report));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _MergeResult&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other.readings, _readings)&&const DeepCollectionEquality().equals(other.dailyCards, _dailyCards)&&(identical(other.report, report) || other.report == report));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards),report);
+int get hashCode {
+    return Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards),report);
+}
 
 @override
 String toString() {
-  return 'MergeResult(settings: $settings, readings: $readings, dailyCards: $dailyCards, report: $report)';
+    return 'MergeResult(settings: $settings, readings: $readings, dailyCards: $dailyCards, report: $report)';
 }
 
 

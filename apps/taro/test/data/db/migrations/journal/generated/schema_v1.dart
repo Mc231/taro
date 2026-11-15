@@ -55,8 +55,7 @@ class Readings extends Table with TableInfo {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints:
-        'NOT NULL CHECK (status IN (\'pending\', \'complete\', \'failed\', \'refused\', \'classic\'))',
+    $customConstraints: 'NOT NULL CHECK (status IN (\'pending\', \'complete\', \'failed\', \'refused\', \'classic\'))',
   );
   late final GeneratedColumn<String> contentJson = GeneratedColumn<String>(
     'content_json',

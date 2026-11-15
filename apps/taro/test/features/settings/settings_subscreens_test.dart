@@ -28,8 +28,9 @@ void main() {
       await controller.select('ar');
       await pumpEventQueue();
       expect(
-        (container.read(languageControllerProvider) as LanguageContent)
-            .localeOverride,
+        (container.read(
+          languageControllerProvider,
+        ) as LanguageContent).localeOverride,
         'ar',
       );
       await controller.select('ar');

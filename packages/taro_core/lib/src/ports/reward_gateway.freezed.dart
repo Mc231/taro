@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reward_gateway.dart';
@@ -9,6 +9,7 @@ part of 'reward_gateway.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $RewardIntentCopyWith<RewardIntent> get copyWith => _$RewardIntentCopyWithImpl<R
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardIntent&&(identical(other.intentId, intentId) || other.intentId == intentId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  final _this = this as RewardIntent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardIntent&&(identical(other.intentId, _this.intentId) || other.intentId == _this.intentId)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,intentId,amount,expiresAt);
+int get hashCode {
+  final _this = this as RewardIntent;
+  return Object.hash(runtimeType,_this.intentId,_this.amount,_this.expiresAt);
+}
 
 @override
 String toString() {
-  return 'RewardIntent(intentId: $intentId, amount: $amount, expiresAt: $expiresAt)';
+  final _this = this as RewardIntent;
+  return 'RewardIntent(intentId: ${_this.intentId}, amount: ${_this.amount}, expiresAt: ${_this.expiresAt})';
 }
 
 
@@ -66,7 +72,7 @@ class _$RewardIntentCopyWithImpl<$Res>
 /// Create a copy of RewardIntent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? intentId = null,Object? amount = null,Object? expiresAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(RewardIntent(
 intentId: null == intentId ? _self.intentId : intentId // ignore: cast_nullable_to_non_nullable
 as IntentId,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$RewardIntentCopyWith<_RewardIntent> get copyWith => __$RewardIntentCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardIntent&&(identical(other.intentId, intentId) || other.intentId == intentId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardIntent&&(identical(other.intentId, intentId) || other.intentId == intentId)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,intentId,amount,expiresAt);
+int get hashCode {
+    return Object.hash(runtimeType,intentId,amount,expiresAt);
+}
 
 @override
 String toString() {
-  return 'RewardIntent(intentId: $intentId, amount: $amount, expiresAt: $expiresAt)';
+    return 'RewardIntent(intentId: $intentId, amount: $amount, expiresAt: $expiresAt)';
 }
 
 
@@ -297,16 +305,21 @@ $RewardStatusCopyWith<RewardStatus> get copyWith => _$RewardStatusCopyWithImpl<R
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardStatus&&(identical(other.state, state) || other.state == state)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.balance, balance) || other.balance == balance));
+  final _this = this as RewardStatus;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardStatus&&(identical(other.state, _this.state) || other.state == _this.state)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,state,amount,balance);
+int get hashCode {
+  final _this = this as RewardStatus;
+  return Object.hash(runtimeType,_this.state,_this.amount,_this.balance);
+}
 
 @override
 String toString() {
-  return 'RewardStatus(state: $state, amount: $amount, balance: $balance)';
+  final _this = this as RewardStatus;
+  return 'RewardStatus(state: ${_this.state}, amount: ${_this.amount}, balance: ${_this.balance})';
 }
 
 
@@ -335,7 +348,7 @@ class _$RewardStatusCopyWithImpl<$Res>
 /// Create a copy of RewardStatus
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? state = null,Object? amount = null,Object? balance = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(RewardStatus(
 state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as RewardIntentState,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,balance: freezed == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
@@ -512,16 +525,18 @@ _$RewardStatusCopyWith<_RewardStatus> get copyWith => __$RewardStatusCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardStatus&&(identical(other.state, state) || other.state == state)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardStatus&&(identical(other.state, state) || other.state == state)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,state,amount,balance);
+int get hashCode {
+    return Object.hash(runtimeType,state,amount,balance);
+}
 
 @override
 String toString() {
-  return 'RewardStatus(state: $state, amount: $amount, balance: $balance)';
+    return 'RewardStatus(state: $state, amount: $amount, balance: $balance)';
 }
 
 

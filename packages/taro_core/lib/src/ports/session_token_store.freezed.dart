@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'session_token_store.dart';
@@ -9,6 +9,7 @@ part of 'session_token_store.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $SessionTokenCopyWith<SessionToken> get copyWith => _$SessionTokenCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionToken&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  final _this = this as SessionToken;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionToken&&(identical(other.token, _this.token) || other.token == _this.token)&&(identical(other.expiresAt, _this.expiresAt) || other.expiresAt == _this.expiresAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,token,expiresAt);
+int get hashCode {
+  final _this = this as SessionToken;
+  return Object.hash(runtimeType,_this.token,_this.expiresAt);
+}
 
 @override
 String toString() {
-  return 'SessionToken(token: $token, expiresAt: $expiresAt)';
+  final _this = this as SessionToken;
+  return 'SessionToken(token: ${_this.token}, expiresAt: ${_this.expiresAt})';
 }
 
 
@@ -65,7 +71,7 @@ class _$SessionTokenCopyWithImpl<$Res>
 /// Create a copy of SessionToken
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? token = null,Object? expiresAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(SessionToken(
 token: null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
 as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -227,16 +233,18 @@ _$SessionTokenCopyWith<_SessionToken> get copyWith => __$SessionTokenCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionToken&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SessionToken&&(identical(other.token, token) || other.token == token)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,token,expiresAt);
+int get hashCode {
+    return Object.hash(runtimeType,token,expiresAt);
+}
 
 @override
 String toString() {
-  return 'SessionToken(token: $token, expiresAt: $expiresAt)';
+    return 'SessionToken(token: $token, expiresAt: $expiresAt)';
 }
 
 

@@ -630,11 +630,9 @@ void main() {
   });
 
   group('BackupSchemaV1 mirrors docs/specs/backup_schema_v1.json', () {
-    final schema =
-        jsonDecode(
-              File('../../docs/specs/backup_schema_v1.json').readAsStringSync(),
-            )
-            as _Json;
+    final schema = jsonDecode(
+      File('../../docs/specs/backup_schema_v1.json').readAsStringSync(),
+    ) as _Json;
     final defs = schema[r'$defs']! as _Json;
     _Json props(_Json o) => o['properties']! as _Json;
     _Json def(String name) => defs[name]! as _Json;

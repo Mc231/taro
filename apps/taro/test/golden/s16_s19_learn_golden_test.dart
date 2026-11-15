@@ -17,9 +17,9 @@ import 'golden_app_support.dart';
 
 /// The English card names of the bundled deck.
 Map<String, String> _names() {
-  final json =
-      jsonDecode(File('assets/deck/en.json').readAsStringSync())
-          as Map<String, Object?>;
+  final json = jsonDecode(
+    File('assets/deck/en.json').readAsStringSync(),
+  ) as Map<String, Object?>;
   return {
     for (final card in (json['cards']! as List).cast<Map<String, Object?>>())
       card['cardId']! as String: card['name']! as String,

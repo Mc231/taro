@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'report_reading_controller.dart';
@@ -9,6 +9,7 @@ part of 'report_reading_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $ReportDraftCopyWith<ReportDraft> get copyWith => _$ReportDraftCopyWithImpl<Repo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportDraft&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.note, note) || other.note == note));
+  final _this = this as ReportDraft;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportDraft&&(identical(other.reason, _this.reason) || other.reason == _this.reason)&&(identical(other.note, _this.note) || other.note == _this.note));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,note);
+int get hashCode {
+  final _this = this as ReportDraft;
+  return Object.hash(runtimeType,_this.reason,_this.note);
+}
 
 @override
 String toString() {
-  return 'ReportDraft(reason: $reason, note: $note)';
+  final _this = this as ReportDraft;
+  return 'ReportDraft(reason: ${_this.reason}, note: ${_this.note})';
 }
 
 
@@ -63,7 +69,7 @@ class _$ReportDraftCopyWithImpl<$Res>
 /// Create a copy of ReportDraft
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reason = freezed,Object? note = null,}) {
-  return _then(_self.copyWith(
+  return _then(ReportDraft(
 reason: freezed == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
 as ReportReason?,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String,
@@ -223,16 +229,18 @@ _$ReportDraftCopyWith<_ReportDraft> get copyWith => __$ReportDraftCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportDraft&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.note, note) || other.note == note));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReportDraft&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.note, note) || other.note == note));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,note);
+int get hashCode {
+    return Object.hash(runtimeType,reason,note);
+}
 
 @override
 String toString() {
-  return 'ReportDraft(reason: $reason, note: $note)';
+    return 'ReportDraft(reason: $reason, note: $note)';
 }
 
 
@@ -280,7 +288,7 @@ mixin _$ReportReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingState);
 }
 
 
@@ -289,7 +297,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReportReadingState()';
+    return 'ReportReadingState()';
 }
 
 
@@ -480,16 +488,18 @@ $ReportReadingEditingCopyWith<ReportReadingEditing> get copyWith => _$ReportRead
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingEditing&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingEditing&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'ReportReadingState.editing(draft: $draft)';
+    return 'ReportReadingState.editing(draft: $draft)';
 }
 
 
@@ -555,16 +565,18 @@ $ReportReadingSubmittingCopyWith<ReportReadingSubmitting> get copyWith => _$Repo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingSubmitting&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingSubmitting&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'ReportReadingState.submitting(draft: $draft)';
+    return 'ReportReadingState.submitting(draft: $draft)';
 }
 
 
@@ -625,7 +637,7 @@ class ReportReadingSubmitted implements ReportReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingSubmitted);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingSubmitted);
 }
 
 
@@ -634,7 +646,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReportReadingState.submitted()';
+    return 'ReportReadingState.submitted()';
 }
 
 
@@ -663,16 +675,18 @@ $ReportReadingFailedCopyWith<ReportReadingFailed> get copyWith => _$ReportReadin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingFailed&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingFailed&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,failure);
+int get hashCode {
+    return Object.hash(runtimeType,draft,failure);
+}
 
 @override
 String toString() {
-  return 'ReportReadingState.failed(draft: $draft, failure: $failure)';
+    return 'ReportReadingState.failed(draft: $draft, failure: $failure)';
 }
 
 
@@ -748,16 +762,18 @@ $ReportReadingOfflineCopyWith<ReportReadingOffline> get copyWith => _$ReportRead
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingOffline&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingOffline&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'ReportReadingState.offline(draft: $draft)';
+    return 'ReportReadingState.offline(draft: $draft)';
 }
 
 
@@ -823,16 +839,18 @@ $ReportReadingRateLimitedCopyWith<ReportReadingRateLimited> get copyWith => _$Re
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingRateLimited&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingRateLimited&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'ReportReadingState.rateLimited(draft: $draft)';
+    return 'ReportReadingState.rateLimited(draft: $draft)';
 }
 
 
@@ -893,7 +911,7 @@ class ReportReadingAlreadyReported implements ReportReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingAlreadyReported);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReportReadingAlreadyReported);
 }
 
 
@@ -902,7 +920,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReportReadingState.alreadyReported()';
+    return 'ReportReadingState.alreadyReported()';
 }
 
 

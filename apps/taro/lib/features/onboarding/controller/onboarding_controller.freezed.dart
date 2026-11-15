@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'onboarding_controller.dart';
@@ -9,6 +9,7 @@ part of 'onboarding_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$OnboardingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState()';
+    return 'OnboardingState()';
 }
 
 
@@ -197,16 +198,18 @@ $OnboardingWelcomeCopyWith<OnboardingWelcome> get copyWith => _$OnboardingWelcom
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingWelcome&&(identical(other.page, page) || other.page == page)&&(identical(other.pageCount, pageCount) || other.pageCount == pageCount));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingWelcome&&(identical(other.page, page) || other.page == page)&&(identical(other.pageCount, pageCount) || other.pageCount == pageCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,page,pageCount);
+int get hashCode {
+    return Object.hash(runtimeType,page,pageCount);
+}
 
 @override
 String toString() {
-  return 'OnboardingState.welcome(page: $page, pageCount: $pageCount)';
+    return 'OnboardingState.welcome(page: $page, pageCount: $pageCount)';
 }
 
 
@@ -259,7 +262,7 @@ class OnboardingDisclaimer implements OnboardingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingDisclaimer);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingDisclaimer);
 }
 
 
@@ -268,7 +271,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.disclaimer()';
+    return 'OnboardingState.disclaimer()';
 }
 
 
@@ -291,7 +294,7 @@ class OnboardingAcknowledged implements OnboardingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingAcknowledged);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingAcknowledged);
 }
 
 
@@ -300,7 +303,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.acknowledged()';
+    return 'OnboardingState.acknowledged()';
 }
 
 

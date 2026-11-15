@@ -15,11 +15,10 @@ import 'journal_fakes.dart';
 final class FakeBalanceRepository
     with FakeBehaviour
     implements BalanceRepository {
-  /// A repository with [cached] on disk and [server] on the Worker
+  /// A repository with [_cached] on disk and [server] on the Worker
   /// (`aCreditBalance().build()` by default).
-  FakeBalanceRepository({CreditBalance? cached, CreditBalance? server})
-    : _cached = cached,
-      server = server ?? aCreditBalance().build();
+  FakeBalanceRepository({this._cached, CreditBalance? server})
+    : server = server ?? aCreditBalance().build();
 
   @override
   String get fakeName => 'BalanceRepository';

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'backup.dart';
@@ -9,6 +9,7 @@ part of 'backup.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $BackupDataCopyWith<BackupData> get copyWith => _$BackupDataCopyWithImpl<BackupD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupData&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other.readings, readings)&&const DeepCollectionEquality().equals(other.dailyCards, dailyCards));
+  final _this = this as BackupData;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupData&&(identical(other.settings, _this.settings) || other.settings == _this.settings)&&const DeepCollectionEquality().equals(other.readings, _this.readings)&&const DeepCollectionEquality().equals(other.dailyCards, _this.dailyCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(readings),const DeepCollectionEquality().hash(dailyCards));
+int get hashCode {
+  final _this = this as BackupData;
+  return Object.hash(runtimeType,_this.settings,const DeepCollectionEquality().hash(_this.readings),const DeepCollectionEquality().hash(_this.dailyCards));
+}
 
 @override
 String toString() {
-  return 'BackupData(settings: $settings, readings: $readings, dailyCards: $dailyCards)';
+  final _this = this as BackupData;
+  return 'BackupData(settings: ${_this.settings}, readings: ${_this.readings}, dailyCards: ${_this.dailyCards})';
 }
 
 
@@ -66,7 +72,7 @@ class _$BackupDataCopyWithImpl<$Res>
 /// Create a copy of BackupData
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? settings = null,Object? readings = null,Object? dailyCards = null,}) {
-  return _then(_self.copyWith(
+  return _then(BackupData(
 settings: null == settings ? _self.settings : settings // ignore: cast_nullable_to_non_nullable
 as UserSettings,readings: null == readings ? _self.readings : readings // ignore: cast_nullable_to_non_nullable
 as List<Reading>,dailyCards: null == dailyCards ? _self.dailyCards : dailyCards // ignore: cast_nullable_to_non_nullable
@@ -220,7 +226,7 @@ return $default(_that.settings,_that.readings,_that.dailyCards);case _:
 
 
 class _BackupData extends BackupData {
-  const _BackupData({required this.settings, required final  List<Reading> readings, required final  List<DailyCard> dailyCards}): _readings = readings,_dailyCards = dailyCards,super._();
+  const _BackupData({required this.settings, required  List<Reading> readings, required  List<DailyCard> dailyCards}): _readings = readings,_dailyCards = dailyCards,super._();
   
 
 /// Exported settings.
@@ -254,16 +260,18 @@ _$BackupDataCopyWith<_BackupData> get copyWith => __$BackupDataCopyWithImpl<_Bac
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupData&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other._readings, _readings)&&const DeepCollectionEquality().equals(other._dailyCards, _dailyCards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupData&&(identical(other.settings, settings) || other.settings == settings)&&const DeepCollectionEquality().equals(other.readings, _readings)&&const DeepCollectionEquality().equals(other.dailyCards, _dailyCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards));
+int get hashCode {
+    return Object.hash(runtimeType,settings,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards));
+}
 
 @override
 String toString() {
-  return 'BackupData(settings: $settings, readings: $readings, dailyCards: $dailyCards)';
+    return 'BackupData(settings: $settings, readings: $readings, dailyCards: $dailyCards)';
 }
 
 
@@ -330,16 +338,21 @@ $BackupV1CopyWith<BackupV1> get copyWith => _$BackupV1CopyWithImpl<BackupV1>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupV1&&(identical(other.exportedAt, exportedAt) || other.exportedAt == exportedAt)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.data, data) || other.data == data)&&(identical(other.checksum, checksum) || other.checksum == checksum));
+  final _this = this as BackupV1;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupV1&&(identical(other.exportedAt, _this.exportedAt) || other.exportedAt == _this.exportedAt)&&(identical(other.appVersion, _this.appVersion) || other.appVersion == _this.appVersion)&&(identical(other.data, _this.data) || other.data == _this.data)&&(identical(other.checksum, _this.checksum) || other.checksum == _this.checksum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,exportedAt,appVersion,data,checksum);
+int get hashCode {
+  final _this = this as BackupV1;
+  return Object.hash(runtimeType,_this.exportedAt,_this.appVersion,_this.data,_this.checksum);
+}
 
 @override
 String toString() {
-  return 'BackupV1(exportedAt: $exportedAt, appVersion: $appVersion, data: $data, checksum: $checksum)';
+  final _this = this as BackupV1;
+  return 'BackupV1(exportedAt: ${_this.exportedAt}, appVersion: ${_this.appVersion}, data: ${_this.data}, checksum: ${_this.checksum})';
 }
 
 
@@ -368,7 +381,7 @@ class _$BackupV1CopyWithImpl<$Res>
 /// Create a copy of BackupV1
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? exportedAt = null,Object? appVersion = null,Object? data = null,Object? checksum = null,}) {
-  return _then(_self.copyWith(
+  return _then(BackupV1(
 exportedAt: null == exportedAt ? _self.exportedAt : exportedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,appVersion: null == appVersion ? _self.appVersion : appVersion // ignore: cast_nullable_to_non_nullable
 as String,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
@@ -545,16 +558,18 @@ _$BackupV1CopyWith<_BackupV1> get copyWith => __$BackupV1CopyWithImpl<_BackupV1>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupV1&&(identical(other.exportedAt, exportedAt) || other.exportedAt == exportedAt)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.data, data) || other.data == data)&&(identical(other.checksum, checksum) || other.checksum == checksum));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _BackupV1&&(identical(other.exportedAt, exportedAt) || other.exportedAt == exportedAt)&&(identical(other.appVersion, appVersion) || other.appVersion == appVersion)&&(identical(other.data, data) || other.data == data)&&(identical(other.checksum, checksum) || other.checksum == checksum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,exportedAt,appVersion,data,checksum);
+int get hashCode {
+    return Object.hash(runtimeType,exportedAt,appVersion,data,checksum);
+}
 
 @override
 String toString() {
-  return 'BackupV1(exportedAt: $exportedAt, appVersion: $appVersion, data: $data, checksum: $checksum)';
+    return 'BackupV1(exportedAt: $exportedAt, appVersion: $appVersion, data: $data, checksum: $checksum)';
 }
 
 

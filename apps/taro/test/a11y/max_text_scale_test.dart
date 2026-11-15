@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/reading_mini_spread.dart';
 import 'package:taro/routing/screen_builders.dart';
 import 'package:taro_core/taro_core.dart';
@@ -19,13 +19,11 @@ import 'a11y_support.dart';
 /// The canvas reading (`docs/design/samples/readings/three_ppf.json`), the
 /// longest committed three-card sample.
 Reading _sampleReading() {
-  final sample =
-      jsonDecode(
-            File(
-              '../../docs/design/samples/readings/three_ppf.json',
-            ).readAsStringSync(),
-          )
-          as Map<String, Object?>;
+  final sample = jsonDecode(
+    File(
+      '../../docs/design/samples/readings/three_ppf.json',
+    ).readAsStringSync(),
+  ) as Map<String, Object?>;
   final request = sample['request']! as Map<String, Object?>;
   final response = sample['response']! as Map<String, Object?>;
   return aReading()

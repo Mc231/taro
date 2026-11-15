@@ -104,8 +104,10 @@ abstract interface class ArtEncoder {
 }
 
 /// Runs a process synchronously (`Process.runSync`; injected by tests).
-typedef RunProcess =
-    ProcessResult Function(String executable, List<String> arguments);
+typedef RunProcess = ProcessResult Function(
+  String executable,
+  List<String> arguments,
+);
 
 /// The production encoder: libwebp's `cwebp` (macOS: `brew install webp`;
 /// Linux: the `webp` package).

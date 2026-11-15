@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/journal/controller/journal_list_controller.dart';
 import 'package:taro/features/journal/view/journal_list_screen.dart';

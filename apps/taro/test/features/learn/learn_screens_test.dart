@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' hide Element;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart' hide Element;
 import 'package:taro/di/providers.dart'
     show Article, ArticleEntry, ArticleSection;
 import 'package:taro/features/learn/controller/about_controller.dart';

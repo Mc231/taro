@@ -13,9 +13,9 @@ void main() {
 
   setUpAll(() async {
     l10n = await TaroLocalizations.delegate.load(const Locale('en'));
-    arb =
-        jsonDecode(File('lib/l10n/arb/app_en.arb').readAsStringSync())
-            as Map<String, Object?>;
+    arb = jsonDecode(
+      File('lib/l10n/arb/app_en.arb').readAsStringSync(),
+    ) as Map<String, Object?>;
   });
 
   test('every spread_ ARB key resolves to its English text', () {

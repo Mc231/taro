@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'draw_state.dart';
@@ -9,6 +9,7 @@ part of 'draw_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $DrawViewCopyWith<DrawView> get copyWith => _$DrawViewCopyWithImpl<DrawView>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawView&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.classic, classic) || other.classic == classic)&&(identical(other.placed, placed) || other.placed == placed)&&(identical(other.revealed, revealed) || other.revealed == revealed)&&(identical(other.autoDraw, autoDraw) || other.autoDraw == autoDraw)&&(identical(other.reducedMotion, reducedMotion) || other.reducedMotion == reducedMotion)&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.question, question) || other.question == question));
+  final _this = this as DrawView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawView&&(identical(other.spread, _this.spread) || other.spread == _this.spread)&&(identical(other.draw, _this.draw) || other.draw == _this.draw)&&(identical(other.classic, _this.classic) || other.classic == _this.classic)&&(identical(other.placed, _this.placed) || other.placed == _this.placed)&&(identical(other.revealed, _this.revealed) || other.revealed == _this.revealed)&&(identical(other.autoDraw, _this.autoDraw) || other.autoDraw == _this.autoDraw)&&(identical(other.reducedMotion, _this.reducedMotion) || other.reducedMotion == _this.reducedMotion)&&(identical(other.readingId, _this.readingId) || other.readingId == _this.readingId)&&(identical(other.question, _this.question) || other.question == _this.question));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,draw,classic,placed,revealed,autoDraw,reducedMotion,readingId,question);
+int get hashCode {
+  final _this = this as DrawView;
+  return Object.hash(runtimeType,_this.spread,_this.draw,_this.classic,_this.placed,_this.revealed,_this.autoDraw,_this.reducedMotion,_this.readingId,_this.question);
+}
 
 @override
 String toString() {
-  return 'DrawView(spread: $spread, draw: $draw, classic: $classic, placed: $placed, revealed: $revealed, autoDraw: $autoDraw, reducedMotion: $reducedMotion, readingId: $readingId, question: $question)';
+  final _this = this as DrawView;
+  return 'DrawView(spread: ${_this.spread}, draw: ${_this.draw}, classic: ${_this.classic}, placed: ${_this.placed}, revealed: ${_this.revealed}, autoDraw: ${_this.autoDraw}, reducedMotion: ${_this.reducedMotion}, readingId: ${_this.readingId}, question: ${_this.question})';
 }
 
 
@@ -63,7 +69,7 @@ class _$DrawViewCopyWithImpl<$Res>
 /// Create a copy of DrawView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spread = null,Object? draw = null,Object? classic = null,Object? placed = null,Object? revealed = null,Object? autoDraw = null,Object? reducedMotion = null,Object? readingId = freezed,Object? question = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(DrawView(
 spread: null == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
 as SpreadDefinition,draw: null == draw ? _self.draw : draw // ignore: cast_nullable_to_non_nullable
 as Draw,classic: null == classic ? _self.classic : classic // ignore: cast_nullable_to_non_nullable
@@ -255,16 +261,18 @@ _$DrawViewCopyWith<_DrawView> get copyWith => __$DrawViewCopyWithImpl<_DrawView>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DrawView&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.classic, classic) || other.classic == classic)&&(identical(other.placed, placed) || other.placed == placed)&&(identical(other.revealed, revealed) || other.revealed == revealed)&&(identical(other.autoDraw, autoDraw) || other.autoDraw == autoDraw)&&(identical(other.reducedMotion, reducedMotion) || other.reducedMotion == reducedMotion)&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.question, question) || other.question == question));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DrawView&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.classic, classic) || other.classic == classic)&&(identical(other.placed, placed) || other.placed == placed)&&(identical(other.revealed, revealed) || other.revealed == revealed)&&(identical(other.autoDraw, autoDraw) || other.autoDraw == autoDraw)&&(identical(other.reducedMotion, reducedMotion) || other.reducedMotion == reducedMotion)&&(identical(other.readingId, readingId) || other.readingId == readingId)&&(identical(other.question, question) || other.question == question));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,draw,classic,placed,revealed,autoDraw,reducedMotion,readingId,question);
+int get hashCode {
+    return Object.hash(runtimeType,spread,draw,classic,placed,revealed,autoDraw,reducedMotion,readingId,question);
+}
 
 @override
 String toString() {
-  return 'DrawView(spread: $spread, draw: $draw, classic: $classic, placed: $placed, revealed: $revealed, autoDraw: $autoDraw, reducedMotion: $reducedMotion, readingId: $readingId, question: $question)';
+    return 'DrawView(spread: $spread, draw: $draw, classic: $classic, placed: $placed, revealed: $revealed, autoDraw: $autoDraw, reducedMotion: $reducedMotion, readingId: $readingId, question: $question)';
 }
 
 
@@ -337,7 +345,7 @@ mixin _$DrawState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawState);
 }
 
 
@@ -346,7 +354,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DrawState()';
+    return 'DrawState()';
 }
 
 
@@ -580,7 +588,7 @@ class DrawUnavailable extends DrawState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawUnavailable);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawUnavailable);
 }
 
 
@@ -589,7 +597,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DrawState.unavailable()';
+    return 'DrawState.unavailable()';
 }
 
 
@@ -612,7 +620,7 @@ class DrawPreparing extends DrawState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawPreparing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawPreparing);
 }
 
 
@@ -621,7 +629,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DrawState.preparing()';
+    return 'DrawState.preparing()';
 }
 
 
@@ -649,16 +657,18 @@ $DrawShufflingCopyWith<DrawShuffling> get copyWith => _$DrawShufflingCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawShuffling&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawShuffling&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.shuffling(view: $view)';
+    return 'DrawState.shuffling(view: $view)';
 }
 
 
@@ -724,16 +734,18 @@ $DrawPickingCopyWith<DrawPicking> get copyWith => _$DrawPickingCopyWithImpl<Draw
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawPicking&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawPicking&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.picking(view: $view)';
+    return 'DrawState.picking(view: $view)';
 }
 
 
@@ -799,16 +811,18 @@ $DrawRevealingCopyWith<DrawRevealing> get copyWith => _$DrawRevealingCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawRevealing&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawRevealing&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.revealing(view: $view)';
+    return 'DrawState.revealing(view: $view)';
 }
 
 
@@ -874,16 +888,18 @@ $DrawAwaitingReadingCopyWith<DrawAwaitingReading> get copyWith => _$DrawAwaiting
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawAwaitingReading&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawAwaitingReading&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.awaitingReading(view: $view)';
+    return 'DrawState.awaitingReading(view: $view)';
 }
 
 
@@ -949,16 +965,18 @@ $DrawSlowReadingCopyWith<DrawSlowReading> get copyWith => _$DrawSlowReadingCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawSlowReading&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawSlowReading&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.slowReading(view: $view)';
+    return 'DrawState.slowReading(view: $view)';
 }
 
 
@@ -1024,16 +1042,18 @@ $DrawTimeoutPollingCopyWith<DrawTimeoutPolling> get copyWith => _$DrawTimeoutPol
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawTimeoutPolling&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawTimeoutPolling&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.timeoutPolling(view: $view)';
+    return 'DrawState.timeoutPolling(view: $view)';
 }
 
 
@@ -1100,16 +1120,18 @@ $DrawGenerationFailedCopyWith<DrawGenerationFailed> get copyWith => _$DrawGenera
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawGenerationFailed&&(identical(other.view, view) || other.view == view)&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawGenerationFailed&&(identical(other.view, view) || other.view == view)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,failure);
+int get hashCode {
+    return Object.hash(runtimeType,view,failure);
+}
 
 @override
 String toString() {
-  return 'DrawState.generationFailed(view: $view, failure: $failure)';
+    return 'DrawState.generationFailed(view: $view, failure: $failure)';
 }
 
 
@@ -1185,16 +1207,18 @@ $DrawHoldLostCopyWith<DrawHoldLost> get copyWith => _$DrawHoldLostCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawHoldLost&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawHoldLost&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.holdLost(view: $view)';
+    return 'DrawState.holdLost(view: $view)';
 }
 
 
@@ -1260,16 +1284,18 @@ $DrawDeliveryExpiredCopyWith<DrawDeliveryExpired> get copyWith => _$DrawDelivery
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawDeliveryExpired&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawDeliveryExpired&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.deliveryExpired(view: $view)';
+    return 'DrawState.deliveryExpired(view: $view)';
 }
 
 
@@ -1336,16 +1362,18 @@ $DrawCrisisCopyWith<DrawCrisis> get copyWith => _$DrawCrisisCopyWithImpl<DrawCri
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawCrisis&&(identical(other.view, view) || other.view == view)&&(identical(other.safety, safety) || other.safety == safety));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawCrisis&&(identical(other.view, view) || other.view == view)&&(identical(other.safety, safety) || other.safety == safety));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,safety);
+int get hashCode {
+    return Object.hash(runtimeType,view,safety);
+}
 
 @override
 String toString() {
-  return 'DrawState.crisis(view: $view, safety: $safety)';
+    return 'DrawState.crisis(view: $view, safety: $safety)';
 }
 
 
@@ -1421,16 +1449,18 @@ $DrawReturnedToQuestionCopyWith<DrawReturnedToQuestion> get copyWith => _$DrawRe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawReturnedToQuestion&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawReturnedToQuestion&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.returnedToQuestion(view: $view)';
+    return 'DrawState.returnedToQuestion(view: $view)';
 }
 
 
@@ -1497,16 +1527,18 @@ $DrawCompletedCopyWith<DrawCompleted> get copyWith => _$DrawCompletedCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawCompleted&&(identical(other.view, view) || other.view == view)&&(identical(other.reading, reading) || other.reading == reading));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawCompleted&&(identical(other.view, view) || other.view == view)&&(identical(other.reading, reading) || other.reading == reading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,reading);
+int get hashCode {
+    return Object.hash(runtimeType,view,reading);
+}
 
 @override
 String toString() {
-  return 'DrawState.completed(view: $view, reading: $reading)';
+    return 'DrawState.completed(view: $view, reading: $reading)';
 }
 
 
@@ -1583,16 +1615,18 @@ $DrawFailedCopyWith<DrawFailed> get copyWith => _$DrawFailedCopyWithImpl<DrawFai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawFailed&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawFailed&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure,view);
+int get hashCode {
+    return Object.hash(runtimeType,failure,view);
+}
 
 @override
 String toString() {
-  return 'DrawState.failed(failure: $failure, view: $view)';
+    return 'DrawState.failed(failure: $failure, view: $view)';
 }
 
 

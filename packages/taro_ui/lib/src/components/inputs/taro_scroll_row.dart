@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/common/taro_edge_fade.dart';
 
 /// A horizontally scrolling row (filter chips, S14 and S16) whose edges

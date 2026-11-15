@@ -8,6 +8,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 void main() {
@@ -140,7 +141,7 @@ void main() {
       );
       await tapFound(tester, find.text(l10n.commonRetry));
       expect(find.text(l10n.spread_single_name), findsOneWidget);
-      await tester.tap(find.byTooltip(l10n.commonBack));
+      await tester.tap(find.byTaroTooltip(l10n.commonBack));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });

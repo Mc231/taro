@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/app_state/remote_config_controller.dart';
 import 'package:taro/common/legal_links.dart';
 import 'package:taro/common/onboarding_page.dart';

@@ -25,18 +25,13 @@ import 'package:taro_core/src/usecases/delivery_ack.dart';
 final class RequestReading {
   /// Creates the use case.
   RequestReading({
-    required ReadingRepository readings,
-    required BalanceRepository balance,
-    required InstallRepository install,
-    required IdGenerator ids,
-    required Clock clock,
-    required Logger logger,
-  }) : _readings = readings,
-       _balance = balance,
-       _install = install,
-       _ids = ids,
-       _clock = clock,
-       _logger = logger;
+    required this._readings,
+    required this._balance,
+    required this._install,
+    required this._ids,
+    required this._clock,
+    required this._logger,
+  });
 
   final ReadingRepository _readings;
   final BalanceRepository _balance;

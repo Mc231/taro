@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'drawn_card.dart';
@@ -9,6 +9,7 @@ part of 'drawn_card.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $DrawnCardCopyWith<DrawnCard> get copyWith => _$DrawnCardCopyWithImpl<DrawnCard>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawnCard&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+  final _this = this as DrawnCard;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DrawnCard&&(identical(other.positionId, _this.positionId) || other.positionId == _this.positionId)&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.reversed, _this.reversed) || other.reversed == _this.reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionId,cardId,reversed);
+int get hashCode {
+  final _this = this as DrawnCard;
+  return Object.hash(runtimeType,_this.positionId,_this.cardId,_this.reversed);
+}
 
 @override
 String toString() {
-  return 'DrawnCard(positionId: $positionId, cardId: $cardId, reversed: $reversed)';
+  final _this = this as DrawnCard;
+  return 'DrawnCard(positionId: ${_this.positionId}, cardId: ${_this.cardId}, reversed: ${_this.reversed})';
 }
 
 
@@ -66,7 +72,7 @@ class _$DrawnCardCopyWithImpl<$Res>
 /// Create a copy of DrawnCard
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? positionId = null,Object? cardId = null,Object? reversed = null,}) {
-  return _then(_self.copyWith(
+  return _then(DrawnCard(
 positionId: null == positionId ? _self.positionId : positionId // ignore: cast_nullable_to_non_nullable
 as PositionId,cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,reversed: null == reversed ? _self.reversed : reversed // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$DrawnCardCopyWith<_DrawnCard> get copyWith => __$DrawnCardCopyWithImpl<_DrawnC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DrawnCard&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DrawnCard&&(identical(other.positionId, positionId) || other.positionId == positionId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,positionId,cardId,reversed);
+int get hashCode {
+    return Object.hash(runtimeType,positionId,cardId,reversed);
+}
 
 @override
 String toString() {
-  return 'DrawnCard(positionId: $positionId, cardId: $cardId, reversed: $reversed)';
+    return 'DrawnCard(positionId: $positionId, cardId: $cardId, reversed: $reversed)';
 }
 
 

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:patrol_finders/patrol_finders.dart';
 import 'package:taro/bootstrap/bootstrap.dart';
 import 'package:taro/bootstrap/build_defines.dart';

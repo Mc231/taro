@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'out_of_readings_controller.dart';
@@ -9,6 +9,7 @@ part of 'out_of_readings_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$OutOfReadingsState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OutOfReadingsState()';
+    return 'OutOfReadingsState()';
 }
 
 
@@ -201,16 +202,18 @@ $OutOfReadingsContentCopyWith<OutOfReadingsContent> get copyWith => _$OutOfReadi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsContent&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.packs, packs) || other.packs == packs)&&(identical(other.lowTrustLimited, lowTrustLimited) || other.lowTrustLimited == lowTrustLimited)&&(identical(other.nextFreeIn, nextFreeIn) || other.nextFreeIn == nextFreeIn)&&(identical(other.nextFreeAt, nextFreeAt) || other.nextFreeAt == nextFreeAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsContent&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.packs, packs) || other.packs == packs)&&(identical(other.lowTrustLimited, lowTrustLimited) || other.lowTrustLimited == lowTrustLimited)&&(identical(other.nextFreeIn, nextFreeIn) || other.nextFreeIn == nextFreeIn)&&(identical(other.nextFreeAt, nextFreeAt) || other.nextFreeAt == nextFreeAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,rewarded,packs,lowTrustLimited,nextFreeIn,nextFreeAt);
+int get hashCode {
+    return Object.hash(runtimeType,rewarded,packs,lowTrustLimited,nextFreeIn,nextFreeAt);
+}
 
 @override
 String toString() {
-  return 'OutOfReadingsState.content(rewarded: $rewarded, packs: $packs, lowTrustLimited: $lowTrustLimited, nextFreeIn: $nextFreeIn, nextFreeAt: $nextFreeAt)';
+    return 'OutOfReadingsState.content(rewarded: $rewarded, packs: $packs, lowTrustLimited: $lowTrustLimited, nextFreeIn: $nextFreeIn, nextFreeAt: $nextFreeAt)';
 }
 
 
@@ -284,7 +287,7 @@ class OutOfReadingsResolved implements OutOfReadingsState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsResolved);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is OutOfReadingsResolved);
 }
 
 
@@ -293,7 +296,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OutOfReadingsState.resolved()';
+    return 'OutOfReadingsState.resolved()';
 }
 
 

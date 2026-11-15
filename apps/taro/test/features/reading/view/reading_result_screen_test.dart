@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/features/reading/controller/reading_result_controller.dart';
@@ -10,6 +10,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 ReadingResultView _view(Reading reading) => ReadingResultView(
@@ -78,12 +79,12 @@ void main() {
       findsOneWidget,
     );
     await tester.tap(find.text(l10n.commonAddNote));
-    await tester.tap(find.byTooltip(l10n.readingDone));
+    await tester.tap(find.byTaroTooltip(l10n.readingDone));
     await tapFound(tester, find.text(l10n.readingFullDisclaimer));
-    await tapFound(tester, find.byTooltip(l10n.commonFavourite));
+    await tapFound(tester, find.byTaroTooltip(l10n.commonFavourite));
     await tapFound(tester, find.bySemanticsLabel(l10n.readingRateUp));
     expect(find.text(l10n.readingRatingThanks), findsOneWidget);
-    await tester.tap(find.byTooltip(l10n.commonMore));
+    await tester.tap(find.byTaroTooltip(l10n.commonMore));
     await tester.pumpAndSettle();
     await tester.tap(find.text(l10n.reportReadingTitle));
     await tester.pumpAndSettle();
@@ -139,7 +140,7 @@ void main() {
       tester,
       ReadingResultState.content(_view(aReading().reported().build())),
     );
-    await tester.tap(find.byTooltip(l10n.commonMore));
+    await tester.tap(find.byTaroTooltip(l10n.commonMore));
     await tester.pumpAndSettle();
     expect(find.text(l10n.reportReadingTitle), findsNothing);
     await tester.tap(find.text(l10n.readingReported));
@@ -157,7 +158,7 @@ void main() {
         _view(reading.copyWith(status: const ReadingStatus.pending())),
       ),
     );
-    expect(find.byTooltip(l10n.commonMore), findsNothing);
+    expect(find.byTaroTooltip(l10n.commonMore), findsNothing);
   });
 
   testWidgets('text scale 2.0: no overflow, cards reflow', (tester) async {
@@ -200,7 +201,7 @@ void main() {
         _view(aReading().withQuestion('Q?').build()),
       ),
     );
-    await tester.tap(find.byTooltip(l10n.commonShare));
+    await tester.tap(find.byTaroTooltip(l10n.commonShare));
     await tester.pumpAndSettle();
     expect(find.text(l10n.shareIncludeQuestion), findsOneWidget);
     await tapFound(tester, find.text(l10n.shareIncludeQuestion));
@@ -268,15 +269,15 @@ void main() {
         fakes.journal.readings[reading.id]!.ratingReason,
         RatingReason.mismatch,
       );
-      await tapFound(tester, find.byTooltip(l10n.commonFavourite));
+      await tapFound(tester, find.byTaroTooltip(l10n.commonFavourite));
       expect(fakes.journal.readings[reading.id]!.favourite, isTrue);
-      await tapFound(tester, find.byTooltip(l10n.commonShare));
+      await tapFound(tester, find.byTaroTooltip(l10n.commonShare));
       await tapFound(
         tester,
         find.widgetWithText(TaroButton, l10n.commonShare),
       );
       expect(eventsOf<ReadingSharedEvent>(fakes), hasLength(1));
-      await tester.tap(find.byTooltip(l10n.commonMore));
+      await tester.tap(find.byTaroTooltip(l10n.commonMore));
       await tester.pumpAndSettle();
       await tester.tap(find.text(l10n.reportReadingTitle));
       await tester.pumpAndSettle();
@@ -312,7 +313,7 @@ void main() {
 
     testWidgets('Done goes Home', (tester) async {
       await open(tester, aReading().withId('r-3').build());
-      await tester.tap(find.byTooltip(l10n.readingDone));
+      await tester.tap(find.byTaroTooltip(l10n.readingDone));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });

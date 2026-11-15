@@ -27,18 +27,16 @@ import 'package:taro_core/taro_core.dart';
 /// Plugin errors become `AttestationFailure(kind)`; nothing throws. Logs
 /// name the operation and the kind only, never a key, token or ID.
 final class PlatformAttestationService implements AttestationService {
-  /// A service for [platform] (default: the current one) over [plugin].
+  /// A service for [platform] (default: the current one) over [_plugin].
   /// [cloudProjectNumber] is the Google Cloud project of Play Integrity
   /// (`FlavorConfig.playCloudProjectNumber`; unused on iOS).
   PlatformAttestationService({
     required String cloudProjectNumber,
-    TaroAttestation plugin = const TaroAttestation(),
+    this._plugin = const TaroAttestation(),
     TargetPlatform? platform,
-    Logger? logger,
-  }) : _plugin = plugin,
-       _platform = platform ?? defaultTargetPlatform,
-       _cloudProjectNumber = int.tryParse(cloudProjectNumber.trim()),
-       _logger = logger;
+    this._logger,
+  }) : _platform = platform ?? defaultTargetPlatform,
+       _cloudProjectNumber = int.tryParse(cloudProjectNumber.trim());
 
   /// Domain prefix of the Android device key (03 §3.7).
   static const String deviceKeyDomain = 'taro-device-v1';

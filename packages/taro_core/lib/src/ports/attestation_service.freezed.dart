@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'attestation_service.dart';
@@ -9,6 +9,7 @@ part of 'attestation_service.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $AttestationBlobCopyWith<AttestationBlob> get copyWith => _$AttestationBlobCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttestationBlob&&(identical(other.type, type) || other.type == type)&&(identical(other.challenge, challenge) || other.challenge == challenge)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.keyId, keyId) || other.keyId == keyId));
+  final _this = this as AttestationBlob;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttestationBlob&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.challenge, _this.challenge) || other.challenge == _this.challenge)&&(identical(other.payload, _this.payload) || other.payload == _this.payload)&&(identical(other.keyId, _this.keyId) || other.keyId == _this.keyId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,challenge,payload,keyId);
+int get hashCode {
+  final _this = this as AttestationBlob;
+  return Object.hash(runtimeType,_this.type,_this.challenge,_this.payload,_this.keyId);
+}
 
 @override
 String toString() {
-  return 'AttestationBlob(type: $type, challenge: $challenge, payload: $payload, keyId: $keyId)';
+  final _this = this as AttestationBlob;
+  return 'AttestationBlob(type: ${_this.type}, challenge: ${_this.challenge}, payload: ${_this.payload}, keyId: ${_this.keyId})';
 }
 
 
@@ -67,7 +73,7 @@ class _$AttestationBlobCopyWithImpl<$Res>
 /// Create a copy of AttestationBlob
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? challenge = null,Object? payload = freezed,Object? keyId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(AttestationBlob(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as AttestationType,challenge: null == challenge ? _self.challenge : challenge // ignore: cast_nullable_to_non_nullable
 as String,payload: freezed == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
@@ -235,16 +241,18 @@ _$AttestationBlobCopyWith<_AttestationBlob> get copyWith => __$AttestationBlobCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AttestationBlob&&(identical(other.type, type) || other.type == type)&&(identical(other.challenge, challenge) || other.challenge == challenge)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.keyId, keyId) || other.keyId == keyId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AttestationBlob&&(identical(other.type, type) || other.type == type)&&(identical(other.challenge, challenge) || other.challenge == challenge)&&(identical(other.payload, payload) || other.payload == payload)&&(identical(other.keyId, keyId) || other.keyId == keyId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,challenge,payload,keyId);
+int get hashCode {
+    return Object.hash(runtimeType,type,challenge,payload,keyId);
+}
 
 @override
 String toString() {
-  return 'AttestationBlob(type: $type, challenge: $challenge, payload: $payload, keyId: $keyId)';
+    return 'AttestationBlob(type: $type, challenge: $challenge, payload: $payload, keyId: $keyId)';
 }
 
 
@@ -300,16 +308,21 @@ $AssertionBlobCopyWith<AssertionBlob> get copyWith => _$AssertionBlobCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssertionBlob&&(identical(other.header, header) || other.header == header));
+  final _this = this as AssertionBlob;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AssertionBlob&&(identical(other.header, _this.header) || other.header == _this.header));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,header);
+int get hashCode {
+  final _this = this as AssertionBlob;
+  return Object.hash(runtimeType,_this.header);
+}
 
 @override
 String toString() {
-  return 'AssertionBlob(header: $header)';
+  final _this = this as AssertionBlob;
+  return 'AssertionBlob(header: ${_this.header})';
 }
 
 
@@ -338,7 +351,7 @@ class _$AssertionBlobCopyWithImpl<$Res>
 /// Create a copy of AssertionBlob
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? header = null,}) {
-  return _then(_self.copyWith(
+  return _then(AssertionBlob(
 header: null == header ? _self.header : header // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -497,16 +510,18 @@ _$AssertionBlobCopyWith<_AssertionBlob> get copyWith => __$AssertionBlobCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AssertionBlob&&(identical(other.header, header) || other.header == header));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AssertionBlob&&(identical(other.header, header) || other.header == header));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,header);
+int get hashCode {
+    return Object.hash(runtimeType,header);
+}
 
 @override
 String toString() {
-  return 'AssertionBlob(header: $header)';
+    return 'AssertionBlob(header: $header)';
 }
 
 
@@ -560,16 +575,21 @@ $DeviceSignalCopyWith<DeviceSignal> get copyWith => _$DeviceSignalCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeviceSignal&&(identical(other.deviceKey, deviceKey) || other.deviceKey == deviceKey)&&(identical(other.deviceCheckToken, deviceCheckToken) || other.deviceCheckToken == deviceCheckToken));
+  final _this = this as DeviceSignal;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeviceSignal&&(identical(other.deviceKey, _this.deviceKey) || other.deviceKey == _this.deviceKey)&&(identical(other.deviceCheckToken, _this.deviceCheckToken) || other.deviceCheckToken == _this.deviceCheckToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,deviceKey,deviceCheckToken);
+int get hashCode {
+  final _this = this as DeviceSignal;
+  return Object.hash(runtimeType,_this.deviceKey,_this.deviceCheckToken);
+}
 
 @override
 String toString() {
-  return 'DeviceSignal(deviceKey: $deviceKey, deviceCheckToken: $deviceCheckToken)';
+  final _this = this as DeviceSignal;
+  return 'DeviceSignal(deviceKey: ${_this.deviceKey}, deviceCheckToken: ${_this.deviceCheckToken})';
 }
 
 
@@ -598,7 +618,7 @@ class _$DeviceSignalCopyWithImpl<$Res>
 /// Create a copy of DeviceSignal
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? deviceKey = freezed,Object? deviceCheckToken = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(DeviceSignal(
 deviceKey: freezed == deviceKey ? _self.deviceKey : deviceKey // ignore: cast_nullable_to_non_nullable
 as String?,deviceCheckToken: freezed == deviceCheckToken ? _self.deviceCheckToken : deviceCheckToken // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -760,16 +780,18 @@ _$DeviceSignalCopyWith<_DeviceSignal> get copyWith => __$DeviceSignalCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeviceSignal&&(identical(other.deviceKey, deviceKey) || other.deviceKey == deviceKey)&&(identical(other.deviceCheckToken, deviceCheckToken) || other.deviceCheckToken == deviceCheckToken));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeviceSignal&&(identical(other.deviceKey, deviceKey) || other.deviceKey == deviceKey)&&(identical(other.deviceCheckToken, deviceCheckToken) || other.deviceCheckToken == deviceCheckToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,deviceKey,deviceCheckToken);
+int get hashCode {
+    return Object.hash(runtimeType,deviceKey,deviceCheckToken);
+}
 
 @override
 String toString() {
-  return 'DeviceSignal(deviceKey: $deviceKey, deviceCheckToken: $deviceCheckToken)';
+    return 'DeviceSignal(deviceKey: $deviceKey, deviceCheckToken: $deviceCheckToken)';
 }
 
 

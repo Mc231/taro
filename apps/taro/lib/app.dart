@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/app_state/settings_controller.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/consent/view/att_preprompt_view.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 import 'package:taro/routing/router.dart';
 import 'package:taro_core/taro_core.dart' as core;
 import 'package:taro_ui/taro_ui.dart';
@@ -32,7 +33,7 @@ class TaroApp extends ConsumerWidget {
       themeMode: themeModeOf(settings.themeMode),
       locale: override == null ? null : Locale(override),
       debugShowCheckedModeBanner: !flavor.isProd,
-      localizationsDelegates: TaroLocalizations.localizationsDelegates,
+      localizationsDelegates: kTaroLocalizationsDelegates,
       supportedLocales: TaroLocalizations.supportedLocales,
       builder: (context, child) => TaroA11yScope(
         reduceMotion: settings.reduceMotion ?? false,

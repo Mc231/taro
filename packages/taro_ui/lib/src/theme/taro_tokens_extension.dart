@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/tokens/generated/taro_tokens.g.dart';
 import 'package:taro_ui/src/tokens/taro_script.dart';
 import 'package:taro_ui/src/tokens/taro_typography.dart';

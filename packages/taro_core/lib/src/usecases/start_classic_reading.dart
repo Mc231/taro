@@ -19,14 +19,11 @@ import 'package:taro_core/src/usecases/draw_cards.dart';
 final class StartClassicReading {
   /// Creates the use case.
   StartClassicReading({
-    required DrawCards draws,
-    required ReadingRepository readings,
-    required IdGenerator ids,
-    required Clock clock,
-  }) : _draws = draws,
-       _readings = readings,
-       _ids = ids,
-       _clock = clock;
+    required this._draws,
+    required this._readings,
+    required this._ids,
+    required this._clock,
+  });
 
   final DrawCards _draws;
   final ReadingRepository _readings;

@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// The primary test font family (Noto Sans, Latin/Greek/Cyrillic).
 const String kTaroTestFontFamily = 'NotoSans';

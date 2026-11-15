@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/settings_page.dart';
 import 'package:taro/di/providers.dart';
 import 'package:taro/features/settings/controller/reminder_settings_controller.dart';

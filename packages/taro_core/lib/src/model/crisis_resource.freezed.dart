@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'crisis_resource.dart';
@@ -9,6 +9,7 @@ part of 'crisis_resource.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -32,16 +33,21 @@ $CrisisResourceCopyWith<CrisisResource> get copyWith => _$CrisisResourceCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResource&&(identical(other.name, name) || other.name == name)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other.languages, languages)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.sms, sms) || other.sms == sms)&&(identical(other.url, url) || other.url == url)&&(identical(other.hours, hours) || other.hours == hours));
+  final _this = this as CrisisResource;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResource&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.verifiedAt, _this.verifiedAt) || other.verifiedAt == _this.verifiedAt)&&const DeepCollectionEquality().equals(other.languages, _this.languages)&&(identical(other.phone, _this.phone) || other.phone == _this.phone)&&(identical(other.sms, _this.sms) || other.sms == _this.sms)&&(identical(other.url, _this.url) || other.url == _this.url)&&(identical(other.hours, _this.hours) || other.hours == _this.hours));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,verifiedAt,const DeepCollectionEquality().hash(languages),phone,sms,url,hours);
+int get hashCode {
+  final _this = this as CrisisResource;
+  return Object.hash(runtimeType,_this.name,_this.verifiedAt,const DeepCollectionEquality().hash(_this.languages),_this.phone,_this.sms,_this.url,_this.hours);
+}
 
 @override
 String toString() {
-  return 'CrisisResource(name: $name, verifiedAt: $verifiedAt, languages: $languages, phone: $phone, sms: $sms, url: $url, hours: $hours)';
+  final _this = this as CrisisResource;
+  return 'CrisisResource(name: ${_this.name}, verifiedAt: ${_this.verifiedAt}, languages: ${_this.languages}, phone: ${_this.phone}, sms: ${_this.sms}, url: ${_this.url}, hours: ${_this.hours})';
 }
 
 
@@ -70,7 +76,7 @@ class _$CrisisResourceCopyWithImpl<$Res>
 /// Create a copy of CrisisResource
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? verifiedAt = null,Object? languages = null,Object? phone = freezed,Object? sms = freezed,Object? url = freezed,Object? hours = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CrisisResource(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,verifiedAt: null == verifiedAt ? _self.verifiedAt : verifiedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,languages: null == languages ? _self.languages : languages // ignore: cast_nullable_to_non_nullable
@@ -219,7 +225,7 @@ return $default(_that.name,_that.verifiedAt,_that.languages,_that.phone,_that.sm
 
 
 class _CrisisResource extends CrisisResource {
-  const _CrisisResource({required this.name, required this.verifiedAt, final  List<String> languages = const <String>[], this.phone, this.sms, this.url, this.hours}): _languages = languages,super._();
+  const _CrisisResource({required this.name, required this.verifiedAt,  List<String> languages = const <String>[], this.phone, this.sms, this.url, this.hours}): _languages = languages,super._();
   
 
 /// Display name, e.g. "Telefonseelsorge".
@@ -254,16 +260,18 @@ _$CrisisResourceCopyWith<_CrisisResource> get copyWith => __$CrisisResourceCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisResource&&(identical(other.name, name) || other.name == name)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other._languages, _languages)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.sms, sms) || other.sms == sms)&&(identical(other.url, url) || other.url == url)&&(identical(other.hours, hours) || other.hours == hours));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisResource&&(identical(other.name, name) || other.name == name)&&(identical(other.verifiedAt, verifiedAt) || other.verifiedAt == verifiedAt)&&const DeepCollectionEquality().equals(other.languages, _languages)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.sms, sms) || other.sms == sms)&&(identical(other.url, url) || other.url == url)&&(identical(other.hours, hours) || other.hours == hours));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,verifiedAt,const DeepCollectionEquality().hash(_languages),phone,sms,url,hours);
+int get hashCode {
+    return Object.hash(runtimeType,name,verifiedAt,const DeepCollectionEquality().hash(_languages),phone,sms,url,hours);
+}
 
 @override
 String toString() {
-  return 'CrisisResource(name: $name, verifiedAt: $verifiedAt, languages: $languages, phone: $phone, sms: $sms, url: $url, hours: $hours)';
+    return 'CrisisResource(name: $name, verifiedAt: $verifiedAt, languages: $languages, phone: $phone, sms: $sms, url: $url, hours: $hours)';
 }
 
 
@@ -325,16 +333,21 @@ $CrisisDirectoryCopyWith<CrisisDirectory> get copyWith => _$CrisisDirectoryCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisDirectory&&const DeepCollectionEquality().equals(other.countries, countries)&&const DeepCollectionEquality().equals(other.localeFallback, localeFallback)&&const DeepCollectionEquality().equals(other.international, international));
+  final _this = this as CrisisDirectory;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisDirectory&&const DeepCollectionEquality().equals(other.countries, _this.countries)&&const DeepCollectionEquality().equals(other.localeFallback, _this.localeFallback)&&const DeepCollectionEquality().equals(other.international, _this.international));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(countries),const DeepCollectionEquality().hash(localeFallback),const DeepCollectionEquality().hash(international));
+int get hashCode {
+  final _this = this as CrisisDirectory;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.countries),const DeepCollectionEquality().hash(_this.localeFallback),const DeepCollectionEquality().hash(_this.international));
+}
 
 @override
 String toString() {
-  return 'CrisisDirectory(countries: $countries, localeFallback: $localeFallback, international: $international)';
+  final _this = this as CrisisDirectory;
+  return 'CrisisDirectory(countries: ${_this.countries}, localeFallback: ${_this.localeFallback}, international: ${_this.international})';
 }
 
 
@@ -363,7 +376,7 @@ class _$CrisisDirectoryCopyWithImpl<$Res>
 /// Create a copy of CrisisDirectory
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? countries = null,Object? localeFallback = null,Object? international = null,}) {
-  return _then(_self.copyWith(
+  return _then(CrisisDirectory(
 countries: null == countries ? _self.countries : countries // ignore: cast_nullable_to_non_nullable
 as Map<String, List<CrisisResource>>,localeFallback: null == localeFallback ? _self.localeFallback : localeFallback // ignore: cast_nullable_to_non_nullable
 as Map<String, String?>,international: null == international ? _self.international : international // ignore: cast_nullable_to_non_nullable
@@ -508,7 +521,7 @@ return $default(_that.countries,_that.localeFallback,_that.international);case _
 
 
 class _CrisisDirectory extends CrisisDirectory {
-  const _CrisisDirectory({required final  Map<String, List<CrisisResource>> countries, required final  Map<String, String?> localeFallback, required final  List<CrisisResource> international}): _countries = countries,_localeFallback = localeFallback,_international = international,super._();
+  const _CrisisDirectory({required  Map<String, List<CrisisResource>> countries, required  Map<String, String?> localeFallback, required  List<CrisisResource> international}): _countries = countries,_localeFallback = localeFallback,_international = international,super._();
   
 
 /// Resources by ISO 3166-1 alpha-2 country code.
@@ -551,16 +564,18 @@ _$CrisisDirectoryCopyWith<_CrisisDirectory> get copyWith => __$CrisisDirectoryCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisDirectory&&const DeepCollectionEquality().equals(other._countries, _countries)&&const DeepCollectionEquality().equals(other._localeFallback, _localeFallback)&&const DeepCollectionEquality().equals(other._international, _international));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CrisisDirectory&&const DeepCollectionEquality().equals(other.countries, _countries)&&const DeepCollectionEquality().equals(other.localeFallback, _localeFallback)&&const DeepCollectionEquality().equals(other.international, _international));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_countries),const DeepCollectionEquality().hash(_localeFallback),const DeepCollectionEquality().hash(_international));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_countries),const DeepCollectionEquality().hash(_localeFallback),const DeepCollectionEquality().hash(_international));
+}
 
 @override
 String toString() {
-  return 'CrisisDirectory(countries: $countries, localeFallback: $localeFallback, international: $international)';
+    return 'CrisisDirectory(countries: $countries, localeFallback: $localeFallback, international: $international)';
 }
 
 

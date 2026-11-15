@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'journal_repository.dart';
@@ -9,6 +9,7 @@ part of 'journal_repository.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$JournalItem {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalItem);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalItem);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalItem()';
+    return 'JournalItem()';
 }
 
 
@@ -190,16 +191,18 @@ $JournalReadingItemCopyWith<JournalReadingItem> get copyWith => _$JournalReading
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalReadingItem&&(identical(other.reading, reading) || other.reading == reading));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalReadingItem&&(identical(other.reading, reading) || other.reading == reading));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading);
+int get hashCode {
+    return Object.hash(runtimeType,reading);
+}
 
 @override
 String toString() {
-  return 'JournalItem.reading(reading: $reading)';
+    return 'JournalItem.reading(reading: $reading)';
 }
 
 
@@ -265,16 +268,18 @@ $JournalDailyCardItemCopyWith<JournalDailyCardItem> get copyWith => _$JournalDai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalDailyCardItem&&(identical(other.card, card) || other.card == card));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalDailyCardItem&&(identical(other.card, card) || other.card == card));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card);
+int get hashCode {
+    return Object.hash(runtimeType,card);
+}
 
 @override
 String toString() {
-  return 'JournalItem.dailyCard(card: $card)';
+    return 'JournalItem.dailyCard(card: $card)';
 }
 
 
@@ -340,16 +345,21 @@ $JournalQueryCopyWith<JournalQuery> get copyWith => _$JournalQueryCopyWithImpl<J
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards)&&(identical(other.cardId, cardId) || other.cardId == cardId));
+  final _this = this as JournalQuery;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalQuery&&(identical(other.favouritesOnly, _this.favouritesOnly) || other.favouritesOnly == _this.favouritesOnly)&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.includeDailyCards, _this.includeDailyCards) || other.includeDailyCards == _this.includeDailyCards)&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards,cardId);
+int get hashCode {
+  final _this = this as JournalQuery;
+  return Object.hash(runtimeType,_this.favouritesOnly,_this.spreadId,_this.includeDailyCards,_this.cardId);
+}
 
 @override
 String toString() {
-  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards, cardId: $cardId)';
+  final _this = this as JournalQuery;
+  return 'JournalQuery(favouritesOnly: ${_this.favouritesOnly}, spreadId: ${_this.spreadId}, includeDailyCards: ${_this.includeDailyCards}, cardId: ${_this.cardId})';
 }
 
 
@@ -378,7 +388,7 @@ class _$JournalQueryCopyWithImpl<$Res>
 /// Create a copy of JournalQuery
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? favouritesOnly = null,Object? spreadId = freezed,Object? includeDailyCards = null,Object? cardId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(JournalQuery(
 favouritesOnly: null == favouritesOnly ? _self.favouritesOnly : favouritesOnly // ignore: cast_nullable_to_non_nullable
 as bool,spreadId: freezed == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId?,includeDailyCards: null == includeDailyCards ? _self.includeDailyCards : includeDailyCards // ignore: cast_nullable_to_non_nullable
@@ -547,16 +557,18 @@ _$JournalQueryCopyWith<_JournalQuery> get copyWith => __$JournalQueryCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards)&&(identical(other.cardId, cardId) || other.cardId == cardId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalQuery&&(identical(other.favouritesOnly, favouritesOnly) || other.favouritesOnly == favouritesOnly)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.includeDailyCards, includeDailyCards) || other.includeDailyCards == includeDailyCards)&&(identical(other.cardId, cardId) || other.cardId == cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards,cardId);
+int get hashCode {
+    return Object.hash(runtimeType,favouritesOnly,spreadId,includeDailyCards,cardId);
+}
 
 @override
 String toString() {
-  return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards, cardId: $cardId)';
+    return 'JournalQuery(favouritesOnly: $favouritesOnly, spreadId: $spreadId, includeDailyCards: $includeDailyCards, cardId: $cardId)';
 }
 
 
@@ -613,16 +625,21 @@ $JournalSnapshotCopyWith<JournalSnapshot> get copyWith => _$JournalSnapshotCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalSnapshot&&const DeepCollectionEquality().equals(other.readings, readings)&&const DeepCollectionEquality().equals(other.dailyCards, dailyCards));
+  final _this = this as JournalSnapshot;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalSnapshot&&const DeepCollectionEquality().equals(other.readings, _this.readings)&&const DeepCollectionEquality().equals(other.dailyCards, _this.dailyCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(readings),const DeepCollectionEquality().hash(dailyCards));
+int get hashCode {
+  final _this = this as JournalSnapshot;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.readings),const DeepCollectionEquality().hash(_this.dailyCards));
+}
 
 @override
 String toString() {
-  return 'JournalSnapshot(readings: $readings, dailyCards: $dailyCards)';
+  final _this = this as JournalSnapshot;
+  return 'JournalSnapshot(readings: ${_this.readings}, dailyCards: ${_this.dailyCards})';
 }
 
 
@@ -651,7 +668,7 @@ class _$JournalSnapshotCopyWithImpl<$Res>
 /// Create a copy of JournalSnapshot
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? readings = null,Object? dailyCards = null,}) {
-  return _then(_self.copyWith(
+  return _then(JournalSnapshot(
 readings: null == readings ? _self.readings : readings // ignore: cast_nullable_to_non_nullable
 as List<Reading>,dailyCards: null == dailyCards ? _self.dailyCards : dailyCards // ignore: cast_nullable_to_non_nullable
 as List<DailyCard>,
@@ -795,7 +812,7 @@ return $default(_that.readings,_that.dailyCards);case _:
 
 
 class _JournalSnapshot implements JournalSnapshot {
-  const _JournalSnapshot({required final  List<Reading> readings, required final  List<DailyCard> dailyCards}): _readings = readings,_dailyCards = dailyCards;
+  const _JournalSnapshot({required  List<Reading> readings, required  List<DailyCard> dailyCards}): _readings = readings,_dailyCards = dailyCards;
   
 
 /// Every reading, whatever its status.
@@ -827,16 +844,18 @@ _$JournalSnapshotCopyWith<_JournalSnapshot> get copyWith => __$JournalSnapshotCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalSnapshot&&const DeepCollectionEquality().equals(other._readings, _readings)&&const DeepCollectionEquality().equals(other._dailyCards, _dailyCards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalSnapshot&&const DeepCollectionEquality().equals(other.readings, _readings)&&const DeepCollectionEquality().equals(other.dailyCards, _dailyCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_readings),const DeepCollectionEquality().hash(_dailyCards));
+}
 
 @override
 String toString() {
-  return 'JournalSnapshot(readings: $readings, dailyCards: $dailyCards)';
+    return 'JournalSnapshot(readings: $readings, dailyCards: $dailyCards)';
 }
 
 

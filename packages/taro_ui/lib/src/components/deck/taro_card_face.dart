@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/deck/numeral_style.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';

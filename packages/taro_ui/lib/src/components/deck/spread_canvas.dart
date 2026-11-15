@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/common/taro_word_fit.dart';
 import 'package:taro_ui/src/components/deck/spread_layout.dart';
 import 'package:taro_ui/src/components/deck/taro_card_size.dart';

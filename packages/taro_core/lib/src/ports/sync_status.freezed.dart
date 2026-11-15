@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sync_status.dart';
@@ -9,6 +9,7 @@ part of 'sync_status.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$SyncStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatus);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatus);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SyncStatus()';
+    return 'SyncStatus()';
 }
 
 
@@ -197,7 +198,7 @@ class SyncStatusSyncing implements SyncStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusSyncing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusSyncing);
 }
 
 
@@ -206,7 +207,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SyncStatus.syncing()';
+    return 'SyncStatus.syncing()';
 }
 
 
@@ -234,16 +235,18 @@ $SyncStatusSyncedCopyWith<SyncStatusSynced> get copyWith => _$SyncStatusSyncedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusSynced&&(identical(other.at, at) || other.at == at));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusSynced&&(identical(other.at, at) || other.at == at));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,at);
+int get hashCode {
+    return Object.hash(runtimeType,at);
+}
 
 @override
 String toString() {
-  return 'SyncStatus.synced(at: $at)';
+    return 'SyncStatus.synced(at: $at)';
 }
 
 
@@ -300,16 +303,18 @@ $SyncStatusStaleCopyWith<SyncStatusStale> get copyWith => _$SyncStatusStaleCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusStale&&(identical(other.lastSyncedAt, lastSyncedAt) || other.lastSyncedAt == lastSyncedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusStale&&(identical(other.lastSyncedAt, lastSyncedAt) || other.lastSyncedAt == lastSyncedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,lastSyncedAt);
+int get hashCode {
+    return Object.hash(runtimeType,lastSyncedAt);
+}
 
 @override
 String toString() {
-  return 'SyncStatus.stale(lastSyncedAt: $lastSyncedAt)';
+    return 'SyncStatus.stale(lastSyncedAt: $lastSyncedAt)';
 }
 
 
@@ -366,16 +371,18 @@ $SyncStatusUnavailableCopyWith<SyncStatusUnavailable> get copyWith => _$SyncStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusUnavailable&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncStatusUnavailable&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode {
+    return Object.hash(runtimeType,failure);
+}
 
 @override
 String toString() {
-  return 'SyncStatus.unavailable(failure: $failure)';
+    return 'SyncStatus.unavailable(failure: $failure)';
 }
 
 

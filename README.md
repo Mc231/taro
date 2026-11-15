@@ -44,7 +44,7 @@ Three packages plus the app (00_DECISIONS RC95). Dependency rules between the pa
 
 ## Setup
 
-Toolchain pins (06 QA14): Flutter **3.44.8** (root `pubspec.yaml` `environment.flutter`), Dart SDK `^3.9.0`, Node **22** (`worker/.nvmrc`), Python **3.12** (`tools/`).
+Toolchain pins (06 QA14): Flutter **3.50.0** (root `pubspec.yaml` `environment.flutter`), Dart SDK `^3.14.0`, Node **22** (`worker/.nvmrc`), Python **3.12** (`tools/`).
 
 ```bash
 # Flutter workspace

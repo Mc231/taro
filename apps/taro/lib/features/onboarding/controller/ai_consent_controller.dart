@@ -134,20 +134,14 @@ aiConsentControllerProvider = NotifierProvider.autoDispose.family(
 final class OnboardingCompletion {
   /// Creates the sequence.
   OnboardingCompletion({
-    required ConsentController consent,
-    required AnalyticsService analytics,
-    required ConsentStore store,
-    required RemoteConfigRepository config,
-    required AppInfo appInfo,
-    required Clock clock,
-    required DateTime? startedAt,
-  }) : _consent = consent,
-       _analytics = analytics,
-       _store = store,
-       _config = config,
-       _appInfo = appInfo,
-       _clock = clock,
-       _startedAt = startedAt;
+    required this._consent,
+    required this._analytics,
+    required this._store,
+    required this._config,
+    required this._appInfo,
+    required this._clock,
+    required this._startedAt,
+  });
 
   final ConsentController _consent;
   final AnalyticsService _analytics;

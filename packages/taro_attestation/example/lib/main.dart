@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_attestation/taro_attestation.dart';
 
 void main() => runApp(const ExampleApp(plugin: TaroAttestation()));

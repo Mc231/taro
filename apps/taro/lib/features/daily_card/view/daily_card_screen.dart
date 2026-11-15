@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/di/providers.dart';
@@ -183,7 +183,7 @@ class _DailyCardLayoutState extends State<DailyCardLayout>
     if (!mounted) return;
     setState(() => _flipPending = false);
     _texts.duration = context.motion.ritual.readingReveal;
-    unawaited(_texts.forward(from: 0));
+    _texts.forward(from: 0);
     unawaited(
       SemanticsService.sendAnnouncement(
         View.of(context),

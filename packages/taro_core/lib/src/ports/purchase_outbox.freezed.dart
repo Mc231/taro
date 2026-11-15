@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchase_outbox.dart';
@@ -9,6 +9,7 @@ part of 'purchase_outbox.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -32,16 +33,21 @@ $OutboxEntryCopyWith<OutboxEntry> get copyWith => _$OutboxEntryCopyWithImpl<Outb
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutboxEntry&&(identical(other.purchase, purchase) || other.purchase == purchase)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.attempts, attempts) || other.attempts == attempts)&&(identical(other.lastError, lastError) || other.lastError == lastError));
+  final _this = this as OutboxEntry;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OutboxEntry&&(identical(other.purchase, _this.purchase) || other.purchase == _this.purchase)&&(identical(other.idempotencyKey, _this.idempotencyKey) || other.idempotencyKey == _this.idempotencyKey)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.attempts, _this.attempts) || other.attempts == _this.attempts)&&(identical(other.lastError, _this.lastError) || other.lastError == _this.lastError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,purchase,idempotencyKey,status,createdAt,updatedAt,attempts,lastError);
+int get hashCode {
+  final _this = this as OutboxEntry;
+  return Object.hash(runtimeType,_this.purchase,_this.idempotencyKey,_this.status,_this.createdAt,_this.updatedAt,_this.attempts,_this.lastError);
+}
 
 @override
 String toString() {
-  return 'OutboxEntry(purchase: $purchase, idempotencyKey: $idempotencyKey, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, attempts: $attempts, lastError: $lastError)';
+  final _this = this as OutboxEntry;
+  return 'OutboxEntry(purchase: ${_this.purchase}, idempotencyKey: ${_this.idempotencyKey}, status: ${_this.status}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, attempts: ${_this.attempts}, lastError: ${_this.lastError})';
 }
 
 
@@ -70,7 +76,7 @@ class _$OutboxEntryCopyWithImpl<$Res>
 /// Create a copy of OutboxEntry
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? purchase = null,Object? idempotencyKey = null,Object? status = null,Object? createdAt = null,Object? updatedAt = null,Object? attempts = null,Object? lastError = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(OutboxEntry(
 purchase: null == purchase ? _self.purchase : purchase // ignore: cast_nullable_to_non_nullable
 as StorePurchase,idempotencyKey: null == idempotencyKey ? _self.idempotencyKey : idempotencyKey // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
@@ -256,16 +262,18 @@ _$OutboxEntryCopyWith<_OutboxEntry> get copyWith => __$OutboxEntryCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OutboxEntry&&(identical(other.purchase, purchase) || other.purchase == purchase)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.attempts, attempts) || other.attempts == attempts)&&(identical(other.lastError, lastError) || other.lastError == lastError));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _OutboxEntry&&(identical(other.purchase, purchase) || other.purchase == purchase)&&(identical(other.idempotencyKey, idempotencyKey) || other.idempotencyKey == idempotencyKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.attempts, attempts) || other.attempts == attempts)&&(identical(other.lastError, lastError) || other.lastError == lastError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,purchase,idempotencyKey,status,createdAt,updatedAt,attempts,lastError);
+int get hashCode {
+    return Object.hash(runtimeType,purchase,idempotencyKey,status,createdAt,updatedAt,attempts,lastError);
+}
 
 @override
 String toString() {
-  return 'OutboxEntry(purchase: $purchase, idempotencyKey: $idempotencyKey, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, attempts: $attempts, lastError: $lastError)';
+    return 'OutboxEntry(purchase: $purchase, idempotencyKey: $idempotencyKey, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, attempts: $attempts, lastError: $lastError)';
 }
 
 

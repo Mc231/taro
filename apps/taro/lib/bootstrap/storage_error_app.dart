@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 import 'package:taro_ui/taro_ui.dart';
 
 /// S01 `storageError` (02 §6.2, 01 §8.3): secure storage or a database
@@ -26,7 +27,7 @@ class StorageErrorApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     theme: TaroTheme.light(),
     darkTheme: TaroTheme.dark(),
-    localizationsDelegates: TaroLocalizations.localizationsDelegates,
+    localizationsDelegates: kTaroLocalizationsDelegates,
     supportedLocales: TaroLocalizations.supportedLocales,
     home: Builder(
       builder: (context) {

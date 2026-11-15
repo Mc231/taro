@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/features/consent/controller/att_preprompt_controller.dart';
 import 'package:taro/features/consent/view/att_preprompt_view.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';

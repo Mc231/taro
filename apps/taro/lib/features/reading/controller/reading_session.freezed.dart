@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading_session.dart';
@@ -9,6 +9,7 @@ part of 'reading_session.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $PresetCardCopyWith<PresetCard> get copyWith => _$PresetCardCopyWithImpl<PresetC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PresetCard&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+  final _this = this as PresetCard;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PresetCard&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.reversed, _this.reversed) || other.reversed == _this.reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,reversed);
+int get hashCode {
+  final _this = this as PresetCard;
+  return Object.hash(runtimeType,_this.cardId,_this.reversed);
+}
 
 @override
 String toString() {
-  return 'PresetCard(cardId: $cardId, reversed: $reversed)';
+  final _this = this as PresetCard;
+  return 'PresetCard(cardId: ${_this.cardId}, reversed: ${_this.reversed})';
 }
 
 
@@ -63,7 +69,7 @@ class _$PresetCardCopyWithImpl<$Res>
 /// Create a copy of PresetCard
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cardId = null,Object? reversed = null,}) {
-  return _then(_self.copyWith(
+  return _then(PresetCard(
 cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,reversed: null == reversed ? _self.reversed : reversed // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -223,16 +229,18 @@ _$PresetCardCopyWith<_PresetCard> get copyWith => __$PresetCardCopyWithImpl<_Pre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PresetCard&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PresetCard&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,reversed);
+int get hashCode {
+    return Object.hash(runtimeType,cardId,reversed);
+}
 
 @override
 String toString() {
-  return 'PresetCard(cardId: $cardId, reversed: $reversed)';
+    return 'PresetCard(cardId: $cardId, reversed: $reversed)';
 }
 
 
@@ -285,16 +293,21 @@ $ReadingSessionCopyWith<ReadingSession> get copyWith => _$ReadingSessionCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingSession&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.source, source) || other.source == source)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.question, question) || other.question == question)&&const DeepCollectionEquality().equals(other.presetCards, presetCards)&&(identical(other.hold, hold) || other.hold == hold)&&(identical(other.classicReason, classicReason) || other.classicReason == classicReason)&&(identical(other.resumeReadingId, resumeReadingId) || other.resumeReadingId == resumeReadingId));
+  final _this = this as ReadingSession;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingSession&&(identical(other.spread, _this.spread) || other.spread == _this.spread)&&(identical(other.source, _this.source) || other.source == _this.source)&&(identical(other.locale, _this.locale) || other.locale == _this.locale)&&(identical(other.question, _this.question) || other.question == _this.question)&&const DeepCollectionEquality().equals(other.presetCards, _this.presetCards)&&(identical(other.hold, _this.hold) || other.hold == _this.hold)&&(identical(other.classicReason, _this.classicReason) || other.classicReason == _this.classicReason)&&(identical(other.resumeReadingId, _this.resumeReadingId) || other.resumeReadingId == _this.resumeReadingId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,source,locale,question,const DeepCollectionEquality().hash(presetCards),hold,classicReason,resumeReadingId);
+int get hashCode {
+  final _this = this as ReadingSession;
+  return Object.hash(runtimeType,_this.spread,_this.source,_this.locale,_this.question,const DeepCollectionEquality().hash(_this.presetCards),_this.hold,_this.classicReason,_this.resumeReadingId);
+}
 
 @override
 String toString() {
-  return 'ReadingSession(spread: $spread, source: $source, locale: $locale, question: $question, presetCards: $presetCards, hold: $hold, classicReason: $classicReason, resumeReadingId: $resumeReadingId)';
+  final _this = this as ReadingSession;
+  return 'ReadingSession(spread: ${_this.spread}, source: ${_this.source}, locale: ${_this.locale}, question: ${_this.question}, presetCards: ${_this.presetCards}, hold: ${_this.hold}, classicReason: ${_this.classicReason}, resumeReadingId: ${_this.resumeReadingId})';
 }
 
 
@@ -323,7 +336,7 @@ class _$ReadingSessionCopyWithImpl<$Res>
 /// Create a copy of ReadingSession
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spread = null,Object? source = null,Object? locale = null,Object? question = freezed,Object? presetCards = null,Object? hold = freezed,Object? classicReason = freezed,Object? resumeReadingId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ReadingSession(
 spread: null == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
 as SpreadDefinition,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as ReadingFlowSource,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
@@ -494,7 +507,7 @@ return $default(_that.spread,_that.source,_that.locale,_that.question,_that.pres
 
 
 class _ReadingSession extends ReadingSession {
-  const _ReadingSession({required this.spread, required this.source, required this.locale, this.question, final  List<PresetCard> presetCards = const <PresetCard>[], this.hold, this.classicReason, this.resumeReadingId}): _presetCards = presetCards,super._();
+  const _ReadingSession({required this.spread, required this.source, required this.locale, this.question,  List<PresetCard> presetCards = const <PresetCard>[], this.hold, this.classicReason, this.resumeReadingId}): _presetCards = presetCards,super._();
   
 
 @override final  SpreadDefinition spread;
@@ -522,16 +535,18 @@ _$ReadingSessionCopyWith<_ReadingSession> get copyWith => __$ReadingSessionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingSession&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.source, source) || other.source == source)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.question, question) || other.question == question)&&const DeepCollectionEquality().equals(other._presetCards, _presetCards)&&(identical(other.hold, hold) || other.hold == hold)&&(identical(other.classicReason, classicReason) || other.classicReason == classicReason)&&(identical(other.resumeReadingId, resumeReadingId) || other.resumeReadingId == resumeReadingId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReadingSession&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.source, source) || other.source == source)&&(identical(other.locale, locale) || other.locale == locale)&&(identical(other.question, question) || other.question == question)&&const DeepCollectionEquality().equals(other.presetCards, _presetCards)&&(identical(other.hold, hold) || other.hold == hold)&&(identical(other.classicReason, classicReason) || other.classicReason == classicReason)&&(identical(other.resumeReadingId, resumeReadingId) || other.resumeReadingId == resumeReadingId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,source,locale,question,const DeepCollectionEquality().hash(_presetCards),hold,classicReason,resumeReadingId);
+int get hashCode {
+    return Object.hash(runtimeType,spread,source,locale,question,const DeepCollectionEquality().hash(_presetCards),hold,classicReason,resumeReadingId);
+}
 
 @override
 String toString() {
-  return 'ReadingSession(spread: $spread, source: $source, locale: $locale, question: $question, presetCards: $presetCards, hold: $hold, classicReason: $classicReason, resumeReadingId: $resumeReadingId)';
+    return 'ReadingSession(spread: $spread, source: $source, locale: $locale, question: $question, presetCards: $presetCards, hold: $hold, classicReason: $classicReason, resumeReadingId: $resumeReadingId)';
 }
 
 
@@ -606,7 +621,7 @@ mixin _$ReadingHandoff {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoff);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoff);
 }
 
 
@@ -615,7 +630,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingHandoff()';
+    return 'ReadingHandoff()';
 }
 
 
@@ -790,16 +805,18 @@ $ReadingHandoffDeclinedCopyWith<ReadingHandoffDeclined> get copyWith => _$Readin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffDeclined&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffDeclined&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,safety,draw,notCharged);
+int get hashCode {
+    return Object.hash(runtimeType,safety,draw,notCharged);
+}
 
 @override
 String toString() {
-  return 'ReadingHandoff.declined(safety: $safety, draw: $draw, notCharged: $notCharged)';
+    return 'ReadingHandoff.declined(safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -876,16 +893,18 @@ $ReadingHandoffPausedCopyWith<ReadingHandoffPaused> get copyWith => _$ReadingHan
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffPaused&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffPaused&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,freePaused);
+int get hashCode {
+    return Object.hash(runtimeType,freePaused);
+}
 
 @override
 String toString() {
-  return 'ReadingHandoff.paused(freePaused: $freePaused)';
+    return 'ReadingHandoff.paused(freePaused: $freePaused)';
 }
 
 
@@ -937,7 +956,7 @@ class ReadingHandoffConsent implements ReadingHandoff {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffConsent);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffConsent);
 }
 
 
@@ -946,7 +965,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingHandoff.consentRequired()';
+    return 'ReadingHandoff.consentRequired()';
 }
 
 
@@ -969,7 +988,7 @@ class ReadingHandoffRegion implements ReadingHandoff {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffRegion);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingHandoffRegion);
 }
 
 
@@ -978,7 +997,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingHandoff.aiUnavailableRegion()';
+    return 'ReadingHandoff.aiUnavailableRegion()';
 }
 
 

@@ -169,11 +169,9 @@ void main() {
     }
 
     test('the OpenAPI ErrorEnvelope enum is a subset of the known codes', () {
-      final openApi =
-          jsonDecode(
-                File('../../worker/openapi/openapi.json').readAsStringSync(),
-              )
-              as Map<String, dynamic>;
+      final openApi = jsonDecode(
+        File('../../worker/openapi/openapi.json').readAsStringSync(),
+      ) as Map<String, dynamic>;
       final schemas =
           (openApi['components'] as Map<String, dynamic>)['schemas']
               as Map<String, dynamic>;

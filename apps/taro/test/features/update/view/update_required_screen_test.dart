@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/di/providers.dart' show StoreLinks;
 import 'package:taro/features/update/controller/update_required_controller.dart';
 import 'package:taro/features/update/view/update_required_screen.dart';

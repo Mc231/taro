@@ -31,14 +31,11 @@ abstract class ImportPreview with _$ImportPreview {
 final class ImportBackup {
   /// Creates the use case.
   ImportBackup({
-    required FileTransfer files,
-    required ContentRepository content,
-    required JournalRepository journal,
-    required SettingsRepository settings,
-  }) : _files = files,
-       _content = content,
-       _journal = journal,
-       _settings = settings;
+    required this._files,
+    required this._content,
+    required this._journal,
+    required this._settings,
+  });
 
   final FileTransfer _files;
   final ContentRepository _content;

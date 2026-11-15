@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'credit_balance.dart';
@@ -9,6 +9,7 @@ part of 'credit_balance.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -32,16 +33,21 @@ $FreeAllowanceCopyWith<FreeAllowance> get copyWith => _$FreeAllowanceCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FreeAllowance&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.used, used) || other.used == used)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.resetsAt, resetsAt) || other.resetsAt == resetsAt)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.paused, paused) || other.paused == paused));
+  final _this = this as FreeAllowance;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FreeAllowance&&(identical(other.limit, _this.limit) || other.limit == _this.limit)&&(identical(other.used, _this.used) || other.used == _this.used)&&(identical(other.remaining, _this.remaining) || other.remaining == _this.remaining)&&(identical(other.localDate, _this.localDate) || other.localDate == _this.localDate)&&(identical(other.resetsAt, _this.resetsAt) || other.resetsAt == _this.resetsAt)&&(identical(other.timezone, _this.timezone) || other.timezone == _this.timezone)&&(identical(other.paused, _this.paused) || other.paused == _this.paused));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,limit,used,remaining,localDate,resetsAt,timezone,paused);
+int get hashCode {
+  final _this = this as FreeAllowance;
+  return Object.hash(runtimeType,_this.limit,_this.used,_this.remaining,_this.localDate,_this.resetsAt,_this.timezone,_this.paused);
+}
 
 @override
 String toString() {
-  return 'FreeAllowance(limit: $limit, used: $used, remaining: $remaining, localDate: $localDate, resetsAt: $resetsAt, timezone: $timezone, paused: $paused)';
+  final _this = this as FreeAllowance;
+  return 'FreeAllowance(limit: ${_this.limit}, used: ${_this.used}, remaining: ${_this.remaining}, localDate: ${_this.localDate}, resetsAt: ${_this.resetsAt}, timezone: ${_this.timezone}, paused: ${_this.paused})';
 }
 
 
@@ -70,7 +76,7 @@ class _$FreeAllowanceCopyWithImpl<$Res>
 /// Create a copy of FreeAllowance
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? used = null,Object? remaining = null,Object? localDate = null,Object? resetsAt = null,Object? timezone = null,Object? paused = null,}) {
-  return _then(_self.copyWith(
+  return _then(FreeAllowance(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
 as int,used: null == used ? _self.used : used // ignore: cast_nullable_to_non_nullable
 as int,remaining: null == remaining ? _self.remaining : remaining // ignore: cast_nullable_to_non_nullable
@@ -247,16 +253,18 @@ _$FreeAllowanceCopyWith<_FreeAllowance> get copyWith => __$FreeAllowanceCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FreeAllowance&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.used, used) || other.used == used)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.resetsAt, resetsAt) || other.resetsAt == resetsAt)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.paused, paused) || other.paused == paused));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _FreeAllowance&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.used, used) || other.used == used)&&(identical(other.remaining, remaining) || other.remaining == remaining)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.resetsAt, resetsAt) || other.resetsAt == resetsAt)&&(identical(other.timezone, timezone) || other.timezone == timezone)&&(identical(other.paused, paused) || other.paused == paused));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,limit,used,remaining,localDate,resetsAt,timezone,paused);
+int get hashCode {
+    return Object.hash(runtimeType,limit,used,remaining,localDate,resetsAt,timezone,paused);
+}
 
 @override
 String toString() {
-  return 'FreeAllowance(limit: $limit, used: $used, remaining: $remaining, localDate: $localDate, resetsAt: $resetsAt, timezone: $timezone, paused: $paused)';
+    return 'FreeAllowance(limit: $limit, used: $used, remaining: $remaining, localDate: $localDate, resetsAt: $resetsAt, timezone: $timezone, paused: $paused)';
 }
 
 
@@ -320,16 +328,21 @@ $RewardedStatusCopyWith<RewardedStatus> get copyWith => _$RewardedStatusCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedStatus&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.dailyCap, dailyCap) || other.dailyCap == dailyCap)&&(identical(other.grantedToday, grantedToday) || other.grantedToday == grantedToday)&&(identical(other.available, available) || other.available == available)&&(identical(other.cooldownEndsAt, cooldownEndsAt) || other.cooldownEndsAt == cooldownEndsAt));
+  final _this = this as RewardedStatus;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedStatus&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.amount, _this.amount) || other.amount == _this.amount)&&(identical(other.dailyCap, _this.dailyCap) || other.dailyCap == _this.dailyCap)&&(identical(other.grantedToday, _this.grantedToday) || other.grantedToday == _this.grantedToday)&&(identical(other.available, _this.available) || other.available == _this.available)&&(identical(other.cooldownEndsAt, _this.cooldownEndsAt) || other.cooldownEndsAt == _this.cooldownEndsAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,enabled,amount,dailyCap,grantedToday,available,cooldownEndsAt);
+int get hashCode {
+  final _this = this as RewardedStatus;
+  return Object.hash(runtimeType,_this.enabled,_this.amount,_this.dailyCap,_this.grantedToday,_this.available,_this.cooldownEndsAt);
+}
 
 @override
 String toString() {
-  return 'RewardedStatus(enabled: $enabled, amount: $amount, dailyCap: $dailyCap, grantedToday: $grantedToday, available: $available, cooldownEndsAt: $cooldownEndsAt)';
+  final _this = this as RewardedStatus;
+  return 'RewardedStatus(enabled: ${_this.enabled}, amount: ${_this.amount}, dailyCap: ${_this.dailyCap}, grantedToday: ${_this.grantedToday}, available: ${_this.available}, cooldownEndsAt: ${_this.cooldownEndsAt})';
 }
 
 
@@ -358,7 +371,7 @@ class _$RewardedStatusCopyWithImpl<$Res>
 /// Create a copy of RewardedStatus
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? amount = null,Object? dailyCap = null,Object? grantedToday = null,Object? available = null,Object? cooldownEndsAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(RewardedStatus(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as int,dailyCap: null == dailyCap ? _self.dailyCap : dailyCap // ignore: cast_nullable_to_non_nullable
@@ -532,16 +545,18 @@ _$RewardedStatusCopyWith<_RewardedStatus> get copyWith => __$RewardedStatusCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardedStatus&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.dailyCap, dailyCap) || other.dailyCap == dailyCap)&&(identical(other.grantedToday, grantedToday) || other.grantedToday == grantedToday)&&(identical(other.available, available) || other.available == available)&&(identical(other.cooldownEndsAt, cooldownEndsAt) || other.cooldownEndsAt == cooldownEndsAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _RewardedStatus&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.dailyCap, dailyCap) || other.dailyCap == dailyCap)&&(identical(other.grantedToday, grantedToday) || other.grantedToday == grantedToday)&&(identical(other.available, available) || other.available == available)&&(identical(other.cooldownEndsAt, cooldownEndsAt) || other.cooldownEndsAt == cooldownEndsAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,enabled,amount,dailyCap,grantedToday,available,cooldownEndsAt);
+int get hashCode {
+    return Object.hash(runtimeType,enabled,amount,dailyCap,grantedToday,available,cooldownEndsAt);
+}
 
 @override
 String toString() {
-  return 'RewardedStatus(enabled: $enabled, amount: $amount, dailyCap: $dailyCap, grantedToday: $grantedToday, available: $available, cooldownEndsAt: $cooldownEndsAt)';
+    return 'RewardedStatus(enabled: $enabled, amount: $amount, dailyCap: $dailyCap, grantedToday: $grantedToday, available: $available, cooldownEndsAt: $cooldownEndsAt)';
 }
 
 
@@ -611,16 +626,21 @@ $CreditBalanceCopyWith<CreditBalance> get copyWith => _$CreditBalanceCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreditBalance&&(identical(other.free, free) || other.free == free)&&(identical(other.bonus, bonus) || other.bonus == bonus)&&(identical(other.paid, paid) || other.paid == paid)&&(identical(other.canRead, canRead) || other.canRead == canRead)&&(identical(other.canReadReason, canReadReason) || other.canReadReason == canReadReason)&&(identical(other.nextSource, nextSource) || other.nextSource == nextSource)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesAllowed, purchasesAllowed) || other.purchasesAllowed == purchasesAllowed)&&(identical(other.purchasesBlockedReason, purchasesBlockedReason) || other.purchasesBlockedReason == purchasesBlockedReason)&&(identical(other.ledgerVersion, ledgerVersion) || other.ledgerVersion == ledgerVersion)&&(identical(other.serverTime, serverTime) || other.serverTime == serverTime)&&(identical(other.syncedAt, syncedAt) || other.syncedAt == syncedAt));
+  final _this = this as CreditBalance;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreditBalance&&(identical(other.free, _this.free) || other.free == _this.free)&&(identical(other.bonus, _this.bonus) || other.bonus == _this.bonus)&&(identical(other.paid, _this.paid) || other.paid == _this.paid)&&(identical(other.canRead, _this.canRead) || other.canRead == _this.canRead)&&(identical(other.canReadReason, _this.canReadReason) || other.canReadReason == _this.canReadReason)&&(identical(other.nextSource, _this.nextSource) || other.nextSource == _this.nextSource)&&(identical(other.rewarded, _this.rewarded) || other.rewarded == _this.rewarded)&&(identical(other.paidBlocked, _this.paidBlocked) || other.paidBlocked == _this.paidBlocked)&&(identical(other.purchasesAllowed, _this.purchasesAllowed) || other.purchasesAllowed == _this.purchasesAllowed)&&(identical(other.purchasesBlockedReason, _this.purchasesBlockedReason) || other.purchasesBlockedReason == _this.purchasesBlockedReason)&&(identical(other.ledgerVersion, _this.ledgerVersion) || other.ledgerVersion == _this.ledgerVersion)&&(identical(other.serverTime, _this.serverTime) || other.serverTime == _this.serverTime)&&(identical(other.syncedAt, _this.syncedAt) || other.syncedAt == _this.syncedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,free,bonus,paid,canRead,canReadReason,nextSource,rewarded,paidBlocked,purchasesAllowed,purchasesBlockedReason,ledgerVersion,serverTime,syncedAt);
+int get hashCode {
+  final _this = this as CreditBalance;
+  return Object.hash(runtimeType,_this.free,_this.bonus,_this.paid,_this.canRead,_this.canReadReason,_this.nextSource,_this.rewarded,_this.paidBlocked,_this.purchasesAllowed,_this.purchasesBlockedReason,_this.ledgerVersion,_this.serverTime,_this.syncedAt);
+}
 
 @override
 String toString() {
-  return 'CreditBalance(free: $free, bonus: $bonus, paid: $paid, canRead: $canRead, canReadReason: $canReadReason, nextSource: $nextSource, rewarded: $rewarded, paidBlocked: $paidBlocked, purchasesAllowed: $purchasesAllowed, purchasesBlockedReason: $purchasesBlockedReason, ledgerVersion: $ledgerVersion, serverTime: $serverTime, syncedAt: $syncedAt)';
+  final _this = this as CreditBalance;
+  return 'CreditBalance(free: ${_this.free}, bonus: ${_this.bonus}, paid: ${_this.paid}, canRead: ${_this.canRead}, canReadReason: ${_this.canReadReason}, nextSource: ${_this.nextSource}, rewarded: ${_this.rewarded}, paidBlocked: ${_this.paidBlocked}, purchasesAllowed: ${_this.purchasesAllowed}, purchasesBlockedReason: ${_this.purchasesBlockedReason}, ledgerVersion: ${_this.ledgerVersion}, serverTime: ${_this.serverTime}, syncedAt: ${_this.syncedAt})';
 }
 
 
@@ -649,7 +669,7 @@ class _$CreditBalanceCopyWithImpl<$Res>
 /// Create a copy of CreditBalance
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? free = null,Object? bonus = null,Object? paid = null,Object? canRead = null,Object? canReadReason = freezed,Object? nextSource = freezed,Object? rewarded = null,Object? paidBlocked = null,Object? purchasesAllowed = null,Object? purchasesBlockedReason = freezed,Object? ledgerVersion = null,Object? serverTime = null,Object? syncedAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(CreditBalance(
 free: null == free ? _self.free : free // ignore: cast_nullable_to_non_nullable
 as FreeAllowance,bonus: null == bonus ? _self.bonus : bonus // ignore: cast_nullable_to_non_nullable
 as int,paid: null == paid ? _self.paid : paid // ignore: cast_nullable_to_non_nullable
@@ -862,16 +882,18 @@ _$CreditBalanceCopyWith<_CreditBalance> get copyWith => __$CreditBalanceCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreditBalance&&(identical(other.free, free) || other.free == free)&&(identical(other.bonus, bonus) || other.bonus == bonus)&&(identical(other.paid, paid) || other.paid == paid)&&(identical(other.canRead, canRead) || other.canRead == canRead)&&(identical(other.canReadReason, canReadReason) || other.canReadReason == canReadReason)&&(identical(other.nextSource, nextSource) || other.nextSource == nextSource)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesAllowed, purchasesAllowed) || other.purchasesAllowed == purchasesAllowed)&&(identical(other.purchasesBlockedReason, purchasesBlockedReason) || other.purchasesBlockedReason == purchasesBlockedReason)&&(identical(other.ledgerVersion, ledgerVersion) || other.ledgerVersion == ledgerVersion)&&(identical(other.serverTime, serverTime) || other.serverTime == serverTime)&&(identical(other.syncedAt, syncedAt) || other.syncedAt == syncedAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreditBalance&&(identical(other.free, free) || other.free == free)&&(identical(other.bonus, bonus) || other.bonus == bonus)&&(identical(other.paid, paid) || other.paid == paid)&&(identical(other.canRead, canRead) || other.canRead == canRead)&&(identical(other.canReadReason, canReadReason) || other.canReadReason == canReadReason)&&(identical(other.nextSource, nextSource) || other.nextSource == nextSource)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesAllowed, purchasesAllowed) || other.purchasesAllowed == purchasesAllowed)&&(identical(other.purchasesBlockedReason, purchasesBlockedReason) || other.purchasesBlockedReason == purchasesBlockedReason)&&(identical(other.ledgerVersion, ledgerVersion) || other.ledgerVersion == ledgerVersion)&&(identical(other.serverTime, serverTime) || other.serverTime == serverTime)&&(identical(other.syncedAt, syncedAt) || other.syncedAt == syncedAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,free,bonus,paid,canRead,canReadReason,nextSource,rewarded,paidBlocked,purchasesAllowed,purchasesBlockedReason,ledgerVersion,serverTime,syncedAt);
+int get hashCode {
+    return Object.hash(runtimeType,free,bonus,paid,canRead,canReadReason,nextSource,rewarded,paidBlocked,purchasesAllowed,purchasesBlockedReason,ledgerVersion,serverTime,syncedAt);
+}
 
 @override
 String toString() {
-  return 'CreditBalance(free: $free, bonus: $bonus, paid: $paid, canRead: $canRead, canReadReason: $canReadReason, nextSource: $nextSource, rewarded: $rewarded, paidBlocked: $paidBlocked, purchasesAllowed: $purchasesAllowed, purchasesBlockedReason: $purchasesBlockedReason, ledgerVersion: $ledgerVersion, serverTime: $serverTime, syncedAt: $syncedAt)';
+    return 'CreditBalance(free: $free, bonus: $bonus, paid: $paid, canRead: $canRead, canReadReason: $canReadReason, nextSource: $nextSource, rewarded: $rewarded, paidBlocked: $paidBlocked, purchasesAllowed: $purchasesAllowed, purchasesBlockedReason: $purchasesBlockedReason, ledgerVersion: $ledgerVersion, serverTime: $serverTime, syncedAt: $syncedAt)';
 }
 
 

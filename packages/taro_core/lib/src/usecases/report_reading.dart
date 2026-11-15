@@ -17,12 +17,10 @@ import 'package:taro_core/src/result/result.dart';
 final class ReportReading {
   /// Creates the use case.
   ReportReading({
-    required ReadingRepository readings,
-    required ReportGateway gateway,
-    required IdGenerator ids,
-  }) : _readings = readings,
-       _gateway = gateway,
-       _ids = ids;
+    required this._readings,
+    required this._gateway,
+    required this._ids,
+  });
 
   /// The note limit in grapheme clusters (03 §9.7).
   static const int noteMaxLength = 500;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'update_required_controller.dart';
@@ -9,6 +9,7 @@ part of 'update_required_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $UpdateRequiredStateCopyWith<UpdateRequiredState> get copyWith => _$UpdateRequir
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateRequiredState&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.installedVersion, installedVersion) || other.installedVersion == installedVersion)&&(identical(other.minVersion, minVersion) || other.minVersion == minVersion));
+  final _this = this as UpdateRequiredState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateRequiredState&&(identical(other.platform, _this.platform) || other.platform == _this.platform)&&(identical(other.installedVersion, _this.installedVersion) || other.installedVersion == _this.installedVersion)&&(identical(other.minVersion, _this.minVersion) || other.minVersion == _this.minVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,platform,installedVersion,minVersion);
+int get hashCode {
+  final _this = this as UpdateRequiredState;
+  return Object.hash(runtimeType,_this.platform,_this.installedVersion,_this.minVersion);
+}
 
 @override
 String toString() {
-  return 'UpdateRequiredState(platform: $platform, installedVersion: $installedVersion, minVersion: $minVersion)';
+  final _this = this as UpdateRequiredState;
+  return 'UpdateRequiredState(platform: ${_this.platform}, installedVersion: ${_this.installedVersion}, minVersion: ${_this.minVersion})';
 }
 
 
@@ -63,7 +69,7 @@ class _$UpdateRequiredStateCopyWithImpl<$Res>
 /// Create a copy of UpdateRequiredState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? platform = null,Object? installedVersion = null,Object? minVersion = null,}) {
-  return _then(_self.copyWith(
+  return _then(UpdateRequiredState.content(
 platform: null == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
 as AppPlatform,installedVersion: null == installedVersion ? _self.installedVersion : installedVersion // ignore: cast_nullable_to_non_nullable
 as String,minVersion: null == minVersion ? _self.minVersion : minVersion // ignore: cast_nullable_to_non_nullable
@@ -219,16 +225,18 @@ $UpdateRequiredContentCopyWith<UpdateRequiredContent> get copyWith => _$UpdateRe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateRequiredContent&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.installedVersion, installedVersion) || other.installedVersion == installedVersion)&&(identical(other.minVersion, minVersion) || other.minVersion == minVersion));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateRequiredContent&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.installedVersion, installedVersion) || other.installedVersion == installedVersion)&&(identical(other.minVersion, minVersion) || other.minVersion == minVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,platform,installedVersion,minVersion);
+int get hashCode {
+    return Object.hash(runtimeType,platform,installedVersion,minVersion);
+}
 
 @override
 String toString() {
-  return 'UpdateRequiredState.content(platform: $platform, installedVersion: $installedVersion, minVersion: $minVersion)';
+    return 'UpdateRequiredState.content(platform: $platform, installedVersion: $installedVersion, minVersion: $minVersion)';
 }
 
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 
 /// Fades the [start] and/or [end] edge of a horizontal scroller to show

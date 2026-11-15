@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'product_offer.dart';
@@ -9,6 +9,7 @@ part of 'product_offer.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -31,16 +32,21 @@ $ProductOfferCopyWith<ProductOffer> get copyWith => _$ProductOfferCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductOffer&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode)&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+  final _this = this as ProductOffer;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductOffer&&(identical(other.productId, _this.productId) || other.productId == _this.productId)&&(identical(other.price, _this.price) || other.price == _this.price)&&(identical(other.rawPrice, _this.rawPrice) || other.rawPrice == _this.rawPrice)&&(identical(other.currencyCode, _this.currencyCode) || other.currencyCode == _this.currencyCode)&&(identical(other.credits, _this.credits) || other.credits == _this.credits)&&(identical(other.sortOrder, _this.sortOrder) || other.sortOrder == _this.sortOrder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId,price,rawPrice,currencyCode,credits,sortOrder);
+int get hashCode {
+  final _this = this as ProductOffer;
+  return Object.hash(runtimeType,_this.productId,_this.price,_this.rawPrice,_this.currencyCode,_this.credits,_this.sortOrder);
+}
 
 @override
 String toString() {
-  return 'ProductOffer(productId: $productId, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode, credits: $credits, sortOrder: $sortOrder)';
+  final _this = this as ProductOffer;
+  return 'ProductOffer(productId: ${_this.productId}, price: ${_this.price}, rawPrice: ${_this.rawPrice}, currencyCode: ${_this.currencyCode}, credits: ${_this.credits}, sortOrder: ${_this.sortOrder})';
 }
 
 
@@ -69,7 +75,7 @@ class _$ProductOfferCopyWithImpl<$Res>
 /// Create a copy of ProductOffer
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? productId = null,Object? price = null,Object? rawPrice = null,Object? currencyCode = null,Object? credits = null,Object? sortOrder = null,}) {
-  return _then(_self.copyWith(
+  return _then(ProductOffer(
 productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
 as ProductId,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as String,rawPrice: null == rawPrice ? _self.rawPrice : rawPrice // ignore: cast_nullable_to_non_nullable
@@ -243,16 +249,18 @@ _$ProductOfferCopyWith<_ProductOffer> get copyWith => __$ProductOfferCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductOffer&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode)&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProductOffer&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.price, price) || other.price == price)&&(identical(other.rawPrice, rawPrice) || other.rawPrice == rawPrice)&&(identical(other.currencyCode, currencyCode) || other.currencyCode == currencyCode)&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.sortOrder, sortOrder) || other.sortOrder == sortOrder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId,price,rawPrice,currencyCode,credits,sortOrder);
+int get hashCode {
+    return Object.hash(runtimeType,productId,price,rawPrice,currencyCode,credits,sortOrder);
+}
 
 @override
 String toString() {
-  return 'ProductOffer(productId: $productId, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode, credits: $credits, sortOrder: $sortOrder)';
+    return 'ProductOffer(productId: $productId, price: $price, rawPrice: $rawPrice, currencyCode: $currencyCode, credits: $credits, sortOrder: $sortOrder)';
 }
 
 

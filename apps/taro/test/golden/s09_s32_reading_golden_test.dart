@@ -4,8 +4,8 @@ library;
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/features/reading/controller/classic_reading_controller.dart';
 import 'package:taro/features/reading/controller/reading_result_controller.dart';
 import 'package:taro/features/reading/controller/report_reading_controller.dart';
@@ -18,13 +18,11 @@ import 'package:taro_ui/taro_ui.dart';
 import 'golden_app_support.dart';
 
 /// The canvas sample (`docs/design/samples/readings/three_ppf.json`).
-Map<String, Object?> _sample() =>
-    jsonDecode(
-          File(
-            '../../docs/design/samples/readings/three_ppf.json',
-          ).readAsStringSync(),
-        )
-        as Map<String, Object?>;
+Map<String, Object?> _sample() => jsonDecode(
+  File(
+    '../../docs/design/samples/readings/three_ppf.json',
+  ).readAsStringSync(),
+) as Map<String, Object?>;
 
 const Map<String, String> _names = {
   'cups_03': 'Three of Cups',

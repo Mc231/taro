@@ -13,16 +13,13 @@ typedef TokenRefresher = Future<Result<SessionToken>> Function();
 /// `401 UNAUTHENTICATED`, a second expiry or a rejected refresh →
 /// [SessionExpiredFailure] and `onSessionExpired` (the re-register flow).
 final class AuthInterceptor extends Interceptor {
-  /// Creates the interceptor; [dio] re-sends the request after a refresh.
+  /// Creates the interceptor; [_dio] re-sends the request after a refresh.
   AuthInterceptor({
-    required Dio dio,
-    required SessionTokenStore tokens,
-    required TokenRefresher refresh,
-    void Function()? onSessionExpired,
-  }) : _dio = dio,
-       _tokens = tokens,
-       _refresh = refresh,
-       _onSessionExpired = onSessionExpired;
+    required this._dio,
+    required this._tokens,
+    required this._refresh,
+    this._onSessionExpired,
+  });
 
   final Dio _dio;
   final SessionTokenStore _tokens;

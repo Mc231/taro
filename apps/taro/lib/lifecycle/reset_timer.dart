@@ -13,14 +13,12 @@ Timer _realTimer(Duration delay, void Function() onFire) =>
 /// clock (the server skew applied, `ResetSchedule`). Cancelled on pause,
 /// re-armed on resume and whenever a new balance arrives.
 final class ResetTimer {
-  /// A timer calling [onFire] (normally `SyncCoordinator.run(resetBoundary)`).
+  /// A timer calling [_onFire] (normally `SyncCoordinator.run(resetBoundary)`).
   ResetTimer({
-    required Clock clock,
-    required void Function() onFire,
-    TimerFactory timer = _realTimer,
-  }) : _clock = clock,
-       _onFire = onFire,
-       _timer = timer;
+    required this._clock,
+    required this._onFire,
+    this._timer = _realTimer,
+  });
 
   /// The margin after `free.resetsAt` (the Worker applies the reset
   /// idempotently on `GET /v1/balance`).

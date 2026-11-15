@@ -15,11 +15,10 @@ final class AttTrackingAuthorization implements TrackingAuthorization {
   /// An adapter over the plugin's static calls, or [readStatus] /
   /// [requestAuthorization] in tests.
   AttTrackingAuthorization({
-    required Logger logger,
+    required this._logger,
     AttStatusCall? readStatus,
     AttStatusCall? requestAuthorization,
-  }) : _logger = logger,
-       _readStatus =
+  }) : _readStatus =
            readStatus ??
            (() => att.AppTrackingTransparency.trackingAuthorizationStatus),
        _request =

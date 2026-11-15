@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
 
@@ -40,7 +38,7 @@ class _TaroShimmerState extends State<TaroShimmer>
         ..value = 0;
     } else {
       _controller.duration = context.motion.duration.slow;
-      unawaited(_controller.repeat(reverse: true));
+      _controller.repeat(reverse: true);
     }
   }
 

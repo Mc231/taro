@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'daily_card_controller.dart';
@@ -9,6 +9,7 @@ part of 'daily_card_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $DailyCardViewCopyWith<DailyCardView> get copyWith => _$DailyCardViewCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.deckCard, deckCard) || other.deckCard == deckCard));
+  final _this = this as DailyCardView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardView&&(identical(other.card, _this.card) || other.card == _this.card)&&(identical(other.text, _this.text) || other.text == _this.text)&&(identical(other.deckCard, _this.deckCard) || other.deckCard == _this.deckCard));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,deckCard);
+int get hashCode {
+  final _this = this as DailyCardView;
+  return Object.hash(runtimeType,_this.card,_this.text,_this.deckCard);
+}
 
 @override
 String toString() {
-  return 'DailyCardView(card: $card, text: $text, deckCard: $deckCard)';
+  final _this = this as DailyCardView;
+  return 'DailyCardView(card: ${_this.card}, text: ${_this.text}, deckCard: ${_this.deckCard})';
 }
 
 
@@ -63,7 +69,7 @@ class _$DailyCardViewCopyWithImpl<$Res>
 /// Create a copy of DailyCardView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? card = null,Object? text = null,Object? deckCard = null,}) {
-  return _then(_self.copyWith(
+  return _then(DailyCardView(
 card: null == card ? _self.card : card // ignore: cast_nullable_to_non_nullable
 as DailyCard,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as CardText,deckCard: null == deckCard ? _self.deckCard : deckCard // ignore: cast_nullable_to_non_nullable
@@ -252,16 +258,18 @@ _$DailyCardViewCopyWith<_DailyCardView> get copyWith => __$DailyCardViewCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.deckCard, deckCard) || other.deckCard == deckCard));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.deckCard, deckCard) || other.deckCard == deckCard));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,deckCard);
+int get hashCode {
+    return Object.hash(runtimeType,card,text,deckCard);
+}
 
 @override
 String toString() {
-  return 'DailyCardView(card: $card, text: $text, deckCard: $deckCard)';
+    return 'DailyCardView(card: $card, text: $text, deckCard: $deckCard)';
 }
 
 
@@ -342,16 +350,21 @@ $DailyCardDeeperCopyWith<DailyCardDeeper> get copyWith => _$DailyCardDeeperCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardDeeper&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+  final _this = this as DailyCardDeeper;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardDeeper&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.reversed, _this.reversed) || other.reversed == _this.reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,cardId,reversed);
+int get hashCode {
+  final _this = this as DailyCardDeeper;
+  return Object.hash(runtimeType,_this.spreadId,_this.cardId,_this.reversed);
+}
 
 @override
 String toString() {
-  return 'DailyCardDeeper(spreadId: $spreadId, cardId: $cardId, reversed: $reversed)';
+  final _this = this as DailyCardDeeper;
+  return 'DailyCardDeeper(spreadId: ${_this.spreadId}, cardId: ${_this.cardId}, reversed: ${_this.reversed})';
 }
 
 
@@ -380,7 +393,7 @@ class _$DailyCardDeeperCopyWithImpl<$Res>
 /// Create a copy of DailyCardDeeper
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spreadId = null,Object? cardId = null,Object? reversed = null,}) {
-  return _then(_self.copyWith(
+  return _then(DailyCardDeeper(
 spreadId: null == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId,cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,reversed: null == reversed ? _self.reversed : reversed // ignore: cast_nullable_to_non_nullable
@@ -542,16 +555,18 @@ _$DailyCardDeeperCopyWith<_DailyCardDeeper> get copyWith => __$DailyCardDeeperCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardDeeper&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardDeeper&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.reversed, reversed) || other.reversed == reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,cardId,reversed);
+int get hashCode {
+    return Object.hash(runtimeType,spreadId,cardId,reversed);
+}
 
 @override
 String toString() {
-  return 'DailyCardDeeper(spreadId: $spreadId, cardId: $cardId, reversed: $reversed)';
+    return 'DailyCardDeeper(spreadId: $spreadId, cardId: $cardId, reversed: $reversed)';
 }
 
 
@@ -600,7 +615,7 @@ mixin _$DailyCardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardState);
 }
 
 
@@ -609,7 +624,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DailyCardState()';
+    return 'DailyCardState()';
 }
 
 
@@ -795,7 +810,7 @@ class DailyCardLoading implements DailyCardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardLoading);
 }
 
 
@@ -804,7 +819,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DailyCardState.loading()';
+    return 'DailyCardState.loading()';
 }
 
 
@@ -827,7 +842,7 @@ class DailyCardNotDrawn implements DailyCardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardNotDrawn);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardNotDrawn);
 }
 
 
@@ -836,7 +851,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DailyCardState.notDrawn()';
+    return 'DailyCardState.notDrawn()';
 }
 
 
@@ -859,7 +874,7 @@ class DailyCardRevealing implements DailyCardState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardRevealing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardRevealing);
 }
 
 
@@ -868,7 +883,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DailyCardState.revealing()';
+    return 'DailyCardState.revealing()';
 }
 
 
@@ -896,16 +911,18 @@ $DailyCardDrawnCopyWith<DailyCardDrawn> get copyWith => _$DailyCardDrawnCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardDrawn&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardDrawn&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DailyCardState.drawn(view: $view)';
+    return 'DailyCardState.drawn(view: $view)';
 }
 
 
@@ -971,16 +988,18 @@ $DailyCardNoteEditingCopyWith<DailyCardNoteEditing> get copyWith => _$DailyCardN
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardNoteEditing&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardNoteEditing&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DailyCardState.noteEditing(view: $view)';
+    return 'DailyCardState.noteEditing(view: $view)';
 }
 
 
@@ -1046,16 +1065,18 @@ $DailyCardReminderOfferCopyWith<DailyCardReminderOffer> get copyWith => _$DailyC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardReminderOffer&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardReminderOffer&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'DailyCardState.reminderOffer(view: $view)';
+    return 'DailyCardState.reminderOffer(view: $view)';
 }
 
 
@@ -1121,16 +1142,18 @@ $DailyCardFailedCopyWith<DailyCardFailed> get copyWith => _$DailyCardFailedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardFailed&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardFailed&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode {
+    return Object.hash(runtimeType,failure);
+}
 
 @override
 String toString() {
-  return 'DailyCardState.failed(failure: $failure)';
+    return 'DailyCardState.failed(failure: $failure)';
 }
 
 

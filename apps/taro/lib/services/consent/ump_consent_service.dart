@@ -22,14 +22,13 @@ final class UmpConsentService implements ConsentService {
   /// An adapter over the SDK singletons, or [info] and the form calls in
   /// tests.
   UmpConsentService({
-    required Logger logger,
+    required this._logger,
     this.allowDebugGeography = false,
     this.debugTestDeviceIds = const [],
     gma.ConsentInformation? info,
     UmpFormCall? loadAndShowIfRequired,
     UmpFormCall? showPrivacyOptionsForm,
-  }) : _logger = logger,
-       _info = info ?? gma.ConsentInformation.instance,
+  }) : _info = info ?? gma.ConsentInformation.instance,
        _loadAndShow = loadAndShowIfRequired ?? _defaultLoadAndShow,
        _showPrivacy = showPrivacyOptionsForm ?? _defaultShowPrivacyOptions;
 

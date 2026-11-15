@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'att_preprompt_controller.dart';
@@ -9,6 +9,7 @@ part of 'att_preprompt_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$AttPrePromptState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AttPrePromptState()';
+    return 'AttPrePromptState()';
 }
 
 
@@ -185,7 +186,7 @@ class AttPrePromptHidden implements AttPrePromptState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptHidden);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptHidden);
 }
 
 
@@ -194,7 +195,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AttPrePromptState.hidden()';
+    return 'AttPrePromptState.hidden()';
 }
 
 
@@ -217,7 +218,7 @@ class AttPrePromptVisible implements AttPrePromptState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptVisible);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AttPrePromptVisible);
 }
 
 
@@ -226,7 +227,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AttPrePromptState.visible()';
+    return 'AttPrePromptState.visible()';
 }
 
 

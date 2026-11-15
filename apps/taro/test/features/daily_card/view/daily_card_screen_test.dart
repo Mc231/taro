@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/daily_card/controller/daily_card_controller.dart';
 import 'package:taro/features/daily_card/view/daily_card_screen.dart';
@@ -8,6 +8,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 DailyCardView _view({String? note, bool reversed = false}) {
@@ -72,7 +73,7 @@ void main() {
     expect(find.bySemanticsLabel(l10n.dailyCardBackSemantics), findsOneWidget);
     await tapFound(tester, find.byType(TaroCardBack));
     await tapFound(tester, find.text(l10n.dailyBackToToday));
-    await tester.tap(find.byTooltip(l10n.commonBack));
+    await tester.tap(find.byTaroTooltip(l10n.commonBack));
     expect(calls, ['reveal', 'close', 'close']);
   });
 
@@ -157,8 +158,8 @@ void main() {
     }
     await tapFound(tester, find.text(l10n.dailyReflectDeeper));
     await tapFound(tester, find.text('Calm'));
-    await tester.tap(find.byTooltip(l10n.commonFavourite));
-    await tester.tap(find.byTooltip(l10n.commonBack));
+    await tester.tap(find.byTaroTooltip(l10n.commonFavourite));
+    await tester.tap(find.byTaroTooltip(l10n.commonBack));
     expect(calls, ['deeper', 'edit', 'favourite', 'close']);
   });
 
@@ -246,12 +247,12 @@ void main() {
       await tester.enterText(find.byType(TextField), 'Steady');
       await tapFound(tester, find.text(l10n.commonDone));
       expect(fakes.journal.dailyCards.values.single.note, 'Steady');
-      await tester.tap(find.byTooltip(l10n.commonFavourite));
+      await tester.tap(find.byTaroTooltip(l10n.commonFavourite));
       await tester.pumpAndSettle();
       expect(fakes.journal.dailyCards.values.single.favourite, isTrue);
       await tapFound(tester, find.text('Steady'));
       await tapFound(tester, find.text(l10n.commonCancel));
-      await tester.tap(find.byTooltip(l10n.commonBack));
+      await tester.tap(find.byTaroTooltip(l10n.commonBack));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });

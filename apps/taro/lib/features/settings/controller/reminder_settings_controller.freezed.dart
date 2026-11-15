@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reminder_settings_controller.dart';
@@ -9,6 +9,7 @@ part of 'reminder_settings_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $ReminderSettingsStateCopyWith<ReminderSettingsState> get copyWith => _$Reminder
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsState&&(identical(other.reminder, reminder) || other.reminder == reminder));
+  final _this = this as ReminderSettingsState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsState&&(identical(other.reminder, _this.reminder) || other.reminder == _this.reminder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reminder);
+int get hashCode {
+  final _this = this as ReminderSettingsState;
+  return Object.hash(runtimeType,_this.reminder);
+}
 
 @override
 String toString() {
-  return 'ReminderSettingsState(reminder: $reminder)';
+  final _this = this as ReminderSettingsState;
+  return 'ReminderSettingsState(reminder: ${_this.reminder})';
 }
 
 
@@ -230,16 +236,18 @@ $ReminderSettingsContentCopyWith<ReminderSettingsContent> get copyWith => _$Remi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsContent&&(identical(other.reminder, reminder) || other.reminder == reminder));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsContent&&(identical(other.reminder, reminder) || other.reminder == reminder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reminder);
+int get hashCode {
+    return Object.hash(runtimeType,reminder);
+}
 
 @override
 String toString() {
-  return 'ReminderSettingsState.content(reminder: $reminder)';
+    return 'ReminderSettingsState.content(reminder: $reminder)';
 }
 
 
@@ -305,16 +313,18 @@ $ReminderSettingsPermissionDeniedCopyWith<ReminderSettingsPermissionDenied> get 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsPermissionDenied&&(identical(other.reminder, reminder) || other.reminder == reminder));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettingsPermissionDenied&&(identical(other.reminder, reminder) || other.reminder == reminder));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reminder);
+int get hashCode {
+    return Object.hash(runtimeType,reminder);
+}
 
 @override
 String toString() {
-  return 'ReminderSettingsState.permissionDenied(reminder: $reminder)';
+    return 'ReminderSettingsState.permissionDenied(reminder: $reminder)';
 }
 
 

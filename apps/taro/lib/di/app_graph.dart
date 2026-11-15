@@ -67,23 +67,22 @@ typedef TaroDatabases = ({JournalDatabase journal, DeviceDatabase device});
 typedef StoreAdapter = ({IapService iap, StoreOwnership ownership});
 
 /// Builds the real store adapter (`StoreIapService`).
-typedef StoreAdapterFactory =
-    StoreAdapter Function({
-      required Logger logger,
-      required PurchasesBlockedReason? Function() purchasesBlockedReason,
-    });
+typedef StoreAdapterFactory = StoreAdapter Function({
+  required Logger logger,
+  required PurchasesBlockedReason? Function() purchasesBlockedReason,
+});
 
 /// Builds the Firebase analytics backend.
-typedef AnalyticsBackendFactory =
-    TaroAnalyticsBackend Function({required Logger logger});
+typedef AnalyticsBackendFactory = TaroAnalyticsBackend Function({
+  required Logger logger,
+});
 
 /// Builds the Crashlytics reporter.
-typedef CrashReporterFactory =
-    Future<CrashReporter> Function({
-      required String flavor,
-      required bool collectionEnabled,
-      required Redactor redactor,
-    });
+typedef CrashReporterFactory = Future<CrashReporter> Function({
+  required String flavor,
+  required bool collectionEnabled,
+  required Redactor redactor,
+});
 
 StoreAdapter _storeIap({
   required Logger logger,

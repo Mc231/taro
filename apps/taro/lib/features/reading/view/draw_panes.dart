@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/common/spread_text.dart';
@@ -206,7 +206,7 @@ class _ShufflePaneState extends State<ShufflePane>
 
   void _hold() {
     _shuffle.duration = context.motion.ritual.shuffle;
-    unawaited(_shuffle.repeat());
+    _shuffle.repeat();
   }
 
   void _release() {
@@ -493,10 +493,10 @@ class _DealInState extends State<_DealIn> with SingleTickerProviderStateMixin {
     _controller.duration = motion.duration.slow;
     final wait = motion.ritual.dealStagger * widget.stagger;
     if (wait == Duration.zero) {
-      unawaited(_controller.forward());
+      _controller.forward();
     } else {
       _delay = Timer(wait, () {
-        if (mounted) unawaited(_controller.forward());
+        if (mounted) _controller.forward();
       });
     }
   }

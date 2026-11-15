@@ -31,23 +31,17 @@ import 'package:taro_core/taro_core.dart';
 /// - [delete] removes the row at once and keeps it in memory for
 ///   [undoWindow] so [undoDelete] can put it back (01 §7.8 Undo snackbar).
 final class ReadingRepositoryImpl implements ReadingRepository {
-  /// Creates the repository. [sleep] waits between polls (tests advance a
+  /// Creates the repository. [_sleep] waits between polls (tests advance a
   /// fake clock instead).
   ReadingRepositoryImpl({
-    required JournalDatabase journal,
-    required DeviceDatabase device,
-    required WorkerClient client,
-    required BalanceRepository balance,
-    required Clock clock,
+    required this._journal,
+    required this._device,
+    required this._client,
+    required this._balance,
+    required this._clock,
     required Logger logger,
-    Sleep sleep = realSleep,
-  }) : _journal = journal,
-       _device = device,
-       _client = client,
-       _balance = balance,
-       _clock = clock,
-       _sleep = sleep,
-       _logger = logger.child('readings');
+    this._sleep = realSleep,
+  }) : _logger = logger.child('readings');
 
   final JournalDatabase _journal;
   final DeviceDatabase _device;

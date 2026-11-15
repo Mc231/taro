@@ -18,10 +18,10 @@ enum ProductKind {
 final class TaroProduct {
   /// Creates a product. `tools/check_iap_ids.py` parses these calls.
   const TaroProduct({
-    required String id,
+    required this._id,
     required this.kind,
     required this.alias,
-  }) : _id = id;
+  });
 
   final String _id;
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'crisis_resources_controller.dart';
@@ -9,6 +9,7 @@ part of 'crisis_resources_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$CrisisResourcesState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CrisisResourcesState()';
+    return 'CrisisResourcesState()';
 }
 
 
@@ -191,7 +192,7 @@ class CrisisResourcesLoading implements CrisisResourcesState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesLoading);
 }
 
 
@@ -200,7 +201,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CrisisResourcesState.loading()';
+    return 'CrisisResourcesState.loading()';
 }
 
 
@@ -213,7 +214,7 @@ String toString() {
 
 
 class CrisisResourcesContent implements CrisisResourcesState {
-  const CrisisResourcesContent({required this.country, required final  List<CrisisResource> resources, required this.hasLocalLines, required final  List<String> countries}): _resources = resources,_countries = countries;
+  const CrisisResourcesContent({required this.country, required  List<CrisisResource> resources, required this.hasLocalLines, required  List<String> countries}): _resources = resources,_countries = countries;
   
 
 /// The selected country, if known.
@@ -250,16 +251,18 @@ $CrisisResourcesContentCopyWith<CrisisResourcesContent> get copyWith => _$Crisis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesContent&&(identical(other.country, country) || other.country == country)&&const DeepCollectionEquality().equals(other._resources, _resources)&&(identical(other.hasLocalLines, hasLocalLines) || other.hasLocalLines == hasLocalLines)&&const DeepCollectionEquality().equals(other._countries, _countries));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesContent&&(identical(other.country, country) || other.country == country)&&const DeepCollectionEquality().equals(other.resources, _resources)&&(identical(other.hasLocalLines, hasLocalLines) || other.hasLocalLines == hasLocalLines)&&const DeepCollectionEquality().equals(other.countries, _countries));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,country,const DeepCollectionEquality().hash(_resources),hasLocalLines,const DeepCollectionEquality().hash(_countries));
+int get hashCode {
+    return Object.hash(runtimeType,country,const DeepCollectionEquality().hash(_resources),hasLocalLines,const DeepCollectionEquality().hash(_countries));
+}
 
 @override
 String toString() {
-  return 'CrisisResourcesState.content(country: $country, resources: $resources, hasLocalLines: $hasLocalLines, countries: $countries)';
+    return 'CrisisResourcesState.content(country: $country, resources: $resources, hasLocalLines: $hasLocalLines, countries: $countries)';
 }
 
 
@@ -314,7 +317,7 @@ class CrisisResourcesStorageError implements CrisisResourcesState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CrisisResourcesStorageError);
 }
 
 
@@ -323,7 +326,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CrisisResourcesState.storageError()';
+    return 'CrisisResourcesState.storageError()';
 }
 
 

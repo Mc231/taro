@@ -29,26 +29,19 @@ Future<void> _wait(Duration duration) => Future<void>.delayed(duration);
 /// * [changes] emits whenever [removesAds] flips; `remove_ads_changed` is
 ///   logged on every flip.
 final class RemoveAdsEntitlement {
-  /// Creates the entitlement over [cache] and the store [ownership].
+  /// Creates the entitlement over [cache] and the store [_ownership].
   ///
-  /// [delay] is the timer used for the bounds (injected in tests).
+  /// [_delay] is the timer used for the bounds (injected in tests).
   RemoveAdsEntitlement({
     required EntitlementCache cache,
-    required StoreOwnership ownership,
-    required Clock clock,
-    required AnalyticsService analytics,
-    required Logger logger,
-    Delay delay = _wait,
-    Duration queryTimeout = kOwnershipQueryTimeout,
-    Duration firstAnswerWait = kOwnershipFirstAnswerWait,
+    required this._ownership,
+    required this._clock,
+    required this._analytics,
+    required this._logger,
+    this._delay = _wait,
+    this._queryTimeout = kOwnershipQueryTimeout,
+    this._firstAnswerWait = kOwnershipFirstAnswerWait,
   }) : _cache = cache,
-       _ownership = ownership,
-       _clock = clock,
-       _analytics = analytics,
-       _logger = logger,
-       _delay = delay,
-       _queryTimeout = queryTimeout,
-       _firstAnswerWait = firstAnswerWait,
        _current = cache.read();
 
   final EntitlementCache _cache;

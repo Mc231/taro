@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/reading/controller/draw_controller.dart';
 import 'package:taro/features/reading/controller/draw_state.dart';
@@ -14,6 +14,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 DrawView _view({int placed = 0, int revealed = 0, bool classic = false}) =>
@@ -507,7 +508,7 @@ void main() {
 
     testWidgets('close goes Home', (tester) async {
       await open(tester, TaroFakes(), classic());
-      await tester.tap(find.byTooltip(l10n.commonClose));
+      await tester.tap(find.byTaroTooltip(l10n.commonClose));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });

@@ -234,12 +234,11 @@ void main() {
         sdks: GraphSdks(
           firebaseAnalytics: ({required logger}) =>
               const NoOpAnalyticsService(),
-          firebaseCrash:
-              ({
-                required flavor,
-                required collectionEnabled,
-                required redactor,
-              }) async => crash,
+          firebaseCrash: ({
+            required flavor,
+            required collectionEnabled,
+            required redactor,
+          }) async => crash,
         ),
       ),
     );

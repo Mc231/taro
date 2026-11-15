@@ -1,3 +1,4 @@
+import '../../test/helpers/finders.dart';
 import '../support/flow_harness.dart';
 
 /// F8 (01 §7.4, §9.9; RC20, RC71): AI consent declined → Begin asks for
@@ -34,7 +35,7 @@ void main() {
     );
     expect(fakes.analytics.eventNames, contains('classic_reading_started'));
 
-    await app.tapFinder(find.byTooltip(l.readingDone));
+    await app.tapFinder(find.byTaroTooltip(l.readingDone));
     await app.waitForScreen(ScreenId.s05);
     await app.tapText(l.tabJournal);
     await app.waitFor(find.text(kTestQuestion));

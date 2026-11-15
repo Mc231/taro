@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'classic_reading_controller.dart';
@@ -9,6 +9,7 @@ part of 'classic_reading_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $ClassicPositionCopyWith<ClassicPosition> get copyWith => _$ClassicPositionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicPosition&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.position, position) || other.position == position));
+  final _this = this as ClassicPosition;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicPosition&&(identical(other.card, _this.card) || other.card == _this.card)&&(identical(other.text, _this.text) || other.text == _this.text)&&(identical(other.position, _this.position) || other.position == _this.position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,position);
+int get hashCode {
+  final _this = this as ClassicPosition;
+  return Object.hash(runtimeType,_this.card,_this.text,_this.position);
+}
 
 @override
 String toString() {
-  return 'ClassicPosition(card: $card, text: $text, position: $position)';
+  final _this = this as ClassicPosition;
+  return 'ClassicPosition(card: ${_this.card}, text: ${_this.text}, position: ${_this.position})';
 }
 
 
@@ -63,7 +69,7 @@ class _$ClassicPositionCopyWithImpl<$Res>
 /// Create a copy of ClassicPosition
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? card = null,Object? text = null,Object? position = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ClassicPosition(
 card: null == card ? _self.card : card // ignore: cast_nullable_to_non_nullable
 as DrawnCard,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as CardText,position: freezed == position ? _self.position : position // ignore: cast_nullable_to_non_nullable
@@ -255,16 +261,18 @@ _$ClassicPositionCopyWith<_ClassicPosition> get copyWith => __$ClassicPositionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClassicPosition&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.position, position) || other.position == position));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClassicPosition&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.position, position) || other.position == position));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,position);
+int get hashCode {
+    return Object.hash(runtimeType,card,text,position);
+}
 
 @override
 String toString() {
-  return 'ClassicPosition(card: $card, text: $text, position: $position)';
+    return 'ClassicPosition(card: $card, text: $text, position: $position)';
 }
 
 
@@ -348,16 +356,21 @@ $ClassicReadingViewCopyWith<ClassicReadingView> get copyWith => _$ClassicReading
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.positions, positions)&&(identical(other.aiAvailable, aiAvailable) || other.aiAvailable == aiAvailable));
+  final _this = this as ClassicReadingView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingView&&(identical(other.reading, _this.reading) || other.reading == _this.reading)&&const DeepCollectionEquality().equals(other.positions, _this.positions)&&(identical(other.aiAvailable, _this.aiAvailable) || other.aiAvailable == _this.aiAvailable));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(positions),aiAvailable);
+int get hashCode {
+  final _this = this as ClassicReadingView;
+  return Object.hash(runtimeType,_this.reading,const DeepCollectionEquality().hash(_this.positions),_this.aiAvailable);
+}
 
 @override
 String toString() {
-  return 'ClassicReadingView(reading: $reading, positions: $positions, aiAvailable: $aiAvailable)';
+  final _this = this as ClassicReadingView;
+  return 'ClassicReadingView(reading: ${_this.reading}, positions: ${_this.positions}, aiAvailable: ${_this.aiAvailable})';
 }
 
 
@@ -386,7 +399,7 @@ class _$ClassicReadingViewCopyWithImpl<$Res>
 /// Create a copy of ClassicReadingView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reading = null,Object? positions = null,Object? aiAvailable = null,}) {
-  return _then(_self.copyWith(
+  return _then(ClassicReadingView(
 reading: null == reading ? _self.reading : reading // ignore: cast_nullable_to_non_nullable
 as Reading,positions: null == positions ? _self.positions : positions // ignore: cast_nullable_to_non_nullable
 as List<ClassicPosition>,aiAvailable: null == aiAvailable ? _self.aiAvailable : aiAvailable // ignore: cast_nullable_to_non_nullable
@@ -540,7 +553,7 @@ return $default(_that.reading,_that.positions,_that.aiAvailable);case _:
 
 
 class _ClassicReadingView implements ClassicReadingView {
-  const _ClassicReadingView({required this.reading, required final  List<ClassicPosition> positions, this.aiAvailable = false}): _positions = positions;
+  const _ClassicReadingView({required this.reading, required  List<ClassicPosition> positions, this.aiAvailable = false}): _positions = positions;
   
 
 @override final  Reading reading;
@@ -563,16 +576,18 @@ _$ClassicReadingViewCopyWith<_ClassicReadingView> get copyWith => __$ClassicRead
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClassicReadingView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other._positions, _positions)&&(identical(other.aiAvailable, aiAvailable) || other.aiAvailable == aiAvailable));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ClassicReadingView&&(identical(other.reading, reading) || other.reading == reading)&&const DeepCollectionEquality().equals(other.positions, _positions)&&(identical(other.aiAvailable, aiAvailable) || other.aiAvailable == aiAvailable));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_positions),aiAvailable);
+int get hashCode {
+    return Object.hash(runtimeType,reading,const DeepCollectionEquality().hash(_positions),aiAvailable);
+}
 
 @override
 String toString() {
-  return 'ClassicReadingView(reading: $reading, positions: $positions, aiAvailable: $aiAvailable)';
+    return 'ClassicReadingView(reading: $reading, positions: $positions, aiAvailable: $aiAvailable)';
 }
 
 
@@ -630,7 +645,7 @@ mixin _$ClassicReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingState);
 }
 
 
@@ -639,7 +654,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ClassicReadingState()';
+    return 'ClassicReadingState()';
 }
 
 
@@ -807,7 +822,7 @@ class ClassicReadingLoadingFromStorage implements ClassicReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingLoadingFromStorage);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingLoadingFromStorage);
 }
 
 
@@ -816,7 +831,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ClassicReadingState.loadingFromStorage()';
+    return 'ClassicReadingState.loadingFromStorage()';
 }
 
 
@@ -844,16 +859,18 @@ $ClassicReadingContentCopyWith<ClassicReadingContent> get copyWith => _$ClassicR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingContent&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingContent&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'ClassicReadingState.content(view: $view)';
+    return 'ClassicReadingState.content(view: $view)';
 }
 
 
@@ -914,7 +931,7 @@ class ClassicReadingNotFound implements ClassicReadingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingNotFound);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingNotFound);
 }
 
 
@@ -923,7 +940,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ClassicReadingState.notFound()';
+    return 'ClassicReadingState.notFound()';
 }
 
 
@@ -951,16 +968,18 @@ $ClassicReadingFailedCopyWith<ClassicReadingFailed> get copyWith => _$ClassicRea
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingFailed&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ClassicReadingFailed&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode {
+    return Object.hash(runtimeType,failure);
+}
 
 @override
 String toString() {
-  return 'ClassicReadingState.failed(failure: $failure)';
+    return 'ClassicReadingState.failed(failure: $failure)';
 }
 
 

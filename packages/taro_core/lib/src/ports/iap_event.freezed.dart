@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'iap_event.dart';
@@ -9,6 +9,7 @@ part of 'iap_event.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $CreditGrantCopyWith<CreditGrant> get copyWith => _$CreditGrantCopyWithImpl<Cred
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreditGrant&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.balance, balance) || other.balance == balance));
+  final _this = this as CreditGrant;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CreditGrant&&(identical(other.credits, _this.credits) || other.credits == _this.credits)&&(identical(other.isFirstPurchase, _this.isFirstPurchase) || other.isFirstPurchase == _this.isFirstPurchase)&&(identical(other.balance, _this.balance) || other.balance == _this.balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,credits,isFirstPurchase,balance);
+int get hashCode {
+  final _this = this as CreditGrant;
+  return Object.hash(runtimeType,_this.credits,_this.isFirstPurchase,_this.balance);
+}
 
 @override
 String toString() {
-  return 'CreditGrant(credits: $credits, isFirstPurchase: $isFirstPurchase, balance: $balance)';
+  final _this = this as CreditGrant;
+  return 'CreditGrant(credits: ${_this.credits}, isFirstPurchase: ${_this.isFirstPurchase}, balance: ${_this.balance})';
 }
 
 
@@ -66,7 +72,7 @@ class _$CreditGrantCopyWithImpl<$Res>
 /// Create a copy of CreditGrant
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? credits = null,Object? isFirstPurchase = null,Object? balance = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CreditGrant(
 credits: null == credits ? _self.credits : credits // ignore: cast_nullable_to_non_nullable
 as int,isFirstPurchase: null == isFirstPurchase ? _self.isFirstPurchase : isFirstPurchase // ignore: cast_nullable_to_non_nullable
 as bool,balance: freezed == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
@@ -243,16 +249,18 @@ _$CreditGrantCopyWith<_CreditGrant> get copyWith => __$CreditGrantCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreditGrant&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CreditGrant&&(identical(other.credits, credits) || other.credits == credits)&&(identical(other.isFirstPurchase, isFirstPurchase) || other.isFirstPurchase == isFirstPurchase)&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,credits,isFirstPurchase,balance);
+int get hashCode {
+    return Object.hash(runtimeType,credits,isFirstPurchase,balance);
+}
 
 @override
 String toString() {
-  return 'CreditGrant(credits: $credits, isFirstPurchase: $isFirstPurchase, balance: $balance)';
+    return 'CreditGrant(credits: $credits, isFirstPurchase: $isFirstPurchase, balance: $balance)';
 }
 
 
@@ -313,7 +321,7 @@ mixin _$IapEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapEvent);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapEvent);
 }
 
 
@@ -322,7 +330,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'IapEvent()';
+    return 'IapEvent()';
 }
 
 
@@ -508,16 +516,18 @@ $IapPurchasedCopyWith<IapPurchased> get copyWith => _$IapPurchasedCopyWithImpl<I
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapPurchased&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.grant, grant) || other.grant == grant));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapPurchased&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.grant, grant) || other.grant == grant));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId,grant);
+int get hashCode {
+    return Object.hash(runtimeType,productId,grant);
+}
 
 @override
 String toString() {
-  return 'IapEvent.purchased(productId: $productId, grant: $grant)';
+    return 'IapEvent.purchased(productId: $productId, grant: $grant)';
 }
 
 
@@ -587,16 +597,18 @@ $IapPendingCopyWith<IapPending> get copyWith => _$IapPendingCopyWithImpl<IapPend
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapPending&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapPending&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'IapEvent.pending(productId: $productId)';
+    return 'IapEvent.pending(productId: $productId)';
 }
 
 
@@ -648,7 +660,7 @@ class IapCancelled implements IapEvent {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapCancelled);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapCancelled);
 }
 
 
@@ -657,7 +669,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'IapEvent.cancelled()';
+    return 'IapEvent.cancelled()';
 }
 
 
@@ -685,16 +697,18 @@ $IapFailedCopyWith<IapFailed> get copyWith => _$IapFailedCopyWithImpl<IapFailed>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapFailed&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapFailed&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure);
+int get hashCode {
+    return Object.hash(runtimeType,failure);
+}
 
 @override
 String toString() {
-  return 'IapEvent.failed(failure: $failure)';
+    return 'IapEvent.failed(failure: $failure)';
 }
 
 
@@ -745,7 +759,7 @@ $FailureCopyWith<$Res> get failure {
 
 
 class IapRestored implements IapEvent {
-  const IapRestored(final  Set<ProductId> productIds): _productIds = productIds;
+  const IapRestored( Set<ProductId> productIds): _productIds = productIds;
   
 
  final  Set<ProductId> _productIds;
@@ -766,16 +780,18 @@ $IapRestoredCopyWith<IapRestored> get copyWith => _$IapRestoredCopyWithImpl<IapR
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapRestored&&const DeepCollectionEquality().equals(other._productIds, _productIds));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapRestored&&const DeepCollectionEquality().equals(other.productIds, _productIds));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_productIds));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_productIds));
+}
 
 @override
 String toString() {
-  return 'IapEvent.restored(productIds: $productIds)';
+    return 'IapEvent.restored(productIds: $productIds)';
 }
 
 
@@ -832,16 +848,18 @@ $IapEntitlementChangedCopyWith<IapEntitlementChanged> get copyWith => _$IapEntit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is IapEntitlementChanged&&(identical(other.entitlement, entitlement) || other.entitlement == entitlement));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is IapEntitlementChanged&&(identical(other.entitlement, entitlement) || other.entitlement == entitlement));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,entitlement);
+int get hashCode {
+    return Object.hash(runtimeType,entitlement);
+}
 
 @override
 String toString() {
-  return 'IapEvent.entitlementChanged(entitlement: $entitlement)';
+    return 'IapEvent.entitlementChanged(entitlement: $entitlement)';
 }
 
 

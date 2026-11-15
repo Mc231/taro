@@ -11,12 +11,11 @@ import 'package:taro_core/taro_core.dart';
 /// re-arms the [ResetTimer]; `paused` / `hidden` cancel the timer. It lives
 /// outside the widget tree on the bootstrap container (AR3).
 final class AppLifecycleObserver with WidgetsBindingObserver {
-  /// An observer driving [sync] and [resetTimer].
+  /// An observer driving [_sync] and [_resetTimer].
   AppLifecycleObserver({
-    required SyncCoordinator sync,
-    required ResetTimer resetTimer,
-  }) : _sync = sync,
-       _resetTimer = resetTimer;
+    required this._sync,
+    required this._resetTimer,
+  });
 
   final SyncCoordinator _sync;
   final ResetTimer _resetTimer;

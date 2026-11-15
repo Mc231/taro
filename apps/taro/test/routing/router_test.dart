@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/app.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 import 'package:taro/routing/router.dart';
 import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart' as core;
@@ -485,7 +486,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp.router(
           routerConfig: router,
-          localizationsDelegates: TaroLocalizations.localizationsDelegates,
+          localizationsDelegates: kTaroLocalizationsDelegates,
           supportedLocales: TaroLocalizations.supportedLocales,
         ),
       );

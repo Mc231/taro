@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'journal_list_controller.dart';
@@ -9,6 +9,7 @@ part of 'journal_list_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $JournalFiltersCopyWith<JournalFilters> get copyWith => _$JournalFiltersCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalFilters&&(identical(other.type, type) || other.type == type)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId));
+  final _this = this as JournalFilters;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalFilters&&(identical(other.type, _this.type) || other.type == _this.type)&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,spreadId,cardId);
+int get hashCode {
+  final _this = this as JournalFilters;
+  return Object.hash(runtimeType,_this.type,_this.spreadId,_this.cardId);
+}
 
 @override
 String toString() {
-  return 'JournalFilters(type: $type, spreadId: $spreadId, cardId: $cardId)';
+  final _this = this as JournalFilters;
+  return 'JournalFilters(type: ${_this.type}, spreadId: ${_this.spreadId}, cardId: ${_this.cardId})';
 }
 
 
@@ -65,7 +71,7 @@ class _$JournalFiltersCopyWithImpl<$Res>
 /// Create a copy of JournalFilters
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? spreadId = freezed,Object? cardId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(JournalFilters(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as JournalTypeFilter,spreadId: freezed == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId?,cardId: freezed == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
@@ -229,16 +235,18 @@ _$JournalFiltersCopyWith<_JournalFilters> get copyWith => __$JournalFiltersCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalFilters&&(identical(other.type, type) || other.type == type)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalFilters&&(identical(other.type, type) || other.type == type)&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.cardId, cardId) || other.cardId == cardId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,spreadId,cardId);
+int get hashCode {
+    return Object.hash(runtimeType,type,spreadId,cardId);
+}
 
 @override
 String toString() {
-  return 'JournalFilters(type: $type, spreadId: $spreadId, cardId: $cardId)';
+    return 'JournalFilters(type: $type, spreadId: $spreadId, cardId: $cardId)';
 }
 
 
@@ -292,16 +300,21 @@ $JournalMonthCopyWith<JournalMonth> get copyWith => _$JournalMonthCopyWithImpl<J
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalMonth&&(identical(other.yearMonth, yearMonth) || other.yearMonth == yearMonth)&&const DeepCollectionEquality().equals(other.items, items));
+  final _this = this as JournalMonth;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalMonth&&(identical(other.yearMonth, _this.yearMonth) || other.yearMonth == _this.yearMonth)&&const DeepCollectionEquality().equals(other.items, _this.items));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,yearMonth,const DeepCollectionEquality().hash(items));
+int get hashCode {
+  final _this = this as JournalMonth;
+  return Object.hash(runtimeType,_this.yearMonth,const DeepCollectionEquality().hash(_this.items));
+}
 
 @override
 String toString() {
-  return 'JournalMonth(yearMonth: $yearMonth, items: $items)';
+  final _this = this as JournalMonth;
+  return 'JournalMonth(yearMonth: ${_this.yearMonth}, items: ${_this.items})';
 }
 
 
@@ -330,7 +343,7 @@ class _$JournalMonthCopyWithImpl<$Res>
 /// Create a copy of JournalMonth
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? yearMonth = null,Object? items = null,}) {
-  return _then(_self.copyWith(
+  return _then(JournalMonth(
 yearMonth: null == yearMonth ? _self.yearMonth : yearMonth // ignore: cast_nullable_to_non_nullable
 as String,items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
 as List<JournalItem>,
@@ -474,7 +487,7 @@ return $default(_that.yearMonth,_that.items);case _:
 
 
 class _JournalMonth implements JournalMonth {
-  const _JournalMonth({required this.yearMonth, required final  List<JournalItem> items}): _items = items;
+  const _JournalMonth({required this.yearMonth, required  List<JournalItem> items}): _items = items;
   
 
 @override final  String yearMonth;
@@ -496,16 +509,18 @@ _$JournalMonthCopyWith<_JournalMonth> get copyWith => __$JournalMonthCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalMonth&&(identical(other.yearMonth, yearMonth) || other.yearMonth == yearMonth)&&const DeepCollectionEquality().equals(other._items, _items));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalMonth&&(identical(other.yearMonth, yearMonth) || other.yearMonth == yearMonth)&&const DeepCollectionEquality().equals(other.items, _items));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,yearMonth,const DeepCollectionEquality().hash(_items));
+int get hashCode {
+    return Object.hash(runtimeType,yearMonth,const DeepCollectionEquality().hash(_items));
+}
 
 @override
 String toString() {
-  return 'JournalMonth(yearMonth: $yearMonth, items: $items)';
+    return 'JournalMonth(yearMonth: $yearMonth, items: $items)';
 }
 
 
@@ -553,7 +568,7 @@ mixin _$JournalListState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListState);
 }
 
 
@@ -562,7 +577,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalListState()';
+    return 'JournalListState()';
 }
 
 
@@ -742,7 +757,7 @@ class JournalListLoading implements JournalListState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListLoading);
 }
 
 
@@ -751,7 +766,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalListState.loading()';
+    return 'JournalListState.loading()';
 }
 
 
@@ -774,7 +789,7 @@ class JournalListEmpty implements JournalListState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListEmpty);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListEmpty);
 }
 
 
@@ -783,7 +798,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalListState.empty()';
+    return 'JournalListState.empty()';
 }
 
 
@@ -796,7 +811,7 @@ String toString() {
 
 
 class JournalListContent implements JournalListState {
-  const JournalListContent({required final  List<JournalMonth> months, required this.filters, this.query = '', this.patterns, this.undoable}): _months = months;
+  const JournalListContent({required  List<JournalMonth> months, required this.filters, this.query = '', this.patterns, this.undoable}): _months = months;
   
 
  final  List<JournalMonth> _months;
@@ -824,16 +839,18 @@ $JournalListContentCopyWith<JournalListContent> get copyWith => _$JournalListCon
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListContent&&const DeepCollectionEquality().equals(other._months, _months)&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.query, query) || other.query == query)&&(identical(other.patterns, patterns) || other.patterns == patterns)&&(identical(other.undoable, undoable) || other.undoable == undoable));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListContent&&const DeepCollectionEquality().equals(other.months, _months)&&(identical(other.filters, filters) || other.filters == filters)&&(identical(other.query, query) || other.query == query)&&(identical(other.patterns, patterns) || other.patterns == patterns)&&(identical(other.undoable, undoable) || other.undoable == undoable));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_months),filters,query,patterns,undoable);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_months),filters,query,patterns,undoable);
+}
 
 @override
 String toString() {
-  return 'JournalListState.content(months: $months, filters: $filters, query: $query, patterns: $patterns, undoable: $undoable)';
+    return 'JournalListState.content(months: $months, filters: $filters, query: $query, patterns: $patterns, undoable: $undoable)';
 }
 
 
@@ -915,16 +932,18 @@ $JournalListFilteredEmptyCopyWith<JournalListFilteredEmpty> get copyWith => _$Jo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListFilteredEmpty&&(identical(other.filters, filters) || other.filters == filters));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListFilteredEmpty&&(identical(other.filters, filters) || other.filters == filters));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,filters);
+int get hashCode {
+    return Object.hash(runtimeType,filters);
+}
 
 @override
 String toString() {
-  return 'JournalListState.filteredEmpty(filters: $filters)';
+    return 'JournalListState.filteredEmpty(filters: $filters)';
 }
 
 
@@ -990,16 +1009,18 @@ $JournalListSearchEmptyCopyWith<JournalListSearchEmpty> get copyWith => _$Journa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListSearchEmpty&&(identical(other.query, query) || other.query == query));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListSearchEmpty&&(identical(other.query, query) || other.query == query));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,query);
+int get hashCode {
+    return Object.hash(runtimeType,query);
+}
 
 @override
 String toString() {
-  return 'JournalListState.searchEmpty(query: $query)';
+    return 'JournalListState.searchEmpty(query: $query)';
 }
 
 
@@ -1051,7 +1072,7 @@ class JournalListStorageError implements JournalListState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalListStorageError);
 }
 
 
@@ -1060,7 +1081,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalListState.storageError()';
+    return 'JournalListState.storageError()';
 }
 
 

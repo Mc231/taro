@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store_purchase.dart';
@@ -9,6 +9,7 @@ part of 'store_purchase.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -33,16 +34,21 @@ $StorePurchaseCopyWith<StorePurchase> get copyWith => _$StorePurchaseCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePurchase&&(identical(other.txnKey, txnKey) || other.txnKey == txnKey)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.signedTransaction, signedTransaction) || other.signedTransaction == signedTransaction)&&(identical(other.purchaseToken, purchaseToken) || other.purchaseToken == purchaseToken)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.isRestored, isRestored) || other.isRestored == isRestored));
+  final _this = this as StorePurchase;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePurchase&&(identical(other.txnKey, _this.txnKey) || other.txnKey == _this.txnKey)&&(identical(other.productId, _this.productId) || other.productId == _this.productId)&&(identical(other.platform, _this.platform) || other.platform == _this.platform)&&(identical(other.transactionId, _this.transactionId) || other.transactionId == _this.transactionId)&&(identical(other.signedTransaction, _this.signedTransaction) || other.signedTransaction == _this.signedTransaction)&&(identical(other.purchaseToken, _this.purchaseToken) || other.purchaseToken == _this.purchaseToken)&&(identical(other.orderId, _this.orderId) || other.orderId == _this.orderId)&&(identical(other.isRestored, _this.isRestored) || other.isRestored == _this.isRestored));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,txnKey,productId,platform,transactionId,signedTransaction,purchaseToken,orderId,isRestored);
+int get hashCode {
+  final _this = this as StorePurchase;
+  return Object.hash(runtimeType,_this.txnKey,_this.productId,_this.platform,_this.transactionId,_this.signedTransaction,_this.purchaseToken,_this.orderId,_this.isRestored);
+}
 
 @override
 String toString() {
-  return 'StorePurchase(txnKey: $txnKey, productId: $productId, platform: $platform, transactionId: $transactionId, signedTransaction: $signedTransaction, purchaseToken: $purchaseToken, orderId: $orderId, isRestored: $isRestored)';
+  final _this = this as StorePurchase;
+  return 'StorePurchase(txnKey: ${_this.txnKey}, productId: ${_this.productId}, platform: ${_this.platform}, transactionId: ${_this.transactionId}, signedTransaction: ${_this.signedTransaction}, purchaseToken: ${_this.purchaseToken}, orderId: ${_this.orderId}, isRestored: ${_this.isRestored})';
 }
 
 
@@ -71,7 +77,7 @@ class _$StorePurchaseCopyWithImpl<$Res>
 /// Create a copy of StorePurchase
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? txnKey = null,Object? productId = null,Object? platform = null,Object? transactionId = freezed,Object? signedTransaction = freezed,Object? purchaseToken = freezed,Object? orderId = freezed,Object? isRestored = null,}) {
-  return _then(_self.copyWith(
+  return _then(StorePurchase(
 txnKey: null == txnKey ? _self.txnKey : txnKey // ignore: cast_nullable_to_non_nullable
 as String,productId: null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
 as ProductId,platform: null == platform ? _self.platform : platform // ignore: cast_nullable_to_non_nullable
@@ -251,16 +257,18 @@ _$StorePurchaseCopyWith<_StorePurchase> get copyWith => __$StorePurchaseCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorePurchase&&(identical(other.txnKey, txnKey) || other.txnKey == txnKey)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.signedTransaction, signedTransaction) || other.signedTransaction == signedTransaction)&&(identical(other.purchaseToken, purchaseToken) || other.purchaseToken == purchaseToken)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.isRestored, isRestored) || other.isRestored == isRestored));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StorePurchase&&(identical(other.txnKey, txnKey) || other.txnKey == txnKey)&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.platform, platform) || other.platform == platform)&&(identical(other.transactionId, transactionId) || other.transactionId == transactionId)&&(identical(other.signedTransaction, signedTransaction) || other.signedTransaction == signedTransaction)&&(identical(other.purchaseToken, purchaseToken) || other.purchaseToken == purchaseToken)&&(identical(other.orderId, orderId) || other.orderId == orderId)&&(identical(other.isRestored, isRestored) || other.isRestored == isRestored));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,txnKey,productId,platform,transactionId,signedTransaction,purchaseToken,orderId,isRestored);
+int get hashCode {
+    return Object.hash(runtimeType,txnKey,productId,platform,transactionId,signedTransaction,purchaseToken,orderId,isRestored);
+}
 
 @override
 String toString() {
-  return 'StorePurchase(txnKey: $txnKey, productId: $productId, platform: $platform, transactionId: $transactionId, signedTransaction: $signedTransaction, purchaseToken: $purchaseToken, orderId: $orderId, isRestored: $isRestored)';
+    return 'StorePurchase(txnKey: $txnKey, productId: $productId, platform: $platform, transactionId: $transactionId, signedTransaction: $signedTransaction, purchaseToken: $purchaseToken, orderId: $orderId, isRestored: $isRestored)';
 }
 
 

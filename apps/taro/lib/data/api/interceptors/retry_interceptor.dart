@@ -23,16 +23,13 @@ Future<void> realSleep(Duration duration) => Future<void>.delayed(duration);
 /// `503 READINGS_DISABLED` or `503 AI_BUDGET_EXHAUSTED`. A receive timeout
 /// of `POST /v1/readings` is handed to the caller, which polls (RC31).
 final class RetryInterceptor extends Interceptor {
-  /// Creates the interceptor; [dio] re-sends the request.
+  /// Creates the interceptor; [_dio] re-sends the request.
   RetryInterceptor({
-    required Dio dio,
-    required RandomSource random,
-    required Sleep sleep,
-    Logger? logger,
-  }) : _dio = dio,
-       _random = random,
-       _sleep = sleep,
-       _logger = logger;
+    required this._dio,
+    required this._random,
+    required this._sleep,
+    this._logger,
+  });
 
   final Dio _dio;
   final RandomSource _random;

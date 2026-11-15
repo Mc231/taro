@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/features/journal/controller/journal_list_controller.dart';
 import 'package:taro/features/journal/view/journal_list_screen.dart';
@@ -27,9 +27,9 @@ import '../features/flow_view_support.dart';
 /// [id] with the bundled layout (`assets/deck/spreads.json`), not the
 /// fake single row of the test builder.
 SpreadDefinition _realSpread(String id) {
-  final json =
-      jsonDecode(File('assets/deck/spreads.json').readAsStringSync())
-          as Map<String, Object?>;
+  final json = jsonDecode(
+    File('assets/deck/spreads.json').readAsStringSync(),
+  ) as Map<String, Object?>;
   final spread = (json['spreads']! as List<Object?>)
       .cast<Map<String, Object?>>()
       .firstWhere((s) => s['id'] == id);

@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/common/taro_pressable.dart';
 import 'package:taro_ui/src/components/reading/reading_section_header.dart';
 import 'package:taro_ui/src/components/state/skeleton_block.dart';
@@ -113,8 +111,8 @@ class _ReadingTextViewState extends State<ReadingTextView>
       final blocks = _blockCount;
       _controller
         ..duration = ritual + ritual * ((blocks - 1) / 4)
-        ..value = 0;
-      unawaited(_controller.forward());
+        ..value = 0
+        ..forward();
     }
   }
 

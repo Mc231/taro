@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'store_controller.dart';
@@ -9,6 +9,7 @@ part of 'store_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$StoreState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreState()';
+    return 'StoreState()';
 }
 
 
@@ -197,7 +198,7 @@ class StoreLoading implements StoreState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreLoading);
 }
 
 
@@ -206,7 +207,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreState.loading()';
+    return 'StoreState.loading()';
 }
 
 
@@ -235,16 +236,18 @@ $StoreReadyCopyWith<StoreReady> get copyWith => _$StoreReadyCopyWithImpl<StoreRe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreReady&&(identical(other.view, view) || other.view == view)&&(identical(other.phase, phase) || other.phase == phase));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreReady&&(identical(other.view, view) || other.view == view)&&(identical(other.phase, phase) || other.phase == phase));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,phase);
+int get hashCode {
+    return Object.hash(runtimeType,view,phase);
+}
 
 @override
 String toString() {
-  return 'StoreState.ready(view: $view, phase: $phase)';
+    return 'StoreState.ready(view: $view, phase: $phase)';
 }
 
 
@@ -315,7 +318,7 @@ class StoreUnavailable implements StoreState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUnavailable);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreUnavailable);
 }
 
 
@@ -324,7 +327,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreState.storeUnavailable()';
+    return 'StoreState.storeUnavailable()';
 }
 
 
@@ -352,16 +355,18 @@ $StoreProductsFailedCopyWith<StoreProductsFailed> get copyWith => _$StoreProduct
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreProductsFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreProductsFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'StoreState.productsFailed(kind: $kind)';
+    return 'StoreState.productsFailed(kind: $kind)';
 }
 
 
@@ -421,16 +426,21 @@ $StoreViewCopyWith<StoreView> get copyWith => _$StoreViewCopyWithImpl<StoreView>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreView&&(identical(other.catalog, catalog) || other.catalog == catalog)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.removeAdsOwned, removeAdsOwned) || other.removeAdsOwned == removeAdsOwned)&&(identical(other.offline, offline) || other.offline == offline)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesBlocked, purchasesBlocked) || other.purchasesBlocked == purchasesBlocked));
+  final _this = this as StoreView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreView&&(identical(other.catalog, _this.catalog) || other.catalog == _this.catalog)&&(identical(other.rewarded, _this.rewarded) || other.rewarded == _this.rewarded)&&(identical(other.removeAdsOwned, _this.removeAdsOwned) || other.removeAdsOwned == _this.removeAdsOwned)&&(identical(other.offline, _this.offline) || other.offline == _this.offline)&&(identical(other.paidBlocked, _this.paidBlocked) || other.paidBlocked == _this.paidBlocked)&&(identical(other.purchasesBlocked, _this.purchasesBlocked) || other.purchasesBlocked == _this.purchasesBlocked));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,catalog,rewarded,removeAdsOwned,offline,paidBlocked,purchasesBlocked);
+int get hashCode {
+  final _this = this as StoreView;
+  return Object.hash(runtimeType,_this.catalog,_this.rewarded,_this.removeAdsOwned,_this.offline,_this.paidBlocked,_this.purchasesBlocked);
+}
 
 @override
 String toString() {
-  return 'StoreView(catalog: $catalog, rewarded: $rewarded, removeAdsOwned: $removeAdsOwned, offline: $offline, paidBlocked: $paidBlocked, purchasesBlocked: $purchasesBlocked)';
+  final _this = this as StoreView;
+  return 'StoreView(catalog: ${_this.catalog}, rewarded: ${_this.rewarded}, removeAdsOwned: ${_this.removeAdsOwned}, offline: ${_this.offline}, paidBlocked: ${_this.paidBlocked}, purchasesBlocked: ${_this.purchasesBlocked})';
 }
 
 
@@ -459,7 +469,7 @@ class _$StoreViewCopyWithImpl<$Res>
 /// Create a copy of StoreView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? catalog = null,Object? rewarded = null,Object? removeAdsOwned = null,Object? offline = null,Object? paidBlocked = null,Object? purchasesBlocked = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(StoreView(
 catalog: null == catalog ? _self.catalog : catalog // ignore: cast_nullable_to_non_nullable
 as PaywallCatalog,rewarded: null == rewarded ? _self.rewarded : rewarded // ignore: cast_nullable_to_non_nullable
 as RewardedOption,removeAdsOwned: null == removeAdsOwned ? _self.removeAdsOwned : removeAdsOwned // ignore: cast_nullable_to_non_nullable
@@ -653,16 +663,18 @@ _$StoreViewCopyWith<_StoreView> get copyWith => __$StoreViewCopyWithImpl<_StoreV
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreView&&(identical(other.catalog, catalog) || other.catalog == catalog)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.removeAdsOwned, removeAdsOwned) || other.removeAdsOwned == removeAdsOwned)&&(identical(other.offline, offline) || other.offline == offline)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesBlocked, purchasesBlocked) || other.purchasesBlocked == purchasesBlocked));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StoreView&&(identical(other.catalog, catalog) || other.catalog == catalog)&&(identical(other.rewarded, rewarded) || other.rewarded == rewarded)&&(identical(other.removeAdsOwned, removeAdsOwned) || other.removeAdsOwned == removeAdsOwned)&&(identical(other.offline, offline) || other.offline == offline)&&(identical(other.paidBlocked, paidBlocked) || other.paidBlocked == paidBlocked)&&(identical(other.purchasesBlocked, purchasesBlocked) || other.purchasesBlocked == purchasesBlocked));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,catalog,rewarded,removeAdsOwned,offline,paidBlocked,purchasesBlocked);
+int get hashCode {
+    return Object.hash(runtimeType,catalog,rewarded,removeAdsOwned,offline,paidBlocked,purchasesBlocked);
+}
 
 @override
 String toString() {
-  return 'StoreView(catalog: $catalog, rewarded: $rewarded, removeAdsOwned: $removeAdsOwned, offline: $offline, paidBlocked: $paidBlocked, purchasesBlocked: $purchasesBlocked)';
+    return 'StoreView(catalog: $catalog, rewarded: $rewarded, removeAdsOwned: $removeAdsOwned, offline: $offline, paidBlocked: $paidBlocked, purchasesBlocked: $purchasesBlocked)';
 }
 
 
@@ -732,7 +744,7 @@ mixin _$StorePurchasePhase {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePurchasePhase);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePurchasePhase);
 }
 
 
@@ -741,7 +753,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StorePurchasePhase()';
+    return 'StorePurchasePhase()';
 }
 
 
@@ -933,7 +945,7 @@ class StorePhaseIdle extends StorePurchasePhase {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseIdle);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseIdle);
 }
 
 
@@ -942,7 +954,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StorePurchasePhase.idle()';
+    return 'StorePurchasePhase.idle()';
 }
 
 
@@ -970,16 +982,18 @@ $StorePhasePurchasingCopyWith<StorePhasePurchasing> get copyWith => _$StorePhase
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhasePurchasing&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhasePurchasing&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.purchasing(productId: $productId)';
+    return 'StorePurchasePhase.purchasing(productId: $productId)';
 }
 
 
@@ -1036,16 +1050,18 @@ $StorePhasePendingCopyWith<StorePhasePending> get copyWith => _$StorePhasePendin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhasePending&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhasePending&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.pending(productId: $productId)';
+    return 'StorePurchasePhase.pending(productId: $productId)';
 }
 
 
@@ -1102,16 +1118,18 @@ $StorePhaseVerifyingCopyWith<StorePhaseVerifying> get copyWith => _$StorePhaseVe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseVerifying&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseVerifying&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.verifying(productId: $productId)';
+    return 'StorePurchasePhase.verifying(productId: $productId)';
 }
 
 
@@ -1168,16 +1186,18 @@ $StorePhaseVerificationDeferredCopyWith<StorePhaseVerificationDeferred> get copy
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseVerificationDeferred&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseVerificationDeferred&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.verificationDeferred(productId: $productId)';
+    return 'StorePurchasePhase.verificationDeferred(productId: $productId)';
 }
 
 
@@ -1235,16 +1255,18 @@ $StorePhaseGrantedCopyWith<StorePhaseGranted> get copyWith => _$StorePhaseGrante
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseGranted&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.credits, credits) || other.credits == credits));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseGranted&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.credits, credits) || other.credits == credits));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId,credits);
+int get hashCode {
+    return Object.hash(runtimeType,productId,credits);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.granted(productId: $productId, credits: $credits)';
+    return 'StorePurchasePhase.granted(productId: $productId, credits: $credits)';
 }
 
 
@@ -1304,16 +1326,18 @@ $StorePhaseFailedCopyWith<StorePhaseFailed> get copyWith => _$StorePhaseFailedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseFailed&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.transferEligible, transferEligible) || other.transferEligible == transferEligible));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseFailed&&(identical(other.productId, productId) || other.productId == productId)&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.transferEligible, transferEligible) || other.transferEligible == transferEligible));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId,reason,transferEligible);
+int get hashCode {
+    return Object.hash(runtimeType,productId,reason,transferEligible);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.failed(productId: $productId, reason: $reason, transferEligible: $transferEligible)';
+    return 'StorePurchasePhase.failed(productId: $productId, reason: $reason, transferEligible: $transferEligible)';
 }
 
 
@@ -1372,16 +1396,18 @@ $StorePhaseCancelledCopyWith<StorePhaseCancelled> get copyWith => _$StorePhaseCa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseCancelled&&(identical(other.productId, productId) || other.productId == productId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorePhaseCancelled&&(identical(other.productId, productId) || other.productId == productId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,productId);
+int get hashCode {
+    return Object.hash(runtimeType,productId);
+}
 
 @override
 String toString() {
-  return 'StorePurchasePhase.cancelled(productId: $productId)';
+    return 'StorePurchasePhase.cancelled(productId: $productId)';
 }
 
 

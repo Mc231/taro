@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/common/reading_mini_spread.dart';
@@ -142,7 +142,7 @@ class _JournalEntryScreenState extends ConsumerState<JournalEntryScreen> {
       onUndo: () => unawaited(container.read(provider.notifier).undo()),
     );
     unawaited(toast.closed.whenComplete(keepAlive.close));
-    unawaited(Navigator.of(context).maybePop());
+    Navigator.of(context).maybePop();
   }
 
   static JournalEntryView? _viewOf(JournalEntryState state) => switch (state) {

@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'dart:ui' show SemanticsRole;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/common/taro_edge_fade.dart';
 import 'package:taro_ui/src/components/common/taro_pressable.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
@@ -73,14 +72,12 @@ class _TaroTabStripState extends State<TaroTabStrip> {
     if (!mounted || widget.selectedIndex >= _keys.length) return;
     final target = _keys[widget.selectedIndex].currentContext;
     if (target == null) return;
-    unawaited(
-      Scrollable.ensureVisible(
-        target,
-        alignment: 0.5,
-        duration: context.reduceMotion
-            ? context.tokens.reducedMotion.duration.instant
-            : context.motion.duration.base,
-      ),
+    Scrollable.ensureVisible(
+      target,
+      alignment: 0.5,
+      duration: context.reduceMotion
+          ? context.tokens.reducedMotion.duration.instant
+          : context.motion.duration.base,
     );
   }
 

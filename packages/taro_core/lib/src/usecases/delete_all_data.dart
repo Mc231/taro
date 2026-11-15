@@ -24,16 +24,12 @@ enum DataDeletionOutcome {
 final class DeleteAllData {
   /// Creates the use case.
   DeleteAllData({
-    required JournalRepository journal,
-    required DataDeletionGateway deletion,
-    required ReminderScheduler reminders,
-    required IdGenerator ids,
-    required Logger logger,
-  }) : _journal = journal,
-       _deletion = deletion,
-       _reminders = reminders,
-       _ids = ids,
-       _logger = logger;
+    required this._journal,
+    required this._deletion,
+    required this._reminders,
+    required this._ids,
+    required this._logger,
+  });
 
   final JournalRepository _journal;
   final DataDeletionGateway _deletion;

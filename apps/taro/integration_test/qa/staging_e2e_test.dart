@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:patrol_finders/patrol_finders.dart';
 import 'package:taro/bootstrap/bootstrap.dart';
 import 'package:taro/bootstrap/build_defines.dart';
@@ -21,6 +21,7 @@ import 'package:taro/routing/router.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../test/helpers/finders.dart';
 import '../support/staging_gate.dart';
 
 /// QA method B (docs/qa/ANDROID_E2E_PLAN.md): the real `staging`
@@ -776,7 +777,7 @@ void main() {
       () => app.balance!.totalAvailable < before.totalAvailable,
       reason: 'one reading spent per the Worker',
     );
-    await app.tap(find.byTooltip(l.readingDone));
+    await app.tap(find.byTaroTooltip(l.readingDone));
     await app.waitForScreen(ScreenId.s05);
     await app.tapText(l.tabJournal);
     await app.waitForScreen(ScreenId.s14);

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/common/spread_text.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';

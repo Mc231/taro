@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'spread_guide_controller.dart';
@@ -9,6 +9,7 @@ part of 'spread_guide_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -26,16 +27,21 @@ $SpreadGuideEntryCopyWith<SpreadGuideEntry> get copyWith => _$SpreadGuideEntryCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideEntry&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.startable, startable) || other.startable == startable));
+  final _this = this as SpreadGuideEntry;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideEntry&&(identical(other.spread, _this.spread) || other.spread == _this.spread)&&(identical(other.startable, _this.startable) || other.startable == _this.startable));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,startable);
+int get hashCode {
+  final _this = this as SpreadGuideEntry;
+  return Object.hash(runtimeType,_this.spread,_this.startable);
+}
 
 @override
 String toString() {
-  return 'SpreadGuideEntry(spread: $spread, startable: $startable)';
+  final _this = this as SpreadGuideEntry;
+  return 'SpreadGuideEntry(spread: ${_this.spread}, startable: ${_this.startable})';
 }
 
 
@@ -64,7 +70,7 @@ class _$SpreadGuideEntryCopyWithImpl<$Res>
 /// Create a copy of SpreadGuideEntry
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spread = null,Object? startable = null,}) {
-  return _then(_self.copyWith(
+  return _then(SpreadGuideEntry(
 spread: null == spread ? _self.spread : spread // ignore: cast_nullable_to_non_nullable
 as SpreadDefinition,startable: null == startable ? _self.startable : startable // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -234,16 +240,18 @@ _$SpreadGuideEntryCopyWith<_SpreadGuideEntry> get copyWith => __$SpreadGuideEntr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadGuideEntry&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.startable, startable) || other.startable == startable));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SpreadGuideEntry&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.startable, startable) || other.startable == startable));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spread,startable);
+int get hashCode {
+    return Object.hash(runtimeType,spread,startable);
+}
 
 @override
 String toString() {
-  return 'SpreadGuideEntry(spread: $spread, startable: $startable)';
+    return 'SpreadGuideEntry(spread: $spread, startable: $startable)';
 }
 
 
@@ -300,7 +308,7 @@ mixin _$SpreadGuideState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideState);
 }
 
 
@@ -309,7 +317,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SpreadGuideState()';
+    return 'SpreadGuideState()';
 }
 
 
@@ -471,7 +479,7 @@ class SpreadGuideLoading implements SpreadGuideState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideLoading);
 }
 
 
@@ -480,7 +488,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SpreadGuideState.loading()';
+    return 'SpreadGuideState.loading()';
 }
 
 
@@ -493,7 +501,7 @@ String toString() {
 
 
 class SpreadGuideContent implements SpreadGuideState {
-  const SpreadGuideContent({required final  List<SpreadGuideEntry> spreads, this.selected}): _spreads = spreads;
+  const SpreadGuideContent({required  List<SpreadGuideEntry> spreads, this.selected}): _spreads = spreads;
   
 
  final  List<SpreadGuideEntry> _spreads;
@@ -515,16 +523,18 @@ $SpreadGuideContentCopyWith<SpreadGuideContent> get copyWith => _$SpreadGuideCon
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideContent&&const DeepCollectionEquality().equals(other._spreads, _spreads)&&(identical(other.selected, selected) || other.selected == selected));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideContent&&const DeepCollectionEquality().equals(other.spreads, _spreads)&&(identical(other.selected, selected) || other.selected == selected));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_spreads),selected);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_spreads),selected);
+}
 
 @override
 String toString() {
-  return 'SpreadGuideState.content(spreads: $spreads, selected: $selected)';
+    return 'SpreadGuideState.content(spreads: $spreads, selected: $selected)';
 }
 
 
@@ -577,7 +587,7 @@ class SpreadGuideStorageError implements SpreadGuideState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SpreadGuideStorageError);
 }
 
 
@@ -586,7 +596,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SpreadGuideState.storageError()';
+    return 'SpreadGuideState.storageError()';
 }
 
 

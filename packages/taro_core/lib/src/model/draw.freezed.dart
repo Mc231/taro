@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'draw.dart';
@@ -9,6 +9,7 @@ part of 'draw.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $DrawCopyWith<Draw> get copyWith => _$DrawCopyWithImpl<Draw>(this as Draw, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Draw&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.spreadVersion, spreadVersion) || other.spreadVersion == spreadVersion)&&const DeepCollectionEquality().equals(other.cards, cards)&&(identical(other.drawnAt, drawnAt) || other.drawnAt == drawnAt));
+  final _this = this as Draw;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Draw&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.spreadVersion, _this.spreadVersion) || other.spreadVersion == _this.spreadVersion)&&const DeepCollectionEquality().equals(other.cards, _this.cards)&&(identical(other.drawnAt, _this.drawnAt) || other.drawnAt == _this.drawnAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,spreadVersion,const DeepCollectionEquality().hash(cards),drawnAt);
+int get hashCode {
+  final _this = this as Draw;
+  return Object.hash(runtimeType,_this.spreadId,_this.spreadVersion,const DeepCollectionEquality().hash(_this.cards),_this.drawnAt);
+}
 
 @override
 String toString() {
-  return 'Draw(spreadId: $spreadId, spreadVersion: $spreadVersion, cards: $cards, drawnAt: $drawnAt)';
+  final _this = this as Draw;
+  return 'Draw(spreadId: ${_this.spreadId}, spreadVersion: ${_this.spreadVersion}, cards: ${_this.cards}, drawnAt: ${_this.drawnAt})';
 }
 
 
@@ -67,7 +73,7 @@ class _$DrawCopyWithImpl<$Res>
 /// Create a copy of Draw
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spreadId = null,Object? spreadVersion = null,Object? cards = null,Object? drawnAt = null,}) {
-  return _then(_self.copyWith(
+  return _then(Draw(
 spreadId: null == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId,spreadVersion: null == spreadVersion ? _self.spreadVersion : spreadVersion // ignore: cast_nullable_to_non_nullable
 as int,cards: null == cards ? _self.cards : cards // ignore: cast_nullable_to_non_nullable
@@ -213,7 +219,7 @@ return $default(_that.spreadId,_that.spreadVersion,_that.cards,_that.drawnAt);ca
 
 
 class _Draw extends Draw {
-  const _Draw({required this.spreadId, required this.spreadVersion, required final  List<DrawnCard> cards, required this.drawnAt}): _cards = cards,super._();
+  const _Draw({required this.spreadId, required this.spreadVersion, required  List<DrawnCard> cards, required this.drawnAt}): _cards = cards,super._();
   
 
 /// The spread.
@@ -242,16 +248,18 @@ _$DrawCopyWith<_Draw> get copyWith => __$DrawCopyWithImpl<_Draw>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Draw&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.spreadVersion, spreadVersion) || other.spreadVersion == spreadVersion)&&const DeepCollectionEquality().equals(other._cards, _cards)&&(identical(other.drawnAt, drawnAt) || other.drawnAt == drawnAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Draw&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.spreadVersion, spreadVersion) || other.spreadVersion == spreadVersion)&&const DeepCollectionEquality().equals(other.cards, _cards)&&(identical(other.drawnAt, drawnAt) || other.drawnAt == drawnAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,spreadVersion,const DeepCollectionEquality().hash(_cards),drawnAt);
+int get hashCode {
+    return Object.hash(runtimeType,spreadId,spreadVersion,const DeepCollectionEquality().hash(_cards),drawnAt);
+}
 
 @override
 String toString() {
-  return 'Draw(spreadId: $spreadId, spreadVersion: $spreadVersion, cards: $cards, drawnAt: $drawnAt)';
+    return 'Draw(spreadId: $spreadId, spreadVersion: $spreadVersion, cards: $cards, drawnAt: $drawnAt)';
 }
 
 

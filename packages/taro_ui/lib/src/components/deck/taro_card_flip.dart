@@ -79,7 +79,7 @@ class _TaroCardFlipState extends State<TaroCardFlip>
     final motion = context.motion;
     _controller.duration = motion.ritual.flip;
     if (widget.haptics) unawaited(TaroHaptics.flip(context));
-    unawaited(_controller.forward(from: 0));
+    _controller.forward(from: 0);
   }
 
   void _onStatus(AnimationStatus status) {

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'iap_service.dart';
@@ -9,6 +9,7 @@ part of 'iap_service.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$StoreBuyResult {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyResult);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyResult);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreBuyResult()';
+    return 'StoreBuyResult()';
 }
 
 
@@ -202,16 +203,18 @@ $StoreBuyPurchasedCopyWith<StoreBuyPurchased> get copyWith => _$StoreBuyPurchase
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyPurchased&&(identical(other.purchase, purchase) || other.purchase == purchase));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyPurchased&&(identical(other.purchase, purchase) || other.purchase == purchase));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,purchase);
+int get hashCode {
+    return Object.hash(runtimeType,purchase);
+}
 
 @override
 String toString() {
-  return 'StoreBuyResult.purchased(purchase: $purchase)';
+    return 'StoreBuyResult.purchased(purchase: $purchase)';
 }
 
 
@@ -272,7 +275,7 @@ class StoreBuyPending implements StoreBuyResult {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyPending);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyPending);
 }
 
 
@@ -281,7 +284,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreBuyResult.pending()';
+    return 'StoreBuyResult.pending()';
 }
 
 
@@ -304,7 +307,7 @@ class StoreBuyCancelled implements StoreBuyResult {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyCancelled);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyCancelled);
 }
 
 
@@ -313,7 +316,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreBuyResult.cancelled()';
+    return 'StoreBuyResult.cancelled()';
 }
 
 
@@ -336,7 +339,7 @@ class StoreBuyAlreadyOwned implements StoreBuyResult {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyAlreadyOwned);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StoreBuyAlreadyOwned);
 }
 
 
@@ -345,7 +348,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'StoreBuyResult.alreadyOwned()';
+    return 'StoreBuyResult.alreadyOwned()';
 }
 
 

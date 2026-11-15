@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'paywall_catalog.dart';
@@ -9,6 +9,7 @@ part of 'paywall_catalog.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $PaywallCatalogCopyWith<PaywallCatalog> get copyWith => _$PaywallCatalogCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallCatalog&&const DeepCollectionEquality().equals(other.packs, packs)&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.bestValue, bestValue) || other.bestValue == bestValue));
+  final _this = this as PaywallCatalog;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallCatalog&&const DeepCollectionEquality().equals(other.packs, _this.packs)&&(identical(other.removeAds, _this.removeAds) || other.removeAds == _this.removeAds)&&(identical(other.bestValue, _this.bestValue) || other.bestValue == _this.bestValue));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(packs),removeAds,bestValue);
+int get hashCode {
+  final _this = this as PaywallCatalog;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.packs),_this.removeAds,_this.bestValue);
+}
 
 @override
 String toString() {
-  return 'PaywallCatalog(packs: $packs, removeAds: $removeAds, bestValue: $bestValue)';
+  final _this = this as PaywallCatalog;
+  return 'PaywallCatalog(packs: ${_this.packs}, removeAds: ${_this.removeAds}, bestValue: ${_this.bestValue})';
 }
 
 
@@ -67,7 +73,7 @@ class _$PaywallCatalogCopyWithImpl<$Res>
 /// Create a copy of PaywallCatalog
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? packs = null,Object? removeAds = freezed,Object? bestValue = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PaywallCatalog(
 packs: null == packs ? _self.packs : packs // ignore: cast_nullable_to_non_nullable
 as List<ProductOffer>,removeAds: freezed == removeAds ? _self.removeAds : removeAds // ignore: cast_nullable_to_non_nullable
 as ProductOffer?,bestValue: freezed == bestValue ? _self.bestValue : bestValue // ignore: cast_nullable_to_non_nullable
@@ -224,7 +230,7 @@ return $default(_that.packs,_that.removeAds,_that.bestValue);case _:
 
 
 class _PaywallCatalog implements PaywallCatalog {
-  const _PaywallCatalog({required final  List<ProductOffer> packs, this.removeAds, this.bestValue}): _packs = packs;
+  const _PaywallCatalog({required  List<ProductOffer> packs, this.removeAds, this.bestValue}): _packs = packs;
   
 
 /// The reading packs in `store.packs` order, with store prices.
@@ -252,16 +258,18 @@ _$PaywallCatalogCopyWith<_PaywallCatalog> get copyWith => __$PaywallCatalogCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaywallCatalog&&const DeepCollectionEquality().equals(other._packs, _packs)&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.bestValue, bestValue) || other.bestValue == bestValue));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaywallCatalog&&const DeepCollectionEquality().equals(other.packs, _packs)&&(identical(other.removeAds, removeAds) || other.removeAds == removeAds)&&(identical(other.bestValue, bestValue) || other.bestValue == bestValue));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_packs),removeAds,bestValue);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_packs),removeAds,bestValue);
+}
 
 @override
 String toString() {
-  return 'PaywallCatalog(packs: $packs, removeAds: $removeAds, bestValue: $bestValue)';
+    return 'PaywallCatalog(packs: $packs, removeAds: $removeAds, bestValue: $bestValue)';
 }
 
 
@@ -322,7 +330,7 @@ mixin _$PaywallPacks {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacks);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacks);
 }
 
 
@@ -331,7 +339,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PaywallPacks()';
+    return 'PaywallPacks()';
 }
 
 
@@ -499,7 +507,7 @@ class PaywallPacksLoading implements PaywallPacks {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksLoading);
 }
 
 
@@ -508,7 +516,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PaywallPacks.loading()';
+    return 'PaywallPacks.loading()';
 }
 
 
@@ -536,16 +544,18 @@ $PaywallPacksLoadedCopyWith<PaywallPacksLoaded> get copyWith => _$PaywallPacksLo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksLoaded&&(identical(other.catalog, catalog) || other.catalog == catalog));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksLoaded&&(identical(other.catalog, catalog) || other.catalog == catalog));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,catalog);
+int get hashCode {
+    return Object.hash(runtimeType,catalog);
+}
 
 @override
 String toString() {
-  return 'PaywallPacks.loaded(catalog: $catalog)';
+    return 'PaywallPacks.loaded(catalog: $catalog)';
 }
 
 
@@ -606,7 +616,7 @@ class PaywallPacksUnavailable implements PaywallPacks {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksUnavailable);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksUnavailable);
 }
 
 
@@ -615,7 +625,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'PaywallPacks.unavailable()';
+    return 'PaywallPacks.unavailable()';
 }
 
 
@@ -643,16 +653,18 @@ $PaywallPacksBlockedCopyWith<PaywallPacksBlocked> get copyWith => _$PaywallPacks
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksBlocked&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallPacksBlocked&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason);
+int get hashCode {
+    return Object.hash(runtimeType,reason);
+}
 
 @override
 String toString() {
-  return 'PaywallPacks.purchasesBlocked(reason: $reason)';
+    return 'PaywallPacks.purchasesBlocked(reason: $reason)';
 }
 
 
@@ -699,7 +711,7 @@ mixin _$RewardedOption {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOption);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOption);
 }
 
 
@@ -708,7 +720,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedOption()';
+    return 'RewardedOption()';
 }
 
 
@@ -888,16 +900,18 @@ $RewardedOptionAvailableCopyWith<RewardedOptionAvailable> get copyWith => _$Rewa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionAvailable&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.leftToday, leftToday) || other.leftToday == leftToday));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionAvailable&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.leftToday, leftToday) || other.leftToday == leftToday));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,amount,leftToday);
+int get hashCode {
+    return Object.hash(runtimeType,amount,leftToday);
+}
 
 @override
 String toString() {
-  return 'RewardedOption.available(amount: $amount, leftToday: $leftToday)';
+    return 'RewardedOption.available(amount: $amount, leftToday: $leftToday)';
 }
 
 
@@ -955,16 +969,18 @@ $RewardedOptionCoolingDownCopyWith<RewardedOptionCoolingDown> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionCoolingDown&&(identical(other.until, until) || other.until == until));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionCoolingDown&&(identical(other.until, until) || other.until == until));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,until);
+int get hashCode {
+    return Object.hash(runtimeType,until);
+}
 
 @override
 String toString() {
-  return 'RewardedOption.coolingDown(until: $until)';
+    return 'RewardedOption.coolingDown(until: $until)';
 }
 
 
@@ -1016,7 +1032,7 @@ class RewardedOptionCapped extends RewardedOption {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionCapped);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionCapped);
 }
 
 
@@ -1025,7 +1041,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedOption.capped()';
+    return 'RewardedOption.capped()';
 }
 
 
@@ -1053,16 +1069,18 @@ $RewardedOptionNoFillCopyWith<RewardedOptionNoFill> get copyWith => _$RewardedOp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionNoFill&&(identical(other.until, until) || other.until == until));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionNoFill&&(identical(other.until, until) || other.until == until));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,until);
+int get hashCode {
+    return Object.hash(runtimeType,until);
+}
 
 @override
 String toString() {
-  return 'RewardedOption.noFill(until: $until)';
+    return 'RewardedOption.noFill(until: $until)';
 }
 
 
@@ -1114,7 +1132,7 @@ class RewardedOptionHidden extends RewardedOption {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionHidden);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedOptionHidden);
 }
 
 
@@ -1123,7 +1141,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedOption.hidden()';
+    return 'RewardedOption.hidden()';
 }
 
 

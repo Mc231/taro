@@ -144,10 +144,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          flutter config --no-enable-swift-package-manager
+          # iOS plugins resolve through Swift Package Manager (no Podfile).
+          flutter config --enable-swift-package-manager
           dart pub global activate melos >/dev/null
           melos bootstrap
-          (cd apps/taro/ios && pod install)
 
       - name: Install fastlane
         working-directory: apps/taro/fastlane

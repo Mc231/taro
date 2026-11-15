@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'rewarded_controller.dart';
@@ -9,6 +9,7 @@ part of 'rewarded_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState()';
+    return 'RewardedState()';
 }
 
 
@@ -227,7 +228,7 @@ class RewardedLoadingAd implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedLoadingAd);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedLoadingAd);
 }
 
 
@@ -236,7 +237,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.loadingAd()';
+    return 'RewardedState.loadingAd()';
 }
 
 
@@ -259,7 +260,7 @@ class RewardedShowing implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedShowing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedShowing);
 }
 
 
@@ -268,7 +269,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.showing()';
+    return 'RewardedState.showing()';
 }
 
 
@@ -291,7 +292,7 @@ class RewardedGranting implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGranting);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGranting);
 }
 
 
@@ -300,7 +301,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.granting()';
+    return 'RewardedState.granting()';
 }
 
 
@@ -328,16 +329,18 @@ $RewardedGrantedCopyWith<RewardedGranted> get copyWith => _$RewardedGrantedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGranted&&(identical(other.amount, amount) || other.amount == amount));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGranted&&(identical(other.amount, amount) || other.amount == amount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,amount);
+int get hashCode {
+    return Object.hash(runtimeType,amount);
+}
 
 @override
 String toString() {
-  return 'RewardedState.granted(amount: $amount)';
+    return 'RewardedState.granted(amount: $amount)';
 }
 
 
@@ -389,7 +392,7 @@ class RewardedGrantDelayed implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGrantDelayed);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedGrantDelayed);
 }
 
 
@@ -398,7 +401,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.grantDelayed()';
+    return 'RewardedState.grantDelayed()';
 }
 
 
@@ -421,7 +424,7 @@ class RewardedDismissedEarly implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedDismissedEarly);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedDismissedEarly);
 }
 
 
@@ -430,7 +433,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.dismissedEarly()';
+    return 'RewardedState.dismissedEarly()';
 }
 
 
@@ -453,7 +456,7 @@ class RewardedNoFill implements RewardedState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedNoFill);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedNoFill);
 }
 
 
@@ -462,7 +465,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'RewardedState.noFill()';
+    return 'RewardedState.noFill()';
 }
 
 
@@ -490,16 +493,18 @@ $RewardedUnavailableCopyWith<RewardedUnavailable> get copyWith => _$RewardedUnav
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedUnavailable&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedUnavailable&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason);
+int get hashCode {
+    return Object.hash(runtimeType,reason);
+}
 
 @override
 String toString() {
-  return 'RewardedState.unavailable(reason: $reason)';
+    return 'RewardedState.unavailable(reason: $reason)';
 }
 
 
@@ -556,16 +561,18 @@ $RewardedFailedCopyWith<RewardedFailed> get copyWith => _$RewardedFailedCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardedFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'RewardedState.failed(kind: $kind)';
+    return 'RewardedState.failed(kind: $kind)';
 }
 
 

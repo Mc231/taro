@@ -1,6 +1,6 @@
 // Fluent builders (Phase 4.5: `aRemoteConfig().withRewardedEnabled(false)`,
 // `aCard('major_00').reversed()`) return `this` and take positional flags.
-// ignore_for_file: avoid_returning_this, avoid_positional_boolean_parameters
+// ignore_for_file: avoid_returning_this
 
 import 'package:taro_core/taro_core.dart';
 

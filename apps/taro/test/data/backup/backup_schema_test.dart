@@ -29,9 +29,9 @@ void main() {
 
     test('the schema checker rejects what the schema forbids', () {
       final schema = BackupJsonSchema.load();
-      final fixture =
-          jsonDecode(File(kAppFixturePath).readAsStringSync())
-              as Map<String, Object?>;
+      final fixture = jsonDecode(
+        File(kAppFixturePath).readAsStringSync(),
+      ) as Map<String, Object?>;
       final data = fixture['data']! as Map<String, Object?>;
       final reading =
           (data['readings']! as List<Object?>).first! as Map<String, Object?>;
@@ -99,9 +99,9 @@ void main() {
     });
 
     test('its known checksum pins the JCS canonicalisation', () {
-      final fixture =
-          jsonDecode(File(kAppFixturePath).readAsStringSync())
-              as Map<String, Object?>;
+      final fixture = jsonDecode(
+        File(kAppFixturePath).readAsStringSync(),
+      ) as Map<String, Object?>;
       expect(fixture['checksum'], kFixtureChecksum);
       expect(BackupChecksum.ofJson(fixture['data']), kFixtureChecksum);
     });

@@ -30,33 +30,22 @@ typedef RegistrationListener = Future<void> Function(Registration registration);
 /// * The install secret is sent only in `POST /v1/installs` and is never
 ///   logged; neither is the install ID or a token.
 final class InstallRepositoryImpl implements InstallRepository {
-  /// Creates the repository. [solveProofOfWork] runs the `type: none`
+  /// Creates the repository. [_solveProofOfWork] runs the `type: none`
   /// proof of work (a background isolate by default).
   InstallRepositoryImpl({
-    required WorkerClient client,
-    required WorkerClientConfig config,
-    required SecureStore secure,
-    required CacheDao cache,
-    required AttestationService attestation,
-    required TimezoneProvider timezone,
-    required Clock clock,
-    required IdGenerator ids,
-    required RandomSource random,
+    required this._client,
+    required this._config,
+    required this._secure,
+    required this._cache,
+    required this._attestation,
+    required this._timezone,
+    required this._clock,
+    required this._ids,
+    required this._random,
     required Logger logger,
-    ProofOfWorkSolver solveProofOfWork = solveProofOfWorkInIsolate,
-    RegistrationListener? onRegistered,
-  }) : _client = client,
-       _config = config,
-       _secure = secure,
-       _cache = cache,
-       _attestation = attestation,
-       _timezone = timezone,
-       _clock = clock,
-       _ids = ids,
-       _random = random,
-       _logger = logger.child('install'),
-       _solveProofOfWork = solveProofOfWork,
-       _onRegistered = onRegistered;
+    this._solveProofOfWork = solveProofOfWorkInIsolate,
+    this._onRegistered,
+  }) : _logger = logger.child('install');
 
   /// The `sync_state` key of the registration marker.
   static const String registrationKey = 'install_registration';

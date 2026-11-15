@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'ai_consent_controller.dart';
@@ -9,6 +9,7 @@ part of 'ai_consent_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $AiConsentStateCopyWith<AiConsentState> get copyWith => _$AiConsentStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentState&&(identical(other.origin, origin) || other.origin == origin));
+  final _this = this as AiConsentState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentState&&(identical(other.origin, _this.origin) || other.origin == _this.origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,origin);
+int get hashCode {
+  final _this = this as AiConsentState;
+  return Object.hash(runtimeType,_this.origin);
+}
 
 @override
 String toString() {
-  return 'AiConsentState(origin: $origin)';
+  final _this = this as AiConsentState;
+  return 'AiConsentState(origin: ${_this.origin})';
 }
 
 
@@ -229,16 +235,18 @@ $AiConsentUndecidedCopyWith<AiConsentUndecided> get copyWith => _$AiConsentUndec
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentUndecided&&(identical(other.origin, origin) || other.origin == origin)&&(identical(other.version, version) || other.version == version)&&(identical(other.previouslyDeclined, previouslyDeclined) || other.previouslyDeclined == previouslyDeclined));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentUndecided&&(identical(other.origin, origin) || other.origin == origin)&&(identical(other.version, version) || other.version == version)&&(identical(other.previouslyDeclined, previouslyDeclined) || other.previouslyDeclined == previouslyDeclined));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,origin,version,previouslyDeclined);
+int get hashCode {
+    return Object.hash(runtimeType,origin,version,previouslyDeclined);
+}
 
 @override
 String toString() {
-  return 'AiConsentState.undecided(origin: $origin, version: $version, previouslyDeclined: $previouslyDeclined)';
+    return 'AiConsentState.undecided(origin: $origin, version: $version, previouslyDeclined: $previouslyDeclined)';
 }
 
 
@@ -297,16 +305,18 @@ $AiConsentGrantedCopyWith<AiConsentGranted> get copyWith => _$AiConsentGrantedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentGranted&&(identical(other.origin, origin) || other.origin == origin));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentGranted&&(identical(other.origin, origin) || other.origin == origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,origin);
+int get hashCode {
+    return Object.hash(runtimeType,origin);
+}
 
 @override
 String toString() {
-  return 'AiConsentState.granted(origin: $origin)';
+    return 'AiConsentState.granted(origin: $origin)';
 }
 
 
@@ -363,16 +373,18 @@ $AiConsentDeclinedCopyWith<AiConsentDeclined> get copyWith => _$AiConsentDecline
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentDeclined&&(identical(other.origin, origin) || other.origin == origin));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentDeclined&&(identical(other.origin, origin) || other.origin == origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,origin);
+int get hashCode {
+    return Object.hash(runtimeType,origin);
+}
 
 @override
 String toString() {
-  return 'AiConsentState.declined(origin: $origin)';
+    return 'AiConsentState.declined(origin: $origin)';
 }
 
 

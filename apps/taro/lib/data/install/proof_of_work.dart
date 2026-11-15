@@ -5,12 +5,11 @@ import 'package:crypto/crypto.dart';
 
 /// Solves the registration proof of work for [challenge], [installId] and
 /// difficulty [bits] (03 §2.4, RC65). Replaceable in tests.
-typedef ProofOfWorkSolver =
-    Future<String> Function({
-      required String challenge,
-      required String installId,
-      required int bits,
-    });
+typedef ProofOfWorkSolver = Future<String> Function({
+  required String challenge,
+  required String installId,
+  required int bits,
+});
 
 /// The longest `pow` the Worker accepts (`POW_MAX_LENGTH`).
 const int kProofOfWorkMaxLength = 64;

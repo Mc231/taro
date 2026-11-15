@@ -16,14 +16,11 @@ import 'package:taro_core/src/result/result.dart';
 final class DrawCards {
   /// Creates the use case.
   DrawCards({
-    required ContentRepository content,
-    required SettingsRepository settings,
+    required this._content,
+    required this._settings,
     required RandomSource random,
-    required Clock clock,
-  }) : _content = content,
-       _settings = settings,
-       _drawer = CardDrawer(random),
-       _clock = clock;
+    required this._clock,
+  }) : _drawer = CardDrawer(random);
 
   final ContentRepository _content;
   final SettingsRepository _settings;

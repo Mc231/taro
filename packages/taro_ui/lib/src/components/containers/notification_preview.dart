@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 
 /// A static mock of the daily reminder notification (S22) so the user sees

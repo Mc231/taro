@@ -7,26 +7,19 @@ import 'package:taro_core/taro_core.dart';
 /// `X-Request-Id` per attempt and the action's `Idempotency-Key`; on the way
 /// back it feeds every `Date` header into the [ServerClockTracker].
 final class HeadersInterceptor extends Interceptor {
-  /// Creates the interceptor. [flavor] is sent only when not `null` (dev and
-  /// staging builds); [locale] is read per request; [extraHeaders] (the
+  /// Creates the interceptor. [_flavor] is sent only when not `null` (dev and
+  /// staging builds); [_locale] is read per request; [_extraHeaders] (the
   /// dev/staging debug attestation token, RC86) go on every request.
   HeadersInterceptor({
-    required AppPlatform platform,
-    required String appVersion,
-    required String Function() locale,
-    required IdGenerator ids,
-    required Clock clock,
-    required ServerClockTracker serverClock,
-    String? flavor,
-    Map<String, String> extraHeaders = const {},
-  }) : _platform = platform,
-       _appVersion = appVersion,
-       _locale = locale,
-       _ids = ids,
-       _clock = clock,
-       _serverClock = serverClock,
-       _flavor = flavor,
-       _extraHeaders = extraHeaders;
+    required this._platform,
+    required this._appVersion,
+    required this._locale,
+    required this._ids,
+    required this._clock,
+    required this._serverClock,
+    this._flavor,
+    this._extraHeaders = const {},
+  });
 
   final AppPlatform _platform;
   final String _appVersion;

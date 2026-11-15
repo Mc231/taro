@@ -89,9 +89,11 @@ final class OutOfReadingsController extends Notifier<OutOfReadingsState> {
 
   /// The rewarded row was tapped; returns whether S12 may open.
   Future<bool> tapRewarded() async {
-    if (state case OutOfReadingsContent(
-      :final rewarded,
-    ) when rewarded.isAvailable) {
+    if (state
+        case OutOfReadingsContent(
+          :final rewarded,
+        )
+        when rewarded.isAvailable) {
       _action = PaywallAction.reward;
       await ref
           .read(analyticsServiceProvider)

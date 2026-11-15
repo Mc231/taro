@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'deck_browser_controller.dart';
@@ -9,6 +9,7 @@ part of 'deck_browser_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $DeckTileCopyWith<DeckTile> get copyWith => _$DeckTileCopyWithImpl<DeckTile>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckTile&&(identical(other.card, card) || other.card == card)&&(identical(other.name, name) || other.name == name));
+  final _this = this as DeckTile;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckTile&&(identical(other.card, _this.card) || other.card == _this.card)&&(identical(other.name, _this.name) || other.name == _this.name));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,name);
+int get hashCode {
+  final _this = this as DeckTile;
+  return Object.hash(runtimeType,_this.card,_this.name);
+}
 
 @override
 String toString() {
-  return 'DeckTile(card: $card, name: $name)';
+  final _this = this as DeckTile;
+  return 'DeckTile(card: ${_this.card}, name: ${_this.name})';
 }
 
 
@@ -63,7 +69,7 @@ class _$DeckTileCopyWithImpl<$Res>
 /// Create a copy of DeckTile
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? card = null,Object? name = null,}) {
-  return _then(_self.copyWith(
+  return _then(DeckTile(
 card: null == card ? _self.card : card // ignore: cast_nullable_to_non_nullable
 as DeckCard,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
@@ -232,16 +238,18 @@ _$DeckTileCopyWith<_DeckTile> get copyWith => __$DeckTileCopyWithImpl<_DeckTile>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckTile&&(identical(other.card, card) || other.card == card)&&(identical(other.name, name) || other.name == name));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckTile&&(identical(other.card, card) || other.card == card)&&(identical(other.name, name) || other.name == name));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,name);
+int get hashCode {
+    return Object.hash(runtimeType,card,name);
+}
 
 @override
 String toString() {
-  return 'DeckTile(card: $card, name: $name)';
+    return 'DeckTile(card: $card, name: $name)';
 }
 
 
@@ -303,16 +311,21 @@ $DeckSectionCopyWith<DeckSection> get copyWith => _$DeckSectionCopyWithImpl<Deck
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckSection&&(identical(other.kind, kind) || other.kind == kind)&&const DeepCollectionEquality().equals(other.tiles, tiles));
+  final _this = this as DeckSection;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckSection&&(identical(other.kind, _this.kind) || other.kind == _this.kind)&&const DeepCollectionEquality().equals(other.tiles, _this.tiles));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind,const DeepCollectionEquality().hash(tiles));
+int get hashCode {
+  final _this = this as DeckSection;
+  return Object.hash(runtimeType,_this.kind,const DeepCollectionEquality().hash(_this.tiles));
+}
 
 @override
 String toString() {
-  return 'DeckSection(kind: $kind, tiles: $tiles)';
+  final _this = this as DeckSection;
+  return 'DeckSection(kind: ${_this.kind}, tiles: ${_this.tiles})';
 }
 
 
@@ -341,7 +354,7 @@ class _$DeckSectionCopyWithImpl<$Res>
 /// Create a copy of DeckSection
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? kind = null,Object? tiles = null,}) {
-  return _then(_self.copyWith(
+  return _then(DeckSection(
 kind: null == kind ? _self.kind : kind // ignore: cast_nullable_to_non_nullable
 as DeckSectionKind,tiles: null == tiles ? _self.tiles : tiles // ignore: cast_nullable_to_non_nullable
 as List<DeckTile>,
@@ -485,7 +498,7 @@ return $default(_that.kind,_that.tiles);case _:
 
 
 class _DeckSection implements DeckSection {
-  const _DeckSection({required this.kind, required final  List<DeckTile> tiles}): _tiles = tiles;
+  const _DeckSection({required this.kind, required  List<DeckTile> tiles}): _tiles = tiles;
   
 
 @override final  DeckSectionKind kind;
@@ -507,16 +520,18 @@ _$DeckSectionCopyWith<_DeckSection> get copyWith => __$DeckSectionCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckSection&&(identical(other.kind, kind) || other.kind == kind)&&const DeepCollectionEquality().equals(other._tiles, _tiles));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeckSection&&(identical(other.kind, kind) || other.kind == kind)&&const DeepCollectionEquality().equals(other.tiles, _tiles));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind,const DeepCollectionEquality().hash(_tiles));
+int get hashCode {
+    return Object.hash(runtimeType,kind,const DeepCollectionEquality().hash(_tiles));
+}
 
 @override
 String toString() {
-  return 'DeckSection(kind: $kind, tiles: $tiles)';
+    return 'DeckSection(kind: $kind, tiles: $tiles)';
 }
 
 
@@ -564,7 +579,7 @@ mixin _$DeckBrowserState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserState);
 }
 
 
@@ -573,7 +588,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeckBrowserState()';
+    return 'DeckBrowserState()';
 }
 
 
@@ -741,7 +756,7 @@ class DeckBrowserLoading implements DeckBrowserState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserLoading);
 }
 
 
@@ -750,7 +765,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeckBrowserState.loading()';
+    return 'DeckBrowserState.loading()';
 }
 
 
@@ -763,7 +778,7 @@ String toString() {
 
 
 class DeckBrowserContent implements DeckBrowserState {
-  const DeckBrowserContent({required final  List<DeckSection> sections, this.query = ''}): _sections = sections;
+  const DeckBrowserContent({required  List<DeckSection> sections, this.query = ''}): _sections = sections;
   
 
  final  List<DeckSection> _sections;
@@ -785,16 +800,18 @@ $DeckBrowserContentCopyWith<DeckBrowserContent> get copyWith => _$DeckBrowserCon
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserContent&&const DeepCollectionEquality().equals(other._sections, _sections)&&(identical(other.query, query) || other.query == query));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserContent&&const DeepCollectionEquality().equals(other.sections, _sections)&&(identical(other.query, query) || other.query == query));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),query);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),query);
+}
 
 @override
 String toString() {
-  return 'DeckBrowserState.content(sections: $sections, query: $query)';
+    return 'DeckBrowserState.content(sections: $sections, query: $query)';
 }
 
 
@@ -852,16 +869,18 @@ $DeckBrowserSearchEmptyCopyWith<DeckBrowserSearchEmpty> get copyWith => _$DeckBr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserSearchEmpty&&(identical(other.query, query) || other.query == query));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserSearchEmpty&&(identical(other.query, query) || other.query == query));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,query);
+int get hashCode {
+    return Object.hash(runtimeType,query);
+}
 
 @override
 String toString() {
-  return 'DeckBrowserState.searchEmpty(query: $query)';
+    return 'DeckBrowserState.searchEmpty(query: $query)';
 }
 
 
@@ -913,7 +932,7 @@ class DeckBrowserStorageError implements DeckBrowserState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeckBrowserStorageError);
 }
 
 
@@ -922,7 +941,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeckBrowserState.storageError()';
+    return 'DeckBrowserState.storageError()';
 }
 
 

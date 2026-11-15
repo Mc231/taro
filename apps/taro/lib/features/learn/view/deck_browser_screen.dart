@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/common/card_art.dart';
 import 'package:taro/features/learn/controller/deck_browser_controller.dart';
@@ -107,12 +107,10 @@ class _DeckBrowserLayoutState extends State<DeckBrowserLayout> {
     final target = _anchors[kind]?.currentContext;
     if (target == null) return;
     final motion = context.motion;
-    unawaited(
-      Scrollable.ensureVisible(
-        target,
-        duration: motion.duration.slow,
-        curve: motion.easing.standard,
-      ),
+    Scrollable.ensureVisible(
+      target,
+      duration: motion.duration.slow,
+      curve: motion.easing.standard,
     );
   }
 

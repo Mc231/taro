@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'deck.dart';
@@ -9,6 +9,7 @@ part of 'deck.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $DeckCopyWith<Deck> get copyWith => _$DeckCopyWithImpl<Deck>(this as Deck, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Deck&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.cards, cards)&&(identical(other.artSet, artSet) || other.artSet == artSet));
+  final _this = this as Deck;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Deck&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.version, _this.version) || other.version == _this.version)&&const DeepCollectionEquality().equals(other.cards, _this.cards)&&(identical(other.artSet, _this.artSet) || other.artSet == _this.artSet));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(cards),artSet);
+int get hashCode {
+  final _this = this as Deck;
+  return Object.hash(runtimeType,_this.id,_this.version,const DeepCollectionEquality().hash(_this.cards),_this.artSet);
+}
 
 @override
 String toString() {
-  return 'Deck(id: $id, version: $version, cards: $cards, artSet: $artSet)';
+  final _this = this as Deck;
+  return 'Deck(id: ${_this.id}, version: ${_this.version}, cards: ${_this.cards}, artSet: ${_this.artSet})';
 }
 
 
@@ -67,7 +73,7 @@ class _$DeckCopyWithImpl<$Res>
 /// Create a copy of Deck
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? version = null,Object? cards = null,Object? artSet = null,}) {
-  return _then(_self.copyWith(
+  return _then(Deck(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,version: null == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int,cards: null == cards ? _self.cards : cards // ignore: cast_nullable_to_non_nullable
@@ -213,7 +219,7 @@ return $default(_that.id,_that.version,_that.cards,_that.artSet);case _:
 
 
 class _Deck extends Deck {
-  const _Deck({required this.id, required this.version, required final  List<DeckCard> cards, required this.artSet}): _cards = cards,super._();
+  const _Deck({required this.id, required this.version, required  List<DeckCard> cards, required this.artSet}): _cards = cards,super._();
   
 
 /// Deck ID, `rws_original`.
@@ -242,16 +248,18 @@ _$DeckCopyWith<_Deck> get copyWith => __$DeckCopyWithImpl<_Deck>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Deck&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other._cards, _cards)&&(identical(other.artSet, artSet) || other.artSet == artSet));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Deck&&(identical(other.id, id) || other.id == id)&&(identical(other.version, version) || other.version == version)&&const DeepCollectionEquality().equals(other.cards, _cards)&&(identical(other.artSet, artSet) || other.artSet == artSet));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(_cards),artSet);
+int get hashCode {
+    return Object.hash(runtimeType,id,version,const DeepCollectionEquality().hash(_cards),artSet);
+}
 
 @override
 String toString() {
-  return 'Deck(id: $id, version: $version, cards: $cards, artSet: $artSet)';
+    return 'Deck(id: $id, version: $version, cards: $cards, artSet: $artSet)';
 }
 
 

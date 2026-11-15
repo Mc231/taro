@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/di/providers.dart';
@@ -54,7 +54,7 @@ class StoreScreen extends ConsumerWidget {
           );
           controller.acknowledge();
           if (credits > 0 && source == StoreSource.outOfReadings) {
-            unawaited(Navigator.of(context).maybePop());
+            Navigator.of(context).maybePop();
           }
         default:
           break;

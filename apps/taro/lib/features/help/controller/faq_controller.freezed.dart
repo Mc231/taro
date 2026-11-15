@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'faq_controller.dart';
@@ -9,6 +9,7 @@ part of 'faq_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$FaqState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'FaqState()';
+    return 'FaqState()';
 }
 
 
@@ -197,7 +198,7 @@ class FaqLoading implements FaqState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqLoading);
 }
 
 
@@ -206,7 +207,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'FaqState.loading()';
+    return 'FaqState.loading()';
 }
 
 
@@ -219,7 +220,7 @@ String toString() {
 
 
 class FaqContent implements FaqState {
-  const FaqContent({required final  List<ArticleSection> sections, this.query = '', final  Set<String> expanded = const <String>{}, this.support}): _sections = sections,_expanded = expanded;
+  const FaqContent({required  List<ArticleSection> sections, this.query = '',  Set<String> expanded = const <String>{}, this.support}): _sections = sections,_expanded = expanded;
   
 
  final  List<ArticleSection> _sections;
@@ -254,16 +255,18 @@ $FaqContentCopyWith<FaqContent> get copyWith => _$FaqContentCopyWithImpl<FaqCont
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqContent&&const DeepCollectionEquality().equals(other._sections, _sections)&&(identical(other.query, query) || other.query == query)&&const DeepCollectionEquality().equals(other._expanded, _expanded)&&(identical(other.support, support) || other.support == support));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqContent&&const DeepCollectionEquality().equals(other.sections, _sections)&&(identical(other.query, query) || other.query == query)&&const DeepCollectionEquality().equals(other.expanded, _expanded)&&(identical(other.support, support) || other.support == support));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),query,const DeepCollectionEquality().hash(_expanded),support);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(_sections),query,const DeepCollectionEquality().hash(_expanded),support);
+}
 
 @override
 String toString() {
-  return 'FaqState.content(sections: $sections, query: $query, expanded: $expanded, support: $support)';
+    return 'FaqState.content(sections: $sections, query: $query, expanded: $expanded, support: $support)';
 }
 
 
@@ -324,16 +327,18 @@ $FaqSearchEmptyCopyWith<FaqSearchEmpty> get copyWith => _$FaqSearchEmptyCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqSearchEmpty&&(identical(other.query, query) || other.query == query)&&(identical(other.support, support) || other.support == support));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqSearchEmpty&&(identical(other.query, query) || other.query == query)&&(identical(other.support, support) || other.support == support));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,query,support);
+int get hashCode {
+    return Object.hash(runtimeType,query,support);
+}
 
 @override
 String toString() {
-  return 'FaqState.searchEmpty(query: $query, support: $support)';
+    return 'FaqState.searchEmpty(query: $query, support: $support)';
 }
 
 
@@ -386,7 +391,7 @@ class FaqStorageError implements FaqState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FaqStorageError);
 }
 
 
@@ -395,7 +400,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'FaqState.storageError()';
+    return 'FaqState.storageError()';
 }
 
 

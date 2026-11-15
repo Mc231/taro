@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'question_state.dart';
@@ -9,6 +9,7 @@ part of 'question_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $QuestionArgsCopyWith<QuestionArgs> get copyWith => _$QuestionArgsCopyWithImpl<Q
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionArgs&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.source, source) || other.source == source)&&const DeepCollectionEquality().equals(other.presetCards, presetCards));
+  final _this = this as QuestionArgs;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionArgs&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.source, _this.source) || other.source == _this.source)&&const DeepCollectionEquality().equals(other.presetCards, _this.presetCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,source,const DeepCollectionEquality().hash(presetCards));
+int get hashCode {
+  final _this = this as QuestionArgs;
+  return Object.hash(runtimeType,_this.spreadId,_this.source,const DeepCollectionEquality().hash(_this.presetCards));
+}
 
 @override
 String toString() {
-  return 'QuestionArgs(spreadId: $spreadId, source: $source, presetCards: $presetCards)';
+  final _this = this as QuestionArgs;
+  return 'QuestionArgs(spreadId: ${_this.spreadId}, source: ${_this.source}, presetCards: ${_this.presetCards})';
 }
 
 
@@ -63,7 +69,7 @@ class _$QuestionArgsCopyWithImpl<$Res>
 /// Create a copy of QuestionArgs
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spreadId = null,Object? source = null,Object? presetCards = null,}) {
-  return _then(_self.copyWith(
+  return _then(QuestionArgs(
 spreadId: null == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId,source: null == source ? _self.source : source // ignore: cast_nullable_to_non_nullable
 as ReadingFlowSource,presetCards: null == presetCards ? _self.presetCards : presetCards // ignore: cast_nullable_to_non_nullable
@@ -208,7 +214,7 @@ return $default(_that.spreadId,_that.source,_that.presetCards);case _:
 
 
 class _QuestionArgs implements QuestionArgs {
-  const _QuestionArgs({required this.spreadId, this.source = ReadingFlowSource.home, final  List<PresetCard> presetCards = const <PresetCard>[]}): _presetCards = presetCards;
+  const _QuestionArgs({required this.spreadId, this.source = ReadingFlowSource.home,  List<PresetCard> presetCards = const <PresetCard>[]}): _presetCards = presetCards;
   
 
 @override final  SpreadId spreadId;
@@ -231,16 +237,18 @@ _$QuestionArgsCopyWith<_QuestionArgs> get copyWith => __$QuestionArgsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionArgs&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.source, source) || other.source == source)&&const DeepCollectionEquality().equals(other._presetCards, _presetCards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionArgs&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.source, source) || other.source == source)&&const DeepCollectionEquality().equals(other.presetCards, _presetCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,source,const DeepCollectionEquality().hash(_presetCards));
+int get hashCode {
+    return Object.hash(runtimeType,spreadId,source,const DeepCollectionEquality().hash(_presetCards));
+}
 
 @override
 String toString() {
-  return 'QuestionArgs(spreadId: $spreadId, source: $source, presetCards: $presetCards)';
+    return 'QuestionArgs(spreadId: $spreadId, source: $source, presetCards: $presetCards)';
 }
 
 
@@ -294,16 +302,21 @@ $QuestionDraftCopyWith<QuestionDraft> get copyWith => _$QuestionDraftCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDraft&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.check, check) || other.check == check)&&(identical(other.maxChars, maxChars) || other.maxChars == maxChars)&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.text, text) || other.text == text)&&(identical(other.usedSuggestion, usedSuggestion) || other.usedSuggestion == usedSuggestion)&&const DeepCollectionEquality().equals(other.presetCards, presetCards));
+  final _this = this as QuestionDraft;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDraft&&(identical(other.spreadId, _this.spreadId) || other.spreadId == _this.spreadId)&&(identical(other.check, _this.check) || other.check == _this.check)&&(identical(other.maxChars, _this.maxChars) || other.maxChars == _this.maxChars)&&(identical(other.spread, _this.spread) || other.spread == _this.spread)&&(identical(other.text, _this.text) || other.text == _this.text)&&(identical(other.usedSuggestion, _this.usedSuggestion) || other.usedSuggestion == _this.usedSuggestion)&&const DeepCollectionEquality().equals(other.presetCards, _this.presetCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,check,maxChars,spread,text,usedSuggestion,const DeepCollectionEquality().hash(presetCards));
+int get hashCode {
+  final _this = this as QuestionDraft;
+  return Object.hash(runtimeType,_this.spreadId,_this.check,_this.maxChars,_this.spread,_this.text,_this.usedSuggestion,const DeepCollectionEquality().hash(_this.presetCards));
+}
 
 @override
 String toString() {
-  return 'QuestionDraft(spreadId: $spreadId, check: $check, maxChars: $maxChars, spread: $spread, text: $text, usedSuggestion: $usedSuggestion, presetCards: $presetCards)';
+  final _this = this as QuestionDraft;
+  return 'QuestionDraft(spreadId: ${_this.spreadId}, check: ${_this.check}, maxChars: ${_this.maxChars}, spread: ${_this.spread}, text: ${_this.text}, usedSuggestion: ${_this.usedSuggestion}, presetCards: ${_this.presetCards})';
 }
 
 
@@ -332,7 +345,7 @@ class _$QuestionDraftCopyWithImpl<$Res>
 /// Create a copy of QuestionDraft
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? spreadId = null,Object? check = null,Object? maxChars = null,Object? spread = freezed,Object? text = null,Object? usedSuggestion = null,Object? presetCards = null,}) {
-  return _then(_self.copyWith(
+  return _then(QuestionDraft(
 spreadId: null == spreadId ? _self.spreadId : spreadId // ignore: cast_nullable_to_non_nullable
 as SpreadId,check: null == check ? _self.check : check // ignore: cast_nullable_to_non_nullable
 as QuestionCheck,maxChars: null == maxChars ? _self.maxChars : maxChars // ignore: cast_nullable_to_non_nullable
@@ -502,7 +515,7 @@ return $default(_that.spreadId,_that.check,_that.maxChars,_that.spread,_that.tex
 
 
 class _QuestionDraft extends QuestionDraft {
-  const _QuestionDraft({required this.spreadId, required this.check, required this.maxChars, this.spread, this.text = '', this.usedSuggestion = false, final  List<PresetCard> presetCards = const <PresetCard>[]}): _presetCards = presetCards,super._();
+  const _QuestionDraft({required this.spreadId, required this.check, required this.maxChars, this.spread, this.text = '', this.usedSuggestion = false,  List<PresetCard> presetCards = const <PresetCard>[]}): _presetCards = presetCards,super._();
   
 
 @override final  SpreadId spreadId;
@@ -529,16 +542,18 @@ _$QuestionDraftCopyWith<_QuestionDraft> get copyWith => __$QuestionDraftCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionDraft&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.check, check) || other.check == check)&&(identical(other.maxChars, maxChars) || other.maxChars == maxChars)&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.text, text) || other.text == text)&&(identical(other.usedSuggestion, usedSuggestion) || other.usedSuggestion == usedSuggestion)&&const DeepCollectionEquality().equals(other._presetCards, _presetCards));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionDraft&&(identical(other.spreadId, spreadId) || other.spreadId == spreadId)&&(identical(other.check, check) || other.check == check)&&(identical(other.maxChars, maxChars) || other.maxChars == maxChars)&&(identical(other.spread, spread) || other.spread == spread)&&(identical(other.text, text) || other.text == text)&&(identical(other.usedSuggestion, usedSuggestion) || other.usedSuggestion == usedSuggestion)&&const DeepCollectionEquality().equals(other.presetCards, _presetCards));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,spreadId,check,maxChars,spread,text,usedSuggestion,const DeepCollectionEquality().hash(_presetCards));
+int get hashCode {
+    return Object.hash(runtimeType,spreadId,check,maxChars,spread,text,usedSuggestion,const DeepCollectionEquality().hash(_presetCards));
+}
 
 @override
 String toString() {
-  return 'QuestionDraft(spreadId: $spreadId, check: $check, maxChars: $maxChars, spread: $spread, text: $text, usedSuggestion: $usedSuggestion, presetCards: $presetCards)';
+    return 'QuestionDraft(spreadId: $spreadId, check: $check, maxChars: $maxChars, spread: $spread, text: $text, usedSuggestion: $usedSuggestion, presetCards: $presetCards)';
 }
 
 
@@ -617,16 +632,21 @@ $QuestionStateCopyWith<QuestionState> get copyWith => _$QuestionStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionState&&(identical(other.draft, draft) || other.draft == draft));
+  final _this = this as QuestionState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionState&&(identical(other.draft, _this.draft) || other.draft == _this.draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+  final _this = this as QuestionState;
+  return Object.hash(runtimeType,_this.draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState(draft: $draft)';
+  final _this = this as QuestionState;
+  return 'QuestionState(draft: ${_this.draft})';
 }
 
 
@@ -906,16 +926,18 @@ $QuestionEditingCopyWith<QuestionEditing> get copyWith => _$QuestionEditingCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionEditing&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionEditing&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.editing(draft: $draft)';
+    return 'QuestionState.editing(draft: $draft)';
 }
 
 
@@ -981,16 +1003,18 @@ $QuestionCheckingCopyWith<QuestionChecking> get copyWith => _$QuestionCheckingCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionChecking&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionChecking&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.checking(draft: $draft)';
+    return 'QuestionState.checking(draft: $draft)';
 }
 
 
@@ -1056,16 +1080,18 @@ $QuestionReadyCopyWith<QuestionReady> get copyWith => _$QuestionReadyCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionReady&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionReady&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.ready(draft: $draft)';
+    return 'QuestionState.ready(draft: $draft)';
 }
 
 
@@ -1131,16 +1157,18 @@ $QuestionOfflineCopyWith<QuestionOffline> get copyWith => _$QuestionOfflineCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionOffline&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionOffline&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.offline(draft: $draft)';
+    return 'QuestionState.offline(draft: $draft)';
 }
 
 
@@ -1206,16 +1234,18 @@ $QuestionConsentRequiredCopyWith<QuestionConsentRequired> get copyWith => _$Ques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionConsentRequired&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionConsentRequired&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.consentRequired(draft: $draft)';
+    return 'QuestionState.consentRequired(draft: $draft)';
 }
 
 
@@ -1281,16 +1311,18 @@ $QuestionDeviceUnverifiedCopyWith<QuestionDeviceUnverified> get copyWith => _$Qu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDeviceUnverified&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDeviceUnverified&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.deviceUnverified(draft: $draft)';
+    return 'QuestionState.deviceUnverified(draft: $draft)';
 }
 
 
@@ -1357,16 +1389,18 @@ $QuestionReadingsPausedCopyWith<QuestionReadingsPaused> get copyWith => _$Questi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionReadingsPaused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionReadingsPaused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,freePaused);
+int get hashCode {
+    return Object.hash(runtimeType,draft,freePaused);
+}
 
 @override
 String toString() {
-  return 'QuestionState.readingsPaused(draft: $draft, freePaused: $freePaused)';
+    return 'QuestionState.readingsPaused(draft: $draft, freePaused: $freePaused)';
 }
 
 
@@ -1433,16 +1467,18 @@ $QuestionAiUnavailableRegionCopyWith<QuestionAiUnavailableRegion> get copyWith =
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionAiUnavailableRegion&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionAiUnavailableRegion&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.aiUnavailableRegion(draft: $draft)';
+    return 'QuestionState.aiUnavailableRegion(draft: $draft)';
 }
 
 
@@ -1510,16 +1546,18 @@ $QuestionOutOfReadingsCopyWith<QuestionOutOfReadings> get copyWith => _$Question
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionOutOfReadings&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.options, options) || other.options == options)&&(identical(other.source, source) || other.source == source));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionOutOfReadings&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.options, options) || other.options == options)&&(identical(other.source, source) || other.source == source));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,options,source);
+int get hashCode {
+    return Object.hash(runtimeType,draft,options,source);
+}
 
 @override
 String toString() {
-  return 'QuestionState.outOfReadings(draft: $draft, options: $options, source: $source)';
+    return 'QuestionState.outOfReadings(draft: $draft, options: $options, source: $source)';
 }
 
 
@@ -1596,16 +1634,18 @@ $QuestionDailyLimitReachedCopyWith<QuestionDailyLimitReached> get copyWith => _$
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDailyLimitReached&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionDailyLimitReached&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.dailyLimitReached(draft: $draft)';
+    return 'QuestionState.dailyLimitReached(draft: $draft)';
 }
 
 
@@ -1672,16 +1712,18 @@ $QuestionLowTrustLimitedCopyWith<QuestionLowTrustLimited> get copyWith => _$Ques
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionLowTrustLimited&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.options, options) || other.options == options));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionLowTrustLimited&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.options, options) || other.options == options));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,options);
+int get hashCode {
+    return Object.hash(runtimeType,draft,options);
+}
 
 @override
 String toString() {
-  return 'QuestionState.lowTrustLimited(draft: $draft, options: $options)';
+    return 'QuestionState.lowTrustLimited(draft: $draft, options: $options)';
 }
 
 
@@ -1760,16 +1802,18 @@ $QuestionRephraseCopyWith<QuestionRephrase> get copyWith => _$QuestionRephraseCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRephrase&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRephrase&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,safety,draw,notCharged);
+int get hashCode {
+    return Object.hash(runtimeType,draft,safety,draw,notCharged);
+}
 
 @override
 String toString() {
-  return 'QuestionState.rephrase(draft: $draft, safety: $safety, draw: $draw, notCharged: $notCharged)';
+    return 'QuestionState.rephrase(draft: $draft, safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -1860,16 +1904,18 @@ $QuestionRefusedCopyWith<QuestionRefused> get copyWith => _$QuestionRefusedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRefused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.category, category) || other.category == category)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRefused&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.category, category) || other.category == category)&&(identical(other.safety, safety) || other.safety == safety)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.notCharged, notCharged) || other.notCharged == notCharged));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,category,safety,draw,notCharged);
+int get hashCode {
+    return Object.hash(runtimeType,draft,category,safety,draw,notCharged);
+}
 
 @override
 String toString() {
-  return 'QuestionState.refused(draft: $draft, category: $category, safety: $safety, draw: $draw, notCharged: $notCharged)';
+    return 'QuestionState.refused(draft: $draft, category: $category, safety: $safety, draw: $draw, notCharged: $notCharged)';
 }
 
 
@@ -1961,16 +2007,18 @@ $QuestionRateLimitedCopyWith<QuestionRateLimited> get copyWith => _$QuestionRate
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRateLimited&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionRateLimited&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,retryAfter);
+int get hashCode {
+    return Object.hash(runtimeType,draft,retryAfter);
+}
 
 @override
 String toString() {
-  return 'QuestionState.rateLimited(draft: $draft, retryAfter: $retryAfter)';
+    return 'QuestionState.rateLimited(draft: $draft, retryAfter: $retryAfter)';
 }
 
 
@@ -2037,16 +2085,18 @@ $QuestionSpreadDisabledCopyWith<QuestionSpreadDisabled> get copyWith => _$Questi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionSpreadDisabled&&(identical(other.draft, draft) || other.draft == draft));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionSpreadDisabled&&(identical(other.draft, draft) || other.draft == draft));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft);
+int get hashCode {
+    return Object.hash(runtimeType,draft);
+}
 
 @override
 String toString() {
-  return 'QuestionState.spreadDisabled(draft: $draft)';
+    return 'QuestionState.spreadDisabled(draft: $draft)';
 }
 
 
@@ -2113,16 +2163,18 @@ $QuestionFailedCopyWith<QuestionFailed> get copyWith => _$QuestionFailedCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionFailed&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.failure, failure) || other.failure == failure));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionFailed&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,draft,failure);
+int get hashCode {
+    return Object.hash(runtimeType,draft,failure);
+}
 
 @override
 String toString() {
-  return 'QuestionState.failed(draft: $draft, failure: $failure)';
+    return 'QuestionState.failed(draft: $draft, failure: $failure)';
 }
 
 

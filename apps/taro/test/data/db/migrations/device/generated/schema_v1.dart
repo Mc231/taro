@@ -267,8 +267,7 @@ class PurchaseOutbox extends Table with TableInfo {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints:
-        'NOT NULL CHECK (status IN (\'awaitingVerification\', \'granted\', \'finished\', \'rejected\'))',
+    $customConstraints: 'NOT NULL CHECK (status IN (\'awaitingVerification\', \'granted\', \'finished\', \'rejected\'))',
   );
   late final GeneratedColumn<int> attempts = GeneratedColumn<int>(
     'attempts',

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'card_detail_controller.dart';
@@ -9,6 +9,7 @@ part of 'card_detail_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $CardDetailArgsCopyWith<CardDetailArgs> get copyWith => _$CardDetailArgsCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailArgs&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.origin, origin) || other.origin == origin));
+  final _this = this as CardDetailArgs;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailArgs&&(identical(other.cardId, _this.cardId) || other.cardId == _this.cardId)&&(identical(other.origin, _this.origin) || other.origin == _this.origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,origin);
+int get hashCode {
+  final _this = this as CardDetailArgs;
+  return Object.hash(runtimeType,_this.cardId,_this.origin);
+}
 
 @override
 String toString() {
-  return 'CardDetailArgs(cardId: $cardId, origin: $origin)';
+  final _this = this as CardDetailArgs;
+  return 'CardDetailArgs(cardId: ${_this.cardId}, origin: ${_this.origin})';
 }
 
 
@@ -63,7 +69,7 @@ class _$CardDetailArgsCopyWithImpl<$Res>
 /// Create a copy of CardDetailArgs
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? cardId = null,Object? origin = null,}) {
-  return _then(_self.copyWith(
+  return _then(CardDetailArgs(
 cardId: null == cardId ? _self.cardId : cardId // ignore: cast_nullable_to_non_nullable
 as CardId,origin: null == origin ? _self.origin : origin // ignore: cast_nullable_to_non_nullable
 as LearnCardOrigin,
@@ -223,16 +229,18 @@ _$CardDetailArgsCopyWith<_CardDetailArgs> get copyWith => __$CardDetailArgsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardDetailArgs&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.origin, origin) || other.origin == origin));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardDetailArgs&&(identical(other.cardId, cardId) || other.cardId == cardId)&&(identical(other.origin, origin) || other.origin == origin));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,cardId,origin);
+int get hashCode {
+    return Object.hash(runtimeType,cardId,origin);
+}
 
 @override
 String toString() {
-  return 'CardDetailArgs(cardId: $cardId, origin: $origin)';
+    return 'CardDetailArgs(cardId: $cardId, origin: $origin)';
 }
 
 
@@ -291,16 +299,21 @@ $CardDetailViewCopyWith<CardDetailView> get copyWith => _$CardDetailViewCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.drawnCount, drawnCount) || other.drawnCount == drawnCount)&&(identical(other.position, position) || other.position == position)&&(identical(other.sectionSize, sectionSize) || other.sectionSize == sectionSize)&&(identical(other.previous, previous) || other.previous == previous)&&(identical(other.next, next) || other.next == next));
+  final _this = this as CardDetailView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailView&&(identical(other.card, _this.card) || other.card == _this.card)&&(identical(other.text, _this.text) || other.text == _this.text)&&(identical(other.drawnCount, _this.drawnCount) || other.drawnCount == _this.drawnCount)&&(identical(other.position, _this.position) || other.position == _this.position)&&(identical(other.sectionSize, _this.sectionSize) || other.sectionSize == _this.sectionSize)&&(identical(other.previous, _this.previous) || other.previous == _this.previous)&&(identical(other.next, _this.next) || other.next == _this.next));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,drawnCount,position,sectionSize,previous,next);
+int get hashCode {
+  final _this = this as CardDetailView;
+  return Object.hash(runtimeType,_this.card,_this.text,_this.drawnCount,_this.position,_this.sectionSize,_this.previous,_this.next);
+}
 
 @override
 String toString() {
-  return 'CardDetailView(card: $card, text: $text, drawnCount: $drawnCount, position: $position, sectionSize: $sectionSize, previous: $previous, next: $next)';
+  final _this = this as CardDetailView;
+  return 'CardDetailView(card: ${_this.card}, text: ${_this.text}, drawnCount: ${_this.drawnCount}, position: ${_this.position}, sectionSize: ${_this.sectionSize}, previous: ${_this.previous}, next: ${_this.next})';
 }
 
 
@@ -329,7 +342,7 @@ class _$CardDetailViewCopyWithImpl<$Res>
 /// Create a copy of CardDetailView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? card = null,Object? text = null,Object? drawnCount = null,Object? position = null,Object? sectionSize = null,Object? previous = freezed,Object? next = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(CardDetailView(
 card: null == card ? _self.card : card // ignore: cast_nullable_to_non_nullable
 as DeckCard,text: null == text ? _self.text : text // ignore: cast_nullable_to_non_nullable
 as CardText,drawnCount: null == drawnCount ? _self.drawnCount : drawnCount // ignore: cast_nullable_to_non_nullable
@@ -523,16 +536,18 @@ _$CardDetailViewCopyWith<_CardDetailView> get copyWith => __$CardDetailViewCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardDetailView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.drawnCount, drawnCount) || other.drawnCount == drawnCount)&&(identical(other.position, position) || other.position == position)&&(identical(other.sectionSize, sectionSize) || other.sectionSize == sectionSize)&&(identical(other.previous, previous) || other.previous == previous)&&(identical(other.next, next) || other.next == next));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _CardDetailView&&(identical(other.card, card) || other.card == card)&&(identical(other.text, text) || other.text == text)&&(identical(other.drawnCount, drawnCount) || other.drawnCount == drawnCount)&&(identical(other.position, position) || other.position == position)&&(identical(other.sectionSize, sectionSize) || other.sectionSize == sectionSize)&&(identical(other.previous, previous) || other.previous == previous)&&(identical(other.next, next) || other.next == next));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,text,drawnCount,position,sectionSize,previous,next);
+int get hashCode {
+    return Object.hash(runtimeType,card,text,drawnCount,position,sectionSize,previous,next);
+}
 
 @override
 String toString() {
-  return 'CardDetailView(card: $card, text: $text, drawnCount: $drawnCount, position: $position, sectionSize: $sectionSize, previous: $previous, next: $next)';
+    return 'CardDetailView(card: $card, text: $text, drawnCount: $drawnCount, position: $position, sectionSize: $sectionSize, previous: $previous, next: $next)';
 }
 
 
@@ -603,7 +618,7 @@ mixin _$CardDetailState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailState);
 }
 
 
@@ -612,7 +627,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CardDetailState()';
+    return 'CardDetailState()';
 }
 
 
@@ -786,7 +801,7 @@ class CardDetailLoading implements CardDetailState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailLoading);
 }
 
 
@@ -795,7 +810,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CardDetailState.loading()';
+    return 'CardDetailState.loading()';
 }
 
 
@@ -823,16 +838,18 @@ $CardDetailUprightCopyWith<CardDetailUpright> get copyWith => _$CardDetailUprigh
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailUpright&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailUpright&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'CardDetailState.upright(view: $view)';
+    return 'CardDetailState.upright(view: $view)';
 }
 
 
@@ -898,16 +915,18 @@ $CardDetailReversedCopyWith<CardDetailReversed> get copyWith => _$CardDetailReve
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailReversed&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailReversed&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'CardDetailState.reversed(view: $view)';
+    return 'CardDetailState.reversed(view: $view)';
 }
 
 
@@ -974,16 +993,18 @@ $CardDetailZoomedCopyWith<CardDetailZoomed> get copyWith => _$CardDetailZoomedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailZoomed&&(identical(other.view, view) || other.view == view)&&(identical(other.reversed, reversed) || other.reversed == reversed));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailZoomed&&(identical(other.view, view) || other.view == view)&&(identical(other.reversed, reversed) || other.reversed == reversed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,reversed);
+int get hashCode {
+    return Object.hash(runtimeType,view,reversed);
+}
 
 @override
 String toString() {
-  return 'CardDetailState.zoomed(view: $view, reversed: $reversed)';
+    return 'CardDetailState.zoomed(view: $view, reversed: $reversed)';
 }
 
 
@@ -1045,7 +1066,7 @@ class CardDetailStorageError implements CardDetailState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is CardDetailStorageError);
 }
 
 
@@ -1054,7 +1075,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'CardDetailState.storageError()';
+    return 'CardDetailState.storageError()';
 }
 
 

@@ -7,12 +7,11 @@ import 'package:taro_core/taro_core.dart';
 typedef AdsSdkInitializer = Future<void> Function();
 
 /// Starts loading a rewarded ad (`RewardedAd.load`).
-typedef RewardedAdLoader =
-    Future<void> Function({
-      required String adUnitId,
-      required gma.AdRequest request,
-      required gma.RewardedAdLoadCallback rewardedAdLoadCallback,
-    });
+typedef RewardedAdLoader = Future<void> Function({
+  required String adUnitId,
+  required gma.AdRequest request,
+  required gma.RewardedAdLoadCallback rewardedAdLoadCallback,
+});
 
 /// [AdsService] over AdMob (`google_mobile_ads`; 02 §5, §9.6, 04 §6.6, §9).
 ///
@@ -35,16 +34,13 @@ final class AdMobAdsService implements AdsService {
   /// and [loadRewarded] default to the SDK.
   AdMobAdsService({
     required String rewardedAdUnitId,
-    required Clock clock,
-    required Logger logger,
-    required Duration Function() loadTimeout,
+    required this._clock,
+    required this._logger,
+    required this._loadTimeout,
     required bool Function() nonPersonalizedAds,
     AdsSdkInitializer? initializer,
     RewardedAdLoader? loadRewarded,
   }) : _adUnitId = rewardedAdUnitId,
-       _clock = clock,
-       _logger = logger,
-       _loadTimeout = loadTimeout,
        _nonPersonalized = nonPersonalizedAds,
        _initializer = initializer ?? _initializeSdk,
        _loadRewarded = loadRewarded ?? gma.RewardedAd.load;

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/home/controller/home_controller.dart';
@@ -10,6 +10,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 HomeView _view({
@@ -196,7 +197,7 @@ void main() {
       HomeState.content(_view(updateAvailable: true)),
     );
     expect(find.text(l10n.homeUpdateAvailable), findsOneWidget);
-    await tester.tap(find.byTooltip(l10n.commonDismiss));
+    await tester.tap(find.byTaroTooltip(l10n.commonDismiss));
     expect(calls, ['update']);
   });
 

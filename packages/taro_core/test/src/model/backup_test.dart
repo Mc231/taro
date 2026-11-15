@@ -98,13 +98,11 @@ void main() {
     });
 
     test('keys match backup_schema_v1.json exactly (RC70)', () {
-      final schema =
-          jsonDecode(
-                File(
-                  '../../docs/specs/backup_schema_v1.json',
-                ).readAsStringSync(),
-              )
-              as Map<String, Object?>;
+      final schema = jsonDecode(
+        File(
+          '../../docs/specs/backup_schema_v1.json',
+        ).readAsStringSync(),
+      ) as Map<String, Object?>;
       final file = BackupV1.fromJson(exampleFile()).toJson();
       expect(
         file.keys.toSet(),

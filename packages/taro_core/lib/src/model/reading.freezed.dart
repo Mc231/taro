@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading.dart';
@@ -9,6 +9,7 @@ part of 'reading.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $SafetyInfoCopyWith<SafetyInfo> get copyWith => _$SafetyInfoCopyWithImpl<SafetyI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SafetyInfo&&(identical(other.category, category) || other.category == category)&&(identical(other.messageKey, messageKey) || other.messageKey == messageKey)&&(identical(other.canRephrase, canRephrase) || other.canRephrase == canRephrase)&&const DeepCollectionEquality().equals(other.crisisResources, crisisResources));
+  final _this = this as SafetyInfo;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SafetyInfo&&(identical(other.category, _this.category) || other.category == _this.category)&&(identical(other.messageKey, _this.messageKey) || other.messageKey == _this.messageKey)&&(identical(other.canRephrase, _this.canRephrase) || other.canRephrase == _this.canRephrase)&&const DeepCollectionEquality().equals(other.crisisResources, _this.crisisResources));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,category,messageKey,canRephrase,const DeepCollectionEquality().hash(crisisResources));
+int get hashCode {
+  final _this = this as SafetyInfo;
+  return Object.hash(runtimeType,_this.category,_this.messageKey,_this.canRephrase,const DeepCollectionEquality().hash(_this.crisisResources));
+}
 
 @override
 String toString() {
-  return 'SafetyInfo(category: $category, messageKey: $messageKey, canRephrase: $canRephrase, crisisResources: $crisisResources)';
+  final _this = this as SafetyInfo;
+  return 'SafetyInfo(category: ${_this.category}, messageKey: ${_this.messageKey}, canRephrase: ${_this.canRephrase}, crisisResources: ${_this.crisisResources})';
 }
 
 
@@ -67,7 +73,7 @@ class _$SafetyInfoCopyWithImpl<$Res>
 /// Create a copy of SafetyInfo
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? category = null,Object? messageKey = null,Object? canRephrase = null,Object? crisisResources = null,}) {
-  return _then(_self.copyWith(
+  return _then(SafetyInfo(
 category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as RefusalCategory,messageKey: null == messageKey ? _self.messageKey : messageKey // ignore: cast_nullable_to_non_nullable
 as String,canRephrase: null == canRephrase ? _self.canRephrase : canRephrase // ignore: cast_nullable_to_non_nullable
@@ -213,7 +219,7 @@ return $default(_that.category,_that.messageKey,_that.canRephrase,_that.crisisRe
 
 
 class _SafetyInfo extends SafetyInfo {
-  const _SafetyInfo({required this.category, required this.messageKey, required this.canRephrase, final  List<CrisisResource> crisisResources = const <CrisisResource>[]}): _crisisResources = crisisResources,super._();
+  const _SafetyInfo({required this.category, required this.messageKey, required this.canRephrase,  List<CrisisResource> crisisResources = const <CrisisResource>[]}): _crisisResources = crisisResources,super._();
   
 
 /// The refusal category.
@@ -242,16 +248,18 @@ _$SafetyInfoCopyWith<_SafetyInfo> get copyWith => __$SafetyInfoCopyWithImpl<_Saf
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SafetyInfo&&(identical(other.category, category) || other.category == category)&&(identical(other.messageKey, messageKey) || other.messageKey == messageKey)&&(identical(other.canRephrase, canRephrase) || other.canRephrase == canRephrase)&&const DeepCollectionEquality().equals(other._crisisResources, _crisisResources));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SafetyInfo&&(identical(other.category, category) || other.category == category)&&(identical(other.messageKey, messageKey) || other.messageKey == messageKey)&&(identical(other.canRephrase, canRephrase) || other.canRephrase == canRephrase)&&const DeepCollectionEquality().equals(other.crisisResources, _crisisResources));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,category,messageKey,canRephrase,const DeepCollectionEquality().hash(_crisisResources));
+int get hashCode {
+    return Object.hash(runtimeType,category,messageKey,canRephrase,const DeepCollectionEquality().hash(_crisisResources));
+}
 
 @override
 String toString() {
-  return 'SafetyInfo(category: $category, messageKey: $messageKey, canRephrase: $canRephrase, crisisResources: $crisisResources)';
+    return 'SafetyInfo(category: $category, messageKey: $messageKey, canRephrase: $canRephrase, crisisResources: $crisisResources)';
 }
 
 
@@ -301,7 +309,7 @@ mixin _$ReadingStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatus);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatus);
 }
 
 
@@ -310,7 +318,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingStatus()';
+    return 'ReadingStatus()';
 }
 
 
@@ -484,7 +492,7 @@ class ReadingStatusPending extends ReadingStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusPending);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusPending);
 }
 
 
@@ -493,7 +501,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingStatus.pending()';
+    return 'ReadingStatus.pending()';
 }
 
 
@@ -516,7 +524,7 @@ class ReadingStatusComplete extends ReadingStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusComplete);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusComplete);
 }
 
 
@@ -525,7 +533,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingStatus.complete()';
+    return 'ReadingStatus.complete()';
 }
 
 
@@ -553,16 +561,18 @@ $ReadingStatusRefusedCopyWith<ReadingStatusRefused> get copyWith => _$ReadingSta
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusRefused&&(identical(other.safety, safety) || other.safety == safety));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusRefused&&(identical(other.safety, safety) || other.safety == safety));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,safety);
+int get hashCode {
+    return Object.hash(runtimeType,safety);
+}
 
 @override
 String toString() {
-  return 'ReadingStatus.refused(safety: $safety)';
+    return 'ReadingStatus.refused(safety: $safety)';
 }
 
 
@@ -632,16 +642,18 @@ $ReadingStatusFailedCopyWith<ReadingStatusFailed> get copyWith => _$ReadingStatu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusFailed&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.refunded, refunded) || other.refunded == refunded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusFailed&&(identical(other.failure, failure) || other.failure == failure)&&(identical(other.refunded, refunded) || other.refunded == refunded));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,failure,refunded);
+int get hashCode {
+    return Object.hash(runtimeType,failure,refunded);
+}
 
 @override
 String toString() {
-  return 'ReadingStatus.failed(failure: $failure, refunded: $refunded)';
+    return 'ReadingStatus.failed(failure: $failure, refunded: $refunded)';
 }
 
 
@@ -703,7 +715,7 @@ class ReadingStatusClassic extends ReadingStatus {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusClassic);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingStatusClassic);
 }
 
 
@@ -712,7 +724,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ReadingStatus.classic()';
+    return 'ReadingStatus.classic()';
 }
 
 
@@ -753,16 +765,21 @@ $ReadingCopyWith<Reading> get copyWith => _$ReadingCopyWithImpl<Reading>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Reading&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.status, status) || other.status == status)&&(identical(other.contentLocale, contentLocale) || other.contentLocale == contentLocale)&&(identical(other.question, question) || other.question == question)&&(identical(other.content, content) || other.content == content)&&(identical(other.promptVersion, promptVersion) || other.promptVersion == promptVersion)&&(identical(other.modelId, modelId) || other.modelId == modelId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.note, note) || other.note == note)&&(identical(other.favourite, favourite) || other.favourite == favourite)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.ratingReason, ratingReason) || other.ratingReason == ratingReason)&&(identical(other.deliveryAcked, deliveryAcked) || other.deliveryAcked == deliveryAcked)&&(identical(other.reported, reported) || other.reported == reported));
+  final _this = this as Reading;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Reading&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.createdAt, _this.createdAt) || other.createdAt == _this.createdAt)&&(identical(other.updatedAt, _this.updatedAt) || other.updatedAt == _this.updatedAt)&&(identical(other.localDate, _this.localDate) || other.localDate == _this.localDate)&&(identical(other.draw, _this.draw) || other.draw == _this.draw)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.contentLocale, _this.contentLocale) || other.contentLocale == _this.contentLocale)&&(identical(other.question, _this.question) || other.question == _this.question)&&(identical(other.content, _this.content) || other.content == _this.content)&&(identical(other.promptVersion, _this.promptVersion) || other.promptVersion == _this.promptVersion)&&(identical(other.modelId, _this.modelId) || other.modelId == _this.modelId)&&(identical(other.chargeSource, _this.chargeSource) || other.chargeSource == _this.chargeSource)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.favourite, _this.favourite) || other.favourite == _this.favourite)&&(identical(other.rating, _this.rating) || other.rating == _this.rating)&&(identical(other.ratingReason, _this.ratingReason) || other.ratingReason == _this.ratingReason)&&(identical(other.deliveryAcked, _this.deliveryAcked) || other.deliveryAcked == _this.deliveryAcked)&&(identical(other.reported, _this.reported) || other.reported == _this.reported));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,localDate,draw,status,contentLocale,question,content,promptVersion,modelId,chargeSource,note,favourite,rating,ratingReason,deliveryAcked,reported);
+int get hashCode {
+  final _this = this as Reading;
+  return Object.hash(runtimeType,_this.id,_this.createdAt,_this.updatedAt,_this.localDate,_this.draw,_this.status,_this.contentLocale,_this.question,_this.content,_this.promptVersion,_this.modelId,_this.chargeSource,_this.note,_this.favourite,_this.rating,_this.ratingReason,_this.deliveryAcked,_this.reported);
+}
 
 @override
 String toString() {
-  return 'Reading(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, localDate: $localDate, draw: $draw, status: $status, contentLocale: $contentLocale, question: $question, content: $content, promptVersion: $promptVersion, modelId: $modelId, chargeSource: $chargeSource, note: $note, favourite: $favourite, rating: $rating, ratingReason: $ratingReason, deliveryAcked: $deliveryAcked, reported: $reported)';
+  final _this = this as Reading;
+  return 'Reading(id: ${_this.id}, createdAt: ${_this.createdAt}, updatedAt: ${_this.updatedAt}, localDate: ${_this.localDate}, draw: ${_this.draw}, status: ${_this.status}, contentLocale: ${_this.contentLocale}, question: ${_this.question}, content: ${_this.content}, promptVersion: ${_this.promptVersion}, modelId: ${_this.modelId}, chargeSource: ${_this.chargeSource}, note: ${_this.note}, favourite: ${_this.favourite}, rating: ${_this.rating}, ratingReason: ${_this.ratingReason}, deliveryAcked: ${_this.deliveryAcked}, reported: ${_this.reported})';
 }
 
 
@@ -791,7 +808,7 @@ class _$ReadingCopyWithImpl<$Res>
 /// Create a copy of Reading
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? updatedAt = null,Object? localDate = null,Object? draw = null,Object? status = null,Object? contentLocale = null,Object? question = freezed,Object? content = freezed,Object? promptVersion = freezed,Object? modelId = freezed,Object? chargeSource = freezed,Object? note = freezed,Object? favourite = null,Object? rating = freezed,Object? ratingReason = freezed,Object? deliveryAcked = null,Object? reported = null,}) {
-  return _then(_self.copyWith(
+  return _then(Reading(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as ReadingId,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -1031,16 +1048,18 @@ _$ReadingCopyWith<_Reading> get copyWith => __$ReadingCopyWithImpl<_Reading>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Reading&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.status, status) || other.status == status)&&(identical(other.contentLocale, contentLocale) || other.contentLocale == contentLocale)&&(identical(other.question, question) || other.question == question)&&(identical(other.content, content) || other.content == content)&&(identical(other.promptVersion, promptVersion) || other.promptVersion == promptVersion)&&(identical(other.modelId, modelId) || other.modelId == modelId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.note, note) || other.note == note)&&(identical(other.favourite, favourite) || other.favourite == favourite)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.ratingReason, ratingReason) || other.ratingReason == ratingReason)&&(identical(other.deliveryAcked, deliveryAcked) || other.deliveryAcked == deliveryAcked)&&(identical(other.reported, reported) || other.reported == reported));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _Reading&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.localDate, localDate) || other.localDate == localDate)&&(identical(other.draw, draw) || other.draw == draw)&&(identical(other.status, status) || other.status == status)&&(identical(other.contentLocale, contentLocale) || other.contentLocale == contentLocale)&&(identical(other.question, question) || other.question == question)&&(identical(other.content, content) || other.content == content)&&(identical(other.promptVersion, promptVersion) || other.promptVersion == promptVersion)&&(identical(other.modelId, modelId) || other.modelId == modelId)&&(identical(other.chargeSource, chargeSource) || other.chargeSource == chargeSource)&&(identical(other.note, note) || other.note == note)&&(identical(other.favourite, favourite) || other.favourite == favourite)&&(identical(other.rating, rating) || other.rating == rating)&&(identical(other.ratingReason, ratingReason) || other.ratingReason == ratingReason)&&(identical(other.deliveryAcked, deliveryAcked) || other.deliveryAcked == deliveryAcked)&&(identical(other.reported, reported) || other.reported == reported));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,localDate,draw,status,contentLocale,question,content,promptVersion,modelId,chargeSource,note,favourite,rating,ratingReason,deliveryAcked,reported);
+int get hashCode {
+    return Object.hash(runtimeType,id,createdAt,updatedAt,localDate,draw,status,contentLocale,question,content,promptVersion,modelId,chargeSource,note,favourite,rating,ratingReason,deliveryAcked,reported);
+}
 
 @override
 String toString() {
-  return 'Reading(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, localDate: $localDate, draw: $draw, status: $status, contentLocale: $contentLocale, question: $question, content: $content, promptVersion: $promptVersion, modelId: $modelId, chargeSource: $chargeSource, note: $note, favourite: $favourite, rating: $rating, ratingReason: $ratingReason, deliveryAcked: $deliveryAcked, reported: $reported)';
+    return 'Reading(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, localDate: $localDate, draw: $draw, status: $status, contentLocale: $contentLocale, question: $question, content: $content, promptVersion: $promptVersion, modelId: $modelId, chargeSource: $chargeSource, note: $note, favourite: $favourite, rating: $rating, ratingReason: $ratingReason, deliveryAcked: $deliveryAcked, reported: $reported)';
 }
 
 

@@ -114,10 +114,7 @@ class AdGapFrame extends SingleChildRenderObjectWidget {
 /// The render object of [AdGapFrame].
 class RenderAdGapFrame extends RenderShiftedBox {
   /// Creates the render object.
-  RenderAdGapFrame({required double gap, required Color color})
-    : _gap = gap,
-      _color = color,
-      super(null);
+  RenderAdGapFrame({required this._gap, required this._color}) : super(null);
 
   double _gap;
   Color _color;

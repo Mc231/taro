@@ -18,18 +18,13 @@ import 'package:taro_core/src/result/result.dart';
 final class ResolveReadingGate {
   /// Creates the use case.
   ResolveReadingGate({
-    required InstallRepository install,
-    required BalanceRepository balance,
-    required RemoteConfigRepository config,
-    required ConsentStore consent,
-    required ConnectivityMonitor connectivity,
-    required Clock clock,
-  }) : _install = install,
-       _balance = balance,
-       _config = config,
-       _consent = consent,
-       _connectivity = connectivity,
-       _clock = clock;
+    required this._install,
+    required this._balance,
+    required this._config,
+    required this._consent,
+    required this._connectivity,
+    required this._clock,
+  });
 
   final InstallRepository _install;
   final BalanceRepository _balance;

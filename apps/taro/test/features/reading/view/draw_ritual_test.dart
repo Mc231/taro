@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/features/reading/controller/draw_state.dart';
 import 'package:taro/features/reading/controller/reading_session.dart';
@@ -12,6 +12,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 /// S08 ritual details (Sprint 16.3): motion, reduced motion, haptics, the
@@ -400,7 +401,7 @@ void main() {
       await open(tester, aiReadyFakes(), ai());
       await startPicking(tester);
       await tapFound(tester, find.text(l10n.drawPickThis));
-      await tester.tap(find.byTooltip(l10n.commonClose));
+      await tester.tap(find.byTaroTooltip(l10n.commonClose));
       await tester.pumpAndSettle();
       expect(find.text(l10n.drawLeaveTitle), findsOneWidget);
       expect(find.text(l10n.drawLeaveBody), findsOneWidget);
@@ -416,7 +417,7 @@ void main() {
       await open(tester, fakes, ai());
       await startPicking(tester);
       await tapFound(tester, find.text(l10n.drawForMe));
-      await tester.tap(find.byTooltip(l10n.commonClose));
+      await tester.tap(find.byTaroTooltip(l10n.commonClose));
       await tester.pumpAndSettle();
       expect(find.text(l10n.drawLeaveBodySaved), findsOneWidget);
       await tester.tap(find.text(l10n.drawLeaveConfirm));

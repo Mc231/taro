@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/disclaimer_footer.dart';
 import 'package:taro/common/duration_text.dart';
 import 'package:taro/common/offline_banner.dart';

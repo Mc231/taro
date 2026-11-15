@@ -38,16 +38,13 @@ final class LocalReminderScheduler implements ReminderScheduler {
   ///
   /// [platform] picks the permission API (default: the running platform).
   LocalReminderScheduler({
-    required Clock clock,
-    required TimezoneProvider timezones,
-    required ReminderCopyResolver copy,
+    required this._clock,
+    required this._timezones,
+    required this._copy,
     required Logger logger,
     FlutterLocalNotificationsPlugin? plugin,
     TargetPlatform? platform,
-  }) : _clock = clock,
-       _timezones = timezones,
-       _copy = copy,
-       _logger = logger.child('reminders'),
+  }) : _logger = logger.child('reminders'),
        _plugin = plugin ?? FlutterLocalNotificationsPlugin(),
        _platform = platform ?? defaultTargetPlatform {
     _taps = StreamController<String>.broadcast(onListen: _flushTaps);

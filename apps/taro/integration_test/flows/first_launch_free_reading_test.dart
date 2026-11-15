@@ -1,5 +1,6 @@
 import 'package:taro/common/disclaimer_footer.dart';
 
+import '../../test/helpers/finders.dart';
 import '../support/flow_harness.dart';
 
 /// F1 + F2 (01 §9.1, §9.2; 06 §4): onboarding → disclaimer → AI consent →
@@ -65,7 +66,7 @@ void main() {
     expect(fakes.readings.acked, [saved.id]);
 
     // Saved to the Journal.
-    await app.tapFinder(find.byTooltip(l.readingDone));
+    await app.tapFinder(find.byTaroTooltip(l.readingDone));
     await app.waitForScreen(ScreenId.s05);
     await app.tapText(l.tabJournal);
     await app.waitForScreen(ScreenId.s14);

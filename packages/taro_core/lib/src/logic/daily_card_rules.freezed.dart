@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'daily_card_rules.dart';
@@ -9,6 +9,7 @@ part of 'daily_card_rules.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $DailyCardPickCopyWith<DailyCardPick> get copyWith => _$DailyCardPickCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardPick&&(identical(other.card, card) || other.card == card)&&(identical(other.isNew, isNew) || other.isNew == isNew));
+  final _this = this as DailyCardPick;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DailyCardPick&&(identical(other.card, _this.card) || other.card == _this.card)&&(identical(other.isNew, _this.isNew) || other.isNew == _this.isNew));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,isNew);
+int get hashCode {
+  final _this = this as DailyCardPick;
+  return Object.hash(runtimeType,_this.card,_this.isNew);
+}
 
 @override
 String toString() {
-  return 'DailyCardPick(card: $card, isNew: $isNew)';
+  final _this = this as DailyCardPick;
+  return 'DailyCardPick(card: ${_this.card}, isNew: ${_this.isNew})';
 }
 
 
@@ -66,7 +72,7 @@ class _$DailyCardPickCopyWithImpl<$Res>
 /// Create a copy of DailyCardPick
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? card = null,Object? isNew = null,}) {
-  return _then(_self.copyWith(
+  return _then(DailyCardPick(
 card: null == card ? _self.card : card // ignore: cast_nullable_to_non_nullable
 as DailyCard,isNew: null == isNew ? _self.isNew : isNew // ignore: cast_nullable_to_non_nullable
 as bool,
@@ -238,16 +244,18 @@ _$DailyCardPickCopyWith<_DailyCardPick> get copyWith => __$DailyCardPickCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardPick&&(identical(other.card, card) || other.card == card)&&(identical(other.isNew, isNew) || other.isNew == isNew));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DailyCardPick&&(identical(other.card, card) || other.card == card)&&(identical(other.isNew, isNew) || other.isNew == isNew));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,card,isNew);
+int get hashCode {
+    return Object.hash(runtimeType,card,isNew);
+}
 
 @override
 String toString() {
-  return 'DailyCardPick(card: $card, isNew: $isNew)';
+    return 'DailyCardPick(card: $card, isNew: $isNew)';
 }
 
 

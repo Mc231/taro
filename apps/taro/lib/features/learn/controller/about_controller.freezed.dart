@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'about_controller.dart';
@@ -9,6 +9,7 @@ part of 'about_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$AboutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AboutState()';
+    return 'AboutState()';
 }
 
 
@@ -191,7 +192,7 @@ class AboutLoading implements AboutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutLoading);
 }
 
 
@@ -200,7 +201,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AboutState.loading()';
+    return 'AboutState.loading()';
 }
 
 
@@ -228,16 +229,18 @@ $AboutContentCopyWith<AboutContent> get copyWith => _$AboutContentCopyWithImpl<A
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutContent&&(identical(other.article, article) || other.article == article));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutContent&&(identical(other.article, article) || other.article == article));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,article);
+int get hashCode {
+    return Object.hash(runtimeType,article);
+}
 
 @override
 String toString() {
-  return 'AboutState.content(article: $article)';
+    return 'AboutState.content(article: $article)';
 }
 
 
@@ -289,7 +292,7 @@ class AboutStorageError implements AboutState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AboutStorageError);
 }
 
 
@@ -298,7 +301,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AboutState.storageError()';
+    return 'AboutState.storageError()';
 }
 
 

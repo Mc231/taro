@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_settings.dart';
@@ -9,6 +9,7 @@ part of 'user_settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $ReminderSettingsCopyWith<ReminderSettings> get copyWith => _$ReminderSettingsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettings&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.time, time) || other.time == time));
+  final _this = this as ReminderSettings;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReminderSettings&&(identical(other.enabled, _this.enabled) || other.enabled == _this.enabled)&&(identical(other.time, _this.time) || other.time == _this.time));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,enabled,time);
+int get hashCode {
+  final _this = this as ReminderSettings;
+  return Object.hash(runtimeType,_this.enabled,_this.time);
+}
 
 @override
 String toString() {
-  return 'ReminderSettings(enabled: $enabled, time: $time)';
+  final _this = this as ReminderSettings;
+  return 'ReminderSettings(enabled: ${_this.enabled}, time: ${_this.time})';
 }
 
 
@@ -65,7 +71,7 @@ class _$ReminderSettingsCopyWithImpl<$Res>
 /// Create a copy of ReminderSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? enabled = null,Object? time = null,}) {
-  return _then(_self.copyWith(
+  return _then(ReminderSettings(
 enabled: null == enabled ? _self.enabled : enabled // ignore: cast_nullable_to_non_nullable
 as bool,time: null == time ? _self.time : time // ignore: cast_nullable_to_non_nullable
 as String,
@@ -227,16 +233,18 @@ _$ReminderSettingsCopyWith<_ReminderSettings> get copyWith => __$ReminderSetting
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReminderSettings&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.time, time) || other.time == time));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReminderSettings&&(identical(other.enabled, enabled) || other.enabled == enabled)&&(identical(other.time, time) || other.time == time));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,enabled,time);
+int get hashCode {
+    return Object.hash(runtimeType,enabled,time);
+}
 
 @override
 String toString() {
-  return 'ReminderSettings(enabled: $enabled, time: $time)';
+    return 'ReminderSettings(enabled: $enabled, time: $time)';
 }
 
 
@@ -295,16 +303,21 @@ $UserSettingsCopyWith<UserSettings> get copyWith => _$UserSettingsCopyWithImpl<U
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserSettings&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&(identical(other.reversalsEnabled, reversalsEnabled) || other.reversalsEnabled == reversalsEnabled)&&(identical(other.hapticsEnabled, hapticsEnabled) || other.hapticsEnabled == hapticsEnabled)&&(identical(other.reminder, reminder) || other.reminder == reminder)&&(identical(other.reduceMotion, reduceMotion) || other.reduceMotion == reduceMotion));
+  final _this = this as UserSettings;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserSettings&&(identical(other.themeMode, _this.themeMode) || other.themeMode == _this.themeMode)&&(identical(other.localeOverride, _this.localeOverride) || other.localeOverride == _this.localeOverride)&&(identical(other.reversalsEnabled, _this.reversalsEnabled) || other.reversalsEnabled == _this.reversalsEnabled)&&(identical(other.hapticsEnabled, _this.hapticsEnabled) || other.hapticsEnabled == _this.hapticsEnabled)&&(identical(other.reminder, _this.reminder) || other.reminder == _this.reminder)&&(identical(other.reduceMotion, _this.reduceMotion) || other.reduceMotion == _this.reduceMotion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,themeMode,localeOverride,reversalsEnabled,hapticsEnabled,reminder,reduceMotion);
+int get hashCode {
+  final _this = this as UserSettings;
+  return Object.hash(runtimeType,_this.themeMode,_this.localeOverride,_this.reversalsEnabled,_this.hapticsEnabled,_this.reminder,_this.reduceMotion);
+}
 
 @override
 String toString() {
-  return 'UserSettings(themeMode: $themeMode, localeOverride: $localeOverride, reversalsEnabled: $reversalsEnabled, hapticsEnabled: $hapticsEnabled, reminder: $reminder, reduceMotion: $reduceMotion)';
+  final _this = this as UserSettings;
+  return 'UserSettings(themeMode: ${_this.themeMode}, localeOverride: ${_this.localeOverride}, reversalsEnabled: ${_this.reversalsEnabled}, hapticsEnabled: ${_this.hapticsEnabled}, reminder: ${_this.reminder}, reduceMotion: ${_this.reduceMotion})';
 }
 
 
@@ -333,7 +346,7 @@ class _$UserSettingsCopyWithImpl<$Res>
 /// Create a copy of UserSettings
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? themeMode = null,Object? localeOverride = freezed,Object? reversalsEnabled = null,Object? hapticsEnabled = null,Object? reminder = null,Object? reduceMotion = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(UserSettings(
 themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
 as ThemeMode,localeOverride: freezed == localeOverride ? _self.localeOverride : localeOverride // ignore: cast_nullable_to_non_nullable
 as String?,reversalsEnabled: null == reversalsEnabled ? _self.reversalsEnabled : reversalsEnabled // ignore: cast_nullable_to_non_nullable
@@ -516,16 +529,18 @@ _$UserSettingsCopyWith<_UserSettings> get copyWith => __$UserSettingsCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserSettings&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&(identical(other.reversalsEnabled, reversalsEnabled) || other.reversalsEnabled == reversalsEnabled)&&(identical(other.hapticsEnabled, hapticsEnabled) || other.hapticsEnabled == hapticsEnabled)&&(identical(other.reminder, reminder) || other.reminder == reminder)&&(identical(other.reduceMotion, reduceMotion) || other.reduceMotion == reduceMotion));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserSettings&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.localeOverride, localeOverride) || other.localeOverride == localeOverride)&&(identical(other.reversalsEnabled, reversalsEnabled) || other.reversalsEnabled == reversalsEnabled)&&(identical(other.hapticsEnabled, hapticsEnabled) || other.hapticsEnabled == hapticsEnabled)&&(identical(other.reminder, reminder) || other.reminder == reminder)&&(identical(other.reduceMotion, reduceMotion) || other.reduceMotion == reduceMotion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,themeMode,localeOverride,reversalsEnabled,hapticsEnabled,reminder,reduceMotion);
+int get hashCode {
+    return Object.hash(runtimeType,themeMode,localeOverride,reversalsEnabled,hapticsEnabled,reminder,reduceMotion);
+}
 
 @override
 String toString() {
-  return 'UserSettings(themeMode: $themeMode, localeOverride: $localeOverride, reversalsEnabled: $reversalsEnabled, hapticsEnabled: $hapticsEnabled, reminder: $reminder, reduceMotion: $reduceMotion)';
+    return 'UserSettings(themeMode: $themeMode, localeOverride: $localeOverride, reversalsEnabled: $reversalsEnabled, hapticsEnabled: $hapticsEnabled, reminder: $reminder, reduceMotion: $reduceMotion)';
 }
 
 

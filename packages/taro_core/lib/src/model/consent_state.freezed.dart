@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'consent_state.dart';
@@ -9,6 +9,7 @@ part of 'consent_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $AdsConsentCopyWith<AdsConsent> get copyWith => _$AdsConsentCopyWithImpl<AdsCons
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdsConsent&&(identical(other.status, status) || other.status == status)&&(identical(other.canRequestAds, canRequestAds) || other.canRequestAds == canRequestAds)&&(identical(other.privacyOptionsRequired, privacyOptionsRequired) || other.privacyOptionsRequired == privacyOptionsRequired));
+  final _this = this as AdsConsent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdsConsent&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.canRequestAds, _this.canRequestAds) || other.canRequestAds == _this.canRequestAds)&&(identical(other.privacyOptionsRequired, _this.privacyOptionsRequired) || other.privacyOptionsRequired == _this.privacyOptionsRequired));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,canRequestAds,privacyOptionsRequired);
+int get hashCode {
+  final _this = this as AdsConsent;
+  return Object.hash(runtimeType,_this.status,_this.canRequestAds,_this.privacyOptionsRequired);
+}
 
 @override
 String toString() {
-  return 'AdsConsent(status: $status, canRequestAds: $canRequestAds, privacyOptionsRequired: $privacyOptionsRequired)';
+  final _this = this as AdsConsent;
+  return 'AdsConsent(status: ${_this.status}, canRequestAds: ${_this.canRequestAds}, privacyOptionsRequired: ${_this.privacyOptionsRequired})';
 }
 
 
@@ -66,7 +72,7 @@ class _$AdsConsentCopyWithImpl<$Res>
 /// Create a copy of AdsConsent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? canRequestAds = null,Object? privacyOptionsRequired = null,}) {
-  return _then(_self.copyWith(
+  return _then(AdsConsent(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as AdsConsentStatus,canRequestAds: null == canRequestAds ? _self.canRequestAds : canRequestAds // ignore: cast_nullable_to_non_nullable
 as bool,privacyOptionsRequired: null == privacyOptionsRequired ? _self.privacyOptionsRequired : privacyOptionsRequired // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$AdsConsentCopyWith<_AdsConsent> get copyWith => __$AdsConsentCopyWithImpl<_Ads
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdsConsent&&(identical(other.status, status) || other.status == status)&&(identical(other.canRequestAds, canRequestAds) || other.canRequestAds == canRequestAds)&&(identical(other.privacyOptionsRequired, privacyOptionsRequired) || other.privacyOptionsRequired == privacyOptionsRequired));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdsConsent&&(identical(other.status, status) || other.status == status)&&(identical(other.canRequestAds, canRequestAds) || other.canRequestAds == canRequestAds)&&(identical(other.privacyOptionsRequired, privacyOptionsRequired) || other.privacyOptionsRequired == privacyOptionsRequired));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,canRequestAds,privacyOptionsRequired);
+int get hashCode {
+    return Object.hash(runtimeType,status,canRequestAds,privacyOptionsRequired);
+}
 
 @override
 String toString() {
-  return 'AdsConsent(status: $status, canRequestAds: $canRequestAds, privacyOptionsRequired: $privacyOptionsRequired)';
+    return 'AdsConsent(status: $status, canRequestAds: $canRequestAds, privacyOptionsRequired: $privacyOptionsRequired)';
 }
 
 
@@ -297,16 +305,21 @@ $AiConsentCopyWith<AiConsent> get copyWith => _$AiConsentCopyWithImpl<AiConsent>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsent&&(identical(other.decision, decision) || other.decision == decision)&&(identical(other.version, version) || other.version == version)&&(identical(other.at, at) || other.at == at));
+  final _this = this as AiConsent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsent&&(identical(other.decision, _this.decision) || other.decision == _this.decision)&&(identical(other.version, _this.version) || other.version == _this.version)&&(identical(other.at, _this.at) || other.at == _this.at));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,decision,version,at);
+int get hashCode {
+  final _this = this as AiConsent;
+  return Object.hash(runtimeType,_this.decision,_this.version,_this.at);
+}
 
 @override
 String toString() {
-  return 'AiConsent(decision: $decision, version: $version, at: $at)';
+  final _this = this as AiConsent;
+  return 'AiConsent(decision: ${_this.decision}, version: ${_this.version}, at: ${_this.at})';
 }
 
 
@@ -335,7 +348,7 @@ class _$AiConsentCopyWithImpl<$Res>
 /// Create a copy of AiConsent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? decision = null,Object? version = freezed,Object? at = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(AiConsent(
 decision: null == decision ? _self.decision : decision // ignore: cast_nullable_to_non_nullable
 as AiConsentDecision,version: freezed == version ? _self.version : version // ignore: cast_nullable_to_non_nullable
 as int?,at: freezed == at ? _self.at : at // ignore: cast_nullable_to_non_nullable
@@ -500,16 +513,18 @@ _$AiConsentCopyWith<_AiConsent> get copyWith => __$AiConsentCopyWithImpl<_AiCons
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiConsent&&(identical(other.decision, decision) || other.decision == decision)&&(identical(other.version, version) || other.version == version)&&(identical(other.at, at) || other.at == at));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AiConsent&&(identical(other.decision, decision) || other.decision == decision)&&(identical(other.version, version) || other.version == version)&&(identical(other.at, at) || other.at == at));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,decision,version,at);
+int get hashCode {
+    return Object.hash(runtimeType,decision,version,at);
+}
 
 @override
 String toString() {
-  return 'AiConsent(decision: $decision, version: $version, at: $at)';
+    return 'AiConsent(decision: $decision, version: $version, at: $at)';
 }
 
 
@@ -568,16 +583,21 @@ $ConsentStateCopyWith<ConsentState> get copyWith => _$ConsentStateCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConsentState&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
+  final _this = this as ConsentState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConsentState&&(identical(other.ads, _this.ads) || other.ads == _this.ads)&&(identical(other.tracking, _this.tracking) || other.tracking == _this.tracking)&&(identical(other.ai, _this.ai) || other.ai == _this.ai)&&(identical(other.analyticsEnabled, _this.analyticsEnabled) || other.analyticsEnabled == _this.analyticsEnabled)&&(identical(other.onboardingStep, _this.onboardingStep) || other.onboardingStep == _this.onboardingStep));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ads,tracking,ai,analyticsEnabled,onboardingStep);
+int get hashCode {
+  final _this = this as ConsentState;
+  return Object.hash(runtimeType,_this.ads,_this.tracking,_this.ai,_this.analyticsEnabled,_this.onboardingStep);
+}
 
 @override
 String toString() {
-  return 'ConsentState(ads: $ads, tracking: $tracking, ai: $ai, analyticsEnabled: $analyticsEnabled, onboardingStep: $onboardingStep)';
+  final _this = this as ConsentState;
+  return 'ConsentState(ads: ${_this.ads}, tracking: ${_this.tracking}, ai: ${_this.ai}, analyticsEnabled: ${_this.analyticsEnabled}, onboardingStep: ${_this.onboardingStep})';
 }
 
 
@@ -606,7 +626,7 @@ class _$ConsentStateCopyWithImpl<$Res>
 /// Create a copy of ConsentState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? ads = null,Object? tracking = null,Object? ai = null,Object? analyticsEnabled = null,Object? onboardingStep = null,}) {
-  return _then(_self.copyWith(
+  return _then(ConsentState(
 ads: null == ads ? _self.ads : ads // ignore: cast_nullable_to_non_nullable
 as AdsConsent,tracking: null == tracking ? _self.tracking : tracking // ignore: cast_nullable_to_non_nullable
 as TrackingStatus,ai: null == ai ? _self.ai : ai // ignore: cast_nullable_to_non_nullable
@@ -795,16 +815,18 @@ _$ConsentStateCopyWith<_ConsentState> get copyWith => __$ConsentStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConsentState&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ConsentState&&(identical(other.ads, ads) || other.ads == ads)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.ai, ai) || other.ai == ai)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,ads,tracking,ai,analyticsEnabled,onboardingStep);
+int get hashCode {
+    return Object.hash(runtimeType,ads,tracking,ai,analyticsEnabled,onboardingStep);
+}
 
 @override
 String toString() {
-  return 'ConsentState(ads: $ads, tracking: $tracking, ai: $ai, analyticsEnabled: $analyticsEnabled, onboardingStep: $onboardingStep)';
+    return 'ConsentState(ads: $ads, tracking: $tracking, ai: $ai, analyticsEnabled: $analyticsEnabled, onboardingStep: $onboardingStep)';
 }
 
 

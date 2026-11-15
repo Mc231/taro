@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'settings_controller.dart';
@@ -9,6 +9,7 @@ part of 'settings_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$SettingsRestore {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestore);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestore);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsRestore()';
+    return 'SettingsRestore()';
 }
 
 
@@ -197,7 +198,7 @@ class SettingsRestoreIdle implements SettingsRestore {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreIdle);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreIdle);
 }
 
 
@@ -206,7 +207,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsRestore.idle()';
+    return 'SettingsRestore.idle()';
 }
 
 
@@ -229,7 +230,7 @@ class SettingsRestoreInProgress implements SettingsRestore {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreInProgress);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreInProgress);
 }
 
 
@@ -238,7 +239,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsRestore.inProgress()';
+    return 'SettingsRestore.inProgress()';
 }
 
 
@@ -266,16 +267,18 @@ $SettingsRestoreSuccessCopyWith<SettingsRestoreSuccess> get copyWith => _$Settin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreSuccess&&(identical(other.finding, finding) || other.finding == finding));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreSuccess&&(identical(other.finding, finding) || other.finding == finding));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,finding);
+int get hashCode {
+    return Object.hash(runtimeType,finding);
+}
 
 @override
 String toString() {
-  return 'SettingsRestore.success(finding: $finding)';
+    return 'SettingsRestore.success(finding: $finding)';
 }
 
 
@@ -327,7 +330,7 @@ class SettingsRestoreFailed implements SettingsRestore {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreFailed);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsRestoreFailed);
 }
 
 
@@ -336,7 +339,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsRestore.failed()';
+    return 'SettingsRestore.failed()';
 }
 
 
@@ -354,7 +357,7 @@ mixin _$SettingsTransfer {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransfer);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransfer);
 }
 
 
@@ -363,7 +366,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsTransfer()';
+    return 'SettingsTransfer()';
 }
 
 
@@ -543,7 +546,7 @@ class SettingsTransferIdle implements SettingsTransfer {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferIdle);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferIdle);
 }
 
 
@@ -552,7 +555,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsTransfer.idle()';
+    return 'SettingsTransfer.idle()';
 }
 
 
@@ -575,7 +578,7 @@ class SettingsTransferChecking implements SettingsTransfer {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferChecking);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferChecking);
 }
 
 
@@ -584,7 +587,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsTransfer.checking()';
+    return 'SettingsTransfer.checking()';
 }
 
 
@@ -612,16 +615,18 @@ $SettingsTransferCodeCopyWith<SettingsTransferCode> get copyWith => _$SettingsTr
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferCode&&(identical(other.transferCode, transferCode) || other.transferCode == transferCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferCode&&(identical(other.transferCode, transferCode) || other.transferCode == transferCode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,transferCode);
+int get hashCode {
+    return Object.hash(runtimeType,transferCode);
+}
 
 @override
 String toString() {
-  return 'SettingsTransfer.code(transferCode: $transferCode)';
+    return 'SettingsTransfer.code(transferCode: $transferCode)';
 }
 
 
@@ -673,7 +678,7 @@ class SettingsTransferNotEligible implements SettingsTransfer {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferNotEligible);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferNotEligible);
 }
 
 
@@ -682,7 +687,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsTransfer.notEligible()';
+    return 'SettingsTransfer.notEligible()';
 }
 
 
@@ -705,7 +710,7 @@ class SettingsTransferNothing implements SettingsTransfer {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferNothing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferNothing);
 }
 
 
@@ -714,7 +719,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SettingsTransfer.nothingFound()';
+    return 'SettingsTransfer.nothingFound()';
 }
 
 
@@ -742,16 +747,18 @@ $SettingsTransferFailedCopyWith<SettingsTransferFailed> get copyWith => _$Settin
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsTransferFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'SettingsTransfer.failed(kind: $kind)';
+    return 'SettingsTransfer.failed(kind: $kind)';
 }
 
 
@@ -809,16 +816,21 @@ $SettingsViewCopyWith<SettingsView> get copyWith => _$SettingsViewCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsView&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.removeAdsOffered, removeAdsOffered) || other.removeAdsOffered == removeAdsOffered)&&(identical(other.aiConsentGranted, aiConsentGranted) || other.aiConsentGranted == aiConsentGranted)&&(identical(other.support, support) || other.support == support));
+  final _this = this as SettingsView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsView&&(identical(other.settings, _this.settings) || other.settings == _this.settings)&&(identical(other.balance, _this.balance) || other.balance == _this.balance)&&(identical(other.adsRemoved, _this.adsRemoved) || other.adsRemoved == _this.adsRemoved)&&(identical(other.removeAdsOffered, _this.removeAdsOffered) || other.removeAdsOffered == _this.removeAdsOffered)&&(identical(other.aiConsentGranted, _this.aiConsentGranted) || other.aiConsentGranted == _this.aiConsentGranted)&&(identical(other.support, _this.support) || other.support == _this.support));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,balance,adsRemoved,removeAdsOffered,aiConsentGranted,support);
+int get hashCode {
+  final _this = this as SettingsView;
+  return Object.hash(runtimeType,_this.settings,_this.balance,_this.adsRemoved,_this.removeAdsOffered,_this.aiConsentGranted,_this.support);
+}
 
 @override
 String toString() {
-  return 'SettingsView(settings: $settings, balance: $balance, adsRemoved: $adsRemoved, removeAdsOffered: $removeAdsOffered, aiConsentGranted: $aiConsentGranted, support: $support)';
+  final _this = this as SettingsView;
+  return 'SettingsView(settings: ${_this.settings}, balance: ${_this.balance}, adsRemoved: ${_this.adsRemoved}, removeAdsOffered: ${_this.removeAdsOffered}, aiConsentGranted: ${_this.aiConsentGranted}, support: ${_this.support})';
 }
 
 
@@ -847,7 +859,7 @@ class _$SettingsViewCopyWithImpl<$Res>
 /// Create a copy of SettingsView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? settings = null,Object? balance = freezed,Object? adsRemoved = null,Object? removeAdsOffered = null,Object? aiConsentGranted = null,Object? support = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(SettingsView(
 settings: null == settings ? _self.settings : settings // ignore: cast_nullable_to_non_nullable
 as UserSettings,balance: freezed == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as CreditBalance?,adsRemoved: null == adsRemoved ? _self.adsRemoved : adsRemoved // ignore: cast_nullable_to_non_nullable
@@ -1042,16 +1054,18 @@ _$SettingsViewCopyWith<_SettingsView> get copyWith => __$SettingsViewCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsView&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.removeAdsOffered, removeAdsOffered) || other.removeAdsOffered == removeAdsOffered)&&(identical(other.aiConsentGranted, aiConsentGranted) || other.aiConsentGranted == aiConsentGranted)&&(identical(other.support, support) || other.support == support));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _SettingsView&&(identical(other.settings, settings) || other.settings == settings)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.adsRemoved, adsRemoved) || other.adsRemoved == adsRemoved)&&(identical(other.removeAdsOffered, removeAdsOffered) || other.removeAdsOffered == removeAdsOffered)&&(identical(other.aiConsentGranted, aiConsentGranted) || other.aiConsentGranted == aiConsentGranted)&&(identical(other.support, support) || other.support == support));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,settings,balance,adsRemoved,removeAdsOffered,aiConsentGranted,support);
+int get hashCode {
+    return Object.hash(runtimeType,settings,balance,adsRemoved,removeAdsOffered,aiConsentGranted,support);
+}
 
 @override
 String toString() {
-  return 'SettingsView(settings: $settings, balance: $balance, adsRemoved: $adsRemoved, removeAdsOffered: $removeAdsOffered, aiConsentGranted: $aiConsentGranted, support: $support)';
+    return 'SettingsView(settings: $settings, balance: $balance, adsRemoved: $adsRemoved, removeAdsOffered: $removeAdsOffered, aiConsentGranted: $aiConsentGranted, support: $support)';
 }
 
 
@@ -1129,16 +1143,21 @@ $SettingsScreenStateCopyWith<SettingsScreenState> get copyWith => _$SettingsScre
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsScreenState&&(identical(other.view, view) || other.view == view)&&(identical(other.restore, restore) || other.restore == restore)&&(identical(other.transfer, transfer) || other.transfer == transfer));
+  final _this = this as SettingsScreenState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsScreenState&&(identical(other.view, _this.view) || other.view == _this.view)&&(identical(other.restore, _this.restore) || other.restore == _this.restore)&&(identical(other.transfer, _this.transfer) || other.transfer == _this.transfer));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,restore,transfer);
+int get hashCode {
+  final _this = this as SettingsScreenState;
+  return Object.hash(runtimeType,_this.view,_this.restore,_this.transfer);
+}
 
 @override
 String toString() {
-  return 'SettingsScreenState(view: $view, restore: $restore, transfer: $transfer)';
+  final _this = this as SettingsScreenState;
+  return 'SettingsScreenState(view: ${_this.view}, restore: ${_this.restore}, transfer: ${_this.transfer})';
 }
 
 
@@ -1167,7 +1186,7 @@ class _$SettingsScreenStateCopyWithImpl<$Res>
 /// Create a copy of SettingsScreenState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? view = null,Object? restore = null,Object? transfer = null,}) {
-  return _then(_self.copyWith(
+  return _then(SettingsScreenState.content(
 view: null == view ? _self.view : view // ignore: cast_nullable_to_non_nullable
 as SettingsView,restore: null == restore ? _self.restore : restore // ignore: cast_nullable_to_non_nullable
 as SettingsRestore,transfer: null == transfer ? _self.transfer : transfer // ignore: cast_nullable_to_non_nullable
@@ -1350,16 +1369,18 @@ $SettingsContentCopyWith<SettingsContent> get copyWith => _$SettingsContentCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsContent&&(identical(other.view, view) || other.view == view)&&(identical(other.restore, restore) || other.restore == restore)&&(identical(other.transfer, transfer) || other.transfer == transfer));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsContent&&(identical(other.view, view) || other.view == view)&&(identical(other.restore, restore) || other.restore == restore)&&(identical(other.transfer, transfer) || other.transfer == transfer));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,restore,transfer);
+int get hashCode {
+    return Object.hash(runtimeType,view,restore,transfer);
+}
 
 @override
 String toString() {
-  return 'SettingsScreenState.content(view: $view, restore: $restore, transfer: $transfer)';
+    return 'SettingsScreenState.content(view: $view, restore: $restore, transfer: $transfer)';
 }
 
 

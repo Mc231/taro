@@ -1,7 +1,6 @@
-import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/actions/taro_button.dart';
 import 'package:taro_ui/src/motion/taro_motion.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
@@ -276,13 +275,11 @@ class _TaroCoachmarkLayerState extends State<TaroCoachmarkLayer> {
       final outside = rect.top < 0 || rect.bottom > layer.size.height;
       if (outside && !_scrolledIntoView) {
         _scrolledIntoView = true;
-        unawaited(
-          Scrollable.ensureVisible(
-            targetContext!,
-            alignmentPolicy: rect.top < 0
-                ? ScrollPositionAlignmentPolicy.keepVisibleAtStart
-                : ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
-          ),
+        Scrollable.ensureVisible(
+          targetContext!,
+          alignmentPolicy: rect.top < 0
+              ? ScrollPositionAlignmentPolicy.keepVisibleAtStart
+              : ScrollPositionAlignmentPolicy.keepVisibleAtEnd,
         );
         WidgetsBinding.instance.addPostFrameCallback((_) => _measure());
         setState(() {});

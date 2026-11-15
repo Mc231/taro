@@ -3,12 +3,12 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show OffsetLayer;
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:patrol_finders/patrol_finders.dart';
 import 'package:taro/bootstrap/bootstrap.dart';
 import 'package:taro/bootstrap/build_defines.dart';
@@ -22,6 +22,7 @@ import 'package:taro/routing/router.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../test/helpers/finders.dart';
 import '../support/staging_gate.dart';
 
 /// QA round 2, iOS exploratory pass against the staging Worker (one
@@ -356,7 +357,7 @@ void main() {
       await tapText(l.entryFullReading);
       await wait(ScreenId.s09);
       await shot('E1c_S09_from_S15');
-      await tap(find.byTooltip(l.readingDone));
+      await tap(find.byTaroTooltip(l.readingDone));
       await wait(ScreenId.s15, s: 10);
       expect(on(ScreenId.s09), isFalse);
       _log('S09 Done -> ${curLoc()}');
@@ -416,7 +417,7 @@ void main() {
         await t.pump(const Duration(milliseconds: 300));
       }
       await shot('E2_result_uk_bottom');
-      await tap(find.byTooltip(l.readingDone));
+      await tap(find.byTaroTooltip(l.readingDone));
       await wait(ScreenId.s05);
     });
 

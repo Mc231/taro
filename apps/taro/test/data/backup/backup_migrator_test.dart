@@ -72,9 +72,9 @@ final class _Stuck implements BackupMigration {
 
 /// The golden fixture rewritten in the synthetic v0 layout.
 Map<String, Object?> _v0Fixture() {
-  final v1 =
-      jsonDecode(File(kAppFixturePath).readAsStringSync())
-          as Map<String, Object?>;
+  final v1 = jsonDecode(
+    File(kAppFixturePath).readAsStringSync(),
+  ) as Map<String, Object?>;
   final data = v1['data']! as Map<String, Object?>;
   Map<String, Object?> old(Object? entry) {
     final map = Map<String, Object?>.of(entry! as Map<String, Object?>);

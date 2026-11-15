@@ -1060,8 +1060,7 @@ class PurchaseOutboxTable extends Table
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints:
-        'NOT NULL CHECK (status IN (\'awaitingVerification\', \'granted\', \'finished\', \'rejected\'))',
+    $customConstraints: 'NOT NULL CHECK (status IN (\'awaitingVerification\', \'granted\', \'finished\', \'rejected\'))',
   );
   static const VerificationMeta _attemptsMeta = const VerificationMeta(
     'attempts',
@@ -2466,22 +2465,20 @@ abstract class _$DeviceDatabase extends GeneratedDatabase {
   ];
 }
 
-typedef $BalanceCacheCreateCompanionBuilder =
-    BalanceCacheCompanion Function({
-      Value<int> id,
-      required String json,
-      required int ledgerVersion,
-      required DateTime serverTime,
-      required DateTime syncedAt,
-    });
-typedef $BalanceCacheUpdateCompanionBuilder =
-    BalanceCacheCompanion Function({
-      Value<int> id,
-      Value<String> json,
-      Value<int> ledgerVersion,
-      Value<DateTime> serverTime,
-      Value<DateTime> syncedAt,
-    });
+typedef $BalanceCacheCreateCompanionBuilder = BalanceCacheCompanion Function({
+  Value<int> id,
+  required String json,
+  required int ledgerVersion,
+  required DateTime serverTime,
+  required DateTime syncedAt,
+});
+typedef $BalanceCacheUpdateCompanionBuilder = BalanceCacheCompanion Function({
+  Value<int> id,
+  Value<String> json,
+  Value<int> ledgerVersion,
+  Value<DateTime> serverTime,
+  Value<DateTime> syncedAt,
+});
 
 class $BalanceCacheFilterComposer
     extends Composer<_$DeviceDatabase, BalanceCache> {
@@ -2643,7 +2640,16 @@ class $BalanceCacheTableManager
                 syncedAt: syncedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<BalanceCache, BalanceCacheRow>(table),
+                  BaseReferences<
+                    _$DeviceDatabase,
+                    BalanceCache,
+                    BalanceCacheRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -2823,7 +2829,16 @@ class $RemoteConfigCacheTableManager
                 fetchedAt: fetchedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<RemoteConfigCache, RemoteConfigCacheRow>(table),
+                  BaseReferences<
+                    _$DeviceDatabase,
+                    RemoteConfigCache,
+                    RemoteConfigCacheRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -2851,22 +2866,20 @@ typedef $RemoteConfigCacheProcessedTableManager =
       RemoteConfigCacheRow,
       PrefetchHooks Function()
     >;
-typedef $EntitlementsCreateCompanionBuilder =
-    EntitlementsCompanion Function({
-      required String key,
-      required String state,
-      required String source,
-      Value<DateTime?> verifiedAt,
-      Value<int> rowid,
-    });
-typedef $EntitlementsUpdateCompanionBuilder =
-    EntitlementsCompanion Function({
-      Value<String> key,
-      Value<String> state,
-      Value<String> source,
-      Value<DateTime?> verifiedAt,
-      Value<int> rowid,
-    });
+typedef $EntitlementsCreateCompanionBuilder = EntitlementsCompanion Function({
+  required String key,
+  required String state,
+  required String source,
+  Value<DateTime?> verifiedAt,
+  Value<int> rowid,
+});
+typedef $EntitlementsUpdateCompanionBuilder = EntitlementsCompanion Function({
+  Value<String> key,
+  Value<String> state,
+  Value<String> source,
+  Value<DateTime?> verifiedAt,
+  Value<int> rowid,
+});
 
 class $EntitlementsFilterComposer
     extends Composer<_$DeviceDatabase, Entitlements> {
@@ -3012,7 +3025,16 @@ class $EntitlementsTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<Entitlements, EntitlementRow>(table),
+                  BaseReferences<
+                    _$DeviceDatabase,
+                    Entitlements,
+                    EntitlementRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3359,7 +3381,16 @@ class $PurchaseOutboxTableTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<PurchaseOutboxTable, PurchaseOutboxRow>(table),
+                  BaseReferences<
+                    _$DeviceDatabase,
+                    PurchaseOutboxTable,
+                    PurchaseOutboxRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3387,18 +3418,16 @@ typedef $PurchaseOutboxTableProcessedTableManager =
       PurchaseOutboxRow,
       PrefetchHooks Function()
     >;
-typedef $ConsentStatesCreateCompanionBuilder =
-    ConsentStatesCompanion Function({
-      Value<int> id,
-      required String json,
-      required DateTime updatedAt,
-    });
-typedef $ConsentStatesUpdateCompanionBuilder =
-    ConsentStatesCompanion Function({
-      Value<int> id,
-      Value<String> json,
-      Value<DateTime> updatedAt,
-    });
+typedef $ConsentStatesCreateCompanionBuilder = ConsentStatesCompanion Function({
+  Value<int> id,
+  required String json,
+  required DateTime updatedAt,
+});
+typedef $ConsentStatesUpdateCompanionBuilder = ConsentStatesCompanion Function({
+  Value<int> id,
+  Value<String> json,
+  Value<DateTime> updatedAt,
+});
 
 class $ConsentStatesFilterComposer
     extends Composer<_$DeviceDatabase, ConsentStates> {
@@ -3520,7 +3549,16 @@ class $ConsentStatesTableManager
                 updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<ConsentStates, ConsentStateRow>(table),
+                  BaseReferences<
+                    _$DeviceDatabase,
+                    ConsentStates,
+                    ConsentStateRow
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3544,18 +3582,16 @@ typedef $ConsentStatesProcessedTableManager =
       ConsentStateRow,
       PrefetchHooks Function()
     >;
-typedef $SyncStateCreateCompanionBuilder =
-    SyncStateCompanion Function({
-      required String key,
-      required String value,
-      Value<int> rowid,
-    });
-typedef $SyncStateUpdateCompanionBuilder =
-    SyncStateCompanion Function({
-      Value<String> key,
-      Value<String> value,
-      Value<int> rowid,
-    });
+typedef $SyncStateCreateCompanionBuilder = SyncStateCompanion Function({
+  required String key,
+  required String value,
+  Value<int> rowid,
+});
+typedef $SyncStateUpdateCompanionBuilder = SyncStateCompanion Function({
+  Value<String> key,
+  Value<String> value,
+  Value<int> rowid,
+});
 
 class $SyncStateFilterComposer extends Composer<_$DeviceDatabase, SyncState> {
   $SyncStateFilterComposer({
@@ -3640,24 +3676,27 @@ class $SyncStateTableManager
               $SyncStateOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $SyncStateAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> key = const Value.absent(),
-                Value<String> value = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => SyncStateCompanion(key: key, value: value, rowid: rowid),
-          createCompanionCallback:
-              ({
-                required String key,
-                required String value,
-                Value<int> rowid = const Value.absent(),
-              }) => SyncStateCompanion.insert(
-                key: key,
-                value: value,
-                rowid: rowid,
-              ),
+          updateCompanionCallback: ({
+            Value<String> key = const Value.absent(),
+            Value<String> value = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => SyncStateCompanion(key: key, value: value, rowid: rowid),
+          createCompanionCallback: ({
+            required String key,
+            required String value,
+            Value<int> rowid = const Value.absent(),
+          }) => SyncStateCompanion.insert(key: key, value: value, rowid: rowid),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<SyncState, SyncStateRow>(table),
+                  BaseReferences<_$DeviceDatabase, SyncState, SyncStateRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -3678,20 +3717,18 @@ typedef $SyncStateProcessedTableManager =
       SyncStateRow,
       PrefetchHooks Function()
     >;
-typedef $PendingAcksCreateCompanionBuilder =
-    PendingAcksCompanion Function({
-      required String readingId,
-      Value<int> attempts,
-      required DateTime createdAt,
-      Value<int> rowid,
-    });
-typedef $PendingAcksUpdateCompanionBuilder =
-    PendingAcksCompanion Function({
-      Value<String> readingId,
-      Value<int> attempts,
-      Value<DateTime> createdAt,
-      Value<int> rowid,
-    });
+typedef $PendingAcksCreateCompanionBuilder = PendingAcksCompanion Function({
+  required String readingId,
+  Value<int> attempts,
+  required DateTime createdAt,
+  Value<int> rowid,
+});
+typedef $PendingAcksUpdateCompanionBuilder = PendingAcksCompanion Function({
+  Value<String> readingId,
+  Value<int> attempts,
+  Value<DateTime> createdAt,
+  Value<int> rowid,
+});
 
 class $PendingAcksFilterComposer
     extends Composer<_$DeviceDatabase, PendingAcks> {
@@ -3817,7 +3854,16 @@ class $PendingAcksTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<PendingAcks, PendingAckRow>(table),
+                  BaseReferences<_$DeviceDatabase, PendingAcks, PendingAckRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

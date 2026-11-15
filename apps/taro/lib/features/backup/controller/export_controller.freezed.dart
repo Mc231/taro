@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'export_controller.dart';
@@ -9,6 +9,7 @@ part of 'export_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$ExportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportState);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ExportState()';
+    return 'ExportState()';
 }
 
 
@@ -203,7 +204,7 @@ class ExportIdle implements ExportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportIdle);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportIdle);
 }
 
 
@@ -212,7 +213,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ExportState.idle()';
+    return 'ExportState.idle()';
 }
 
 
@@ -235,7 +236,7 @@ class ExportPreparing implements ExportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPreparing);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportPreparing);
 }
 
 
@@ -244,7 +245,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ExportState.preparing()';
+    return 'ExportState.preparing()';
 }
 
 
@@ -267,7 +268,7 @@ class ExportShareSheetOpen implements ExportState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportShareSheetOpen);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportShareSheetOpen);
 }
 
 
@@ -276,7 +277,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'ExportState.shareSheetOpen()';
+    return 'ExportState.shareSheetOpen()';
 }
 
 
@@ -304,16 +305,18 @@ $ExportDoneCopyWith<ExportDone> get copyWith => _$ExportDoneCopyWithImpl<ExportD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportDone&&(identical(other.entries, entries) || other.entries == entries));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportDone&&(identical(other.entries, entries) || other.entries == entries));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,entries);
+int get hashCode {
+    return Object.hash(runtimeType,entries);
+}
 
 @override
 String toString() {
-  return 'ExportState.done(entries: $entries)';
+    return 'ExportState.done(entries: $entries)';
 }
 
 
@@ -370,16 +373,18 @@ $ExportFailedCopyWith<ExportFailed> get copyWith => _$ExportFailedCopyWithImpl<E
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'ExportState.failed(kind: $kind)';
+    return 'ExportState.failed(kind: $kind)';
 }
 
 

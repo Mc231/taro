@@ -20,9 +20,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart' hide ThemeMode;
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/data/content/asset_content_repository.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';

@@ -173,18 +173,14 @@ void main() {
     });
 
     test('a card missing from every locale file is a StorageFailure', () async {
-      final texts =
-          jsonDecode(
-                File(ContentAssets.deckTexts('en')).readAsStringSync(),
-              )
-              as Map<String, Object?>;
+      final texts = jsonDecode(
+        File(ContentAssets.deckTexts('en')).readAsStringSync(),
+      ) as Map<String, Object?>;
       (texts['cards']! as List).removeAt(0);
       final en = utf8.encode(jsonEncode(texts));
-      final meta =
-          jsonDecode(
-                File(ContentAssets.deckMeta()).readAsStringSync(),
-              )
-              as Map<String, Object?>;
+      final meta = jsonDecode(
+        File(ContentAssets.deckMeta()).readAsStringSync(),
+      ) as Map<String, Object?>;
       (meta['checksums']! as Map<String, Object?>)['en.json'] = sha256
           .convert(en)
           .toString();

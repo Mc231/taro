@@ -61,14 +61,13 @@ abstract interface class ClaudeClient {
 /// The Messages API client (`POST /v1/messages`, `anthropic-version:
 /// 2023-06-01`) with structured output and server-side refusal fallbacks.
 final class AnthropicHttpClient implements ClaudeClient {
-  /// Creates a client for [apiKey]; [httpClient] defaults to a new one.
+  /// Creates a client for [_apiKey]; [httpClient] defaults to a new one.
   AnthropicHttpClient({
-    required String apiKey,
+    required this._apiKey,
     http.Client? httpClient,
     Uri? endpoint,
     this.refusalFallbacks = true,
-  }) : _apiKey = apiKey,
-       _http = httpClient ?? http.Client(),
+  }) : _http = httpClient ?? http.Client(),
        _endpoint =
            endpoint ?? Uri.parse('https://api.anthropic.com/v1/messages');
 

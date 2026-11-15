@@ -6,14 +6,12 @@ import 'package:taro_core/taro_core.dart';
 /// [RewardUnavailableFailure]. The caller applies a granted balance
 /// (`EarnReward`).
 final class RewardGatewayImpl implements RewardGateway {
-  /// Creates the gateway; [ids] mints a fresh `Idempotency-Key` per tap.
+  /// Creates the gateway; [_ids] mints a fresh `Idempotency-Key` per tap.
   RewardGatewayImpl({
-    required WorkerClient client,
-    required IdGenerator ids,
+    required this._client,
+    required this._ids,
     required Logger logger,
-  }) : _client = client,
-       _ids = ids,
-       _logger = logger.child('rewards');
+  }) : _logger = logger.child('rewards');
 
   final WorkerClient _client;
   final IdGenerator _ids;

@@ -68,8 +68,7 @@ class Readings extends Table with TableInfo<Readings, ReadingRow> {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints:
-        'NOT NULL CHECK (status IN (\'pending\', \'complete\', \'failed\', \'refused\', \'classic\'))',
+    $customConstraints: 'NOT NULL CHECK (status IN (\'pending\', \'complete\', \'failed\', \'refused\', \'classic\'))',
   );
   static const VerificationMeta _contentJsonMeta = const VerificationMeta(
     'contentJson',
@@ -2946,58 +2945,56 @@ abstract class _$JournalDatabase extends GeneratedDatabase {
   ]);
 }
 
-typedef $ReadingsCreateCompanionBuilder =
-    ReadingsCompanion Function({
-      required String id,
-      required String spreadId,
-      required int spreadVersion,
-      required String localDate,
-      Value<String?> question,
-      required String status,
-      Value<String?> contentJson,
-      Value<String?> safetyJson,
-      Value<String?> failureJson,
-      required String contentLocale,
-      Value<String?> promptVersion,
-      Value<String?> modelId,
-      Value<String?> chargeSource,
-      Value<String?> note,
-      Value<bool> favourite,
-      Value<String?> rating,
-      Value<String?> ratingReason,
-      Value<bool> deliveryAcked,
-      Value<bool> reported,
-      required DateTime drawnAt,
-      required DateTime createdAt,
-      required DateTime updatedAt,
-      Value<int> rowid,
-    });
-typedef $ReadingsUpdateCompanionBuilder =
-    ReadingsCompanion Function({
-      Value<String> id,
-      Value<String> spreadId,
-      Value<int> spreadVersion,
-      Value<String> localDate,
-      Value<String?> question,
-      Value<String> status,
-      Value<String?> contentJson,
-      Value<String?> safetyJson,
-      Value<String?> failureJson,
-      Value<String> contentLocale,
-      Value<String?> promptVersion,
-      Value<String?> modelId,
-      Value<String?> chargeSource,
-      Value<String?> note,
-      Value<bool> favourite,
-      Value<String?> rating,
-      Value<String?> ratingReason,
-      Value<bool> deliveryAcked,
-      Value<bool> reported,
-      Value<DateTime> drawnAt,
-      Value<DateTime> createdAt,
-      Value<DateTime> updatedAt,
-      Value<int> rowid,
-    });
+typedef $ReadingsCreateCompanionBuilder = ReadingsCompanion Function({
+  required String id,
+  required String spreadId,
+  required int spreadVersion,
+  required String localDate,
+  Value<String?> question,
+  required String status,
+  Value<String?> contentJson,
+  Value<String?> safetyJson,
+  Value<String?> failureJson,
+  required String contentLocale,
+  Value<String?> promptVersion,
+  Value<String?> modelId,
+  Value<String?> chargeSource,
+  Value<String?> note,
+  Value<bool> favourite,
+  Value<String?> rating,
+  Value<String?> ratingReason,
+  Value<bool> deliveryAcked,
+  Value<bool> reported,
+  required DateTime drawnAt,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+  Value<int> rowid,
+});
+typedef $ReadingsUpdateCompanionBuilder = ReadingsCompanion Function({
+  Value<String> id,
+  Value<String> spreadId,
+  Value<int> spreadVersion,
+  Value<String> localDate,
+  Value<String?> question,
+  Value<String> status,
+  Value<String?> contentJson,
+  Value<String?> safetyJson,
+  Value<String?> failureJson,
+  Value<String> contentLocale,
+  Value<String?> promptVersion,
+  Value<String?> modelId,
+  Value<String?> chargeSource,
+  Value<String?> note,
+  Value<bool> favourite,
+  Value<String?> rating,
+  Value<String?> ratingReason,
+  Value<bool> deliveryAcked,
+  Value<bool> reported,
+  Value<DateTime> drawnAt,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
 
 final class $ReadingsReferences
     extends BaseReferences<_$JournalDatabase, Readings, ReadingRow> {
@@ -3535,7 +3532,10 @@ class $ReadingsTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) => (e.readTable(table), $ReadingsReferences(db, table, e)),
+                (e) => (
+                  e.readTable<Readings, ReadingRow>(table),
+                  $ReadingsReferences(db, table, e),
+                ),
               )
               .toList(),
           prefetchHooksCallback: ({readingCardsRefs = false}) {
@@ -3546,18 +3546,19 @@ class $ReadingsTableManager
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (readingCardsRefs)
-                    await $_getPrefetchedData<
+                    await $_getPrefetchedDataByColumns<
                       ReadingRow,
                       Readings,
-                      ReadingCardRow
+                      ReadingCardRow,
+                      ReadingCards
                     >(
                       currentTable: table,
                       referencedTable: $ReadingsReferences
                           ._readingCardsRefsTable(db),
                       managerFromTypedResult: (p0) =>
                           $ReadingsReferences(db, table, p0).readingCardsRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.readingId == item.id),
+                      currentColumn: 'id',
+                      referencedColumn: 'reading_id',
                       typedResults: items,
                     ),
                 ];
@@ -3582,24 +3583,22 @@ typedef $ReadingsProcessedTableManager =
       ReadingRow,
       PrefetchHooks Function({bool readingCardsRefs})
     >;
-typedef $ReadingCardsCreateCompanionBuilder =
-    ReadingCardsCompanion Function({
-      required String readingId,
-      required String positionId,
-      required int positionOrder,
-      required String cardId,
-      required bool reversed,
-      Value<int> rowid,
-    });
-typedef $ReadingCardsUpdateCompanionBuilder =
-    ReadingCardsCompanion Function({
-      Value<String> readingId,
-      Value<String> positionId,
-      Value<int> positionOrder,
-      Value<String> cardId,
-      Value<bool> reversed,
-      Value<int> rowid,
-    });
+typedef $ReadingCardsCreateCompanionBuilder = ReadingCardsCompanion Function({
+  required String readingId,
+  required String positionId,
+  required int positionOrder,
+  required String cardId,
+  required bool reversed,
+  Value<int> rowid,
+});
+typedef $ReadingCardsUpdateCompanionBuilder = ReadingCardsCompanion Function({
+  Value<String> readingId,
+  Value<String> positionId,
+  Value<int> positionOrder,
+  Value<String> cardId,
+  Value<bool> reversed,
+  Value<int> rowid,
+});
 
 final class $ReadingCardsReferences
     extends BaseReferences<_$JournalDatabase, ReadingCards, ReadingCardRow> {
@@ -3838,8 +3837,10 @@ class $ReadingCardsTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) =>
-                    (e.readTable(table), $ReadingCardsReferences(db, table, e)),
+                (e) => (
+                  e.readTable<ReadingCards, ReadingCardRow>(table),
+                  $ReadingCardsReferences(db, table, e),
+                ),
               )
               .toList(),
           prefetchHooksCallback: ({readingId = false}) {
@@ -3863,17 +3864,15 @@ class $ReadingCardsTableManager
                     >
                   >(state) {
                     if (readingId) {
-                      state =
-                          state.withJoin(
-                                currentTable: table,
-                                currentColumn: table.readingId,
-                                referencedTable: $ReadingCardsReferences
-                                    ._readingIdTable(db),
-                                referencedColumn: $ReadingCardsReferences
-                                    ._readingIdTable(db)
-                                    .id,
-                              )
-                              as T;
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.readingId,
+                        referencedTable: $ReadingCardsReferences
+                            ._readingIdTable(db),
+                        referencedColumn: $ReadingCardsReferences
+                            ._readingIdTable(db)
+                            .id,
+                      ) as T;
                     }
 
                     return state;
@@ -3901,30 +3900,28 @@ typedef $ReadingCardsProcessedTableManager =
       ReadingCardRow,
       PrefetchHooks Function({bool readingId})
     >;
-typedef $DailyCardsCreateCompanionBuilder =
-    DailyCardsCompanion Function({
-      required String localDate,
-      required String cardId,
-      required bool reversed,
-      required DateTime drawnAt,
-      Value<String?> note,
-      Value<bool> favourite,
-      required DateTime createdAt,
-      required DateTime updatedAt,
-      Value<int> rowid,
-    });
-typedef $DailyCardsUpdateCompanionBuilder =
-    DailyCardsCompanion Function({
-      Value<String> localDate,
-      Value<String> cardId,
-      Value<bool> reversed,
-      Value<DateTime> drawnAt,
-      Value<String?> note,
-      Value<bool> favourite,
-      Value<DateTime> createdAt,
-      Value<DateTime> updatedAt,
-      Value<int> rowid,
-    });
+typedef $DailyCardsCreateCompanionBuilder = DailyCardsCompanion Function({
+  required String localDate,
+  required String cardId,
+  required bool reversed,
+  required DateTime drawnAt,
+  Value<String?> note,
+  Value<bool> favourite,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+  Value<int> rowid,
+});
+typedef $DailyCardsUpdateCompanionBuilder = DailyCardsCompanion Function({
+  Value<String> localDate,
+  Value<String> cardId,
+  Value<bool> reversed,
+  Value<DateTime> drawnAt,
+  Value<String?> note,
+  Value<bool> favourite,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+  Value<int> rowid,
+});
 
 class $DailyCardsFilterComposer
     extends Composer<_$JournalDatabase, DailyCards> {
@@ -4137,7 +4134,16 @@ class $DailyCardsTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<DailyCards, DailyCardRow>(table),
+                  BaseReferences<_$JournalDatabase, DailyCards, DailyCardRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -4161,18 +4167,16 @@ typedef $DailyCardsProcessedTableManager =
       DailyCardRow,
       PrefetchHooks Function()
     >;
-typedef $SettingsCreateCompanionBuilder =
-    SettingsCompanion Function({
-      required String key,
-      required String valueJson,
-      Value<int> rowid,
-    });
-typedef $SettingsUpdateCompanionBuilder =
-    SettingsCompanion Function({
-      Value<String> key,
-      Value<String> valueJson,
-      Value<int> rowid,
-    });
+typedef $SettingsCreateCompanionBuilder = SettingsCompanion Function({
+  required String key,
+  required String valueJson,
+  Value<int> rowid,
+});
+typedef $SettingsUpdateCompanionBuilder = SettingsCompanion Function({
+  Value<String> key,
+  Value<String> valueJson,
+  Value<int> rowid,
+});
 
 class $SettingsFilterComposer extends Composer<_$JournalDatabase, Settings> {
   $SettingsFilterComposer({
@@ -4254,16 +4258,11 @@ class $SettingsTableManager
               $SettingsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $SettingsAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback:
-              ({
-                Value<String> key = const Value.absent(),
-                Value<String> valueJson = const Value.absent(),
-                Value<int> rowid = const Value.absent(),
-              }) => SettingsCompanion(
-                key: key,
-                valueJson: valueJson,
-                rowid: rowid,
-              ),
+          updateCompanionCallback: ({
+            Value<String> key = const Value.absent(),
+            Value<String> valueJson = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => SettingsCompanion(key: key, valueJson: valueJson, rowid: rowid),
           createCompanionCallback:
               ({
                 required String key,
@@ -4275,7 +4274,16 @@ class $SettingsTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<Settings, SettingRow>(table),
+                  BaseReferences<_$JournalDatabase, Settings, SettingRow>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -4432,7 +4440,16 @@ class $JournalSearchRefsTableManager
                 ref: ref,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<JournalSearchRefs, JournalSearchRef>(table),
+                  BaseReferences<
+                    _$JournalDatabase,
+                    JournalSearchRefs,
+                    JournalSearchRef
+                  >(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),
@@ -4456,18 +4473,16 @@ typedef $JournalSearchRefsProcessedTableManager =
       JournalSearchRef,
       PrefetchHooks Function()
     >;
-typedef $JournalFtsCreateCompanionBuilder =
-    JournalFtsCompanion Function({
-      required String question,
-      required String note,
-      Value<int> rowid,
-    });
-typedef $JournalFtsUpdateCompanionBuilder =
-    JournalFtsCompanion Function({
-      Value<String> question,
-      Value<String> note,
-      Value<int> rowid,
-    });
+typedef $JournalFtsCreateCompanionBuilder = JournalFtsCompanion Function({
+  required String question,
+  required String note,
+  Value<int> rowid,
+});
+typedef $JournalFtsUpdateCompanionBuilder = JournalFtsCompanion Function({
+  Value<String> question,
+  Value<String> note,
+  Value<int> rowid,
+});
 
 class $JournalFtsFilterComposer
     extends Composer<_$JournalDatabase, JournalFts> {
@@ -4572,7 +4587,16 @@ class $JournalFtsTableManager
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<JournalFts, JournalFt>(table),
+                  BaseReferences<_$JournalDatabase, JournalFts, JournalFt>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: null,
         ),

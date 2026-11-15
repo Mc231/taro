@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'analytics_service.dart';
@@ -9,6 +9,7 @@ part of 'analytics_service.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $AnalyticsConsentCopyWith<AnalyticsConsent> get copyWith => _$AnalyticsConsentCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnalyticsConsent&&(identical(other.analyticsStorage, analyticsStorage) || other.analyticsStorage == analyticsStorage)&&(identical(other.adStorage, adStorage) || other.adStorage == adStorage)&&(identical(other.adUserData, adUserData) || other.adUserData == adUserData)&&(identical(other.adPersonalization, adPersonalization) || other.adPersonalization == adPersonalization));
+  final _this = this as AnalyticsConsent;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AnalyticsConsent&&(identical(other.analyticsStorage, _this.analyticsStorage) || other.analyticsStorage == _this.analyticsStorage)&&(identical(other.adStorage, _this.adStorage) || other.adStorage == _this.adStorage)&&(identical(other.adUserData, _this.adUserData) || other.adUserData == _this.adUserData)&&(identical(other.adPersonalization, _this.adPersonalization) || other.adPersonalization == _this.adPersonalization));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,analyticsStorage,adStorage,adUserData,adPersonalization);
+int get hashCode {
+  final _this = this as AnalyticsConsent;
+  return Object.hash(runtimeType,_this.analyticsStorage,_this.adStorage,_this.adUserData,_this.adPersonalization);
+}
 
 @override
 String toString() {
-  return 'AnalyticsConsent(analyticsStorage: $analyticsStorage, adStorage: $adStorage, adUserData: $adUserData, adPersonalization: $adPersonalization)';
+  final _this = this as AnalyticsConsent;
+  return 'AnalyticsConsent(analyticsStorage: ${_this.analyticsStorage}, adStorage: ${_this.adStorage}, adUserData: ${_this.adUserData}, adPersonalization: ${_this.adPersonalization})';
 }
 
 
@@ -67,7 +73,7 @@ class _$AnalyticsConsentCopyWithImpl<$Res>
 /// Create a copy of AnalyticsConsent
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? analyticsStorage = null,Object? adStorage = null,Object? adUserData = null,Object? adPersonalization = null,}) {
-  return _then(_self.copyWith(
+  return _then(AnalyticsConsent(
 analyticsStorage: null == analyticsStorage ? _self.analyticsStorage : analyticsStorage // ignore: cast_nullable_to_non_nullable
 as bool,adStorage: null == adStorage ? _self.adStorage : adStorage // ignore: cast_nullable_to_non_nullable
 as bool,adUserData: null == adUserData ? _self.adUserData : adUserData // ignore: cast_nullable_to_non_nullable
@@ -235,16 +241,18 @@ _$AnalyticsConsentCopyWith<_AnalyticsConsent> get copyWith => __$AnalyticsConsen
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnalyticsConsent&&(identical(other.analyticsStorage, analyticsStorage) || other.analyticsStorage == analyticsStorage)&&(identical(other.adStorage, adStorage) || other.adStorage == adStorage)&&(identical(other.adUserData, adUserData) || other.adUserData == adUserData)&&(identical(other.adPersonalization, adPersonalization) || other.adPersonalization == adPersonalization));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AnalyticsConsent&&(identical(other.analyticsStorage, analyticsStorage) || other.analyticsStorage == analyticsStorage)&&(identical(other.adStorage, adStorage) || other.adStorage == adStorage)&&(identical(other.adUserData, adUserData) || other.adUserData == adUserData)&&(identical(other.adPersonalization, adPersonalization) || other.adPersonalization == adPersonalization));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,analyticsStorage,adStorage,adUserData,adPersonalization);
+int get hashCode {
+    return Object.hash(runtimeType,analyticsStorage,adStorage,adUserData,adPersonalization);
+}
 
 @override
 String toString() {
-  return 'AnalyticsConsent(analyticsStorage: $analyticsStorage, adStorage: $adStorage, adUserData: $adUserData, adPersonalization: $adPersonalization)';
+    return 'AnalyticsConsent(analyticsStorage: $analyticsStorage, adStorage: $adStorage, adUserData: $adUserData, adPersonalization: $adPersonalization)';
 }
 
 

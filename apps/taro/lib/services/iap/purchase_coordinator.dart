@@ -84,39 +84,26 @@ final class PurchaseCoordinator implements PurchaseOutboxDrainer {
   /// Creates the coordinator and subscribes to [iap] (and to
   /// [connectivity], which drains the outbox when it comes back).
   ///
-  /// [priceOf] gives the store listing for the `purchase_completed` value;
-  /// [delay] is the backoff timer (injected in tests).
+  /// [_priceOf] gives the store listing for the `purchase_completed` value;
+  /// [_delay] is the backoff timer (injected in tests).
   PurchaseCoordinator({
     required IapService iap,
-    required PurchaseVerifier verifier,
-    required PurchaseOutbox outbox,
-    required BalanceRepository balance,
-    required InstallRepository install,
-    required RemoteConfigRepository config,
-    required RemoveAdsEntitlement removeAds,
-    required PendingPurchaseTracker tracker,
-    required AnalyticsService analytics,
-    required IdGenerator ids,
-    required Clock clock,
-    required Logger logger,
+    required this._verifier,
+    required this._outbox,
+    required this._balance,
+    required this._install,
+    required this._config,
+    required this._removeAds,
+    required this._tracker,
+    required this._analytics,
+    required this._ids,
+    required this._clock,
+    required this._logger,
     ConnectivityMonitor? connectivity,
-    StoreProduct? Function(ProductId id) priceOf = _noPrice,
-    Delay delay = _wait,
+    this._priceOf = _noPrice,
+    this._delay = _wait,
     List<Duration> retryBackoff = kVerifyRetryBackoff,
   }) : _iap = iap,
-       _verifier = verifier,
-       _outbox = outbox,
-       _balance = balance,
-       _install = install,
-       _config = config,
-       _removeAds = removeAds,
-       _tracker = tracker,
-       _analytics = analytics,
-       _ids = ids,
-       _clock = clock,
-       _logger = logger,
-       _priceOf = priceOf,
-       _delay = delay,
        _backoff = retryBackoff {
     _subscriptions = [
       iap.deliveries.listen((p) => unawaited(process(p))),

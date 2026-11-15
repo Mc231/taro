@@ -9,7 +9,7 @@ import 'package:taro_core/taro_core.dart';
 /// and the request ID are logged, never a body or a header value.
 final class ErrorInterceptor extends Interceptor {
   /// Creates the interceptor.
-  ErrorInterceptor(this._mapper, {Logger? logger}) : _logger = logger;
+  ErrorInterceptor(this._mapper, {this._logger});
 
   final ApiErrorMapper _mapper;
   final Logger? _logger;

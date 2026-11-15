@@ -3,9 +3,9 @@ description: Taro monorepo workspace root (pub workspace + melos 8).
 publish_to: none
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.14.0
   # QA14 pin: the toolchain every contributor and the CI runner uses.
-  flutter: 3.44.8
+  flutter: 3.50.0
 
 workspace:
   - apps/taro
@@ -16,15 +16,12 @@ workspace:
   - tools/dart_tools
 
 dev_dependencies:
-  melos: ^8.9.0
+  melos: ^8.10.0
   very_good_analysis: ^10.3.0
 
-# Flutter 3.44.8 pins test_api 0.7.11, so `test` (taro_core, dart_tools)
-# caps analyzer below 13 and drift_dev at 2.34.0, which declares
-# cli_util ^0.4 while melos 8 needs cli_util >= 0.5. drift_dev only uses
-# cli_util's Ansi/Logger (unchanged in 0.5; drift_dev 2.34.1 widened its
-# constraint to <0.6). Remove when Flutter ships Dart 3.13 and drift_dev
-# 2.35 resolves. See docs/phase2_notes/FLUTTER_NOTES.md.
+# flutter_launcher_icons 0.14.4 (apps/taro dev tool) declares cli_util ^0.4.1
+# while melos 8 needs cli_util >= 0.5; it only uses the unchanged Ansi/Logger
+# API. Remove when flutter_launcher_icons widens its constraint.
 dependency_overrides:
   cli_util: ^0.5.0
 

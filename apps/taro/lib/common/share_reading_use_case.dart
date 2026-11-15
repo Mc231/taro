@@ -32,10 +32,9 @@ abstract class ShareCopy with _$ShareCopy {
 final class ShareReadingUseCase {
   /// Creates the use case.
   ShareReadingUseCase({
-    required ContentRepository content,
-    required ShareText share,
-  }) : _content = content,
-       _share = share;
+    required this._content,
+    required this._share,
+  });
 
   /// The excerpt limit in characters (UTF-16 code units are close enough
   /// for a trimmed preview; the cut never splits a surrogate pair).

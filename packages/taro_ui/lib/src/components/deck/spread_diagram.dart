@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/components/deck/spread_layout.dart';
 import 'package:taro_ui/src/theme/taro_tokens_extension.dart';
 import 'package:taro_ui/src/tokens/taro_strokes.dart';

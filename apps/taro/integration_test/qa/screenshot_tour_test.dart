@@ -9,8 +9,8 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
-import 'package:flutter/material.dart' hide ThemeMode;
 import 'package:flutter/rendering.dart';
+import 'package:material_ui/material_ui.dart' hide ThemeMode;
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro/routing/route_paths.dart';

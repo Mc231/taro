@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'privacy_controller.dart';
@@ -9,6 +9,7 @@ part of 'privacy_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -30,16 +31,21 @@ $PrivacyViewCopyWith<PrivacyView> get copyWith => _$PrivacyViewCopyWithImpl<Priv
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyView&&(identical(other.aiGranted, aiGranted) || other.aiGranted == aiGranted)&&(identical(other.adsPrivacyOptionsRequired, adsPrivacyOptionsRequired) || other.adsPrivacyOptionsRequired == adsPrivacyOptionsRequired)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled));
+  final _this = this as PrivacyView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyView&&(identical(other.aiGranted, _this.aiGranted) || other.aiGranted == _this.aiGranted)&&(identical(other.adsPrivacyOptionsRequired, _this.adsPrivacyOptionsRequired) || other.adsPrivacyOptionsRequired == _this.adsPrivacyOptionsRequired)&&(identical(other.tracking, _this.tracking) || other.tracking == _this.tracking)&&(identical(other.analyticsEnabled, _this.analyticsEnabled) || other.analyticsEnabled == _this.analyticsEnabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,aiGranted,adsPrivacyOptionsRequired,tracking,analyticsEnabled);
+int get hashCode {
+  final _this = this as PrivacyView;
+  return Object.hash(runtimeType,_this.aiGranted,_this.adsPrivacyOptionsRequired,_this.tracking,_this.analyticsEnabled);
+}
 
 @override
 String toString() {
-  return 'PrivacyView(aiGranted: $aiGranted, adsPrivacyOptionsRequired: $adsPrivacyOptionsRequired, tracking: $tracking, analyticsEnabled: $analyticsEnabled)';
+  final _this = this as PrivacyView;
+  return 'PrivacyView(aiGranted: ${_this.aiGranted}, adsPrivacyOptionsRequired: ${_this.adsPrivacyOptionsRequired}, tracking: ${_this.tracking}, analyticsEnabled: ${_this.analyticsEnabled})';
 }
 
 
@@ -68,7 +74,7 @@ class _$PrivacyViewCopyWithImpl<$Res>
 /// Create a copy of PrivacyView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? aiGranted = null,Object? adsPrivacyOptionsRequired = null,Object? tracking = freezed,Object? analyticsEnabled = null,}) {
-  return _then(_self.copyWith(
+  return _then(PrivacyView(
 aiGranted: null == aiGranted ? _self.aiGranted : aiGranted // ignore: cast_nullable_to_non_nullable
 as bool,adsPrivacyOptionsRequired: null == adsPrivacyOptionsRequired ? _self.adsPrivacyOptionsRequired : adsPrivacyOptionsRequired // ignore: cast_nullable_to_non_nullable
 as bool,tracking: freezed == tracking ? _self.tracking : tracking // ignore: cast_nullable_to_non_nullable
@@ -237,16 +243,18 @@ _$PrivacyViewCopyWith<_PrivacyView> get copyWith => __$PrivacyViewCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PrivacyView&&(identical(other.aiGranted, aiGranted) || other.aiGranted == aiGranted)&&(identical(other.adsPrivacyOptionsRequired, adsPrivacyOptionsRequired) || other.adsPrivacyOptionsRequired == adsPrivacyOptionsRequired)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PrivacyView&&(identical(other.aiGranted, aiGranted) || other.aiGranted == aiGranted)&&(identical(other.adsPrivacyOptionsRequired, adsPrivacyOptionsRequired) || other.adsPrivacyOptionsRequired == adsPrivacyOptionsRequired)&&(identical(other.tracking, tracking) || other.tracking == tracking)&&(identical(other.analyticsEnabled, analyticsEnabled) || other.analyticsEnabled == analyticsEnabled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,aiGranted,adsPrivacyOptionsRequired,tracking,analyticsEnabled);
+int get hashCode {
+    return Object.hash(runtimeType,aiGranted,adsPrivacyOptionsRequired,tracking,analyticsEnabled);
+}
 
 @override
 String toString() {
-  return 'PrivacyView(aiGranted: $aiGranted, adsPrivacyOptionsRequired: $adsPrivacyOptionsRequired, tracking: $tracking, analyticsEnabled: $analyticsEnabled)';
+    return 'PrivacyView(aiGranted: $aiGranted, adsPrivacyOptionsRequired: $adsPrivacyOptionsRequired, tracking: $tracking, analyticsEnabled: $analyticsEnabled)';
 }
 
 
@@ -301,16 +309,21 @@ $PrivacyStateCopyWith<PrivacyState> get copyWith => _$PrivacyStateCopyWithImpl<P
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyState&&(identical(other.view, view) || other.view == view));
+  final _this = this as PrivacyState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyState&&(identical(other.view, _this.view) || other.view == _this.view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+  final _this = this as PrivacyState;
+  return Object.hash(runtimeType,_this.view);
+}
 
 @override
 String toString() {
-  return 'PrivacyState(view: $view)';
+  final _this = this as PrivacyState;
+  return 'PrivacyState(view: ${_this.view})';
 }
 
 
@@ -339,8 +352,8 @@ class _$PrivacyStateCopyWithImpl<$Res>
 /// Create a copy of PrivacyState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? view = null,}) {
-  return _then(_self.copyWith(
-view: null == view ? _self.view : view // ignore: cast_nullable_to_non_nullable
+  return _then(PrivacyState.content(
+null == view ? _self.view : view // ignore: cast_nullable_to_non_nullable
 as PrivacyView,
   ));
 }
@@ -500,16 +513,18 @@ $PrivacyContentCopyWith<PrivacyContent> get copyWith => _$PrivacyContentCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyContent&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivacyContent&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'PrivacyState.content(view: $view)';
+    return 'PrivacyState.content(view: $view)';
 }
 
 

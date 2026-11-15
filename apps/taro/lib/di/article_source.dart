@@ -176,8 +176,10 @@ bool _listEquals<T>(List<T> a, List<T> b) {
 }
 
 /// Loads article [id] for the app [locale] (falling back to English).
-typedef ArticleLoader =
-    Future<Result<Article>> Function(ArticleId id, String locale);
+typedef ArticleLoader = Future<Result<Article>> Function(
+  ArticleId id,
+  String locale,
+);
 
 /// The bundled-article loader behind S19 and S28 (offline, no gating).
 /// Tests override it with an in-memory loader.

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'install_identity.dart';
@@ -9,6 +9,7 @@ part of 'install_identity.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -27,16 +28,21 @@ $PurchaseBindingCopyWith<PurchaseBinding> get copyWith => _$PurchaseBindingCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseBinding&&(identical(other.appleAccountToken, appleAccountToken) || other.appleAccountToken == appleAccountToken)&&(identical(other.playAccountId, playAccountId) || other.playAccountId == playAccountId));
+  final _this = this as PurchaseBinding;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseBinding&&(identical(other.appleAccountToken, _this.appleAccountToken) || other.appleAccountToken == _this.appleAccountToken)&&(identical(other.playAccountId, _this.playAccountId) || other.playAccountId == _this.playAccountId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,appleAccountToken,playAccountId);
+int get hashCode {
+  final _this = this as PurchaseBinding;
+  return Object.hash(runtimeType,_this.appleAccountToken,_this.playAccountId);
+}
 
 @override
 String toString() {
-  return 'PurchaseBinding(appleAccountToken: $appleAccountToken, playAccountId: $playAccountId)';
+  final _this = this as PurchaseBinding;
+  return 'PurchaseBinding(appleAccountToken: ${_this.appleAccountToken}, playAccountId: ${_this.playAccountId})';
 }
 
 
@@ -65,7 +71,7 @@ class _$PurchaseBindingCopyWithImpl<$Res>
 /// Create a copy of PurchaseBinding
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? appleAccountToken = freezed,Object? playAccountId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PurchaseBinding(
 appleAccountToken: freezed == appleAccountToken ? _self.appleAccountToken : appleAccountToken // ignore: cast_nullable_to_non_nullable
 as String?,playAccountId: freezed == playAccountId ? _self.playAccountId : playAccountId // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -227,16 +233,18 @@ _$PurchaseBindingCopyWith<_PurchaseBinding> get copyWith => __$PurchaseBindingCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseBinding&&(identical(other.appleAccountToken, appleAccountToken) || other.appleAccountToken == appleAccountToken)&&(identical(other.playAccountId, playAccountId) || other.playAccountId == playAccountId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PurchaseBinding&&(identical(other.appleAccountToken, appleAccountToken) || other.appleAccountToken == appleAccountToken)&&(identical(other.playAccountId, playAccountId) || other.playAccountId == playAccountId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,appleAccountToken,playAccountId);
+int get hashCode {
+    return Object.hash(runtimeType,appleAccountToken,playAccountId);
+}
 
 @override
 String toString() {
-  return 'PurchaseBinding(appleAccountToken: $appleAccountToken, playAccountId: $playAccountId)';
+    return 'PurchaseBinding(appleAccountToken: $appleAccountToken, playAccountId: $playAccountId)';
 }
 
 
@@ -295,16 +303,21 @@ $InstallIdentityCopyWith<InstallIdentity> get copyWith => _$InstallIdentityCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstallIdentity&&(identical(other.installId, installId) || other.installId == installId)&&(identical(other.registeredAt, registeredAt) || other.registeredAt == registeredAt)&&(identical(other.registeredTimezone, registeredTimezone) || other.registeredTimezone == registeredTimezone)&&(identical(other.trust, trust) || other.trust == trust)&&(identical(other.purchaseBinding, purchaseBinding) || other.purchaseBinding == purchaseBinding)&&(identical(other.attestationKeyId, attestationKeyId) || other.attestationKeyId == attestationKeyId));
+  final _this = this as InstallIdentity;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InstallIdentity&&(identical(other.installId, _this.installId) || other.installId == _this.installId)&&(identical(other.registeredAt, _this.registeredAt) || other.registeredAt == _this.registeredAt)&&(identical(other.registeredTimezone, _this.registeredTimezone) || other.registeredTimezone == _this.registeredTimezone)&&(identical(other.trust, _this.trust) || other.trust == _this.trust)&&(identical(other.purchaseBinding, _this.purchaseBinding) || other.purchaseBinding == _this.purchaseBinding)&&(identical(other.attestationKeyId, _this.attestationKeyId) || other.attestationKeyId == _this.attestationKeyId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,installId,registeredAt,registeredTimezone,trust,purchaseBinding,attestationKeyId);
+int get hashCode {
+  final _this = this as InstallIdentity;
+  return Object.hash(runtimeType,_this.installId,_this.registeredAt,_this.registeredTimezone,_this.trust,_this.purchaseBinding,_this.attestationKeyId);
+}
 
 @override
 String toString() {
-  return 'InstallIdentity(installId: $installId, registeredAt: $registeredAt, registeredTimezone: $registeredTimezone, trust: $trust, purchaseBinding: $purchaseBinding, attestationKeyId: $attestationKeyId)';
+  final _this = this as InstallIdentity;
+  return 'InstallIdentity(installId: ${_this.installId}, registeredAt: ${_this.registeredAt}, registeredTimezone: ${_this.registeredTimezone}, trust: ${_this.trust}, purchaseBinding: ${_this.purchaseBinding}, attestationKeyId: ${_this.attestationKeyId})';
 }
 
 
@@ -333,7 +346,7 @@ class _$InstallIdentityCopyWithImpl<$Res>
 /// Create a copy of InstallIdentity
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? installId = null,Object? registeredAt = freezed,Object? registeredTimezone = freezed,Object? trust = freezed,Object? purchaseBinding = freezed,Object? attestationKeyId = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(InstallIdentity(
 installId: null == installId ? _self.installId : installId // ignore: cast_nullable_to_non_nullable
 as InstallId,registeredAt: freezed == registeredAt ? _self.registeredAt : registeredAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,registeredTimezone: freezed == registeredTimezone ? _self.registeredTimezone : registeredTimezone // ignore: cast_nullable_to_non_nullable
@@ -519,16 +532,18 @@ _$InstallIdentityCopyWith<_InstallIdentity> get copyWith => __$InstallIdentityCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstallIdentity&&(identical(other.installId, installId) || other.installId == installId)&&(identical(other.registeredAt, registeredAt) || other.registeredAt == registeredAt)&&(identical(other.registeredTimezone, registeredTimezone) || other.registeredTimezone == registeredTimezone)&&(identical(other.trust, trust) || other.trust == trust)&&(identical(other.purchaseBinding, purchaseBinding) || other.purchaseBinding == purchaseBinding)&&(identical(other.attestationKeyId, attestationKeyId) || other.attestationKeyId == attestationKeyId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _InstallIdentity&&(identical(other.installId, installId) || other.installId == installId)&&(identical(other.registeredAt, registeredAt) || other.registeredAt == registeredAt)&&(identical(other.registeredTimezone, registeredTimezone) || other.registeredTimezone == registeredTimezone)&&(identical(other.trust, trust) || other.trust == trust)&&(identical(other.purchaseBinding, purchaseBinding) || other.purchaseBinding == purchaseBinding)&&(identical(other.attestationKeyId, attestationKeyId) || other.attestationKeyId == attestationKeyId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,installId,registeredAt,registeredTimezone,trust,purchaseBinding,attestationKeyId);
+int get hashCode {
+    return Object.hash(runtimeType,installId,registeredAt,registeredTimezone,trust,purchaseBinding,attestationKeyId);
+}
 
 @override
 String toString() {
-  return 'InstallIdentity(installId: $installId, registeredAt: $registeredAt, registeredTimezone: $registeredTimezone, trust: $trust, purchaseBinding: $purchaseBinding, attestationKeyId: $attestationKeyId)';
+    return 'InstallIdentity(installId: $installId, registeredAt: $registeredAt, registeredTimezone: $registeredTimezone, trust: $trust, purchaseBinding: $purchaseBinding, attestationKeyId: $attestationKeyId)';
 }
 
 

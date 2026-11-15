@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/balance_chip.dart';
 import 'package:taro/common/banner_slot.dart';
 import 'package:taro/features/reading/controller/question_state.dart';
@@ -12,6 +12,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 QuestionDraft _draft([String text = '']) => QuestionDraft(
@@ -780,7 +781,7 @@ void main() {
 
     testWidgets('back from a pushed S07 returns', (tester) async {
       await pumpQuestion(tester, aiReadyFakes(), pushed: true);
-      await tester.tap(find.byTooltip(l10n.commonBack));
+      await tester.tap(find.byTaroTooltip(l10n.commonBack));
       await tester.pumpAndSettle();
       expectRoute('/');
     });

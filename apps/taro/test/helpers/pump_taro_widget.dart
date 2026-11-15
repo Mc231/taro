@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
+import 'package:taro/l10n/taro_delegates.dart';
 import 'package:taro_ui/taro_ui.dart';
 
 import '../../../../packages/taro_ui/test/helpers/golden/golden_matrix.dart';
@@ -30,7 +31,7 @@ Future<void> pumpTaroWidget(
       theme: withTaroTestFonts(TaroTheme.light()),
       darkTheme: withTaroTestFonts(TaroTheme.dark()),
       themeMode: theme,
-      localizationsDelegates: TaroLocalizations.localizationsDelegates,
+      localizationsDelegates: kTaroLocalizationsDelegates,
       supportedLocales: TaroLocalizations.supportedLocales,
       builder: (context, app) => MediaQuery(
         data: MediaQuery.of(context).copyWith(

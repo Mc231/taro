@@ -16,15 +16,14 @@ const int kConsentBufferLimit = 50;
 /// denied. Events are dropped while collection is disabled or analytics
 /// storage is denied.
 final class ConsentAwareAnalytics implements TaroAnalyticsBackend {
-  /// Decorates [inner]. [whenResolved] completes with the consent mode
+  /// Decorates [_inner]. [whenResolved] completes with the consent mode
   /// derived from the UMP purposes once `ConsentOrchestrator.whenResolved`
   /// completes (all granted where UMP says consent is not required).
   ConsentAwareAnalytics({
-    required TaroAnalyticsBackend inner,
+    required this._inner,
     required Future<AnalyticsConsent> whenResolved,
     required Logger logger,
-  }) : _inner = inner,
-       _log = logger.child('analytics') {
+  }) : _log = logger.child('analytics') {
     _ready = whenResolved.then(_resolve, onError: _resolveFailed);
   }
 

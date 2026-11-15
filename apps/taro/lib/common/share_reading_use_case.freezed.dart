@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'share_reading_use_case.dart';
@@ -9,6 +9,7 @@ part of 'share_reading_use_case.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -29,16 +30,21 @@ $ShareCopyCopyWith<ShareCopy> get copyWith => _$ShareCopyCopyWithImpl<ShareCopy>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShareCopy&&(identical(other.disclaimerLine, disclaimerLine) || other.disclaimerLine == disclaimerLine)&&(identical(other.questionLabel, questionLabel) || other.questionLabel == questionLabel)&&(identical(other.reversedLabel, reversedLabel) || other.reversedLabel == reversedLabel)&&(identical(other.fallbackTitle, fallbackTitle) || other.fallbackTitle == fallbackTitle));
+  final _this = this as ShareCopy;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ShareCopy&&(identical(other.disclaimerLine, _this.disclaimerLine) || other.disclaimerLine == _this.disclaimerLine)&&(identical(other.questionLabel, _this.questionLabel) || other.questionLabel == _this.questionLabel)&&(identical(other.reversedLabel, _this.reversedLabel) || other.reversedLabel == _this.reversedLabel)&&(identical(other.fallbackTitle, _this.fallbackTitle) || other.fallbackTitle == _this.fallbackTitle));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,disclaimerLine,questionLabel,reversedLabel,fallbackTitle);
+int get hashCode {
+  final _this = this as ShareCopy;
+  return Object.hash(runtimeType,_this.disclaimerLine,_this.questionLabel,_this.reversedLabel,_this.fallbackTitle);
+}
 
 @override
 String toString() {
-  return 'ShareCopy(disclaimerLine: $disclaimerLine, questionLabel: $questionLabel, reversedLabel: $reversedLabel, fallbackTitle: $fallbackTitle)';
+  final _this = this as ShareCopy;
+  return 'ShareCopy(disclaimerLine: ${_this.disclaimerLine}, questionLabel: ${_this.questionLabel}, reversedLabel: ${_this.reversedLabel}, fallbackTitle: ${_this.fallbackTitle})';
 }
 
 
@@ -67,7 +73,7 @@ class _$ShareCopyCopyWithImpl<$Res>
 /// Create a copy of ShareCopy
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? disclaimerLine = null,Object? questionLabel = null,Object? reversedLabel = null,Object? fallbackTitle = null,}) {
-  return _then(_self.copyWith(
+  return _then(ShareCopy(
 disclaimerLine: null == disclaimerLine ? _self.disclaimerLine : disclaimerLine // ignore: cast_nullable_to_non_nullable
 as String,questionLabel: null == questionLabel ? _self.questionLabel : questionLabel // ignore: cast_nullable_to_non_nullable
 as String,reversedLabel: null == reversedLabel ? _self.reversedLabel : reversedLabel // ignore: cast_nullable_to_non_nullable
@@ -235,16 +241,18 @@ _$ShareCopyCopyWith<_ShareCopy> get copyWith => __$ShareCopyCopyWithImpl<_ShareC
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShareCopy&&(identical(other.disclaimerLine, disclaimerLine) || other.disclaimerLine == disclaimerLine)&&(identical(other.questionLabel, questionLabel) || other.questionLabel == questionLabel)&&(identical(other.reversedLabel, reversedLabel) || other.reversedLabel == reversedLabel)&&(identical(other.fallbackTitle, fallbackTitle) || other.fallbackTitle == fallbackTitle));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShareCopy&&(identical(other.disclaimerLine, disclaimerLine) || other.disclaimerLine == disclaimerLine)&&(identical(other.questionLabel, questionLabel) || other.questionLabel == questionLabel)&&(identical(other.reversedLabel, reversedLabel) || other.reversedLabel == reversedLabel)&&(identical(other.fallbackTitle, fallbackTitle) || other.fallbackTitle == fallbackTitle));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,disclaimerLine,questionLabel,reversedLabel,fallbackTitle);
+int get hashCode {
+    return Object.hash(runtimeType,disclaimerLine,questionLabel,reversedLabel,fallbackTitle);
+}
 
 @override
 String toString() {
-  return 'ShareCopy(disclaimerLine: $disclaimerLine, questionLabel: $questionLabel, reversedLabel: $reversedLabel, fallbackTitle: $fallbackTitle)';
+    return 'ShareCopy(disclaimerLine: $disclaimerLine, questionLabel: $questionLabel, reversedLabel: $reversedLabel, fallbackTitle: $fallbackTitle)';
 }
 
 

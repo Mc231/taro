@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'question_precheck.dart';
@@ -9,6 +9,7 @@ part of 'question_precheck.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -30,16 +31,21 @@ $QuestionCheckCopyWith<QuestionCheck> get copyWith => _$QuestionCheckCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionCheck&&(identical(other.question, question) || other.question == question)&&(identical(other.length, length) || other.length == length)&&(identical(other.problem, problem) || other.problem == problem)&&(identical(other.personalDetailsWarning, personalDetailsWarning) || other.personalDetailsWarning == personalDetailsWarning));
+  final _this = this as QuestionCheck;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuestionCheck&&(identical(other.question, _this.question) || other.question == _this.question)&&(identical(other.length, _this.length) || other.length == _this.length)&&(identical(other.problem, _this.problem) || other.problem == _this.problem)&&(identical(other.personalDetailsWarning, _this.personalDetailsWarning) || other.personalDetailsWarning == _this.personalDetailsWarning));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,question,length,problem,personalDetailsWarning);
+int get hashCode {
+  final _this = this as QuestionCheck;
+  return Object.hash(runtimeType,_this.question,_this.length,_this.problem,_this.personalDetailsWarning);
+}
 
 @override
 String toString() {
-  return 'QuestionCheck(question: $question, length: $length, problem: $problem, personalDetailsWarning: $personalDetailsWarning)';
+  final _this = this as QuestionCheck;
+  return 'QuestionCheck(question: ${_this.question}, length: ${_this.length}, problem: ${_this.problem}, personalDetailsWarning: ${_this.personalDetailsWarning})';
 }
 
 
@@ -68,7 +74,7 @@ class _$QuestionCheckCopyWithImpl<$Res>
 /// Create a copy of QuestionCheck
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? question = freezed,Object? length = null,Object? problem = freezed,Object? personalDetailsWarning = null,}) {
-  return _then(_self.copyWith(
+  return _then(QuestionCheck(
 question: freezed == question ? _self.question : question // ignore: cast_nullable_to_non_nullable
 as String?,length: null == length ? _self.length : length // ignore: cast_nullable_to_non_nullable
 as int,problem: freezed == problem ? _self.problem : problem // ignore: cast_nullable_to_non_nullable
@@ -237,16 +243,18 @@ _$QuestionCheckCopyWith<_QuestionCheck> get copyWith => __$QuestionCheckCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionCheck&&(identical(other.question, question) || other.question == question)&&(identical(other.length, length) || other.length == length)&&(identical(other.problem, problem) || other.problem == problem)&&(identical(other.personalDetailsWarning, personalDetailsWarning) || other.personalDetailsWarning == personalDetailsWarning));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuestionCheck&&(identical(other.question, question) || other.question == question)&&(identical(other.length, length) || other.length == length)&&(identical(other.problem, problem) || other.problem == problem)&&(identical(other.personalDetailsWarning, personalDetailsWarning) || other.personalDetailsWarning == personalDetailsWarning));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,question,length,problem,personalDetailsWarning);
+int get hashCode {
+    return Object.hash(runtimeType,question,length,problem,personalDetailsWarning);
+}
 
 @override
 String toString() {
-  return 'QuestionCheck(question: $question, length: $length, problem: $problem, personalDetailsWarning: $personalDetailsWarning)';
+    return 'QuestionCheck(question: $question, length: $length, problem: $problem, personalDetailsWarning: $personalDetailsWarning)';
 }
 
 

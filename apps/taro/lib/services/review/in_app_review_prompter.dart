@@ -12,15 +12,12 @@ import 'package:taro_core/taro_core.dart';
 final class InAppReviewPrompter implements ReviewPrompter {
   /// A prompter over [review] (default: the plugin singleton).
   InAppReviewPrompter({
-    required Clock clock,
-    required RemoteConfigRepository config,
-    required ReviewPromptLedger ledger,
+    required this._clock,
+    required this._config,
+    required this._ledger,
     required Logger logger,
     InAppReview? review,
-  }) : _clock = clock,
-       _config = config,
-       _ledger = ledger,
-       _logger = logger.child('review'),
+  }) : _logger = logger.child('review'),
        _review = review ?? InAppReview.instance;
 
   /// The minimum time between two prompts.

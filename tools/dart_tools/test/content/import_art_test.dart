@@ -301,13 +301,11 @@ void main() {
       expect((x3.width, x3.height), (30, 52));
       final x2 = img.decodeWebP(plan.files[artMainPath('d15', 'card_back')]!)!;
       expect((x2.width, x2.height), (20, 34));
-      final manifest =
-          jsonDecode(
-                utf8.decode(
-                  plan.files['apps/taro/assets/deck/art/d15/art_manifest.json']!,
-                ),
-              )
-              as Map<String, Object?>;
+      final manifest = jsonDecode(
+        utf8.decode(
+          plan.files['apps/taro/assets/deck/art/d15/art_manifest.json']!,
+        ),
+      ) as Map<String, Object?>;
       expect(manifest['artSet'], 'd15');
       expect(manifest['encoder'], 'fake 1.0');
       expect(

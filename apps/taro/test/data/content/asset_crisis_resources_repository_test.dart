@@ -63,13 +63,11 @@ void main() {
     });
 
     test('unverified entries parse as stale (epoch)', () async {
-      final raw =
-          jsonDecode(
-                File(
-                  ContentAssets.file(ContentAssets.crisisResourcesFile),
-                ).readAsStringSync(),
-              )
-              as Map<String, Object?>;
+      final raw = jsonDecode(
+        File(
+          ContentAssets.file(ContentAssets.crisisResourcesFile),
+        ).readAsStringSync(),
+      ) as Map<String, Object?>;
       final directory = parseCrisisDirectory(raw);
       final all = [
         ...directory.countries.values.expand((l) => l),

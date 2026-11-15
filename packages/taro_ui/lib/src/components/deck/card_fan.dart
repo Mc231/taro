@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro_ui/src/a11y/taro_haptics.dart';
 import 'package:taro_ui/src/components/actions/taro_button.dart';
 import 'package:taro_ui/src/components/deck/taro_card_back.dart';
@@ -87,7 +87,7 @@ class _CardFanState extends State<CardFan> with SingleTickerProviderStateMixin {
   void _syncShuffle() {
     if (widget.shuffling && !context.reduceMotion && widget.cardCount > 0) {
       _shuffle.duration = context.motion.ritual.shuffle;
-      if (!_shuffle.isAnimating) unawaited(_shuffle.repeat());
+      if (!_shuffle.isAnimating) _shuffle.repeat();
     } else {
       _shuffle
         ..stop()

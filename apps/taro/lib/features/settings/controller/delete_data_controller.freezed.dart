@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'delete_data_controller.dart';
@@ -9,6 +9,7 @@ part of 'delete_data_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -28,16 +29,21 @@ $DeleteDataSummaryCopyWith<DeleteDataSummary> get copyWith => _$DeleteDataSummar
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataSummary&&(identical(other.journalEntries, journalEntries) || other.journalEntries == journalEntries)&&(identical(other.readingsKept, readingsKept) || other.readingsKept == readingsKept)&&(identical(other.removeAdsKept, removeAdsKept) || other.removeAdsKept == removeAdsKept));
+  final _this = this as DeleteDataSummary;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataSummary&&(identical(other.journalEntries, _this.journalEntries) || other.journalEntries == _this.journalEntries)&&(identical(other.readingsKept, _this.readingsKept) || other.readingsKept == _this.readingsKept)&&(identical(other.removeAdsKept, _this.removeAdsKept) || other.removeAdsKept == _this.removeAdsKept));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,journalEntries,readingsKept,removeAdsKept);
+int get hashCode {
+  final _this = this as DeleteDataSummary;
+  return Object.hash(runtimeType,_this.journalEntries,_this.readingsKept,_this.removeAdsKept);
+}
 
 @override
 String toString() {
-  return 'DeleteDataSummary(journalEntries: $journalEntries, readingsKept: $readingsKept, removeAdsKept: $removeAdsKept)';
+  final _this = this as DeleteDataSummary;
+  return 'DeleteDataSummary(journalEntries: ${_this.journalEntries}, readingsKept: ${_this.readingsKept}, removeAdsKept: ${_this.removeAdsKept})';
 }
 
 
@@ -66,7 +72,7 @@ class _$DeleteDataSummaryCopyWithImpl<$Res>
 /// Create a copy of DeleteDataSummary
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? journalEntries = null,Object? readingsKept = null,Object? removeAdsKept = null,}) {
-  return _then(_self.copyWith(
+  return _then(DeleteDataSummary(
 journalEntries: null == journalEntries ? _self.journalEntries : journalEntries // ignore: cast_nullable_to_non_nullable
 as int,readingsKept: null == readingsKept ? _self.readingsKept : readingsKept // ignore: cast_nullable_to_non_nullable
 as int,removeAdsKept: null == removeAdsKept ? _self.removeAdsKept : removeAdsKept // ignore: cast_nullable_to_non_nullable
@@ -231,16 +237,18 @@ _$DeleteDataSummaryCopyWith<_DeleteDataSummary> get copyWith => __$DeleteDataSum
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteDataSummary&&(identical(other.journalEntries, journalEntries) || other.journalEntries == journalEntries)&&(identical(other.readingsKept, readingsKept) || other.readingsKept == readingsKept)&&(identical(other.removeAdsKept, removeAdsKept) || other.removeAdsKept == removeAdsKept));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeleteDataSummary&&(identical(other.journalEntries, journalEntries) || other.journalEntries == journalEntries)&&(identical(other.readingsKept, readingsKept) || other.readingsKept == readingsKept)&&(identical(other.removeAdsKept, removeAdsKept) || other.removeAdsKept == removeAdsKept));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,journalEntries,readingsKept,removeAdsKept);
+int get hashCode {
+    return Object.hash(runtimeType,journalEntries,readingsKept,removeAdsKept);
+}
 
 @override
 String toString() {
-  return 'DeleteDataSummary(journalEntries: $journalEntries, readingsKept: $readingsKept, removeAdsKept: $removeAdsKept)';
+    return 'DeleteDataSummary(journalEntries: $journalEntries, readingsKept: $readingsKept, removeAdsKept: $removeAdsKept)';
 }
 
 
@@ -289,7 +297,7 @@ mixin _$DeleteDataState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataState);
 }
 
 
@@ -298,7 +306,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeleteDataState()';
+    return 'DeleteDataState()';
 }
 
 
@@ -483,16 +491,18 @@ $DeleteDataConfirm1CopyWith<DeleteDataConfirm1> get copyWith => _$DeleteDataConf
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataConfirm1&&(identical(other.summary, summary) || other.summary == summary));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataConfirm1&&(identical(other.summary, summary) || other.summary == summary));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,summary);
+int get hashCode {
+    return Object.hash(runtimeType,summary);
+}
 
 @override
 String toString() {
-  return 'DeleteDataState.confirm1(summary: $summary)';
+    return 'DeleteDataState.confirm1(summary: $summary)';
 }
 
 
@@ -558,16 +568,18 @@ $DeleteDataConfirm2CopyWith<DeleteDataConfirm2> get copyWith => _$DeleteDataConf
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataConfirm2&&(identical(other.summary, summary) || other.summary == summary));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataConfirm2&&(identical(other.summary, summary) || other.summary == summary));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,summary);
+int get hashCode {
+    return Object.hash(runtimeType,summary);
+}
 
 @override
 String toString() {
-  return 'DeleteDataState.confirm2(summary: $summary)';
+    return 'DeleteDataState.confirm2(summary: $summary)';
 }
 
 
@@ -628,7 +640,7 @@ class DeleteDataDeleting implements DeleteDataState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataDeleting);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataDeleting);
 }
 
 
@@ -637,7 +649,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeleteDataState.deleting()';
+    return 'DeleteDataState.deleting()';
 }
 
 
@@ -660,7 +672,7 @@ class DeleteDataDone implements DeleteDataState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataDone);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataDone);
 }
 
 
@@ -669,7 +681,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeleteDataState.done()';
+    return 'DeleteDataState.done()';
 }
 
 
@@ -692,7 +704,7 @@ class DeleteDataPartial implements DeleteDataState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataPartial);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataPartial);
 }
 
 
@@ -701,7 +713,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DeleteDataState.partial()';
+    return 'DeleteDataState.partial()';
 }
 
 
@@ -729,16 +741,18 @@ $DeleteDataFailedCopyWith<DeleteDataFailed> get copyWith => _$DeleteDataFailedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataFailed&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteDataFailed&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'DeleteDataState.failed(kind: $kind)';
+    return 'DeleteDataState.failed(kind: $kind)';
 }
 
 

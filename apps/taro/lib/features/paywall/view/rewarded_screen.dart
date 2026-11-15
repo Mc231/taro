@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/common/failure_message.dart';
 import 'package:taro/features/paywall/controller/rewarded_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';

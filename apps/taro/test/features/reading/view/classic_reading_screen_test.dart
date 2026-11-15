@@ -8,6 +8,7 @@ import 'package:taro/routing/routes.dart';
 import 'package:taro_core/taro_core.dart';
 import 'package:taro_ui/taro_ui.dart';
 
+import '../../../helpers/finders.dart';
 import '../../flow_view_support.dart';
 
 ClassicReadingView _view({bool aiAvailable = false}) {
@@ -54,8 +55,8 @@ void main() {
     await revealFound(tester, find.byType(DisclaimerFooter));
     expect(find.byType(DisclaimerFooter), findsOneWidget);
     expect(find.byType(BannerSlot), findsNothing);
-    expect(find.byTooltip(l10n.reportReadingTitle), findsNothing);
-    expect(find.byTooltip(l10n.commonMore), findsNothing);
+    expect(find.byTaroTooltip(l10n.reportReadingTitle), findsNothing);
+    expect(find.byTaroTooltip(l10n.commonMore), findsNothing);
     expect(find.byType(ReadingRatingControl), findsNothing);
     return calls;
   }
@@ -75,7 +76,7 @@ void main() {
     expect(faces, view.positions.length);
     await revealFound(tester, find.text(view.positions.first.meaning));
     await tester.tap(find.text(l10n.commonAddNote));
-    await tester.tap(find.byTooltip(l10n.readingDone));
+    await tester.tap(find.byTaroTooltip(l10n.readingDone));
     expect(calls, ['note', 'done']);
   });
 
@@ -180,7 +181,7 @@ void main() {
             ClassicReadingScreen(id: ReadingId(state.pathParameters['id']!)),
         fakes: fakes,
       );
-      await tester.tap(find.byTooltip(l10n.readingDone));
+      await tester.tap(find.byTaroTooltip(l10n.readingDone));
       await tester.pumpAndSettle();
       expectRoute(RoutePaths.home);
     });

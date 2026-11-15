@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:taro/features/reading/controller/report_reading_controller.dart';
 import 'package:taro/l10n/generated/taro_localizations.dart';
 import 'package:taro_core/taro_core.dart';
@@ -41,7 +41,7 @@ class _ReportReadingSheetState extends ConsumerState<ReportReadingSheet> {
       // `submitted`: the sheet closes and a toast thanks the user (S33).
       final message = TaroLocalizations.of(context).reportSubmitted;
       TaroToast.show(context, message: message);
-      unawaited(Navigator.of(context).maybePop());
+      Navigator.of(context).maybePop();
     });
     final state = ref.watch(provider);
     final controller = ref.read(provider.notifier);

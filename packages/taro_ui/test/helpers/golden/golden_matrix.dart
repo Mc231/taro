@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../pump_taro_ui_widget.dart';
 import 'golden_sizes.dart';
@@ -108,12 +108,11 @@ List<GoldenVariant> goldenVariants({
 /// Pumps [child] for [variant]: sets the view size, theme, locale and text
 /// scale. `taro_ui` uses [pumpTaroUiGolden]; the app passes an adapter over
 /// `pumpTaroWidget` so its screens get `TaroLocalizations`.
-typedef GoldenPump =
-    Future<void> Function(
-      WidgetTester tester,
-      Widget child,
-      GoldenVariant variant,
-    );
+typedef GoldenPump = Future<void> Function(
+  WidgetTester tester,
+  Widget child,
+  GoldenVariant variant,
+);
 
 /// [GoldenPump] over [pumpTaroUiWidget], for `taro_ui` components.
 Future<void> pumpTaroUiGolden(

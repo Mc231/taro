@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'legal_controller.dart';
@@ -9,6 +9,7 @@ part of 'legal_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $LegalStateCopyWith<LegalState> get copyWith => _$LegalStateCopyWithImpl<LegalSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalState&&(identical(other.doc, doc) || other.doc == doc)&&(identical(other.url, url) || other.url == url));
+  final _this = this as LegalState;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalState&&(identical(other.doc, _this.doc) || other.doc == _this.doc)&&(identical(other.url, _this.url) || other.url == _this.url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,doc,url);
+int get hashCode {
+  final _this = this as LegalState;
+  return Object.hash(runtimeType,_this.doc,_this.url);
+}
 
 @override
 String toString() {
-  return 'LegalState(doc: $doc, url: $url)';
+  final _this = this as LegalState;
+  return 'LegalState(doc: ${_this.doc}, url: ${_this.url})';
 }
 
 
@@ -223,16 +229,18 @@ $LegalContentCopyWith<LegalContent> get copyWith => _$LegalContentCopyWithImpl<L
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalContent&&(identical(other.doc, doc) || other.doc == doc)&&(identical(other.url, url) || other.url == url));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalContent&&(identical(other.doc, doc) || other.doc == doc)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,doc,url);
+int get hashCode {
+    return Object.hash(runtimeType,doc,url);
+}
 
 @override
 String toString() {
-  return 'LegalState.content(doc: $doc, url: $url)';
+    return 'LegalState.content(doc: $doc, url: $url)';
 }
 
 
@@ -291,16 +299,18 @@ $LegalOfflineCopyWith<LegalOffline> get copyWith => _$LegalOfflineCopyWithImpl<L
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalOffline&&(identical(other.doc, doc) || other.doc == doc)&&(identical(other.url, url) || other.url == url));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is LegalOffline&&(identical(other.doc, doc) || other.doc == doc)&&(identical(other.url, url) || other.url == url));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,doc,url);
+int get hashCode {
+    return Object.hash(runtimeType,doc,url);
+}
 
 @override
 String toString() {
-  return 'LegalState.offline(doc: $doc, url: $url)';
+    return 'LegalState.offline(doc: $doc, url: $url)';
 }
 
 

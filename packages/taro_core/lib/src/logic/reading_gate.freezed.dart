@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reading_gate.dart';
@@ -9,6 +9,7 @@ part of 'reading_gate.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -32,16 +33,21 @@ $PaywallOptionsCopyWith<PaywallOptions> get copyWith => _$PaywallOptionsCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallOptions&&(identical(other.reason, reason) || other.reason == reason)&&const DeepCollectionEquality().equals(other.packs, packs)&&(identical(other.rewardedAvailable, rewardedAvailable) || other.rewardedAvailable == rewardedAvailable)&&(identical(other.nextFreeAt, nextFreeAt) || other.nextFreeAt == nextFreeAt));
+  final _this = this as PaywallOptions;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PaywallOptions&&(identical(other.reason, _this.reason) || other.reason == _this.reason)&&const DeepCollectionEquality().equals(other.packs, _this.packs)&&(identical(other.rewardedAvailable, _this.rewardedAvailable) || other.rewardedAvailable == _this.rewardedAvailable)&&(identical(other.nextFreeAt, _this.nextFreeAt) || other.nextFreeAt == _this.nextFreeAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,const DeepCollectionEquality().hash(packs),rewardedAvailable,nextFreeAt);
+int get hashCode {
+  final _this = this as PaywallOptions;
+  return Object.hash(runtimeType,_this.reason,const DeepCollectionEquality().hash(_this.packs),_this.rewardedAvailable,_this.nextFreeAt);
+}
 
 @override
 String toString() {
-  return 'PaywallOptions(reason: $reason, packs: $packs, rewardedAvailable: $rewardedAvailable, nextFreeAt: $nextFreeAt)';
+  final _this = this as PaywallOptions;
+  return 'PaywallOptions(reason: ${_this.reason}, packs: ${_this.packs}, rewardedAvailable: ${_this.rewardedAvailable}, nextFreeAt: ${_this.nextFreeAt})';
 }
 
 
@@ -70,7 +76,7 @@ class _$PaywallOptionsCopyWithImpl<$Res>
 /// Create a copy of PaywallOptions
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? reason = null,Object? packs = null,Object? rewardedAvailable = null,Object? nextFreeAt = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(PaywallOptions(
 reason: null == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
 as PaywallReason,packs: null == packs ? _self.packs : packs // ignore: cast_nullable_to_non_nullable
 as List<StorePack>,rewardedAvailable: null == rewardedAvailable ? _self.rewardedAvailable : rewardedAvailable // ignore: cast_nullable_to_non_nullable
@@ -216,7 +222,7 @@ return $default(_that.reason,_that.packs,_that.rewardedAvailable,_that.nextFreeA
 
 
 class _PaywallOptions implements PaywallOptions {
-  const _PaywallOptions({required this.reason, required final  List<StorePack> packs, required this.rewardedAvailable, required this.nextFreeAt}): _packs = packs;
+  const _PaywallOptions({required this.reason, required  List<StorePack> packs, required this.rewardedAvailable, required this.nextFreeAt}): _packs = packs;
   
 
 /// Why the paywall opens.
@@ -249,16 +255,18 @@ _$PaywallOptionsCopyWith<_PaywallOptions> get copyWith => __$PaywallOptionsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaywallOptions&&(identical(other.reason, reason) || other.reason == reason)&&const DeepCollectionEquality().equals(other._packs, _packs)&&(identical(other.rewardedAvailable, rewardedAvailable) || other.rewardedAvailable == rewardedAvailable)&&(identical(other.nextFreeAt, nextFreeAt) || other.nextFreeAt == nextFreeAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _PaywallOptions&&(identical(other.reason, reason) || other.reason == reason)&&const DeepCollectionEquality().equals(other.packs, _packs)&&(identical(other.rewardedAvailable, rewardedAvailable) || other.rewardedAvailable == rewardedAvailable)&&(identical(other.nextFreeAt, nextFreeAt) || other.nextFreeAt == nextFreeAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,const DeepCollectionEquality().hash(_packs),rewardedAvailable,nextFreeAt);
+int get hashCode {
+    return Object.hash(runtimeType,reason,const DeepCollectionEquality().hash(_packs),rewardedAvailable,nextFreeAt);
+}
 
 @override
 String toString() {
-  return 'PaywallOptions(reason: $reason, packs: $packs, rewardedAvailable: $rewardedAvailable, nextFreeAt: $nextFreeAt)';
+    return 'PaywallOptions(reason: $reason, packs: $packs, rewardedAvailable: $rewardedAvailable, nextFreeAt: $nextFreeAt)';
 }
 
 
@@ -308,7 +316,7 @@ mixin _$GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDecision);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDecision);
 }
 
 
@@ -317,7 +325,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision()';
+    return 'GateDecision()';
 }
 
 
@@ -521,7 +529,7 @@ class GateDeviceUnverified extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDeviceUnverified);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDeviceUnverified);
 }
 
 
@@ -530,7 +538,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.deviceUnverified()';
+    return 'GateDecision.deviceUnverified()';
 }
 
 
@@ -553,7 +561,7 @@ class GateNeedsAiConsent extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsAiConsent);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsAiConsent);
 }
 
 
@@ -562,7 +570,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.needsAiConsent()';
+    return 'GateDecision.needsAiConsent()';
 }
 
 
@@ -585,7 +593,7 @@ class GateOffline extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateOffline);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateOffline);
 }
 
 
@@ -594,7 +602,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.offline()';
+    return 'GateDecision.offline()';
 }
 
 
@@ -622,16 +630,18 @@ $GateReadingsPausedCopyWith<GateReadingsPaused> get copyWith => _$GateReadingsPa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateReadingsPaused&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateReadingsPaused&&(identical(other.freePaused, freePaused) || other.freePaused == freePaused));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,freePaused);
+int get hashCode {
+    return Object.hash(runtimeType,freePaused);
+}
 
 @override
 String toString() {
-  return 'GateDecision.readingsPaused(freePaused: $freePaused)';
+    return 'GateDecision.readingsPaused(freePaused: $freePaused)';
 }
 
 
@@ -683,7 +693,7 @@ class GateAiUnavailableRegion extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateAiUnavailableRegion);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateAiUnavailableRegion);
 }
 
 
@@ -692,7 +702,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.aiUnavailableRegion()';
+    return 'GateDecision.aiUnavailableRegion()';
 }
 
 
@@ -715,7 +725,7 @@ class GateSpreadDisabled extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateSpreadDisabled);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateSpreadDisabled);
 }
 
 
@@ -724,7 +734,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.spreadDisabled()';
+    return 'GateDecision.spreadDisabled()';
 }
 
 
@@ -752,16 +762,18 @@ $GateNeedsCreditsCopyWith<GateNeedsCredits> get copyWith => _$GateNeedsCreditsCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsCredits&&(identical(other.options, options) || other.options == options));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsCredits&&(identical(other.options, options) || other.options == options));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,options);
+int get hashCode {
+    return Object.hash(runtimeType,options);
+}
 
 @override
 String toString() {
-  return 'GateDecision.needsCredits(options: $options)';
+    return 'GateDecision.needsCredits(options: $options)';
 }
 
 
@@ -822,7 +834,7 @@ class GateDailyLimitReached extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDailyLimitReached);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateDailyLimitReached);
 }
 
 
@@ -831,7 +843,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.dailyLimitReached()';
+    return 'GateDecision.dailyLimitReached()';
 }
 
 
@@ -854,7 +866,7 @@ class GateNeedsSync extends GateDecision {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsSync);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateNeedsSync);
 }
 
 
@@ -863,7 +875,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'GateDecision.needsSync()';
+    return 'GateDecision.needsSync()';
 }
 
 
@@ -891,16 +903,18 @@ $GateAllowedCopyWith<GateAllowed> get copyWith => _$GateAllowedCopyWithImpl<Gate
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GateAllowed&&(identical(other.expected, expected) || other.expected == expected));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is GateAllowed&&(identical(other.expected, expected) || other.expected == expected));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,expected);
+int get hashCode {
+    return Object.hash(runtimeType,expected);
+}
 
 @override
 String toString() {
-  return 'GateDecision.allowed(expected: $expected)';
+    return 'GateDecision.allowed(expected: $expected)';
 }
 
 

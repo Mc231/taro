@@ -10,12 +10,10 @@ import 'package:taro_core/taro_core.dart';
 final class DataDeletionGatewayImpl implements DataDeletionGateway {
   /// Creates the gateway.
   DataDeletionGatewayImpl({
-    required WorkerClient client,
-    required CacheDao cache,
+    required this._client,
+    required this._cache,
     required Logger logger,
-  }) : _client = client,
-       _cache = cache,
-       _logger = logger.child('erasure');
+  }) : _logger = logger.child('erasure');
 
   /// The `sync_state` key of the queued erasure's idempotency key
   /// (GLOSSARY §7).

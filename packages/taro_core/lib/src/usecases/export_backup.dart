@@ -18,16 +18,12 @@ import 'package:taro_core/src/result/result.dart';
 final class ExportBackup {
   /// Creates the use case.
   ExportBackup({
-    required JournalRepository journal,
-    required SettingsRepository settings,
-    required AppInfo appInfo,
-    required FileTransfer files,
-    required Clock clock,
-  }) : _journal = journal,
-       _settings = settings,
-       _appInfo = appInfo,
-       _files = files,
-       _clock = clock;
+    required this._journal,
+    required this._settings,
+    required this._appInfo,
+    required this._files,
+    required this._clock,
+  });
 
   /// The MIME type of a backup file.
   static const String mimeType = 'application/json';

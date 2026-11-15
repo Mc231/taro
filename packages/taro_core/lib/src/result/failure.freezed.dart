@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'failure.dart';
@@ -9,6 +9,7 @@ part of 'failure.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is Failure);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure()';
+    return 'Failure()';
 }
 
 
@@ -335,7 +336,7 @@ class NetworkFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkFailure);
 }
 
 
@@ -344,7 +345,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.network()';
+    return 'Failure.network()';
 }
 
 
@@ -367,7 +368,7 @@ class TimeoutFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeoutFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeoutFailure);
 }
 
 
@@ -376,7 +377,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.timeout()';
+    return 'Failure.timeout()';
 }
 
 
@@ -406,16 +407,18 @@ $ServerFailureCopyWith<ServerFailure> get copyWith => _$ServerFailureCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ServerFailure&&(identical(other.status, status) || other.status == status)&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode)&&(identical(other.requestId, requestId) || other.requestId == requestId));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ServerFailure&&(identical(other.status, status) || other.status == status)&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode)&&(identical(other.requestId, requestId) || other.requestId == requestId));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,wireCode,requestId);
+int get hashCode {
+    return Object.hash(runtimeType,status,wireCode,requestId);
+}
 
 @override
 String toString() {
-  return 'Failure.server(status: $status, wireCode: $wireCode, requestId: $requestId)';
+    return 'Failure.server(status: $status, wireCode: $wireCode, requestId: $requestId)';
 }
 
 
@@ -475,16 +478,18 @@ $RateLimitedFailureCopyWith<RateLimitedFailure> get copyWith => _$RateLimitedFai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RateLimitedFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RateLimitedFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,retryAfter);
+int get hashCode {
+    return Object.hash(runtimeType,reason,retryAfter);
+}
 
 @override
 String toString() {
-  return 'Failure.rateLimited(reason: $reason, retryAfter: $retryAfter)';
+    return 'Failure.rateLimited(reason: $reason, retryAfter: $retryAfter)';
 }
 
 
@@ -542,16 +547,18 @@ $UpgradeRequiredFailureCopyWith<UpgradeRequiredFailure> get copyWith => _$Upgrad
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpgradeRequiredFailure&&(identical(other.storeUrl, storeUrl) || other.storeUrl == storeUrl));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UpgradeRequiredFailure&&(identical(other.storeUrl, storeUrl) || other.storeUrl == storeUrl));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,storeUrl);
+int get hashCode {
+    return Object.hash(runtimeType,storeUrl);
+}
 
 @override
 String toString() {
-  return 'Failure.upgradeRequired(storeUrl: $storeUrl)';
+    return 'Failure.upgradeRequired(storeUrl: $storeUrl)';
 }
 
 
@@ -608,16 +615,18 @@ $ContractFailureCopyWith<ContractFailure> get copyWith => _$ContractFailureCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContractFailure&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ContractFailure&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,wireCode);
+int get hashCode {
+    return Object.hash(runtimeType,wireCode);
+}
 
 @override
 String toString() {
-  return 'Failure.contract(wireCode: $wireCode)';
+    return 'Failure.contract(wireCode: $wireCode)';
 }
 
 
@@ -669,7 +678,7 @@ class SessionExpiredFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionExpiredFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SessionExpiredFailure);
 }
 
 
@@ -678,7 +687,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.sessionExpired()';
+    return 'Failure.sessionExpired()';
 }
 
 
@@ -706,16 +715,18 @@ $AttestationFailureCopyWith<AttestationFailure> get copyWith => _$AttestationFai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AttestationFailure&&(identical(other.kind, kind) || other.kind == kind));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AttestationFailure&&(identical(other.kind, kind) || other.kind == kind));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,kind);
+int get hashCode {
+    return Object.hash(runtimeType,kind);
+}
 
 @override
 String toString() {
-  return 'Failure.attestation(kind: $kind)';
+    return 'Failure.attestation(kind: $kind)';
 }
 
 
@@ -774,16 +785,18 @@ $InsufficientCreditsFailureCopyWith<InsufficientCreditsFailure> get copyWith => 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InsufficientCreditsFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.freeResetsAt, freeResetsAt) || other.freeResetsAt == freeResetsAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is InsufficientCreditsFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.freeResetsAt, freeResetsAt) || other.freeResetsAt == freeResetsAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,balance,freeResetsAt);
+int get hashCode {
+    return Object.hash(runtimeType,reason,balance,freeResetsAt);
+}
 
 @override
 String toString() {
-  return 'Failure.insufficientCredits(reason: $reason, balance: $balance, freeResetsAt: $freeResetsAt)';
+    return 'Failure.insufficientCredits(reason: $reason, balance: $balance, freeResetsAt: $freeResetsAt)';
 }
 
 
@@ -849,7 +862,7 @@ class HoldConflictFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HoldConflictFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is HoldConflictFailure);
 }
 
 
@@ -858,7 +871,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.holdConflict()';
+    return 'Failure.holdConflict()';
 }
 
 
@@ -886,16 +899,18 @@ $ReadingExpiredRefundedFailureCopyWith<ReadingExpiredRefundedFailure> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingExpiredRefundedFailure&&(identical(other.balance, balance) || other.balance == balance));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingExpiredRefundedFailure&&(identical(other.balance, balance) || other.balance == balance));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,balance);
+int get hashCode {
+    return Object.hash(runtimeType,balance);
+}
 
 @override
 String toString() {
-  return 'Failure.readingExpiredRefunded(balance: $balance)';
+    return 'Failure.readingExpiredRefunded(balance: $balance)';
 }
 
 
@@ -964,16 +979,18 @@ $AiConsentRequiredFailureCopyWith<AiConsentRequiredFailure> get copyWith => _$Ai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentRequiredFailure&&(identical(other.requiredVersion, requiredVersion) || other.requiredVersion == requiredVersion));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiConsentRequiredFailure&&(identical(other.requiredVersion, requiredVersion) || other.requiredVersion == requiredVersion));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,requiredVersion);
+int get hashCode {
+    return Object.hash(runtimeType,requiredVersion);
+}
 
 @override
 String toString() {
-  return 'Failure.aiConsentRequired(requiredVersion: $requiredVersion)';
+    return 'Failure.aiConsentRequired(requiredVersion: $requiredVersion)';
 }
 
 
@@ -1025,7 +1042,7 @@ class AiUnavailableRegionFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiUnavailableRegionFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiUnavailableRegionFailure);
 }
 
 
@@ -1034,7 +1051,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.aiUnavailableRegion()';
+    return 'Failure.aiUnavailableRegion()';
 }
 
 
@@ -1063,16 +1080,18 @@ $ReadingsPausedFailureCopyWith<ReadingsPausedFailure> get copyWith => _$Readings
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingsPausedFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReadingsPausedFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.retryAfter, retryAfter) || other.retryAfter == retryAfter));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,retryAfter);
+int get hashCode {
+    return Object.hash(runtimeType,reason,retryAfter);
+}
 
 @override
 String toString() {
-  return 'Failure.readingsPaused(reason: $reason, retryAfter: $retryAfter)';
+    return 'Failure.readingsPaused(reason: $reason, retryAfter: $retryAfter)';
 }
 
 
@@ -1125,7 +1144,7 @@ class AiUnavailableFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AiUnavailableFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is AiUnavailableFailure);
 }
 
 
@@ -1134,7 +1153,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.aiUnavailable()';
+    return 'Failure.aiUnavailable()';
 }
 
 
@@ -1157,7 +1176,7 @@ class RequestInProgressFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestInProgressFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestInProgressFailure);
 }
 
 
@@ -1166,7 +1185,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.requestInProgress()';
+    return 'Failure.requestInProgress()';
 }
 
 
@@ -1195,16 +1214,18 @@ $RewardUnavailableFailureCopyWith<RewardUnavailableFailure> get copyWith => _$Re
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardUnavailableFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.availableAt, availableAt) || other.availableAt == availableAt));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RewardUnavailableFailure&&(identical(other.reason, reason) || other.reason == reason)&&(identical(other.availableAt, availableAt) || other.availableAt == availableAt));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason,availableAt);
+int get hashCode {
+    return Object.hash(runtimeType,reason,availableAt);
+}
 
 @override
 String toString() {
-  return 'Failure.rewardUnavailable(reason: $reason, availableAt: $availableAt)';
+    return 'Failure.rewardUnavailable(reason: $reason, availableAt: $availableAt)';
 }
 
 
@@ -1262,16 +1283,18 @@ $TimezoneChangeRejectedFailureCopyWith<TimezoneChangeRejectedFailure> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimezoneChangeRejectedFailure&&(identical(other.allowedAfter, allowedAfter) || other.allowedAfter == allowedAfter));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TimezoneChangeRejectedFailure&&(identical(other.allowedAfter, allowedAfter) || other.allowedAfter == allowedAfter));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,allowedAfter);
+int get hashCode {
+    return Object.hash(runtimeType,allowedAfter);
+}
 
 @override
 String toString() {
-  return 'Failure.timezoneChangeRejected(allowedAfter: $allowedAfter)';
+    return 'Failure.timezoneChangeRejected(allowedAfter: $allowedAfter)';
 }
 
 
@@ -1323,7 +1346,7 @@ class PurchaseCancelledFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseCancelledFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseCancelledFailure);
 }
 
 
@@ -1332,7 +1355,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.purchaseCancelled()';
+    return 'Failure.purchaseCancelled()';
 }
 
 
@@ -1355,7 +1378,7 @@ class PurchasePendingFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchasePendingFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchasePendingFailure);
 }
 
 
@@ -1364,7 +1387,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.purchasePending()';
+    return 'Failure.purchasePending()';
 }
 
 
@@ -1393,16 +1416,18 @@ $PurchaseFailureCopyWith<PurchaseFailure> get copyWith => _$PurchaseFailureCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseFailure&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode)&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseFailure&&(identical(other.wireCode, wireCode) || other.wireCode == wireCode)&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,wireCode,reason);
+int get hashCode {
+    return Object.hash(runtimeType,wireCode,reason);
+}
 
 @override
 String toString() {
-  return 'Failure.purchase(wireCode: $wireCode, reason: $reason)';
+    return 'Failure.purchase(wireCode: $wireCode, reason: $reason)';
 }
 
 
@@ -1461,16 +1486,18 @@ $PurchaseAlreadyClaimedFailureCopyWith<PurchaseAlreadyClaimedFailure> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseAlreadyClaimedFailure&&(identical(other.transferEligible, transferEligible) || other.transferEligible == transferEligible)&&(identical(other.transferToken, transferToken) || other.transferToken == transferToken));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchaseAlreadyClaimedFailure&&(identical(other.transferEligible, transferEligible) || other.transferEligible == transferEligible)&&(identical(other.transferToken, transferToken) || other.transferToken == transferToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,transferEligible,transferToken);
+int get hashCode {
+    return Object.hash(runtimeType,transferEligible,transferToken);
+}
 
 @override
 String toString() {
-  return 'Failure.purchaseAlreadyClaimed(transferEligible: $transferEligible, transferToken: $transferToken)';
+    return 'Failure.purchaseAlreadyClaimed(transferEligible: $transferEligible, transferToken: $transferToken)';
 }
 
 
@@ -1528,16 +1555,18 @@ $PurchasesBlockedFailureCopyWith<PurchasesBlockedFailure> get copyWith => _$Purc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchasesBlockedFailure&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is PurchasesBlockedFailure&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason);
+int get hashCode {
+    return Object.hash(runtimeType,reason);
+}
 
 @override
 String toString() {
-  return 'Failure.purchasesBlocked(reason: $reason)';
+    return 'Failure.purchasesBlocked(reason: $reason)';
 }
 
 
@@ -1589,7 +1618,7 @@ class ProductUnavailableFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductUnavailableFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ProductUnavailableFailure);
 }
 
 
@@ -1598,7 +1627,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.productUnavailable()';
+    return 'Failure.productUnavailable()';
 }
 
 
@@ -1621,7 +1650,7 @@ class StorageFailure extends Failure {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageFailure);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is StorageFailure);
 }
 
 
@@ -1630,7 +1659,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'Failure.storage()';
+    return 'Failure.storage()';
 }
 
 
@@ -1658,16 +1687,18 @@ $BackupInvalidFailureCopyWith<BackupInvalidFailure> get copyWith => _$BackupInva
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupInvalidFailure&&(identical(other.reason, reason) || other.reason == reason));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is BackupInvalidFailure&&(identical(other.reason, reason) || other.reason == reason));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,reason);
+int get hashCode {
+    return Object.hash(runtimeType,reason);
+}
 
 @override
 String toString() {
-  return 'Failure.backupInvalid(reason: $reason)';
+    return 'Failure.backupInvalid(reason: $reason)';
 }
 
 
@@ -1725,16 +1756,18 @@ $UnexpectedFailureCopyWith<UnexpectedFailure> get copyWith => _$UnexpectedFailur
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UnexpectedFailure&&const DeepCollectionEquality().equals(other.error, error)&&(identical(other.stack, stack) || other.stack == stack));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UnexpectedFailure&&const DeepCollectionEquality().equals(other.error, error)&&(identical(other.stack, stack) || other.stack == stack));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error),stack);
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error),stack);
+}
 
 @override
 String toString() {
-  return 'Failure.unexpected(error: $error, stack: $stack)';
+    return 'Failure.unexpected(error: $error, stack: $stack)';
 }
 
 

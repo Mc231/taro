@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'journal_entry_controller.dart';
@@ -9,6 +9,7 @@ part of 'journal_entry_controller.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -20,7 +21,7 @@ mixin _$JournalEntryKey {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryKey);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryKey);
 }
 
 
@@ -29,7 +30,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalEntryKey()';
+    return 'JournalEntryKey()';
 }
 
 
@@ -190,16 +191,18 @@ $JournalReadingKeyCopyWith<JournalReadingKey> get copyWith => _$JournalReadingKe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalReadingKey&&(identical(other.id, id) || other.id == id));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalReadingKey&&(identical(other.id, id) || other.id == id));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id);
+int get hashCode {
+    return Object.hash(runtimeType,id);
+}
 
 @override
 String toString() {
-  return 'JournalEntryKey.reading(id: $id)';
+    return 'JournalEntryKey.reading(id: $id)';
 }
 
 
@@ -256,16 +259,18 @@ $JournalDailyCardKeyCopyWith<JournalDailyCardKey> get copyWith => _$JournalDaily
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalDailyCardKey&&(identical(other.localDate, localDate) || other.localDate == localDate));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalDailyCardKey&&(identical(other.localDate, localDate) || other.localDate == localDate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,localDate);
+int get hashCode {
+    return Object.hash(runtimeType,localDate);
+}
 
 @override
 String toString() {
-  return 'JournalEntryKey.dailyCard(localDate: $localDate)';
+    return 'JournalEntryKey.dailyCard(localDate: $localDate)';
 }
 
 
@@ -318,16 +323,21 @@ $JournalEntryViewCopyWith<JournalEntryView> get copyWith => _$JournalEntryViewCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryView&&(identical(other.item, item) || other.item == item)&&(identical(other.note, note) || other.note == note)&&(identical(other.noteStatus, noteStatus) || other.noteStatus == noteStatus));
+  final _this = this as JournalEntryView;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryView&&(identical(other.item, _this.item) || other.item == _this.item)&&(identical(other.note, _this.note) || other.note == _this.note)&&(identical(other.noteStatus, _this.noteStatus) || other.noteStatus == _this.noteStatus));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,item,note,noteStatus);
+int get hashCode {
+  final _this = this as JournalEntryView;
+  return Object.hash(runtimeType,_this.item,_this.note,_this.noteStatus);
+}
 
 @override
 String toString() {
-  return 'JournalEntryView(item: $item, note: $note, noteStatus: $noteStatus)';
+  final _this = this as JournalEntryView;
+  return 'JournalEntryView(item: ${_this.item}, note: ${_this.note}, noteStatus: ${_this.noteStatus})';
 }
 
 
@@ -356,7 +366,7 @@ class _$JournalEntryViewCopyWithImpl<$Res>
 /// Create a copy of JournalEntryView
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? item = null,Object? note = null,Object? noteStatus = null,}) {
-  return _then(_self.copyWith(
+  return _then(JournalEntryView(
 item: null == item ? _self.item : item // ignore: cast_nullable_to_non_nullable
 as JournalItem,note: null == note ? _self.note : note // ignore: cast_nullable_to_non_nullable
 as String,noteStatus: null == noteStatus ? _self.noteStatus : noteStatus // ignore: cast_nullable_to_non_nullable
@@ -528,16 +538,18 @@ _$JournalEntryViewCopyWith<_JournalEntryView> get copyWith => __$JournalEntryVie
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalEntryView&&(identical(other.item, item) || other.item == item)&&(identical(other.note, note) || other.note == note)&&(identical(other.noteStatus, noteStatus) || other.noteStatus == noteStatus));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _JournalEntryView&&(identical(other.item, item) || other.item == item)&&(identical(other.note, note) || other.note == note)&&(identical(other.noteStatus, noteStatus) || other.noteStatus == noteStatus));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,item,note,noteStatus);
+int get hashCode {
+    return Object.hash(runtimeType,item,note,noteStatus);
+}
 
 @override
 String toString() {
-  return 'JournalEntryView(item: $item, note: $note, noteStatus: $noteStatus)';
+    return 'JournalEntryView(item: $item, note: $note, noteStatus: $noteStatus)';
 }
 
 
@@ -595,7 +607,7 @@ mixin _$JournalEntryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryState);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryState);
 }
 
 
@@ -604,7 +616,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalEntryState()';
+    return 'JournalEntryState()';
 }
 
 
@@ -790,7 +802,7 @@ class JournalEntryLoading implements JournalEntryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryLoading);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryLoading);
 }
 
 
@@ -799,7 +811,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalEntryState.loading()';
+    return 'JournalEntryState.loading()';
 }
 
 
@@ -827,16 +839,18 @@ $JournalEntryContentCopyWith<JournalEntryContent> get copyWith => _$JournalEntry
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryContent&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryContent&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'JournalEntryState.content(view: $view)';
+    return 'JournalEntryState.content(view: $view)';
 }
 
 
@@ -902,16 +916,18 @@ $JournalEntryPendingCopyWith<JournalEntryPending> get copyWith => _$JournalEntry
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryPending&&(identical(other.view, view) || other.view == view));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryPending&&(identical(other.view, view) || other.view == view));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view);
+int get hashCode {
+    return Object.hash(runtimeType,view);
+}
 
 @override
 String toString() {
-  return 'JournalEntryState.pending(view: $view)';
+    return 'JournalEntryState.pending(view: $view)';
 }
 
 
@@ -978,16 +994,18 @@ $JournalEntryFailedCopyWith<JournalEntryFailed> get copyWith => _$JournalEntryFa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryFailed&&(identical(other.view, view) || other.view == view)&&(identical(other.refunded, refunded) || other.refunded == refunded));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryFailed&&(identical(other.view, view) || other.view == view)&&(identical(other.refunded, refunded) || other.refunded == refunded));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,view,refunded);
+int get hashCode {
+    return Object.hash(runtimeType,view,refunded);
+}
 
 @override
 String toString() {
-  return 'JournalEntryState.failed(view: $view, refunded: $refunded)';
+    return 'JournalEntryState.failed(view: $view, refunded: $refunded)';
 }
 
 
@@ -1054,16 +1072,18 @@ $JournalEntryDeletedCopyWith<JournalEntryDeleted> get copyWith => _$JournalEntry
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryDeleted&&(identical(other.undoUntil, undoUntil) || other.undoUntil == undoUntil));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryDeleted&&(identical(other.undoUntil, undoUntil) || other.undoUntil == undoUntil));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,undoUntil);
+int get hashCode {
+    return Object.hash(runtimeType,undoUntil);
+}
 
 @override
 String toString() {
-  return 'JournalEntryState.deleted(undoUntil: $undoUntil)';
+    return 'JournalEntryState.deleted(undoUntil: $undoUntil)';
 }
 
 
@@ -1115,7 +1135,7 @@ class JournalEntryNotFound implements JournalEntryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryNotFound);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryNotFound);
 }
 
 
@@ -1124,7 +1144,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalEntryState.notFound()';
+    return 'JournalEntryState.notFound()';
 }
 
 
@@ -1147,7 +1167,7 @@ class JournalEntryStorageError implements JournalEntryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryStorageError);
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is JournalEntryStorageError);
 }
 
 
@@ -1156,7 +1176,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'JournalEntryState.storageError()';
+    return 'JournalEntryState.storageError()';
 }
 
 

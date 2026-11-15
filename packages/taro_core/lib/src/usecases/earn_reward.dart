@@ -42,24 +42,16 @@ sealed class RewardOutcome with _$RewardOutcome {
 final class EarnReward {
   /// Creates the use case. [delay] defaults to `Future.delayed`.
   EarnReward({
-    required RewardGateway gateway,
-    required AdsService ads,
-    required BalanceRepository balance,
-    required RemoteConfigRepository config,
-    required ConsentStore consent,
-    required ConnectivityMonitor connectivity,
-    required Clock clock,
-    required Logger logger,
+    required this._gateway,
+    required this._ads,
+    required this._balance,
+    required this._config,
+    required this._consent,
+    required this._connectivity,
+    required this._clock,
+    required this._logger,
     Delay? delay,
-  }) : _gateway = gateway,
-       _ads = ads,
-       _balance = balance,
-       _config = config,
-       _consent = consent,
-       _connectivity = connectivity,
-       _clock = clock,
-       _logger = logger,
-       _delay = delay ?? Future<void>.delayed;
+  }) : _delay = delay ?? Future<void>.delayed;
 
   /// How often the intent is polled after `onUserEarnedReward` (02 §9.6).
   static const Duration pollInterval = Duration(milliseconds: 1500);
