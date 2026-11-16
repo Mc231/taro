@@ -158,7 +158,7 @@ check_args() {
         echo "$BASE_REF..HEAD"
       fi
       ;;
-    check_urls.py) echo "--offline" ;; # the network run is weekly (nightly)
+    check_urls.py) echo "--offline" ;; # the network run is manual, before a release (RC102)
     check_l10n.py) # Phase 18: all 12 locales translated
       echo "--strict-translations"
       echo "--require-all-locales"

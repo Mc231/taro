@@ -4,7 +4,7 @@
 05 CS10, §9.6. Collects ``http(s)://`` URLs from every string of
 ``apps/taro/store/aso.yaml`` and every ARB message. ``--offline`` (PRs)
 checks the syntax only: ``https``, a dotted host, no placeholder text such as
-``XXXX`` or ``<…>``. The default (weekly in ``nightly.yml``) also requests each
+``XXXX`` or ``<…>``. The default (run before a release, RC102) also requests each
 URL (HEAD, then GET when HEAD is refused) and fails unless the final response
 after redirects is 200. Keys listed in ``SKIP_KEYS`` hold documentation-only
 URLs that are not fetchable pages (the AdMob SSV callback, 05 §8.1).

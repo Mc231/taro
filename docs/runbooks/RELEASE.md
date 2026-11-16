@@ -40,7 +40,7 @@ Gitea → Actions → run on a SHA where `CI` is green (both workflows re-check 
 
 ## Build and automated checks
 
-- [ ] `eval:safety` passed against staging with the production prompt version for **every routed provider + model** (the `ai.provider.*` / `ai.model.*` pair of `paid`, `free` and `freeFallback`, plus `ai.outageFallback.*` when set; 05 §4.3, RC60, RC97), and the full report is committed under `worker/evals/reports/`. The weekly Monday `eval:safety` smoke run in `nightly.yml` is green. Command: `cd worker && npm run eval:safety -- --env staging --provider <p> --model <m> --prompt <v> --max-usd <approved>` (see `docs/runbooks/AI_SAFETY.md`).
+- [ ] `eval:safety` passed against staging with the production prompt version for **every routed provider + model** (the `ai.provider.*` / `ai.model.*` pair of `paid`, `free` and `freeFallback`, plus `ai.outageFallback.*` when set; 05 §4.3, RC60, RC97), and the full report is committed under `worker/evals/reports/`. An `eval:safety --sample smoke` run on the release SHA is green (RC102: no nightly workflow). Command: `cd worker && npm run eval:safety -- --env staging --provider <p> --model <m> --prompt <v> --max-usd <approved>` (see `docs/runbooks/AI_SAFETY.md`).
 
 ### `prodStaging` build configuration (02 §15, RC78): not built yet
 

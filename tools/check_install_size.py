@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Install-size report: iOS download <= 60 MB, Android per-ABI <= 40 MB.
 
-01 §16 / 02 §17 (Phase 18 Sprint 18.1), run by ``nightly.yml``. Estimates
+01 §16 / 02 §17 (Phase 18 Sprint 18.1), run before a release (RC102). Estimates
 from the release build outputs, 1 MB = 1,000,000 bytes:
 
 * **iOS**: the compressed size of the ``.ipa`` (``--ipa``; default the first

@@ -2,9 +2,8 @@ name: Integration
 
 # 06 §4, §8. `melos run test:integration` (patrol from Phase 13) on the
 # devices pinned in tools/ci/sim.env. ci.yml calls this on every mirrored
-# push with platforms=ios; nightly.yml calls it at 03:00 with ios,android.
-# (The schedule lives in nightly.yml only, so a capacity-1 runner never runs
-# the same suite twice a night.)
+# push with platforms=ios; dispatch it with ios,android before a release
+# (RC102: there is no nightly workflow).
 #
 # The melos script receives the device through TARO_DEVICE_ID and the
 # platform through TARO_INTEGRATION_PLATFORM (ios | android).

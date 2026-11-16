@@ -67,7 +67,7 @@ This spec makes quality mechanical: every rule that can be checked by a script i
 | Locale smoke (12 locales) | widget tests | `apps/taro/test/l10n_smoke` | every push | yes |
 | Accessibility | `meetsGuideline(...)` in widget tests | same as widget | every push | yes |
 | Golden | `matchesGoldenFile`, tag `golden` (QA8; phone and tablet sizes, RC24) | `apps/taro/test/golden`, `packages/taro_ui/test/golden` | every branch push (macOS runner) | yes |
-| Integration (fakes) | **patrol** (built on `integration_test`, drives native ATT/UMP/StoreKit dialogs; RC13) + `TARO_ENV=test` | `apps/taro/integration_test/flows` | branch push: iOS simulator; nightly: Android emulator too | no |
+| Integration (fakes) | **patrol** (built on `integration_test`, drives native ATT/UMP/StoreKit dialogs; RC13) + `TARO_ENV=test` | `apps/taro/integration_test/flows` | branch push: iOS simulator; Android emulator on dispatch before a release (RC102) | no |
 | Integration (staging) | patrol against the staging Worker | `apps/taro/integration_test/staging` | pre-release (manual dispatch) | no |
 | Worker unit | vitest | `worker/test/unit` | every push | yes |
 | Worker integration | vitest-pool-workers, `buildApp(fakeDeps)` + `app.request()`, D1/KV (RC38) | `worker/test/integration` | every push | yes |
@@ -371,8 +371,7 @@ The runner is the self-hosted macOS runner with labels `macos` (Flutter, Xcode, 
 | `reusable-tools-test.yml` | call | `pytest --cov` for `tools/` |
 | `coverage-gate` job (in `ci.yml`) | needs the test jobs | downloads the reports, runs `check_coverage.py`, posts `coverage/summary.md` as the job summary |
 | `golden.yml` | `workflow_dispatch` (`update: bool`, `ref`) | regenerates goldens on the reference runner and uploads them as an artifact when `update` is set (the owner commits them to the GitHub origin, §3) |
-| `integration.yml` | called by `ci.yml` on every branch push (iOS sim); `schedule` nightly 03:00 (iOS + Android emulator) | `melos run test:integration` (patrol) |
-| `nightly.yml` | `schedule` | integration (both platforms), `npm audit`, `dart pub outdated` report, full golden run, weekly on Monday: `eval:safety` against staging |
+| `integration.yml` | called by `ci.yml` on every branch push (iOS sim); `workflow_dispatch` (`platforms`, iOS + Android emulator before a release; RC102) | `melos run test:integration` (patrol) |
 | `sonarqube-main.yml` | `push` to `main`, `workflow_dispatch` | analyze with `--write`, test reports, merged lcov, `sonar-scanner` (§9) |
 | `worker-deploy.yml` | `push` to `main` touching `worker/**` → staging; `workflow_dispatch` (`env: staging\|production`) | full worker tests → `check_migrations` → `wrangler d1 migrations apply DB --env <env> --remote` → `wrangler versions upload` → `wrangler versions deploy <id>@100%` (production: `@10%`, smoke, then `@100%` on a second manual approval input) → `check_worker_env.py` before any prod step (RC86) → smoke `worker/scripts/smoke.ts --env <env>` (03 §14.2: `GET /v1/health`, `GET /v1/config`; on staging only, where `ALLOW_DEBUG_ATTESTATION` is set by the deploy env: register, `GET /v1/balance`, one hold and one single-card reading) → record version id in the job summary |
 | `deploy-ios.yml` | `workflow_dispatch` (`lane: beta_internal\|beta\|release`) | needs `ci` green on the same SHA; `check_changelog`; decrypt secrets to `$RUNNER_TEMP`; fastlane `ios beta_internal` (`prodStaging` build for internal TestFlight: prod bundle, staging Worker, sandbox IAP; RC78) / `ios beta` (TestFlight, internal groups only, no public links; RC63) / `ios release` (submit for review with the metadata from `apps/taro/store/`); the build is universal (iPhone + iPad, RC24); cleanup `if: always()` |
@@ -445,7 +444,7 @@ Keep a Changelog 1.1.0 sections: Added, Changed, Deprecated, Removed, Fixed, Sec
 _Reconciled by 00_DECISIONS.md RC3, RC8, RC18–RC21, RC23, RC24, RC33–RC35, RC37, RC53, RC54, RC58, RC63, RC64, RC68, RC72, RC78–RC80, RC93._
 
 **Build and automated**
-- [ ] `ci` green on the release SHA (Sonar findings reviewed, advisory only); nightly integration (iOS + Android) green within the last 24h.
+- [ ] `ci` green on the release SHA (Sonar findings reviewed, advisory only); integration (iOS + Android, `integration.yml` dispatch) green on the release SHA (RC102).
 - [ ] `eval:safety` passed against staging with the production prompt version and model (report committed).
 - [ ] Worker production version is compatible: `/v1` unchanged; migrations applied; remote-config production values reviewed with the canonical 03 §8.2 keys (RC8): `readings.enabled`, `readings.freeDaily`, `rewarded.{enabled,amount,dailyCap,cooldownSec}`, `ads.{enabled,bannerEnabled,attPrepromptEnabled}`, `store.packs[]` (enabled/sortOrder only; credits come from `PRODUCT_CATALOG`, RC3), `ai.model.{free,freeFallback,paid}` and budget tiers (RC64; the free-reading model choice stays deferred until Phase 21 cost data, owner 2026-09-27), `ai.consentVersion`, `ai.blockedCountries`.
 - [ ] `bump_version.sh` run; CHANGELOG section dated; `tools/store_copy/check_store_copy.py` and `check_l10n.py` green on What's New in 12 locales.
@@ -530,13 +529,13 @@ _Reconciled by 00_DECISIONS.md RC3, RC8, RC18–RC21, RC23, RC24, RC33–RC35, R
 | Self-hosted runner is a single point of failure (one Mac) | `tools/verify.sh` reproduces the full gate locally. Deploy lanes can run locally with the same fastlane. The runner setup is documented in `docs/runbooks/RELEASE.md`. |
 | vitest-pool-workers API churn (`fetchMock`, coverage provider) | Pin versions. Outbound calls go through the `Deps` ports, so few tests use `fetchMock`. |
 | Istanbul under-reports in `workerd` (source maps) | Pin `@vitest/coverage-istanbul` to the pool's supported version. `check_coverage.py` also verifies the set of files. |
-| Model behaviour drift between eval runs | Weekly nightly eval, model id pinned in remote config, eval required on any model or prompt change (QA17). |
+| Model behaviour drift between eval runs | `eval:safety` before each release (RC102), model id pinned in remote config, eval required on any model or prompt change (QA17). |
 | Machine translations slip into release | `check_l10n.py` allowlist and the release checklist require reviewed translations. Store copy is reviewed per locale before `asa` push. |
 | Sandbox purchase flakiness hides real bugs | Real-device checklist on both platforms each release, plus integration flows with fakes covering the ordering logic. |
 
 ## Open questions (default chosen)
 
-1. **Android emulator integration tests on every push?** Default: **no**, iOS simulator on every push and Android nightly. Revisit if Android-only regressions reach nightly twice.
+1. **Android emulator integration tests on every push?** Default: **no**, iOS simulator on every push and Android on dispatch before a release (RC102). Revisit if Android-only regressions reach a release candidate twice.
 2. **LLM-judge in the safety eval?** Default: **rule-based grading is the gate**; the judge is advisory and its output goes into the report only.
 3. **Per-file floor of 70% too strict for thin SDK adapters?** Default: **keep 70%**. Adapters are tested through platform-interface fakes. If one is genuinely impossible to cover, amend this spec; never use pragmas.
 4. ~~Where the product catalog lives~~ **Resolved (RC3):** credits live only in the Worker `PRODUCT_CATALOG` (`worker/src/monetization/catalog.ts`); the app's `TaroProducts` (IDs + kind) and `apps/taro/store/aso.yaml` are cross-checked against it by `check_iap_ids.py`.

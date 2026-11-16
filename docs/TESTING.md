@@ -139,7 +139,7 @@ It runs `flutter test integration_test --flavor dev --dart-define-from-file=conf
 - Scripting notes: queue Worker failures with `fakes.readings.failNext(failure, on: 'hold' | 'submit')` after launch, not `failNextWorkerCall` (the launch sync's ack flush would take it); a resume within `balance.resumeSyncThrottleSec` of the last sync is skipped, so move the clock in `whileAway`; a `holdTtl` under 120 s makes the reveal renew the hold (RC50); a scripted server balance keeps its `syncedAt`, so bump `ledgerVersion` and `syncedAt` when the gate needs a fresh one.
 - Iterating on the host is quicker than on a simulator: `flutter test integration_test/flows/<flow>_test.dart --dart-define=TARO_ENV=test -d flutter-tester`.
 
-**Devices:** PR runs on the iOS simulator; nightly adds the Android emulator (06 §4). Performance numbers from a simulator are debug-mode baselines only (see `docs/ARCHITECTURE.md` §Performance baseline); budgets are enforced on devices in profile mode in Phase 19.
+**Devices:** PR runs on the iOS simulator; the Android emulator runs on `integration.yml` dispatch before a release (06 §4, RC102). Performance numbers from a simulator are debug-mode baselines only (see `docs/ARCHITECTURE.md` §Performance baseline); budgets are enforced on devices in profile mode in Phase 19.
 
 ## Python tools
 

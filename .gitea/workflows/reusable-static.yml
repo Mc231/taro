@@ -135,7 +135,7 @@ jobs:
               # Run elsewhere: the coverage gate (ci.yml), the pushed-range
               # steps below, and deploy-only checks.
               check_coverage.py|check_commit_msg.py|check_changelog.py) continue ;;
-              # PRs never touch the network; nightly.yml runs it online weekly.
+              # PRs never touch the network; run it online before a release (RC102).
               check_urls.py) set -- --offline ;;
               # Phase 18: all 12 locales translated; strict from here on.
               check_l10n.py) set -- --strict-translations --require-all-locales ;;
